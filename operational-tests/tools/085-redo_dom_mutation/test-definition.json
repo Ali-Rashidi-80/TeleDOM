@@ -1,0 +1,10 @@
+{
+  "tool": "redo_dom_mutation",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Redoes last undone mutation or reports empty stack"
+}

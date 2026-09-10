@@ -1,0 +1,18 @@
+{
+  "tool": "toggle_extension",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "extensionId": {
+        "type": "string",
+        "description": "The Chrome extension ID to toggle"
+      }
+    },
+    "required": [
+      "extensionId"
+    ]
+  },
+  "expectedBehavior": "Toggles simulated extension state"
+}

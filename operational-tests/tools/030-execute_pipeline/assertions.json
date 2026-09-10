@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Executes a two-step interaction pipeline over the live DOM",
+    "passed": true,
+    "details": "pipelineSuccess, totalSteps, executedSteps, durationMs, steps"
+  }
+]

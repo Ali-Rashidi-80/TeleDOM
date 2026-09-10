@@ -1,0 +1,22 @@
+{
+  "selector": "#primary-action-btn",
+  "styles": {
+    "display": "inline-block",
+    "position": "static",
+    "color": "rgb(15, 23, 42)",
+    "background-color": "rgb(56, 189, 248)",
+    "font-size": "medium",
+    "font-family": "sans-serif",
+    "width": "auto",
+    "height": "auto",
+    "margin": "0",
+    "padding": "8px 16px",
+    "border": "medium none rgb(15, 23, 42)",
+    "z-index": "auto",
+    "opacity": "1",
+    "visibility": "visible",
+    "overflow": "",
+    "flex-direction": "row",
+    "grid-template-columns": "none"
+  }
+}

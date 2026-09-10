@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "applied": {
+    "width": 1024,
+    "height": 768
+  },
+  "previous": {
+    "width": 800,
+    "height": 600
+  },
+  "original": {
+    "width": 1024,
+    "height": 768
+  },
+  "reversible": true,
+  "mode": "simulation"
+}

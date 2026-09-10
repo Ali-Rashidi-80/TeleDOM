@@ -1,0 +1,68 @@
+{
+  "targetId": "tgt_mtuudwrh_1",
+  "tag": "input",
+  "role": "textbox",
+  "selector": "#search-input",
+  "selectorCandidates": [
+    {
+      "selector": "#search-input",
+      "strategy": "id",
+      "confidence": 1,
+      "unique": true,
+      "reasons": [
+        "unique stable id",
+        "matches exactly this element"
+      ]
+    },
+    {
+      "selector": "input.input-field",
+      "strategy": "class",
+      "confidence": 0.72,
+      "unique": true,
+      "reasons": [
+        "stable class names",
+        "matches exactly this element"
+      ]
+    },
+    {
+      "selector": "input[type=\"text\"][placeholder=\"Type here...\"]",
+      "strategy": "attribute-fingerprint",
+      "confidence": 0.68,
+      "unique": true,
+      "reasons": [
+        "combination of stable attributes",
+        "matches exactly this element"
+      ]
+    },
+    {
+      "selector": "body > main > section:nth-of-type(1) > div:nth-of-type(1) > input",
+      "strategy": "structural-path",
+      "confidence": 0.55,
+      "unique": true,
+      "reasons": [
+        "position-based structural path",
+        "matches exactly this element"
+      ]
+    }
+  ],
+  "xpath": "//*[@id=\"search-input\"]",
+  "domPath": "#interactive-section > div:nth-of-type(1) > #interactive-section > #main-content > body > #search-input",
+  "textFingerprint": "",
+  "attributeFingerprint": "{\"id\":\"search-input\",\"type\":\"text\",\"placeholder\":\"Type here...\"}",
+  "structuralFingerprint": "a7b39227",
+  "attributes": {
+    "id": "search-input",
+    "class": "input-field",
+    "type": "text",
+    "placeholder": "Type here...",
+    "value": "initial query"
+  },
+  "confidence": 1,
+  "bounds": {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  },
+  "resolvedFrom": "selector"
+}

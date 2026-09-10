@@ -1,0 +1,19 @@
+{
+  "message": "Session 'imported_op_session_test' successfully imported",
+  "eventsCount": 8,
+  "checkpointsCount": 1,
+  "annotationsCount": 1,
+  "integrity": {
+    "isValid": true,
+    "sessionId": "imported_op_session_test",
+    "schemaVersion": "2.0.0",
+    "totalEvents": 8,
+    "totalCheckpoints": 1,
+    "isSequenceMonotonic": true,
+    "missingSequences": [],
+    "corruptNodeReferences": [],
+    "hasInitialSnapshot": true,
+    "errors": [],
+    "warnings": []
+  }
+}

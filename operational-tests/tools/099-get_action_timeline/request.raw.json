@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_099_get_action_timeline",
+  "method": "tools/call",
+  "params": {
+    "name": "get_action_timeline",
+    "arguments": {
+      "limit": 20
+    }
+  }
+}

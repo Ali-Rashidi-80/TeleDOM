@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_077_get_viewport_state",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"width\": 1024,\n  \"height\": 768,\n  \"devicePixelRatio\": 1,\n  \"scrollX\": 0,\n  \"scrollY\": 0,\n  \"original\": {\n    \"width\": 1024,\n    \"height\": 768\n  },\n  \"isModified\": false\n}"
+      }
+    ]
+  }
+}

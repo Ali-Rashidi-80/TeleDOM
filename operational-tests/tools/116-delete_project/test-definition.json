@@ -1,0 +1,17 @@
+{
+  "tool": "delete_project",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "projectName"
+    ]
+  },
+  "expectedBehavior": "Deletes project folder"
+}

@@ -1,0 +1,36 @@
+{
+  "baselineReport": {
+    "capturedAt": "2026-09-09T09:35:00+08:00",
+    "source": "tmpfiles.org reference package (mcpdom-browser-complete-ai-agent-package-copy.zip, 2008888 bytes, zip integrity OK)",
+    "packageVersion": "2.0.0",
+    "nodeVersion": "v24.19.0",
+    "typescriptVersion": "5.8.2 (tsc --noEmit PASS at baseline)",
+    "sourceFileCount": 71,
+    "testFileCount": 20,
+    "mcpToolCount": 47,
+    "browserCommandTypes": 27,
+    "majorModules": [
+      "core",
+      "diff",
+      "extension",
+      "lifecycle",
+      "mcp",
+      "reconstruction",
+      "replay",
+      "storage",
+      "types",
+      "ui"
+    ],
+    "buildResult": "PASS",
+    "unitTestResult": "52/53 (1 pre-existing operational-acceptance failure)",
+    "operationalTestResult": "31/47 PASS at baseline (16 failures: 5 browser-only, 4 suite-arg gaps, 7 masked simulation-window corruption)",
+    "knownLimitations": [
+      "LogicalNodeId process-local (WeakMap)",
+      "bridge socket id collisions (tab_<size+1>)",
+      "connectBridge() called twice in service worker",
+      "consoleErrors/networkRequests hard-coded 0 in InteractionResult",
+      "hardcoded Windows debug log path",
+      "extension hardcodes ws://127.0.0.1:3847"
+    ]
+  }
+}

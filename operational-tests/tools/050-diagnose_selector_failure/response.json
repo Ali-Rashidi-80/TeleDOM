@@ -1,0 +1,9 @@
+{
+  "selector": "#nonexistent-stale-selector",
+  "valid": true,
+  "matches": 0,
+  "closestWorkingSelectors": [],
+  "diagnosis": [
+    "Selector parses but matches nothing — element may be removed, re-rendered, or inside a shadow root."
+  ]
+}

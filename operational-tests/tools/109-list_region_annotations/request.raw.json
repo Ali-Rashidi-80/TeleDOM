@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_109_list_region_annotations",
+  "method": "tools/call",
+  "params": {
+    "name": "list_region_annotations",
+    "arguments": {
+      "projectName": "op-project"
+    }
+  }
+}

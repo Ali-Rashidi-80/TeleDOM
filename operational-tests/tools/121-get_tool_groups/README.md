@@ -1,0 +1,42 @@
+# Operational Test: `get_tool_groups`
+
+**Status**: **PASS** (2/2 Assertions Passed)
+**Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
+**Execution Mode**: `historical`
+**Duration**: 3ms
+
+## Test Objective
+Returns discoverable tool groups
+
+## Raw Transmitted JSON-RPC Request
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_121_get_tool_groups",
+  "method": "tools/call",
+  "params": {
+    "name": "get_tool_groups",
+    "arguments": {}
+  }
+}
+```
+
+## Raw Received JSON-RPC Response
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_121_get_tool_groups",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "[\n  {\n    \"group\": \"session-forensics\",\n    \"description\": \"Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).\",\n    \"tools\": [\n      \"list_sessions\",\n      \"get_session\",\n      \"export_session\",\n      \"import_session\",\n      \"delete_session\",\n      \"get_timeline\",\n      \"get_events\",\n      \"get_events_around\",\n      \"get_dom_state\",\n      \"get_dom_node\",\n      \"get_dom_subtree\",\n      \"diff_dom\",\n      \"trace_element\",\n      \"find_disappearing_elements\",\n      \"why_did_element_disappear\",\n      \"get_diagnostics\",\n      \"get_network_events\",\n      \"get_screenshots\",\n      \"annotate_session\",\n      \"get_annotations\",\n      \"get_recording_health\"\n    ]\n  },\n  {\n    \"group\": \"inspection\",\n    \"description\": \"Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.\",\n    \"tools\": [\n      \"inspect_live_page\",\n      \"inspect_live_element\",\n      \"get_element_visual_state\",\n      \"get_live_dom_snapshot\",\n      \"get_live_dom_subtree\",\n      \"get_tab_console_logs\",\n      \"get_tab_network_requests\",\n      \"get_element_ancestry\",\n      \"get_element_accessibility\",\n      \"get_computed_style\",\n      \"analyze_dom\",\n      \"search_dom\",\n      \"get_page_blueprint\",\n      \"get_element_fingerprint\",\n      \"detect_semantic_elements\"\n    ]\n  },\n  {\n    \"group\": \"targeting\",\n    \"description\": \"Element targeting resilience: TARGET generation, selector candidates with confidence, recovery, diagnostics.\",\n    \"tools\": [\n      \"generate_element_target\",\n      \"recover_selector\",\n      \"diagnose_selector_failure\"\n    ]\n  },\n  {\n    \"group\": \"interaction\",\n    \"description\": \"Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.\",\n    \"tools\": [\n      \"interact_with_element\",\n      \"click_element\",\n      \"type_text\",\n      \"hover_element\",\n      \"focus_element\",\n      \"blur_element\",\n      \"press_keyboard_shortcut\",\n      \"scroll_to_element\",\n      \"scroll_page\",\n      \"drag_and_drop\",\n      \"set_input_checked\",\n      \"select_option\",\n      \"wait_for_condition\",\n      \"wait_for_dom_stable\",\n      \"set_interaction_profile\",\n      \"get_interaction_profile\"\n    ]\n  },\n  {\n    \"group\": \"tabs-browser\",\n    \"description\": \"Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.\",\n    \"tools\": [\n      \"list_tabs\",\n      \"focus_tab\",\n      \"reload_tab\",\n      \"close_tab\",\n      \"open_tab\",\n      \"list_extensions\",\n      \"set_extension_enabled\",\n      \"toggle_extension\",\n      \"reload_extension\",\n      \"compare_extension_states\",\n      \"get_browser_session\"\n    ]\n  },\n  {\n    \"group\": \"selection-capture\",\n    \"description\": \"Interactive element selection (Ctrl+Shift+Click / picker) and element observation.\",\n    \"tools\": [\n      \"get_selected_element\",\n      \"start_element_picker\",\n      \"stop_element_picker\",\n      \"start_element_observation\",\n      \"stop_element_observation\"\n    ]\n  },\n  {\n    \"group\": \"viewport-responsive\",\n    \"description\": \"Viewport control and responsive testing: resize, presets, device emulation, multi-viewport workflows.\",\n    \"tools\": [\n      \"resize_viewport\",\n      \"reset_viewport\",\n      \"get_viewport_state\",\n      \"run_responsive_test\",\n      \"emulate_device\"\n    ]\n  },\n  {\n    \"group\": \"javascript\",\n    \"description\": \"Observable JavaScript execution with explicit outcome states and change capture.\",\n    \"tools\": [\n      \"execute_javascript\",\n      \"execute_js_and_capture_changes\"\n    ]\n  },\n  {\n    \"group\": \"dom-mutation\",\n    \"description\": \"First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.\",\n    \"tools\": [\n      \"mutate_dom\",\n      \"mutate_dom_transaction\",\n      \"undo_dom_mutation\",\n      \"redo_dom_mutation\",\n      \"get_mutation_history\",\n      \"preview_dom_mutation\",\n      \"preview_command\",\n      \"clone_dom_subtree\"\n    ]\n  },\n  {\n    \"group\": \"command-sequences\",\n    \"description\": \"Command sequences, recording, replay, import/export of deterministic command data.\",\n    \"tools\": [\n      \"execute_pipeline\",\n      \"execute_command_sequence\",\n      \"record_commands_start\",\n      \"record_commands_stop\",\n      \"list_command_recordings\",\n      \"get_command_recording\",\n      \"replay_command_recording\",\n      \"export_command_recording\",\n      \"import_command_recording\",\n      \"delete_command_recording\"\n    ]\n  },\n  {\n    \"group\": \"page-state\",\n    \"description\": \"Page state snapshots and time-travel comparison.\",\n    \"tools\": [\n      \"capture_page_state\",\n      \"compare_page_states\",\n      \"list_page_states\",\n      \"get_action_timeline\",\n      \"get_operation_trace\"\n    ]\n  },\n  {\n    \"group\": \"projects-knowledge\",\n    \"description\": \"Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.\",\n    \"tools\": [\n      \"create_page_project\",\n      \"list_projects\",\n      \"get_project\",\n      \"delete_project\",\n      \"capture_page_region\",\n      \"annotate_element\",\n      \"list_region_annotations\",\n      \"get_region_annotation\",\n      \"update_region_annotation\",\n      \"delete_region_annotation\",\n      \"get_region_relationship_graph\",\n      \"generate_reconstruction_spec\",\n      \"export_agent_package\",\n      \"import_project\"\n    ]\n  },\n  {\n    \"group\": \"screenshots\",\n    \"description\": \"Visual capture: page and element screenshots with geometry metadata.\",\n    \"tools\": [\n      \"capture_page_screenshot\",\n      \"capture_element_screenshot\"\n    ]\n  },\n  {\n    \"group\": \"security-privacy\",\n    \"description\": \"Capture redaction configuration and exclusion rules.\",\n    \"tools\": [\n      \"get_redaction_rules\",\n      \"set_redaction_rules\"\n    ]\n  },\n  {\n    \"group\": \"discovery\",\n    \"description\": \"Meta-tools: tool catalog and group discovery for agent self-orientation.\",\n    \"tools\": [\n      \"get_tool_catalog\",\n      \"get_tool_groups\"\n    ]\n  }\n]"
+      }
+    ]
+  }
+}
+```
+
+## Assertions
+- [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
+- [x] **Returns discoverable tool groups**: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14

@@ -1,0 +1,10 @@
+{
+  "tool": "record_commands_stop",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Stops active recording or reports none active"
+}

@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "scrollBefore": {
+    "x": 0,
+    "y": 0
+  },
+  "scrollAfter": {
+    "x": 0,
+    "y": 0
+  },
+  "requested": {
+    "x": 0,
+    "y": 0
+  },
+  "targetSelector": "#scroll-target"
+}

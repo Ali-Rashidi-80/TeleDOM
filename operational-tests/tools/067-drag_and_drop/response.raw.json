@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_067_drag_and_drop",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"success\": true,\n  \"sourceSelector\": \"#removable-card\",\n  \"targetSelector\": \"(offset drop)\",\n  \"eventsFired\": [\n    \"pointerdown\",\n    \"mousedown\",\n    \"dragstart\",\n    \"dragend\",\n    \"pointerup\",\n    \"mouseup\"\n  ],\n  \"finalPosition\": {\n    \"x\": 40,\n    \"y\": 10\n  },\n  \"html5DndUsed\": true\n}"
+      }
+    ]
+  }
+}

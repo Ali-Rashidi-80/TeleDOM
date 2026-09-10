@@ -1,0 +1,34 @@
+{
+  "tool": "click_element",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object",
+        "description": "Element target specifier"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Shorthand: CSS selector"
+      },
+      "mode": {
+        "type": "string",
+        "enum": [
+          "normal",
+          "double",
+          "right",
+          "programmatic",
+          "human-like"
+        ],
+        "description": "Click mode (default normal). Never silently falls back — the used mode is reported."
+      },
+      "waitForStabilization": {
+        "type": "boolean",
+        "description": "Wait for DOM stabilization after the click"
+      }
+    }
+  },
+  "expectedBehavior": "Clicks element in explicit normal mode with measured effects"
+}

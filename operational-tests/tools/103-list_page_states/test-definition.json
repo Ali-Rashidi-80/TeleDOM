@@ -1,0 +1,10 @@
+{
+  "tool": "list_page_states",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Lists captured page state snapshots"
+}

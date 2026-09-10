@@ -1,0 +1,15 @@
+{
+  "tool": "stop_element_observation",
+  "category": "live_browser_control",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+      }
+    }
+  },
+  "expectedBehavior": "Stops observation and reports element unmounting cause"
+}

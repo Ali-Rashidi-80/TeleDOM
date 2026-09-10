@@ -1,0 +1,23 @@
+{
+  "tool": "get_live_dom_snapshot",
+  "category": "live_browser_control",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+      },
+      "format": {
+        "type": "string",
+        "enum": [
+          "html",
+          "json"
+        ],
+        "description": "Output format (default: html)"
+      }
+    }
+  },
+  "expectedBehavior": "Captures full live virtual DOM snapshot in HTML format"
+}

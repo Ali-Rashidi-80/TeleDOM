@@ -1,0 +1,28 @@
+{
+  "pageId": "page_mtuudxid",
+  "nodes": [
+    {
+      "id": "page:page_mtuudxid",
+      "name": "page",
+      "tag": "document",
+      "selector": "document",
+      "depth": 0,
+      "relationship": "page"
+    },
+    {
+      "id": "region_mtuudxj1_1",
+      "name": "header_operational_dom_test_card",
+      "tag": "#fixture-header",
+      "selector": "#fixture-header",
+      "depth": 1,
+      "relationship": "region"
+    }
+  ],
+  "edges": [
+    {
+      "from": "page:page_mtuudxid",
+      "to": "region_mtuudxj1_1",
+      "relation": "contains"
+    }
+  ]
+}

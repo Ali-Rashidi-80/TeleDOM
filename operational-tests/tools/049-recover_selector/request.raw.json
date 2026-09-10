@@ -1,0 +1,21 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_049_recover_selector",
+  "method": "tools/call",
+  "params": {
+    "name": "recover_selector",
+    "arguments": {
+      "selector": "#nonexistent-stale-selector",
+      "snapshot": {
+        "tag": "input",
+        "text": "",
+        "classes": [
+          "input-field"
+        ],
+        "stableAttributes": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

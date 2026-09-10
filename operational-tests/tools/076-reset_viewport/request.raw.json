@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_076_reset_viewport",
+  "method": "tools/call",
+  "params": {
+    "name": "reset_viewport",
+    "arguments": {}
+  }
+}

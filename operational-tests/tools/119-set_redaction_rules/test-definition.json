@@ -1,0 +1,52 @@
+{
+  "tool": "set_redaction_rules",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "enable": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Rule ids to enable"
+      },
+      "disable": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Rule ids to disable"
+      },
+      "addRule": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "description": "Add a custom redaction rule"
+      },
+      "addExclusion": {
+        "type": "object",
+        "properties": {
+          "selector": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "description": "Add a capture exclusion selector"
+      }
+    }
+  },
+  "expectedBehavior": "Configures redaction rules"
+}

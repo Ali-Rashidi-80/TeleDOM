@@ -1,0 +1,66 @@
+{
+  "name": "teledom",
+  "version": "3.0.0",
+  "description": "TeleDOM: Autonomous AI Agent Browser Interface, DOM Time-Travel Debugger, Mutation Engine, Reverse-Engineering Platform & 121-Tool MCP Protocol Suite",
+  "type": "module",
+  "main": "dist/server/mcp-server.js",
+  "bin": {
+    "teledom": "./bin/cli.js",
+    "teledom-mcp": "./bin/mcp-server.js",
+    "teledom-bridge": "./bin/bridge-server.js",
+    "mcp-dom": "./bin/cli.js",
+    "browser-forensics": "./bin/cli.js",
+    "dom-antigravity": "./bin/cli.js",
+    "browser-antigravity": "./bin/cli.js",
+    "forensic-mcp": "./bin/mcp-server.js",
+    "forensic-bridge": "./bin/bridge-server.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build:client": "vite build",
+    "build:extension": "node scripts/build-extension.js",
+    "build:server": "vite build --config vite.config.server.ts",
+    "build": "npm run build:client && npm run build:extension && npm run build:server && tsc --noEmit",
+    "test": "node scripts/run-operational-suite.js",
+    "test:unit": "vitest run",
+    "test:operational": "node scripts/run-operational-suite.js",
+    "test:e2e:mcp": "node scripts/test-mcp-e2e.js",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "mcp": "node ./bin/mcp-server.js",
+    "bridge": "node ./bin/bridge-server.js",
+    "cli": "node ./bin/cli.js",
+    "setup:global": "node ./bin/cli.js install-global",
+    "setup:project": "node ./bin/cli.js install"
+  },
+  "keywords": [
+    "teledom",
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "browser-automation",
+    "dom-forensics",
+    "time-travel-debugger",
+    "chrome-extension",
+    "reverse-engineering",
+    "devtools",
+    "synthetic-interaction"
+  ],
+  "author": "Antigravity Engineering Pair",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "ws": "^8.18.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.308",
+    "@types/jsdom": "^30.0.0",
+    "@types/node": "^22.13.9",
+    "@types/ws": "^8.5.14",
+    "jsdom": "^29.1.1",
+    "postject": "^1.0.0-alpha.6",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0",
+    "vitest": "^3.0.7"
+  }
+}

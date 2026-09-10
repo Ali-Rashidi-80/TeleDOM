@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_029_toggle_extension",
+  "method": "tools/call",
+  "params": {
+    "name": "toggle_extension",
+    "arguments": {
+      "extensionId": "forensic-recorder@mcpdom"
+    }
+  }
+}

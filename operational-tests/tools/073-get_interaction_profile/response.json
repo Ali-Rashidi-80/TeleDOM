@@ -1,0 +1,32 @@
+{
+  "activeProfile": "HUMAN_LIKE",
+  "profile": {
+    "name": "HUMAN_LIKE",
+    "description": "Realistic cadence with key-by-key typing variance, movement trajectories, and occasional hesitation pauses.",
+    "moveDelayMs": {
+      "min": 90,
+      "max": 260
+    },
+    "clickDelayMs": {
+      "min": 120,
+      "max": 420
+    },
+    "typeDelayMs": {
+      "min": 60,
+      "max": 180
+    },
+    "keyDelayMs": {
+      "min": 70,
+      "max": 220
+    },
+    "hesitationProbability": 0.22,
+    "trajectorySteps": 8,
+    "seed": 4242
+  },
+  "availableProfiles": [
+    "DETERMINISTIC",
+    "BALANCED",
+    "HUMAN_LIKE",
+    "CUSTOM"
+  ]
+}

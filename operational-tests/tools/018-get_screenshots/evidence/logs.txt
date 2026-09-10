@@ -1,0 +1,1 @@
+[EXEC] get_screenshots executed via stdio JSON-RPC at 2026-09-10T01:21:54.628Z in 8ms

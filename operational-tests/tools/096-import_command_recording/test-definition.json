@@ -1,0 +1,18 @@
+{
+  "tool": "import_command_recording",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "recordingJson": {
+        "type": "string",
+        "description": "Serialized CommandRecording JSON"
+      }
+    },
+    "required": [
+      "recordingJson"
+    ]
+  },
+  "expectedBehavior": "Imports command recording from JSON"
+}

@@ -1,0 +1,10 @@
+{
+  "tool": "list_command_recordings",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Lists saved command recordings"
+}

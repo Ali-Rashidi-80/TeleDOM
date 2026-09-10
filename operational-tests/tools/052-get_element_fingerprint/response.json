@@ -1,0 +1,28 @@
+{
+  "fingerprintId": "fp_a7b39227",
+  "hash": "a7b39227",
+  "tagHierarchy": [
+    "main",
+    "section",
+    "div",
+    "input"
+  ],
+  "stableAttributes": {
+    "id": "search-input",
+    "type": "text",
+    "placeholder": "Type here..."
+  },
+  "meaningfulText": "",
+  "classes": [
+    "input-field"
+  ],
+  "role": "textbox",
+  "dimensions": {
+    "width": 0,
+    "height": 0
+  },
+  "ancestorPattern": "main>section>div>input",
+  "descendantPattern": "",
+  "volatilityRisk": "low",
+  "volatilityReasons": []
+}

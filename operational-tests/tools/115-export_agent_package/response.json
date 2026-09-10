@@ -1,0 +1,25 @@
+{
+  "packageDir": "C:\\Users\\ASUS\\Downloads\\mcpdom-browser-v3-complete-ai-agent-package\\mcpdom-v3-clean\\operational-test-scratch\\agent-package-op",
+  "fileCount": 12,
+  "files": [
+    "project.json",
+    "pages/page.json",
+    "pages/page-snapshot.html",
+    "regions\\region_mtuudxj1_1.json",
+    "regions\\region_region_mtuudxj1_1.html",
+    "regions\\region_region_mtuudxj1_1_context.html",
+    "schemas/region-annotation.schema.json",
+    "verification/verification-matrix.json",
+    "snapshots/capture-context.json",
+    "README.md",
+    "PROJECT.md",
+    "agent-instructions.md"
+  ],
+  "summary": {
+    "regions": 1,
+    "commands": 0,
+    "diffs": 0,
+    "bytes": 17331
+  },
+  "note": "Self-contained package: another agent can consume it without MCPDOM running."
+}

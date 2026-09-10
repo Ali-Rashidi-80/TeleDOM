@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_028_set_extension_enabled",
+  "method": "tools/call",
+  "params": {
+    "name": "set_extension_enabled",
+    "arguments": {
+      "extensionId": "forensic-recorder@mcpdom",
+      "enabled": true
+    }
+  }
+}

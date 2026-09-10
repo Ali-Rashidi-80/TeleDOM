@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_079_emulate_device",
+  "method": "tools/call",
+  "params": {
+    "name": "emulate_device",
+    "arguments": {
+      "device": "pixel-7"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Applies mutation with BEFORE/AFTER/DIFF and undo record",
+    "passed": true,
+    "details": "mutationId, operation, success, before, after, diff, affectedSelector, durationMs, undoable"
+  }
+]

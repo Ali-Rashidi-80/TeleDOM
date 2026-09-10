@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_061_hover_element",
+  "method": "tools/call",
+  "params": {
+    "name": "hover_element",
+    "arguments": {
+      "selector": "#primary-action-btn"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_074_preview_command",
+  "method": "tools/call",
+  "params": {
+    "name": "preview_command",
+    "arguments": {
+      "operation": "add_class",
+      "target": {
+        "selector": "#search-input"
+      },
+      "classes": [
+        "preview-test"
+      ]
+    }
+  }
+}

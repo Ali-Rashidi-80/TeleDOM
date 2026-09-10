@@ -1,0 +1,21 @@
+{
+  "tool": "set_input_checked",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "checked": {
+        "type": "boolean",
+        "description": "Desired state (default true)"
+      }
+    }
+  },
+  "expectedBehavior": "Checks checkbox with input/change events"
+}

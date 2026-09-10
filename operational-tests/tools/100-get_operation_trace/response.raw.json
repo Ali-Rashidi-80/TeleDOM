@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_100_get_operation_trace",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "[]"
+      }
+    ]
+  }
+}

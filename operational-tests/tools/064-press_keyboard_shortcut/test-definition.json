@@ -1,0 +1,29 @@
+{
+  "tool": "press_keyboard_shortcut",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "string",
+        "description": "Shortcut, e.g. \"Control+Shift+P\" or \"Enter\""
+      },
+      "keyList": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Alternative: keys as array"
+      },
+      "target": {
+        "type": "object",
+        "description": "Optional target specifier; defaults to activeElement"
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "expectedBehavior": "Presses Enter with keydown/keyup events"
+}

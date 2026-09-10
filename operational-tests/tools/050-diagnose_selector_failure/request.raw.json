@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_050_diagnose_selector_failure",
+  "method": "tools/call",
+  "params": {
+    "name": "diagnose_selector_failure",
+    "arguments": {
+      "selector": "#nonexistent-stale-selector"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Waits for DOM stability across consecutive polls",
+    "passed": true,
+    "details": "satisfied, condition, waitedMs, timeoutMs, detail"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_024_reload_tab",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"reloaded\": true,\n  \"mode\": \"soft\",\n  \"simulated\": true,\n  \"url\": \"https://app.internal/dashboard\",\n  \"title\": \"MCP Operational Acceptance DOM Fixture\",\n  \"note\": \"Node simulation context: DOM fixture retained; no real navigation occurs.\"\n}"
+      }
+    ]
+  }
+}

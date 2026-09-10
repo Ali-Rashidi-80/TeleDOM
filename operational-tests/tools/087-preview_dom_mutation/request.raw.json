@@ -1,0 +1,16 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_087_preview_dom_mutation",
+  "method": "tools/call",
+  "params": {
+    "name": "preview_dom_mutation",
+    "arguments": {
+      "operation": "set_attribute",
+      "target": {
+        "selector": "#dynamic-text"
+      },
+      "attribute": "data-preview",
+      "value": "x"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_073_get_interaction_profile",
+  "method": "tools/call",
+  "params": {
+    "name": "get_interaction_profile",
+    "arguments": {}
+  }
+}

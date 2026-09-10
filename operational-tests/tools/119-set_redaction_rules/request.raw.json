@@ -1,0 +1,14 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_119_set_redaction_rules",
+  "method": "tools/call",
+  "params": {
+    "name": "set_redaction_rules",
+    "arguments": {
+      "disable": [
+        "red_key_personal"
+      ],
+      "enable": []
+    }
+  }
+}

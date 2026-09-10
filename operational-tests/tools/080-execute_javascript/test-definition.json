@@ -1,0 +1,30 @@
+{
+  "tool": "execute_javascript",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "code": {
+        "type": "string",
+        "description": "JavaScript source (async/await supported; use `return`)"
+      },
+      "timeoutMs": {
+        "type": "number",
+        "description": "Timeout (default 5000ms)"
+      },
+      "world": {
+        "type": "string",
+        "enum": [
+          "ISOLATED",
+          "MAIN"
+        ],
+        "description": "Execution world (ISOLATED default)"
+      }
+    },
+    "required": [
+      "code"
+    ]
+  },
+  "expectedBehavior": "Executes JS with EXECUTED_SUCCESSFULLY state and result serialization"
+}

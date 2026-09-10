@@ -1,0 +1,55 @@
+{
+  "tool": "execute_command_sequence",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "steps": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "commandId": {
+              "type": "string"
+            },
+            "tool": {
+              "type": "string",
+              "description": "MCP tool name"
+            },
+            "args": {
+              "type": "object",
+              "description": "Tool arguments"
+            },
+            "stopOnError": {
+              "type": "boolean"
+            },
+            "continueOnError": {
+              "type": "boolean"
+            },
+            "condition": {
+              "type": "object",
+              "properties": {
+                "previousStepSucceeded": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "required": [
+            "tool"
+          ]
+        },
+        "description": "Ordered command steps"
+      },
+      "stopOnError": {
+        "type": "boolean",
+        "description": "Default stop-on-error policy (default true)"
+      }
+    },
+    "required": [
+      "steps"
+    ]
+  },
+  "expectedBehavior": "Executes command sequence with per-step records"
+}

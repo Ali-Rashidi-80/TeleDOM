@@ -1,0 +1,18 @@
+{
+  "simulated": true,
+  "environment": "node-simulation",
+  "tabs": [
+    {
+      "id": 1,
+      "index": 0,
+      "windowId": 1,
+      "title": "MCP Operational Acceptance DOM Fixture",
+      "url": "https://app.internal/dashboard",
+      "active": true,
+      "status": "complete",
+      "pinned": false,
+      "audited": false
+    }
+  ],
+  "note": "Deterministic simulated tab state — a real browser tab list requires the Chrome extension connection."
+}

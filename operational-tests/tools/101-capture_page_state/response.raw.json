@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_101_capture_page_state",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"snapshotId\": \"snap_mtuudxht_3\",\n  \"timestamp\": 1789003321553,\n  \"url\": \"https://app.internal/dashboard\",\n  \"title\": \"MCP Operational Acceptance DOM Fixture\",\n  \"viewport\": {\n    \"width\": 412,\n    \"height\": 915,\n    \"scrollX\": 0,\n    \"scrollY\": 0,\n    \"devicePixelRatio\": 2.625\n  },\n  \"domLength\": 4386,\n  \"domHash\": \"feb1e736\",\n  \"interactiveCount\": 9,\n  \"selectedRegions\": [],\n  \"extensionEnabled\": true,\n  \"pendingMutations\": 1,\n  \"annotationCount\": 0\n}"
+      }
+    ]
+  }
+}

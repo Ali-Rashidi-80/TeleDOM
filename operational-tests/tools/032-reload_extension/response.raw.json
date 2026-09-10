@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_032_reload_extension",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"reloaded\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"simulated\": true,\n  \"note\": \"Simulated reload: extension state preserved.\"\n}"
+      }
+    ]
+  }
+}

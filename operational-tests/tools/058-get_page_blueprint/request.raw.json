@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_058_get_page_blueprint",
+  "method": "tools/call",
+  "params": {
+    "name": "get_page_blueprint",
+    "arguments": {}
+  }
+}

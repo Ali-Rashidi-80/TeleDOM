@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_100_get_operation_trace",
+  "method": "tools/call",
+  "params": {
+    "name": "get_operation_trace",
+    "arguments": {}
+  }
+}

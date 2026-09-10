@@ -1,0 +1,7 @@
+{
+  "satisfied": true,
+  "condition": "dom_stable",
+  "waitedMs": 108,
+  "timeoutMs": 800,
+  "detail": "dom length 4222, 1 polls"
+}

@@ -1,0 +1,23 @@
+{
+  "tool": "resize_viewport",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "width": {
+        "type": "number",
+        "description": "Target width (200–7680)"
+      },
+      "height": {
+        "type": "number",
+        "description": "Target height (200–4320)"
+      },
+      "preset": {
+        "type": "string",
+        "description": "Named preset (overrides width/height)"
+      }
+    }
+  },
+  "expectedBehavior": "Resizes viewport reversibly with before/after digests"
+}

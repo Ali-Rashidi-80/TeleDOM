@@ -1,0 +1,19 @@
+{
+  "tool": "get_element_fingerprint",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object",
+        "description": "Element target specifier"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Shorthand: CSS selector"
+      }
+    }
+  },
+  "expectedBehavior": "Computes structural fingerprint with volatility assessment"
+}

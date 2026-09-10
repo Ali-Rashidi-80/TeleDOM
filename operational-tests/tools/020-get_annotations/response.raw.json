@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_020_get_annotations",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"annotations\": [\n    {\n      \"id\": \"ann_op_001\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 200,\n      \"sequence\": 5,\n      \"label\": \"API Request Fired\",\n      \"comment\": \"User click triggered POST /v1/analyze\",\n      \"category\": \"NOTE\",\n      \"author\": \"TEST_HARNESS\",\n      \"createdAt\": 1789003313250\n    },\n    {\n      \"id\": \"ann_1789003314629_4fc2\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 0,\n      \"author\": \"AGENT\",\n      \"label\": \"Root Cause Confirmed\",\n      \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n      \"category\": \"ROOT_CAUSE\",\n      \"createdAt\": 1789003314629\n    }\n  ]\n}"
+      }
+    ]
+  }
+}

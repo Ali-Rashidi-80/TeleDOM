@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Executes JS with EXECUTED_SUCCESSFULLY state and result serialization",
+    "passed": true,
+    "details": "status, executionId, durationMs, result, consoleOutput, domChanged, domLengthBefore, domLengthAfter, world, timeoutMs, codePreview"
+  }
+]

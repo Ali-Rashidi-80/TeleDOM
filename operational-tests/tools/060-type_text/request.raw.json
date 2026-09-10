@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_060_type_text",
+  "method": "tools/call",
+  "params": {
+    "name": "type_text",
+    "arguments": {
+      "selector": "#search-input",
+      "text": " v3 operational",
+      "mode": "append"
+    }
+  }
+}

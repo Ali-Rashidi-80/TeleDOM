@@ -1,0 +1,65 @@
+{
+  "execution": {
+    "status": "EXECUTED_SUCCESSFULLY",
+    "executionId": "js_mtuudxdq_2",
+    "durationMs": 0,
+    "result": "MCP Operational Acceptance DOM Fixture",
+    "consoleOutput": [],
+    "domChanged": false,
+    "domLengthBefore": 4222,
+    "domLengthAfter": 4222,
+    "world": "ISOLATED",
+    "timeoutMs": 5000,
+    "codePreview": "return document.title;"
+  },
+  "before": {
+    "snapshotId": "snap_mtuudxdo_1",
+    "timestamp": 1789003321404,
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "viewport": {
+      "width": 412,
+      "height": 915,
+      "scrollX": 0,
+      "scrollY": 0,
+      "devicePixelRatio": 2.625
+    },
+    "domLength": 4222,
+    "domHash": "c8b73284",
+    "interactiveCount": 9,
+    "selectedRegions": [],
+    "extensionEnabled": true,
+    "pendingMutations": 0,
+    "annotationCount": 0
+  },
+  "after": {
+    "snapshotId": "snap_mtuudxds_2",
+    "timestamp": 1789003321408,
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "viewport": {
+      "width": 412,
+      "height": 915,
+      "scrollX": 0,
+      "scrollY": 0,
+      "devicePixelRatio": 2.625
+    },
+    "domLength": 4222,
+    "domHash": "c8b73284",
+    "interactiveCount": 9,
+    "selectedRegions": [],
+    "extensionEnabled": true,
+    "pendingMutations": 0,
+    "annotationCount": 0
+  },
+  "comparison": {
+    "identical": true,
+    "changes": [],
+    "domDelta": {
+      "beforeLength": 4222,
+      "afterLength": 4222,
+      "delta": 0
+    },
+    "summary": "States are identical."
+  }
+}

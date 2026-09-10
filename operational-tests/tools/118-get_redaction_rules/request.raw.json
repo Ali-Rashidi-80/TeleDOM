@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_118_get_redaction_rules",
+  "method": "tools/call",
+  "params": {
+    "name": "get_redaction_rules",
+    "arguments": {}
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "tool": "wait_for_dom_stable",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "timeoutMs": {
+        "type": "number",
+        "description": "Timeout (default 5000ms)"
+      }
+    }
+  },
+  "expectedBehavior": "Convenience DOM stability wait"
+}

@@ -1,0 +1,40 @@
+{
+  "device": "pixel-7",
+  "resize": {
+    "success": true,
+    "applied": {
+      "width": 412,
+      "height": 915
+    },
+    "previous": {
+      "width": 1024,
+      "height": 768
+    },
+    "original": {
+      "width": 1024,
+      "height": 768
+    },
+    "preset": "device:pixel-7",
+    "beforeState": {
+      "url": "https://app.internal/dashboard",
+      "domLength": 4222,
+      "interactiveCount": 9
+    },
+    "afterState": {
+      "url": "https://app.internal/dashboard",
+      "domLength": 4222,
+      "interactiveCount": 9
+    },
+    "reversible": true,
+    "mode": "simulation"
+  },
+  "profile": {
+    "width": 412,
+    "height": 915,
+    "devicePixelRatio": 2.625,
+    "touch": true,
+    "category": "mobile"
+  },
+  "userAgentNote": "User-Agent override requires the Chrome DevTools Protocol (real browser session); in this context the viewport, dpr and touch metadata are applied and the UA is reported but not enforced.",
+  "userAgentApplied": false
+}

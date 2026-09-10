@@ -1,0 +1,23 @@
+{
+  "tool": "get_element_visual_state",
+  "category": "live_browser_control",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+      },
+      "selector": {
+        "type": "string",
+        "description": "CSS selector of the target element"
+      },
+      "nodeId": {
+        "type": "number",
+        "description": "LogicalNodeId of the target element"
+      }
+    }
+  },
+  "expectedBehavior": "Inspects layout, visibility, and geometry for #search-input"
+}

@@ -1,0 +1,19 @@
+{
+  "tool": "reload_tab",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Target Chrome tab ID (defaults to currently active tab if omitted)"
+      },
+      "bypassCache": {
+        "type": "boolean",
+        "description": "Whether to ignore cached assets and perform a hard reload (default: false)"
+      }
+    }
+  },
+  "expectedBehavior": ""
+}

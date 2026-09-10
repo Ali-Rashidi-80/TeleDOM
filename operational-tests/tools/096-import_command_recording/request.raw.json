@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_096_import_command_recording",
+  "method": "tools/call",
+  "params": {
+    "name": "import_command_recording",
+    "arguments": {
+      "recordingJson": "{\"recordingId\":\"imp_test\",\"name\":\"imported\",\"commands\":[],\"commandCount\":0,\"createdAt\":1,\"updatedAt\":1,\"tags\":[]}"
+    }
+  }
+}

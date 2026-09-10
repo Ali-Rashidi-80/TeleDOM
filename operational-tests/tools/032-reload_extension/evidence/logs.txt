@@ -1,0 +1,1 @@
+[EXEC] reload_extension executed via stdio JSON-RPC at 2026-09-10T01:21:59.822Z in 4ms

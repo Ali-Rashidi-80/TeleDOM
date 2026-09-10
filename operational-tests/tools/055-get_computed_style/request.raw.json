@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_055_get_computed_style",
+  "method": "tools/call",
+  "params": {
+    "name": "get_computed_style",
+    "arguments": {
+      "selector": "#primary-action-btn"
+    }
+  }
+}

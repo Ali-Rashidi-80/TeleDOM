@@ -1,0 +1,129 @@
+{
+  "observed": {
+    "schemaVersion": "1.0.0",
+    "regionId": "region_mtuudxje_2",
+    "pageId": "page_mtuudxid",
+    "name": "section_interactive_form_controls",
+    "autoName": "section_interactive_form_controls",
+    "tag": "#interactive-section",
+    "selector": "#interactive-section",
+    "selectorCandidates": [
+      {
+        "selector": "#interactive-section",
+        "strategy": "id",
+        "confidence": 1,
+        "unique": true,
+        "reasons": [
+          "unique stable id",
+          "matches exactly this element"
+        ]
+      },
+      {
+        "selector": "body > main > section:nth-of-type(1)",
+        "strategy": "structural-path",
+        "confidence": 0.55,
+        "unique": true,
+        "reasons": [
+          "position-based structural path",
+          "matches exactly this element"
+        ]
+      }
+    ],
+    "xpath": "//*[@id=\"interactive-section\"]",
+    "structuralFingerprint": "bf6b3aa6",
+    "domFile": "dom\\region_region_mtuudxje_2.html",
+    "contextDomFile": "dom\\region_region_mtuudxje_2_context.html",
+    "dimensions": {
+      "width": 0,
+      "height": 0
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "relevantStyles": {
+      "display": "block",
+      "position": "static",
+      "flex-direction": "row",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "color": "rgb(248, 250, 252)",
+      "font-size": "medium"
+    },
+    "parentSelector": "#main-content",
+    "parentInfo": {
+      "tag": "main",
+      "selector": "#main-content",
+      "text": " "
+    },
+    "childrenCount": 6,
+    "childTags": [
+      "h2",
+      "div",
+      "div",
+      "div",
+      "div",
+      "div"
+    ],
+    "htmlSnapshotFile": "dom\\region_region_mtuudxje_2.html",
+    "capturedAt": 1789003321610,
+    "sourceUrl": "https://app.internal/dashboard",
+    "pageTitle": "MCP Operational Acceptance DOM Fixture",
+    "viewport": {
+      "width": 412,
+      "height": 915,
+      "devicePixelRatio": 2.625
+    },
+    "extensionState": true
+  },
+  "user": {
+    "comment": "annotate",
+    "tags": []
+  },
+  "analysis": {
+    "qualityScore": {
+      "overall": 0.78,
+      "components": [
+        {
+          "dimension": "selector-stability",
+          "score": 1,
+          "weight": 0.3,
+          "evidence": "unique selector via id (confidence 1)"
+        },
+        {
+          "dimension": "semantic-confidence",
+          "score": 1,
+          "weight": 0.2,
+          "evidence": "fingerprint volatility low"
+        },
+        {
+          "dimension": "structural-completeness",
+          "score": 1,
+          "weight": 0.15,
+          "evidence": "html snapshot: true; context DOM: true"
+        },
+        {
+          "dimension": "visual-completeness",
+          "score": 0.2,
+          "weight": 0.15,
+          "evidence": "no screenshot — visual verification impossible"
+        },
+        {
+          "dimension": "annotation-completeness",
+          "score": 0.5,
+          "weight": 0.2,
+          "evidence": "user annotation: true; intended change: false; verification: false"
+        }
+      ],
+      "grade": "B",
+      "notes": [
+        "visual-completeness is weak: no screenshot — visual verification impossible"
+      ]
+    },
+    "namingEvidence": [
+      "tag=section",
+      "nearby-heading=\"Interactive Form Controls\""
+    ],
+    "relatedRegions": [],
+    "capturedBy": "tool_call"
+  }
+}

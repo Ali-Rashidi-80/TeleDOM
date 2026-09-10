@@ -1,0 +1,13 @@
+{
+  "steps": [
+    {
+      "tool": "inspect_live_page"
+    },
+    {
+      "tool": "generate_element_target",
+      "args": {
+        "selector": "#search-input"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tool": "generate_reconstruction_spec",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "projectName"
+    ]
+  },
+  "expectedBehavior": "Generates versioned reconstruction specification"
+}

@@ -1,0 +1,56 @@
+{
+  "tool": "annotate_element",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      },
+      "target": {
+        "type": "object"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "comment": {
+        "type": "string"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "behavioralNotes": {
+        "type": "string"
+      },
+      "visualNotes": {
+        "type": "string"
+      },
+      "intendedChange": {
+        "type": "string"
+      },
+      "verification": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "screenshot": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "projectName"
+    ]
+  },
+  "expectedBehavior": "Annotates element into project region"
+}

@@ -1,0 +1,10 @@
+{
+  "tool": "reset_viewport",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Restores original viewport dimensions"
+}

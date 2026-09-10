@@ -1,0 +1,23 @@
+{
+  "tool": "set_extension_enabled",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "extensionId": {
+        "type": "string",
+        "description": "The Chrome extension ID to enable or disable"
+      },
+      "enabled": {
+        "type": "boolean",
+        "description": "True to enable the extension, false to disable it"
+      }
+    },
+    "required": [
+      "extensionId",
+      "enabled"
+    ]
+  },
+  "expectedBehavior": "Sets simulated extension enabled state"
+}

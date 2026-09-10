@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_006_get_timeline",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"durationMs\": 400,\n  \"firstTimestamp\": 50,\n  \"lastTimestamp\": 450,\n  \"totalEvents\": 8,\n  \"categoryBreakdown\": {\n    \"DOM\": 2,\n    \"USER\": 1,\n    \"CONSOLE\": 1,\n    \"NETWORK\": 2,\n    \"ERROR\": 1,\n    \"VISUAL\": 1\n  },\n  \"sessionStatus\": \"stopped\"\n}"
+      }
+    ]
+  }
+}

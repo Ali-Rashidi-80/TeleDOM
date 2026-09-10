@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_050_diagnose_selector_failure",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"selector\": \"#nonexistent-stale-selector\",\n  \"valid\": true,\n  \"matches\": 0,\n  \"closestWorkingSelectors\": [],\n  \"diagnosis\": [\n    \"Selector parses but matches nothing — element may be removed, re-rendered, or inside a shadow root.\"\n  ]\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "tool": "get_action_timeline",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "kind": {
+        "type": "string",
+        "description": "Filter by event kind"
+      },
+      "sinceTimestamp": {
+        "type": "number",
+        "description": "Only events at/after this epoch ms"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max events (default 200)"
+      }
+    }
+  },
+  "expectedBehavior": "Returns chronological timeline events"
+}

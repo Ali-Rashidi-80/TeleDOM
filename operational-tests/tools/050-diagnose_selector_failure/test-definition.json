@@ -1,0 +1,18 @@
+{
+  "tool": "diagnose_selector_failure",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "The selector to diagnose"
+      }
+    },
+    "required": [
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Diagnoses selector failure with parse validity and relaxation attempts"
+}

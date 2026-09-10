@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_096_import_command_recording",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"imported\": true,\n  \"recordingId\": \"imp_test_imported_mtuudxh1\",\n  \"name\": \"imported (imported)\",\n  \"commandCount\": 0\n}"
+      }
+    ]
+  }
+}

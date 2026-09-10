@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_052_get_element_fingerprint",
+  "method": "tools/call",
+  "params": {
+    "name": "get_element_fingerprint",
+    "arguments": {
+      "selector": "#search-input"
+    }
+  }
+}

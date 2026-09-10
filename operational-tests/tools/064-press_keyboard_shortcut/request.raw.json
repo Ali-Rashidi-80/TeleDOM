@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_064_press_keyboard_shortcut",
+  "method": "tools/call",
+  "params": {
+    "name": "press_keyboard_shortcut",
+    "arguments": {
+      "keys": "Enter"
+    }
+  }
+}

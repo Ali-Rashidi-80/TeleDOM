@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_086_get_mutation_history",
+  "method": "tools/call",
+  "params": {
+    "name": "get_mutation_history",
+    "arguments": {}
+  }
+}

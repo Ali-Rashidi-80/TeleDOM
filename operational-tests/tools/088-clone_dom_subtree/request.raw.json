@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_088_clone_dom_subtree",
+  "method": "tools/call",
+  "params": {
+    "name": "clone_dom_subtree",
+    "arguments": {
+      "target": {
+        "selector": "#removable-card"
+      }
+    }
+  }
+}

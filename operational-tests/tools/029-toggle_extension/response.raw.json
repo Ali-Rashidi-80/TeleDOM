@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_029_toggle_extension",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"enabled\": false,\n  \"simulated\": true\n}"
+      }
+    ]
+  }
+}

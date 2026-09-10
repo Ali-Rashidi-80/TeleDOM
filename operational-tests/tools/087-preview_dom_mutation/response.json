@@ -1,0 +1,11 @@
+{
+  "valid": true,
+  "operation": "set_attribute",
+  "target": {
+    "selector": "#dynamic-text",
+    "tag": "p"
+  },
+  "expectedChange": "attribute \"data-preview\" will be set to \"x\"",
+  "affectedNodes": 1,
+  "warnings": []
+}

@@ -1,0 +1,9 @@
+{
+  "tool": "delete_region_annotation",
+  "index": 112,
+  "status": "PASS",
+  "executionTimeMs": 8,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-10T01:22:01.641Z"
+}

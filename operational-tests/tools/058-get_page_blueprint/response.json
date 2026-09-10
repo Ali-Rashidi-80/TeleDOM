@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0.0",
+  "pageId": "live",
+  "generatedAt": 1789003320697,
+  "majorSections": [
+    {
+      "name": "banner_1",
+      "tag": "header",
+      "selector": "#fixture-header",
+      "role": "banner",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "childrenSummary": "3 children (h1, p, span)",
+      "visible": false
+    },
+    {
+      "name": "main_2",
+      "tag": "main",
+      "selector": "#main-content",
+      "role": "main",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "childrenSummary": "3 children (section, section, section)",
+      "visible": false
+    },
+    {
+      "name": "region_3",
+      "tag": "section",
+      "selector": "#interactive-section",
+      "role": "region",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "childrenSummary": "6 children (h2, div, div, div, div)",
+      "visible": false
+    },
+    {
+      "name": "region_4",
+      "tag": "section",
+      "selector": "#mutation-target-container",
+      "role": "region",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "childrenSummary": "2 children (h2, div)",
+      "visible": false
+    },
+    {
+      "name": "region_5",
+      "tag": "section",
+      "selector": "#form-section",
+      "role": "region",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "childrenSummary": "2 children (h2, form)",
+      "visible": false
+    },
+    {
+      "name": "contentinfo_6",
+      "tag": "footer",
+      "selector": "#fixture-footer",
+      "role": "contentinfo",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "childrenSummary": "1 children (p)",
+      "visible": false
+    }
+  ],
+  "hierarchy": {
+    "node": "page",
+    "label": "MCP Operational Acceptance DOM Fixture",
+    "children": [
+      {
+        "node": "#fixture-header",
+        "label": "banner_1",
+        "children": []
+      },
+      {
+        "node": "#main-content",
+        "label": "main_2",
+        "children": []
+      },
+      {
+        "node": "#interactive-section",
+        "label": "region_3",
+        "children": []
+      },
+      {
+        "node": "#mutation-target-container",
+        "label": "region_4",
+        "children": []
+      },
+      {
+        "node": "#form-section",
+        "label": "region_5",
+        "children": []
+      },
+      {
+        "node": "#fixture-footer",
+        "label": "contentinfo_6",
+        "children": []
+      }
+    ]
+  },
+  "keyInteractiveElements": [
+    {
+      "selector": "#search-input",
+      "role": "input",
+      "text": "Type here...",
+      "section": "main_2"
+    },
+    {
+      "selector": "#primary-action-btn",
+      "role": "button",
+      "text": "⚡ Run Analysis",
+      "section": "main_2"
+    },
+    {
+      "selector": "#category-select",
+      "role": "select",
+      "text": " ",
+      "section": "main_2"
+    },
+    {
+      "selector": "#username-input",
+      "role": "input",
+      "text": "user name",
+      "section": "main_2"
+    },
+    {
+      "selector": "#settings-submit-btn",
+      "role": "button",
+      "text": "Save Settings",
+      "section": "main_2"
+    }
+  ],
+  "repeatedComponents": [],
+  "layoutRelationships": [
+    "6 major sections stacked in document order"
+  ],
+  "semanticRegions": [
+    "banner",
+    "main",
+    "region",
+    "contentinfo"
+  ]
+}

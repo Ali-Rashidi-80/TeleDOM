@@ -1,0 +1,1 @@
+[EXEC] get_element_ancestry executed via stdio JSON-RPC at 2026-09-10T01:22:00.628Z in 6ms

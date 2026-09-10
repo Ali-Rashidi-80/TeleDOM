@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_117_import_project",
+  "method": "tools/call",
+  "params": {
+    "name": "import_project",
+    "arguments": {
+      "projectDir": "./operational-test-scratch/agent-package-op"
+    }
+  }
+}

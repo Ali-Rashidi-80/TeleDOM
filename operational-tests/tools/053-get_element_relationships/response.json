@@ -1,0 +1,80 @@
+{
+  "rootSelector": "#search-input",
+  "nodes": [
+    {
+      "id": "self",
+      "selector": "#search-input",
+      "tag": "input",
+      "label": "input",
+      "relationship": "self",
+      "depth": 0
+    },
+    {
+      "id": "ancestor_1",
+      "selector": "div",
+      "tag": "div",
+      "label": " ",
+      "relationship": "parent",
+      "depth": 1
+    },
+    {
+      "id": "ancestor_2",
+      "selector": "#interactive-section",
+      "tag": "section",
+      "label": " ",
+      "relationship": "parent",
+      "depth": 2
+    },
+    {
+      "id": "ancestor_3",
+      "selector": "#main-content",
+      "tag": "main",
+      "label": " ",
+      "relationship": "parent",
+      "depth": 3
+    },
+    {
+      "id": "ancestor_4",
+      "selector": "body",
+      "tag": "body",
+      "label": " ",
+      "relationship": "parent",
+      "depth": 4
+    },
+    {
+      "id": "sibling_5",
+      "selector": "label",
+      "tag": "label",
+      "label": "Search Input:",
+      "relationship": "sibling",
+      "depth": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": "ancestor_1",
+      "to": "self",
+      "relation": "parent-of"
+    },
+    {
+      "from": "ancestor_2",
+      "to": "ancestor_1",
+      "relation": "parent-of"
+    },
+    {
+      "from": "ancestor_3",
+      "to": "ancestor_2",
+      "relation": "parent-of"
+    },
+    {
+      "from": "ancestor_4",
+      "to": "ancestor_3",
+      "relation": "parent-of"
+    },
+    {
+      "from": "self",
+      "to": "sibling_5",
+      "relation": "sibling-of"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "tool": "import_project",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectDir": {
+        "type": "string",
+        "description": "Path to the exported project folder"
+      }
+    },
+    "required": [
+      "projectDir"
+    ]
+  },
+  "expectedBehavior": "Imports exported agent package back into working storage (name derived from manifest)"
+}

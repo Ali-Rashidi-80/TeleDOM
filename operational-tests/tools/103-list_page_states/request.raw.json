@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_103_list_page_states",
+  "method": "tools/call",
+  "params": {
+    "name": "list_page_states",
+    "arguments": {}
+  }
+}

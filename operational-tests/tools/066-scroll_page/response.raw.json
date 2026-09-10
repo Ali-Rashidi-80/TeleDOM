@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_066_scroll_page",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"success\": true,\n  \"scrollBefore\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"scrollAfter\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"requested\": {\n    \"x\": 0,\n    \"y\": 60\n  }\n}"
+      }
+    ]
+  }
+}

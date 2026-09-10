@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "1.0.0",
+  "pageId": "page_mtuudxid",
+  "projectId": "proj_mtuudxid",
+  "generatedAt": 1789003321652,
+  "metadata": {
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "capturedAt": 1789003321574,
+    "tool": "MCPDOM Browser"
+  },
+  "viewport": {
+    "width": 412,
+    "height": 915,
+    "devicePixelRatio": 2.625
+  },
+  "structure": {
+    "domSnapshotFile": "dom\\page_page_mtuudxid.html",
+    "domHash": "92aa0806",
+    "nodeCount": 4386
+  },
+  "regions": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "name": "header_operational_dom_test_card",
+      "selector": "#fixture-header",
+      "selectorCandidates": [
+        {
+          "selector": "#fixture-header",
+          "strategy": "id",
+          "confidence": 1,
+          "unique": true,
+          "reasons": [
+            "unique stable id",
+            "matches exactly this element"
+          ]
+        },
+        {
+          "selector": "header.card",
+          "strategy": "class",
+          "confidence": 0.72,
+          "unique": true,
+          "reasons": [
+            "stable class names",
+            "matches exactly this element"
+          ]
+        },
+        {
+          "selector": "body > header",
+          "strategy": "structural-path",
+          "confidence": 0.55,
+          "unique": true,
+          "reasons": [
+            "position-based structural path",
+            "matches exactly this element"
+          ]
+        }
+      ],
+      "domFile": "dom\\region_region_mtuudxj1_1.html",
+      "reconstructionRole": "#fixture-header"
+    }
+  ],
+  "hierarchy": {
+    "pageId": "page_mtuudxid",
+    "nodes": [
+      {
+        "id": "page:page_mtuudxid",
+        "name": "page",
+        "tag": "document",
+        "selector": "document",
+        "depth": 0,
+        "relationship": "page"
+      },
+      {
+        "id": "region_mtuudxj1_1",
+        "name": "header_operational_dom_test_card",
+        "tag": "#fixture-header",
+        "selector": "#fixture-header",
+        "depth": 1,
+        "relationship": "region"
+      }
+    ],
+    "edges": [
+      {
+        "from": "page:page_mtuudxid",
+        "to": "region_mtuudxj1_1",
+        "relation": "contains"
+      }
+    ]
+  },
+  "semanticRoles": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "role": "#fixture-header"
+    }
+  ],
+  "visualConstraints": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "constraint": "display",
+      "value": "block"
+    },
+    {
+      "regionId": "region_mtuudxj1_1",
+      "constraint": "position",
+      "value": "static"
+    },
+    {
+      "regionId": "region_mtuudxj1_1",
+      "constraint": "flex-direction",
+      "value": "row"
+    },
+    {
+      "regionId": "region_mtuudxj1_1",
+      "constraint": "background-color",
+      "value": "rgb(30, 41, 59)"
+    },
+    {
+      "regionId": "region_mtuudxj1_1",
+      "constraint": "color",
+      "value": "rgb(248, 250, 252)"
+    }
+  ],
+  "interactions": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "interactive": false,
+      "action": "none"
+    }
+  ],
+  "selectors": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "primary": "#fixture-header",
+      "fallbacks": [
+        "header.card",
+        "body > header"
+      ]
+    }
+  ],
+  "content": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "text": "header_operational_dom_test_card"
+    }
+  ],
+  "styles": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "relevantStyles": {
+        "display": "block",
+        "position": "static",
+        "flex-direction": "row",
+        "background-color": "rgb(30, 41, 59)",
+        "color": "rgb(248, 250, 252)",
+        "font-size": "medium",
+        "border-radius": "8px"
+      }
+    }
+  ],
+  "annotations": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "userComment": "capture region",
+      "intendedChange": "test change"
+    }
+  ],
+  "expectedModifications": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "statement": "test change"
+    }
+  ],
+  "verificationRules": [
+    {
+      "regionId": "region_mtuudxj1_1",
+      "conditions": [
+        "v1"
+      ]
+    }
+  ],
+  "migration": {
+    "fromVersion": "1.0.0",
+    "notes": "Initial schema. Future breaking changes MUST bump schemaVersion and provide a migration entry here."
+  }
+}

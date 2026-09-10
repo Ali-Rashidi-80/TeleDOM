@@ -1,0 +1,28 @@
+{
+  "tool": "execute_js_and_capture_changes",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "code": {
+        "type": "string",
+        "description": "JavaScript source"
+      },
+      "timeoutMs": {
+        "type": "number"
+      },
+      "world": {
+        "type": "string",
+        "enum": [
+          "ISOLATED",
+          "MAIN"
+        ]
+      }
+    },
+    "required": [
+      "code"
+    ]
+  },
+  "expectedBehavior": "Executes JS with before/after page state comparison"
+}

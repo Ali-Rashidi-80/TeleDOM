@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_106_get_project",
+  "method": "tools/call",
+  "params": {
+    "name": "get_project",
+    "arguments": {
+      "projectName": "op-project"
+    }
+  }
+}

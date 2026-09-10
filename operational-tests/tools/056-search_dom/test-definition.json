@@ -1,0 +1,34 @@
+{
+  "tool": "search_dom",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Search text (matched against text, tags and attributes)"
+      },
+      "tag": {
+        "type": "string",
+        "description": "Restrict to tag name"
+      },
+      "attr": {
+        "type": "string",
+        "description": "Require this attribute name"
+      },
+      "attrValue": {
+        "type": "string",
+        "description": "Attribute value substring filter"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max results (default 50, max 200)"
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "expectedBehavior": "Searches DOM by text/tag/attr with scored matches"
+}

@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_067_drag_and_drop",
+  "method": "tools/call",
+  "params": {
+    "name": "drag_and_drop",
+    "arguments": {
+      "source": {
+        "selector": "#removable-card"
+      },
+      "offsets": {
+        "x": 40,
+        "y": 10
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_066_scroll_page",
+  "method": "tools/call",
+  "params": {
+    "name": "scroll_page",
+    "arguments": {
+      "x": 0,
+      "y": 60
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "tool": "get_tab_console_logs",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Target Chrome tab ID (defaults to currently active tab if omitted)"
+      },
+      "level": {
+        "type": "string",
+        "enum": [
+          "all",
+          "error",
+          "warn",
+          "info",
+          "log",
+          "debug"
+        ],
+        "description": "Filter by log severity level (default: all)"
+      },
+      "searchQuery": {
+        "type": "string",
+        "description": "Filter logs containing this text or source"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Maximum number of recent log entries to return (default: 100)"
+      },
+      "clearAfterRead": {
+        "type": "boolean",
+        "description": "Clear the internal log buffer after reading (default: false)"
+      }
+    }
+  },
+  "expectedBehavior": ""
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_070_wait_for_condition",
+  "method": "tools/call",
+  "params": {
+    "name": "wait_for_condition",
+    "arguments": {
+      "kind": "dom_stable",
+      "timeoutMs": 800
+    }
+  }
+}

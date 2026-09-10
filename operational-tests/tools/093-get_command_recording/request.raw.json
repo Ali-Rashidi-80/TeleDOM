@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_093_get_command_recording",
+  "method": "tools/call",
+  "params": {
+    "name": "get_command_recording",
+    "arguments": {
+      "recordingId": "op-recording"
+    }
+  }
+}

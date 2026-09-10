@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_070_wait_for_condition",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"satisfied\": true,\n  \"condition\": \"dom_stable\",\n  \"waitedMs\": 108,\n  \"timeoutMs\": 800,\n  \"detail\": \"dom length 4222, 1 polls\"\n}"
+      }
+    ]
+  }
+}

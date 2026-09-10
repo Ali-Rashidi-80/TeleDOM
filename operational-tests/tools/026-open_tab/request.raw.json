@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_026_open_tab",
+  "method": "tools/call",
+  "params": {
+    "name": "open_tab",
+    "arguments": {}
+  }
+}

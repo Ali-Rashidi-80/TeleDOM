@@ -1,0 +1,10 @@
+{
+  "tool": "get_tool_groups",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Returns discoverable tool groups"
+}

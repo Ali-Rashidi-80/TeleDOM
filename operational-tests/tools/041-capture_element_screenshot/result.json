@@ -1,0 +1,9 @@
+{
+  "tool": "capture_element_screenshot",
+  "index": 41,
+  "status": "PASS",
+  "executionTimeMs": 18,
+  "assertionsPassed": 4,
+  "assertionsTotal": 4,
+  "timestamp": "2026-09-10T01:22:00.222Z"
+}

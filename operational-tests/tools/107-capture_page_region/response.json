@@ -1,0 +1,148 @@
+{
+  "observed": {
+    "schemaVersion": "1.0.0",
+    "regionId": "region_mtuudxj1_1",
+    "pageId": "page_mtuudxid",
+    "name": "header_operational_dom_test_card",
+    "autoName": "header_operational_dom_test_card",
+    "tag": "div",
+    "selector": "#fixture-header",
+    "selectorCandidates": [
+      {
+        "selector": "#fixture-header",
+        "strategy": "id",
+        "confidence": 1,
+        "unique": true,
+        "reasons": [
+          "unique stable id",
+          "matches exactly this element"
+        ]
+      },
+      {
+        "selector": "header.card",
+        "strategy": "class",
+        "confidence": 0.72,
+        "unique": true,
+        "reasons": [
+          "stable class names",
+          "matches exactly this element"
+        ]
+      },
+      {
+        "selector": "body > header",
+        "strategy": "structural-path",
+        "confidence": 0.55,
+        "unique": true,
+        "reasons": [
+          "position-based structural path",
+          "matches exactly this element"
+        ]
+      }
+    ],
+    "xpath": "//*[@id=\"fixture-header\"]",
+    "structuralFingerprint": "e1078ae9",
+    "domFile": "dom\\region_region_mtuudxj1_1.html",
+    "contextDomFile": "dom\\region_region_mtuudxj1_1_context.html",
+    "dimensions": {
+      "width": 0,
+      "height": 0
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "relevantStyles": {
+      "display": "block",
+      "position": "static",
+      "flex-direction": "row",
+      "background-color": "rgb(30, 41, 59)",
+      "color": "rgb(248, 250, 252)",
+      "font-size": "medium",
+      "border-radius": "8px"
+    },
+    "parentSelector": "body",
+    "parentInfo": {
+      "tag": "body",
+      "selector": "body",
+      "text": " "
+    },
+    "childrenCount": 3,
+    "childTags": [
+      "h1",
+      "p",
+      "span"
+    ],
+    "htmlSnapshotFile": "dom\\region_region_mtuudxj1_1.html",
+    "capturedAt": 1789003321598,
+    "sourceUrl": "https://app.internal/dashboard",
+    "pageTitle": "MCP Operational Acceptance DOM Fixture",
+    "viewport": {
+      "width": 412,
+      "height": 915,
+      "devicePixelRatio": 2.625
+    },
+    "extensionState": true
+  },
+  "user": {
+    "comment": "capture region",
+    "tags": []
+  },
+  "intendedChange": {
+    "statement": "test change",
+    "recordedAt": 1789003321598
+  },
+  "verification": {
+    "conditions": [
+      "v1"
+    ],
+    "recordedAt": 1789003321598
+  },
+  "analysis": {
+    "qualityScore": {
+      "overall": 0.88,
+      "components": [
+        {
+          "dimension": "selector-stability",
+          "score": 1,
+          "weight": 0.3,
+          "evidence": "unique selector via id (confidence 1)"
+        },
+        {
+          "dimension": "semantic-confidence",
+          "score": 1,
+          "weight": 0.2,
+          "evidence": "fingerprint volatility low"
+        },
+        {
+          "dimension": "structural-completeness",
+          "score": 1,
+          "weight": 0.15,
+          "evidence": "html snapshot: true; context DOM: true"
+        },
+        {
+          "dimension": "visual-completeness",
+          "score": 0.2,
+          "weight": 0.15,
+          "evidence": "no screenshot — visual verification impossible"
+        },
+        {
+          "dimension": "annotation-completeness",
+          "score": 1,
+          "weight": 0.2,
+          "evidence": "user annotation: true; intended change: true; verification: true"
+        }
+      ],
+      "grade": "A",
+      "notes": [
+        "visual-completeness is weak: no screenshot — visual verification impossible"
+      ]
+    },
+    "namingEvidence": [
+      "role=banner",
+      "nearby-heading=\"Operational DOM Test Fixture\"",
+      "class=card"
+    ],
+    "relatedRegions": [],
+    "capturedBy": "tool_call"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_054_get_element_accessibility",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"selector\": \"#primary-action-btn\",\n  \"implicitRole\": \"button\",\n  \"name\": \"⚡ Run Analysis\",\n  \"nameSources\": [\n    \"text content\"\n  ],\n  \"value\": \"\",\n  \"states\": [],\n  \"focusable\": true,\n  \"tabIndex\": 0,\n  \"ariaAttributes\": {},\n  \"issues\": []\n}"
+      }
+    ]
+  }
+}

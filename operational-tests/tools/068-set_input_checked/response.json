@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "selector": "#feature-toggle",
+  "inputType": "checkbox",
+  "checkedBefore": false,
+  "checkedAfter": true,
+  "eventsFired": [
+    "input",
+    "change"
+  ]
+}

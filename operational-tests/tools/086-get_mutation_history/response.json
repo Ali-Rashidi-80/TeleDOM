@@ -1,0 +1,17 @@
+{
+  "entries": [
+    {
+      "mutationId": "mut_mtuudxdy_1",
+      "timestamp": 1789003321429,
+      "operation": "add_class",
+      "targetSelector": "#dynamic-text",
+      "success": true,
+      "summary": "add_class on #dynamic-text (+1/-0/~0)",
+      "undoApplied": false,
+      "redoApplied": false
+    }
+  ],
+  "undoDepth": 0,
+  "redoDepth": 0,
+  "openTransactionId": "tx_mtuudxei_2"
+}

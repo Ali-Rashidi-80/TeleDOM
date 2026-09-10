@@ -1,0 +1,90 @@
+{
+  "analyzer": "census_interactive_elements",
+  "summary": "9 interactive elements: textbox×3, button×2, combobox×1, checkbox×1, radio×2",
+  "count": 9,
+  "items": [
+    {
+      "selector": "#search-input",
+      "tag": "input",
+      "role": "textbox",
+      "text": "",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "#primary-action-btn",
+      "tag": "button",
+      "role": "button",
+      "text": "⚡ Run Analysis",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "#category-select",
+      "tag": "select",
+      "role": "combobox",
+      "text": "\n          Default Option\n          Secu",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "#feature-toggle",
+      "tag": "input",
+      "role": "checkbox",
+      "text": "",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "#username-input",
+      "tag": "input",
+      "role": "textbox",
+      "text": "",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "#password-input",
+      "tag": "input",
+      "role": "textbox",
+      "text": "",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "input",
+      "tag": "input",
+      "role": "radio",
+      "text": "",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "input",
+      "tag": "input",
+      "role": "radio",
+      "text": "",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "#settings-submit-btn",
+      "tag": "button",
+      "role": "button",
+      "text": "Save Settings",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    }
+  ],
+  "warnings": [],
+  "truncated": false
+}

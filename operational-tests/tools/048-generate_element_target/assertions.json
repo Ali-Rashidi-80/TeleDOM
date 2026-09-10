@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Builds multi-strategy TARGET with ranked candidates and confidence",
+    "passed": true,
+    "details": "targetId, tag, role, selector, selectorCandidates, xpath, domPath, textFingerprint, attributeFingerprint, structuralFingerprint, attributes, confidence, bounds, resolvedFrom"
+  }
+]

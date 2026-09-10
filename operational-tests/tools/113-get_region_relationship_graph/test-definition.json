@@ -1,0 +1,17 @@
+{
+  "tool": "get_region_relationship_graph",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "projectName"
+    ]
+  },
+  "expectedBehavior": "Builds region relationship graph"
+}

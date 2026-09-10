@@ -1,0 +1,1 @@
+[EXEC] delete_project executed via stdio JSON-RPC at 2026-09-10T01:22:01.676Z in 6ms

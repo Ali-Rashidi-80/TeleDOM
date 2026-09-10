@@ -1,0 +1,16 @@
+{
+  "comparisonSuccess": true,
+  "extensionId": "forensic-recorder@mcpdom",
+  "tabId": "active",
+  "cleanState": {
+    "domLengthChars": 4197
+  },
+  "injectedState": {
+    "domLengthChars": 4197
+  },
+  "analysis": {
+    "domSizeDifferenceChars": 0,
+    "injectedMarkersDetected": [],
+    "summary": "Comparison complete. Clean DOM: 4197 chars, Injected DOM: 4197 chars (Delta: 0 chars). Detected injected markers: none."
+  }
+}

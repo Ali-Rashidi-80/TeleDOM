@@ -1,0 +1,18 @@
+{
+  "tool": "focus_tab",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "The unique Chrome tab ID to activate and focus"
+      }
+    },
+    "required": [
+      "tabId"
+    ]
+  },
+  "expectedBehavior": ""
+}

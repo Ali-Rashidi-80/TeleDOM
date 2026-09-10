@@ -1,0 +1,15 @@
+{
+  "tool": "get_mutation_history",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "number",
+        "description": "Max entries (default 100)"
+      }
+    }
+  },
+  "expectedBehavior": "Returns mutation history with undo/redo depths"
+}

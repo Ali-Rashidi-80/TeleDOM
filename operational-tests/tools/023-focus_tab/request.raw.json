@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_023_focus_tab",
+  "method": "tools/call",
+  "params": {
+    "name": "focus_tab",
+    "arguments": {}
+  }
+}

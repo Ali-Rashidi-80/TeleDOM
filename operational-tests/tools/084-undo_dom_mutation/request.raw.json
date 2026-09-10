@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_084_undo_dom_mutation",
+  "method": "tools/call",
+  "params": {
+    "name": "undo_dom_mutation",
+    "arguments": {}
+  }
+}

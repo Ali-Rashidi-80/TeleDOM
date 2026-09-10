@@ -1,0 +1,22 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_078_run_responsive_test",
+  "method": "tools/call",
+  "params": {
+    "name": "run_responsive_test",
+    "arguments": {
+      "sizes": [
+        {
+          "label": "sm",
+          "width": 400,
+          "height": 700
+        },
+        {
+          "label": "lg",
+          "width": 1200,
+          "height": 800
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "applied": {
+    "width": 800,
+    "height": 600
+  },
+  "previous": {
+    "width": 1024,
+    "height": 768
+  },
+  "original": {
+    "width": 1024,
+    "height": 768
+  },
+  "beforeState": {
+    "url": "https://app.internal/dashboard",
+    "domLength": 4222,
+    "interactiveCount": 9
+  },
+  "afterState": {
+    "url": "https://app.internal/dashboard",
+    "domLength": 4222,
+    "interactiveCount": 9
+  },
+  "reversible": true,
+  "mode": "simulation"
+}

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_113_get_region_relationship_graph",
+  "method": "tools/call",
+  "params": {
+    "name": "get_region_relationship_graph",
+    "arguments": {
+      "projectName": "op-project"
+    }
+  }
+}

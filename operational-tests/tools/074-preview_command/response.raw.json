@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_074_preview_command",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"valid\": true,\n  \"operation\": \"add_class\",\n  \"target\": {\n    \"selector\": \"#search-input\",\n    \"tag\": \"input\"\n  },\n  \"expectedChange\": \"classes preview-test will be added\",\n  \"affectedNodes\": 1,\n  \"warnings\": []\n}"
+      }
+    ]
+  }
+}

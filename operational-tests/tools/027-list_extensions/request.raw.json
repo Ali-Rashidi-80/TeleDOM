@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_027_list_extensions",
+  "method": "tools/call",
+  "params": {
+    "name": "list_extensions",
+    "arguments": {}
+  }
+}

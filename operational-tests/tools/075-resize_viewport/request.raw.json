@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_075_resize_viewport",
+  "method": "tools/call",
+  "params": {
+    "name": "resize_viewport",
+    "arguments": {
+      "width": 800,
+      "height": 600
+    }
+  }
+}

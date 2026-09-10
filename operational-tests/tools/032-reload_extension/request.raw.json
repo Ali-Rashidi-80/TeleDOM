@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_032_reload_extension",
+  "method": "tools/call",
+  "params": {
+    "name": "reload_extension",
+    "arguments": {}
+  }
+}

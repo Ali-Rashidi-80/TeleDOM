@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_063_blur_element",
+  "method": "tools/call",
+  "params": {
+    "name": "blur_element",
+    "arguments": {
+      "selector": "#search-input"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "valid": true,
+  "operation": "add_class",
+  "target": {
+    "selector": "#search-input",
+    "tag": "input"
+  },
+  "expectedChange": "classes preview-test will be added",
+  "affectedNodes": 1,
+  "warnings": []
+}

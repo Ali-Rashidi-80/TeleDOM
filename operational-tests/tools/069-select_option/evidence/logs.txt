@@ -1,0 +1,1 @@
+[EXEC] select_option executed via stdio JSON-RPC at 2026-09-10T01:22:01.113Z in 13ms

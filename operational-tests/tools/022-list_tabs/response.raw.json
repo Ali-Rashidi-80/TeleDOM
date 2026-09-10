@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_022_list_tabs",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"simulated\": true,\n  \"environment\": \"node-simulation\",\n  \"tabs\": [\n    {\n      \"id\": 1,\n      \"index\": 0,\n      \"windowId\": 1,\n      \"title\": \"MCP Operational Acceptance DOM Fixture\",\n      \"url\": \"https://app.internal/dashboard\",\n      \"active\": true,\n      \"status\": \"complete\",\n      \"pinned\": false,\n      \"audited\": false\n    }\n  ],\n  \"note\": \"Deterministic simulated tab state — a real browser tab list requires the Chrome extension connection.\"\n}"
+      }
+    ]
+  }
+}

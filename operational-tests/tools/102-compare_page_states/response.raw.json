@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_102_compare_page_states",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"snapshotIdA\": \"snap_mtuudxds_2\",\n  \"snapshotIdB\": \"snap_mtuudxht_3\",\n  \"identical\": false,\n  \"changes\": [\n    {\n      \"field\": \"domLength\",\n      \"before\": 4222,\n      \"after\": 4386\n    },\n    {\n      \"field\": \"domHash\",\n      \"before\": \"c8b73284\",\n      \"after\": \"feb1e736\"\n    }\n  ],\n  \"domDelta\": {\n    \"beforeLength\": 4222,\n    \"afterLength\": 4386,\n    \"delta\": 164\n  },\n  \"summary\": \"2 field(s) changed; DOM size +164 bytes.\"\n}"
+      }
+    ]
+  }
+}

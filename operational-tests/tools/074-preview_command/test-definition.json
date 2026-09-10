@@ -1,0 +1,59 @@
+{
+  "tool": "preview_command",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "operation": {
+        "type": "string",
+        "description": "Mutation operation (see mutate_dom)"
+      },
+      "target": {
+        "type": "object",
+        "description": "Element target specifier"
+      },
+      "attribute": {
+        "type": "string"
+      },
+      "value": {
+        "type": "string"
+      },
+      "classes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "text": {
+        "type": "string"
+      },
+      "replacement": {
+        "type": "string"
+      },
+      "html": {
+        "type": "string"
+      },
+      "newElementHtml": {
+        "type": "string"
+      },
+      "parent": {
+        "type": "object"
+      },
+      "position": {
+        "type": "string",
+        "enum": [
+          "before",
+          "after",
+          "prepend",
+          "append"
+        ]
+      }
+    },
+    "required": [
+      "operation",
+      "target"
+    ]
+  },
+  "expectedBehavior": "Dry-runs mutation without side effects"
+}

@@ -1,0 +1,39 @@
+{
+  "sessionId": "sess_mtuudrux",
+  "startedAt": 1789003314249,
+  "url": "https://app.internal/dashboard",
+  "title": "MCP Operational Acceptance DOM Fixture",
+  "tabs": [
+    {
+      "sessionTabId": "stab_1_mtuuds6c",
+      "browserTabId": 1,
+      "url": "https://app.internal/dashboard",
+      "title": "MCP Operational Acceptance DOM Fixture",
+      "createdAt": 1789003314660,
+      "lastSeenAt": 1789003314660,
+      "status": "OPEN"
+    },
+    {
+      "sessionTabId": "stab_2_mtuuds6y",
+      "browserTabId": 2,
+      "url": "about:blank",
+      "title": "Simulated Tab 2",
+      "createdAt": 1789003314682,
+      "lastSeenAt": 1789003314682,
+      "status": "OPEN"
+    }
+  ],
+  "activeTabId": "stab_2_mtuuds6y",
+  "viewport": {
+    "width": 412,
+    "height": 915,
+    "isModified": true
+  },
+  "extensionEnabled": true,
+  "snapshotCount": 2,
+  "commandCount": 52,
+  "annotationCount": 0,
+  "mutationHistoryCount": 0,
+  "timelineEventCount": 74,
+  "note": "Session model reflects this server process's live + simulation state."
+}

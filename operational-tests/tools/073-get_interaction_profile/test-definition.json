@@ -1,0 +1,10 @@
+{
+  "tool": "get_interaction_profile",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Reports active interaction profile and available profiles"
+}

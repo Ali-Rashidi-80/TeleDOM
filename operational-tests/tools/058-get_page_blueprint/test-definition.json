@@ -1,0 +1,15 @@
+{
+  "tool": "get_page_blueprint",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string",
+        "description": "Optional project name to persist the blueprint"
+      }
+    }
+  },
+  "expectedBehavior": "Generates page blueprint with sections and interactive inventory"
+}

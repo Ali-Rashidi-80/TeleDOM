@@ -1,0 +1,52 @@
+{
+  "tool": "wait_for_condition",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "kind": {
+        "type": "string",
+        "enum": [
+          "dom_stable",
+          "selector_present",
+          "selector_visible",
+          "selector_absent",
+          "text_present",
+          "url_contains",
+          "element_count",
+          "readiness_state"
+        ],
+        "description": "Condition kind"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Selector for selector_* and element_count conditions"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text for text_present / url_contains"
+      },
+      "count": {
+        "type": "number",
+        "description": "Expected count for element_count"
+      },
+      "state": {
+        "type": "string",
+        "description": "Expected readyState (default complete)"
+      },
+      "timeoutMs": {
+        "type": "number",
+        "description": "Timeout (default 5000ms)"
+      },
+      "pollIntervalMs": {
+        "type": "number",
+        "description": "Poll interval (default 100ms)"
+      }
+    },
+    "required": [
+      "kind"
+    ]
+  },
+  "expectedBehavior": "Waits for DOM stability across consecutive polls"
+}

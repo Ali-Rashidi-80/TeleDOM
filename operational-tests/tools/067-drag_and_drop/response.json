@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "sourceSelector": "#removable-card",
+  "targetSelector": "(offset drop)",
+  "eventsFired": [
+    "pointerdown",
+    "mousedown",
+    "dragstart",
+    "dragend",
+    "pointerup",
+    "mouseup"
+  ],
+  "finalPosition": {
+    "x": 40,
+    "y": 10
+  },
+  "html5DndUsed": true
+}

@@ -1,0 +1,25 @@
+{
+  "tool": "scroll_to_element",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "behavior": {
+        "type": "string",
+        "enum": [
+          "auto",
+          "smooth"
+        ],
+        "description": "Scroll behavior (default auto)"
+      }
+    }
+  },
+  "expectedBehavior": "Scrolls element into view"
+}

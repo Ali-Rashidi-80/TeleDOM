@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_102_compare_page_states",
+  "method": "tools/call",
+  "params": {
+    "name": "compare_page_states",
+    "arguments": {}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_087_preview_dom_mutation",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"valid\": true,\n  \"operation\": \"set_attribute\",\n  \"target\": {\n    \"selector\": \"#dynamic-text\",\n    \"tag\": \"p\"\n  },\n  \"expectedChange\": \"attribute \\\"data-preview\\\" will be set to \\\"x\\\"\",\n  \"affectedNodes\": 1,\n  \"warnings\": []\n}"
+      }
+    ]
+  }
+}

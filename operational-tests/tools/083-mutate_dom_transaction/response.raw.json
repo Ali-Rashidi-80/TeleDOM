@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_083_mutate_dom_transaction",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"transactionId\": \"tx_mtuudxei_2\",\n  \"mode\": \"begin\",\n  \"open\": true\n}"
+      }
+    ]
+  }
+}

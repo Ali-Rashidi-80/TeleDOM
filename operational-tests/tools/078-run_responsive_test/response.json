@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "originalViewport": {
+    "width": 1024,
+    "height": 768
+  },
+  "steps": [
+    {
+      "label": "sm",
+      "width": 400,
+      "height": 700,
+      "domLength": 4222,
+      "interactiveCount": 9,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "lg",
+      "width": 1200,
+      "height": 800,
+      "domLength": 4222,
+      "interactiveCount": 9,
+      "horizontalOverflow": false
+    }
+  ],
+  "restored": true,
+  "finalViewport": {
+    "width": 1024,
+    "height": 768
+  },
+  "comparisons": [
+    {
+      "from": "sm",
+      "to": "lg",
+      "domLengthDelta": 0,
+      "interactiveDelta": 0
+    }
+  ]
+}

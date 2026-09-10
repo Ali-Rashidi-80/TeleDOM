@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_119_set_redaction_rules",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"applied\": true,\n  \"currentRules\": 11,\n  \"currentExclusions\": 2\n}"
+      }
+    ]
+  }
+}

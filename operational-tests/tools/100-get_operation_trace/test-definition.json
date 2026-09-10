@@ -1,0 +1,19 @@
+{
+  "tool": "get_operation_trace",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "operationId": {
+        "type": "string",
+        "description": "Operation id to trace (omit for recent list)"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Recent operations limit when no id (default 20)"
+      }
+    }
+  },
+  "expectedBehavior": "Returns recent operation traces"
+}

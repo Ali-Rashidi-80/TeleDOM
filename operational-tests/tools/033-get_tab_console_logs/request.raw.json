@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_033_get_tab_console_logs",
+  "method": "tools/call",
+  "params": {
+    "name": "get_tab_console_logs",
+    "arguments": {}
+  }
+}

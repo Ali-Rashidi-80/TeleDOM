@@ -1,0 +1,26 @@
+{
+  "tool": "analyze_dom",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "analyzer": {
+        "type": "string",
+        "description": "Analyzer name (see tool description for the full list)"
+      },
+      "query": {
+        "type": "string",
+        "description": "Optional search query (search_dom)"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Optional result cap"
+      }
+    },
+    "required": [
+      "analyzer"
+    ]
+  },
+  "expectedBehavior": "Runs named DOM analyzer with structured results"
+}

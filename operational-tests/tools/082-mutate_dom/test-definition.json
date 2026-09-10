@@ -1,0 +1,96 @@
+{
+  "tool": "mutate_dom",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "operation": {
+        "type": "string",
+        "enum": [
+          "set_attribute",
+          "remove_attribute",
+          "set_text",
+          "replace_text",
+          "set_inner_html",
+          "set_outer_html",
+          "add_class",
+          "remove_class",
+          "replace_class",
+          "set_style",
+          "remove_style",
+          "add_element",
+          "remove_element",
+          "replace_element",
+          "move_element",
+          "wrap_element",
+          "unwrap_element",
+          "clone_subtree"
+        ],
+        "description": "Mutation operation"
+      },
+      "target": {
+        "type": "object",
+        "description": "Element target specifier"
+      },
+      "attribute": {
+        "type": "string",
+        "description": "Attribute name (set/remove_attribute)"
+      },
+      "value": {
+        "type": "string",
+        "description": "Attribute value or replacement class (replace_class)"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text content (set_text) or search pattern (replace_text)"
+      },
+      "replacement": {
+        "type": "string",
+        "description": "Replacement text (replace_text)"
+      },
+      "classes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Class names (add/remove/replace_class) or style props (remove_style)"
+      },
+      "style": {
+        "type": "object",
+        "description": "Style property map (set_style)"
+      },
+      "html": {
+        "type": "string",
+        "description": "HTML content (set_inner_html)"
+      },
+      "newElementHtml": {
+        "type": "string",
+        "description": "HTML for new/replacement/wrapper element"
+      },
+      "parent": {
+        "type": "object",
+        "description": "Parent target (move_element, add_element)"
+      },
+      "position": {
+        "type": "string",
+        "enum": [
+          "before",
+          "after",
+          "prepend",
+          "append"
+        ],
+        "description": "Insertion position (add_element/move_element)"
+      },
+      "copyAttributes": {
+        "type": "boolean",
+        "description": "clone_subtree: copy attributes (ids never duplicated)"
+      }
+    },
+    "required": [
+      "operation",
+      "target"
+    ]
+  },
+  "expectedBehavior": "Applies mutation with BEFORE/AFTER/DIFF and undo record"
+}

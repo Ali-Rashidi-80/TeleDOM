@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_080_execute_javascript",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"status\": \"EXECUTED_SUCCESSFULLY\",\n  \"executionId\": \"js_mtuudxdh_1\",\n  \"durationMs\": 1,\n  \"result\": \"2\",\n  \"consoleOutput\": [],\n  \"domChanged\": false,\n  \"domLengthBefore\": 4222,\n  \"domLengthAfter\": 4222,\n  \"world\": \"ISOLATED\",\n  \"timeoutMs\": 5000,\n  \"codePreview\": \"return 1 + 1;\"\n}"
+      }
+    ]
+  }
+}

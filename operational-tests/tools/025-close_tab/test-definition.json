@@ -1,0 +1,19 @@
+{
+  "tool": "close_tab",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Target Chrome tab ID to close"
+      },
+      "url": {
+        "type": "string",
+        "description": "URL substring or pattern of tabs to close (e.g. \"meet.google.com\")"
+      }
+    }
+  },
+  "expectedBehavior": ""
+}

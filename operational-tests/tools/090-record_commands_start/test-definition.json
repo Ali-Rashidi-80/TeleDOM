@@ -1,0 +1,27 @@
+{
+  "tool": "record_commands_start",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Recording name"
+      },
+      "description": {
+        "type": "string"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "expectedBehavior": "Starts command recording session"
+}

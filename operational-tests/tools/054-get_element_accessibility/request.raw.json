@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_054_get_element_accessibility",
+  "method": "tools/call",
+  "params": {
+    "name": "get_element_accessibility",
+    "arguments": {
+      "selector": "#primary-action-btn"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "tool": "list_region_annotations",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "projectName"
+    ]
+  },
+  "expectedBehavior": "Lists region annotations with quality grades"
+}

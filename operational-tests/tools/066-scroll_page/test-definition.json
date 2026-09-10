@@ -1,0 +1,19 @@
+{
+  "tool": "scroll_page",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "x": {
+        "type": "number",
+        "description": "Horizontal pixel delta"
+      },
+      "y": {
+        "type": "number",
+        "description": "Vertical pixel delta"
+      }
+    }
+  },
+  "expectedBehavior": "Scrolls page by pixel distance"
+}

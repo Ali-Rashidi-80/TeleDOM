@@ -1,0 +1,123 @@
+{
+  "sequenceId": "seq_mtuudxfs_1",
+  "success": true,
+  "totalSteps": 2,
+  "executedSteps": 2,
+  "skippedSteps": 0,
+  "durationMs": 9,
+  "stopOnError": true,
+  "steps": [
+    {
+      "stepIndex": 0,
+      "commandId": "step_1",
+      "tool": "inspect_live_page",
+      "args": {},
+      "status": "SUCCESS",
+      "durationMs": 2,
+      "resultSummary": "OK: object with keys [url, title, origin, viewport, documentDimensions, activeElement]",
+      "result": {
+        "url": "https://app.internal/dashboard",
+        "title": "MCP Operational Acceptance DOM Fixture",
+        "origin": "https://app.internal",
+        "viewport": {
+          "width": 412,
+          "height": 915,
+          "scrollX": 0,
+          "scrollY": 0,
+          "devicePixelRatio": 2.625
+        },
+        "documentDimensions": {
+          "width": 0,
+          "height": 0
+        },
+        "activeElement": {
+          "tag": "body",
+          "selector": "body",
+          "text": "Operational DOM Test Fixture\n    Deterministic test harness for live & historical MCP capabi"
+        },
+        "visibilityState": "visible",
+        "readyState": "complete",
+        "framesCount": 0
+      }
+    },
+    {
+      "stepIndex": 1,
+      "commandId": "step_2",
+      "tool": "generate_element_target",
+      "args": {
+        "selector": "#search-input"
+      },
+      "status": "SUCCESS",
+      "durationMs": 7,
+      "resultSummary": "OK: object with keys [targetId, tag, role, selector, selectorCandidates, xpath]",
+      "result": {
+        "targetId": "tgt_mtuudxg1_2",
+        "tag": "input",
+        "role": "textbox",
+        "selector": "#search-input",
+        "selectorCandidates": [
+          {
+            "selector": "#search-input",
+            "strategy": "id",
+            "confidence": 1,
+            "unique": true,
+            "reasons": [
+              "unique stable id",
+              "matches exactly this element"
+            ]
+          },
+          {
+            "selector": "input.input-field",
+            "strategy": "class",
+            "confidence": 0.72,
+            "unique": true,
+            "reasons": [
+              "stable class names",
+              "matches exactly this element"
+            ]
+          },
+          {
+            "selector": "input[type=\"text\"][placeholder=\"Type here...\"]",
+            "strategy": "attribute-fingerprint",
+            "confidence": 0.68,
+            "unique": true,
+            "reasons": [
+              "combination of stable attributes",
+              "matches exactly this element"
+            ]
+          },
+          {
+            "selector": "body > main > section:nth-of-type(1) > div:nth-of-type(1) > input",
+            "strategy": "structural-path",
+            "confidence": 0.55,
+            "unique": true,
+            "reasons": [
+              "position-based structural path",
+              "matches exactly this element"
+            ]
+          }
+        ],
+        "xpath": "//*[@id=\"search-input\"]",
+        "domPath": "#interactive-section > div:nth-of-type(1) > #interactive-section > #main-content > body > #search-input",
+        "textFingerprint": "",
+        "attributeFingerprint": "{\"id\":\"search-input\",\"type\":\"text\",\"placeholder\":\"Type here...\"}",
+        "structuralFingerprint": "a7b39227",
+        "attributes": {
+          "id": "search-input",
+          "class": "input-field",
+          "type": "text",
+          "placeholder": "Type here...",
+          "value": "initial query"
+        },
+        "confidence": 1,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "resolvedFrom": "selector"
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_030_execute_pipeline",
+  "method": "tools/call",
+  "params": {
+    "name": "execute_pipeline",
+    "arguments": {
+      "steps": [
+        {
+          "action": "inspect_live_page",
+          "params": {}
+        },
+        {
+          "action": "inspect_live_element",
+          "params": {
+            "selector": "#search-input"
+          }
+        }
+      ]
+    }
+  }
+}

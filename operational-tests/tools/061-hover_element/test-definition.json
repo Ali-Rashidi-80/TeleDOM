@@ -1,0 +1,17 @@
+{
+  "tool": "hover_element",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object"
+      },
+      "selector": {
+        "type": "string"
+      }
+    }
+  },
+  "expectedBehavior": "Hovers element with pointer event sequence"
+}

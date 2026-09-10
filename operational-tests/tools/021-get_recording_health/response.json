@@ -1,0 +1,35 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "health": {
+    "domRecording": "HEALTHY",
+    "userEvents": "HEALTHY",
+    "console": "HEALTHY",
+    "network": "HEALTHY",
+    "screenshots": "HEALTHY",
+    "shadowDom": "HEALTHY",
+    "iframes": "HEALTHY"
+  },
+  "stats": {
+    "eventCount": 8,
+    "mutationCount": 4,
+    "errorCount": 1,
+    "consoleCount": 1,
+    "networkCount": 2,
+    "checkpointCount": 2,
+    "screenshotCount": 1,
+    "nodeCount": 12
+  },
+  "integrity": {
+    "isValid": true,
+    "sessionId": "operational_acceptance_session_001",
+    "schemaVersion": "2.0.0",
+    "totalEvents": 8,
+    "totalCheckpoints": 1,
+    "isSequenceMonotonic": true,
+    "missingSequences": [],
+    "corruptNodeReferences": [],
+    "hasInitialSnapshot": true,
+    "errors": [],
+    "warnings": []
+  }
+}

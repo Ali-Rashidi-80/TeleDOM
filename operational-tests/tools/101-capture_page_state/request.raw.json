@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_101_capture_page_state",
+  "method": "tools/call",
+  "params": {
+    "name": "capture_page_state",
+    "arguments": {}
+  }
+}

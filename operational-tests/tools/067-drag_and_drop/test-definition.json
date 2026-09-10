@@ -1,0 +1,34 @@
+{
+  "tool": "drag_and_drop",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "source": {
+        "type": "object",
+        "description": "Source element target specifier"
+      },
+      "target": {
+        "type": "object",
+        "description": "Drop target specifier (or use offsets)"
+      },
+      "offsets": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          }
+        },
+        "description": "Pixel offsets when no drop target"
+      }
+    },
+    "required": [
+      "source"
+    ]
+  },
+  "expectedBehavior": "Drags element with HTML5 + pointer events"
+}

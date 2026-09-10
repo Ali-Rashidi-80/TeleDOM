@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_033_get_tab_console_logs",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"url\": \"https://app.internal/dashboard\",\n  \"title\": \"MCP Operational Acceptance DOM Fixture\",\n  \"totalCaptured\": 0,\n  \"returnedCount\": 0,\n  \"logs\": []\n}"
+      }
+    ]
+  }
+}

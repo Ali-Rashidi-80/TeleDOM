@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_055_get_computed_style",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"selector\": \"#primary-action-btn\",\n  \"styles\": {\n    \"display\": \"inline-block\",\n    \"position\": \"static\",\n    \"color\": \"rgb(15, 23, 42)\",\n    \"background-color\": \"rgb(56, 189, 248)\",\n    \"font-size\": \"medium\",\n    \"font-family\": \"sans-serif\",\n    \"width\": \"auto\",\n    \"height\": \"auto\",\n    \"margin\": \"0\",\n    \"padding\": \"8px 16px\",\n    \"border\": \"medium none rgb(15, 23, 42)\",\n    \"z-index\": \"auto\",\n    \"opacity\": \"1\",\n    \"visibility\": \"visible\",\n    \"overflow\": \"\",\n    \"flex-direction\": \"row\",\n    \"grid-template-columns\": \"none\"\n  }\n}"
+      }
+    ]
+  }
+}

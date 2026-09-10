@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_107_capture_page_region",
+  "method": "tools/call",
+  "params": {
+    "name": "capture_page_region",
+    "arguments": {
+      "projectName": "op-project",
+      "selector": "#fixture-header",
+      "comment": "capture region",
+      "intendedChange": "test change",
+      "verification": [
+        "v1"
+      ]
+    }
+  }
+}

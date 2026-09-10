@@ -1,0 +1,39 @@
+{
+  "tool": "get_tab_network_requests",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Target Chrome tab ID (defaults to currently active tab if omitted)"
+      },
+      "method": {
+        "type": "string",
+        "description": "Filter by HTTP method (GET, POST, PUT, DELETE, etc.)"
+      },
+      "status": {
+        "type": "number",
+        "description": "Filter by HTTP status code (e.g. 200, 404, 500)"
+      },
+      "onlyErrors": {
+        "type": "boolean",
+        "description": "Return only failed requests or HTTP status >= 400 (default: false)"
+      },
+      "searchQuery": {
+        "type": "string",
+        "description": "Filter requests by URL substring"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Maximum number of recent network requests to return (default: 100)"
+      },
+      "clearAfterRead": {
+        "type": "boolean",
+        "description": "Clear the internal network buffer after reading (default: false)"
+      }
+    }
+  },
+  "expectedBehavior": ""
+}

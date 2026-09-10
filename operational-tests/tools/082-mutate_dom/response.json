@@ -1,0 +1,29 @@
+{
+  "mutationId": "mut_mtuudxdy_1",
+  "operation": "add_class",
+  "success": true,
+  "before": {
+    "selector": "#dynamic-text",
+    "outerHtml": "<p id=\"dynamic-text\">Original Static Text Content</p>",
+    "attributes": {
+      "id": "dynamic-text"
+    }
+  },
+  "after": {
+    "selector": "#dynamic-text",
+    "outerHtml": "<p id=\"dynamic-text\" class=\"op-test\">Original Static Text Content</p>",
+    "attributes": {
+      "id": "dynamic-text",
+      "class": "op-test"
+    }
+  },
+  "diff": {
+    "added": 1,
+    "removed": 0,
+    "changed": 0,
+    "summary": "attributes +1/-0/~0; subtree nodes: 0"
+  },
+  "affectedSelector": "#dynamic-text",
+  "durationMs": 15,
+  "undoable": true
+}

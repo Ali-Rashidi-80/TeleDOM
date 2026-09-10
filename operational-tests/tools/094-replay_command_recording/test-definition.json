@@ -1,0 +1,21 @@
+{
+  "tool": "replay_command_recording",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "recordingId": {
+        "type": "string"
+      },
+      "stopOnError": {
+        "type": "boolean",
+        "description": "Stop on first failure (default true)"
+      }
+    },
+    "required": [
+      "recordingId"
+    ]
+  },
+  "expectedBehavior": "Replays recording or reports NOT_FOUND honestly"
+}

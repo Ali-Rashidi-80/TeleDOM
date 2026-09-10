@@ -1,0 +1,38 @@
+{
+  "analyzer": "search_dom",
+  "summary": "2 element(s) match \"search\"",
+  "count": 2,
+  "items": [
+    {
+      "selector": "label",
+      "tag": "label",
+      "text": "Search Input: ",
+      "score": 1,
+      "reason": "attribute for match",
+      "visible": true,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "selector": "#search-input",
+      "tag": "input",
+      "role": "textbox",
+      "text": "",
+      "score": 0.4,
+      "reason": "attribute id match",
+      "visible": true,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    }
+  ],
+  "warnings": [],
+  "truncated": false
+}

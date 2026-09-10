@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_077_get_viewport_state",
+  "method": "tools/call",
+  "params": {
+    "name": "get_viewport_state",
+    "arguments": {}
+  }
+}

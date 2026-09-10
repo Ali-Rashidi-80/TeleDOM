@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_116_delete_project",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"deleted\": true,\n  \"projectName\": \"op-project\"\n}"
+      }
+    ]
+  }
+}

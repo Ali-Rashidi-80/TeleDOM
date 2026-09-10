@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_026_open_tab",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"opened\": true,\n  \"tabId\": 2,\n  \"url\": \"about:blank\",\n  \"simulated\": true,\n  \"totalTabs\": 1\n}"
+      }
+    ]
+  }
+}

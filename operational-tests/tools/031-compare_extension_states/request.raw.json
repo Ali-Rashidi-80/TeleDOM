@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_031_compare_extension_states",
+  "method": "tools/call",
+  "params": {
+    "name": "compare_extension_states",
+    "arguments": {
+      "extensionId": "forensic-recorder@mcpdom"
+    }
+  }
+}

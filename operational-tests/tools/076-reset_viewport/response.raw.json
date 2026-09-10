@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_076_reset_viewport",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"success\": true,\n  \"applied\": {\n    \"width\": 1024,\n    \"height\": 768\n  },\n  \"previous\": {\n    \"width\": 800,\n    \"height\": 600\n  },\n  \"original\": {\n    \"width\": 1024,\n    \"height\": 768\n  },\n  \"reversible\": true,\n  \"mode\": \"simulation\"\n}"
+      }
+    ]
+  }
+}

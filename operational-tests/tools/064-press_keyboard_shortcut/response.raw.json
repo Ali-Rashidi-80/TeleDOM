@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_064_press_keyboard_shortcut",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"success\": true,\n  \"keys\": [\n    \"Enter\"\n  ],\n  \"targetSelector\": \"body\",\n  \"eventsFired\": [\n    \"keydown:Enter\",\n    \"keyup:Enter\"\n  ]\n}"
+      }
+    ]
+  }
+}

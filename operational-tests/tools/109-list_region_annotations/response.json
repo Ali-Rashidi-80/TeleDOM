@@ -1,0 +1,28 @@
+[
+  {
+    "regionId": "region_mtuudxj1_1",
+    "name": "header_operational_dom_test_card",
+    "autoName": "header_operational_dom_test_card",
+    "tag": "#fixture-header",
+    "selector": "#fixture-header",
+    "quality": {
+      "grade": "A",
+      "overall": 0.88
+    },
+    "intendedChange": "test change",
+    "capturedAt": 1789003321598
+  },
+  {
+    "regionId": "region_mtuudxje_2",
+    "name": "section_interactive_form_controls",
+    "autoName": "section_interactive_form_controls",
+    "tag": "#interactive-section",
+    "selector": "#interactive-section",
+    "quality": {
+      "grade": "B",
+      "overall": 0.78
+    },
+    "intendedChange": null,
+    "capturedAt": 1789003321610
+  }
+]

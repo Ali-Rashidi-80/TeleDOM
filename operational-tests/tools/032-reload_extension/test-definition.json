@@ -1,0 +1,15 @@
+{
+  "tool": "reload_extension",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "extensionId": {
+        "type": "string",
+        "description": "Extension ID to reload (defaults to current extension if omitted)"
+      }
+    }
+  },
+  "expectedBehavior": ""
+}

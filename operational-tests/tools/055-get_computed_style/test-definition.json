@@ -1,0 +1,26 @@
+{
+  "tool": "get_computed_style",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object",
+        "description": "Element target specifier"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Shorthand: CSS selector"
+      },
+      "properties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "CSS property names to extract"
+      }
+    }
+  },
+  "expectedBehavior": "Extracts computed style properties"
+}

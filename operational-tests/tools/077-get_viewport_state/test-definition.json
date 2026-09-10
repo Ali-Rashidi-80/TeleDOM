@@ -1,0 +1,10 @@
+{
+  "tool": "get_viewport_state",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Reports current viewport state and original tracking"
+}

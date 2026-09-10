@@ -1,0 +1,33 @@
+{
+  "tool": "run_responsive_test",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sizes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "width": {
+              "type": "number"
+            },
+            "height": {
+              "type": "number"
+            }
+          }
+        },
+        "description": "Custom viewport sequence"
+      },
+      "restore": {
+        "type": "boolean",
+        "description": "Restore original viewport afterwards (default true)"
+      }
+    }
+  },
+  "expectedBehavior": "Runs multi-viewport responsive test with restore"
+}

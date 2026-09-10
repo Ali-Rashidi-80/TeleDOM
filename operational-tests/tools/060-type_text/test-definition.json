@@ -1,0 +1,35 @@
+{
+  "tool": "type_text",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object",
+        "description": "Element target specifier"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Shorthand: CSS selector"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text to type"
+      },
+      "mode": {
+        "type": "string",
+        "enum": [
+          "append",
+          "replace",
+          "clear"
+        ],
+        "description": "Typing mode (default append)"
+      },
+      "waitForStabilization": {
+        "type": "boolean"
+      }
+    }
+  },
+  "expectedBehavior": "Types text with append mode into #search-input"
+}

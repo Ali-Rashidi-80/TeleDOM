@@ -1,0 +1,26 @@
+[
+  {
+    "snapshotId": "snap_mtuudxdo_1",
+    "timestamp": 1789003321404,
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "domLength": 4222,
+    "domHash": "c8b73284"
+  },
+  {
+    "snapshotId": "snap_mtuudxds_2",
+    "timestamp": 1789003321408,
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "domLength": 4222,
+    "domHash": "c8b73284"
+  },
+  {
+    "snapshotId": "snap_mtuudxht_3",
+    "timestamp": 1789003321553,
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "domLength": 4386,
+    "domHash": "feb1e736"
+  }
+]

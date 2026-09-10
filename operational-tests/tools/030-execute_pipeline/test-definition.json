@@ -1,0 +1,46 @@
+{
+  "tool": "execute_pipeline",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "steps": {
+        "type": "array",
+        "description": "Ordered array of actions to execute sequentially",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Optional step identifier"
+            },
+            "action": {
+              "type": "string",
+              "description": "Tool action name (e.g. reload_extension, set_extension_enabled, reload_tab, wait, capture_page_screenshot, get_live_dom_snapshot, interact_with_element)"
+            },
+            "params": {
+              "type": "object",
+              "description": "Parameters for this action"
+            },
+            "stopOnError": {
+              "type": "boolean",
+              "description": "Whether to abort subsequent steps if this step fails (default: true)"
+            }
+          },
+          "required": [
+            "action"
+          ]
+        }
+      },
+      "outputPath": {
+        "type": "string",
+        "description": "Optional file path to save consolidated JSON report of all pipeline steps"
+      }
+    },
+    "required": [
+      "steps"
+    ]
+  },
+  "expectedBehavior": "Executes a two-step interaction pipeline over the live DOM"
+}

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_114_generate_reconstruction_spec",
+  "method": "tools/call",
+  "params": {
+    "name": "generate_reconstruction_spec",
+    "arguments": {
+      "projectName": "op-project"
+    }
+  }
+}

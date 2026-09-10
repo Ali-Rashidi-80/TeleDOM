@@ -1,0 +1,51 @@
+{
+  "tool": "update_region_annotation",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      },
+      "regionId": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "comment": {
+        "type": "string"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "behavioralNotes": {
+        "type": "string"
+      },
+      "visualNotes": {
+        "type": "string"
+      },
+      "intendedChange": {
+        "type": "string"
+      },
+      "verification": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "projectName",
+      "regionId"
+    ]
+  },
+  "expectedBehavior": "Updates user fields of the latest region"
+}

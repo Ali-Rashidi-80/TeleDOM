@@ -1,0 +1,14 @@
+{
+  "selector": "#primary-action-btn",
+  "implicitRole": "button",
+  "name": "⚡ Run Analysis",
+  "nameSources": [
+    "text content"
+  ],
+  "value": "",
+  "states": [],
+  "focusable": true,
+  "tabIndex": 0,
+  "ariaAttributes": {},
+  "issues": []
+}

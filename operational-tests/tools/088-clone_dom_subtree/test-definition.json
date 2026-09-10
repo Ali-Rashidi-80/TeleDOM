@@ -1,0 +1,26 @@
+{
+  "tool": "clone_dom_subtree",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object",
+        "description": "Element to clone"
+      },
+      "parent": {
+        "type": "object",
+        "description": "Optional append target (defaults to original parent)"
+      },
+      "copyAttributes": {
+        "type": "boolean",
+        "description": "Copy attributes except id (default true)"
+      }
+    },
+    "required": [
+      "target"
+    ]
+  },
+  "expectedBehavior": "Clones subtree without duplicating ids"
+}

@@ -1,0 +1,21 @@
+{
+  "tool": "export_agent_package",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      },
+      "outputDir": {
+        "type": "string",
+        "description": "Output directory (default ./mcpdom_agent_packages/<name>)"
+      }
+    },
+    "required": [
+      "projectName"
+    ]
+  },
+  "expectedBehavior": "Exports self-contained agent package"
+}

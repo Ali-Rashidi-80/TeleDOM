@@ -1,0 +1,60 @@
+{
+  "selector": "#search-input",
+  "ancestors": [
+    {
+      "tag": "div",
+      "selector": "div",
+      "text": " ",
+      "childIndex": 1,
+      "siblingCount": 6,
+      "distance": 1
+    },
+    {
+      "tag": "section",
+      "selector": "#interactive-section",
+      "text": " ",
+      "childIndex": 1,
+      "siblingCount": 3,
+      "distance": 2
+    },
+    {
+      "tag": "main",
+      "selector": "#main-content",
+      "text": " ",
+      "childIndex": 1,
+      "siblingCount": 3,
+      "distance": 3
+    },
+    {
+      "tag": "body",
+      "selector": "body",
+      "text": " ",
+      "childIndex": 1,
+      "siblingCount": 2,
+      "distance": 4
+    },
+    {
+      "tag": "html",
+      "selector": "html",
+      "text": "",
+      "childIndex": 1,
+      "siblingCount": 0,
+      "distance": 5
+    }
+  ],
+  "siblings": [
+    {
+      "tag": "label",
+      "selector": "label",
+      "text": "Search Input:",
+      "position": "before",
+      "distance": 1
+    }
+  ],
+  "descendants": {
+    "count": 0,
+    "maxDepth": 1,
+    "tags": [],
+    "interactive": []
+  }
+}

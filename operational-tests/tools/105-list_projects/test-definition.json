@@ -1,0 +1,10 @@
+{
+  "tool": "list_projects",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Lists page analysis projects"
+}

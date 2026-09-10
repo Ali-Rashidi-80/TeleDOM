@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_115_export_agent_package",
+  "method": "tools/call",
+  "params": {
+    "name": "export_agent_package",
+    "arguments": {
+      "projectName": "op-project",
+      "outputDir": "./operational-test-scratch/agent-package-op"
+    }
+  }
+}

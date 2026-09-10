@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_023_focus_tab",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"focused\": true,\n  \"tabId\": 1,\n  \"url\": \"https://app.internal/dashboard\",\n  \"simulated\": true\n}"
+      }
+    ]
+  }
+}

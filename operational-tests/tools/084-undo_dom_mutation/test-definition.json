@@ -1,0 +1,10 @@
+{
+  "tool": "undo_dom_mutation",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Undoes last mutation or reports empty stack"
+}

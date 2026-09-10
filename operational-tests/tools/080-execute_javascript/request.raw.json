@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_080_execute_javascript",
+  "method": "tools/call",
+  "params": {
+    "name": "execute_javascript",
+    "arguments": {
+      "code": "return 1 + 1;"
+    }
+  }
+}

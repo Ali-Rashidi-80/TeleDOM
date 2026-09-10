@@ -1,0 +1,46 @@
+{
+  "tool": "compare_extension_states",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "extensionId": {
+        "type": "string",
+        "description": "Target Chrome extension ID"
+      },
+      "tabId": {
+        "type": "number",
+        "description": "Optional target Chrome tab ID (defaults to active tab)"
+      },
+      "waitDurationMs": {
+        "type": "number",
+        "description": "Wait time in ms after each reload for DOM to settle (default: 2500)"
+      },
+      "cleanDomPath": {
+        "type": "string",
+        "description": "File path to save clean native DOM snapshot HTML"
+      },
+      "injectedDomPath": {
+        "type": "string",
+        "description": "File path to save injected DOM snapshot HTML"
+      },
+      "cleanScreenshotPath": {
+        "type": "string",
+        "description": "File path to save clean native screenshot PNG"
+      },
+      "injectedScreenshotPath": {
+        "type": "string",
+        "description": "File path to save injected screenshot PNG"
+      },
+      "diffOutputPath": {
+        "type": "string",
+        "description": "File path to save JSON differential report"
+      }
+    },
+    "required": [
+      "extensionId"
+    ]
+  },
+  "expectedBehavior": "Captures and compares clean vs injected DOM state"
+}

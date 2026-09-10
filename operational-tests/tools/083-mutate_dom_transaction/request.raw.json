@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_083_mutate_dom_transaction",
+  "method": "tools/call",
+  "params": {
+    "name": "mutate_dom_transaction",
+    "arguments": {
+      "mode": "begin"
+    }
+  }
+}

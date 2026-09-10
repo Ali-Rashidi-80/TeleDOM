@@ -1,0 +1,17 @@
+{
+  "tool": "delete_command_recording",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "recordingId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "recordingId"
+    ]
+  },
+  "expectedBehavior": "Deletes recording by name or reports not found"
+}

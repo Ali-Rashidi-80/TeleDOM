@@ -1,0 +1,23 @@
+{
+  "snapshotIdA": "snap_mtuudxds_2",
+  "snapshotIdB": "snap_mtuudxht_3",
+  "identical": false,
+  "changes": [
+    {
+      "field": "domLength",
+      "before": 4222,
+      "after": 4386
+    },
+    {
+      "field": "domHash",
+      "before": "c8b73284",
+      "after": "feb1e736"
+    }
+  ],
+  "domDelta": {
+    "beforeLength": 4222,
+    "afterLength": 4386,
+    "delta": 164
+  },
+  "summary": "2 field(s) changed; DOM size +164 bytes."
+}

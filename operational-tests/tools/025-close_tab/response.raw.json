@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_025_close_tab",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"closed\": true,\n  \"closedTab\": {\n    \"id\": 1,\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\"\n  },\n  \"simulated\": true,\n  \"remaining\": 0\n}"
+      }
+    ]
+  }
+}

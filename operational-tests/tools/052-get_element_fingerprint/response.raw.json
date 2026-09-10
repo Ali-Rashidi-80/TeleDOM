@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_052_get_element_fingerprint",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"fingerprintId\": \"fp_a7b39227\",\n  \"hash\": \"a7b39227\",\n  \"tagHierarchy\": [\n    \"main\",\n    \"section\",\n    \"div\",\n    \"input\"\n  ],\n  \"stableAttributes\": {\n    \"id\": \"search-input\",\n    \"type\": \"text\",\n    \"placeholder\": \"Type here...\"\n  },\n  \"meaningfulText\": \"\",\n  \"classes\": [\n    \"input-field\"\n  ],\n  \"role\": \"textbox\",\n  \"dimensions\": {\n    \"width\": 0,\n    \"height\": 0\n  },\n  \"ancestorPattern\": \"main>section>div>input\",\n  \"descendantPattern\": \"\",\n  \"volatilityRisk\": \"low\",\n  \"volatilityReasons\": []\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "rules": [
+    {
+      "ruleId": "red_key_password",
+      "kind": "key-pattern",
+      "pattern": "password|passwd|pwd",
+      "description": "Keys containing password/passwd/pwd",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_key_token",
+      "kind": "key-pattern",
+      "pattern": "token|jwt|bearer|auth|session.?id|secret|api.?key|client.?secret",
+      "description": "Keys containing token/jwt/auth/session-id/secret/api-key",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_key_credential",
+      "kind": "key-pattern",
+      "pattern": "credential|login|user.?pass|otp|2fa|mfa|verification",
+      "description": "Keys containing credential/login/otp/2fa/verification",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_key_payment",
+      "kind": "key-pattern",
+      "pattern": "card|payment|billing|iban|cvv|cvc|pan",
+      "description": "Keys containing card/payment/billing/iban/cvv",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_key_personal",
+      "kind": "key-pattern",
+      "pattern": "ssn|social.?security|national.?id|passport|tax.?id",
+      "description": "Keys containing personal identifier patterns",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_val_jwt",
+      "kind": "value-pattern",
+      "pattern": "eyJ[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+",
+      "description": "JWT-shaped tokens",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_val_bearer",
+      "kind": "value-pattern",
+      "pattern": "bearer\\s+[A-Za-z0-9._-]+",
+      "description": "Bearer tokens",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_val_long_hex",
+      "kind": "value-pattern",
+      "pattern": "\\b[a-f0-9]{32,}\\b",
+      "description": "32+ char hex strings (session/API ids)",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_val_sk",
+      "kind": "value-pattern",
+      "pattern": "\\b(sk|pk|rk)_[A-Za-z0-9_]{20,}\\b",
+      "description": "Stripe-style secret keys (sk_live_…)",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_attr_input_password",
+      "kind": "attribute-name",
+      "pattern": "value",
+      "description": "value attributes on password inputs handled by PrivacyEngine maskValue",
+      "enabled": true,
+      "userAdded": false
+    },
+    {
+      "ruleId": "red_attr_secret",
+      "kind": "attribute-name",
+      "pattern": "data-secret|data-token|data-api-key|secret|access.?token",
+      "description": "Secret-carrying attributes",
+      "enabled": true,
+      "userAdded": false
+    }
+  ],
+  "exclusions": [
+    {
+      "exclusionId": "excl_mcpdom_overlay",
+      "selector": "[data-mcpdom-internal], [data-forensic-internal], #forensic-recorder-floating-host, #forensic-inspect-highlighter",
+      "reason": "MCPDOM-injected UI must never contaminate captured DOM (§68 clean capture)",
+      "userAdded": false
+    },
+    {
+      "exclusionId": "excl_mcpdom_ids",
+      "selector": "[id^=\"forensic-\"], [id^=\"mcpdom-\"]",
+      "reason": "MCPDOM-namespaced nodes",
+      "userAdded": false
+    }
+  ],
+  "stubMode": true
+}

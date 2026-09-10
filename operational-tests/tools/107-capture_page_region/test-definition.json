@@ -1,0 +1,65 @@
+{
+  "tool": "capture_page_region",
+  "category": "live_browser_control",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string",
+        "description": "Target project name"
+      },
+      "target": {
+        "type": "object",
+        "description": "Element target specifier"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Shorthand: CSS selector"
+      },
+      "name": {
+        "type": "string",
+        "description": "User override name (auto name preserved)"
+      },
+      "description": {
+        "type": "string",
+        "description": "User description"
+      },
+      "comment": {
+        "type": "string",
+        "description": "User comment, e.g. \"make this collapsible\""
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "behavioralNotes": {
+        "type": "string"
+      },
+      "visualNotes": {
+        "type": "string"
+      },
+      "intendedChange": {
+        "type": "string",
+        "description": "What the user wants changed"
+      },
+      "verification": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Success conditions"
+      },
+      "screenshot": {
+        "type": "boolean",
+        "description": "Capture a region screenshot (default false)"
+      }
+    },
+    "required": [
+      "projectName"
+    ]
+  },
+  "expectedBehavior": "Captures region with OBSERVED/USER/INTENDED/VERIFICATION separation"
+}

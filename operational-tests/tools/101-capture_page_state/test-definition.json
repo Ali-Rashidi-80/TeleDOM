@@ -1,0 +1,10 @@
+{
+  "tool": "capture_page_state",
+  "category": "live_browser_control",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Captures page state snapshot as comparison anchor"
+}

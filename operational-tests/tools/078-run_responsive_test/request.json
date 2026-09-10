@@ -1,0 +1,14 @@
+{
+  "sizes": [
+    {
+      "label": "sm",
+      "width": 400,
+      "height": 700
+    },
+    {
+      "label": "lg",
+      "width": 1200,
+      "height": 800
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_104_create_page_project",
+  "method": "tools/call",
+  "params": {
+    "name": "create_page_project",
+    "arguments": {
+      "name": "op-project",
+      "description": "Operational project"
+    }
+  }
+}

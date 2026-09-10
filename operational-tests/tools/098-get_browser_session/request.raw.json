@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_098_get_browser_session",
+  "method": "tools/call",
+  "params": {
+    "name": "get_browser_session",
+    "arguments": {}
+  }
+}

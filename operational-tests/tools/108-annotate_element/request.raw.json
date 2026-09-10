@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_108_annotate_element",
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_element",
+    "arguments": {
+      "projectName": "op-project",
+      "selector": "#interactive-section",
+      "comment": "annotate"
+    }
+  }
+}

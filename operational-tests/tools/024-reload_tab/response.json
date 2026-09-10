@@ -1,0 +1,8 @@
+{
+  "reloaded": true,
+  "mode": "soft",
+  "simulated": true,
+  "url": "https://app.internal/dashboard",
+  "title": "MCP Operational Acceptance DOM Fixture",
+  "note": "Node simulation context: DOM fixture retained; no real navigation occurs."
+}

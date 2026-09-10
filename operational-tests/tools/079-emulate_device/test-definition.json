@@ -1,0 +1,18 @@
+{
+  "tool": "emulate_device",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "device": {
+        "type": "string",
+        "description": "Device profile name"
+      }
+    },
+    "required": [
+      "device"
+    ]
+  },
+  "expectedBehavior": "Emulates device profile with honest UA reporting"
+}

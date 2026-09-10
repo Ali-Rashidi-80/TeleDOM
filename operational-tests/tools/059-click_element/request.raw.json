@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_059_click_element",
+  "method": "tools/call",
+  "params": {
+    "name": "click_element",
+    "arguments": {
+      "selector": "#primary-action-btn",
+      "mode": "normal"
+    }
+  }
+}

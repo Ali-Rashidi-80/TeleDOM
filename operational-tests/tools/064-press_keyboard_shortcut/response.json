@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "keys": [
+    "Enter"
+  ],
+  "targetSelector": "body",
+  "eventsFired": [
+    "keydown:Enter",
+    "keyup:Enter"
+  ]
+}

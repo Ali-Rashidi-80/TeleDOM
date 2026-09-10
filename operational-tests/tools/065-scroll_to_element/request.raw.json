@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_065_scroll_to_element",
+  "method": "tools/call",
+  "params": {
+    "name": "scroll_to_element",
+    "arguments": {
+      "selector": "#scroll-target"
+    }
+  }
+}

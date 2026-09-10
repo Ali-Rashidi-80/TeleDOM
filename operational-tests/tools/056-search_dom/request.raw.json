@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_056_search_dom",
+  "method": "tools/call",
+  "params": {
+    "name": "search_dom",
+    "arguments": {
+      "query": "search"
+    }
+  }
+}

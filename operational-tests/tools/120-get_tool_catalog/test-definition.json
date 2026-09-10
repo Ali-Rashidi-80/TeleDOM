@@ -1,0 +1,15 @@
+{
+  "tool": "get_tool_catalog",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "group": {
+        "type": "string",
+        "description": "Optional group filter (see get_tool_groups)"
+      }
+    }
+  },
+  "expectedBehavior": "Returns full tool catalog with discovery metadata"
+}

@@ -1,0 +1,1 @@
+[EXEC] scroll_page executed via stdio JSON-RPC at 2026-09-10T01:22:01.082Z in 4ms

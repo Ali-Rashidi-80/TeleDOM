@@ -1,0 +1,10 @@
+{
+  "tool": "get_redaction_rules",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Returns redaction rules and capture exclusions"
+}

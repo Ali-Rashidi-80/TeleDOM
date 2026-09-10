@@ -1,0 +1,19 @@
+{
+  "tool": "generate_element_target",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object",
+        "description": "Element target specifier (selector, xpath, nodeId, or selectedElementRef)"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Shorthand: CSS selector for the target element"
+      }
+    }
+  },
+  "expectedBehavior": "Builds multi-strategy TARGET with ranked candidates and confidence"
+}

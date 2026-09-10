@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_081_execute_js_and_capture_changes",
+  "method": "tools/call",
+  "params": {
+    "name": "execute_js_and_capture_changes",
+    "arguments": {
+      "code": "return document.title;"
+    }
+  }
+}

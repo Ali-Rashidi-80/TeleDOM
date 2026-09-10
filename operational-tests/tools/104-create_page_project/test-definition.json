@@ -1,0 +1,29 @@
+{
+  "tool": "create_page_project",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Project name (folder name)"
+      },
+      "description": {
+        "type": "string"
+      },
+      "url": {
+        "type": "string",
+        "description": "Page URL (default: live page URL)"
+      },
+      "title": {
+        "type": "string",
+        "description": "Page title (default: live page title)"
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "expectedBehavior": "Creates project folder with manifest and instructions"
+}

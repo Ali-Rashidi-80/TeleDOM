@@ -1,0 +1,21 @@
+{
+  "recordingId": "rec_mtuudxg5_1",
+  "name": "op-recording",
+  "createdAt": 1789003321493,
+  "updatedAt": 1789003321494,
+  "commandCount": 1,
+  "commands": [
+    {
+      "index": 1,
+      "commandId": "rcmd_1_mtuudxg6",
+      "tool": "record_commands_start",
+      "args": {
+        "name": "op-recording"
+      },
+      "recordedAt": 1789003321494,
+      "outcome": "SUCCESS",
+      "resultSummary": "object with keys [recordingId, name, active, note]"
+    }
+  ],
+  "tags": []
+}

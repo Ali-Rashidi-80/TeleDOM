@@ -1,0 +1,21 @@
+{
+  "tool": "delete_region_annotation",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string"
+      },
+      "regionId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "projectName",
+      "regionId"
+    ]
+  },
+  "expectedBehavior": "Deletes the most recently captured region annotation"
+}

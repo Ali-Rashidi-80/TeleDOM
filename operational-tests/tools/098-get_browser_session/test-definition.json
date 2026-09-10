@@ -1,0 +1,10 @@
+{
+  "tool": "get_browser_session",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Returns coherent session model summary"
+}

@@ -1,0 +1,18 @@
+{
+  "tool": "get_command_recording",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "recordingId": {
+        "type": "string",
+        "description": "Recording identifier"
+      }
+    },
+    "required": [
+      "recordingId"
+    ]
+  },
+  "expectedBehavior": "Loads recording or reports NOT_FOUND honestly"
+}

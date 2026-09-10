@@ -1,0 +1,4148 @@
+[
+  {
+    "index": 1,
+    "name": "list_sessions",
+    "category": "historical",
+    "description": "List all recorded browser forensic debugging sessions with metadata, timestamps, and stats.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of sessions to return"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 2,
+    "name": "get_session",
+    "category": "historical",
+    "description": "Retrieve full metadata, capabilities, health status, and statistics for a specific debugging session.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Unique identifier of the recording session"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 3,
+    "name": "export_session",
+    "category": "historical",
+    "description": "Export a complete recording session as a portable, self-contained JSON bundle.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Unique identifier of the recording session"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 4,
+    "name": "import_session",
+    "category": "historical",
+    "description": "Import a recording session bundle from raw JSON string.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "bundleJson": {
+          "type": "string",
+          "description": "Raw JSON string of the session bundle"
+        }
+      },
+      "required": [
+        "bundleJson"
+      ]
+    },
+    "requiredArguments": [
+      "bundleJson"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 5,
+    "name": "delete_session",
+    "category": "historical",
+    "description": "Delete a recording session from storage.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Unique identifier of the recording session"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 6,
+    "name": "get_timeline",
+    "category": "historical",
+    "description": "Retrieve summary breakdown of events across the session timeline, including event categories and significant milestones.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 7,
+    "name": "get_events",
+    "category": "historical",
+    "description": "Query recorded events with filtering by category (DOM, USER, ERROR, CONSOLE, NETWORK, etc.), type, timestamp range, target node, or search query.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "category": {
+          "type": "string",
+          "description": "Filter by category (DOM, USER, ERROR, CONSOLE, NETWORK, NAVIGATION, etc.)"
+        },
+        "type": {
+          "type": "string",
+          "description": "Filter by exact event type (e.g. DOM_MUTATION_ADD, RUNTIME_ERROR, USER_CLICK)"
+        },
+        "fromTimestamp": {
+          "type": "number",
+          "description": "Start timestamp in milliseconds"
+        },
+        "toTimestamp": {
+          "type": "number",
+          "description": "End timestamp in milliseconds"
+        },
+        "targetNodeId": {
+          "type": "number",
+          "description": "Filter by affected LogicalNodeId"
+        },
+        "targetSelector": {
+          "type": "string",
+          "description": "Filter by CSS selector substring"
+        },
+        "searchQuery": {
+          "type": "string",
+          "description": "Search term inside event payload"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max events to return (default: 50)"
+        },
+        "offset": {
+          "type": "number",
+          "description": "Offset for pagination"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 8,
+    "name": "get_events_around",
+    "category": "historical",
+    "description": "Retrieve a focused contextual window of events occurring immediately before and after a specific timestamp or event ID.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Target timestamp in milliseconds"
+        },
+        "eventId": {
+          "type": "string",
+          "description": "Target event ID"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Window radius in milliseconds (default: 300ms)"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 9,
+    "name": "get_dom_state",
+    "category": "historical",
+    "description": "Reconstruct the complete DOM snapshot at an arbitrary timestamp or event ID using checkpoint delta replay.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Target timestamp in milliseconds"
+        },
+        "eventId": {
+          "type": "string",
+          "description": "Target event ID"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "html",
+            "json_summary",
+            "full_nodes"
+          ],
+          "description": "Output format (default: html)"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 10,
+    "name": "get_dom_node",
+    "category": "historical",
+    "description": "Inspect detailed properties of a specific DOM node at a given timestamp (tag, attributes, text, parent, children, visibility state).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Timestamp in milliseconds"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId to inspect"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector query if nodeId is unknown"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 11,
+    "name": "get_dom_subtree",
+    "category": "historical",
+    "description": "Reconstruct and extract the HTML of a specific subtree (e.g. #app or .gpt-panel) at a given timestamp.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Timestamp in milliseconds"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for the root of the subtree"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId for the root of the subtree"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 12,
+    "name": "diff_dom",
+    "category": "historical",
+    "description": "Compare two DOM states between timestamp T1 and T2 (or event E1 and E2) and return structured additions, removals, moves, attribute, style, and text changes.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "t1": {
+          "type": "number",
+          "description": "Start timestamp in milliseconds"
+        },
+        "t2": {
+          "type": "number",
+          "description": "End timestamp in milliseconds"
+        },
+        "e1": {
+          "type": "string",
+          "description": "Start event ID (alternative to t1)"
+        },
+        "e2": {
+          "type": "string",
+          "description": "End event ID (alternative to t2)"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 13,
+    "name": "trace_element",
+    "category": "historical",
+    "description": "Trace the entire chronological lifecycle of a DOM element from creation, mounting, mutations, style changes to unmounting/removal.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId of the element"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector hint for the element"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 14,
+    "name": "find_disappearing_elements",
+    "category": "historical",
+    "description": "Automatically scan the session and identify all elements that existed temporarily and were subsequently removed or hidden.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "maxLifespanMs": {
+          "type": "number",
+          "description": "Maximum lifespan in ms to consider (default: 5000ms)"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 15,
+    "name": "why_did_element_disappear",
+    "category": "historical",
+    "description": "Forensic root-cause diagnosis for why an injected or existing UI element disappeared. Pinpoints removal mechanism, ancestor container destruction, style changes, and correlated errors/network triggers.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "target": {
+          "type": "string",
+          "description": "CSS selector or LogicalNodeId of the target element"
+        }
+      },
+      "required": [
+        "sessionId",
+        "target"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "target"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 16,
+    "name": "get_diagnostics",
+    "category": "historical",
+    "description": "Query recorded console messages, runtime errors, and unhandled promise rejections with stack traces.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "all",
+            "error",
+            "warn",
+            "info",
+            "log"
+          ],
+          "description": "Log level filter"
+        },
+        "fromTimestamp": {
+          "type": "number",
+          "description": "Start timestamp"
+        },
+        "toTimestamp": {
+          "type": "number",
+          "description": "End timestamp"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 17,
+    "name": "get_network_events",
+    "category": "historical",
+    "description": "Query recorded network requests and responses correlated with timing and duration.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "statusFilter": {
+          "type": "string",
+          "enum": [
+            "all",
+            "errors_only",
+            "success_only"
+          ],
+          "description": "HTTP status filter"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 18,
+    "name": "get_screenshots",
+    "category": "historical",
+    "description": "List visual checkpoints and screenshot checkpoints captured during the recording session.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 19,
+    "name": "annotate_session",
+    "category": "historical",
+    "description": "Add an investigative annotation or hypothesis to the session timeline.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        },
+        "label": {
+          "type": "string",
+          "description": "Short title for annotation"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Detailed investigative note or root-cause finding"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "Optional associated LogicalNodeId"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "NOTE",
+            "ROOT_CAUSE",
+            "HYPOTHESIS",
+            "WARNING",
+            "VERIFIED"
+          ]
+        }
+      },
+      "required": [
+        "sessionId",
+        "label",
+        "comment"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "label",
+      "comment"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 20,
+    "name": "get_annotations",
+    "category": "historical",
+    "description": "Retrieve all human and AI annotations created for a session.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 21,
+    "name": "get_recording_health",
+    "category": "historical",
+    "description": "Run an automated integrity audit on a recording session to check sequence monotonicity, missing nodes, and capability health.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 22,
+    "name": "list_tabs",
+    "category": "historical",
+    "description": "List all open Chrome browser tabs across windows with tab ID, title, URL, active state, window ID, status, and recording status.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 23,
+    "name": "focus_tab",
+    "category": "historical",
+    "description": "Switch active focus to a specific browser tab by tabId and bring its window to the foreground.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "The unique Chrome tab ID to activate and focus"
+        }
+      },
+      "required": [
+        "tabId"
+      ]
+    },
+    "requiredArguments": [
+      "tabId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 24,
+    "name": "reload_tab",
+    "category": "historical",
+    "description": "Reload a specific browser tab or the active tab with optional hard refresh (bypassCache).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Target Chrome tab ID (defaults to currently active tab if omitted)"
+        },
+        "bypassCache": {
+          "type": "boolean",
+          "description": "Whether to ignore cached assets and perform a hard reload (default: false)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 25,
+    "name": "close_tab",
+    "category": "historical",
+    "description": "Close a specific browser tab by tabId, URL substring, or pattern (e.g., \"meet\", \"calendar\").",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Target Chrome tab ID to close"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL substring or pattern of tabs to close (e.g. \"meet.google.com\")"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 26,
+    "name": "open_tab",
+    "category": "historical",
+    "description": "Open a new browser tab with the specified URL, meeting link, web page, or local file path in Chrome.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL, web link, meeting link, or file:// path to open"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Whether the new tab should become the active and focused tab (default: true)"
+        },
+        "pinned": {
+          "type": "boolean",
+          "description": "Whether the tab should be pinned (default: false)"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "requiredArguments": [
+      "url"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 27,
+    "name": "list_extensions",
+    "category": "historical",
+    "description": "List all installed Chrome extensions with ID, name, version, enabled status, installation type, and permissions.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 28,
+    "name": "set_extension_enabled",
+    "category": "historical",
+    "description": "Enable or disable a specific Chrome extension by ID (e.g. turn off extension to observe native clean UI, then turn back on).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string",
+          "description": "The Chrome extension ID to enable or disable"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "True to enable the extension, false to disable it"
+        }
+      },
+      "required": [
+        "extensionId",
+        "enabled"
+      ]
+    },
+    "requiredArguments": [
+      "extensionId",
+      "enabled"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 29,
+    "name": "toggle_extension",
+    "category": "historical",
+    "description": "Toggle the enabled status of a specific Chrome extension by ID.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string",
+          "description": "The Chrome extension ID to toggle"
+        }
+      },
+      "required": [
+        "extensionId"
+      ]
+    },
+    "requiredArguments": [
+      "extensionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 30,
+    "name": "execute_pipeline",
+    "category": "historical",
+    "description": "Execute a batch sequence of browser and extension actions in one call (e.g. reload extension, wait, reload tab, take screenshot directly to file, dump DOM to file) and aggregate all results.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "description": "Ordered array of actions to execute sequentially",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Optional step identifier"
+              },
+              "action": {
+                "type": "string",
+                "description": "Tool action name (e.g. reload_extension, set_extension_enabled, reload_tab, wait, capture_page_screenshot, get_live_dom_snapshot, interact_with_element)"
+              },
+              "params": {
+                "type": "object",
+                "description": "Parameters for this action"
+              },
+              "stopOnError": {
+                "type": "boolean",
+                "description": "Whether to abort subsequent steps if this step fails (default: true)"
+              }
+            },
+            "required": [
+              "action"
+            ]
+          }
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Optional file path to save consolidated JSON report of all pipeline steps"
+        }
+      },
+      "required": [
+        "steps"
+      ]
+    },
+    "requiredArguments": [
+      "steps"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 31,
+    "name": "compare_extension_states",
+    "category": "historical",
+    "description": "Automatically perform a complete before/after comparative forensic audit: disables extension, reloads and captures clean native state/screenshot, enables extension, reloads and captures injected state/screenshot, and returns a detailed differential analysis.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string",
+          "description": "Target Chrome extension ID"
+        },
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to active tab)"
+        },
+        "waitDurationMs": {
+          "type": "number",
+          "description": "Wait time in ms after each reload for DOM to settle (default: 2500)"
+        },
+        "cleanDomPath": {
+          "type": "string",
+          "description": "File path to save clean native DOM snapshot HTML"
+        },
+        "injectedDomPath": {
+          "type": "string",
+          "description": "File path to save injected DOM snapshot HTML"
+        },
+        "cleanScreenshotPath": {
+          "type": "string",
+          "description": "File path to save clean native screenshot PNG"
+        },
+        "injectedScreenshotPath": {
+          "type": "string",
+          "description": "File path to save injected screenshot PNG"
+        },
+        "diffOutputPath": {
+          "type": "string",
+          "description": "File path to save JSON differential report"
+        }
+      },
+      "required": [
+        "extensionId"
+      ]
+    },
+    "requiredArguments": [
+      "extensionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 32,
+    "name": "reload_extension",
+    "category": "historical",
+    "description": "Reload an extension under development. If extensionId is provided, toggles and reloads that extension. If omitted, reloads the Forensic Recorder extension itself.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string",
+          "description": "Extension ID to reload (defaults to current extension if omitted)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 33,
+    "name": "get_tab_console_logs",
+    "category": "historical",
+    "description": "Retrieve live intercepted console logs, uncaught JavaScript errors, and unhandled promise rejections for a specific tab or the active tab.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Target Chrome tab ID (defaults to currently active tab if omitted)"
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "all",
+            "error",
+            "warn",
+            "info",
+            "log",
+            "debug"
+          ],
+          "description": "Filter by log severity level (default: all)"
+        },
+        "searchQuery": {
+          "type": "string",
+          "description": "Filter logs containing this text or source"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of recent log entries to return (default: 100)"
+        },
+        "clearAfterRead": {
+          "type": "boolean",
+          "description": "Clear the internal log buffer after reading (default: false)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 34,
+    "name": "get_tab_network_requests",
+    "category": "historical",
+    "description": "Retrieve live intercepted network requests and responses (Fetch, XHR) for a specific tab or the active tab, including method, URL, status, duration, and errors.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Target Chrome tab ID (defaults to currently active tab if omitted)"
+        },
+        "method": {
+          "type": "string",
+          "description": "Filter by HTTP method (GET, POST, PUT, DELETE, etc.)"
+        },
+        "status": {
+          "type": "number",
+          "description": "Filter by HTTP status code (e.g. 200, 404, 500)"
+        },
+        "onlyErrors": {
+          "type": "boolean",
+          "description": "Return only failed requests or HTTP status >= 400 (default: false)"
+        },
+        "searchQuery": {
+          "type": "string",
+          "description": "Filter requests by URL substring"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of recent network requests to return (default: 100)"
+        },
+        "clearAfterRead": {
+          "type": "boolean",
+          "description": "Clear the internal network buffer after reading (default: false)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 35,
+    "name": "inspect_live_page",
+    "category": "live_browser_control",
+    "description": "Inspect the current live browser page state, including URL, title, viewport dimensions, scroll positions, readyState, active and focused elements.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 36,
+    "name": "inspect_live_element",
+    "category": "live_browser_control",
+    "description": "Deeply inspect a live DOM element on the active browser page by CSS selector, LogicalNodeId, or selectedElementRef, returning bounds, computed styles, visibility, attributes, state, role, aria, and parent context.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the target element"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId of the element if recorded"
+        },
+        "selectedElementRef": {
+          "type": "string",
+          "description": "Reference token of the last selected element"
+        },
+        "xpath": {
+          "type": "string",
+          "description": "XPath expression for the element"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 37,
+    "name": "get_selected_element",
+    "category": "live_browser_control",
+    "description": "Retrieve the DOM element visually selected by the user via Ctrl + Shift + Mouse Click in the live browser.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": true,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 38,
+    "name": "start_element_picker",
+    "category": "live_browser_control",
+    "description": "Activate the interactive visual element picker mode in the live browser with hover highlighting and click selection.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "highlightColor": {
+          "type": "string",
+          "description": "Hex color for hover highlighter (default: #0ea5e9)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 39,
+    "name": "stop_element_picker",
+    "category": "live_browser_control",
+    "description": "Deactivate the visual element picker mode in the browser and restore normal cursor and interaction state.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 40,
+    "name": "capture_page_screenshot",
+    "category": "live_browser_control",
+    "description": "Capture a screenshot of the visible browser page viewport with temporal, scroll, and viewport metadata. When outputPath is provided, saves decoded image directly to disk.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "png",
+            "jpeg"
+          ],
+          "description": "Image format (default: png)"
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Optional file path to save decoded PNG/JPEG image directly to disk"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 41,
+    "name": "capture_element_screenshot",
+    "category": "live_browser_control",
+    "description": "Capture an element-specific screenshot bounded to the target element exact geometry and device pixel ratio. When outputPath is provided, saves decoded image directly to disk.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Optional file path to save decoded element PNG/JPEG image directly to disk"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the target element"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId of the target element"
+        },
+        "selectedElementRef": {
+          "type": "string",
+          "description": "Selected element reference token"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 42,
+    "name": "interact_with_element",
+    "category": "live_browser_control",
+    "description": "Perform an interaction (click, double_click, right_click, hover, focus, blur, type, clear, press_key, select_option, scroll_into_view, scroll) on a live element and return before/after state and effect measurements.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "click",
+            "double_click",
+            "right_click",
+            "hover",
+            "focus",
+            "blur",
+            "type",
+            "clear",
+            "press_key",
+            "select_option",
+            "scroll_into_view",
+            "scroll"
+          ],
+          "description": "The user action to perform"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the target element"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId of the target element"
+        },
+        "selectedElementRef": {
+          "type": "string",
+          "description": "Selected element reference token"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text string for type action"
+        },
+        "key": {
+          "type": "string",
+          "description": "Key name for press_key action (e.g. Enter, Escape, Tab, ArrowDown)"
+        },
+        "optionValue": {
+          "type": "string",
+          "description": "Value or label for select_option action"
+        },
+        "scrollDelta": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "description": "Scroll deltas for scroll action"
+        },
+        "waitForStabilization": {
+          "type": "boolean",
+          "description": "Wait for DOM and network stabilization after interaction (default: true)"
+        },
+        "stabilizationTimeoutMs": {
+          "type": "number",
+          "description": "Max wait time in milliseconds (default: 300ms)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "requiredArguments": [
+      "action"
+    ],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 43,
+    "name": "start_element_observation",
+    "category": "live_browser_control",
+    "description": "Start focused continuous recording and observation around a target element and its subtree/ancestors.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the target element"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId of the target element"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": true,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 44,
+    "name": "stop_element_observation",
+    "category": "live_browser_control",
+    "description": "Stop focused element observation and assemble a complete correlation bundle with mutations, diagnostics, network activity, and root-cause analysis.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": true,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 45,
+    "name": "get_live_dom_snapshot",
+    "category": "live_browser_control",
+    "description": "Capture the current live virtual DOM state snapshot of the active or specified browser tab in HTML or structured JSON format.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "html",
+            "json"
+          ],
+          "description": "Output format (default: html)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 46,
+    "name": "get_live_dom_subtree",
+    "category": "live_browser_control",
+    "description": "Reconstruct and extract the live HTML or node structure of a specific subtree on the active or specified browser tab.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the subtree root"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId of the subtree root"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 47,
+    "name": "get_element_visual_state",
+    "category": "live_browser_control",
+    "description": "Inspect detailed visual layout, occlusion, clipping, opacity, z-index, and viewport visibility for a live element.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional target Chrome tab ID (defaults to currently active tab)"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the target element"
+        },
+        "nodeId": {
+          "type": "number",
+          "description": "LogicalNodeId of the target element"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 48,
+    "name": "generate_element_target",
+    "category": "historical",
+    "description": "Build the canonical multi-strategy TARGET object for an element: ranked selector candidates with confidence, xpath, DOM path, text/attribute/structural fingerprints and bounds. Use before storing or acting on elements to maximize targeting resilience. Input: target (selector/xpath/selectedElementRef). Output: TARGET with confidence in [0,1]. Fails with TARGET_NOT_FOUND when no strategy resolves.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier (selector, xpath, nodeId, or selectedElementRef)"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector for the target element"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 49,
+    "name": "recover_selector",
+    "category": "historical",
+    "description": "Recover a failed element selector via fingerprint matching: inspects the previous target snapshot, searches candidate matches, scores them, and attempts SAFE recovery (refuses below 0.62 confidence or ambiguous matches). Input: selector + snapshot (tag, text, classes, stableAttributes, fingerprintHash, parentSelector). Output: RecoveryOutcome with alternatives and diagnostics. Side effect: none (read-only diagnosis).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "The failing CSS selector"
+        },
+        "snapshot": {
+          "type": "object",
+          "description": "Previous target snapshot evidence (from generate_element_target or a region annotation)"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 50,
+    "name": "diagnose_selector_failure",
+    "category": "historical",
+    "description": "Diagnose WHY a selector fails: syntax validity, match count, relaxation attempts that work, and human-readable diagnosis. Complements recover_selector (which attempts to fix). Input: selector. Output: validity, matches, closest working selectors, diagnosis steps.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "The selector to diagnose"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 51,
+    "name": "get_element_ancestry",
+    "category": "historical",
+    "description": "Analyze element ancestry: ancestors chain (tag, selector, role, text, child index, sibling count, distance), nearby siblings (before/after with distance), and descendant summary (count, max depth, tags, interactive descendants). Input: target/selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 52,
+    "name": "get_element_fingerprint",
+    "category": "historical",
+    "description": "Compute the structural DOM fingerprint of an element: stable hash, tag hierarchy, stable attributes, meaningful text, class list, role, dimensions, ancestor/descendant patterns, plus a volatility risk assessment with reasons. Use for cross-navigation element identity. Input: target/selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 53,
+    "name": "get_element_relationships",
+    "category": "historical",
+    "description": "Build the element relationship graph: self, parents (up to 4 levels), children and siblings as nodes with edges (parent-of, contains, sibling-of). Use to understand page region architecture around a target. Input: target/selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 54,
+    "name": "get_element_accessibility",
+    "category": "historical",
+    "description": "Extract accessibility metadata: explicit/implicit role, accessible name with sources, description, value, states, heading level, focusability, tabIndex, all aria-* attributes, and detected a11y issues. Input: target/selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 55,
+    "name": "get_computed_style",
+    "category": "historical",
+    "description": "Extract computed CSS style properties for an element. Input: target/selector + optional properties list (defaults to a layout-relevant set). Output: property→value map. Fails with STYLE_UNAVAILABLE when getComputedStyle is not exposed (rare).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "CSS property names to extract"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 56,
+    "name": "search_dom",
+    "category": "historical",
+    "description": "Search the DOM by text, tag and attribute patterns with scored results (selector, role, text, visibility, bounds). The fastest way to find elements without knowing selectors. Input: query (required), optional tag, attr, attrValue, limit. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search text (matched against text, tags and attributes)"
+        },
+        "tag": {
+          "type": "string",
+          "description": "Restrict to tag name"
+        },
+        "attr": {
+          "type": "string",
+          "description": "Require this attribute name"
+        },
+        "attrValue": {
+          "type": "string",
+          "description": "Attribute value substring filter"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max results (default 50, max 200)"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "requiredArguments": [
+      "query"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 57,
+    "name": "analyze_dom",
+    "category": "historical",
+    "description": "Run a named DOM analyzer: analyze_forms, extract_links, analyze_media, get_css_variables, analyze_fonts, extract_color_palette, detect_zindex_conflicts, detect_layout_issues, census_interactive_elements, detect_semantic_elements, scan_accessibility_issues, detect_dead_click_targets, inventory_animations, map_frame_tree, inventory_shadow_roots, inspect_page_storage, get_performance_metrics, extract_seo_metadata, extract_structured_data, extract_tables, extract_lists, analyze_page_content, inventory_ctas, detect_focus_traps, infer_responsive_breakpoints, get_selection_state. Input: analyzer (required) + analyzer-specific options. Output: structured analysis with count, items, warnings.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "analyzer": {
+          "type": "string",
+          "description": "Analyzer name (see tool description for the full list)"
+        },
+        "query": {
+          "type": "string",
+          "description": "Optional search query (search_dom)"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Optional result cap"
+        }
+      },
+      "required": [
+        "analyzer"
+      ]
+    },
+    "requiredArguments": [
+      "analyzer"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 58,
+    "name": "get_page_blueprint",
+    "category": "historical",
+    "description": "Generate a page blueprint: major sections with bounds and roles, hierarchy tree, key interactive elements, repeated components (patterns with occurrence counts), layout relationships and semantic regions. The architectural map for page understanding. Input: projectName (optional — generated in the live DOM otherwise). Output: PageBlueprint.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string",
+          "description": "Optional project name to persist the blueprint"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 59,
+    "name": "click_element",
+    "category": "historical",
+    "description": "Production-grade click with explicit mode: normal (synthetic pointer event sequence), double, right, or human-like (movement trajectory + click delay from the active interaction profile). Records which mode was actually used. Input: target/selector, mode, waitForStabilization. Output: InteractionResult with before/after state and measured effects.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "double",
+            "right",
+            "programmatic",
+            "human-like"
+          ],
+          "description": "Click mode (default normal). Never silently falls back — the used mode is reported."
+        },
+        "waitForStabilization": {
+          "type": "boolean",
+          "description": "Wait for DOM stabilization after the click"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 60,
+    "name": "type_text",
+    "category": "historical",
+    "description": "Robust typing into inputs, textareas and contenteditable with mode: append, replace (clear then type) or clear. Framework-sensitive: dispatches keydown/keypress/input/change per character. Input: target/selector, text, mode. Output: InteractionResult; resulting value visible in afterState.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text to type"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "append",
+            "replace",
+            "clear"
+          ],
+          "description": "Typing mode (default append)"
+        },
+        "waitForStabilization": {
+          "type": "boolean"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 61,
+    "name": "hover_element",
+    "category": "historical",
+    "description": "Hover an element: pointerenter/mouseenter/mouseover/mousemove event sequence. Input: target/selector. Output: InteractionResult.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 62,
+    "name": "focus_element",
+    "category": "historical",
+    "description": "Focus an element (native focus() + focus event). Input: target/selector. Output: InteractionResult.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 63,
+    "name": "blur_element",
+    "category": "historical",
+    "description": "Blur (defocus) an element (native blur() + blur event). Input: target/selector. Output: InteractionResult.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 64,
+    "name": "press_keyboard_shortcut",
+    "category": "historical",
+    "description": "Press a key or keyboard shortcut on an element (or the active element): keydown+keyup per key with modifier flags. Input: keys (e.g. [\"Control\",\"Shift\",\"P\"] or \"Control+Shift+P\"), optional target. Output: events fired and target selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "string",
+          "description": "Shortcut, e.g. \"Control+Shift+P\" or \"Enter\""
+        },
+        "keyList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Alternative: keys as array"
+        },
+        "target": {
+          "type": "object",
+          "description": "Optional target specifier; defaults to activeElement"
+        }
+      },
+      "required": [
+        "keys"
+      ]
+    },
+    "requiredArguments": [
+      "keys"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 65,
+    "name": "scroll_to_element",
+    "category": "historical",
+    "description": "Scroll an element into view (block: center). Input: target/selector. Output: before/after scroll positions and target selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "behavior": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "smooth"
+          ],
+          "description": "Scroll behavior (default auto)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 66,
+    "name": "scroll_page",
+    "category": "historical",
+    "description": "Scroll the page by a distance: x/y pixel offsets. Input: x, y. Output: before/after scroll positions.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "Horizontal pixel delta"
+        },
+        "y": {
+          "type": "number",
+          "description": "Vertical pixel delta"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 67,
+    "name": "drag_and_drop",
+    "category": "historical",
+    "description": "Drag and drop: HTML5 drag events (dragstart/dragenter/dragover/drop/dragend) plus pointer events between source and target (or by pixel offsets). Input: source (target specifier), optional target specifier or offsets. Output: events fired, final position, whether HTML5 DnD was used.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "description": "Source element target specifier"
+        },
+        "target": {
+          "type": "object",
+          "description": "Drop target specifier (or use offsets)"
+        },
+        "offsets": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "description": "Pixel offsets when no drop target"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "requiredArguments": [
+      "source"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 68,
+    "name": "set_input_checked",
+    "category": "historical",
+    "description": "Check/uncheck a checkbox or select a radio (peer radios with the same name are deselected). Dispatches input + change events. Input: target/selector, checked (default true). Output: checkedBefore/checkedAfter and events fired.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "checked": {
+          "type": "boolean",
+          "description": "Desired state (default true)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 69,
+    "name": "select_option",
+    "category": "historical",
+    "description": "Select an option in a dropdown: sets value and dispatches change. Input: target/selector, value. Output: InteractionResult.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Option value to select"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "requiredArguments": [
+      "value"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 70,
+    "name": "wait_for_condition",
+    "category": "historical",
+    "description": "Wait for a meaningful condition instead of arbitrary sleeps: dom_stable, selector_present, selector_visible, selector_absent, text_present, url_contains, element_count, readiness_state. Input: kind + condition params, timeoutMs (default 5000, max 30000), pollIntervalMs. Output: satisfied, waitedMs, detail. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "dom_stable",
+            "selector_present",
+            "selector_visible",
+            "selector_absent",
+            "text_present",
+            "url_contains",
+            "element_count",
+            "readiness_state"
+          ],
+          "description": "Condition kind"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Selector for selector_* and element_count conditions"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text for text_present / url_contains"
+        },
+        "count": {
+          "type": "number",
+          "description": "Expected count for element_count"
+        },
+        "state": {
+          "type": "string",
+          "description": "Expected readyState (default complete)"
+        },
+        "timeoutMs": {
+          "type": "number",
+          "description": "Timeout (default 5000ms)"
+        },
+        "pollIntervalMs": {
+          "type": "number",
+          "description": "Poll interval (default 100ms)"
+        }
+      },
+      "required": [
+        "kind"
+      ]
+    },
+    "requiredArguments": [
+      "kind"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 71,
+    "name": "wait_for_dom_stable",
+    "category": "historical",
+    "description": "Convenience wrapper for wait_for_condition {kind: dom_stable}: polls until two consecutive DOM length observations match. Input: timeoutMs. Output: satisfied + waitedMs.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "timeoutMs": {
+          "type": "number",
+          "description": "Timeout (default 5000ms)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 72,
+    "name": "set_interaction_profile",
+    "category": "historical",
+    "description": "Set the human-interaction profile for subsequent interactions: DETERMINISTIC (zero delay), BALANCED (small natural delays), HUMAN_LIKE (realistic cadence, trajectories, hesitation) or CUSTOM (user timing parameters, seed). The seed makes HUMAN_LIKE reproducible. Input: profile, optional custom timings + seed. Output: active profile report.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "type": "string",
+          "enum": [
+            "DETERMINISTIC",
+            "BALANCED",
+            "HUMAN_LIKE",
+            "CUSTOM"
+          ],
+          "description": "Profile name"
+        },
+        "seed": {
+          "type": "number",
+          "description": "PRNG seed for reproducible human-like timing"
+        },
+        "custom": {
+          "type": "object",
+          "description": "CUSTOM profile overrides: moveDelayMs, clickDelayMs, typeDelayMs, keyDelayMs {min,max}, hesitationProbability, trajectorySteps"
+        }
+      },
+      "required": [
+        "profile"
+      ]
+    },
+    "requiredArguments": [
+      "profile"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 73,
+    "name": "get_interaction_profile",
+    "category": "historical",
+    "description": "Inspect the active interaction profile and the timing of the last action (requested mode, actual mode, per-phase timings, total duration). Output: InteractionProfileReport.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 74,
+    "name": "preview_command",
+    "category": "historical",
+    "description": "Dry-run preview of a DOM mutation: valid flag, expected change description, affected node count and warnings — WITHOUT applying anything. Input: operation + target + params (same as mutate_dom). Output: MutationPreview. Side effect: none (guaranteed).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "Mutation operation (see mutate_dom)"
+        },
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "attribute": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "text": {
+          "type": "string"
+        },
+        "replacement": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "newElementHtml": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "object"
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "before",
+            "after",
+            "prepend",
+            "append"
+          ]
+        }
+      },
+      "required": [
+        "operation",
+        "target"
+      ]
+    },
+    "requiredArguments": [
+      "operation",
+      "target"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 75,
+    "name": "resize_viewport",
+    "category": "historical",
+    "description": "Resize the viewport (width/height in pixels or a named preset). ALWAYS reversible: the original size is recorded on first use. Captures before/after page digests. Input: width+height, or preset (desktop-hd, tablet-ipad, mobile-iphone-12, …). Output: ViewportResizeResult with previous/original dimensions.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number",
+          "description": "Target width (200–7680)"
+        },
+        "height": {
+          "type": "number",
+          "description": "Target height (200–4320)"
+        },
+        "preset": {
+          "type": "string",
+          "description": "Named preset (overrides width/height)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 76,
+    "name": "reset_viewport",
+    "category": "historical",
+    "description": "Restore the original viewport size recorded before the first resize (guaranteed RESET_VIEWPORT semantics). Also clears the active preset/device. Input: none. Output: ViewportResizeResult with restored dimensions.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 77,
+    "name": "get_viewport_state",
+    "category": "historical",
+    "description": "Inspect the viewport: current width/height/dpr/scroll plus the recorded original and whether it is currently modified. Input: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 78,
+    "name": "run_responsive_test",
+    "category": "historical",
+    "description": "Run a multi-viewport responsive workflow: applies each size, records DOM length/interactive count/horizontal overflow per step, compares steps, then RESTORES the original viewport (unless restore:false). Input: sizes array (or defaults 1440x900, 1024x768, 768x1024, 375x667), restore. Output: ResponsiveTestResult with comparisons.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sizes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              }
+            }
+          },
+          "description": "Custom viewport sequence"
+        },
+        "restore": {
+          "type": "boolean",
+          "description": "Restore original viewport afterwards (default true)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 79,
+    "name": "emulate_device",
+    "category": "historical",
+    "description": "Emulate a device profile: viewport + devicePixelRatio + touch metadata + reported UA (UA override applied only in a real browser session; honestly reported otherwise). Input: device (iphone-13, ipad-air, pixel-7, galaxy-s23, macbook-pro-16, windows-desktop). Output: resize result + profile + userAgentNote.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "string",
+          "description": "Device profile name"
+        }
+      },
+      "required": [
+        "device"
+      ]
+    },
+    "requiredArguments": [
+      "device"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 80,
+    "name": "execute_javascript",
+    "category": "historical",
+    "description": "Execute JavaScript with explicit outcome states: EXECUTED_SUCCESSFULLY, EXECUTED_WITH_ERROR, TIMED_OUT, SERIALIZATION_FAILED, BLOCKED_BY_CONTEXT, NOT_CONNECTED. Captures console output, duration, and DOM-change indication (length before/after). The code may use `return value;`. Input: code, timeoutMs (default 5000, max 30000), world (ISOLATED default). Output: JSExecutionResult. Side effect: arbitrary code execution in the page context.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "JavaScript source (async/await supported; use `return`)"
+        },
+        "timeoutMs": {
+          "type": "number",
+          "description": "Timeout (default 5000ms)"
+        },
+        "world": {
+          "type": "string",
+          "enum": [
+            "ISOLATED",
+            "MAIN"
+          ],
+          "description": "Execution world (ISOLATED default)"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "requiredArguments": [
+      "code"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 81,
+    "name": "execute_js_and_capture_changes",
+    "category": "historical",
+    "description": "Composite: execute JavaScript AND capture the DOM state before/after with a structural diff summary + page-state snapshots. Same input as execute_javascript. Output: JSExecutionResult + before/after PageStateSnapshot + comparison.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "JavaScript source"
+        },
+        "timeoutMs": {
+          "type": "number"
+        },
+        "world": {
+          "type": "string",
+          "enum": [
+            "ISOLATED",
+            "MAIN"
+          ]
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "requiredArguments": [
+      "code"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 82,
+    "name": "mutate_dom",
+    "category": "historical",
+    "description": "Apply a first-class DOM mutation with full observability (BEFORE → ACTION → AFTER → DIFF) and a guaranteed undo record. Operations: set_attribute, remove_attribute, set_text, replace_text, set_inner_html, set_outer_html, add_class, remove_class, replace_class, set_style, remove_style, add_element, remove_element, replace_element, move_element, wrap_element, unwrap_element, clone_subtree. Input: operation, target, plus operation-specific params. Output: DOMMutationResult. Side effect: modifies live DOM (undoable).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "enum": [
+            "set_attribute",
+            "remove_attribute",
+            "set_text",
+            "replace_text",
+            "set_inner_html",
+            "set_outer_html",
+            "add_class",
+            "remove_class",
+            "replace_class",
+            "set_style",
+            "remove_style",
+            "add_element",
+            "remove_element",
+            "replace_element",
+            "move_element",
+            "wrap_element",
+            "unwrap_element",
+            "clone_subtree"
+          ],
+          "description": "Mutation operation"
+        },
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "attribute": {
+          "type": "string",
+          "description": "Attribute name (set/remove_attribute)"
+        },
+        "value": {
+          "type": "string",
+          "description": "Attribute value or replacement class (replace_class)"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text content (set_text) or search pattern (replace_text)"
+        },
+        "replacement": {
+          "type": "string",
+          "description": "Replacement text (replace_text)"
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Class names (add/remove/replace_class) or style props (remove_style)"
+        },
+        "style": {
+          "type": "object",
+          "description": "Style property map (set_style)"
+        },
+        "html": {
+          "type": "string",
+          "description": "HTML content (set_inner_html)"
+        },
+        "newElementHtml": {
+          "type": "string",
+          "description": "HTML for new/replacement/wrapper element"
+        },
+        "parent": {
+          "type": "object",
+          "description": "Parent target (move_element, add_element)"
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "before",
+            "after",
+            "prepend",
+            "append"
+          ],
+          "description": "Insertion position (add_element/move_element)"
+        },
+        "copyAttributes": {
+          "type": "boolean",
+          "description": "clone_subtree: copy attributes (ids never duplicated)"
+        }
+      },
+      "required": [
+        "operation",
+        "target"
+      ]
+    },
+    "requiredArguments": [
+      "operation",
+      "target"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 83,
+    "name": "mutate_dom_transaction",
+    "category": "historical",
+    "description": "Transactional DOM mutation: mode=begin opens a transaction, subsequent mutate_dom calls join it, mode=commit verifies and commits (all-or-nothing), mode=rollback reverts every step in reverse order. Input: mode, optional reason (rollback). Output: transaction status with per-step results. Side effect: none for begin; commits/rolls back DOM changes.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "begin",
+            "commit",
+            "rollback"
+          ],
+          "description": "Transaction phase"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Rollback reason (recorded)"
+        }
+      },
+      "required": [
+        "mode"
+      ]
+    },
+    "requiredArguments": [
+      "mode"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 84,
+    "name": "undo_dom_mutation",
+    "category": "historical",
+    "description": "Undo the last DOM mutation (or the last mutation of the open transaction) using its immutable inverse record. Input: none. Output: success + undone mutation id. Idempotent-safe: reports \"nothing to undo\" when the stack is empty.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 85,
+    "name": "redo_dom_mutation",
+    "category": "historical",
+    "description": "Redo the last undone DOM mutation (forward patch re-applied only when safe). Input: none. Output: success + redone mutation id.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 86,
+    "name": "get_mutation_history",
+    "category": "historical",
+    "description": "Inspect the DOM mutation history: entries (operation, target, summary, undo/redo flags), undo depth, redo depth, open transaction id. Input: limit (default 100). Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Max entries (default 100)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 87,
+    "name": "preview_dom_mutation",
+    "category": "historical",
+    "description": "Dry-run a mutation: validates the target, describes the expected change, counts affected nodes and warns about destructive operations — WITHOUT modifying anything. Input: identical to mutate_dom. Output: MutationPreview. Side effect: none (guaranteed).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "Mutation operation"
+        },
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "attribute": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "text": {
+          "type": "string"
+        },
+        "replacement": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "newElementHtml": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "object"
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "before",
+            "after",
+            "prepend",
+            "append"
+          ]
+        }
+      },
+      "required": [
+        "operation",
+        "target"
+      ]
+    },
+    "requiredArguments": [
+      "operation",
+      "target"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 88,
+    "name": "clone_dom_subtree",
+    "category": "historical",
+    "description": "Clone a DOM subtree (deep clone appended to a parent or the original parent; ids are never duplicated). Input: target, optional parent, copyAttributes. Output: DOMMutationResult (undoable). Side effect: adds cloned nodes.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "object",
+          "description": "Element to clone"
+        },
+        "parent": {
+          "type": "object",
+          "description": "Optional append target (defaults to original parent)"
+        },
+        "copyAttributes": {
+          "type": "boolean",
+          "description": "Copy attributes except id (default true)"
+        }
+      },
+      "required": [
+        "target"
+      ]
+    },
+    "requiredArguments": [
+      "target"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 89,
+    "name": "execute_command_sequence",
+    "category": "historical",
+    "description": "Execute a command sequence with per-command records (id, timestamp, target, args, status, result, duration, error): sequential execution, conditional continuation (condition.previousStepSucceeded), explicit stop-on-error (default) or per-step continueOnError. Input: steps array + stopOnError. Output: CommandSequenceResult. Side effects: those of the executed tools.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "commandId": {
+                "type": "string"
+              },
+              "tool": {
+                "type": "string",
+                "description": "MCP tool name"
+              },
+              "args": {
+                "type": "object",
+                "description": "Tool arguments"
+              },
+              "stopOnError": {
+                "type": "boolean"
+              },
+              "continueOnError": {
+                "type": "boolean"
+              },
+              "condition": {
+                "type": "object",
+                "properties": {
+                  "previousStepSucceeded": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "required": [
+              "tool"
+            ]
+          },
+          "description": "Ordered command steps"
+        },
+        "stopOnError": {
+          "type": "boolean",
+          "description": "Default stop-on-error policy (default true)"
+        }
+      },
+      "required": [
+        "steps"
+      ]
+    },
+    "requiredArguments": [
+      "steps"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 90,
+    "name": "record_commands_start",
+    "category": "historical",
+    "description": "Start recording subsequent tool invocations into a named command recording. Input: name, description, tags. Output: active recording metadata. Side effect: recording mode ON (adds latency-free capture to every tool call).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Recording name"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 91,
+    "name": "record_commands_stop",
+    "category": "historical",
+    "description": "Stop the active command recording and persist it to storage (.mcpdom_recordings). Input: none (uses active recording). Output: the finished CommandRecording.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 92,
+    "name": "list_command_recordings",
+    "category": "historical",
+    "description": "List saved command recordings with metadata (id, name, command count, timestamps, tags). Input: none. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 93,
+    "name": "get_command_recording",
+    "category": "historical",
+    "description": "Load one command recording in full (all commands with args and outcomes). Input: recordingId. Output: CommandRecording. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "recordingId": {
+          "type": "string",
+          "description": "Recording identifier"
+        }
+      },
+      "required": [
+        "recordingId"
+      ]
+    },
+    "requiredArguments": [
+      "recordingId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 94,
+    "name": "replay_command_recording",
+    "category": "historical",
+    "description": "Replay a saved command recording: executes each recorded tool call in order with deterministic arguments. Input: recordingId, stopOnError (default true). Output: CommandSequenceResult. Side effects: those of the recorded commands — review get_command_recording first.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "recordingId": {
+          "type": "string"
+        },
+        "stopOnError": {
+          "type": "boolean",
+          "description": "Stop on first failure (default true)"
+        }
+      },
+      "required": [
+        "recordingId"
+      ]
+    },
+    "requiredArguments": [
+      "recordingId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 95,
+    "name": "export_command_recording",
+    "category": "historical",
+    "description": "Export a command recording as portable JSON (with schema version) for another agent or session. Input: recordingId, outputPath (optional). Output: the exported JSON + save info.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "recordingId": {
+          "type": "string"
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Optional file path to write the JSON"
+        }
+      },
+      "required": [
+        "recordingId"
+      ]
+    },
+    "requiredArguments": [
+      "recordingId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 96,
+    "name": "import_command_recording",
+    "category": "historical",
+    "description": "Import a command recording from JSON (previously exported). Input: recordingJson. Output: imported recording metadata. Side effect: writes to recordings storage.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "recordingJson": {
+          "type": "string",
+          "description": "Serialized CommandRecording JSON"
+        }
+      },
+      "required": [
+        "recordingJson"
+      ]
+    },
+    "requiredArguments": [
+      "recordingJson"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 97,
+    "name": "delete_command_recording",
+    "category": "historical",
+    "description": "Delete a saved command recording. Input: recordingId. Side effect: removes stored data (irreversible).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "recordingId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "recordingId"
+      ]
+    },
+    "requiredArguments": [
+      "recordingId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 98,
+    "name": "get_browser_session",
+    "category": "historical",
+    "description": "Inspect the coherent browser session model: tabs with stable session identities, active tab, viewport state, extension state, snapshot count, command count, mutation history count, timeline event count, bound project id. Input: none. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 99,
+    "name": "get_action_timeline",
+    "category": "historical",
+    "description": "Query the chronological action timeline (TAB_OPENED, CLICKED, DOM_MUTATED, SNAPSHOT_CREATED, ERROR_OCCURRED, …) with optional filters (kind, sinceTimestamp, limit). The platform observability layer. Input: optional filters. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Filter by event kind"
+        },
+        "sinceTimestamp": {
+          "type": "number",
+          "description": "Only events at/after this epoch ms"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max events (default 200)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 100,
+    "name": "get_operation_trace",
+    "category": "historical",
+    "description": "Trace a single operation by its operationId: tool, start/end, duration, status, correlated timeline events, related error. Input: operationId (or latest). Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "operationId": {
+          "type": "string",
+          "description": "Operation id to trace (omit for recent list)"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Recent operations limit when no id (default 20)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 101,
+    "name": "capture_page_state",
+    "category": "live_browser_control",
+    "description": "Capture a page state snapshot (comparison anchor): url, title, viewport, dom length + hash, interactive count, extension state, pending mutations, annotation count. Input: none. Output: PageStateSnapshot (also recorded in the session).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 102,
+    "name": "compare_page_states",
+    "category": "historical",
+    "description": "Compare two page state snapshots (\"what changed after this command?\"): field-level diffs, DOM size delta, summary. Input: snapshotIdA + snapshotIdB (omit both to compare the two most recent snapshots). Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotIdA": {
+          "type": "string",
+          "description": "First snapshot id (default: second-most-recent)"
+        },
+        "snapshotIdB": {
+          "type": "string",
+          "description": "Second snapshot id (default: most-recent)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 103,
+    "name": "list_page_states",
+    "category": "historical",
+    "description": "List captured page state snapshots (ids, timestamps, urls, dom sizes). Input: none. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 104,
+    "name": "create_page_project",
+    "category": "historical",
+    "description": "Create a portable page-analysis project folder (project.json, page.json, regions/, screenshots/, dom/, commands/, diffs/, metadata/, instructions/). The DOM snapshot is captured CLEANED: MCPDOM-injected artifacts excluded, secrets redacted. Input: name, description, url/title/viewport metadata (defaults from the live page). Output: ProjectManifest. Side effect: creates files under .mcpdom_projects/<name>/.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Project name (folder name)"
+        },
+        "description": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "description": "Page URL (default: live page URL)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Page title (default: live page title)"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 105,
+    "name": "list_projects",
+    "category": "historical",
+    "description": "List page-analysis projects with manifests (names, page counts, region counts, timestamps). Input: none. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 106,
+    "name": "get_project",
+    "category": "historical",
+    "description": "Load a project in full: manifest, page manifest, and all region annotations. Input: projectName. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 107,
+    "name": "capture_page_region",
+    "category": "live_browser_control",
+    "description": "Capture a page region into a project: resolves the element, captures LOCAL DOM + RELEVANT CONTEXT DOM (meaningful boundary), ranked selector candidates, fingerprint, styles, dimensions, auto-generated name and (optionally) a screenshot. Input: projectName, target/selector, user annotation fields (name, description, comment, tags), intendedChange, verification, screenshot. Output: RegionAnnotation (OBSERVED/USER/INTENDED/VERIFICATION separated). Side effect: writes region files.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string",
+          "description": "Target project name"
+        },
+        "target": {
+          "type": "object",
+          "description": "Element target specifier"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Shorthand: CSS selector"
+        },
+        "name": {
+          "type": "string",
+          "description": "User override name (auto name preserved)"
+        },
+        "description": {
+          "type": "string",
+          "description": "User description"
+        },
+        "comment": {
+          "type": "string",
+          "description": "User comment, e.g. \"make this collapsible\""
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "behavioralNotes": {
+          "type": "string"
+        },
+        "visualNotes": {
+          "type": "string"
+        },
+        "intendedChange": {
+          "type": "string",
+          "description": "What the user wants changed"
+        },
+        "verification": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Success conditions"
+        },
+        "screenshot": {
+          "type": "boolean",
+          "description": "Capture a region screenshot (default false)"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "live",
+    "requiresBrowser": true,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": false,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 108,
+    "name": "annotate_element",
+    "category": "historical",
+    "description": "Annotate a live element and capture it into a project (alias of capture_page_region with annotation semantics front and center): OBSERVED element data, USER comment/name/tags, INTENDED CHANGE and VERIFICATION CONDITIONS are stored as strictly separate fields. Input: identical to capture_page_region.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        },
+        "target": {
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "behavioralNotes": {
+          "type": "string"
+        },
+        "visualNotes": {
+          "type": "string"
+        },
+        "intendedChange": {
+          "type": "string"
+        },
+        "verification": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "screenshot": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 109,
+    "name": "list_region_annotations",
+    "category": "historical",
+    "description": "List region annotations in a project (names, selectors, quality grades, intended changes). Input: projectName. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 110,
+    "name": "get_region_annotation",
+    "category": "historical",
+    "description": "Load one region annotation in full (observed facts, user fields, intended change, verification, quality score). Input: projectName, regionId. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        },
+        "regionId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectName",
+        "regionId"
+      ]
+    },
+    "requiredArguments": [
+      "projectName",
+      "regionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 111,
+    "name": "update_region_annotation",
+    "category": "historical",
+    "description": "Update the USER fields of a region annotation (name, description, comment, tags, notes, intendedChange, verification). Observed facts are never editable. Quality is recomputed. Input: projectName, regionId, updates. Side effect: rewrites the region file.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        },
+        "regionId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "behavioralNotes": {
+          "type": "string"
+        },
+        "visualNotes": {
+          "type": "string"
+        },
+        "intendedChange": {
+          "type": "string"
+        },
+        "verification": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "projectName",
+        "regionId"
+      ]
+    },
+    "requiredArguments": [
+      "projectName",
+      "regionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 112,
+    "name": "delete_region_annotation",
+    "category": "historical",
+    "description": "Delete a region annotation from a project. Input: projectName, regionId. Side effect: removes the region file and updates manifests.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        },
+        "regionId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectName",
+        "regionId"
+      ]
+    },
+    "requiredArguments": [
+      "projectName",
+      "regionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 113,
+    "name": "get_region_relationship_graph",
+    "category": "historical",
+    "description": "Build the region relationship graph for a project: nodes (page + regions) and edges (contains, sibling-of, ancestor-of, overlaps) derived from live DOM containment. Input: projectName. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 114,
+    "name": "generate_reconstruction_spec",
+    "category": "historical",
+    "description": "Generate (and persist) the canonical page reconstruction specification for a project: metadata, viewport, structure, regions with selector candidates, hierarchy, semantic roles, visual constraints, interactions, selectors with fallbacks, content, styles, annotations, expected modifications and verification rules — with a versioned schema. Input: projectName. Side effect: writes metadata/reconstruction-spec.json.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 115,
+    "name": "export_agent_package",
+    "category": "historical",
+    "description": "Export a self-contained Agent handoff package for another AI agent: README.md, PROJECT.md, agent-instructions.md, project.json, pages/, regions/, snapshots/, diffs/, commands/, assets/, schemas/, verification/. The package fully separates OBSERVED FACTS / USER REQUESTS / EXPECTED CHANGES / VERIFICATION CONDITIONS. Input: projectName, outputDir (default ./mcpdom_agent_packages/<name>). Side effect: writes the package directory.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        },
+        "outputDir": {
+          "type": "string",
+          "description": "Output directory (default ./mcpdom_agent_packages/<name>)"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 116,
+    "name": "delete_project",
+    "category": "historical",
+    "description": "Delete a project folder permanently. Input: projectName. Side effect: irreversible file removal.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectName"
+      ]
+    },
+    "requiredArguments": [
+      "projectName"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 117,
+    "name": "import_project",
+    "category": "historical",
+    "description": "Import a project previously exported via export_agent_package or a project folder copy: restores manifest, page, regions, diffs and command recordings into working storage. Input: projectDir. Side effect: copies files into .mcpdom_projects.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectDir": {
+          "type": "string",
+          "description": "Path to the exported project folder"
+        }
+      },
+      "required": [
+        "projectDir"
+      ]
+    },
+    "requiredArguments": [
+      "projectDir"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 118,
+    "name": "get_redaction_rules",
+    "category": "historical",
+    "description": "Inspect the capture redaction configuration: all rules (key patterns, value patterns, attribute patterns) with enabled flags, and capture exclusions. Input: none. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 119,
+    "name": "set_redaction_rules",
+    "category": "historical",
+    "description": "Configure capture redaction: enable/disable existing rules, add custom key/value/attribute patterns, or add capture exclusions (selectors never captured). Built-in rules can be disabled but never removed. Input: enable/disable ruleIds, addRule {kind, pattern, description}, addExclusion {selector, reason}. Side effect: changes capture behavior for all subsequent captures.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "enable": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Rule ids to enable"
+        },
+        "disable": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Rule ids to disable"
+        },
+        "addRule": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string"
+            },
+            "pattern": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "description": "Add a custom redaction rule"
+        },
+        "addExclusion": {
+          "type": "object",
+          "properties": {
+            "selector": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "description": "Add a capture exclusion selector"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 120,
+    "name": "get_tool_catalog",
+    "category": "historical",
+    "description": "Return the full MCP tool catalog with per-tool metadata: purpose, required context, accepted input, output, side effects, failure conditions, recovery strategy, and tool group. The meta-tool an agent calls FIRST to decide which tools to use. Input: optional group filter. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string",
+          "description": "Optional group filter (see get_tool_groups)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 121,
+    "name": "get_tool_groups",
+    "category": "historical",
+    "description": "List discoverable tool groups (inspection, targeting, interaction, viewport, javascript, mutation, sequences, session, projects, security, discovery) with descriptions and member tool names. Input: none. Side effect: none.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_072_set_interaction_profile",
+  "method": "tools/call",
+  "params": {
+    "name": "set_interaction_profile",
+    "arguments": {
+      "profile": "HUMAN_LIKE",
+      "seed": 42
+    }
+  }
+}

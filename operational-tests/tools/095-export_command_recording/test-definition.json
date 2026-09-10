@@ -1,0 +1,21 @@
+{
+  "tool": "export_command_recording",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "recordingId": {
+        "type": "string"
+      },
+      "outputPath": {
+        "type": "string",
+        "description": "Optional file path to write the JSON"
+      }
+    },
+    "required": [
+      "recordingId"
+    ]
+  },
+  "expectedBehavior": "Exports recording as portable JSON or reports NOT_FOUND"
+}

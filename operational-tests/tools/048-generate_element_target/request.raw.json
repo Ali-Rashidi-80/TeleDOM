@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_048_generate_element_target",
+  "method": "tools/call",
+  "params": {
+    "name": "generate_element_target",
+    "arguments": {
+      "selector": "#search-input"
+    }
+  }
+}

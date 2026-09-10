@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_034_get_tab_network_requests",
+  "method": "tools/call",
+  "params": {
+    "name": "get_tab_network_requests",
+    "arguments": {}
+  }
+}

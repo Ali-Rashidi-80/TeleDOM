@@ -1,0 +1,14 @@
+{
+  "steps": [
+    {
+      "action": "inspect_live_page",
+      "params": {}
+    },
+    {
+      "action": "inspect_live_element",
+      "params": {
+        "selector": "#search-input"
+      }
+    }
+  ]
+}

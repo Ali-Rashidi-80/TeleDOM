@@ -1,0 +1,27 @@
+{
+  "tool": "mutate_dom_transaction",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "mode": {
+        "type": "string",
+        "enum": [
+          "begin",
+          "commit",
+          "rollback"
+        ],
+        "description": "Transaction phase"
+      },
+      "reason": {
+        "type": "string",
+        "description": "Rollback reason (recorded)"
+      }
+    },
+    "required": [
+      "mode"
+    ]
+  },
+  "expectedBehavior": "Opens a DOM mutation transaction (commit/rollback lifecycle safe)"
+}

@@ -1,0 +1,13 @@
+{
+  "selector": "#nonexistent-stale-selector",
+  "snapshot": {
+    "tag": "input",
+    "text": "",
+    "classes": [
+      "input-field"
+    ],
+    "stableAttributes": {
+      "type": "text"
+    }
+  }
+}

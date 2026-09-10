@@ -1,0 +1,1972 @@
+{
+  "total": 121,
+  "catalog": [
+    {
+      "tool": "list_sessions",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_session",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "export_session",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "import_session",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "delete_session",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_timeline",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_events",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_events_around",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_dom_state",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_dom_node",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_dom_subtree",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "diff_dom",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "trace_element",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "find_disappearing_elements",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "why_did_element_disappear",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_diagnostics",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_network_events",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_screenshots",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "annotate_session",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_annotations",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_recording_health",
+      "group": "session-forensics",
+      "purpose": "See tool description (tools/list) — group: Historical forensic session management and analysis (recorded sessions, timelines, DOM states, diffs, lifecycle tracing).",
+      "requiredContext": "Recorded session id where applicable",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "inspect_live_page",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "inspect_live_element",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_element_visual_state",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_live_dom_snapshot",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_live_dom_subtree",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_tab_console_logs",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_tab_network_requests",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_element_ancestry",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_element_accessibility",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_computed_style",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "analyze_dom",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "search_dom",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_page_blueprint",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_element_fingerprint",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "detect_semantic_elements",
+      "group": "inspection",
+      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "generate_element_target",
+      "group": "targeting",
+      "purpose": "See tool description (tools/list) — group: Element targeting resilience: TARGET generation, selector candidates with confidence, recovery, diagnostics.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call generate_element_target for a fresh TARGET, then recover_selector with the old snapshot if it drifts."
+    },
+    {
+      "tool": "recover_selector",
+      "group": "targeting",
+      "purpose": "See tool description (tools/list) — group: Element targeting resilience: TARGET generation, selector candidates with confidence, recovery, diagnostics.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call generate_element_target for a fresh TARGET, then recover_selector with the old snapshot if it drifts."
+    },
+    {
+      "tool": "diagnose_selector_failure",
+      "group": "targeting",
+      "purpose": "See tool description (tools/list) — group: Element targeting resilience: TARGET generation, selector candidates with confidence, recovery, diagnostics.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call generate_element_target for a fresh TARGET, then recover_selector with the old snapshot if it drifts."
+    },
+    {
+      "tool": "interact_with_element",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "click_element",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "type_text",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "hover_element",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "focus_element",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "blur_element",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "press_keyboard_shortcut",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "scroll_to_element",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "scroll_page",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "drag_and_drop",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "set_input_checked",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "select_option",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "wait_for_condition",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "wait_for_dom_stable",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "set_interaction_profile",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_interaction_profile",
+      "group": "interaction",
+      "purpose": "See tool description (tools/list) — group: Page interaction: clicks, typing, hover, focus, keyboard, drag-and-drop, checkboxes, selects, waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "list_tabs",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "focus_tab",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "reload_tab",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "close_tab",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "open_tab",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "list_extensions",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "set_extension_enabled",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "toggle_extension",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "reload_extension",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "compare_extension_states",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "get_browser_session",
+      "group": "tabs-browser",
+      "purpose": "See tool description (tools/list) — group: Tab lifecycle and browser control: open/close/switch tabs, extension management, navigation, reload.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Ensure the extension is connected (bridge on 127.0.0.1:3847); in the Node simulation context these tools return deterministic simulated state."
+    },
+    {
+      "tool": "get_selected_element",
+      "group": "selection-capture",
+      "purpose": "See tool description (tools/list) — group: Interactive element selection (Ctrl+Shift+Click / picker) and element observation.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "start_element_picker",
+      "group": "selection-capture",
+      "purpose": "See tool description (tools/list) — group: Interactive element selection (Ctrl+Shift+Click / picker) and element observation.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "stop_element_picker",
+      "group": "selection-capture",
+      "purpose": "See tool description (tools/list) — group: Interactive element selection (Ctrl+Shift+Click / picker) and element observation.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "start_element_observation",
+      "group": "selection-capture",
+      "purpose": "See tool description (tools/list) — group: Interactive element selection (Ctrl+Shift+Click / picker) and element observation.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "stop_element_observation",
+      "group": "selection-capture",
+      "purpose": "See tool description (tools/list) — group: Interactive element selection (Ctrl+Shift+Click / picker) and element observation.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "resize_viewport",
+      "group": "viewport-responsive",
+      "purpose": "See tool description (tools/list) — group: Viewport control and responsive testing: resize, presets, device emulation, multi-viewport workflows.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "reset_viewport",
+      "group": "viewport-responsive",
+      "purpose": "See tool description (tools/list) — group: Viewport control and responsive testing: resize, presets, device emulation, multi-viewport workflows.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_viewport_state",
+      "group": "viewport-responsive",
+      "purpose": "See tool description (tools/list) — group: Viewport control and responsive testing: resize, presets, device emulation, multi-viewport workflows.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "run_responsive_test",
+      "group": "viewport-responsive",
+      "purpose": "See tool description (tools/list) — group: Viewport control and responsive testing: resize, presets, device emulation, multi-viewport workflows.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "emulate_device",
+      "group": "viewport-responsive",
+      "purpose": "See tool description (tools/list) — group: Viewport control and responsive testing: resize, presets, device emulation, multi-viewport workflows.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "execute_javascript",
+      "group": "javascript",
+      "purpose": "See tool description (tools/list) — group: Observable JavaScript execution with explicit outcome states and change capture.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "execute_js_and_capture_changes",
+      "group": "javascript",
+      "purpose": "See tool description (tools/list) — group: Observable JavaScript execution with explicit outcome states and change capture.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "mutate_dom",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "mutate_dom_transaction",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "undo_dom_mutation",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "redo_dom_mutation",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "get_mutation_history",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "preview_dom_mutation",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "preview_command",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "clone_dom_subtree",
+      "group": "dom-mutation",
+      "purpose": "See tool description (tools/list) — group: First-class DOM mutation engine: operations with diff, transactions, undo/redo, history, preview.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Call undo_dom_mutation to revert; use preview_dom_mutation before destructive operations; wrap multi-step changes in mutate_dom_transaction."
+    },
+    {
+      "tool": "execute_pipeline",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "execute_command_sequence",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "record_commands_start",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "record_commands_stop",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "list_command_recordings",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_command_recording",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "replay_command_recording",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "export_command_recording",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "import_command_recording",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "delete_command_recording",
+      "group": "command-sequences",
+      "purpose": "See tool description (tools/list) — group: Command sequences, recording, replay, import/export of deterministic command data.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "capture_page_state",
+      "group": "page-state",
+      "purpose": "See tool description (tools/list) — group: Page state snapshots and time-travel comparison.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "compare_page_states",
+      "group": "page-state",
+      "purpose": "See tool description (tools/list) — group: Page state snapshots and time-travel comparison.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "list_page_states",
+      "group": "page-state",
+      "purpose": "See tool description (tools/list) — group: Page state snapshots and time-travel comparison.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_action_timeline",
+      "group": "page-state",
+      "purpose": "See tool description (tools/list) — group: Page state snapshots and time-travel comparison.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_operation_trace",
+      "group": "page-state",
+      "purpose": "See tool description (tools/list) — group: Page state snapshots and time-travel comparison.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "create_page_project",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "list_projects",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_project",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "delete_project",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "capture_page_region",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "annotate_element",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "list_region_annotations",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_region_annotation",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "update_region_annotation",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "delete_region_annotation",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_region_relationship_graph",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "generate_reconstruction_spec",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "export_agent_package",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "import_project",
+      "group": "projects-knowledge",
+      "purpose": "See tool description (tools/list) — group: Project folders, region capture/annotation, relationship graphs, reconstruction specs, agent packages.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "May modify page state, browser state, or write project files (all DOM mutations are undoable)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "capture_page_screenshot",
+      "group": "screenshots",
+      "purpose": "See tool description (tools/list) — group: Visual capture: page and element screenshots with geometry metadata.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "capture_element_screenshot",
+      "group": "screenshots",
+      "purpose": "See tool description (tools/list) — group: Visual capture: page and element screenshots with geometry metadata.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_redaction_rules",
+      "group": "security-privacy",
+      "purpose": "See tool description (tools/list) — group: Capture redaction configuration and exclusion rules.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "set_redaction_rules",
+      "group": "security-privacy",
+      "purpose": "See tool description (tools/list) — group: Capture redaction configuration and exclusion rules.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_tool_catalog",
+      "group": "discovery",
+      "purpose": "See tool description (tools/list) — group: Meta-tools: tool catalog and group discovery for agent self-orientation.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "get_tool_groups",
+      "group": "discovery",
+      "purpose": "See tool description (tools/list) — group: Meta-tools: tool catalog and group discovery for agent self-orientation.",
+      "requiredContext": "None (read-only meta information)",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "SESSION_NOT_FOUND",
+        "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    }
+  ]
+}

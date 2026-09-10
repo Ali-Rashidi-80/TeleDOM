@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_091_record_commands_stop",
+  "method": "tools/call",
+  "params": {
+    "name": "record_commands_stop",
+    "arguments": {}
+  }
+}

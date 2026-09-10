@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_062_focus_element",
+  "method": "tools/call",
+  "params": {
+    "name": "focus_element",
+    "arguments": {
+      "selector": "#search-input"
+    }
+  }
+}

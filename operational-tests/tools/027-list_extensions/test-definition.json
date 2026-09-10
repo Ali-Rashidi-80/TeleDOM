@@ -1,0 +1,10 @@
+{
+  "tool": "list_extensions",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": ""
+}

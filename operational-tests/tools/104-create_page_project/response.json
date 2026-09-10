@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectId": "proj_mtuudxid",
+  "name": "op-project",
+  "description": "Operational project",
+  "createdAt": 1789003321574,
+  "updatedAt": 1789003321574,
+  "pages": [
+    "page_mtuudxid"
+  ],
+  "regionCount": 0,
+  "commandRecordingCount": 0,
+  "tags": [],
+  "toolVersion": "3.0.0"
+}

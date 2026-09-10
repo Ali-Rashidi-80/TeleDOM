@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_057_analyze_dom",
+  "method": "tools/call",
+  "params": {
+    "name": "analyze_dom",
+    "arguments": {
+      "analyzer": "census_interactive_elements"
+    }
+  }
+}

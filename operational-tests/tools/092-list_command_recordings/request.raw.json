@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_092_list_command_recordings",
+  "method": "tools/call",
+  "params": {
+    "name": "list_command_recordings",
+    "arguments": {}
+  }
+}

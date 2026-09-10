@@ -1,0 +1,32 @@
+{
+  "mutationId": "mut_mtuudxf9_3",
+  "operation": "clone_subtree",
+  "success": true,
+  "before": {
+    "selector": "#removable-card",
+    "outerHtml": "<div id=\"removable-card\" class=\"card\" style=\"background: #334155;\">\n          <span id=\"removable-label\">This element can be unmounted or restyled</span>\n        </div>",
+    "attributes": {
+      "id": "removable-card",
+      "class": "card",
+      "style": "background: #334155;"
+    }
+  },
+  "after": {
+    "selector": "#removable-card",
+    "outerHtml": "<div id=\"removable-card\" class=\"card\" style=\"background: #334155;\">\n          <span id=\"removable-label\">This element can be unmounted or restyled</span>\n        </div>",
+    "attributes": {
+      "id": "removable-card",
+      "class": "card",
+      "style": "background: #334155;"
+    }
+  },
+  "diff": {
+    "added": 0,
+    "removed": 0,
+    "changed": 0,
+    "summary": "attributes +0/-0/~0; subtree nodes: 1"
+  },
+  "affectedSelector": "#removable-card",
+  "durationMs": 14,
+  "undoable": true
+}

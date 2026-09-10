@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_097_delete_command_recording",
+  "method": "tools/call",
+  "params": {
+    "name": "delete_command_recording",
+    "arguments": {
+      "recordingId": "imported (imported)"
+    }
+  }
+}

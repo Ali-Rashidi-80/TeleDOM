@@ -1,0 +1,26 @@
+{
+  "tool": "open_tab",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "The URL, web link, meeting link, or file:// path to open"
+      },
+      "active": {
+        "type": "boolean",
+        "description": "Whether the new tab should become the active and focused tab (default: true)"
+      },
+      "pinned": {
+        "type": "boolean",
+        "description": "Whether the tab should be pinned (default: false)"
+      }
+    },
+    "required": [
+      "url"
+    ]
+  },
+  "expectedBehavior": ""
+}

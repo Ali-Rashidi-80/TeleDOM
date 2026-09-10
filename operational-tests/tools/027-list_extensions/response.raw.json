@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_027_list_extensions",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"simulated\": true,\n  \"extensions\": [\n    {\n      \"id\": \"forensic-recorder@mcpdom\",\n      \"name\": \"Browser Forensic Recorder (MCPDOM)\",\n      \"version\": \"3.0.0\",\n      \"description\": \"The MCPDOM platform extension itself\",\n      \"enabled\": true,\n      \"installType\": \"development\",\n      \"isApp\": false,\n      \"permissions\": [\n        \"activeTab\",\n        \"scripting\",\n        \"storage\",\n        \"tabs\",\n        \"management\"\n      ]\n    }\n  ],\n  \"note\": \"Deterministic simulated extension state.\"\n}"
+      }
+    ]
+  }
+}

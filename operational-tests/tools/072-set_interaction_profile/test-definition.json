@@ -1,0 +1,32 @@
+{
+  "tool": "set_interaction_profile",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "profile": {
+        "type": "string",
+        "enum": [
+          "DETERMINISTIC",
+          "BALANCED",
+          "HUMAN_LIKE",
+          "CUSTOM"
+        ],
+        "description": "Profile name"
+      },
+      "seed": {
+        "type": "number",
+        "description": "PRNG seed for reproducible human-like timing"
+      },
+      "custom": {
+        "type": "object",
+        "description": "CUSTOM profile overrides: moveDelayMs, clickDelayMs, typeDelayMs, keyDelayMs {min,max}, hesitationProbability, trajectorySteps"
+      }
+    },
+    "required": [
+      "profile"
+    ]
+  },
+  "expectedBehavior": "Activates seeded human-like interaction profile"
+}

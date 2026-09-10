@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_111_update_region_annotation",
+  "method": "tools/call",
+  "params": {
+    "name": "update_region_annotation",
+    "arguments": {
+      "projectName": "op-project",
+      "regionId": "latest",
+      "comment": "updated by operational suite"
+    }
+  }
+}

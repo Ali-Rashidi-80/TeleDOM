@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_021_get_recording_health",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"health\": {\n    \"domRecording\": \"HEALTHY\",\n    \"userEvents\": \"HEALTHY\",\n    \"console\": \"HEALTHY\",\n    \"network\": \"HEALTHY\",\n    \"screenshots\": \"HEALTHY\",\n    \"shadowDom\": \"HEALTHY\",\n    \"iframes\": \"HEALTHY\"\n  },\n  \"stats\": {\n    \"eventCount\": 8,\n    \"mutationCount\": 4,\n    \"errorCount\": 1,\n    \"consoleCount\": 1,\n    \"networkCount\": 2,\n    \"checkpointCount\": 2,\n    \"screenshotCount\": 1,\n    \"nodeCount\": 12\n  },\n  \"integrity\": {\n    \"isValid\": true,\n    \"sessionId\": \"operational_acceptance_session_001\",\n    \"schemaVersion\": \"2.0.0\",\n    \"totalEvents\": 8,\n    \"totalCheckpoints\": 1,\n    \"isSequenceMonotonic\": true,\n    \"missingSequences\": [],\n    \"corruptNodeReferences\": [],\n    \"hasInitialSnapshot\": true,\n    \"errors\": [],\n    \"warnings\": []\n  }\n}"
+      }
+    ]
+  }
+}

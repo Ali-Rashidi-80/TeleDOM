@@ -1,0 +1,24 @@
+{
+  "tool": "select_option",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "object"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "value": {
+        "type": "string",
+        "description": "Option value to select"
+      }
+    },
+    "required": [
+      "value"
+    ]
+  },
+  "expectedBehavior": "Selects dropdown option with change event"
+}

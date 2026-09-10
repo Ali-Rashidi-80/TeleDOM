@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_082_mutate_dom",
+  "method": "tools/call",
+  "params": {
+    "name": "mutate_dom",
+    "arguments": {
+      "operation": "add_class",
+      "target": {
+        "selector": "#dynamic-text"
+      },
+      "classes": [
+        "op-test"
+      ]
+    }
+  }
+}

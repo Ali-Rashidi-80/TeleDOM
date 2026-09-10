@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_112_delete_region_annotation",
+  "method": "tools/call",
+  "params": {
+    "name": "delete_region_annotation",
+    "arguments": {
+      "projectName": "op-project"
+    }
+  }
+}

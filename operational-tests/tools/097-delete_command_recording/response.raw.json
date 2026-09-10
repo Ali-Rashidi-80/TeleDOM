@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_097_delete_command_recording",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"deleted\": true,\n  \"recordingId\": \"imported (imported)\"\n}"
+      }
+    ]
+  }
+}

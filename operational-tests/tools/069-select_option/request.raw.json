@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_069_select_option",
+  "method": "tools/call",
+  "params": {
+    "name": "select_option",
+    "arguments": {
+      "selector": "#category-select",
+      "value": "opt-security"
+    }
+  }
+}

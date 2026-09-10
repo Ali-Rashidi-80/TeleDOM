@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_121_get_tool_groups",
+  "method": "tools/call",
+  "params": {
+    "name": "get_tool_groups",
+    "arguments": {}
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Runs named DOM analyzer with structured results",
+    "passed": true,
+    "details": "analyzer, summary, count, items, warnings, truncated"
+  }
+]

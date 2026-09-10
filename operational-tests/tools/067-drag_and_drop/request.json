@@ -1,0 +1,9 @@
+{
+  "source": {
+    "selector": "#removable-card"
+  },
+  "offsets": {
+    "x": 40,
+    "y": 10
+  }
+}
