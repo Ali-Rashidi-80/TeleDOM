@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_200_fx_forensic_import",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"imported\": true,\n  \"valid\": true,\n  \"historicalSessionId\": null,\n  \"note\": \"Bundle verified only (importAsSession=false).\"\n}"
+      }
+    ]
+  }
+}

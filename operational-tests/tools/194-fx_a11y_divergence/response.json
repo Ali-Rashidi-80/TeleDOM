@@ -1,0 +1,31 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "a11yTree": [
+    {
+      "selector": "#search-input",
+      "role": "textbox",
+      "name": "",
+      "accessible": true,
+      "hiddenFromA11y": false,
+      "interactive": true,
+      "issues": [
+        "missing-name"
+      ]
+    }
+  ],
+  "divergence": [
+    {
+      "kind": "missing-name",
+      "selector": "#search-input",
+      "detail": "Interactive <input> role=textbox has NO accessible name (no aria-label, alt, label or text).",
+      "severity": "error"
+    }
+  ],
+  "summary": {
+    "domElements": 5,
+    "accessibleNodes": 5,
+    "interactiveWithoutName": 1,
+    "hiddenButRelevant": 0,
+    "divergenceCount": 1
+  }
+}

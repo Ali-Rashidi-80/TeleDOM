@@ -2796,5 +2796,2071 @@
       "type": "object",
       "properties": {}
     }
+  },
+  {
+    "name": "dt_click",
+    "description": "Clicks an element (chrome-devtools-mcp click). Input: uid/selector (+pageId/tabId). Options: dblClick, includeSnapshot. Dispatches a real synthetic click through the unified runtime; verifies the element becomes interactive, else fails with actionable error.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Element uid from dt_take_snapshot"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the element (fallback when no uid)"
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Unified page id (defaults to active page)"
+        },
+        "tabId": {
+          "type": "number",
+          "description": "Extension tab id (alias for the page)"
+        },
+        "dblClick": {
+          "type": "boolean",
+          "description": "Double click (default false)"
+        },
+        "includeSnapshot": {
+          "type": "boolean",
+          "description": "Include an updated page snapshot in the response"
+        }
+      },
+      "required": []
+    }
+  },
+  {
+    "name": "dt_click_at",
+    "description": "Click at viewport coordinates with vision-assisted element resolution: reports which element the point hits before clicking. Input: x, y (+page). Use when only a screenshot position is known.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "X coordinate in CSS pixels"
+        },
+        "y": {
+          "type": "number",
+          "description": "Y coordinate in CSS pixels"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "includeSnapshot": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    }
+  },
+  {
+    "name": "dt_drag",
+    "description": "Drag an element onto another element (or coordinates). Input: from(uid/selector), to(uid/selector or x/y). Uses real pointer event sequences when live.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fromUid": {
+          "type": "string",
+          "description": "Uid of the element to drag"
+        },
+        "fromSelector": {
+          "type": "string",
+          "description": "CSS selector of the element to drag"
+        },
+        "toUid": {
+          "type": "string",
+          "description": "Uid of the drop target"
+        },
+        "toSelector": {
+          "type": "string",
+          "description": "CSS selector of the drop target"
+        },
+        "toX": {
+          "type": "number"
+        },
+        "toY": {
+          "type": "number"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": []
+    }
+  },
+  {
+    "name": "dt_fill",
+    "description": "Set the value of a form field (clear + type) with optional submit key. Input: uid/selector, value, submitKey.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Element uid from dt_take_snapshot"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the element (fallback when no uid)"
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Unified page id (defaults to active page)"
+        },
+        "tabId": {
+          "type": "number",
+          "description": "Extension tab id (alias for the page)"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value to set"
+        },
+        "submitKey": {
+          "type": "string",
+          "description": "Key pressed after typing, e.g. \"Enter\""
+        },
+        "includeSnapshot": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  },
+  {
+    "name": "dt_fill_form",
+    "description": "Fill MULTIPLE form fields in one batched call (§39: prefer this over repeated dt_fill). Input: fields[] each {uid/selector, value, submitKey}.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "description": "Fields to fill",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string"
+              },
+              "selector": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string",
+                "description": "Value to set"
+              },
+              "submitKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "fields"
+      ]
+    }
+  },
+  {
+    "name": "dt_handle_dialog",
+    "description": "Accept or dismiss an open JavaScript dialog (alert/confirm/prompt). Input: accept (boolean), promptText.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "accept": {
+          "type": "boolean",
+          "description": "true to accept, false to dismiss"
+        },
+        "promptText": {
+          "type": "string",
+          "description": "Text to enter in a prompt dialog"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "accept"
+      ]
+    }
+  },
+  {
+    "name": "dt_hover",
+    "description": "Hover over an element. Input: uid/selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Element uid from dt_take_snapshot"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the element (fallback when no uid)"
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Unified page id (defaults to active page)"
+        },
+        "tabId": {
+          "type": "number",
+          "description": "Extension tab id (alias for the page)"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_press_key",
+    "description": "Press a key or key combination, e.g. \"a\", \"Enter\", \"Control+Or,Control+a\". Input: key.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Key or combo string"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "key"
+      ]
+    }
+  },
+  {
+    "name": "dt_type_text",
+    "description": "Type text into a field (keystroke by keystroke), optional submit key. Input: uid/selector, text, submitKey.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Element uid from dt_take_snapshot"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the element (fallback when no uid)"
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Unified page id (defaults to active page)"
+        },
+        "tabId": {
+          "type": "number",
+          "description": "Extension tab id (alias for the page)"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text to type"
+        },
+        "submitKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ]
+    }
+  },
+  {
+    "name": "dt_upload_file",
+    "description": "Set the files of a file input programmatically. Input: uid/selector, files[] (paths or names).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Element uid from dt_take_snapshot"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the element (fallback when no uid)"
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Unified page id (defaults to active page)"
+        },
+        "tabId": {
+          "type": "number",
+          "description": "Extension tab id (alias for the page)"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File paths/names to attach"
+        }
+      },
+      "required": [
+        "files"
+      ]
+    }
+  },
+  {
+    "name": "dt_list_pages",
+    "description": "List all pages/tabs known to the unified runtime with the canonical page identity mapping (pageId ↔ tabId ↔ url ↔ frames). Read-only.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "dt_select_page",
+    "description": "Bring a page to focus. Input: pageId / tabId / index (0-based).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "index": {
+          "type": "number",
+          "description": "0-based index into the page list"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_new_page",
+    "description": "Open a new page/tab. Input: url. Returns the new canonical page identity.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Initial URL (http/https/file)"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    }
+  },
+  {
+    "name": "dt_close_page",
+    "description": "Close a page. Input: pageId/tabId. Fails with PAGE_NOT_FOUND when the page is unknown.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_navigate_page",
+    "description": "Navigate a page to a URL. Records a NavigationRecord on the page identity (identity survives navigation). Input: url (+page).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    }
+  },
+  {
+    "name": "dt_history_navigation",
+    "description": "Navigate browser history: back / forward / reload. Input: direction (+page).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "back",
+            "forward",
+            "reload"
+          ],
+          "description": "History direction"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "direction"
+      ]
+    }
+  },
+  {
+    "name": "dt_wait_for",
+    "description": "Wait until a condition: \"load\", \"domcontentloaded\", \"networkidle\" (0 inflight ≥500ms) or a selector becoming visible. Input: condition, selector?, timeoutMs (default 8000).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": "string",
+          "enum": [
+            "load",
+            "domcontentloaded",
+            "networkidle",
+            "selector-visible"
+          ],
+          "description": "What to wait for"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector to wait for (selector-visible)"
+        },
+        "timeoutMs": {
+          "type": "number",
+          "description": "Timeout in ms (default 8000)"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "condition"
+      ]
+    }
+  },
+  {
+    "name": "dt_emulate",
+    "description": "Emulate device/page characteristics in one call: viewport, deviceScaleFactor, userAgent, cpuThrottlingRate (×), network conditions (downloadKbps/uploadKbps/latencyMs), geolocation, colorScheme, extra headers, locale, timezone. All reversible via dt_emulate reset:true. Integrates with MCPDOM viewport controller for live extension tabs.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "reset": {
+          "type": "boolean",
+          "description": "Reset all emulation to defaults"
+        },
+        "viewport": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "number"
+            },
+            "height": {
+              "type": "number"
+            }
+          }
+        },
+        "deviceScaleFactor": {
+          "type": "number"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "cpuThrottlingRate": {
+          "type": "number",
+          "description": "CPU throttle multiplier (1–20), e.g. 4 = 4× slower"
+        },
+        "networkConditions": {
+          "type": "object",
+          "properties": {
+            "downloadKbps": {
+              "type": "number"
+            },
+            "uploadKbps": {
+              "type": "number"
+            },
+            "latencyMs": {
+              "type": "number"
+            }
+          }
+        },
+        "geolocation": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "accuracy": {
+              "type": "number"
+            }
+          }
+        },
+        "colorScheme": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ]
+        },
+        "extraHeaders": {
+          "type": "object",
+          "description": "Extra HTTP headers (name → value)"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "timezoneId": {
+          "type": "string"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_resize_page",
+    "description": "Resize the page viewport. Input: width, height (+page). Reversible (call again with the original size or dt_emulate reset).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ]
+    }
+  },
+  {
+    "name": "dt_performance_start_trace",
+    "description": "Start a performance trace on a page (CDP Tracing/Performance domains through the extension gateway). One trace per page at a time (NAVIGATION_CONFLICT-style guard). Without a CDP session, runs a deterministic SIMULATED trace buffer clearly labeled simulated:true — never presented as real Chrome data.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Trace categories (default devtools.timeline)"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_performance_stop_trace",
+    "description": "Stop the active trace and return normalized trace events, Web Vitals (LCP/INP/CLS/FCP), long tasks, layout shifts and phase breakdown. Input: traceId (optional — active trace of the page is used).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "traceId": {
+          "type": "string"
+        },
+        "pageId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_performance_analyze_insight",
+    "description": "Analyze a stopped trace or a provided Chrome trace-events array: extracts insights (long tasks, layout shifts, LCP candidates, parse/layout/paint/network phases) with durations. Input: traceId or events[].",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "traceId": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "description": "Raw Chrome trace events to analyze (ts/dur/name/cat/ph)",
+          "items": {
+            "type": "object"
+          }
+        },
+        "insight": {
+          "type": "string",
+          "enum": [
+            "all",
+            "long-tasks",
+            "layout-shifts",
+            "web-vitals",
+            "phases"
+          ],
+          "description": "Focus of the analysis (default all)"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_list_network_requests",
+    "description": "List captured network requests from the unified runtime network log (shared with MCPDOM capture). Filters: urlPattern, method, status (number|\"error\"|\"success\"), resourceType; pagination offset/limit; includeBody.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "urlPattern": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "status": {
+          "description": "Exact status code, \"error\", or \"success\""
+        },
+        "resourceType": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "ingestTabId": {
+          "type": "number",
+          "description": "First ingest MCPDOM-captured requests for this tab (bridge) before listing"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_get_network_request",
+    "description": "Inspect one network request in full: headers, body (when captured), timings, cache state. Input: requestId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "description": "Request id from dt_list_network_requests"
+        },
+        "includeBody": {
+          "type": "boolean",
+          "description": "Include captured bodies (default true)"
+        }
+      },
+      "required": [
+        "requestId"
+      ]
+    }
+  },
+  {
+    "name": "dt_evaluate_script",
+    "description": "Evaluate JavaScript in page context and return the serialized result. EXPLICIT tool — other capabilities must not wrap everything through this. Input: script (expression or statements), awaitPromise.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "JavaScript to evaluate"
+        },
+        "awaitPromise": {
+          "type": "boolean",
+          "description": "Await returned promises (default true)"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "script"
+      ]
+    }
+  },
+  {
+    "name": "dt_list_console_messages",
+    "description": "List console messages captured by the unified runtime (shares capture with MCPDOM console interception). Filters: level (log,info,warn,error or csv), searchQuery; pagination. In simulation, first ingests MCPDOM-captured console logs for the tab.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string"
+        },
+        "searchQuery": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "ingestTabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_get_console_message",
+    "description": "Inspect one console message with full text, source and stack. Input: messageId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "messageId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageId"
+      ]
+    }
+  },
+  {
+    "name": "dt_take_screenshot",
+    "description": "Capture a page screenshot (png/jpeg), viewport or element-bounded. Routes through MCPDOM capture (DPR-preserving). Input: format, uid/selector for element capture, outputPath to persist.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": [
+            "png",
+            "jpeg"
+          ],
+          "description": "Image format (default png)"
+        },
+        "uid": {
+          "type": "string",
+          "description": "Element uid for element-bounded capture"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for element-bounded capture"
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Optional file path to persist the capture"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_take_snapshot",
+    "description": "Take a semantic text snapshot of the page (a11y-structured, uid-addressable) used by uid-based input tools. Returns node tree with roles/names and uids. §39: prefer this compact snapshot over full DOM dumps for page understanding.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Limit the snapshot to a subtree"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_screencast_start",
+    "description": "EXPERIMENTAL: start screencast frame streaming (CDP Page.screencast). Requires live CDP session; UNSUPPORTED in simulation (reports mode UNAVAILABLE, never fake frames).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "maxDurationMs": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_screencast_stop",
+    "description": "EXPERIMENTAL: stop screencast streaming and return captured frame metadata. Requires live CDP session.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_lighthouse_audit",
+    "description": "EXPERIMENTAL: run a Lighthouse audit via the DevTools connection. Requires live CDP session — in simulation reports mode UNAVAILABLE (Lighthouse results are never synthesized).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Audit categories (default performance,accessibility,best-practices)"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_take_heapsnapshot",
+    "description": "Capture a V8 heap snapshot of a page via CDP HeapProfiler (live). In simulation, registers a deterministic fixture snapshot in the REAL .heapsnapshot format, marked simulated:true — analysis code paths are identical; the DATA is explicitly not a real V8 capture. Input: pageId/tabId, raw (optional: pre-captured snapshot JSON string).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "raw": {
+          "type": "string",
+          "description": "Optional pre-captured .heapsnapshot JSON string to register instead of live capture"
+        },
+        "saveToPath": {
+          "type": "string",
+          "description": "Optional path to persist the raw snapshot JSON"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_close_heapsnapshot",
+    "description": "Release a loaded heap snapshot (§24 lifecycle). Input: snapshotId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_summary",
+    "description": "Class aggregates of a heap snapshot: per-class object counts and self sizes, totals, top retainers of size. Input: snapshotId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max classes returned (default 50)"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_details",
+    "description": "Snapshot details: node/edge counts, meta field layout, parse duration. Input: snapshotId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_class_nodes",
+    "description": "List the node ids of a class with pagination. Input: snapshotId, className, offset, limit.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "className": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId",
+        "className"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_edges",
+    "description": "Outgoing edges (references) of a node. Input: snapshotId, nodeId (V8 object id) or nodeIndex.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "number"
+        },
+        "nodeIndex": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_retainers",
+    "description": "Retainers (incoming references) of a node — who keeps it alive. Input: snapshotId, nodeId/nodeIndex.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "number"
+        },
+        "nodeIndex": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_retaining_paths",
+    "description": "Retaining paths from GC roots to a node (shortest path reconstruction). Input: snapshotId, nodeId/nodeIndex, maxPaths.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "number"
+        },
+        "nodeIndex": {
+          "type": "number"
+        },
+        "maxPaths": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_dominators",
+    "description": "Dominator analysis: nodes ranked by retained tree size with their immediate dominator class. Input: snapshotId, limit.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_duplicate_strings",
+    "description": "Duplicate string instances in the heap — wasted memory detection with instance counts and bytes. Input: snapshotId, limit.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_heapsnapshot_object_details",
+    "description": "Full details of one object: type, class, self size, outgoing edges, retainers, detachedness. Input: snapshotId, nodeId (V8 id) or nodeIndex.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "number"
+        },
+        "nodeIndex": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_query_heapsnapshot_objects",
+    "description": "Query heap objects by type, className (substring match) and minimum self size. Input: snapshotId + filters.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "className": {
+          "type": "string"
+        },
+        "minSize": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshotId"
+      ]
+    }
+  },
+  {
+    "name": "dt_compare_heapsnapshots",
+    "description": "Compare two heap snapshots: per-class added/removed objects and size deltas, plus totals. Input: snapshotA, snapshotB.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "snapshotA": {
+          "type": "string",
+          "description": "Baseline snapshot id"
+        },
+        "snapshotB": {
+          "type": "string",
+          "description": "Comparison snapshot id"
+        }
+      },
+      "required": [
+        "snapshotA",
+        "snapshotB"
+      ]
+    }
+  },
+  {
+    "name": "dt_install_extension",
+    "description": "Install (load) a browser extension by path/id (live extension management via chrome.management). DANGEROUS: changes browser state. Input: extensionPath or extensionId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionPath": {
+          "type": "string"
+        },
+        "extensionId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_list_extensions",
+    "description": "List installed browser extensions with enable state. Shares capture with MCPDOM list_extensions but returns the DevTools-normalized extension model.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "dt_reload_extension",
+    "description": "Reload an extension by id (dev workflow). Input: extensionId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "extensionId"
+      ]
+    }
+  },
+  {
+    "name": "dt_trigger_extension_action",
+    "description": "Trigger (activate) an extension action by id. Input: extensionId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "extensionId"
+      ]
+    }
+  },
+  {
+    "name": "dt_uninstall_extension",
+    "description": "Uninstall an extension by id. DANGEROUS: destructive. Input: extensionId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "extensionId"
+      ]
+    }
+  },
+  {
+    "name": "dt_list_3p_developer_tools",
+    "description": "Discover third-party developer tools exposed by the page (window-registered devtools integrations). Returns registry with invocation contracts.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_execute_3p_developer_tool",
+    "description": "Execute a discovered third-party developer tool. EXPERIMENTAL. Input: toolId + args (validated against the discovered contract).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "toolId": {
+          "type": "string"
+        },
+        "args": {
+          "type": "object"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "toolId"
+      ]
+    }
+  },
+  {
+    "name": "dt_list_webmcp_tools",
+    "description": "Discover WebMCP tools exposed by the page (navigator.webMCP registrations per the WebMCP draft). Returns tool schemas for remote execution.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "dt_execute_webmcp_tool",
+    "description": "Execute a WebMCP tool exposed by the page. Input: toolName + args (validated against the discovered schema).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "toolName": {
+          "type": "string"
+        },
+        "args": {
+          "type": "object"
+        },
+        "pageId": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "toolName"
+      ]
+    }
+  },
+  {
+    "name": "fx_correlate_dom_network",
+    "description": "CAP 01 — DOM↔network causal correlator: anchors on a mutation (or request) and reconstructs request → response → render chains with RANKED causal candidates, temporal gaps and evidence-based confidence. Input: sessionId (+ eventId | timestamp | anchor, windowMs, limit).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "eventId": {
+          "type": "string",
+          "description": "Focal event id (mutation or request)"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Focal timestamp (ms) — closest mutation/request is used"
+        },
+        "anchor": {
+          "type": "string",
+          "enum": [
+            "mutation",
+            "request"
+          ]
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Causality window (default 800ms)"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max candidates (default 8)"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_dom_regression_diff",
+    "description": "CAP 02 — Full regression diff between two page states across 8 dimensions (added/removed/moved/attributes/styles/text/layout/a11y) with machine-readable diffs AND a human-readable report. Input: sessionId + t1 + t2 (timestamps).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "t1": {
+          "type": "number",
+          "description": "First timestamp (before)"
+        },
+        "t2": {
+          "type": "number",
+          "description": "Second timestamp (after)"
+        },
+        "maxPerDimension": {
+          "type": "number",
+          "description": "Changes kept per dimension (default 40)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "t1",
+        "t2"
+      ]
+    }
+  },
+  {
+    "name": "fx_visual_regression_forensics",
+    "description": "CAP 03 — Visual regression forensics: decodes two recorded screenshots (real PNG decoding), computes region-level pixel diffs and ATTRIBUTS changes to concurrent DOM/style mutations with ranked root-cause candidates. Input: sessionId + shot1/shot2 event ids (or timestamps).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "shot1": {
+          "type": "string",
+          "description": "Screenshot event id before"
+        },
+        "shot2": {
+          "type": "string",
+          "description": "Screenshot event id after"
+        },
+        "t1": {
+          "type": "number",
+          "description": "Fallback: timestamp before"
+        },
+        "t2": {
+          "type": "number",
+          "description": "Fallback: timestamp after"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "fx_layout_shift_forensics",
+    "description": "CAP 04 — Layout shift forensics: evidence chains for CLS/layout instability — affected element, position transitions, trigger mutations, concurrent requests, style changes. Input: sessionId (+ eventId | timestamp | selector, windowMs).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "eventId": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "number"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Default 600ms"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_record_interactions",
+    "description": "CAP 05 — Start/stop recording of interactions WITH DOM context (fingerprint, matched count, mutation baseline) for deterministic replay. Input: mode start|stop|record-step, recordingId, action, selector, params. Start returns a recordingId; record-step appends one step; stop finalizes.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "start",
+            "stop",
+            "record-step",
+            "list"
+          ],
+          "description": "Recording operation"
+        },
+        "recordingId": {
+          "type": "string",
+          "description": "Recording id (for stop/record-step)"
+        },
+        "action": {
+          "type": "string",
+          "description": "Interaction action for record-step (click/type/hover/…)"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Target selector for record-step"
+        },
+        "params": {
+          "type": "object",
+          "description": "Action parameters (text, key…)"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "mode"
+      ]
+    }
+  },
+  {
+    "name": "fx_replay_interactions",
+    "description": "CAP 05 — Deterministically replay a recorded interaction set with resilient target resolution (exact selector → fingerprint recovery), per-step results and success rate. Input: recordingId (+ stopOnFailure, verifySelectorsOnly, tabId).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "recordingId": {
+          "type": "string"
+        },
+        "stopOnFailure": {
+          "type": "boolean",
+          "description": "Default true"
+        },
+        "verifySelectorsOnly": {
+          "type": "boolean",
+          "description": "Resolve targets without executing (dry-run)"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "recordingId"
+      ]
+    }
+  },
+  {
+    "name": "fx_failure_replay",
+    "description": "CAP 06 — Capture a structured failure state (URL, page state, selector candidates, DOM subtree, console, network, timing, action history) as a replayable scenario; replay re-executes with resilient resolution. Input: mode capture|replay|list|get, failureId, failedAction, failedSelector, params, tabId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "capture",
+            "replay",
+            "list",
+            "get"
+          ]
+        },
+        "failureId": {
+          "type": "string",
+          "description": "Scenario id (replay/get)"
+        },
+        "failedAction": {
+          "type": "string",
+          "description": "Action that failed (capture)"
+        },
+        "failedSelector": {
+          "type": "string",
+          "description": "Selector that failed (capture)"
+        },
+        "params": {
+          "type": "object",
+          "description": "Original action params (capture)"
+        },
+        "url": {
+          "type": "string",
+          "description": "Page URL context (capture)"
+        },
+        "tabId": {
+          "type": "number"
+        },
+        "verifyOnly": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mode"
+      ]
+    }
+  },
+  {
+    "name": "fx_selector_survivability",
+    "description": "CAP 07 — Selector survivability scorer: ranks selectors by DOM stability, semantic stability, uniqueness, ancestry stability, framework-attribute risk, text volatility and position dependence — computed from recorded mutation history. Input: selector (+ sessionId, candidateSelectors).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "candidateSelectors": {
+          "type": "array",
+          "description": "Alternative candidates [{selector, matches}]",
+          "items": {
+            "type": "object",
+            "properties": {
+              "selector": {
+                "type": "string"
+              },
+              "matches": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_component_boundaries",
+    "description": "CAP 08 — Component boundary detector: infers React/Vue/Angular/WebComponents/generic boundaries from DOM markers (data-v-, _ngcontent, custom elements, React hydration attrs) and whole-subtree replacement mutation patterns; returns confidence + evidence per boundary. Input: sessionId + timestamp (state to analyze).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "DOM state timestamp (default: latest)"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_frame_forensics",
+    "description": "CAP 09 — Frame/iframe forensics: complete frame hierarchy, cross-frame relationships, network/console/DOM event attribution per frame, cross-origin detection and frame-local selectors. Input: sessionId + timestamp.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "DOM state timestamp (default: latest)"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_shadow_dom_forensics",
+    "description": "CAP 10 — Shadow DOM forensics: open/nested shadow roots, host relationships, slot distribution, shadow-tree mutations, style-boundary notes. Analyzes recorded shadow flags + live probing of open roots. Input: sessionId + timestamp, or live selector.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "timestamp": {
+          "type": "number"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Live host selector to probe (open roots)"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_css_influence",
+    "description": "CAP 11 — CSS influence analyzer: given an element, ranks the CSS rules that determine its visibility/dimensions/position/stacking/typography/overflow/clipping — with specificity, stylesheet source, declarations and inheritance flags. Input: selector (+ group, tabId).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string",
+          "enum": [
+            "visibility",
+            "dimensions",
+            "position",
+            "stacking",
+            "typography",
+            "overflow",
+            "clipping",
+            "all"
+          ],
+          "description": "Property group focus (default all)"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    }
+  },
+  {
+    "name": "fx_zindex_occlusion",
+    "description": "CAP 12 — Z-index/occlusion forensics: stacking context chain, effective z-order, occluding element via hit-test at center, clipping parent, pointer-events interception, zero-size detection — actionable, not a computed-style dump. Input: selector (+ tabId).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    }
+  },
+  {
+    "name": "fx_event_listeners",
+    "description": "CAP 13 — Event listener forensics: inline on* attributes + addEventListener instrumentation (when the injected page script is active) with capture/passive flags, framework-ownership heuristics and coverage reporting. Input: selector (scope) or document-wide (+ tabId).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "Scope to a subtree (omit for whole document)"
+        },
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_error_root_cause",
+    "description": "CAP 14 — Runtime error root-cause graph: console error → stack trace → source location → failed request → DOM mutations → visible symptoms, with RANKED likely root causes and evidence. Input: sessionId (+ eventId | timestamp).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "eventId": {
+          "type": "string",
+          "description": "Error event id"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Timestamp near the error"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_network_dom_binding",
+    "description": "CAP 15 — Network-to-DOM binding analyzer: which DOM regions depend on which responses (response → mutations window → region grouping) with confidence, plus unbound requests with reasons. Input: sessionId (+ windowMs, minConfidence, limit).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Render window after response (default 1000ms)"
+        },
+        "minConfidence": {
+          "type": "number",
+          "description": "Minimum binding confidence (default 0.3)"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_resource_waterfall",
+    "description": "CAP 16 — Resource waterfall forensics: unified document/CSS/JS/font/image/fetch waterfall with request phases, timings, failures, DOM-ready and visual milestones, slowest-resource ranking. Input: sessionId (+ from, to).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "from": {
+          "type": "number"
+        },
+        "to": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_font_forensics",
+    "description": "CAP 17 — Font rendering forensics: @font-face declarations vs computed usage vs document.fonts load status; undeclared families, font-display behavior, missing fallback stacks, not-loaded faces. Input: tabId (live/simulated page).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_a11y_divergence",
+    "description": "CAP 18 — Accessibility + DOM divergence: builds the a11y view from the DOM state and reports inaccessible elements, semantic mismatches, missing names, hidden-but-relevant content and unexpected accessible nodes. Input: sessionId + timestamp.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "DOM state timestamp (default: latest)"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_page_health",
+    "description": "CAP 19 — Page health score: weighted composite of console errors, failed requests, a11y issues, performance signals, memory warnings, layout instability, broken interactions and DOM anomalies — every subscore independently inspectable. Input: sessionId (+ failedInteractions).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "failedInteractions": {
+          "type": "number",
+          "description": "Known failed interaction count"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_exploration_planner",
+    "description": "CAP 20 — Agent exploration planner: given current evidence and a symptom, recommends the next investigation actions (tool + rationale + expected outcome) and reports data gaps. A planning aid — never autonomous browsing. Input: sessionId + symptom.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "symptom": {
+          "type": "string",
+          "description": "Observed symptom, e.g. \"checkout button disappeared after login\""
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_smart_snapshot",
+    "description": "CAP 21 — Smart snapshot compression: MINIMAL/SEMANTIC/INTERACTION/FORENSIC/FULL modes with compression ratio + token estimates; recommends the smallest mode answering a question (pass question). Input: sessionId (+ timestamp, mode, question).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "timestamp": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "MINIMAL",
+            "SEMANTIC",
+            "INTERACTION",
+            "FORENSIC",
+            "FULL"
+          ],
+          "description": "Snapshot mode (default: recommended from question)"
+        },
+        "question": {
+          "type": "string",
+          "description": "What you need to answer — mode is auto-recommended"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_cross_signal_search",
+    "description": "CAP 22 — Cross-signal search: one query across DOM, mutations, console, network, navigation, interactions and screenshots — returns scored cross-domain hits plus temporally-adjacent related evidence. Input: sessionId + query (+ limit).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "query": {
+          "type": "string",
+          "description": "Search keywords (selectors, text, URLs, error messages…)"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max hits (default 40)"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "fx_forensic_export",
+    "description": "CAP 23 — Forensic session export: deterministic investigation bundle (metadata, timeline, evidence, findings, health, optional incident report) with SHA-256 content hash for tamper evidence. Input: sessionId (+ includeHealth, includeIncidentReport).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "includeHealth": {
+          "type": "boolean",
+          "description": "Include page health analysis (default true)"
+        },
+        "includeIncidentReport": {
+          "type": "boolean",
+          "description": "Include a generated incident report (default false)"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_forensic_import",
+    "description": "CAP 24 — Forensic session import: validates a previously exported investigation bundle (format + contentHash) and installs it as HISTORICAL evidence — imported data is always marked historical, never live state. Input: bundleJson.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "bundleJson": {
+          "type": "string",
+          "description": "Exported bundle JSON (from fx_forensic_export)"
+        },
+        "importAsSession": {
+          "type": "boolean",
+          "description": "Also register a queryable historical session (default true)"
+        }
+      },
+      "required": [
+        "bundleJson"
+      ]
+    }
+  },
+  {
+    "name": "fx_impact_prediction",
+    "description": "CAP 25 — Change impact predictor: pre-mutation estimation of subtree impact, selector breakage, listener orphaning, layout severity, a11y impact and form-state loss — integrates with the mutation preview workflow. Input: operation, selector (+ sessionId for stored selectors).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "Planned operation (set_attribute, set_style, remove, set_outer_html…)"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        }
+      },
+      "required": [
+        "operation",
+        "selector"
+      ]
+    }
+  },
+  {
+    "name": "fx_safe_mutation_guard",
+    "description": "CAP 26 — Safe mutation guard: verdict SAFE/CAUTION/HIGH_RISK/BLOCKED with reasons and required precautions for a planned mutation. Never silently blocks normal operations — BLOCKED only for page-level destruction or irreversible state loss. Input: operation, selector (+ sessionId).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        }
+      },
+      "required": [
+        "operation",
+        "selector"
+      ]
+    }
+  },
+  {
+    "name": "fx_transaction_journal",
+    "description": "CAP 27 — DOM transaction journal: structured per-transaction records (BEFORE/INTENT/ACTION/AFTER/DIFF/EVIDENCE/TIMESTAMP/ACTOR/ROLLBACK info). Journal entries are written by the transactional mutation engine flow; this tool queries them. Input: transactionId/operation/since filters.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "since": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_session_graph",
+    "description": "CAP 28 — Multi-page session graph: nodes/edges connecting pages, frames, navigations, requests, interactions, screenshots and DOM states of one investigation (recorded session + live pages). Input: sessionId.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        }
+      }
+    }
+  },
+  {
+    "name": "fx_evidence_scoring",
+    "description": "CAP 29 — Forensic evidence scoring: score ANY finding from supporting/contradicting evidence items (source types with weights) — confidence, band, evidence count/types. The same model powers every fx_ conclusion. Input: conclusion + evidence arrays.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "conclusion": {
+          "type": "string",
+          "description": "The conclusion to score"
+        },
+        "supporting": {
+          "type": "array",
+          "description": "Supporting evidence [{source, description, ref?, weight?}]",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string",
+                "description": "One of DOM_OBSERVATION, MUTATION_RECORD, NETWORK_CORRELATION, CONSOLE_EVIDENCE, SCREENSHOT_EVIDENCE, PERFORMANCE_TRACE, MEMORY_EVIDENCE, NAVIGATION_RECORD, USER_INTERACTION, STYLE_EVIDENCE, INFERRED"
+              },
+              "description": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "contradicting": {
+          "type": "array",
+          "description": "Contradicting evidence [{source, description, weight?}]",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "required": [
+        "conclusion",
+        "supporting"
+      ]
+    }
+  },
+  {
+    "name": "fx_incident_report",
+    "description": "CAP 30 — Agent incident report generator: structured incident report (summary, timeline, root cause, evidence, affected DOM/requests/components, performance+a11y impact, remediation, validation steps, confidence) in JSON AND Markdown. Input: sessionId (+ detectedIssue, rootCauseHint).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Recorded forensic session id (list_sessions)"
+        },
+        "detectedIssue": {
+          "type": "string",
+          "description": "One-line issue description"
+        },
+        "rootCauseHint": {
+          "type": "string",
+          "description": "Known root-cause hint (otherwise derived from evidence)"
+        }
+      }
+    }
   }
 ]

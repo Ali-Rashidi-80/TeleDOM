@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "pageId": "live",
-  "generatedAt": 1789003320697,
+  "generatedAt": 1788988531873,
   "majorSections": [
     {
       "name": "banner_1",
@@ -42,7 +42,7 @@
         "width": 0,
         "height": 0
       },
-      "childrenSummary": "6 children (h2, div, div, div, div)",
+      "childrenSummary": "7 children (h2, div, div, div, div)",
       "visible": false
     },
     {

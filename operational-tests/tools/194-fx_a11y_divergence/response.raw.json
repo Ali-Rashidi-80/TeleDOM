@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_194_fx_a11y_divergence",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"a11yTree\": [\n    {\n      \"selector\": \"#search-input\",\n      \"role\": \"textbox\",\n      \"name\": \"\",\n      \"accessible\": true,\n      \"hiddenFromA11y\": false,\n      \"interactive\": true,\n      \"issues\": [\n        \"missing-name\"\n      ]\n    }\n  ],\n  \"divergence\": [\n    {\n      \"kind\": \"missing-name\",\n      \"selector\": \"#search-input\",\n      \"detail\": \"Interactive <input> role=textbox has NO accessible name (no aria-label, alt, label or text).\",\n      \"severity\": \"error\"\n    }\n  ],\n  \"summary\": {\n    \"domElements\": 5,\n    \"accessibleNodes\": 5,\n    \"interactiveWithoutName\": 1,\n    \"hiddenButRelevant\": 0,\n    \"divergenceCount\": 1\n  }\n}"
+      }
+    ]
+  }
+}

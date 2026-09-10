@@ -1,0 +1,36 @@
+{
+  "tool": "dt_click",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "uid": {
+        "type": "string",
+        "description": "Element uid from dt_take_snapshot"
+      },
+      "selector": {
+        "type": "string",
+        "description": "CSS selector of the element (fallback when no uid)"
+      },
+      "pageId": {
+        "type": "string",
+        "description": "Unified page id (defaults to active page)"
+      },
+      "tabId": {
+        "type": "number",
+        "description": "Extension tab id (alias for the page)"
+      },
+      "dblClick": {
+        "type": "boolean",
+        "description": "Double click (default false)"
+      },
+      "includeSnapshot": {
+        "type": "boolean",
+        "description": "Include an updated page snapshot in the response"
+      }
+    },
+    "required": []
+  },
+  "expectedBehavior": "Clicks the fixture element through the unified runtime"
+}

@@ -1,0 +1,33 @@
+{
+  "prediction": {
+    "target": "#search-input",
+    "operation": "set_attribute",
+    "affectedSubtreeSize": 1,
+    "affectedElements": [
+      {
+        "selector": "#search-input",
+        "reason": "attribute/layout state changes"
+      }
+    ],
+    "selectorBreakage": [],
+    "listenerImpact": {
+      "estimatedListenersOnSubtree": 0,
+      "note": "No listeners expected on the subtree."
+    },
+    "layoutImpact": {
+      "severity": "MEDIUM",
+      "reasoning": "Style/class changes trigger reflow of the subtree and possibly siblings."
+    },
+    "a11yImpact": {
+      "severity": "LOW",
+      "reasoning": "1 interactive element(s) in the subtree may change semantics."
+    },
+    "formStateImpact": {
+      "affected": true,
+      "detail": "1 form field(s) in the subtree — values may be reset."
+    },
+    "overallRisk": "MEDIUM",
+    "confidence": 0.85
+  },
+  "previewIntegration": "Call preview_dom_mutation for the engine-level preview; this prediction adds selector/listener/a11y/form dimensions (CAP 25)."
+}

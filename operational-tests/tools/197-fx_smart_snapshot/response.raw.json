@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_197_fx_smart_snapshot",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"recommendedMode\": \"INTERACTION\",\n  \"mode\": \"INTERACTION\",\n  \"description\": \"Interactive elements only: links, buttons, inputs, selects, textareas with names and values (~10-15%).\",\n  \"nodeCount\": 1,\n  \"fullNodeCount\": 5,\n  \"compressionRatio\": 0.151,\n  \"estimatedTokens\": 23,\n  \"nodes\": [\n    {\n      \"tag\": \"input\",\n      \"id\": \"search-input\",\n      \"type\": \"text\",\n      \"value\": \"initial query\",\n      \"path\": \"3:leaf\"\n    }\n  ],\n  \"usage\": \"This mode returns ~15% of the FULL snapshot size. Prefer the smallest mode that answers your question (§39).\"\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "tool": "dt_take_heapsnapshot",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      },
+      "raw": {
+        "type": "string",
+        "description": "Optional pre-captured .heapsnapshot JSON string to register instead of live capture"
+      },
+      "saveToPath": {
+        "type": "string",
+        "description": "Optional path to persist the raw snapshot JSON"
+      }
+    }
+  },
+  "expectedBehavior": "Registers a heap snapshot (deterministic fixture, explicitly simulated)"
+}

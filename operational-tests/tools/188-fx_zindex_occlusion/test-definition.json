@@ -1,0 +1,20 @@
+{
+  "tool": "fx_zindex_occlusion",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Builds the stacking-context occlusion assessment"
+}

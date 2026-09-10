@@ -1,0 +1,32 @@
+{
+  "snapshotId": "heap_7",
+  "node": {
+    "id": 7,
+    "className": "retained-blob",
+    "selfSize": 131072
+  },
+  "retainerCount": 2,
+  "retainers": [
+    {
+      "index": 3,
+      "type": "hidden",
+      "nameOrIndex": "3",
+      "fromNodeId": 1,
+      "fromClassName": "synthetic:(roots)",
+      "toNodeId": 7,
+      "toNodeClass": "retained-blob",
+      "toSelfSize": 131072
+    },
+    {
+      "index": 13,
+      "type": "edge_6",
+      "nameOrIndex": "internal",
+      "fromNodeId": 6,
+      "fromClassName": "GlobalStore",
+      "toNodeId": 7,
+      "toNodeClass": "retained-blob",
+      "toSelfSize": 131072
+    }
+  ],
+  "simulated": true
+}

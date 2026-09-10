@@ -1,0 +1,17 @@
+{
+  "tool": "dt_get_console_message",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "messageId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "messageId"
+    ]
+  },
+  "expectedBehavior": "Inspects a captured console message in full"
+}

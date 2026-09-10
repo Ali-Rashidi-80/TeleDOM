@@ -1,0 +1,26 @@
+{
+  "tool": "dt_heapsnapshot_edges",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "snapshotId": {
+        "type": "string"
+      },
+      "nodeId": {
+        "type": "number"
+      },
+      "nodeIndex": {
+        "type": "number"
+      },
+      "limit": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "snapshotId"
+    ]
+  },
+  "expectedBehavior": "Parses and analyzes the heap snapshot with the real V8-format parser"
+}

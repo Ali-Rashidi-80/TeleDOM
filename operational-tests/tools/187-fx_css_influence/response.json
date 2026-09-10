@@ -1,0 +1,119 @@
+{
+  "selector": "#search-input",
+  "group": "all",
+  "computedStyles": {
+    "display": "inline-block",
+    "visibility": "visible",
+    "opacity": "1",
+    "width": "240px",
+    "height": "auto",
+    "min-width": "auto",
+    "max-width": "none",
+    "min-height": "auto",
+    "max-height": "none",
+    "aspect-ratio": "auto",
+    "position": "static",
+    "top": "auto",
+    "left": "auto",
+    "right": "auto",
+    "bottom": "auto",
+    "inset": "",
+    "float": "none",
+    "margin": "0",
+    "transform": "none",
+    "z-index": "auto",
+    "filter": "none",
+    "isolation": "auto",
+    "mix-blend-mode": "normal",
+    "font-family": "sans-serif",
+    "font-size": "medium",
+    "font-weight": "normal",
+    "line-height": "normal",
+    "letter-spacing": "normal",
+    "text-transform": "none",
+    "color": "rgb(248, 250, 252)",
+    "overflow": "clip",
+    "overflow-x": "visible",
+    "overflow-y": "visible",
+    "text-overflow": "clip",
+    "white-space": "",
+    "clip": "auto",
+    "clip-path": "none",
+    "mask": "",
+    "contain": "none"
+  },
+  "inlineStyle": null,
+  "influencingRules": [
+    {
+      "rank": 1,
+      "selector": ".input-field",
+      "stylesheet": "inline<style>",
+      "specificity": [
+        0,
+        1,
+        0
+      ],
+      "specificityValue": 100,
+      "declarations": [
+        "background: rgb(15, 23, 42)",
+        "border: 1px solid rgb(71, 85, 105)",
+        "color: rgb(248, 250, 252)",
+        "padding: 8px",
+        "border-radius: 4px",
+        "width: 240px"
+      ],
+      "inherited": false,
+      "matchedProperties": [
+        "color",
+        "width"
+      ]
+    },
+    {
+      "rank": 2,
+      "selector": "body",
+      "stylesheet": "inline<style>",
+      "specificity": [
+        0,
+        0,
+        1
+      ],
+      "specificityValue": 1,
+      "declarations": [
+        "font-family: sans-serif",
+        "padding: 20px",
+        "background: rgb(15, 23, 42)",
+        "color: rgb(248, 250, 252)"
+      ],
+      "inherited": true,
+      "matchedProperties": [
+        "font-family",
+        "color"
+      ]
+    },
+    {
+      "rank": 3,
+      "selector": ".card",
+      "stylesheet": "inline<style>",
+      "specificity": [
+        0,
+        1,
+        0
+      ],
+      "specificityValue": 100,
+      "declarations": [
+        "background: rgb(30, 41, 59)",
+        "border-radius: 8px",
+        "padding: 16px",
+        "margin-bottom: 16px",
+        "border: 1px solid rgb(51, 65, 85)"
+      ],
+      "inherited": true,
+      "matchedProperties": []
+    }
+  ],
+  "ruleCount": 3,
+  "notes": [
+    "Specificity computed as (ids, classes+attributes+pseudo-classes, elements).",
+    "Inherited rules are ranked below direct matches for the queried property group."
+  ]
+}

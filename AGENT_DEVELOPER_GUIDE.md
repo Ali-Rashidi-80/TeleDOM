@@ -1,13 +1,15 @@
 # 🤖 McpDOM + Browser Forensic Platform — AI Agent & Developer Master Guide
 
 > **Welcome Agent / Developer!**
-> This document is your comprehensive architectural and operational guide to understanding, building, running, testing, and extending the **McpDOM Browser Forensic Platform (v3.0.0)**.
+> This document is your comprehensive architectural and operational guide to understanding, building, running, testing, and extending the **McpDOM Unified Browser Intelligence Platform (v3.1.0)**.
 
-> **v3 evolution**: the platform now exposes **121 MCP tools** (47 preserved + 74 new),
-> a DOM mutation engine with transactions and undo/redo, a project knowledge system
-> with agent handoff packages, human-like interaction profiles, responsive testing,
-> 27 DOM analyzers and built-in tool discovery. Deep references:
-> `docs/ARCHITECTURE.md`, `docs/MCP_TOOLS.md`, `docs/CAPABILITY_MATRIX.md`,
+> **v3.1 evolution**: the platform now exposes **206 MCP tools** — the 121 preserved
+> v3 tools, **54 Chrome DevTools MCP capability tools** (`dt_` namespace, §8 of the
+> fusion spec) and **31 advanced forensic capability tools** (`fx_` namespace, the
+> 30 native capabilities) — over one unified browser runtime (page identity,
+> event bus, CDP gateway). Deep references:
+> `docs/UNIFIED_ARCHITECTURE.md`, `docs/DEEPTOOLS_INTEGRATION.md`,
+> `docs/FORENSIC_CAPABILITIES.md`, `docs/MCP_TOOLS.md`, `docs/CAPABILITY_MATRIX.md`,
 > `docs/TROUBLESHOOTING.md`, and the 17 skills under `.agents/skills/`.
 
 ---
@@ -55,20 +57,52 @@ graph TD
 
 ### Key Architectural Components:
 1. **Chrome Extension (`src/extension/` & `chrome-extension/`)**:
-   - `src/extension/background/service-worker.ts`: Background service worker managing tab lifecycles, extension messaging, and WebSocket connection to Bridge (`ws://localhost:3847/extension`).
+   - `src/extension/background/service-worker.ts`: Background service worker managing tab lifecycles, extension messaging, WebSocket connection to Bridge (`ws://localhost:3847/extension`), and the **CDP gateway** (`CDP_ATTACH`/`CDP_COMMAND`/`CDP_DETACH` via `chrome.debugger` — requires the `debugger` permission) powering DevTools tracing/heap-snapshot capabilities.
    - `src/extension/content/`: Injected content script tracking DOM mutations via `MutationObserver`, element picker (`Ctrl + Shift + Click`), and synthetic interaction execution.
+   - `src/extension/injected/page-script.ts`: console/network interception + **event-listener instrumentation registry** (`window.__mcpdom_listeners__`, CAP 13).
 2. **WebSocket Bridge Server (`src/mcp/bridge-server.ts` & `bin/bridge-server.js`)**:
    - Listens on `http://localhost:3847` and `ws://localhost:3847`.
-   - Dispatches live commands from MCP tools to connected browser tabs and returns evaluated DOM data.
+   - Dispatches live commands from MCP tools to connected browser tabs and returns evaluated DOM data; routes `CDP_EVENT` messages from the extension into the CDP gateway.
 3. **MCP Stdio Server (`src/mcp/server.ts` & `bin/mcp-server.js`)**:
    - Implements the official Model Context Protocol (JSON-RPC 2.0 over stdio).
-   - Exposes **43 distinct tools** directly to AI agents.
-4. **Web UI Client (`src/ui/`)**:
+   - Exposes **206 distinct tools** directly to AI agents (121 MCPDOM + 54 dt_ + 31 fx_).
+4. **DevTools capability layer (`src/devtools/`)**:
+   - Unified browser runtime, page identity registry, unified event bus, tool registry, CDP gateway, trace store, V8 heap snapshot parser + the `dt_` tool handlers.
+5. **Forensics capability layer (`src/forensics/`)**:
+   - The 30 native capabilities: correlators (DOM↔network, error root cause, waterfall), regression/visual diff, replay, analyzers (CSS/z-index/listeners/fonts/frames/shadow/a11y/components), health/planner/search engine, impact/guard/journal, session graph + incident reporting + export/import.
+6. **Web UI Client (`src/ui/`)**:
    - Time-travel debugger UI allowing human developers to scrub through recorded timelines visually.
 
 ---
 
-## 🛠️ 3. Complete 43 MCP Tools Reference
+## 🛠️ 3. Tool Families & Namespaces (206 tools)
+
+The three namespaces are dispatch-routed by the tools handler:
+
+| Namespace | Count | Dispatcher | Integration point |
+|---|---|---|---|
+| (none) — legacy + v3 | 121 | `tools-handler.ts` legacy/v3/… | preserved behavior |
+| `dt_*` — Chrome DevTools capabilities | 54 | `src/devtools/handler.ts` | unified browser runtime (bridge + local fallback + CDP gateway) |
+| `fx_*` — advanced forensics | 31 | `src/forensics/handler.ts` | session storage + temporal correlation + live probes |
+
+### `dt_` families (Chrome DevTools MCP fusion, §8)
+- **Input automation (10)**: `dt_click`, `dt_click_at`, `dt_drag`, `dt_fill`, `dt_fill_form`, `dt_handle_dialog`, `dt_hover`, `dt_press_key`, `dt_type_text`, `dt_upload_file`
+- **Navigation (7)**: `dt_list_pages`, `dt_select_page`, `dt_new_page`, `dt_close_page`, `dt_navigate_page`, `dt_history_navigation`, `dt_wait_for`
+- **Emulation (2)**: `dt_emulate`, `dt_resize_page`
+- **Performance (3)**: `dt_performance_start_trace`, `dt_performance_stop_trace`, `dt_performance_analyze_insight`
+- **Network (2)**: `dt_list_network_requests`, `dt_get_network_request`
+- **Debugging (8)**: `dt_evaluate_script`, `dt_list_console_messages`, `dt_get_console_message`, `dt_take_screenshot`, `dt_take_snapshot`, `dt_screencast_start`, `dt_screencast_stop`, `dt_lighthouse_audit`
+- **Memory (13)**: `dt_take_heapsnapshot`, `dt_close_heapsnapshot`, `dt_heapsnapshot_{summary,details,class_nodes,edges,retainers,retaining_paths,dominators,duplicate_strings,object_details}`, `dt_query_heapsnapshot_objects`, `dt_compare_heapsnapshots`
+- **Extensions (5)**: `dt_install_extension`, `dt_list_extensions`, `dt_reload_extension`, `dt_trigger_extension_action`, `dt_uninstall_extension`
+- **Third-party + WebMCP (4)**: `dt_list_3p_developer_tools`, `dt_execute_3p_developer_tool`, `dt_list_webmcp_tools`, `dt_execute_webmcp_tool`
+
+### `fx_` capabilities (the 30 native capabilities, §17)
+See `docs/FORENSIC_CAPABILITIES.md` for the full table with implementations:
+`fx_correlate_dom_network` (01), `fx_dom_regression_diff` (02), `fx_visual_regression_forensics` (03), `fx_layout_shift_forensics` (04), `fx_record_interactions`+`fx_replay_interactions` (05), `fx_failure_replay` (06), `fx_selector_survivability` (07), `fx_component_boundaries` (08), `fx_frame_forensics` (09), `fx_shadow_dom_forensics` (10), `fx_css_influence` (11), `fx_zindex_occlusion` (12), `fx_event_listeners` (13), `fx_error_root_cause` (14), `fx_network_dom_binding` (15), `fx_resource_waterfall` (16), `fx_font_forensics` (17), `fx_a11y_divergence` (18), `fx_page_health` (19), `fx_exploration_planner` (20), `fx_smart_snapshot` (21), `fx_cross_signal_search` (22), `fx_forensic_export` (23), `fx_forensic_import` (24), `fx_impact_prediction` (25), `fx_safe_mutation_guard` (26), `fx_transaction_journal` (27), `fx_session_graph` (28), `fx_evidence_scoring` (29), `fx_incident_report` (30).
+
+### Historical Forensics & Time-Travel (legacy, preserved)
+The original 22 live-control and 21 historical-forensics tools continue to work
+unchanged — see the table in the original guide below.
 
 ### 🌐 Live Browser Control, Tab & Extension Management (22 Tools)
 | Tool Name | Description | Key Parameters |
@@ -238,11 +272,17 @@ To manually register in Claude Desktop or Cursor:
 
 ## 💡 7. Guidelines for Extending & Adding New Tools
 
-1. **Define the Tool**: Add its name, description, and JSON schema to `src/mcp/tools-definition.ts`.
+1. **Define the Tool**:
+   - Legacy/storage tools: `src/mcp/tools-definition.ts`.
+   - DevTools-family tools: `src/devtools/definitions.ts` (+ registry metadata in `src/devtools/tool-registry.ts`).
+   - Forensic capabilities: `src/forensics/definitions.ts`.
 2. **Implement Handler**:
    - For offline/storage tools: Add logic to `src/mcp/tools-handler.ts`.
    - For live browser commands: Add dispatch logic to `src/mcp/live-tools-handler.ts` and handle the corresponding browser action in `src/extension/content/` or `src/extension/background/service-worker.ts`.
-3. **Register in CLI**: Add the tool name to `ALL_43_TOOLS` in `bin/cli.js`.
-4. **Compile & Test**: Run `npm run build` and `npm run test:unit`.
+   - For dt_/fx_ tools: implement in the corresponding capability module and register in the handler ROUTES map.
+3. **Register in CLI**: Add the tool name to the appropriate list in `bin/cli.js` (new namespaces go into `bin/unified-tools-list.mjs`).
+4. **Register in groups**: add the tool to `src/mcp/tool-groups.ts` (tool discovery contract).
+5. **Operational matrix**: add an args case for the tool in `scripts/run-operational-suite.js` — the suite FAILS certification without it.
+6. **Compile & Test**: Run `npm run build`, `npm run test:unit` and `npm run test:operational` (all three must pass, §7 validation).
 
 Happy Coding & Debugging! 🚀

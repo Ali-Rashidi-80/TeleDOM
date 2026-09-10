@@ -1,0 +1,12 @@
+{
+  "total": 0,
+  "ingested": 0,
+  "messages": [],
+  "mode": {
+    "mode": "SIMULATED",
+    "simulated": true,
+    "note": "JSDOM fixture DOM — deterministic simulation contract, not a real browser page.",
+    "source": "jsdom-fixture"
+  },
+  "note": "Unified console log is empty in this context. With the extension connected, pass ingestTabId to pull the tab capture first."
+}

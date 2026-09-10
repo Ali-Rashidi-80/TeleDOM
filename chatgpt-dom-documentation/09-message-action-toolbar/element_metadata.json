@@ -1,0 +1,137 @@
+{
+  "tag": "div",
+  "classes": [
+    "touch:-me-2",
+    "touch:-ms-3.5",
+    "-ms-2.5",
+    "-me-1",
+    "flex",
+    "flex-wrap",
+    "items-center",
+    "gap-y-4",
+    "p-1",
+    "select-none",
+    "-mt-1",
+    "touch:w-[calc(100%+--spacing(3.5))]",
+    "w-[calc(100%+--spacing(2.5))]",
+    "duration-[1.5s]",
+    "focus-within:transition-none",
+    "hover:transition-none",
+    "touch:pointer-events-auto",
+    "cant-hover:pointer-events-auto",
+    "pointer-events-none",
+    "[mask-image:linear-gradient(to_right,black_33%,transparent_66%)]",
+    "[mask-size:300%_100%]",
+    "[mask-position:100%_0%]",
+    "motion-safe:transition-[mask-position]",
+    "group-hover/turn-messages:pointer-events-auto",
+    "group-hover/turn-messages:[mask-position:0_0]",
+    "group-focus-within/turn-messages:pointer-events-auto",
+    "group-focus-within/turn-messages:[mask-position:0_0]",
+    "has-data-[state=open]:pointer-events-auto",
+    "has-data-[state=open]:[mask-position:0_0]"
+  ],
+  "role": "group",
+  "ariaAttributes": {
+    "aria-label": "Response actions"
+  },
+  "text": " ",
+  "normalizedText": "",
+  "selector": "div.-me-1",
+  "bestSelector": "div.-me-1",
+  "selectorCandidates": [
+    "div.-me-1"
+  ],
+  "bounds": {
+    "x": 434.18182373046875,
+    "y": 252,
+    "width": 778,
+    "height": 50,
+    "top": 252,
+    "right": 1212.1818237304688,
+    "bottom": 302,
+    "left": 434.18182373046875
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "none",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "static",
+    "zIndex": "auto",
+    "pointerEvents": "none",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "aria-label": "Response actions",
+    "class": "touch:-me-2 touch:-ms-3.5 -ms-2.5 -me-1 flex flex-wrap items-center gap-y-4 p-1 select-none -mt-1 touch:w-[calc(100%+--spacing(3.5))] w-[calc(100%+--spacing(2.5))] duration-[1.5s] focus-within:transition-none hover:transition-none touch:pointer-events-auto cant-hover:pointer-events-auto pointer-events-none [mask-image:linear-gradient(to_right,black_33%,transparent_66%)] [mask-size:300%_100%] [mask-position:100%_0%] motion-safe:transition-[mask-position] group-hover/turn-messages:pointer-events-auto group-hover/turn-messages:[mask-position:0_0] group-focus-within/turn-messages:pointer-events-auto group-focus-within/turn-messages:[mask-position:0_0] has-data-[state=open]:pointer-events-auto has-data-[state=open]:[mask-position:0_0]",
+    "role": "group",
+    "tabindex": "-1",
+    "style": "mask-position: 0% 0%;"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.z-0.flex.justify-start",
+      "div.text-base > div:nth-of-type(1)",
+      "div.text-base",
+      "section[data-testid=\"conversation-turn-2\"]",
+      "div.qMYqUG_convSearchResultHighlightRoot > div:nth-of-type(3)",
+      "div.qMYqUG_convSearchResultHighlightRoot",
+      "div.flex.min-h-0.grow",
+      "div.relative.basis-auto.flex-col",
+      "div.composer-parent.flex.flex-1",
+      "#thread",
+      "div.contents",
+      "#main",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative > div:nth-of-type(2) > div:nth-of-type(1)",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(3)",
+      "body"
+    ],
+    "parentSelector": "div.z-0.flex.justify-start",
+    "childrenSummary": {
+      "count": 4,
+      "tags": [
+        "button",
+        "button",
+        "span",
+        "button"
+      ]
+    },
+    "containingBlock": "div.z-0.flex.justify-start",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "clicked": true,
+  "x": 120,
+  "y": 45,
+  "resolvedElement": {
+    "hit": false,
+    "hitTesting": false,
+    "note": "No layout engine — coordinate hit-testing unavailable; click dispatched at document level (bubbles to handlers)."
+  },
+  "pageId": "page_1",
+  "detail": {
+    "clicked": true,
+    "dispatchTarget": "document-level",
+    "tagName": "body",
+    "id": null
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_147_dt_list_console_messages",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_list_console_messages",
+    "arguments": {}
+  }
+}

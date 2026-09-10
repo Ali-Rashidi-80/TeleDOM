@@ -1,0 +1,25 @@
+{
+  "module": "32-message-type-dalle-image-generation",
+  "title": "Generated Images, Lightbox & Zoom Overlay",
+  "titleFa": "تصاویر تولید شده توسط هوش مصنوعی و گالری (DALL-E Images)",
+  "tag": "article",
+  "selector": "[data-testid=\"32-message-type-dalle-image-generation\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

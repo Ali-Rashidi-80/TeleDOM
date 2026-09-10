@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_199_fx_forensic_export",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_forensic_export",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "includeHealth": true
+    }
+  }
+}

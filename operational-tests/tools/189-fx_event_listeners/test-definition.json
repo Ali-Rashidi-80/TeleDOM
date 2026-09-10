@@ -1,0 +1,18 @@
+{
+  "tool": "fx_event_listeners",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "Scope to a subtree (omit for whole document)"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Inventories event listeners with coverage reporting"
+}

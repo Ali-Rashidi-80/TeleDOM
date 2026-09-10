@@ -1,0 +1,28 @@
+{
+  "tool": "fx_layout_shift_forensics",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "eventId": {
+        "type": "string"
+      },
+      "timestamp": {
+        "type": "number"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "windowMs": {
+        "type": "number",
+        "description": "Default 600ms"
+      }
+    }
+  },
+  "expectedBehavior": "Builds a layout-shift evidence chain"
+}

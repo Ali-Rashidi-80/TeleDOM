@@ -1,0 +1,7 @@
+{
+  "total": 0,
+  "tools": [],
+  "pageId": "page_1",
+  "contract": "Tools expose { id, run(args) } on window.__devtools_3p_tools. Execution via dt_execute_3p_developer_tool with validated args.",
+  "note": "No third-party developer tools registered by this page (window.__devtools_3p_tools)."
+}

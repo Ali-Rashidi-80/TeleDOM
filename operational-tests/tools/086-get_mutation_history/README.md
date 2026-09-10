@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 4ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns mutation history with undo/redo depths
@@ -30,7 +30,7 @@ Returns mutation history with undo/redo depths
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"entries\": [\n    {\n      \"mutationId\": \"mut_mtuudxdy_1\",\n      \"timestamp\": 1789003321429,\n      \"operation\": \"add_class\",\n      \"targetSelector\": \"#dynamic-text\",\n      \"success\": true,\n      \"summary\": \"add_class on #dynamic-text (+1/-0/~0)\",\n      \"undoApplied\": false,\n      \"redoApplied\": false\n    }\n  ],\n  \"undoDepth\": 0,\n  \"redoDepth\": 0,\n  \"openTransactionId\": \"tx_mtuudxei_2\"\n}"
+        "text": "{\n  \"entries\": [\n    {\n      \"mutationId\": \"mut_mtulky5g_1\",\n      \"timestamp\": 1788988532461,\n      \"operation\": \"add_class\",\n      \"targetSelector\": \"#dynamic-text\",\n      \"success\": true,\n      \"summary\": \"add_class on #dynamic-text (+1/-0/~0)\",\n      \"undoApplied\": false,\n      \"redoApplied\": false\n    }\n  ],\n  \"undoDepth\": 0,\n  \"redoDepth\": 0,\n  \"openTransactionId\": \"tx_mtulky5r_2\"\n}"
       }
     ]
   }

@@ -1,0 +1,34 @@
+{
+  "tool": "fx_visual_regression_forensics",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "shot1": {
+        "type": "string",
+        "description": "Screenshot event id before"
+      },
+      "shot2": {
+        "type": "string",
+        "description": "Screenshot event id after"
+      },
+      "t1": {
+        "type": "number",
+        "description": "Fallback: timestamp before"
+      },
+      "t2": {
+        "type": "number",
+        "description": "Fallback: timestamp after"
+      }
+    },
+    "required": [
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Visual regression forensics with explicit evidence availability"
+}

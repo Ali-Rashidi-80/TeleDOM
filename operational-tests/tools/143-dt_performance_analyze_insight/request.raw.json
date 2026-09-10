@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_143_dt_performance_analyze_insight",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_performance_analyze_insight",
+    "arguments": {
+      "traceId": "trace_2"
+    }
+  }
+}

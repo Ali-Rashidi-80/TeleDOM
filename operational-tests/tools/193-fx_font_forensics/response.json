@@ -1,0 +1,24 @@
+{
+  "declaredFontFaces": [],
+  "declaredFamilyCount": 0,
+  "usedFamilies": [
+    {
+      "family": "sans-serif",
+      "usageCount": 58
+    }
+  ],
+  "documentFontsStatus": [],
+  "fontsApiAvailable": false,
+  "issues": [
+    {
+      "issue": "no-fallback-stack",
+      "detail": "58 element(s) declare a single font-family with no fallback — layout shift risk if the font fails/metrics differ.",
+      "severity": "warn"
+    }
+  ],
+  "issueCount": 1,
+  "notes": [
+    "Font metrics analysis: @font-face declarations cross-referenced with computed font-family usage and document.fonts load status.",
+    "In JSDOM, document.fonts and layout metrics are limited — @font-face CSSOM analysis remains real; load-status is reported only when the API exists."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tool": "dt_heapsnapshot_details",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "snapshotId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "snapshotId"
+    ]
+  },
+  "expectedBehavior": "Parses and analyzes the heap snapshot with the real V8-format parser"
+}

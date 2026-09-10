@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_146_dt_evaluate_script",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_evaluate_script",
+    "arguments": {
+      "script": "({ ok: true, fixture: document.title })"
+    }
+  }
+}

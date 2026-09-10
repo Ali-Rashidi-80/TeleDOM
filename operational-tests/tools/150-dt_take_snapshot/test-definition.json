@@ -1,0 +1,21 @@
+{
+  "tool": "dt_take_snapshot",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Limit the snapshot to a subtree"
+      }
+    }
+  },
+  "expectedBehavior": "Takes a uid-addressable semantic snapshot"
+}

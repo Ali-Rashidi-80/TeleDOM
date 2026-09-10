@@ -1,0 +1,22 @@
+{
+  "tool": "fx_forensic_import",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "bundleJson": {
+        "type": "string",
+        "description": "Exported bundle JSON (from fx_forensic_export)"
+      },
+      "importAsSession": {
+        "type": "boolean",
+        "description": "Also register a queryable historical session (default true)"
+      }
+    },
+    "required": [
+      "bundleJson"
+    ]
+  },
+  "expectedBehavior": "Verifies and imports the historical investigation bundle"
+}

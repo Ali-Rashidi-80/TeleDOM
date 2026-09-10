@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_191_fx_network_dom_binding",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"bindings\": [\n    {\n      \"requestUrl\": \"https://api.internal/v1/analyze\",\n      \"requestEventId\": \"evt_op_005\",\n      \"responseEventId\": \"evt_op_005\",\n      \"responseStatus\": 200,\n      \"boundRegions\": [\n        {\n          \"selector\": \"#host-sidebar\",\n          \"nodeId\": 4,\n          \"mutationType\": \"DOM_MUTATION_REMOVE\",\n          \"summary\": \"- <?> node=4 subtree=2\",\n          \"delayMs\": 100\n        }\n      ],\n      \"confidence\": 0.93,\n      \"band\": \"VERY_HIGH\"\n    }\n  ],\n  \"unboundRequests\": []\n}"
+      }
+    ]
+  }
+}

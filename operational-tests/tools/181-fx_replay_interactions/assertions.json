@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Replays the recorded interaction set with resilient resolution",
+    "passed": true,
+    "details": "recordingId, replayedAt, steps, successRate, allExecuted, determinismNote"
+  }
+]

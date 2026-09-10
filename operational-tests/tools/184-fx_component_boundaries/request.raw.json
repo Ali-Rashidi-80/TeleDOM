@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_184_fx_component_boundaries",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_component_boundaries",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

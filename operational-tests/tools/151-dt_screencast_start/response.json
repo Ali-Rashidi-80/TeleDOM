@@ -1,0 +1,6 @@
+{
+  "started": false,
+  "mode": "UNAVAILABLE",
+  "note": "Screencast requires a live CDP session (Page.startScreencast). Simulation never fakes frame streams.",
+  "pageId": "page_1"
+}

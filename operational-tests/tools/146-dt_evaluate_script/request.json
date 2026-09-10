@@ -1,0 +1,3 @@
+{
+  "script": "({ ok: true, fixture: document.title })"
+}

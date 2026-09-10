@@ -1,5 +1,5 @@
 {
-  "targetId": "tgt_mtuudwrh_1",
+  "targetId": "tgt_mtulkxnr_1",
   "tag": "input",
   "role": "textbox",
   "selector": "#search-input",
@@ -11,16 +11,6 @@
       "unique": true,
       "reasons": [
         "unique stable id",
-        "matches exactly this element"
-      ]
-    },
-    {
-      "selector": "input.input-field",
-      "strategy": "class",
-      "confidence": 0.72,
-      "unique": true,
-      "reasons": [
-        "stable class names",
         "matches exactly this element"
       ]
     },
@@ -42,6 +32,16 @@
       "reasons": [
         "position-based structural path",
         "matches exactly this element"
+      ]
+    },
+    {
+      "selector": "input.input-field",
+      "strategy": "class",
+      "confidence": 0.29,
+      "unique": false,
+      "reasons": [
+        "stable class names",
+        "matches 2 elements — ambiguous"
       ]
     }
   ],

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_161_dt_heapsnapshot_retaining_paths",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"snapshotId\": \"heap_8\",\n  \"node\": {\n    \"id\": 7,\n    \"className\": \"retained-blob\"\n  },\n  \"pathCount\": 1,\n  \"paths\": [\n    {\n      \"path\": [\n        {\n          \"from\": \"synthetic:(roots)@1\",\n          \"edge\": \"[3]\"\n        }\n      ],\n      \"length\": 1\n    }\n  ],\n  \"simulated\": true\n}"
+      }
+    ]
+  }
+}

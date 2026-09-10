@@ -67,6 +67,24 @@ const toolMatrix = discoveredTools.map((t, idx) => {
     requiresSession = false;
   }
 
+  // §8 DevTools capability tools — live browser tools via the unified
+  // runtime (bridge + local fallback in the JSDOM simulation context).
+  if (name.startsWith('dt_')) {
+    category = 'devtools_capability';
+    executionMode = 'live';
+    requiresBrowser = true;
+    requiresSession = false;
+  }
+
+  // §17 forensic capability tools — recorded-session analysis (historical
+  // mode) except the live-DOM analyzers which run in the simulation page.
+  if (name.startsWith('fx_')) {
+    category = 'forensics_capability';
+    executionMode = 'historical';
+    requiresBrowser = ['fx_css_influence', 'fx_zindex_occlusion', 'fx_event_listeners', 'fx_font_forensics'].includes(name);
+    requiresSession = !requiresBrowser && !['fx_evidence_scoring', 'fx_record_interactions', 'fx_replay_interactions', 'fx_failure_replay', 'fx_impact_prediction', 'fx_safe_mutation_guard', 'fx_transaction_journal'].includes(name);
+  }
+
   if (name.includes('screenshot') || name.includes('visual')) {
     visualEvidenceExpected = true;
   }
@@ -291,11 +309,6 @@ if (fs.existsSync(seedSessionDir)) fs.rmSync(seedSessionDir, { recursive: true, 
 // also clear leftover imported test session
 const importedDir = path.join(STORAGE_DIR, 'imported_op_session_test');
 if (fs.existsSync(importedDir)) fs.rmSync(importedDir, { recursive: true, force: true });
-// also clear leftover test projects and recordings
-const projectsDir = path.join(ROOT_DIR, '.mcpdom_projects');
-if (fs.existsSync(projectsDir)) fs.rmSync(projectsDir, { recursive: true, force: true });
-const recordingsDir = path.join(ROOT_DIR, '.mcpdom_recordings');
-if (fs.existsSync(recordingsDir)) fs.rmSync(recordingsDir, { recursive: true, force: true });
 
 await storage.saveSession(sessionMetadata);
 await storage.saveInitialSnapshot(sessionId, initialSnapshot);
@@ -331,7 +344,7 @@ class StdioMCPClient {
   constructor(serverPath, env = {}) {
     this.process = spawn('node', [serverPath], {
       stdio: ['pipe', 'pipe', 'pipe'],
-      env: { ...process.env, FORENSIC_AUTO_BRIDGE: 'false', ...env },
+      env: { ...process.env, ...env },
     });
     this.pending = new Map();
     this.rl = readline.createInterface({
@@ -918,6 +931,487 @@ for (let i = 0; i < toolMatrix.length; i++) {
     case 'get_tool_groups':
       toolArgs = {};
       expectedAssertionDesc = 'Returns discoverable tool groups';
+      break;
+
+    // ================================================================
+    // §8 DevTools capability tools (dt_ namespace) — simulation context
+    // ================================================================
+    case 'dt_click':
+      toolArgs = { selector: '#primary-action-btn' };
+      expectedAssertionDesc = 'Clicks the fixture element through the unified runtime';
+      break;
+    case 'dt_click_at':
+      toolArgs = { x: 120, y: 45 };
+      expectedAssertionDesc = 'Coordinate click with element resolution';
+      break;
+    case 'dt_drag':
+      toolArgs = { fromSelector: '#removable-card', toX: 200, toY: 200 };
+      expectedAssertionDesc = 'Drags the element to coordinates';
+      break;
+    case 'dt_fill':
+      toolArgs = { selector: '#search-input', value: 'dt fill test' };
+      expectedAssertionDesc = 'Clears and types the field value';
+      break;
+    case 'dt_fill_form':
+      toolArgs = { fields: [{ selector: '#search-input', value: 'form value' }] };
+      expectedAssertionDesc = 'Batch-fills form fields';
+      break;
+    case 'dt_handle_dialog':
+      toolArgs = { accept: true };
+      expectedAssertionDesc = 'Dialog handling reports the CDP requirement in simulation';
+      break;
+    case 'dt_hover':
+      toolArgs = { selector: '#primary-action-btn' };
+      expectedAssertionDesc = 'Hovers the element';
+      break;
+    case 'dt_press_key':
+      toolArgs = { key: 'Enter' };
+      expectedAssertionDesc = 'Presses the key on the focused context';
+      break;
+    case 'dt_type_text':
+      toolArgs = { selector: '#search-input', text: 'typed text' };
+      expectedAssertionDesc = 'Types text into the field';
+      break;
+    case 'dt_upload_file':
+      toolArgs = { selector: '#report-file-input', files: ['report.pdf'] };
+      expectedAssertionDesc = 'Sets the file input files and dispatches input/change';
+      break;
+    case 'dt_list_pages':
+      toolArgs = {};
+      expectedAssertionDesc = 'Lists pages with unified identity mapping';
+      break;
+    case 'dt_select_page':
+      toolArgs = { index: 0 };
+      expectedAssertionDesc = 'Selects the first page';
+      break;
+    case 'dt_new_page':
+      toolArgs = { url: 'https://app.internal/newpage' };
+      expectedAssertionDesc = 'Opens a new page in the deterministic runtime';
+      break;
+    case 'dt_close_page':
+      toolArgs = {};
+      expectedAssertionDesc = 'Closes the most recently opened page';
+      break;
+    case 'dt_navigate_page':
+      toolArgs = { url: 'https://app.internal/navigated' };
+      expectedAssertionDesc = 'Records navigation on the page identity';
+      break;
+    case 'dt_history_navigation':
+      toolArgs = { direction: 'back' };
+      expectedAssertionDesc = 'Reports history availability honestly';
+      break;
+    case 'dt_wait_for':
+      toolArgs = { condition: 'load', timeoutMs: 1000 };
+      expectedAssertionDesc = 'Waits for load state';
+      break;
+    case 'dt_emulate':
+      toolArgs = { viewport: { width: 1280, height: 720 }, cpuThrottlingRate: 4 };
+      expectedAssertionDesc = 'Applies emulation state (reversible)';
+      break;
+    case 'dt_resize_page':
+      toolArgs = { width: 1280, height: 720 };
+      expectedAssertionDesc = 'Resizes the viewport';
+      break;
+    case 'dt_performance_start_trace':
+      toolArgs = {};
+      expectedAssertionDesc = 'Starts a (simulated) performance trace';
+      break;
+    case 'dt_performance_stop_trace':
+      toolArgs = {};
+      expectedAssertionDesc = 'Stops the active trace and returns vitals analysis';
+      break;
+    case 'dt_performance_analyze_insight': {
+      // Start a trace first so the analyzer has a real trace id.
+      const traceSetup = await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'trace_setup_for_analyze',
+        method: 'tools/call',
+        params: { name: 'dt_performance_start_trace', arguments: {} },
+      });
+      const traceText = traceSetup?.result?.content?.[0]?.text || '{}';
+      let traceId = '';
+      try { traceId = JSON.parse(traceText).traceId || ''; } catch {}
+      toolArgs = traceId ? { traceId } : {};
+      expectedAssertionDesc = 'Analyzes trace insights (long tasks, shifts, vitals)';
+      break;
+    }
+    case 'dt_list_network_requests':
+      toolArgs = {};
+      expectedAssertionDesc = 'Lists the unified network log';
+      break;
+    case 'dt_get_network_request': {
+      // Seed the capture buffer through a page-level script (the same
+      // channel the extension uses), ingest it, then inspect the record.
+      await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'net_seed_setup',
+        method: 'tools/call',
+        params: {
+          name: 'dt_evaluate_script',
+          arguments: {
+            script: `(function(){ window.__FORENSIC_NETWORK_BUFFER__ = window.__FORENSIC_NETWORK_BUFFER__ || []; window.__FORENSIC_NETWORK_BUFFER__.push({ url: 'https://app.internal/api/seeded-request', method: 'GET', status: 200, size: 128, type: 'fetch', timestamp: Date.now() }); return { seeded: true }; })()`,
+          },
+        },
+      });
+      const listRes = await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'net_list_setup',
+        method: 'tools/call',
+        params: { name: 'dt_list_network_requests', arguments: { ingestTabId: 1 } },
+      });
+      const listText = listRes?.result?.content?.[0]?.text || '{}';
+      let seededReq = '';
+      try {
+        const parsed = JSON.parse(listText);
+        const match = (parsed.requests || []).find((r) => r.url && r.url.includes('seeded-request'));
+        seededReq = match ? match.requestId : '';
+      } catch {}
+      toolArgs = { requestId: seededReq || 'req_1' };
+      expectedAssertionDesc = 'Inspects a captured network request in full';
+      break;
+    }
+    case 'dt_list_console_messages':
+      toolArgs = {};
+      expectedAssertionDesc = 'Lists the unified console log';
+      break;
+    case 'dt_get_console_message': {
+      // Seed the console buffer the same way, ingest, then inspect.
+      await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'console_seed_setup',
+        method: 'tools/call',
+        params: {
+          name: 'dt_evaluate_script',
+          arguments: {
+            script: `(function(){ window.__FORENSIC_CONSOLE_BUFFER__ = window.__FORENSIC_CONSOLE_BUFFER__ || []; window.__FORENSIC_CONSOLE_BUFFER__.push({ level: 'warn', text: 'Seeded console warning for unified log verification', timestamp: Date.now() }); return { seeded: true }; })()`,
+          },
+        },
+      });
+      const conRes = await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'console_list_setup',
+        method: 'tools/call',
+        params: { name: 'dt_list_console_messages', arguments: { ingestTabId: 1 } },
+      });
+      const conText = conRes?.result?.content?.[0]?.text || '{}';
+      let seededMsg = '';
+      try {
+        const parsed = JSON.parse(conText);
+        const match = (parsed.messages || []).find((m) => m.text && m.text.includes('Seeded console warning'));
+        seededMsg = match ? match.messageId : '';
+      } catch {}
+      toolArgs = { messageId: seededMsg || 'con_1' };
+      expectedAssertionDesc = 'Inspects a captured console message in full';
+      break;
+    }
+    case 'dt_evaluate_script':
+      toolArgs = { script: '({ ok: true, fixture: document.title })' };
+      expectedAssertionDesc = 'Evaluates a script in the page context';
+      break;
+    case 'dt_take_screenshot':
+      toolArgs = {};
+      expectedAssertionDesc = 'Captures a page screenshot through MCPDOM capture';
+      break;
+    case 'dt_take_snapshot':
+      toolArgs = {};
+      expectedAssertionDesc = 'Takes a uid-addressable semantic snapshot';
+      break;
+    case 'dt_screencast_start':
+      toolArgs = {};
+      expectedAssertionDesc = 'Reports screencast CDP requirement';
+      break;
+    case 'dt_screencast_stop':
+      toolArgs = {};
+      expectedAssertionDesc = 'Reports no active screencast';
+      break;
+    case 'dt_lighthouse_audit':
+      toolArgs = {};
+      expectedAssertionDesc = 'Reports Lighthouse CDP requirement';
+      break;
+    case 'dt_take_heapsnapshot':
+      toolArgs = {};
+      expectedAssertionDesc = 'Registers a heap snapshot (deterministic fixture, explicitly simulated)';
+      break;
+    case 'dt_close_heapsnapshot': {
+      // Take a fresh fixture snapshot first, then close it.
+      const closeSetup = await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'heap_setup_for_close',
+        method: 'tools/call',
+        params: { name: 'dt_take_heapsnapshot', arguments: {} },
+      });
+      const closeText = closeSetup?.result?.content?.[0]?.text || '{}';
+      let closeId = 'heap_1';
+      try { closeId = JSON.parse(closeText).snapshotId || 'heap_1'; } catch {}
+      toolArgs = { snapshotId: closeId };
+      expectedAssertionDesc = 'Closes the loaded heap snapshot (lifecycle §24)';
+      break;
+    }
+    case 'dt_heapsnapshot_summary':
+    case 'dt_heapsnapshot_details':
+    case 'dt_heapsnapshot_class_nodes':
+    case 'dt_heapsnapshot_edges':
+    case 'dt_heapsnapshot_retainers':
+    case 'dt_heapsnapshot_retaining_paths':
+    case 'dt_heapsnapshot_dominators':
+    case 'dt_heapsnapshot_duplicate_strings':
+    case 'dt_heapsnapshot_object_details':
+    case 'dt_query_heapsnapshot_objects':
+    case 'dt_compare_heapsnapshots': {
+      // Take a fresh fixture snapshot first, then analyze it via real stdio.
+      const snapRes = await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'heap_setup_for_' + toolName,
+        method: 'tools/call',
+        params: { name: 'dt_take_heapsnapshot', arguments: {} },
+      });
+      const snapText = snapRes?.result?.content?.[0]?.text || '{}';
+      let snapId = 'heap_1';
+      try { snapId = JSON.parse(snapText).snapshotId || 'heap_1'; } catch {}
+      if (toolName === 'dt_heapsnapshot_class_nodes' || toolName === 'dt_query_heapsnapshot_objects') {
+        toolArgs = { snapshotId: snapId, className: 'Object' };
+      } else if (toolName === 'dt_heapsnapshot_edges' || toolName === 'dt_heapsnapshot_retainers' || toolName === 'dt_heapsnapshot_retaining_paths' || toolName === 'dt_heapsnapshot_object_details') {
+        toolArgs = { snapshotId: snapId, nodeId: 7 };
+      } else if (toolName === 'dt_compare_heapsnapshots') {
+        toolArgs = { snapshotA: snapId, snapshotB: snapId };
+      } else {
+        toolArgs = { snapshotId: snapId };
+      }
+      expectedAssertionDesc = 'Parses and analyzes the heap snapshot with the real V8-format parser';
+      break;
+    }
+    case 'dt_install_extension':
+      toolArgs = { extensionId: 'mcpdom-test-extension' };
+      expectedAssertionDesc = 'Reports extension installation capability';
+      break;
+    case 'dt_list_extensions':
+      toolArgs = {};
+      expectedAssertionDesc = 'Lists extensions (simulated state clearly labeled)';
+      break;
+    case 'dt_reload_extension':
+      toolArgs = { extensionId: 'forensic-recorder@mcpdom' };
+      expectedAssertionDesc = 'Reloads the simulated extension';
+      break;
+    case 'dt_trigger_extension_action':
+      toolArgs = { extensionId: 'forensic-recorder@mcpdom' };
+      expectedAssertionDesc = 'Reports extension action requirement';
+      break;
+    case 'dt_uninstall_extension':
+      toolArgs = { extensionId: 'forensic-recorder@mcpdom' };
+      expectedAssertionDesc = 'Soft-uninstalls (disables) the extension';
+      break;
+    case 'dt_list_3p_developer_tools':
+      toolArgs = {};
+      expectedAssertionDesc = 'Probes third-party developer tool registrations';
+      break;
+    case 'dt_execute_3p_developer_tool': {
+      // Register a real third-party developer tool in the page first.
+      await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: '3p_seed_setup',
+        method: 'tools/call',
+        params: {
+          name: 'dt_evaluate_script',
+          arguments: {
+            script: `(function(){ window.__devtools_3p_tools = [{ id: 'fixture-3p-tool', name: 'Fixture 3P Tool', description: 'Seeded for operational validation', input: { value: 'string' }, run: (args) => ({ ok: true, echo: args && args.value }) }]; return { registered: true }; })()`,
+          },
+        },
+      });
+      toolArgs = { toolId: 'fixture-3p-tool', args: { value: 'hello' } };
+      expectedAssertionDesc = 'Executes the registered third-party developer tool';
+      break;
+    }
+    case 'dt_list_webmcp_tools':
+      toolArgs = {};
+      expectedAssertionDesc = 'Probes WebMCP registrations';
+      break;
+    case 'dt_execute_webmcp_tool': {
+      // Register a real WebMCP runner in the page first.
+      await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'webmcp_seed_setup',
+        method: 'tools/call',
+        params: {
+          name: 'dt_evaluate_script',
+          arguments: {
+            script: `(function(){ window.webMCP = { listTools: () => [{ name: 'fixture-webmcp-tool', description: 'Seeded WebMCP tool' }], executeTool: async (name, args) => ({ tool: name, received: args }) }; return { registered: true }; })()`,
+          },
+        },
+      });
+      toolArgs = { toolName: 'fixture-webmcp-tool', args: { query: 'test' } };
+      expectedAssertionDesc = 'Executes the registered WebMCP tool';
+      break;
+    }
+
+    // ================================================================
+    // §17 The 30 MCPDOM-native forensic capabilities (fx_ namespace)
+    // ================================================================
+    case 'fx_correlate_dom_network':
+      toolArgs = { sessionId, timestamp: 50 };
+      expectedAssertionDesc = 'Ranks DOM↔network causal candidates with confidence';
+      break;
+    case 'fx_dom_regression_diff':
+      toolArgs = { sessionId, t1: 0, t2: 400 };
+      expectedAssertionDesc = 'Diffs states across 8 dimensions with machine+human output';
+      break;
+    case 'fx_visual_regression_forensics':
+      toolArgs = { sessionId, t1: 0, t2: 400 };
+      expectedAssertionDesc = 'Visual regression forensics with explicit evidence availability';
+      break;
+    case 'fx_layout_shift_forensics':
+      toolArgs = { sessionId, timestamp: 200 };
+      expectedAssertionDesc = 'Builds a layout-shift evidence chain';
+      break;
+    case 'fx_record_interactions':
+      toolArgs = { mode: 'list' };
+      expectedAssertionDesc = 'Lists interaction recordings';
+      break;
+    case 'fx_replay_interactions': {
+      // Record a real interaction set first, then replay it.
+      const startRes = await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'fx_replay_setup_start',
+        method: 'tools/call',
+        params: { name: 'fx_record_interactions', arguments: { mode: 'start' } },
+      });
+      const startText = startRes?.result?.content?.[0]?.text || '{}';
+      let recId = '';
+      try { recId = JSON.parse(startText).recordingId || ''; } catch {}
+      if (recId) {
+        await mcpClient.sendRequest({
+          jsonrpc: '2.0',
+          id: 'fx_replay_setup_step',
+          method: 'tools/call',
+          params: { name: 'fx_record_interactions', arguments: { mode: 'record-step', recordingId: recId, action: 'type', selector: '#search-input', params: { text: 'replayable' } } },
+        });
+        await mcpClient.sendRequest({
+          jsonrpc: '2.0',
+          id: 'fx_replay_setup_stop',
+          method: 'tools/call',
+          params: { name: 'fx_record_interactions', arguments: { mode: 'stop', recordingId: recId } },
+        });
+      }
+      toolArgs = { recordingId: recId || 'irep_unknown', verifySelectorsOnly: true };
+      expectedAssertionDesc = 'Replays the recorded interaction set with resilient resolution';
+      break;
+    }
+    case 'fx_failure_replay':
+      toolArgs = { mode: 'capture', failedAction: 'click', failedSelector: '#injected-action-btn' };
+      expectedAssertionDesc = 'Captures a structured failure scenario';
+      break;
+    case 'fx_selector_survivability':
+      toolArgs = { selector: '#injected-action-btn', sessionId };
+      expectedAssertionDesc = 'Scores selector survivability with breakdown';
+      break;
+    case 'fx_component_boundaries':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Infers component boundaries with framework evidence';
+      break;
+    case 'fx_frame_forensics':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Analyzes frame hierarchy and event attribution';
+      break;
+    case 'fx_shadow_dom_forensics':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Analyzes shadow DOM hosts and boundaries';
+      break;
+    case 'fx_css_influence':
+      toolArgs = { selector: '#search-input' };
+      expectedAssertionDesc = 'Ranks CSS rules influencing the element';
+      break;
+    case 'fx_zindex_occlusion':
+      toolArgs = { selector: '#search-input' };
+      expectedAssertionDesc = 'Builds the stacking-context occlusion assessment';
+      break;
+    case 'fx_event_listeners':
+      toolArgs = {};
+      expectedAssertionDesc = 'Inventories event listeners with coverage reporting';
+      break;
+    case 'fx_error_root_cause':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Builds the error root-cause graph with ranked causes';
+      break;
+    case 'fx_network_dom_binding':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Binds responses to DOM regions with confidence';
+      break;
+    case 'fx_resource_waterfall':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Builds the resource waterfall with milestones';
+      break;
+    case 'fx_font_forensics':
+      toolArgs = {};
+      expectedAssertionDesc = 'Analyzes @font-face usage and font issues';
+      break;
+    case 'fx_a11y_divergence':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Reports DOM vs accessibility divergences';
+      break;
+    case 'fx_page_health':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Computes the composite page health with subscores';
+      break;
+    case 'fx_exploration_planner':
+      toolArgs = { sessionId, symptom: 'injected button disappeared' };
+      expectedAssertionDesc = 'Plans next investigation actions';
+      break;
+    case 'fx_smart_snapshot':
+      toolArgs = { sessionId, question: 'what buttons exist' };
+      expectedAssertionDesc = 'Returns the compressed snapshot with mode recommendation';
+      break;
+    case 'fx_cross_signal_search':
+      toolArgs = { sessionId, query: 'injected-action-btn' };
+      expectedAssertionDesc = 'Cross-domain search returns scored hits';
+      break;
+    case 'fx_forensic_export': {
+      toolArgs = { sessionId, includeHealth: true };
+      expectedAssertionDesc = 'Exports the deterministic investigation bundle with content hash';
+      break;
+    }
+    case 'fx_forensic_import': {
+      // Export a real bundle first via stdio, then import it.
+      const expRes = await mcpClient.sendRequest({
+        jsonrpc: '2.0',
+        id: 'fx_export_for_import',
+        method: 'tools/call',
+        params: { name: 'fx_forensic_export', arguments: { sessionId, includeHealth: false } },
+      });
+      const expText = expRes?.result?.content?.[0]?.text || '{}';
+      let bundleJson = '';
+      try { bundleJson = JSON.parse(expText).bundleJson || ''; } catch {}
+      toolArgs = { bundleJson: bundleJson || '{}', importAsSession: false };
+      expectedAssertionDesc = 'Verifies and imports the historical investigation bundle';
+      break;
+    }
+    case 'fx_impact_prediction':
+      toolArgs = { operation: 'set_attribute', selector: '#search-input' };
+      expectedAssertionDesc = 'Predicts mutation impact across dimensions';
+      break;
+    case 'fx_safe_mutation_guard':
+      toolArgs = { operation: 'set_outer_html', selector: '#removable-card' };
+      expectedAssertionDesc = 'Guards the mutation with a verdict and reasons';
+      break;
+    case 'fx_transaction_journal':
+      toolArgs = {};
+      expectedAssertionDesc = 'Queries the transaction journal store';
+      break;
+    case 'fx_session_graph':
+      toolArgs = { sessionId };
+      expectedAssertionDesc = 'Builds the multi-page session graph';
+      break;
+    case 'fx_evidence_scoring':
+      toolArgs = {
+        conclusion: 'The injected button was removed by a parent subtree replacement',
+        supporting: [
+          { source: 'MUTATION_RECORD', description: 'Parent subtree replaced at t=400ms', ref: 'evt_op_007' },
+          { source: 'DOM_OBSERVATION', description: 'Button absent from the reconstructed state at t=400ms' },
+        ],
+      };
+      expectedAssertionDesc = 'Scores the finding with confidence, band and evidence';
+      break;
+    case 'fx_incident_report':
+      toolArgs = { sessionId, detectedIssue: 'Injected action button disappeared after click' };
+      expectedAssertionDesc = 'Generates the structured incident report (JSON + Markdown)';
       break;
   }
 

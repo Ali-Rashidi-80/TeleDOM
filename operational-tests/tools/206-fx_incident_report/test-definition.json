@@ -1,0 +1,23 @@
+{
+  "tool": "fx_incident_report",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "detectedIssue": {
+        "type": "string",
+        "description": "One-line issue description"
+      },
+      "rootCauseHint": {
+        "type": "string",
+        "description": "Known root-cause hint (otherwise derived from evidence)"
+      }
+    }
+  },
+  "expectedBehavior": "Generates the structured incident report (JSON + Markdown)"
+}

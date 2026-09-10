@@ -1,0 +1,20 @@
+{
+  "snapshotId": "heap_8",
+  "node": {
+    "id": 7,
+    "className": "retained-blob"
+  },
+  "pathCount": 1,
+  "paths": [
+    {
+      "path": [
+        {
+          "from": "synthetic:(roots)@1",
+          "edge": "[3]"
+        }
+      ],
+      "length": 1
+    }
+  ],
+  "simulated": true
+}

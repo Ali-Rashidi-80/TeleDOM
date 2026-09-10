@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_193_fx_font_forensics",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"declaredFontFaces\": [],\n  \"declaredFamilyCount\": 0,\n  \"usedFamilies\": [\n    {\n      \"family\": \"sans-serif\",\n      \"usageCount\": 58\n    }\n  ],\n  \"documentFontsStatus\": [],\n  \"fontsApiAvailable\": false,\n  \"issues\": [\n    {\n      \"issue\": \"no-fallback-stack\",\n      \"detail\": \"58 element(s) declare a single font-family with no fallback — layout shift risk if the font fails/metrics differ.\",\n      \"severity\": \"warn\"\n    }\n  ],\n  \"issueCount\": 1,\n  \"notes\": [\n    \"Font metrics analysis: @font-face declarations cross-referenced with computed font-family usage and document.fonts load status.\",\n    \"In JSDOM, document.fonts and layout metrics are limited — @font-face CSSOM analysis remains real; load-status is reported only when the API exists.\"\n  ]\n}"
+      }
+    ]
+  }
+}

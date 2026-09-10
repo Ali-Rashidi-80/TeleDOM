@@ -1,0 +1,12 @@
+{
+  "total": 0,
+  "ingested": 0,
+  "requests": [],
+  "mode": {
+    "mode": "SIMULATED",
+    "simulated": true,
+    "note": "JSDOM fixture DOM — deterministic simulation contract, not a real browser page.",
+    "source": "jsdom-fixture"
+  },
+  "note": "Unified network log is empty in this context. With the extension connected, pass ingestTabId to pull the tab capture first; session analysis uses fx_resource_waterfall with a recorded session."
+}

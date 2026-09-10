@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_205_fx_evidence_scoring",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"finding\": {\n    \"id\": \"find_manual_mtull2br\",\n    \"conclusion\": \"The injected button was removed by a parent subtree replacement\",\n    \"confidence\": 0.964,\n    \"band\": \"VERY_HIGH\",\n    \"evidenceCount\": 2,\n    \"evidenceTypes\": [\n      \"MUTATION_RECORD\",\n      \"DOM_OBSERVATION\"\n    ],\n    \"evidence\": [\n      {\n        \"source\": \"MUTATION_RECORD\",\n        \"description\": \"Parent subtree replaced at t=400ms\",\n        \"ref\": \"evt_op_007\",\n        \"weight\": 0.8\n      },\n      {\n        \"source\": \"DOM_OBSERVATION\",\n        \"description\": \"Button absent from the reconstructed state at t=400ms\",\n        \"weight\": 0.72\n      }\n    ],\n    \"method\": \"Direct evidence scoring (fx_evidence_scoring)\"\n  },\n  \"methodology\": \"Noisy-OR over evidence weights + source diversity bonus − contradiction penalty. Capped [0.05, 0.98]; single-evidence findings cap at 0.75.\"\n}"
+      }
+    ]
+  }
+}

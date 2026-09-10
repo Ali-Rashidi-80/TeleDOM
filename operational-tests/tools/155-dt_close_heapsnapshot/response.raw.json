@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_155_dt_close_heapsnapshot",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"closed\": true,\n  \"snapshotId\": \"heap_2\"\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "tool": "dt_handle_dialog",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "accept": {
+        "type": "boolean",
+        "description": "true to accept, false to dismiss"
+      },
+      "promptText": {
+        "type": "string",
+        "description": "Text to enter in a prompt dialog"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "accept"
+    ]
+  },
+  "expectedBehavior": "Dialog handling reports the CDP requirement in simulation"
+}

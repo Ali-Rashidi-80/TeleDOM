@@ -1,0 +1,19 @@
+{
+  "selected": true,
+  "pageId": "page_1",
+  "url": "about:blank",
+  "title": "Simulated Tab 2",
+  "tabId": 2,
+  "mode": {
+    "mode": "SIMULATED",
+    "simulated": true,
+    "note": "JSDOM fixture DOM — deterministic simulation contract, not a real browser page.",
+    "source": "jsdom-fixture"
+  },
+  "detail": {
+    "focused": true,
+    "tabId": 2,
+    "url": "about:blank",
+    "simulated": true
+  }
+}

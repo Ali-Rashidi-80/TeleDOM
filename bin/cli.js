@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
+import { DEVTOOLS_TOOLS, FORENSICS_TOOLS } from './unified-tools-list.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -135,6 +136,10 @@ const ALL_TOOLS = [
   'set_redaction_rules',
   'get_tool_catalog',
   'get_tool_groups',
+  // §8 Chrome DevTools MCP capability families (dt_ namespace, 54 tools)
+  ...DEVTOOLS_TOOLS,
+  // §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace, 31 tools)
+  ...FORENSICS_TOOLS,
 ];
 
 const SERVER_SCRIPT_PATH = path.join(ROOT_DIR, 'bin', 'mcp-server.js').replace(/\\/g, '/');

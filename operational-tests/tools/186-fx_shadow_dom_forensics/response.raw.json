@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_186_fx_shadow_dom_forensics",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"roots\": [],\n  \"totalHosts\": 0,\n  \"nestedDepth\": 0,\n  \"notes\": [\n    \"No shadow DOM hosts detected in the recorded state. Live shadow roots (open mode) can be probed via fx_shadow_dom_forensics on a live page.\"\n  ],\n  \"liveOpenRoots\": {\n    \"hosts\": []\n  }\n}"
+      }
+    ]
+  }
+}

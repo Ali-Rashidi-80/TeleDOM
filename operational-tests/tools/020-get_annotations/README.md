@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 3ms
+**Duration**: 0ms
 
 ## Test Objective
 Retrieves all annotations associated with session
@@ -32,7 +32,7 @@ Retrieves all annotations associated with session
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"annotations\": [\n    {\n      \"id\": \"ann_op_001\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 200,\n      \"sequence\": 5,\n      \"label\": \"API Request Fired\",\n      \"comment\": \"User click triggered POST /v1/analyze\",\n      \"category\": \"NOTE\",\n      \"author\": \"TEST_HARNESS\",\n      \"createdAt\": 1789003313250\n    },\n    {\n      \"id\": \"ann_1789003314629_4fc2\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 0,\n      \"author\": \"AGENT\",\n      \"label\": \"Root Cause Confirmed\",\n      \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n      \"category\": \"ROOT_CAUSE\",\n      \"createdAt\": 1789003314629\n    }\n  ]\n}"
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"annotations\": [\n    {\n      \"id\": \"ann_op_001\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 200,\n      \"sequence\": 5,\n      \"label\": \"API Request Fired\",\n      \"comment\": \"User click triggered POST /v1/analyze\",\n      \"category\": \"NOTE\",\n      \"author\": \"TEST_HARNESS\",\n      \"createdAt\": 1788988525021\n    },\n    {\n      \"id\": \"ann_1788988525971_r1dh\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 0,\n      \"author\": \"AGENT\",\n      \"label\": \"Root Cause Confirmed\",\n      \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n      \"category\": \"ROOT_CAUSE\",\n      \"createdAt\": 1788988525971\n    }\n  ]\n}"
       }
     ]
   }

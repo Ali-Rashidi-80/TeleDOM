@@ -1,0 +1,141 @@
+{
+  "report": {
+    "formatVersion": "1.0.0",
+    "generatedAt": 1788988537880,
+    "sessionId": "operational_acceptance_session_001",
+    "incidentSummary": "Injected action button disappeared after click — investigated over 8 recorded events on https://app.internal/dashboard.",
+    "detectedIssue": {
+      "issue": "Injected action button disappeared after click",
+      "severity": "HIGH",
+      "firstObservedAt": 320
+    },
+    "timeline": [
+      {
+        "timestamp": 320,
+        "domain": "ERROR",
+        "summary": "RUNTIME_ERROR  {\"message\":\"Uncaught TypeError: Cannot read properties of undefined\",\"stack\":\"TypeError at"
+      },
+      {
+        "timestamp": 380,
+        "domain": "DOM",
+        "summary": "DOM_MUTATION_REMOVE #host-sidebar {\"nodeId\":4,\"parentId\":3,\"index\":0,\"removedSubtreeNodeCount\":2}"
+      }
+    ],
+    "rootCause": {
+      "conclusion": "+ <button> into 4 (#injected-action-btn)",
+      "confidence": 0.956,
+      "band": "VERY_HIGH"
+    },
+    "supportingEvidence": [
+      {
+        "source": "CONSOLE_EVIDENCE",
+        "description": "Uncaught TypeError: Cannot read properties of undefined"
+      },
+      {
+        "source": "INFERRED",
+        "description": "Ranked root cause from CAP 14 graph (2 evidence items)"
+      }
+    ],
+    "affectedDom": [
+      {
+        "selector": "#host-sidebar",
+        "nodeId": 4,
+        "detail": "Removed at t=380ms with 2 descendant nodes."
+      }
+    ],
+    "affectedRequests": [],
+    "affectedComponents": [
+      "#host-sidebar"
+    ],
+    "performanceImpact": "Performance subscore 100/100; layout stability 100/100.",
+    "accessibilityImpact": "Accessibility subscore 85/100 (1 critical + 0 moderate a11y divergences (missing names, alt, semantics).).",
+    "recommendedRemediation": [
+      "Stabilize the unmounting component(s): #host-sidebar — guard the render path against the triggering condition."
+    ],
+    "validationSteps": [
+      "Re-run the scenario with recording active (verify the trigger reproduces).",
+      "Apply the remediation; then use fx_dom_regression_diff to confirm the UI state is stable across the same interaction.",
+      "Confirm no regressions: fx_page_health subscores should return to HEALTHY."
+    ],
+    "confidence": {
+      "overall": 0.796,
+      "band": "HIGH",
+      "evidenceCount": 2,
+      "evidenceTypes": [
+        "CONSOLE_EVIDENCE",
+        "INFERRED"
+      ]
+    },
+    "markdown": "# Incident Report — operational_acceptance_session_001\n\n**Generated**: 2026-09-09T21:15:37.880Z\n**Issue**: Injected action button disappeared after click (severity: HIGH)\n\n## Summary\nInjected action button disappeared after click — investigated over 8 recorded events on https://app.internal/dashboard.\n\n## Root Cause\n+ <button> into 4 (#injected-action-btn) (confidence: 0.956 — VERY_HIGH)\n\n## Timeline\n- t=320ms [ERROR] RUNTIME_ERROR  {\"message\":\"Uncaught TypeError: Cannot read properties of undefined\",\"stack\":\"TypeError at\n- t=380ms [DOM] DOM_MUTATION_REMOVE #host-sidebar {\"nodeId\":4,\"parentId\":3,\"index\":0,\"removedSubtreeNodeCount\":2}\n\n## Affected DOM\n- `#host-sidebar` — Removed at t=380ms with 2 descendant nodes.\n\n## Affected Requests\n- None recorded\n\n## Recommended Remediation\n1. Stabilize the unmounting component(s): #host-sidebar — guard the render path against the triggering condition.\n\n## Validation Steps\n1. Re-run the scenario with recording active (verify the trigger reproduces).\n1. Apply the remediation; then use fx_dom_regression_diff to confirm the UI state is stable across the same interaction.\n1. Confirm no regressions: fx_page_health subscores should return to HEALTHY.\n\n**Overall confidence**: 0.796 (HIGH) from 2 evidence items across 2 source types."
+  },
+  "json": {
+    "formatVersion": "1.0.0",
+    "generatedAt": 1788988537880,
+    "sessionId": "operational_acceptance_session_001",
+    "incidentSummary": "Injected action button disappeared after click — investigated over 8 recorded events on https://app.internal/dashboard.",
+    "detectedIssue": {
+      "issue": "Injected action button disappeared after click",
+      "severity": "HIGH",
+      "firstObservedAt": 320
+    },
+    "timeline": [
+      {
+        "timestamp": 320,
+        "domain": "ERROR",
+        "summary": "RUNTIME_ERROR  {\"message\":\"Uncaught TypeError: Cannot read properties of undefined\",\"stack\":\"TypeError at"
+      },
+      {
+        "timestamp": 380,
+        "domain": "DOM",
+        "summary": "DOM_MUTATION_REMOVE #host-sidebar {\"nodeId\":4,\"parentId\":3,\"index\":0,\"removedSubtreeNodeCount\":2}"
+      }
+    ],
+    "rootCause": {
+      "conclusion": "+ <button> into 4 (#injected-action-btn)",
+      "confidence": 0.956,
+      "band": "VERY_HIGH"
+    },
+    "supportingEvidence": [
+      {
+        "source": "CONSOLE_EVIDENCE",
+        "description": "Uncaught TypeError: Cannot read properties of undefined"
+      },
+      {
+        "source": "INFERRED",
+        "description": "Ranked root cause from CAP 14 graph (2 evidence items)"
+      }
+    ],
+    "affectedDom": [
+      {
+        "selector": "#host-sidebar",
+        "nodeId": 4,
+        "detail": "Removed at t=380ms with 2 descendant nodes."
+      }
+    ],
+    "affectedRequests": [],
+    "affectedComponents": [
+      "#host-sidebar"
+    ],
+    "performanceImpact": "Performance subscore 100/100; layout stability 100/100.",
+    "accessibilityImpact": "Accessibility subscore 85/100 (1 critical + 0 moderate a11y divergences (missing names, alt, semantics).).",
+    "recommendedRemediation": [
+      "Stabilize the unmounting component(s): #host-sidebar — guard the render path against the triggering condition."
+    ],
+    "validationSteps": [
+      "Re-run the scenario with recording active (verify the trigger reproduces).",
+      "Apply the remediation; then use fx_dom_regression_diff to confirm the UI state is stable across the same interaction.",
+      "Confirm no regressions: fx_page_health subscores should return to HEALTHY."
+    ],
+    "confidence": {
+      "overall": 0.796,
+      "band": "HIGH",
+      "evidenceCount": 2,
+      "evidenceTypes": [
+        "CONSOLE_EVIDENCE",
+        "INFERRED"
+      ]
+    },
+    "markdown": "# Incident Report — operational_acceptance_session_001\n\n**Generated**: 2026-09-09T21:15:37.880Z\n**Issue**: Injected action button disappeared after click (severity: HIGH)\n\n## Summary\nInjected action button disappeared after click — investigated over 8 recorded events on https://app.internal/dashboard.\n\n## Root Cause\n+ <button> into 4 (#injected-action-btn) (confidence: 0.956 — VERY_HIGH)\n\n## Timeline\n- t=320ms [ERROR] RUNTIME_ERROR  {\"message\":\"Uncaught TypeError: Cannot read properties of undefined\",\"stack\":\"TypeError at\n- t=380ms [DOM] DOM_MUTATION_REMOVE #host-sidebar {\"nodeId\":4,\"parentId\":3,\"index\":0,\"removedSubtreeNodeCount\":2}\n\n## Affected DOM\n- `#host-sidebar` — Removed at t=380ms with 2 descendant nodes.\n\n## Affected Requests\n- None recorded\n\n## Recommended Remediation\n1. Stabilize the unmounting component(s): #host-sidebar — guard the render path against the triggering condition.\n\n## Validation Steps\n1. Re-run the scenario with recording active (verify the trigger reproduces).\n1. Apply the remediation; then use fx_dom_regression_diff to confirm the UI state is stable across the same interaction.\n1. Confirm no regressions: fx_page_health subscores should return to HEALTHY.\n\n**Overall confidence**: 0.796 (HIGH) from 2 evidence items across 2 source types."
+  },
+  "markdown": "# Incident Report — operational_acceptance_session_001\n\n**Generated**: 2026-09-09T21:15:37.880Z\n**Issue**: Injected action button disappeared after click (severity: HIGH)\n\n## Summary\nInjected action button disappeared after click — investigated over 8 recorded events on https://app.internal/dashboard.\n\n## Root Cause\n+ <button> into 4 (#injected-action-btn) (confidence: 0.956 — VERY_HIGH)\n\n## Timeline\n- t=320ms [ERROR] RUNTIME_ERROR  {\"message\":\"Uncaught TypeError: Cannot read properties of undefined\",\"stack\":\"TypeError at\n- t=380ms [DOM] DOM_MUTATION_REMOVE #host-sidebar {\"nodeId\":4,\"parentId\":3,\"index\":0,\"removedSubtreeNodeCount\":2}\n\n## Affected DOM\n- `#host-sidebar` — Removed at t=380ms with 2 descendant nodes.\n\n## Affected Requests\n- None recorded\n\n## Recommended Remediation\n1. Stabilize the unmounting component(s): #host-sidebar — guard the render path against the triggering condition.\n\n## Validation Steps\n1. Re-run the scenario with recording active (verify the trigger reproduces).\n1. Apply the remediation; then use fx_dom_regression_diff to confirm the UI state is stable across the same interaction.\n1. Confirm no regressions: fx_page_health subscores should return to HEALTHY.\n\n**Overall confidence**: 0.796 (HIGH) from 2 evidence items across 2 source types."
+}

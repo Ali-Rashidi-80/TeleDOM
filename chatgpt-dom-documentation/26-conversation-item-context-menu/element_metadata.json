@@ -1,0 +1,79 @@
+{
+  "tag": "div",
+  "classes": [],
+  "text": " ShareRenamePin chatArchive  DeleteMove to project",
+  "normalizedText": "ShareRenamePin chatArchive DeleteMove to project",
+  "selector": "body > div:nth-of-type(6)",
+  "bestSelector": "body > div:nth-of-type(6)",
+  "selectorCandidates": [
+    "body > div:nth-of-type(6)",
+    "div"
+  ],
+  "bounds": {
+    "x": 192,
+    "y": 325.0909118652344,
+    "width": 203.64773559570312,
+    "height": 270,
+    "top": 325.0909118652344,
+    "right": 395.6477355957031,
+    "bottom": 595.0909118652344,
+    "left": 192
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "block",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "50"
+  },
+  "computedStyle": {
+    "display": "block",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "fixed",
+    "zIndex": "50",
+    "pointerEvents": "auto",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "data-radix-popper-content-wrapper": "",
+    "dir": "ltr",
+    "style": "position: fixed; left: 0px; top: 0px; transform: translate(192px, 325.091px); min-width: max-content; --radix-popper-transform-origin: 0% 0px; z-index: 50; --radix-popper-available-width: 1384.3636474609375px; --radix-popper-available-height: 332.54541015625px; --radix-popper-anchor-width: 34px; --radix-popper-anchor-height: 36px;"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "body"
+    ],
+    "parentSelector": "body",
+    "childrenSummary": {
+      "count": 1,
+      "tags": [
+        "div"
+      ]
+    },
+    "containingBlock": "viewport",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

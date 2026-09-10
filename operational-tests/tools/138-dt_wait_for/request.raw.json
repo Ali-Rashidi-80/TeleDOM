@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_138_dt_wait_for",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_wait_for",
+    "arguments": {
+      "condition": "load",
+      "timeoutMs": 1000
+    }
+  }
+}

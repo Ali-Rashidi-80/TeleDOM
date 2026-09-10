@@ -1,0 +1,109 @@
+{
+  "snapshotId": "heap_9",
+  "dominators": [
+    {
+      "nodeId": 1,
+      "className": "synthetic:(roots)",
+      "retainedTreeSize": 149322,
+      "dominatorClass": "synthetic:(roots)"
+    },
+    {
+      "nodeId": 6,
+      "className": "GlobalStore",
+      "retainedTreeSize": 133184,
+      "dominatorClass": "synthetic:(roots)"
+    },
+    {
+      "nodeId": 7,
+      "className": "retained-blob",
+      "retainedTreeSize": 131072,
+      "dominatorClass": "GlobalStore"
+    },
+    {
+      "nodeId": 8,
+      "className": "system / Context",
+      "retainedTreeSize": 8320,
+      "dominatorClass": "synthetic:(roots)"
+    },
+    {
+      "nodeId": 2,
+      "className": "Window",
+      "retainedTreeSize": 7818,
+      "dominatorClass": "synthetic:(roots)"
+    },
+    {
+      "nodeId": 4,
+      "className": "Object",
+      "retainedTreeSize": 5722,
+      "dominatorClass": "Window"
+    },
+    {
+      "nodeId": 201,
+      "className": "closure:anonymous",
+      "retainedTreeSize": 5418,
+      "dominatorClass": "Object"
+    },
+    {
+      "nodeId": 300,
+      "className": "Object",
+      "retainedTreeSize": 5290,
+      "dominatorClass": "closure:anonymous"
+    },
+    {
+      "nodeId": 301,
+      "className": "Object",
+      "retainedTreeSize": 3212,
+      "dominatorClass": "Object"
+    },
+    {
+      "nodeId": 3,
+      "className": "HTMLDivElement",
+      "retainedTreeSize": 624,
+      "dominatorClass": "Window"
+    },
+    {
+      "nodeId": 5,
+      "className": "Array",
+      "retainedTreeSize": 448,
+      "dominatorClass": "Window"
+    },
+    {
+      "nodeId": 202,
+      "className": "closure:anonymous",
+      "retainedTreeSize": 128,
+      "dominatorClass": "system / Context"
+    },
+    {
+      "nodeId": 105,
+      "className": "string",
+      "retainedTreeSize": 64,
+      "dominatorClass": "GlobalStore"
+    },
+    {
+      "nodeId": 103,
+      "className": "string",
+      "retainedTreeSize": 64,
+      "dominatorClass": "HTMLDivElement"
+    },
+    {
+      "nodeId": 104,
+      "className": "string",
+      "retainedTreeSize": 64,
+      "dominatorClass": "Array"
+    },
+    {
+      "nodeId": 101,
+      "className": "string",
+      "retainedTreeSize": 48,
+      "dominatorClass": "HTMLDivElement"
+    },
+    {
+      "nodeId": 102,
+      "className": "string",
+      "retainedTreeSize": 48,
+      "dominatorClass": "Object"
+    }
+  ],
+  "simulated": true,
+  "algorithm": "Iterative dominator computation (Cooper–Harvey–Kennedy) over the retained edge graph, retained sizes summed per dominated subtree."
+}

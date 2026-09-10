@@ -1,0 +1,9 @@
+{
+  "tool": "dt_heapsnapshot_retainers",
+  "index": 160,
+  "status": "PASS",
+  "executionTimeMs": 1,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-09T21:15:37.503Z"
+}

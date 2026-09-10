@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_127_dt_handle_dialog",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"handled\": false,\n  \"mode\": \"UNAVAILABLE\",\n  \"note\": \"Dialog handling requires a live CDP session (Page.handleJavaScriptDialog). Attach the extension and start a CDP session (dt_performance_start_trace attaches implicitly). JSDOM has no modal dialogs to handle.\",\n  \"pageId\": \"page_1\"\n}"
+      }
+    ]
+  }
+}

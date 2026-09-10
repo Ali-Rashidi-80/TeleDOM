@@ -1,0 +1,8 @@
+{
+  "fields": [
+    {
+      "selector": "#search-input",
+      "value": "form value"
+    }
+  ]
+}

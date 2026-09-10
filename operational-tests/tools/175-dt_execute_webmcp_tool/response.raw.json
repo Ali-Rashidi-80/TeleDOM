@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_175_dt_execute_webmcp_tool",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"ran\": true,\n  \"toolName\": \"fixture-webmcp-tool\",\n  \"pageId\": \"page_1\",\n  \"output\": {\n    \"tool\": \"fixture-webmcp-tool\",\n    \"received\": {\n      \"query\": \"test\"\n    }\n  }\n}"
+      }
+    ]
+  }
+}

@@ -92,7 +92,8 @@ describe('MCP-DOM Complete Operational Acceptance & Certification Suite', () => 
     const report = JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
     // Expected count is derived from the authoritative tool definition,
     // eliminating tool-count drift between definitions and tests.
-    const expectedTotal = (globalThis as any).__EXPECTED_TOOL_COUNT__ ?? 121;
+    // v3.1: 121 MCPDOM + 54 dt_ DevTools + 31 fx_ forensic = 206.
+    const expectedTotal = (globalThis as any).__EXPECTED_TOOL_COUNT__ ?? 206;
     expect(report.totalCapabilities).toBe(expectedTotal);
     expect(report.passed).toBe(expectedTotal);
     expect(report.failed).toBe(0);

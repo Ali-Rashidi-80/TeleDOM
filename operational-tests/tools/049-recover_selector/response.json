@@ -10,6 +10,11 @@
       "strategy": "recovery-match"
     },
     {
+      "selector": "#report-file-input",
+      "confidence": 0.38,
+      "strategy": "recovery-match"
+    },
+    {
       "selector": "#username-input",
       "confidence": 0.38,
       "strategy": "recovery-match"
@@ -17,7 +22,7 @@
   ],
   "diagnostics": [
     "selector no longer matches any element",
-    "collected 7 candidate elements for scoring",
+    "collected 8 candidate elements for scoring",
     "best candidate score: 0.575 (margin 0.200)",
     "  - tag: 100%",
     "  - classes: 100%",

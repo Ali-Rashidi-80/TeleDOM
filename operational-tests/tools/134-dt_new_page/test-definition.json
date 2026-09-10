@@ -1,0 +1,18 @@
+{
+  "tool": "dt_new_page",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "Initial URL (http/https/file)"
+      }
+    },
+    "required": [
+      "url"
+    ]
+  },
+  "expectedBehavior": "Opens a new page in the deterministic runtime"
+}

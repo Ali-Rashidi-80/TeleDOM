@@ -1,0 +1,19 @@
+{
+  "opened": true,
+  "pageId": "page_2",
+  "tabId": 3,
+  "url": "https://app.internal/newpage",
+  "mode": {
+    "mode": "SIMULATED",
+    "simulated": true,
+    "note": "JSDOM fixture DOM — deterministic simulation contract, not a real browser page.",
+    "source": "jsdom-fixture"
+  },
+  "detail": {
+    "opened": true,
+    "tabId": 3,
+    "url": "https://app.internal/newpage",
+    "simulated": true,
+    "totalTabs": 2
+  }
+}

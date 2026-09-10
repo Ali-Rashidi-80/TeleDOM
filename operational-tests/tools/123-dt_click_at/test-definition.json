@@ -1,0 +1,32 @@
+{
+  "tool": "dt_click_at",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "x": {
+        "type": "number",
+        "description": "X coordinate in CSS pixels"
+      },
+      "y": {
+        "type": "number",
+        "description": "Y coordinate in CSS pixels"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      },
+      "includeSnapshot": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "x",
+      "y"
+    ]
+  },
+  "expectedBehavior": "Coordinate click with element resolution"
+}

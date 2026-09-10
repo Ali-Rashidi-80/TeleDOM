@@ -1,0 +1,33 @@
+{
+  "resized": true,
+  "width": 1280,
+  "height": 720,
+  "pageId": "page_1",
+  "detail": {
+    "success": true,
+    "applied": {
+      "width": 1280,
+      "height": 720
+    },
+    "previous": {
+      "width": 1280,
+      "height": 720
+    },
+    "original": {
+      "width": 1024,
+      "height": 768
+    },
+    "beforeState": {
+      "url": "https://app.internal/dashboard",
+      "domLength": 4594,
+      "interactiveCount": 10
+    },
+    "afterState": {
+      "url": "https://app.internal/dashboard",
+      "domLength": 4594,
+      "interactiveCount": 10
+    },
+    "reversible": true,
+    "mode": "simulation"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "failureId": "fail_1_mtull252",
+  "captured": true,
+  "url": "https://app.internal/dashboard",
+  "selectorCandidates": 2,
+  "domSubtree": false,
+  "replaySteps": 1
+}

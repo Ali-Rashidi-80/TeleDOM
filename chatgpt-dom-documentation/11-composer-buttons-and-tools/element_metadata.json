@@ -1,0 +1,122 @@
+{
+  "tag": "div",
+  "classes": [
+    "row-start-3",
+    "row-end-4",
+    "col-start-1",
+    "col-end-2",
+    "min-h-0",
+    "min-w-0",
+    "flex-1",
+    "px-2",
+    "py-[9px]",
+    "group-not-data-expanded/composer:py-[5px]",
+    "max-sm:group-not-data-expanded/composer:pb-2",
+    "grid",
+    "grid-cols-[auto_1fr_auto]",
+    "[grid-template-areas:'header_header_header'_'leading_primary_trailing'_'._footer_.']",
+    "group-data-expanded/composer:[grid-template-areas:'header_header_header'_'primary_primary_primary'_'leading_footer_trailing']",
+    "max-sm:[grid-template-areas:'header_header_header'_'primary_primary_primary'_'leading_footer_trailing']"
+  ],
+  "text": "(function que(e,t){e?.addEventListener(`input`,()=>{performance.mark(t)},{once:!0})})(document.currentScript?.parentElement,\"composer.first-prompt-input\");window.__oai_logHTML?window.__oai_logHTML():w",
+  "normalizedText": "(function que(e,t){e?.addEventListener(`input`,()=>{performance.mark(t)},{once:!0})})(document.currentScript?.parentElement,\"composer.first-prompt-input\");window.__oai_logHTML?window.__oai_logHTML():w",
+  "selector": "div.row-start-3.row-end-4.col-start-1",
+  "bestSelector": "div.row-start-3.row-end-4.col-start-1",
+  "selectorCandidates": [
+    "div.row-start-3.row-end-4.col-start-1",
+    "div.grid.cursor-text.flex-col > div:nth-of-type(2)",
+    "div.row-start-3"
+  ],
+  "bounds": {
+    "x": 444.18182373046875,
+    "y": 587.2727661132812,
+    "width": 768,
+    "height": 52,
+    "top": 587.2727661132812,
+    "right": 1212.1818237304688,
+    "bottom": 639.2727661132812,
+    "left": 444.18182373046875
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "grid",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "grid",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "static",
+    "zIndex": "auto",
+    "pointerEvents": "auto",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "data-composer-body": "",
+    "data-composer-grid": "",
+    "class": "row-start-3 row-end-4 col-start-1 col-end-2 min-h-0 min-w-0 flex-1 px-2 py-[9px] group-not-data-expanded/composer:py-[5px] max-sm:group-not-data-expanded/composer:pb-2 grid grid-cols-[auto_1fr_auto] [grid-template-areas:'header_header_header'_'leading_primary_trailing'_'._footer_.'] group-data-expanded/composer:[grid-template-areas:'header_header_header'_'primary_primary_primary'_'leading_footer_trailing'] max-sm:[grid-template-areas:'header_header_header'_'primary_primary_primary'_'leading_footer_trailing']"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.grid.cursor-text.flex-col",
+      "form.w-full > div:nth-of-type(2)",
+      "form.w-full",
+      "div.pointer-events-auto.relative.z-1",
+      "div.w-full",
+      "div.mx-auto",
+      "div",
+      "div.text-base",
+      "#thread-bottom > div:nth-of-type(1)",
+      "#thread-bottom",
+      "#thread-bottom-container",
+      "div.composer-parent.flex.flex-1",
+      "#thread",
+      "div.contents",
+      "#main",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative > div:nth-of-type(2) > div:nth-of-type(1)",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(3)",
+      "body"
+    ],
+    "parentSelector": "div.grid.cursor-text.flex-col",
+    "childrenSummary": {
+      "count": 3,
+      "tags": [
+        "div",
+        "div",
+        "div"
+      ]
+    },
+    "containingBlock": "div.grid.cursor-text.flex-col",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

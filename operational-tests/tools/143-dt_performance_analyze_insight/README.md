@@ -1,0 +1,44 @@
+# Operational Test: `dt_performance_analyze_insight`
+
+**Status**: **PASS** (2/2 Assertions Passed)
+**Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
+**Execution Mode**: `live`
+**Duration**: 1ms
+
+## Test Objective
+Analyzes trace insights (long tasks, shifts, vitals)
+
+## Raw Transmitted JSON-RPC Request
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_143_dt_performance_analyze_insight",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_performance_analyze_insight",
+    "arguments": {
+      "traceId": "trace_2"
+    }
+  }
+}
+```
+
+## Raw Received JSON-RPC Response
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_143_dt_performance_analyze_insight",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"traceId\": \"trace_2\",\n  \"eventCount\": 16,\n  \"durationMs\": 97.4,\n  \"webVitals\": {\n    \"lcp\": {\n      \"value\": 320,\n      \"timestamp\": 1.474\n    },\n    \"fcp\": {\n      \"value\": 1.12,\n      \"timestamp\": 1.12\n    },\n    \"cls\": {\n      \"value\": 0.113,\n      \"sourceHints\": [\n        \"div#banner img.hero\"\n      ]\n    }\n  },\n  \"topLongTasks\": [\n    {\n      \"kind\": \"long-task\",\n      \"name\": \"EventTiming\",\n      \"startUs\": 2400,\n      \"durationMs\": 96,\n      \"details\": {\n        \"cat\": \"devtools.timeline.event\",\n        \"tid\": 2\n      }\n    },\n    {\n      \"kind\": \"long-task\",\n      \"name\": \"FunctionCall\",\n      \"startUs\": 1900,\n      \"durationMs\": 82,\n      \"details\": {\n        \"cat\": \"devtools.timeline\",\n        \"tid\": 2\n      }\n    }\n  ],\n  \"layoutShifts\": [\n    {\n      \"kind\": \"layout-shift\",\n      \"name\": \"LayoutShift\",\n      \"startUs\": 2100,\n      \"durationMs\": 0,\n      \"details\": {\n        \"score\": 0.113,\n        \"sources\": \"div#banner img.hero\"\n      }\n    }\n  ],\n  \"phaseBreakdown\": [\n    {\n      \"phase\": \"devtools.timeline\",\n      \"totalMs\": 151,\n      \"events\": 5\n    },\n    {\n      \"phase\": \"toplevel\",\n      \"totalMs\": 125,\n      \"events\": 6\n    },\n    {\n      \"phase\": \"devtools.timeline.event\",\n      \"totalMs\": 96,\n      \"events\": 1\n    }\n  ],\n  \"insights\": [\n    {\n      \"kind\": \"parse\",\n      \"name\": \"ParseHTML\",\n      \"startUs\": 1010,\n      \"durationMs\": 15\n    },\n    {\n      \"kind\": \"lcp\",\n      \"name\": \"largestContentfulPaint::Candidate\",\n      \"startUs\": 1474,\n      \"durationMs\": 0,\n      \"details\": {\n        \"size\": 42000,\n        \"paintTime\": 0.32\n      }\n    },\n    {\n      \"kind\": \"long-task\",\n      \"name\": \"FunctionCall\",\n      \"startUs\": 1900,\n      \"durationMs\": 82,\n      \"details\": {\n        \"cat\": \"devtools.timeline\",\n        \"tid\": 2\n      }\n    },\n    {\n      \"kind\": \"layout\",\n      \"name\": \"UpdateLayoutTree\",\n      \"startUs\": 2000,\n      \"durationMs\": 24\n    },\n    {\n      \"kind\": \"layout\",\n      \"name\": \"Layout\",\n      \"startUs\": 2030,\n      \"durationMs\": 18\n    },\n    {\n      \"kind\": \"paint\",\n      \"name\": \"Paint\",\n      \"startUs\": 2050,\n      \"durationMs\": 12\n    },\n    {\n      \"kind\": \"layout-shift\",\n      \"name\": \"LayoutShift\",\n      \"startUs\": 2100,\n      \"durationMs\": 0,\n      \"details\": {\n        \"score\": 0.113,\n        \"sources\": \"div#banner img.hero\"\n      }\n    },\n    {\n      \"kind\": \"long-task\",\n      \"name\": \"EventTiming\",\n      \"startUs\": 2400,\n      \"durationMs\": 96,\n      \"details\": {\n        \"cat\": \"devtools.timeline.event\",\n        \"tid\": 2\n      }\n    }\n  ]\n}"
+      }
+    ]
+  }
+}
+```
+
+## Assertions
+- [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
+- [x] **Analyzes trace insights (long tasks, shifts, vitals)**: traceId, eventCount, durationMs, webVitals, topLongTasks, layoutShifts, phaseBreakdown, insights

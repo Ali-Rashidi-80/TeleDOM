@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_189_fx_event_listeners",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_event_listeners",
+    "arguments": {}
+  }
+}

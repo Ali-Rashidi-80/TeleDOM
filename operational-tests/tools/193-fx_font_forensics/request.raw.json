@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_193_fx_font_forensics",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_font_forensics",
+    "arguments": {}
+  }
+}

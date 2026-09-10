@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 2ms
+**Duration**: 1ms
 
 ## Test Objective
 Lists captured page state snapshots
@@ -30,7 +30,7 @@ Lists captured page state snapshots
     "content": [
       {
         "type": "text",
-        "text": "[\n  {\n    \"snapshotId\": \"snap_mtuudxdo_1\",\n    \"timestamp\": 1789003321404,\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"domLength\": 4222,\n    \"domHash\": \"c8b73284\"\n  },\n  {\n    \"snapshotId\": \"snap_mtuudxds_2\",\n    \"timestamp\": 1789003321408,\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"domLength\": 4222,\n    \"domHash\": \"c8b73284\"\n  },\n  {\n    \"snapshotId\": \"snap_mtuudxht_3\",\n    \"timestamp\": 1789003321553,\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"domLength\": 4386,\n    \"domHash\": \"feb1e736\"\n  }\n]"
+        "text": "[\n  {\n    \"snapshotId\": \"snap_mtulky5d_1\",\n    \"timestamp\": 1788988532449,\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"domLength\": 4430,\n    \"domHash\": \"b5a14eea\"\n  },\n  {\n    \"snapshotId\": \"snap_mtulky5e_2\",\n    \"timestamp\": 1788988532450,\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"domLength\": 4430,\n    \"domHash\": \"b5a14eea\"\n  },\n  {\n    \"snapshotId\": \"snap_mtulky6t_3\",\n    \"timestamp\": 1788988532501,\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"domLength\": 4594,\n    \"domHash\": \"dd86b0d4\"\n  }\n]"
       }
     ]
   }

@@ -1,0 +1,24 @@
+{
+  "tool": "dt_press_key",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "type": "string",
+        "description": "Key or combo string"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "expectedBehavior": "Presses the key on the focused context"
+}

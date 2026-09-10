@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 107ms
+**Duration**: 103ms
 
 ## Test Objective
 Convenience DOM stability wait
@@ -32,7 +32,7 @@ Convenience DOM stability wait
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"satisfied\": true,\n  \"condition\": \"dom_stable\",\n  \"waitedMs\": 103,\n  \"timeoutMs\": 800,\n  \"detail\": \"dom length 4222, 1 polls\"\n}"
+        "text": "{\n  \"satisfied\": true,\n  \"condition\": \"dom_stable\",\n  \"waitedMs\": 101,\n  \"timeoutMs\": 800,\n  \"detail\": \"dom length 4430, 1 polls\"\n}"
       }
     ]
   }

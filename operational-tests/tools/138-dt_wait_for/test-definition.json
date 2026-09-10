@@ -1,0 +1,38 @@
+{
+  "tool": "dt_wait_for",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "condition": {
+        "type": "string",
+        "enum": [
+          "load",
+          "domcontentloaded",
+          "networkidle",
+          "selector-visible"
+        ],
+        "description": "What to wait for"
+      },
+      "selector": {
+        "type": "string",
+        "description": "CSS selector to wait for (selector-visible)"
+      },
+      "timeoutMs": {
+        "type": "number",
+        "description": "Timeout in ms (default 8000)"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "condition"
+    ]
+  },
+  "expectedBehavior": "Waits for load state"
+}

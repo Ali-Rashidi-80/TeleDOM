@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 4ms
+**Duration**: 2ms
 
 ## Test Objective
 Extracts role, accessible name, states and a11y issues

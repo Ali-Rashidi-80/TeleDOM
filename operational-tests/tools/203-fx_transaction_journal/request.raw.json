@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_203_fx_transaction_journal",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_transaction_journal",
+    "arguments": {}
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "tool": "fx_forensic_export",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "includeHealth": {
+        "type": "boolean",
+        "description": "Include page health analysis (default true)"
+      },
+      "includeIncidentReport": {
+        "type": "boolean",
+        "description": "Include a generated incident report (default false)"
+      }
+    }
+  },
+  "expectedBehavior": "Exports the deterministic investigation bundle with content hash"
+}

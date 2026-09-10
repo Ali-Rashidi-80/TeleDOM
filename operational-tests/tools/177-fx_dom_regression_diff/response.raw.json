@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_177_fx_dom_regression_diff",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"t1\": 0,\n  \"t2\": 400,\n  \"machine\": {\n    \"dimensions\": [\n      {\n        \"dimension\": \"removed\",\n        \"count\": 1,\n        \"changes\": [\n          {\n            \"selector\": \"#host-sidebar\",\n            \"nodeId\": 4,\n            \"detail\": \"<div> removed\"\n          }\n        ]\n      },\n      {\n        \"dimension\": \"layout\",\n        \"count\": 1,\n        \"changes\": [\n          {\n            \"selector\": \"html > body\",\n            \"nodeId\": 3,\n            \"detail\": \"child count 2 → 1 (layout impact)\"\n          }\n        ]\n      },\n      {\n        \"dimension\": \"accessibility\",\n        \"count\": 1,\n        \"changes\": [\n          {\n            \"selector\": \"#search-input\",\n            \"nodeId\": 6,\n            \"detail\": \"interactive element without accessible name\"\n          }\n        ]\n      }\n    ],\n    \"totals\": {\n      \"removed\": 1,\n      \"layout\": 1,\n      \"accessibility\": 1\n    }\n  },\n  \"humanReadableReport\": \"# DOM Regression Diff\\n\\nElements: 5 → 4\\n\\n## removed (1)\\n- `#host-sidebar` — <div> removed\\n\\n## layout (1)\\n- `html > body` — child count 2 → 1 (layout impact)\\n\\n## accessibility (1)\\n- `#search-input` — interactive element without accessible name\\n\"\n}"
+      }
+    ]
+  }
+}

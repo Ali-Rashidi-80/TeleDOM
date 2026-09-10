@@ -1,0 +1,1 @@
+[EXEC] dt_uninstall_extension executed via stdio JSON-RPC at 2026-09-09T21:15:37.517Z in 1ms

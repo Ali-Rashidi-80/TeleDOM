@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_133_dt_select_page",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_select_page",
+    "arguments": {
+      "index": 0
+    }
+  }
+}

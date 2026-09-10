@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "TeleDOM — AI Agent Browser & DOM Forensic Platform (121 Tools)",
-  "version": "3.0.0",
-  "description": "Autonomous AI Agent Browser Interface, DOM Time-Travel Debugger, Lifecycle Tracer, Mutation Engine & 121-Tool MCP Suite.",
+  "name": "McpDOM Browser Forensic Platform v3 (206 AI Tools)",
+  "version": "3.1.0",
+  "description": "Production-grade browser forensic recorder, DOM time-travel debugger, lifecycle tracer, mutation engine, unified Chrome DevTools capability layer and 206-Tool Agent MCP interface.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
@@ -15,7 +15,8 @@
     "scripting",
     "tabs",
     "webNavigation",
-    "management"
+    "management",
+    "debugger"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -33,7 +34,7 @@
   ],
   "action": {
     "default_popup": "dist/src/extension/popup/popup.html",
-    "default_title": "TeleDOM Agent & Forensic Controls",
+    "default_title": "McpDOM v3 Forensic Controls",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

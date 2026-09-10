@@ -1,0 +1,23 @@
+{
+  "tool": "dt_navigate_page",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "url"
+    ]
+  },
+  "expectedBehavior": "Records navigation on the page identity"
+}

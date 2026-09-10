@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_174_dt_list_webmcp_tools",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"total\": 0,\n  \"tools\": [],\n  \"pageId\": \"page_1\",\n  \"contract\": \"WebMCP tools are exposed by the page (navigator.webMCP). Execution via dt_execute_webmcp_tool.\",\n  \"note\": \"No WebMCP tools exposed by this page (navigator.webMCP). WebMCP is a draft API — pages must opt in.\"\n}"
+      }
+    ]
+  }
+}

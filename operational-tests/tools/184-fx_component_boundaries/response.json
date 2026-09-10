@@ -1,0 +1,12 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "components": [],
+  "framework": {
+    "detected": "generic",
+    "evidence": []
+  },
+  "summary": {
+    "totalComponents": 0,
+    "byFramework": {}
+  }
+}

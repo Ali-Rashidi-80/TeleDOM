@@ -1,0 +1,20 @@
+{
+  "tool": "dt_screencast_start",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      },
+      "maxDurationMs": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Reports screencast CDP requirement"
+}

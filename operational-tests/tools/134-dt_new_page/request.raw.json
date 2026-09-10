@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_134_dt_new_page",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_new_page",
+    "arguments": {
+      "url": "https://app.internal/newpage"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_132_dt_list_pages",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"total\": 1,\n  \"pages\": [\n    {\n      \"pageId\": \"page_1\",\n      \"url\": \"about:blank\",\n      \"title\": \"Simulated Tab 2\",\n      \"tabId\": 2,\n      \"frames\": 1,\n      \"navigations\": 0\n    }\n  ],\n  \"mode\": {\n    \"mode\": \"SIMULATED\",\n    \"simulated\": true,\n    \"note\": \"JSDOM fixture DOM — deterministic simulation contract, not a real browser page.\",\n    \"source\": \"jsdom-fixture\"\n  },\n  \"rawTabs\": 1\n}"
+      }
+    ]
+  }
+}

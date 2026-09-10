@@ -1,0 +1,11 @@
+{
+  "uninstalled": true,
+  "softUninstall": true,
+  "extensionId": "forensic-recorder@mcpdom",
+  "note": "Disabled via chrome.management (soft uninstall). Hard removal requires user confirmation in chrome://extensions — never auto-destroyed.",
+  "detail": {
+    "extensionId": "forensic-recorder@mcpdom",
+    "enabled": false,
+    "simulated": true
+  }
+}

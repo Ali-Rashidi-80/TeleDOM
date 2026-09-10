@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_151_dt_screencast_start",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_screencast_start",
+    "arguments": {}
+  }
+}

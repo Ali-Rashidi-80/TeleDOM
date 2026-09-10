@@ -1,5 +1,7 @@
 import { MCPToolDefinition } from '../types/mcp-types';
 import { MCPDOM_V3_TOOLS } from './v3-tools-definition';
+import { DEVTOOLS_TOOLS } from '../devtools/definitions';
+import { FORENSICS_TOOLS } from '../forensics/definitions';
 
 export const FORENSIC_MCP_TOOLS: MCPToolDefinition[] = [
   {
@@ -621,4 +623,8 @@ export const FORENSIC_MCP_TOOLS: MCPToolDefinition[] = [
     },
   },
   ...MCPDOM_V3_TOOLS,
+  // §8 Chrome DevTools MCP capability families (dt_ namespace, no collisions)
+  ...DEVTOOLS_TOOLS,
+  // §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace)
+  ...FORENSICS_TOOLS,
 ];

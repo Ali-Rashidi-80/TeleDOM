@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_158_dt_heapsnapshot_class_nodes",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_heapsnapshot_class_nodes",
+    "arguments": {
+      "snapshotId": "heap_5",
+      "className": "Object"
+    }
+  }
+}

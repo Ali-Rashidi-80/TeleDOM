@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_166_dt_compare_heapsnapshots",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"snapshotA\": \"heap_13\",\n  \"snapshotB\": \"heap_13\",\n  \"addedNodes\": 0,\n  \"removedNodes\": 0,\n  \"classes\": [],\n  \"simulatedA\": true,\n  \"simulatedB\": true\n}"
+      }
+    ]
+  }
+}

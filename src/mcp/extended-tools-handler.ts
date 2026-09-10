@@ -10,6 +10,7 @@ import { CommandRecorder, CommandSequenceEngine } from '../core/command-recorder
 import { RedactionEngine } from '../core/redaction-engine';
 import { buildToolCatalog, TOOL_GROUPS } from './tool-groups';
 import { V3_TOOL_NAMES } from './v3-tool-names';
+import { journalMutationResult } from '../forensics/engine/snapshot-impact-journal';
 import { DOMFingerprintEngine } from '../core/dom-fingerprint';
 import { RegionQualityScorer } from '../projects/region-capture';
 
@@ -221,19 +222,26 @@ export class ExtendedToolsHandler {
       }
 
       // --- DOM mutation ---
-      case 'mutate_dom':
-        return this.wrap(await this.dispatch('DOM_MUTATE', this.mutationPayload(args)));
-      case 'clone_dom_subtree':
-        return this.wrap(
-          await this.dispatch('DOM_MUTATE', {
+      case 'mutate_dom': {
+        const result = await this.dispatch('DOM_MUTATE', this.mutationPayload(args));
+        this.journal(result, args.intent || 'mutate_dom');
+        return this.wrap(result);
+      }
+      case 'clone_dom_subtree': {
+        const result = await this.dispatch('DOM_MUTATE', {
             operation: 'clone_subtree',
             target: args.target,
             parent: args.parent,
             copyAttributes: args.copyAttributes,
-          })
-        );
-      case 'mutate_dom_transaction':
-        return this.wrap(await this.dispatch('DOM_MUTATE_TRANSACTION', args));
+          });
+        this.journal(result, args.intent || 'clone_dom_subtree');
+        return this.wrap(result);
+      }
+      case 'mutate_dom_transaction': {
+        const result = await this.dispatch('DOM_MUTATE_TRANSACTION', args);
+        this.journal(result, args.intent || `transaction:${args.mode || 'begin'}`);
+        return this.wrap(result);
+      }
       case 'undo_dom_mutation':
         return this.wrap(await this.dispatch('UNDO_DOM_MUTATION', {}));
       case 'redo_dom_mutation':
@@ -564,34 +572,9 @@ export class ExtendedToolsHandler {
     };
   }
 
-  private fallbackDoc?: Document;
   private document(): Document {
     if (typeof document !== 'undefined') return document;
-    if (typeof window !== 'undefined' && window.document) return window.document;
-    if (!this.fallbackDoc) {
-      try {
-        const { JSDOM } = require('jsdom');
-        this.fallbackDoc = new JSDOM('<!DOCTYPE html><html><head><title>TeleDOM Simulation</title></head><body><div id="root"></div></body></html>').window.document;
-      } catch {
-        this.fallbackDoc = {
-          title: 'TeleDOM Simulation',
-          readyState: 'complete',
-          documentElement: {
-            outerHTML: '<html><head><title>TeleDOM Simulation</title></head><body><div id="root"></div></body></html>',
-            cloneNode: () => ({ outerHTML: '<html><head><title>TeleDOM Simulation</title></head><body><div id="root"></div></body></html>' }),
-          },
-          defaultView: {
-            location: { href: 'http://localhost:3847/simulation' },
-            innerWidth: 1280,
-            innerHeight: 800,
-          },
-          querySelector: () => null,
-          querySelectorAll: () => [] as any,
-          getElementById: () => null,
-        } as unknown as Document;
-      }
-    }
-    return this.fallbackDoc!;
+    throw new Error('NOT_CONNECTED: no live DOM context available (bridge has no connected browser).');
   }
 
   private target(args: Record<string, any>): any {
@@ -620,8 +603,7 @@ export class ExtendedToolsHandler {
     };
   }
 
-  private cleanDom(doc?: Document): string {
-    if (!doc) return '<html><head></head><body></body></html>';
+  private cleanDom(doc: Document): string {
     // §68 clean capture — clone and strip MCPDOM + excluded nodes before persisting
     const clone = doc.documentElement.cloneNode(true) as Element;
     const redaction = new RedactionEngine();
@@ -633,25 +615,31 @@ export class ExtendedToolsHandler {
       try {
         return await this.bridgeClient.sendCommand(command, payload);
       } catch (bridgeErr: any) {
-        const doc = this.document();
-        const req = {
-          id: `x_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
-          command,
-          timestamp: Date.now(),
-          payload,
-        };
-        const res = await this.localController.handleCommand(req, doc);
-        if (res.success) {
-          return res.data;
+        if (typeof document !== 'undefined' || typeof window !== 'undefined') {
+          const doc = typeof document !== 'undefined' ? document : undefined;
+          const req = {
+            id: `x_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            command,
+            timestamp: Date.now(),
+            payload,
+          };
+          const res = await this.localController.handleCommand(req, doc);
+          if (res.success) {
+            return res.data;
+          }
+          const localCode = res.error?.code || 'LOCAL_COMMAND_FAILED';
+          const localMessage = res.error?.message || 'unknown local error';
+          const combined = new Error(`${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`);
+          (combined as any).code = localCode;
+          throw combined;
         }
-        const localCode = res.error?.code || 'LOCAL_COMMAND_FAILED';
-        const localMessage = res.error?.message || 'unknown local error';
-        const combined = new Error(`${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`);
-        (combined as any).code = localCode;
-        throw combined;
+        throw bridgeErr;
       }
     }
-    const doc = this.document();
+    const doc = typeof document !== 'undefined' ? document : undefined;
+    if (!doc) {
+      throw new Error('NOT_CONNECTED: no browser extension connected to the bridge and no simulation DOM available.');
+    }
     const req = {
       id: `x_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
       command,
@@ -663,6 +651,16 @@ export class ExtendedToolsHandler {
       throw new Error(`[${res.error?.code || 'COMMAND_FAILED'}] ${res.error?.message || 'Browser command failed'}`);
     }
     return res.data;
+  }
+
+  /**
+   * CAP 27 — feed the DOM transaction journal from the mutation flow.
+   * Journaling is best-effort and NEVER blocks a mutation.
+   */
+  private journal(result: any, intent: string): void {
+    try {
+      journalMutationResult({ ...result, intent }, 'mcp-agent');
+    } catch { /* journal isolation §24 */ }
   }
 
   private wrap(data: any): MCPToolCallResult {

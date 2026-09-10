@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Analyzes @font-face usage and font issues",
+    "passed": true,
+    "details": "declaredFontFaces, declaredFamilyCount, usedFamilies, documentFontsStatus, fontsApiAvailable, issues, issueCount, notes"
+  }
+]

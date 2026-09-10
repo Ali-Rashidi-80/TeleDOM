@@ -1,0 +1,23 @@
+{
+  "tool": "fx_transaction_journal",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "transactionId": {
+        "type": "string"
+      },
+      "operation": {
+        "type": "string"
+      },
+      "since": {
+        "type": "number"
+      },
+      "limit": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Queries the transaction journal store"
+}

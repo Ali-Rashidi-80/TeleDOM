@@ -1,0 +1,23 @@
+{
+  "tool": "fx_error_root_cause",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "eventId": {
+        "type": "string",
+        "description": "Error event id"
+      },
+      "timestamp": {
+        "type": "number",
+        "description": "Timestamp near the error"
+      }
+    }
+  },
+  "expectedBehavior": "Builds the error root-cause graph with ranked causes"
+}

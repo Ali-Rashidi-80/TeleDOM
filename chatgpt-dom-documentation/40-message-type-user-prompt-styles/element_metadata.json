@@ -1,0 +1,25 @@
+{
+  "module": "40-message-type-user-prompt-styles",
+  "title": "User Prompts, RTL Styling & In-Place Editor Mode",
+  "titleFa": "استایل پیام‌های کاربر و ویرایشگر (User Prompt Bubbles)",
+  "tag": "article",
+  "selector": "[data-testid=\"40-message-type-user-prompt-styles\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

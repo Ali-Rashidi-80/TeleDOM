@@ -17,13 +17,13 @@
     "preset": "device:pixel-7",
     "beforeState": {
       "url": "https://app.internal/dashboard",
-      "domLength": 4222,
-      "interactiveCount": 9
+      "domLength": 4430,
+      "interactiveCount": 10
     },
     "afterState": {
       "url": "https://app.internal/dashboard",
-      "domLength": 4222,
-      "interactiveCount": 9
+      "domLength": 4430,
+      "interactiveCount": 10
     },
     "reversible": true,
     "mode": "simulation"

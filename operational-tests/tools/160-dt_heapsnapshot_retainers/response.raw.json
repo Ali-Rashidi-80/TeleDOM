@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_160_dt_heapsnapshot_retainers",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"snapshotId\": \"heap_7\",\n  \"node\": {\n    \"id\": 7,\n    \"className\": \"retained-blob\",\n    \"selfSize\": 131072\n  },\n  \"retainerCount\": 2,\n  \"retainers\": [\n    {\n      \"index\": 3,\n      \"type\": \"hidden\",\n      \"nameOrIndex\": \"3\",\n      \"fromNodeId\": 1,\n      \"fromClassName\": \"synthetic:(roots)\",\n      \"toNodeId\": 7,\n      \"toNodeClass\": \"retained-blob\",\n      \"toSelfSize\": 131072\n    },\n    {\n      \"index\": 13,\n      \"type\": \"edge_6\",\n      \"nameOrIndex\": \"internal\",\n      \"fromNodeId\": 6,\n      \"fromClassName\": \"GlobalStore\",\n      \"toNodeId\": 7,\n      \"toNodeClass\": \"retained-blob\",\n      \"toSelfSize\": 131072\n    }\n  ],\n  \"simulated\": true\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_123_dt_click_at",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"clicked\": true,\n  \"x\": 120,\n  \"y\": 45,\n  \"resolvedElement\": {\n    \"hit\": false,\n    \"hitTesting\": false,\n    \"note\": \"No layout engine — coordinate hit-testing unavailable; click dispatched at document level (bubbles to handlers).\"\n  },\n  \"pageId\": \"page_1\",\n  \"detail\": {\n    \"clicked\": true,\n    \"dispatchTarget\": \"document-level\",\n    \"tagName\": \"body\",\n    \"id\": null\n  }\n}"
+      }
+    ]
+  }
+}

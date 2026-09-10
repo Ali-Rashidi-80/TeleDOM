@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_187_fx_css_influence",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_css_influence",
+    "arguments": {
+      "selector": "#search-input"
+    }
+  }
+}

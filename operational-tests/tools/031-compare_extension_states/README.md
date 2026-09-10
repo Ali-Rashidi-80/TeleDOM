@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 5030ms
+**Duration**: 5009ms
 
 ## Test Objective
 Captures and compares clean vs injected DOM state
@@ -32,7 +32,7 @@ Captures and compares clean vs injected DOM state
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"comparisonSuccess\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"tabId\": \"active\",\n  \"cleanState\": {\n    \"domLengthChars\": 4197\n  },\n  \"injectedState\": {\n    \"domLengthChars\": 4197\n  },\n  \"analysis\": {\n    \"domSizeDifferenceChars\": 0,\n    \"injectedMarkersDetected\": [],\n    \"summary\": \"Comparison complete. Clean DOM: 4197 chars, Injected DOM: 4197 chars (Delta: 0 chars). Detected injected markers: none.\"\n  }\n}"
+        "text": "{\n  \"comparisonSuccess\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"tabId\": \"active\",\n  \"cleanState\": {\n    \"domLengthChars\": 4405\n  },\n  \"injectedState\": {\n    \"domLengthChars\": 4405\n  },\n  \"analysis\": {\n    \"domSizeDifferenceChars\": 0,\n    \"injectedMarkersDetected\": [],\n    \"summary\": \"Comparison complete. Clean DOM: 4405 chars, Injected DOM: 4405 chars (Delta: 0 chars). Detected injected markers: none.\"\n  }\n}"
       }
     ]
   }

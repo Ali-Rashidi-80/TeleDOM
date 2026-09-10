@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_180_fx_record_interactions",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"recordings\": []\n}"
+      }
+    ]
+  }
+}

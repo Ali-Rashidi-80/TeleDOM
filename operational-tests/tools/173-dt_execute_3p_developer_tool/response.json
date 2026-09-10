@@ -1,0 +1,9 @@
+{
+  "ran": true,
+  "toolId": "fixture-3p-tool",
+  "pageId": "page_1",
+  "output": {
+    "ok": true,
+    "echo": "hello"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "tool": "dt_take_screenshot",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "format": {
+        "type": "string",
+        "enum": [
+          "png",
+          "jpeg"
+        ],
+        "description": "Image format (default png)"
+      },
+      "uid": {
+        "type": "string",
+        "description": "Element uid for element-bounded capture"
+      },
+      "selector": {
+        "type": "string",
+        "description": "CSS selector for element-bounded capture"
+      },
+      "outputPath": {
+        "type": "string",
+        "description": "Optional file path to persist the capture"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Captures a page screenshot through MCPDOM capture"
+}

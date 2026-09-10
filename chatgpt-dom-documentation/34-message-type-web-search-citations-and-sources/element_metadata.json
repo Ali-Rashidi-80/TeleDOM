@@ -1,0 +1,25 @@
+{
+  "module": "34-message-type-web-search-citations-and-sources",
+  "title": "Web Search Citations, Source Links & Favicon Badges",
+  "titleFa": "نتایج جستجوی وب، منابع و نقل‌قول‌ها (Web Search Citations)",
+  "tag": "article",
+  "selector": "[data-testid=\"34-message-type-web-search-citations-and-sources\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

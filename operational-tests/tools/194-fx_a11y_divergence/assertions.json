@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Reports DOM vs accessibility divergences",
+    "passed": true,
+    "details": "sessionId, a11yTree, divergence, summary"
+  }
+]

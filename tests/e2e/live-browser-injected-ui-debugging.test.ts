@@ -7,7 +7,6 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
   let storage: MemoryStorageProvider;
 
   beforeEach(() => {
-    process.env.FORENSIC_AUTO_BRIDGE = 'false';
     storage = new MemoryStorageProvider();
     server = new ForensicMCPServer(storage);
 
@@ -51,6 +50,9 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
   });
 
   it('autonomous AI agent inspects, selects, observes, interacts, and diagnoses why injected UI disappeared', async () => {
+    // -------------------------------------------------------------
+    // Step 1: User selects target element via Ctrl + Shift + Click
+    // -------------------------------------------------------------
     const targetBtn = document.getElementById('injected-action-btn') as HTMLElement;
     targetBtn.dispatchEvent(
       new MouseEvent('click', {
@@ -61,6 +63,9 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
       })
     );
 
+    // -------------------------------------------------------------
+    // Step 2: Agent retrieves selected element via MCP
+    // -------------------------------------------------------------
     const selectedRes = await server.handleRequest({
       jsonrpc: '2.0',
       id: 1,
@@ -74,6 +79,9 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
     expect(selectedData.element.id).toBe('injected-action-btn');
     expect(selectedData.element.bestSelector).toBe('#injected-action-btn');
 
+    // -------------------------------------------------------------
+    // Step 3: Agent inspects live element & visual layout
+    // -------------------------------------------------------------
     const inspectRes = await server.handleRequest({
       jsonrpc: '2.0',
       id: 2,
@@ -89,6 +97,9 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
     expect(elementInfo.visibility.isVisible).toBe(true);
     expect(elementInfo.context.parentChain).toContain('#injected-assistant-widget');
 
+    // -------------------------------------------------------------
+    // Step 4: Agent captures visual baseline screenshot
+    // -------------------------------------------------------------
     const preScreenshotRes = await server.handleRequest({
       jsonrpc: '2.0',
       id: 3,
@@ -102,6 +113,9 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
     expect(preScreenshot.captureType).toBe('ELEMENT');
     expect(preScreenshot.dataUrl).toContain('data:image/png');
 
+    // -------------------------------------------------------------
+    // Step 5: Agent starts focused element observation
+    // -------------------------------------------------------------
     const startObsRes = await server.handleRequest({
       jsonrpc: '2.0',
       id: 4,
@@ -114,6 +128,9 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
     const obsStartData = JSON.parse((startObsRes?.result as any).content[0].text);
     expect(obsStartData.status).toBe('OBSERVATION_ACTIVE');
 
+    // -------------------------------------------------------------
+    // Step 6: Agent triggers live interaction (click)
+    // -------------------------------------------------------------
     const interactRes = await server.handleRequest({
       jsonrpc: '2.0',
       id: 5,
@@ -132,6 +149,9 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
     expect(interactData.success).toBe(true);
     expect(interactData.action).toBe('click');
 
+    // -------------------------------------------------------------
+    // Step 7: Agent stops observation and receives forensic bundle
+    // -------------------------------------------------------------
     const stopObsRes = await server.handleRequest({
       jsonrpc: '2.0',
       id: 6,
@@ -181,5 +201,5 @@ describe('E2E: Live Browser Injected UI Debugging & Visual Forensics', () => {
     const subtreeData = (liveSubtreeRes?.result as any).content[0].text;
     expect(subtreeData).toContain('Action Completed!');
     expect(subtreeData).not.toContain('injected-action-btn');
-  }, 15000);
+  });
 });

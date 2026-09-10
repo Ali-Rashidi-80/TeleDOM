@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_159_dt_heapsnapshot_edges",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"snapshotId\": \"heap_6\",\n  \"node\": {\n    \"id\": 7,\n    \"className\": \"retained-blob\",\n    \"selfSize\": 131072\n  },\n  \"edgeCount\": 0,\n  \"edges\": [],\n  \"simulated\": true\n}"
+      }
+    ]
+  }
+}

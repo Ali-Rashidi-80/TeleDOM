@@ -1,0 +1,19 @@
+{
+  "tool": "fx_exploration_planner",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "symptom": {
+        "type": "string",
+        "description": "Observed symptom, e.g. \"checkout button disappeared after login\""
+      }
+    }
+  },
+  "expectedBehavior": "Plans next investigation actions"
+}

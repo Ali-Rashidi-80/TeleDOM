@@ -45,6 +45,55 @@
     postForensicEvent('NETWORK_ENTRY', entry);
   }
 
+  // CAP 13 — Event listener instrumentation registry: patches
+  // EventTarget.prototype.addEventListener at document_start so later
+  // registrations are recorded with capture/passive flags and a handler
+  // preview. Exposed as window.__mcpdom_listeners__ (bounded, §24).
+  const listenerRegistry: any[] = [];
+  (window as any).__mcpdom_listeners__ = listenerRegistry;
+  const MAX_LISTENERS = 800;
+  try {
+    const proto = (window as any).EventTarget && (window as any).EventTarget.prototype;
+    if (proto && typeof proto.addEventListener === 'function' && !(proto as any).__mcpdom_patched__) {
+      const originalAdd = proto.addEventListener;
+      (proto as any).__mcpdom_patched__ = true;
+      proto.addEventListener = function (type: string, handler: any, options?: any) {
+        try {
+          if (typeof type === 'string' && typeof handler !== 'undefined') {
+            const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+            const passive = !!(options && options.passive);
+            let handlerPreview: string | null = null;
+            try {
+              handlerPreview = typeof handler === 'function'
+                ? String(handler).replace(/\s+/g, ' ').slice(0, 120)
+                : String(handler).slice(0, 60);
+            } catch { handlerPreview = null; }
+            let frameworkHint: string | null = null;
+            if (handlerPreview) {
+              if (/react|__react|React\.|dispatchDiscrete/i.test(handlerPreview)) frameworkHint = 'react';
+              else if (/__vue|Vue\.|_withCtx/i.test(handlerPreview)) frameworkHint = 'vue';
+              else if (/\bng[A-Z]|Angular|zone\.js/i.test(handlerPreview)) frameworkHint = 'angular';
+              else if (/\$\(jQuery|jQuery/i.test(handlerPreview)) frameworkHint = 'jquery';
+            }
+            let elementRef: any = null;
+            try {
+              if (this && (this instanceof (window as any).Element || this === (window as any).document || this === window)) {
+                elementRef = this;
+              }
+            } catch { elementRef = null; }
+            listenerRegistry.push({
+              type, capture, passive, handlerPreview, frameworkHint, elementRef,
+              target: elementRef && elementRef.tagName ? elementRef.tagName.toLowerCase() + (elementRef.id ? '#' + elementRef.id : '') : String(elementRef === window ? 'window' : elementRef === (window as any).document ? 'document' : 'other'),
+              registeredAt: Date.now(),
+            });
+            if (listenerRegistry.length > MAX_LISTENERS) listenerRegistry.shift();
+          }
+        } catch { /* instrumentation must never break page behavior */ }
+        return originalAdd.apply(this, arguments as any);
+      };
+    }
+  } catch { /* EventTarget patch unavailable */ }
+
   // 1. Console Interception
   const originalConsole: Record<string, Function> = {};
   const levels: Array<'log' | 'warn' | 'error' | 'info' | 'debug'> = ['log', 'warn', 'error', 'info', 'debug'];

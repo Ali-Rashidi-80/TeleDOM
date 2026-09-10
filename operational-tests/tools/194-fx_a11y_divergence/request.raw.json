@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_194_fx_a11y_divergence",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_a11y_divergence",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

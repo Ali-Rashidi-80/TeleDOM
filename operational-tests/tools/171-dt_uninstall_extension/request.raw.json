@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_171_dt_uninstall_extension",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_uninstall_extension",
+    "arguments": {
+      "extensionId": "forensic-recorder@mcpdom"
+    }
+  }
+}

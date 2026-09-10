@@ -1,0 +1,118 @@
+{
+  "tag": "div",
+  "id": "radix-_R_3qqmkmkqie5l55_",
+  "classes": [
+    "group",
+    "__menu-item",
+    "border-b",
+    "border-transparent",
+    "bg-clip-padding",
+    "hoverable",
+    "gap-2",
+    "transition-colors",
+    "keyboard-focused:focus-ring",
+    "keyboard-focused:-outline-offset-2",
+    "pe-2"
+  ],
+  "role": "button",
+  "ariaAttributes": {
+    "aria-label": "Open profile menu",
+    "aria-haspopup": "menu",
+    "aria-expanded": "false"
+  },
+  "text": "م",
+  "normalizedText": "م",
+  "selector": "#radix-_R_3qqmkmkqie5l55_",
+  "bestSelector": "#radix-_R_3qqmkmkqie5l55_",
+  "selectorCandidates": [
+    "#radix-_R_3qqmkmkqie5l55_",
+    "div.group"
+  ],
+  "bounds": {
+    "x": 6,
+    "y": 611.2727661132812,
+    "width": 40,
+    "height": 40,
+    "top": 611.2727661132812,
+    "right": 46,
+    "bottom": 651.2727661132812,
+    "left": 6
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "none",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "relative",
+    "zIndex": "auto",
+    "pointerEvents": "none",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(255, 255, 255, 0)",
+    "fontSize": "14px"
+  },
+  "attributes": {
+    "tabindex": "0",
+    "data-fill": "",
+    "data-size": "large",
+    "class": "group __menu-item border-b border-transparent bg-clip-padding hoverable gap-2 transition-colors keyboard-focused:focus-ring keyboard-focused:-outline-offset-2 pe-2",
+    "style": "--menu-item-active:var(--interactive-bg-secondary-selected);--menu-item-background:var(--interactive-bg-secondary-default);--menu-item-highlighted:var(--interactive-bg-secondary-hover);--menu-item-open:var(--interactive-bg-secondary-press);--menu-item-pressed:var(--interactive-bg-secondary-press)",
+    "data-testid": "accounts-profile-button",
+    "aria-label": "Open profile menu",
+    "role": "button",
+    "type": "button",
+    "id": "radix-_R_3qqmkmkqie5l55_",
+    "aria-haspopup": "menu",
+    "aria-expanded": "false",
+    "data-state": "closed",
+    "data-sidebar-item": "true"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div",
+      "#stage-sidebar-tiny-bar > div:nth-of-type(4)",
+      "#stage-sidebar-tiny-bar",
+      "div.relative.flex.h-full",
+      "#stage-slideover-sidebar",
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(3)",
+      "body"
+    ],
+    "parentSelector": "div",
+    "childrenSummary": {
+      "count": 1,
+      "tags": [
+        "div"
+      ]
+    },
+    "containingBlock": "div",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

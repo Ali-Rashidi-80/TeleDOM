@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 3ms
+**Duration**: 1ms
 
 ## Test Objective
 Activates seeded human-like interaction profile

@@ -1,0 +1,32 @@
+{
+  "tool": "dt_performance_analyze_insight",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "traceId": {
+        "type": "string"
+      },
+      "events": {
+        "type": "array",
+        "description": "Raw Chrome trace events to analyze (ts/dur/name/cat/ph)",
+        "items": {
+          "type": "object"
+        }
+      },
+      "insight": {
+        "type": "string",
+        "enum": [
+          "all",
+          "long-tasks",
+          "layout-shifts",
+          "web-vitals",
+          "phases"
+        ],
+        "description": "Focus of the analysis (default all)"
+      }
+    }
+  },
+  "expectedBehavior": "Analyzes trace insights (long tasks, shifts, vitals)"
+}

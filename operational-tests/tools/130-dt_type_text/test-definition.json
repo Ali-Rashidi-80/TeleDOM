@@ -1,0 +1,37 @@
+{
+  "tool": "dt_type_text",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "uid": {
+        "type": "string",
+        "description": "Element uid from dt_take_snapshot"
+      },
+      "selector": {
+        "type": "string",
+        "description": "CSS selector of the element (fallback when no uid)"
+      },
+      "pageId": {
+        "type": "string",
+        "description": "Unified page id (defaults to active page)"
+      },
+      "tabId": {
+        "type": "number",
+        "description": "Extension tab id (alias for the page)"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text to type"
+      },
+      "submitKey": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "text"
+    ]
+  },
+  "expectedBehavior": "Types text into the field"
+}

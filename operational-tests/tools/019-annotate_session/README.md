@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 4ms
+**Duration**: 1ms
 
 ## Test Objective
 Appends new investigative annotation to timeline
@@ -35,7 +35,7 @@ Appends new investigative annotation to timeline
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"success\": true,\n  \"annotation\": {\n    \"id\": \"ann_1789003314629_4fc2\",\n    \"sessionId\": \"operational_acceptance_session_001\",\n    \"timestamp\": 0,\n    \"author\": \"AGENT\",\n    \"label\": \"Root Cause Confirmed\",\n    \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n    \"category\": \"ROOT_CAUSE\",\n    \"createdAt\": 1789003314629\n  }\n}"
+        "text": "{\n  \"success\": true,\n  \"annotation\": {\n    \"id\": \"ann_1788988525971_r1dh\",\n    \"sessionId\": \"operational_acceptance_session_001\",\n    \"timestamp\": 0,\n    \"author\": \"AGENT\",\n    \"label\": \"Root Cause Confirmed\",\n    \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n    \"category\": \"ROOT_CAUSE\",\n    \"createdAt\": 1788988525971\n  }\n}"
       }
     ]
   }

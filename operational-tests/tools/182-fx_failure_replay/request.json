@@ -1,0 +1,5 @@
+{
+  "mode": "capture",
+  "failedAction": "click",
+  "failedSelector": "#injected-action-btn"
+}

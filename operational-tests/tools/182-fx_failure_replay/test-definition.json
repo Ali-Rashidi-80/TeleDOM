@@ -1,0 +1,49 @@
+{
+  "tool": "fx_failure_replay",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "mode": {
+        "type": "string",
+        "enum": [
+          "capture",
+          "replay",
+          "list",
+          "get"
+        ]
+      },
+      "failureId": {
+        "type": "string",
+        "description": "Scenario id (replay/get)"
+      },
+      "failedAction": {
+        "type": "string",
+        "description": "Action that failed (capture)"
+      },
+      "failedSelector": {
+        "type": "string",
+        "description": "Selector that failed (capture)"
+      },
+      "params": {
+        "type": "object",
+        "description": "Original action params (capture)"
+      },
+      "url": {
+        "type": "string",
+        "description": "Page URL context (capture)"
+      },
+      "tabId": {
+        "type": "number"
+      },
+      "verifyOnly": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "mode"
+    ]
+  },
+  "expectedBehavior": "Captures a structured failure scenario"
+}

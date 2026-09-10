@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 10ms
+**Duration**: 5ms
 
 ## Test Objective
 Dry-runs mutation without side effects

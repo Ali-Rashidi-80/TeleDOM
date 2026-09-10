@@ -1,0 +1,59 @@
+{
+  "snapshotId": "heap_4",
+  "simulated": true,
+  "origin": "simulation-fixture",
+  "loadedAt": 1788988537498,
+  "parseDurationMs": 0,
+  "nodeCount": 29,
+  "edgeCount": 29,
+  "meta": {
+    "node_fields": [
+      "type",
+      "name",
+      "id",
+      "self_size",
+      "edge_count",
+      "trace_node_id",
+      "detachedness"
+    ],
+    "node_types": [
+      [
+        "hidden",
+        "array",
+        "string",
+        "object",
+        "code",
+        "closure",
+        "number",
+        "native",
+        "synthetic"
+      ],
+      "string",
+      "number",
+      "number",
+      "number",
+      "number",
+      "number"
+    ],
+    "edge_fields": [
+      "type",
+      "name_or_index",
+      "to_node"
+    ],
+    "edge_types": [
+      [
+        "element",
+        "hidden",
+        "internal",
+        "shortcut",
+        "weak"
+      ],
+      "string_or_number",
+      "node"
+    ]
+  },
+  "declaredCounts": {
+    "nodes": 29,
+    "edges": 29
+  }
+}

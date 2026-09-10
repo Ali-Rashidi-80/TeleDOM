@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_155_dt_close_heapsnapshot",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_close_heapsnapshot",
+    "arguments": {
+      "snapshotId": "heap_2"
+    }
+  }
+}

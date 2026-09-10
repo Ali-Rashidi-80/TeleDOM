@@ -1,0 +1,33 @@
+{
+  "tool": "fx_smart_snapshot",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "timestamp": {
+        "type": "number"
+      },
+      "mode": {
+        "type": "string",
+        "enum": [
+          "MINIMAL",
+          "SEMANTIC",
+          "INTERACTION",
+          "FORENSIC",
+          "FULL"
+        ],
+        "description": "Snapshot mode (default: recommended from question)"
+      },
+      "question": {
+        "type": "string",
+        "description": "What you need to answer — mode is auto-recommended"
+      }
+    }
+  },
+  "expectedBehavior": "Returns the compressed snapshot with mode recommendation"
+}

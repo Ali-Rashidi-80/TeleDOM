@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_141_dt_performance_start_trace",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_performance_start_trace",
+    "arguments": {}
+  }
+}

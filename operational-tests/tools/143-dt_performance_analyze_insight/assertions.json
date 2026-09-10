@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Analyzes trace insights (long tasks, shifts, vitals)",
+    "passed": true,
+    "details": "traceId, eventCount, durationMs, webVitals, topLongTasks, layoutShifts, phaseBreakdown, insights"
+  }
+]

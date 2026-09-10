@@ -1,0 +1,6 @@
+{
+  "selector": "#report-file-input",
+  "files": [
+    "report.pdf"
+  ]
+}

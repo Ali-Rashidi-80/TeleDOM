@@ -1,0 +1,27 @@
+{
+  "tool": "dt_resize_page",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "width": {
+        "type": "number"
+      },
+      "height": {
+        "type": "number"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "width",
+      "height"
+    ]
+  },
+  "expectedBehavior": "Resizes the viewport"
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_189_fx_event_listeners",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"scope\": \"document\",\n  \"scannedElements\": 63,\n  \"listenerCount\": 0,\n  \"byType\": {},\n  \"topElements\": [],\n  \"frameworkOwnedCount\": 0,\n  \"instrumentationActive\": false,\n  \"listeners\": [],\n  \"coverage\": {\n    \"inlineAttributes\": 0,\n    \"addEventListener\": 0\n  },\n  \"notes\": [\n    \"Instrumentation is NOT active in this context: only inline on* attributes are directly observable. To capture addEventListener registrations, load the page with the MCPDOM injected page script (instrumentation patches addEventListener at document_start).\",\n    \"Framework ownership is inferred from handler source markers — heuristics, never claimed as authoritative.\"\n  ]\n}"
+      }
+    ]
+  }
+}

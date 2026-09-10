@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_204_fx_session_graph",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_session_graph",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

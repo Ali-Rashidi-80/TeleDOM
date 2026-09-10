@@ -1,0 +1,18 @@
+{
+  "recordingId": "irep_1_mtull24x",
+  "replayedAt": 1788988537620,
+  "steps": [
+    {
+      "stepId": "step_1",
+      "action": "type",
+      "selectorUsed": "#search-input",
+      "resolution": "EXACT",
+      "resolutionDetail": "Selector uniquely matched.",
+      "executed": true,
+      "detail": null
+    }
+  ],
+  "successRate": 1,
+  "allExecuted": true,
+  "determinismNote": "Replay preserves action order, parameters and timing-free semantics; resilient resolution re-targets via fingerprint when the DOM changed between record and replay."
+}

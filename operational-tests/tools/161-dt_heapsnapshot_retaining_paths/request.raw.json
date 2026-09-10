@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_161_dt_heapsnapshot_retaining_paths",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_heapsnapshot_retaining_paths",
+    "arguments": {
+      "snapshotId": "heap_8",
+      "nodeId": 7
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "thread-30",
+  "title": "فضای کدنویسی و توسعه Codex",
+  "category": "Developer Canvas & Code Execution",
+  "url": "https://chatgpt.com/codex",
+  "selector": "main, div.codex-canvas-container",
+  "bounds": {
+    "x": 260,
+    "y": 0,
+    "width": 1020,
+    "height": 900
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  }
+}

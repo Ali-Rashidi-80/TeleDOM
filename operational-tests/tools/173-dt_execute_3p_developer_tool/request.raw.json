@@ -1,0 +1,14 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_173_dt_execute_3p_developer_tool",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_execute_3p_developer_tool",
+    "arguments": {
+      "toolId": "fixture-3p-tool",
+      "args": {
+        "value": "hello"
+      }
+    }
+  }
+}

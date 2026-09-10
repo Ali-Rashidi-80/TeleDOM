@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_195_fx_page_health",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_page_health",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

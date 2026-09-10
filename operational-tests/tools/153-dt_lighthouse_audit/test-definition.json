@@ -1,0 +1,24 @@
+{
+  "tool": "dt_lighthouse_audit",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Audit categories (default performance,accessibility,best-practices)"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Reports Lighthouse CDP requirement"
+}

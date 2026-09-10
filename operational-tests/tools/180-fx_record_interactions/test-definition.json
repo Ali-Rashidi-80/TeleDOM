@@ -1,0 +1,43 @@
+{
+  "tool": "fx_record_interactions",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "mode": {
+        "type": "string",
+        "enum": [
+          "start",
+          "stop",
+          "record-step",
+          "list"
+        ],
+        "description": "Recording operation"
+      },
+      "recordingId": {
+        "type": "string",
+        "description": "Recording id (for stop/record-step)"
+      },
+      "action": {
+        "type": "string",
+        "description": "Interaction action for record-step (click/type/hover/…)"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Target selector for record-step"
+      },
+      "params": {
+        "type": "object",
+        "description": "Action parameters (text, key…)"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "mode"
+    ]
+  },
+  "expectedBehavior": "Lists interaction recordings"
+}

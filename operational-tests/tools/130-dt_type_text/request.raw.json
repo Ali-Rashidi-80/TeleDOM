@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_130_dt_type_text",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_type_text",
+    "arguments": {
+      "selector": "#search-input",
+      "text": "typed text"
+    }
+  }
+}

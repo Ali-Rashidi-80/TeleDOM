@@ -1,0 +1,41 @@
+{
+  "tool": "dt_fill",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "uid": {
+        "type": "string",
+        "description": "Element uid from dt_take_snapshot"
+      },
+      "selector": {
+        "type": "string",
+        "description": "CSS selector of the element (fallback when no uid)"
+      },
+      "pageId": {
+        "type": "string",
+        "description": "Unified page id (defaults to active page)"
+      },
+      "tabId": {
+        "type": "number",
+        "description": "Extension tab id (alias for the page)"
+      },
+      "value": {
+        "type": "string",
+        "description": "Value to set"
+      },
+      "submitKey": {
+        "type": "string",
+        "description": "Key pressed after typing, e.g. \"Enter\""
+      },
+      "includeSnapshot": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "value"
+    ]
+  },
+  "expectedBehavior": "Clears and types the field value"
+}

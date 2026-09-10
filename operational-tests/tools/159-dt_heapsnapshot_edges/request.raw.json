@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_159_dt_heapsnapshot_edges",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_heapsnapshot_edges",
+    "arguments": {
+      "snapshotId": "heap_6",
+      "nodeId": 7
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_140_dt_resize_page",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_resize_page",
+    "arguments": {
+      "width": 1280,
+      "height": 720
+    }
+  }
+}

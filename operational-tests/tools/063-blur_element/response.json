@@ -16,7 +16,6 @@
     "bestSelector": "#search-input",
     "selectorCandidates": [
       "#search-input",
-      "input.input-field",
       "input.input-field"
     ],
     "bounds": {
@@ -106,7 +105,6 @@
     "bestSelector": "#search-input",
     "selectorCandidates": [
       "#search-input",
-      "input.input-field",
       "input.input-field"
     ],
     "bounds": {
@@ -196,7 +194,6 @@
     "bestSelector": "#search-input",
     "selectorCandidates": [
       "#search-input",
-      "input.input-field",
       "input.input-field"
     ],
     "bounds": {
@@ -277,6 +274,6 @@
     "networkRequests": 0,
     "runtimeErrors": []
   },
-  "durationMs": 4,
+  "durationMs": 3,
   "stabilized": true
 }

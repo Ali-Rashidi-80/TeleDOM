@@ -1,0 +1,138 @@
+{
+  "traceId": "trace_2",
+  "eventCount": 16,
+  "durationMs": 97.4,
+  "webVitals": {
+    "lcp": {
+      "value": 320,
+      "timestamp": 1.474
+    },
+    "fcp": {
+      "value": 1.12,
+      "timestamp": 1.12
+    },
+    "cls": {
+      "value": 0.113,
+      "sourceHints": [
+        "div#banner img.hero"
+      ]
+    }
+  },
+  "topLongTasks": [
+    {
+      "kind": "long-task",
+      "name": "EventTiming",
+      "startUs": 2400,
+      "durationMs": 96,
+      "details": {
+        "cat": "devtools.timeline.event",
+        "tid": 2
+      }
+    },
+    {
+      "kind": "long-task",
+      "name": "FunctionCall",
+      "startUs": 1900,
+      "durationMs": 82,
+      "details": {
+        "cat": "devtools.timeline",
+        "tid": 2
+      }
+    }
+  ],
+  "layoutShifts": [
+    {
+      "kind": "layout-shift",
+      "name": "LayoutShift",
+      "startUs": 2100,
+      "durationMs": 0,
+      "details": {
+        "score": 0.113,
+        "sources": "div#banner img.hero"
+      }
+    }
+  ],
+  "phaseBreakdown": [
+    {
+      "phase": "devtools.timeline",
+      "totalMs": 151,
+      "events": 5
+    },
+    {
+      "phase": "toplevel",
+      "totalMs": 125,
+      "events": 6
+    },
+    {
+      "phase": "devtools.timeline.event",
+      "totalMs": 96,
+      "events": 1
+    }
+  ],
+  "insights": [
+    {
+      "kind": "parse",
+      "name": "ParseHTML",
+      "startUs": 1010,
+      "durationMs": 15
+    },
+    {
+      "kind": "lcp",
+      "name": "largestContentfulPaint::Candidate",
+      "startUs": 1474,
+      "durationMs": 0,
+      "details": {
+        "size": 42000,
+        "paintTime": 0.32
+      }
+    },
+    {
+      "kind": "long-task",
+      "name": "FunctionCall",
+      "startUs": 1900,
+      "durationMs": 82,
+      "details": {
+        "cat": "devtools.timeline",
+        "tid": 2
+      }
+    },
+    {
+      "kind": "layout",
+      "name": "UpdateLayoutTree",
+      "startUs": 2000,
+      "durationMs": 24
+    },
+    {
+      "kind": "layout",
+      "name": "Layout",
+      "startUs": 2030,
+      "durationMs": 18
+    },
+    {
+      "kind": "paint",
+      "name": "Paint",
+      "startUs": 2050,
+      "durationMs": 12
+    },
+    {
+      "kind": "layout-shift",
+      "name": "LayoutShift",
+      "startUs": 2100,
+      "durationMs": 0,
+      "details": {
+        "score": 0.113,
+        "sources": "div#banner img.hero"
+      }
+    },
+    {
+      "kind": "long-task",
+      "name": "EventTiming",
+      "startUs": 2400,
+      "durationMs": 96,
+      "details": {
+        "cat": "devtools.timeline.event",
+        "tid": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "tool": "dt_fill_form",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "fields": {
+        "type": "array",
+        "description": "Fields to fill",
+        "items": {
+          "type": "object",
+          "properties": {
+            "uid": {
+              "type": "string"
+            },
+            "selector": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string",
+              "description": "Value to set"
+            },
+            "submitKey": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "fields"
+    ]
+  },
+  "expectedBehavior": "Batch-fills form fields"
+}

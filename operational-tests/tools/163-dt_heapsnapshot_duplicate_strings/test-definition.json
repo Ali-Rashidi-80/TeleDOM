@@ -1,0 +1,20 @@
+{
+  "tool": "dt_heapsnapshot_duplicate_strings",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "snapshotId": {
+        "type": "string"
+      },
+      "limit": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "snapshotId"
+    ]
+  },
+  "expectedBehavior": "Parses and analyzes the heap snapshot with the real V8-format parser"
+}

@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_182_fx_failure_replay",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_failure_replay",
+    "arguments": {
+      "mode": "capture",
+      "failedAction": "click",
+      "failedSelector": "#injected-action-btn"
+    }
+  }
+}

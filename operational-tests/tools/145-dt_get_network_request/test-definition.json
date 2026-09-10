@@ -1,0 +1,22 @@
+{
+  "tool": "dt_get_network_request",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "requestId": {
+        "type": "string",
+        "description": "Request id from dt_list_network_requests"
+      },
+      "includeBody": {
+        "type": "boolean",
+        "description": "Include captured bodies (default true)"
+      }
+    },
+    "required": [
+      "requestId"
+    ]
+  },
+  "expectedBehavior": "Inspects a captured network request in full"
+}

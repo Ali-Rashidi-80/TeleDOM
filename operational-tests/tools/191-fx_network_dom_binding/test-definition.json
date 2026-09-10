@@ -1,0 +1,26 @@
+{
+  "tool": "fx_network_dom_binding",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "windowMs": {
+        "type": "number",
+        "description": "Render window after response (default 1000ms)"
+      },
+      "minConfidence": {
+        "type": "number",
+        "description": "Minimum binding confidence (default 0.3)"
+      },
+      "limit": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Binds responses to DOM regions with confidence"
+}

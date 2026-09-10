@@ -1,0 +1,17 @@
+{
+  "tool": "dt_install_extension",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "extensionPath": {
+        "type": "string"
+      },
+      "extensionId": {
+        "type": "string"
+      }
+    }
+  },
+  "expectedBehavior": "Reports extension installation capability"
+}

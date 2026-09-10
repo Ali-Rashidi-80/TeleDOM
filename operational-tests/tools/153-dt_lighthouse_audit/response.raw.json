@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_153_dt_lighthouse_audit",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"ran\": false,\n  \"mode\": \"UNAVAILABLE\",\n  \"note\": \"Lighthouse audits require a live DevTools connection. Audit results are never synthesized in simulation.\",\n  \"pageId\": \"page_1\"\n}"
+      }
+    ]
+  }
+}

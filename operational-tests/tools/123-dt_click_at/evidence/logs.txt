@@ -1,0 +1,1 @@
+[EXEC] dt_click_at executed via stdio JSON-RPC at 2026-09-09T21:15:33.020Z in 3ms

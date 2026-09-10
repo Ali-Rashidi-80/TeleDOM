@@ -10,11 +10,17 @@ import { VirtualQueryEngine } from '../reconstruction/virtual-query';
 import { VirtualTreeBuilder } from '../reconstruction/tree-builder';
 import { LiveToolsHandler } from './live-tools-handler';
 import { ExtendedToolsHandler } from './extended-tools-handler';
+import { DevToolsToolsHandler } from '../devtools/handler';
+import { ForensicsToolsHandler, journalMutationResult } from '../forensics/handler';
+import { unifiedRuntime } from '../devtools/runtime/unified-browser-runtime';
+import { cdpGateway } from '../devtools/runtime/cdp-gateway';
 
 export class MCPToolsHandler {
   private storage: ForensicStorageProvider;
   private liveToolsHandler: LiveToolsHandler;
   private extendedToolsHandler: ExtendedToolsHandler;
+  private devtoolsHandler: DevToolsToolsHandler;
+  private forensicsHandler: ForensicsToolsHandler;
 
   constructor(storage: ForensicStorageProvider, liveToolsHandler?: LiveToolsHandler, extendedToolsHandler?: ExtendedToolsHandler) {
     this.storage = storage;
@@ -26,6 +32,65 @@ export class MCPToolsHandler {
       new ExtendedToolsHandler(this.liveToolsHandler.getLocalController());
     // Sequence execution routes through this pipeline (authoritative path).
     this.extendedToolsHandler.setToolsPipeline(this);
+    // §9/§13 unified runtime: DevTools + forensics handlers share the same
+    // bridge client as the existing live/extended handlers (single source).
+    this.devtoolsHandler = new DevToolsToolsHandler();
+    this.forensicsHandler = new ForensicsToolsHandler(storage);
+    this.syncRuntimeBridge();
+  }
+
+  /** Keep the unified runtime + CDP gateway pointed at the current bridge. */
+  private syncRuntimeBridge(): void {
+    const bridge = (this.liveToolsHandler as any).bridgeClient as { sendCommand(command: any, payload?: any): Promise<any> } | undefined;
+    if (this.runtimeBridgeCommand && this.runtimeBridgeSource === bridge) return; // unchanged
+    this.runtimeBridgeSource = bridge;
+    const localController = this.liveToolsHandler.getLocalController();
+    (globalThis as any).__MCPDOM_LOCAL_CONTROLLER__ = localController;
+    const runtimeBridge = {
+      sendCommand: async (command: string, payload?: any) => {
+        const runLocal = async (): Promise<any> => {
+          // Same document-resolution discipline as LiveToolsHandler.dispatch:
+          // the JSDOM fixture document when present (simulation), else the
+          // controller reports its context failure honestly.
+          const doc = typeof document !== 'undefined' ? document : undefined;
+          const res = await localController.handleCommand({
+            id: `rt_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            command: command as any, timestamp: Date.now(), payload,
+          }, doc);
+          if (res.success) return res.data;
+          throw new Error(`[LOCAL_FAILED:${res.error?.code || 'COMMAND_FAILED'}] ${res.error?.message || 'unknown local error'}`);
+        };
+        if (bridge) {
+          try {
+            return await bridge.sendCommand(command, payload);
+          } catch (bridgeErr: any) {
+            // Same fallback discipline as LiveToolsHandler.dispatch: when a
+            // simulation DOM exists, local execution is the fallback; both
+            // failure causes are surfaced (never masked).
+            if (typeof document !== 'undefined') {
+              try {
+                return await runLocal();
+              } catch (localErr: any) {
+                throw new Error(`${bridgeErr.message} | local fallback also failed: ${localErr.message}`);
+              }
+            }
+            throw bridgeErr;
+          }
+        }
+        return runLocal();
+      },
+    };
+    this.runtimeBridgeCommand = runtimeBridge;
+    unifiedRuntime.setBridge(runtimeBridge);
+    cdpGateway.setBridge(runtimeBridge);
+  }
+
+  private runtimeBridgeCommand: { sendCommand(command: any, payload?: any): Promise<any> } | null = null;
+  private runtimeBridgeSource: { sendCommand(command: any, payload?: any): Promise<any> } | undefined;
+
+  /** Also route bridge mutations through the transaction journal (CAP 27). */
+  journalMutation(result: any, actor?: string): void {
+    journalMutationResult(result, actor);
   }
 
   public getLiveToolsHandler(): LiveToolsHandler {
@@ -36,8 +101,30 @@ export class MCPToolsHandler {
     return this.extendedToolsHandler;
   }
 
+  public getDevToolsHandler(): DevToolsToolsHandler {
+    return this.devtoolsHandler;
+  }
+
+  public getForensicsHandler(): ForensicsToolsHandler {
+    return this.forensicsHandler;
+  }
+
   public async handleToolCall(name: string, args: Record<string, any>): Promise<MCPToolCallResult> {
     try {
+      // §9: keep the unified runtime bridge in sync (the live handler's
+      // bridge client may be set/changed after construction).
+      this.syncRuntimeBridge();
+
+      // §8 Chrome DevTools MCP capability tools (dt_ namespace)
+      if (this.devtoolsHandler.knows(name)) {
+        return await this.devtoolsHandler.handleToolCall(name, args);
+      }
+
+      // §17 the 30 MCPDOM-native forensic capability tools (fx_ namespace)
+      if (this.forensicsHandler.knows(name)) {
+        return await this.forensicsHandler.handleToolCall(name, args);
+      }
+
       // Check Live Browser Tools first
       if (
         name === 'list_tabs' ||

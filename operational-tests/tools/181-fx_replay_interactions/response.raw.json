@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_181_fx_replay_interactions",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"recordingId\": \"irep_1_mtull24x\",\n  \"replayedAt\": 1788988537620,\n  \"steps\": [\n    {\n      \"stepId\": \"step_1\",\n      \"action\": \"type\",\n      \"selectorUsed\": \"#search-input\",\n      \"resolution\": \"EXACT\",\n      \"resolutionDetail\": \"Selector uniquely matched.\",\n      \"executed\": true,\n      \"detail\": null\n    }\n  ],\n  \"successRate\": 1,\n  \"allExecuted\": true,\n  \"determinismNote\": \"Replay preserves action order, parameters and timing-free semantics; resilient resolution re-targets via fingerprint when the DOM changed between record and replay.\"\n}"
+      }
+    ]
+  }
+}

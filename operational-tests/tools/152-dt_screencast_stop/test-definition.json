@@ -1,0 +1,17 @@
+{
+  "tool": "dt_screencast_stop",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Reports no active screencast"
+}

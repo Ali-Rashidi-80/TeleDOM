@@ -1,0 +1,1 @@
+[EXEC] dt_type_text executed via stdio JSON-RPC at 2026-09-09T21:15:37.065Z in 1167ms

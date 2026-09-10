@@ -1,17 +1,14 @@
 {
-  "name": "teledom",
-  "version": "3.0.0",
-  "description": "TeleDOM: Autonomous AI Agent Browser Interface, DOM Time-Travel Debugger, Mutation Engine, Reverse-Engineering Platform & 121-Tool MCP Protocol Suite",
+  "name": "browser-forensic-recorder",
+  "version": "3.1.0",
+  "description": "McpDOM Unified Browser Intelligence Platform: forensic recorder, DOM time-travel debugger, Chrome DevTools capability fusion (dt_ tools), 30 advanced forensic capabilities (fx_ tools), and 206-Tool Agent MCP interface",
   "type": "module",
   "main": "dist/server/mcp-server.js",
   "bin": {
-    "teledom": "./bin/cli.js",
-    "teledom-mcp": "./bin/mcp-server.js",
-    "teledom-bridge": "./bin/bridge-server.js",
-    "mcp-dom": "./bin/cli.js",
-    "browser-forensics": "./bin/cli.js",
     "dom-antigravity": "./bin/cli.js",
+    "mcp-dom": "./bin/cli.js",
     "browser-antigravity": "./bin/cli.js",
+    "browser-forensics": "./bin/cli.js",
     "forensic-mcp": "./bin/mcp-server.js",
     "forensic-bridge": "./bin/bridge-server.js"
   },
@@ -34,17 +31,14 @@
     "setup:project": "node ./bin/cli.js install"
   },
   "keywords": [
-    "teledom",
+    "browser",
+    "debugger",
+    "dom-recording",
+    "time-travel",
+    "forensics",
     "mcp",
-    "model-context-protocol",
-    "ai-agents",
-    "browser-automation",
-    "dom-forensics",
-    "time-travel-debugger",
-    "chrome-extension",
-    "reverse-engineering",
-    "devtools",
-    "synthetic-interaction"
+    "modelcontextprotocol",
+    "chrome-extension"
   ],
   "author": "Antigravity Engineering Pair",
   "license": "Apache-2.0",

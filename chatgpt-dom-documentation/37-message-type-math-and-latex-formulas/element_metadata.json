@@ -1,0 +1,25 @@
+{
+  "module": "37-message-type-math-and-latex-formulas",
+  "title": "KaTeX Math Equations, Formulas & Inline Symbols",
+  "titleFa": "فرمول‌های ریاضی و نمادهای لاتک (Math & KaTeX Formulas)",
+  "tag": "article",
+  "selector": "[data-testid=\"37-message-type-math-and-latex-formulas\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

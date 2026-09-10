@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_170_dt_trigger_extension_action",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_trigger_extension_action",
+    "arguments": {
+      "extensionId": "forensic-recorder@mcpdom"
+    }
+  }
+}

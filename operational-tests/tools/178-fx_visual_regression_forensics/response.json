@@ -1,0 +1,46 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "visualEvidenceAvailable": false,
+  "screenshots": {
+    "before": {
+      "label": "no screenshot recorded"
+    },
+    "after": {
+      "label": "no screenshot recorded"
+    }
+  },
+  "pixelDiff": {
+    "identical": false,
+    "changedRegionCount": 0,
+    "changedRegions": [],
+    "changeRatio": 0
+  },
+  "domCorrelation": {
+    "structuralChanges": [
+      {
+        "summary": "#host-sidebar: <div> removed"
+      },
+      {
+        "summary": "html > body: child count 2 → 1 (layout impact)"
+      }
+    ],
+    "styleChanges": [],
+    "likelyRootCauses": [
+      {
+        "cause": "Structural change: #host-sidebar: <div> removed",
+        "confidence": 0.4,
+        "band": "LOW",
+        "evidenceCount": 2
+      },
+      {
+        "cause": "Structural change: html > body: child count 2 → 1 (layout impact)",
+        "confidence": 0.4,
+        "band": "LOW",
+        "evidenceCount": 2
+      }
+    ]
+  },
+  "conclusion": "No screenshots recorded in this session — DOM-only analysis. Visual changes correlate with 2 structural and 0 style DOM changes; top candidates ranked in likelyRootCauses.",
+  "confidence": 0.6,
+  "band": "MEDIUM"
+}

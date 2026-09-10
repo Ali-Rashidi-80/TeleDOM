@@ -1,0 +1,32 @@
+{
+  "tool": "fx_dom_regression_diff",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "t1": {
+        "type": "number",
+        "description": "First timestamp (before)"
+      },
+      "t2": {
+        "type": "number",
+        "description": "Second timestamp (after)"
+      },
+      "maxPerDimension": {
+        "type": "number",
+        "description": "Changes kept per dimension (default 40)"
+      }
+    },
+    "required": [
+      "sessionId",
+      "t1",
+      "t2"
+    ]
+  },
+  "expectedBehavior": "Diffs states across 8 dimensions with machine+human output"
+}

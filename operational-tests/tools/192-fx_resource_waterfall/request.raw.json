@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_192_fx_resource_waterfall",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_resource_waterfall",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

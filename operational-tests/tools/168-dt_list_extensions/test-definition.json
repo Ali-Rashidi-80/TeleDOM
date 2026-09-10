@@ -1,0 +1,10 @@
+{
+  "tool": "dt_list_extensions",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "expectedBehavior": "Lists extensions (simulated state clearly labeled)"
+}

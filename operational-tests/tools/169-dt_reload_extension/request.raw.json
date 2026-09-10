@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_169_dt_reload_extension",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_reload_extension",
+    "arguments": {
+      "extensionId": "forensic-recorder@mcpdom"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "tool": "fx_cross_signal_search",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "query": {
+        "type": "string",
+        "description": "Search keywords (selectors, text, URLs, error messages…)"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max hits (default 40)"
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "expectedBehavior": "Cross-domain search returns scored hits"
+}

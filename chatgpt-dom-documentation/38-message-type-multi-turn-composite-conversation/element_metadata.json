@@ -1,0 +1,25 @@
+{
+  "module": "38-message-type-multi-turn-composite-conversation",
+  "title": "Multi-Turn Conversation & Complex Mixed Messages",
+  "titleFa": "گفتگوی چند نوبته و محتوای ترکیبی (Composite Multi-Turn Chat)",
+  "tag": "article",
+  "selector": "[data-testid=\"38-message-type-multi-turn-composite-conversation\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

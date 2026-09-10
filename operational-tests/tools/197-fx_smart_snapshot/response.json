@@ -1,0 +1,20 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "recommendedMode": "INTERACTION",
+  "mode": "INTERACTION",
+  "description": "Interactive elements only: links, buttons, inputs, selects, textareas with names and values (~10-15%).",
+  "nodeCount": 1,
+  "fullNodeCount": 5,
+  "compressionRatio": 0.151,
+  "estimatedTokens": 23,
+  "nodes": [
+    {
+      "tag": "input",
+      "id": "search-input",
+      "type": "text",
+      "value": "initial query",
+      "path": "3:leaf"
+    }
+  ],
+  "usage": "This mode returns ~15% of the FULL snapshot size. Prefer the smallest mode that answers your question (§39)."
+}

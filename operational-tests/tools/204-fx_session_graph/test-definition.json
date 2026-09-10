@@ -1,0 +1,15 @@
+{
+  "tool": "fx_session_graph",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      }
+    }
+  },
+  "expectedBehavior": "Builds the multi-page session graph"
+}

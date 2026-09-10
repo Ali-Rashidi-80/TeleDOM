@@ -1,0 +1,6 @@
+{
+  "ran": false,
+  "mode": "UNAVAILABLE",
+  "note": "Lighthouse audits require a live DevTools connection. Audit results are never synthesized in simulation.",
+  "pageId": "page_1"
+}

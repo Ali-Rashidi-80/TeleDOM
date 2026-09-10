@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_178_fx_visual_regression_forensics",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"visualEvidenceAvailable\": false,\n  \"screenshots\": {\n    \"before\": {\n      \"label\": \"no screenshot recorded\"\n    },\n    \"after\": {\n      \"label\": \"no screenshot recorded\"\n    }\n  },\n  \"pixelDiff\": {\n    \"identical\": false,\n    \"changedRegionCount\": 0,\n    \"changedRegions\": [],\n    \"changeRatio\": 0\n  },\n  \"domCorrelation\": {\n    \"structuralChanges\": [\n      {\n        \"summary\": \"#host-sidebar: <div> removed\"\n      },\n      {\n        \"summary\": \"html > body: child count 2 → 1 (layout impact)\"\n      }\n    ],\n    \"styleChanges\": [],\n    \"likelyRootCauses\": [\n      {\n        \"cause\": \"Structural change: #host-sidebar: <div> removed\",\n        \"confidence\": 0.4,\n        \"band\": \"LOW\",\n        \"evidenceCount\": 2\n      },\n      {\n        \"cause\": \"Structural change: html > body: child count 2 → 1 (layout impact)\",\n        \"confidence\": 0.4,\n        \"band\": \"LOW\",\n        \"evidenceCount\": 2\n      }\n    ]\n  },\n  \"conclusion\": \"No screenshots recorded in this session — DOM-only analysis. Visual changes correlate with 2 structural and 0 style DOM changes; top candidates ranked in likelyRootCauses.\",\n  \"confidence\": 0.6,\n  \"band\": \"MEDIUM\"\n}"
+      }
+    ]
+  }
+}

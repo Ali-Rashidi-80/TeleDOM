@@ -1,6 +1,6 @@
 {
-  "snapshotId": "snap_mtuudxht_3",
-  "timestamp": 1789003321553,
+  "snapshotId": "snap_mtulky6t_3",
+  "timestamp": 1788988532501,
   "url": "https://app.internal/dashboard",
   "title": "MCP Operational Acceptance DOM Fixture",
   "viewport": {
@@ -10,9 +10,9 @@
     "scrollY": 0,
     "devicePixelRatio": 2.625
   },
-  "domLength": 4386,
-  "domHash": "feb1e736",
-  "interactiveCount": 9,
+  "domLength": 4594,
+  "domHash": "dd86b0d4",
+  "interactiveCount": 10,
   "selectedRegions": [],
   "extensionEnabled": true,
   "pendingMutations": 1,

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_201_fx_impact_prediction",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_impact_prediction",
+    "arguments": {
+      "operation": "set_attribute",
+      "selector": "#search-input"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_144_dt_list_network_requests",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_list_network_requests",
+    "arguments": {}
+  }
+}

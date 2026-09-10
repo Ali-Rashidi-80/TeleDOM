@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_153_dt_lighthouse_audit",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_lighthouse_audit",
+    "arguments": {}
+  }
+}

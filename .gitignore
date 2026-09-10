@@ -4,20 +4,18 @@ node_modules/
 # Local session recordings & cache
 .forensic_sessions/
 .forensic_operational_sessions/
+.mcpdom_recordings/
+.mcpdom_projects/
+operational-test-scratch/
 .test_forensic_storage/
 .cache/
 .temp/
-.mcpdom_projects/
-.mcpdom_recordings/
-operational-test-scratch/
 scratch/
-chatgpt-dom-documentation/
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-*.log
 
 # OS Files
 Thumbs.db

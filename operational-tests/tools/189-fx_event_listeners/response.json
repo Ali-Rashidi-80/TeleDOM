@@ -1,0 +1,18 @@
+{
+  "scope": "document",
+  "scannedElements": 63,
+  "listenerCount": 0,
+  "byType": {},
+  "topElements": [],
+  "frameworkOwnedCount": 0,
+  "instrumentationActive": false,
+  "listeners": [],
+  "coverage": {
+    "inlineAttributes": 0,
+    "addEventListener": 0
+  },
+  "notes": [
+    "Instrumentation is NOT active in this context: only inline on* attributes are directly observable. To capture addEventListener registrations, load the page with the MCPDOM injected page script (instrumentation patches addEventListener at document_start).",
+    "Framework ownership is inferred from handler source markers — heuristics, never claimed as authoritative."
+  ]
+}

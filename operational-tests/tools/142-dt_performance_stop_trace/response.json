@@ -1,0 +1,76 @@
+{
+  "traceId": "trace_1",
+  "pageId": "page_1",
+  "stopped": true,
+  "mode": "SIMULATED",
+  "simulated": true,
+  "eventCount": 16,
+  "durationMs": 97.4,
+  "webVitals": {
+    "lcp": {
+      "value": 320,
+      "timestamp": 1.474
+    },
+    "fcp": {
+      "value": 1.12,
+      "timestamp": 1.12
+    },
+    "cls": {
+      "value": 0.113,
+      "sourceHints": [
+        "div#banner img.hero"
+      ]
+    }
+  },
+  "topLongTasks": [
+    {
+      "kind": "long-task",
+      "name": "EventTiming",
+      "startUs": 2400,
+      "durationMs": 96,
+      "details": {
+        "cat": "devtools.timeline.event",
+        "tid": 2
+      }
+    },
+    {
+      "kind": "long-task",
+      "name": "FunctionCall",
+      "startUs": 1900,
+      "durationMs": 82,
+      "details": {
+        "cat": "devtools.timeline",
+        "tid": 2
+      }
+    }
+  ],
+  "layoutShifts": [
+    {
+      "kind": "layout-shift",
+      "name": "LayoutShift",
+      "startUs": 2100,
+      "durationMs": 0,
+      "details": {
+        "score": 0.113,
+        "sources": "div#banner img.hero"
+      }
+    }
+  ],
+  "phaseBreakdown": [
+    {
+      "phase": "devtools.timeline",
+      "totalMs": 151,
+      "events": 5
+    },
+    {
+      "phase": "toplevel",
+      "totalMs": 125,
+      "events": 6
+    },
+    {
+      "phase": "devtools.timeline.event",
+      "totalMs": 96,
+      "events": 1
+    }
+  ]
+}

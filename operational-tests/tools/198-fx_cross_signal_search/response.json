@@ -1,0 +1,53 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "query": "injected-action-btn",
+  "hits": [
+    {
+      "domain": "DOM",
+      "eventId": "evt_op_001",
+      "timestamp": 50,
+      "selector": "#injected-action-btn",
+      "excerpt": "DOM_MUTATION_ADD #injected-action-btn {\"node\":{\"id\":10,\"nodeType\":1,\"tagName\":\"button\",\"attributes\":{\"class\":\"btn btn-primary\",\"id\":\"injected-action-btn\"},\"textContent\":\"⚡ Run An",
+      "score": 5
+    },
+    {
+      "domain": "USER",
+      "eventId": "evt_op_002",
+      "timestamp": 100,
+      "selector": "#injected-action-btn",
+      "excerpt": "USER_CLICK #injected-action-btn {\"x\":120,\"y\":45,\"button\":0}",
+      "score": 5
+    }
+  ],
+  "byDomain": {
+    "DOM": 1,
+    "USER": 1
+  },
+  "relatedEvidence": [
+    {
+      "domain": "CONSOLE",
+      "eventId": "evt_op_003",
+      "relation": "100ms after top hit",
+      "excerpt": "CONSOLE_LOG  {\"level\":\"log\",\"message\":\"Analysis requested for active dashboard context\"}"
+    },
+    {
+      "domain": "NETWORK",
+      "eventId": "evt_op_004",
+      "relation": "150ms after top hit",
+      "excerpt": "NETWORK_REQUEST_START  {\"requestId\":\"req_op_99\",\"url\":\"https://api.internal/v1/analyze\",\"method\":\"POST\"}"
+    },
+    {
+      "domain": "NETWORK",
+      "eventId": "evt_op_005",
+      "relation": "230ms after top hit",
+      "excerpt": "NETWORK_RESPONSE_COMPLETE  {\"requestId\":\"req_op_99\",\"url\":\"https://api.internal/v1/analyze\",\"status\":200,\"durationMs\":80}"
+    },
+    {
+      "domain": "ERROR",
+      "eventId": "evt_op_006",
+      "relation": "220ms after top hit",
+      "excerpt": "RUNTIME_ERROR  {\"message\":\"Uncaught TypeError: Cannot read properties of undefined\",\"stack\":\"TypeError at dashboard"
+    }
+  ],
+  "suggestions": []
+}

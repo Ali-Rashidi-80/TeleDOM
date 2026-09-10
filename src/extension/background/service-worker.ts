@@ -16,6 +16,45 @@ interface ActiveRecording {
 
 const activeTabRecordings = new Map<number, ActiveRecording>();
 
+// CDP gateway session → tab binding (§9). Attach records the tab so
+// CDP_COMMAND/DETACH route to the right chrome.debugger target.
+const cdpTargetsBySession = new Map<string, number>();
+
+/** Resolve the currently active tab id (null when unavailable). */
+async function getActiveTabId(): Promise<number | null> {
+  return new Promise((resolve) => {
+    try {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (chrome.runtime.lastError || !tabs || tabs.length === 0) return resolve(null);
+        resolve(tabs[0].id ?? null);
+      });
+    } catch {
+      resolve(null);
+    }
+  });
+}
+
+// Route CDP domain events (HeapProfiler.addHeapSnapshotChunk, Tracing data
+// events…) to the bridge so the Node-side gateway can feed its listeners.
+try {
+  (chrome as any).debugger?.onEvent?.addListener((source: any, method: string, params: any) => {
+    try {
+      for (const [sessionId, tabId] of cdpTargetsBySession.entries()) {
+        if (source?.tabId === tabId || source?.targetId === `tab_${tabId}`) {
+          wsBridge?.send(JSON.stringify({
+            type: 'CDP_EVENT',
+            sessionId,
+            method,
+            params,
+            timestamp: Date.now(),
+          }));
+          return;
+        }
+      }
+    } catch { /* event routing is best-effort */ }
+  });
+} catch { /* chrome.debugger unavailable */ }
+
 async function executeBackgroundCommand(command: string, payload: any): Promise<any> {
   if (command === 'LIST_TABS') {
     return new Promise((resolve, reject) => {
@@ -59,44 +98,6 @@ async function executeBackgroundCommand(command: string, payload: any): Promise<
           resolve({ focused: true, tab: { id: tab.id, title: tab.title, url: tab.url, active: tab.active } });
         }
       });
-    });
-  }
-
-  if (command === 'EXECUTE_JS' || command === 'EXECUTE_JAVASCRIPT' || command === 'EVALUATE_SCRIPT') {
-    const code = payload?.code || payload?.script;
-    const explicitTabId = payload?.tabId ? Number(payload.tabId) : undefined;
-    return new Promise((resolve, reject) => {
-      const runOnTab = (tabId: number) => {
-        if (!chrome.scripting?.executeScript) {
-          return reject(new Error('chrome.scripting API not available'));
-        }
-        chrome.scripting.executeScript({
-          target: { tabId },
-          world: 'MAIN',
-          func: (scriptCode: string) => {
-            try {
-              return { success: true, result: window.eval(scriptCode) };
-            } catch (e: any) {
-              return { success: false, error: e.message, stack: e.stack };
-            }
-          },
-          args: [code]
-        }, (results) => {
-          if (chrome.runtime.lastError) return reject(new Error(chrome.runtime.lastError.message));
-          const res = results && results[0] ? results[0].result : null;
-          resolve(res);
-        });
-      };
-
-      if (explicitTabId) {
-        runOnTab(explicitTabId);
-      } else {
-        chrome.tabs.query({ active: true }, (tabs) => {
-          const activeTab = tabs && tabs[0] ? tabs[0] : null;
-          if (!activeTab?.id) return reject(new Error('No active tab found for script execution'));
-          runOnTab(activeTab.id);
-        });
-      }
     });
   }
 
@@ -319,6 +320,72 @@ async function executeBackgroundCommand(command: string, payload: any): Promise<
     });
   }
 
+  // ------------------------------------------------------------------
+  // CDP GATEWAY (§9/§8) — Chrome DevTools Protocol access through
+  // chrome.debugger. Powers the dt_ performance / memory / debugging
+  // capability families. Minimal, justified manifest change: the
+  // "debugger" permission (see manifest.json).
+  // ------------------------------------------------------------------
+  if (command === 'CDP_ATTACH') {
+    const tabId = payload?.tabId !== undefined ? Number(payload.tabId) : (await getActiveTabId());
+    if (tabId === null) throw new Error('No target tab available for CDP attach.');
+    return new Promise((resolve, reject) => {
+      if (!(chrome as any).debugger?.attach) {
+        return reject(new Error('CDP_UNAVAILABLE: chrome.debugger API not available (check the "debugger" permission).'));
+      }
+      (chrome as any).debugger.attach({ tabId }, '1.3', () => {
+        if (chrome.runtime.lastError) {
+          return reject(new Error(`CDP_ATTACH failed: ${chrome.runtime.lastError.message}`));
+        }
+        // Bind the gateway session to this tab (used by CDP_COMMAND/DETACH).
+        if (payload?.sessionId) cdpTargetsBySession.set(String(payload.sessionId), tabId);
+        // Resolve the real CDP target id for the unified page identity.
+        (chrome as any).debugger.getTargets((targets: any[]) => {
+          const target = (targets || []).find((t) => t.tabId === tabId) || {};
+          resolve({ attached: true, sessionId: payload?.sessionId, tabId, targetId: target.id || `tab_${tabId}`, type: target.type || 'page' });
+        });
+      });
+    });
+  }
+
+  if (command === 'CDP_COMMAND') {
+    const { sessionId, method, params } = payload || {};
+    if (!method) throw new Error('CDP_COMMAND requires method');
+    return new Promise((resolve, reject) => {
+      if (!(chrome as any).debugger?.sendCommand) {
+        return reject(new Error('CDP_UNAVAILABLE: chrome.debugger API not available (check the "debugger" permission).'));
+      }
+      // Target resolution: CDP gateway sessions are tab-scoped; the tab is
+      // recorded at attach time in cdpTargetsBySession.
+      const tabId = cdpTargetsBySession.get(sessionId);
+      if (tabId === undefined) {
+        return reject(new Error(`CDP_SESSION_NOT_FOUND: no tab bound to session '${sessionId}' — attach first.`));
+      }
+      (chrome as any).debugger.sendCommand({ tabId }, method, params || {}, (result: any) => {
+        if (chrome.runtime.lastError) {
+          resolve({ __cdpError: true, code: 'CDP_PROTOCOL_ERROR', message: chrome.runtime.lastError.message, method });
+          return;
+        }
+        resolve({ result: result ?? {} });
+      });
+    });
+  }
+
+  if (command === 'CDP_DETACH') {
+    const { sessionId } = payload || {};
+    const tabId = cdpTargetsBySession.get(sessionId);
+    cdpTargetsBySession.delete(sessionId);
+    if (tabId === undefined) return { detached: false, reason: 'session not found' };
+    return new Promise((resolve, reject) => {
+      if (!(chrome as any).debugger?.detach) return resolve({ detached: false, reason: 'chrome.debugger unavailable' });
+      (chrome as any).debugger.detach({ tabId }, () => {
+        if (chrome.runtime.lastError) return resolve({ detached: false, reason: chrome.runtime.lastError.message });
+        resolve({ detached: true, sessionId, tabId });
+      });
+    });
+  }
+
+
   throw new Error(`Unsupported background command: ${command}`);
 }
 
@@ -387,7 +454,7 @@ function connectBridge() {
           }
 
           // 1. Handle background-level tab & extension commands
-          if (['LIST_TABS', 'FOCUS_TAB', 'RELOAD_TAB', 'CLOSE_TAB', 'OPEN_TAB', 'LIST_EXTENSIONS', 'RELOAD_EXTENSION', 'SET_EXTENSION_ENABLED', 'TOGGLE_EXTENSION', 'EXECUTE_JS', 'EXECUTE_JAVASCRIPT', 'EVALUATE_SCRIPT'].includes(command)) {
+          if (['LIST_TABS', 'FOCUS_TAB', 'RELOAD_TAB', 'CLOSE_TAB', 'OPEN_TAB', 'LIST_EXTENSIONS', 'RELOAD_EXTENSION', 'SET_EXTENSION_ENABLED', 'TOGGLE_EXTENSION', 'CDP_ATTACH', 'CDP_COMMAND', 'CDP_DETACH'].includes(command)) {
             try {
               const data = await executeBackgroundCommand(command, payload);
               ws.send(

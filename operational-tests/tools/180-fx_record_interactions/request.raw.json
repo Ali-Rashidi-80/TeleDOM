@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_180_fx_record_interactions",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_record_interactions",
+    "arguments": {
+      "mode": "list"
+    }
+  }
+}

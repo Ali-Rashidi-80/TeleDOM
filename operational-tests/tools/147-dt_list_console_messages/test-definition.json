@@ -1,0 +1,32 @@
+{
+  "tool": "dt_list_console_messages",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "level": {
+        "type": "string"
+      },
+      "searchQuery": {
+        "type": "string"
+      },
+      "offset": {
+        "type": "number"
+      },
+      "limit": {
+        "type": "number"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      },
+      "ingestTabId": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Lists the unified console log"
+}

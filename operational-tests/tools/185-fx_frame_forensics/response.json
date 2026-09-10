@@ -1,0 +1,11 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "frames": [],
+  "totalFrames": 0,
+  "crossOriginCount": 0,
+  "networkUnattributed": 2,
+  "notes": [
+    "No frames detected in this state.",
+    "2 network events could not be attributed to a specific frame (main frame or cross-origin restrictions)."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_176_fx_correlate_dom_network",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_correlate_dom_network",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "timestamp": 50
+    }
+  }
+}

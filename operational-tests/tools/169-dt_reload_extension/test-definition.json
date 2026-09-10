@@ -1,0 +1,17 @@
+{
+  "tool": "dt_reload_extension",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "extensionId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "extensionId"
+    ]
+  },
+  "expectedBehavior": "Reloads the simulated extension"
+}

@@ -1,0 +1,19 @@
+{
+  "tool": "fx_page_health",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "failedInteractions": {
+        "type": "number",
+        "description": "Known failed interaction count"
+      }
+    }
+  },
+  "expectedBehavior": "Computes the composite page health with subscores"
+}

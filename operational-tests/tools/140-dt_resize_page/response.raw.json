@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_140_dt_resize_page",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"resized\": true,\n  \"width\": 1280,\n  \"height\": 720,\n  \"pageId\": \"page_1\",\n  \"detail\": {\n    \"success\": true,\n    \"applied\": {\n      \"width\": 1280,\n      \"height\": 720\n    },\n    \"previous\": {\n      \"width\": 1280,\n      \"height\": 720\n    },\n    \"original\": {\n      \"width\": 1024,\n      \"height\": 768\n    },\n    \"beforeState\": {\n      \"url\": \"https://app.internal/dashboard\",\n      \"domLength\": 4594,\n      \"interactiveCount\": 10\n    },\n    \"afterState\": {\n      \"url\": \"https://app.internal/dashboard\",\n      \"domLength\": 4594,\n      \"interactiveCount\": 10\n    },\n    \"reversible\": true,\n    \"mode\": \"simulation\"\n  }\n}"
+      }
+    ]
+  }
+}

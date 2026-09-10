@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_147_dt_list_console_messages",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"total\": 0,\n  \"ingested\": 0,\n  \"messages\": [],\n  \"mode\": {\n    \"mode\": \"SIMULATED\",\n    \"simulated\": true,\n    \"note\": \"JSDOM fixture DOM — deterministic simulation contract, not a real browser page.\",\n    \"source\": \"jsdom-fixture\"\n  },\n  \"note\": \"Unified console log is empty in this context. With the extension connected, pass ingestTabId to pull the tab capture first.\"\n}"
+      }
+    ]
+  }
+}

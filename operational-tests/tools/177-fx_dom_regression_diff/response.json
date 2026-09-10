@@ -1,0 +1,48 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "t1": 0,
+  "t2": 400,
+  "machine": {
+    "dimensions": [
+      {
+        "dimension": "removed",
+        "count": 1,
+        "changes": [
+          {
+            "selector": "#host-sidebar",
+            "nodeId": 4,
+            "detail": "<div> removed"
+          }
+        ]
+      },
+      {
+        "dimension": "layout",
+        "count": 1,
+        "changes": [
+          {
+            "selector": "html > body",
+            "nodeId": 3,
+            "detail": "child count 2 → 1 (layout impact)"
+          }
+        ]
+      },
+      {
+        "dimension": "accessibility",
+        "count": 1,
+        "changes": [
+          {
+            "selector": "#search-input",
+            "nodeId": 6,
+            "detail": "interactive element without accessible name"
+          }
+        ]
+      }
+    ],
+    "totals": {
+      "removed": 1,
+      "layout": 1,
+      "accessibility": 1
+    }
+  },
+  "humanReadableReport": "# DOM Regression Diff\n\nElements: 5 → 4\n\n## removed (1)\n- `#host-sidebar` — <div> removed\n\n## layout (1)\n- `html > body` — child count 2 → 1 (layout impact)\n\n## accessibility (1)\n- `#search-input` — interactive element without accessible name\n"
+}

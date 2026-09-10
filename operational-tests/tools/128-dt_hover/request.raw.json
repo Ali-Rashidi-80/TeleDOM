@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_128_dt_hover",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_hover",
+    "arguments": {
+      "selector": "#primary-action-btn"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "taken": true,
+  "snapshotId": "heap_1",
+  "nodeCount": 29,
+  "edgeCount": 29,
+  "mode": "SIMULATED",
+  "simulated": true,
+  "pageId": "page_1",
+  "note": "Deterministic fixture in the REAL .heapsnapshot JSON format. Parser/analysis code paths are identical to live captures, but THIS DATA IS NOT a real V8 heap — contract validation only."
+}

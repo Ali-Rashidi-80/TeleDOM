@@ -365,6 +365,16 @@ export class MCPBridgeServer implements BrowserBridgeClient {
                 return;
               }
 
+              // Handle CDP domain events routed from the extension's
+              // chrome.debugger gateway (§9 unified runtime).
+              if (message.type === 'CDP_EVENT' && message.sessionId) {
+                try {
+                  const { cdpGateway } = await import('../devtools/runtime/cdp-gateway');
+                  cdpGateway.dispatchRemoteEvent(String(message.sessionId), message.method, message.params);
+                } catch { /* gateway unavailable */ }
+                return;
+              }
+
               // Handle Asynchronous Element Selected Notification
               if (message.type === 'ELEMENT_SELECTED' && message.elementInfo) {
                 this.toolsHandler

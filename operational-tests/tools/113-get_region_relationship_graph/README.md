@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 4ms
+**Duration**: 1ms
 
 ## Test Objective
 Builds region relationship graph
@@ -32,7 +32,7 @@ Builds region relationship graph
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"pageId\": \"page_mtuudxid\",\n  \"nodes\": [\n    {\n      \"id\": \"page:page_mtuudxid\",\n      \"name\": \"page\",\n      \"tag\": \"document\",\n      \"selector\": \"document\",\n      \"depth\": 0,\n      \"relationship\": \"page\"\n    },\n    {\n      \"id\": \"region_mtuudxj1_1\",\n      \"name\": \"header_operational_dom_test_card\",\n      \"tag\": \"#fixture-header\",\n      \"selector\": \"#fixture-header\",\n      \"depth\": 1,\n      \"relationship\": \"region\"\n    }\n  ],\n  \"edges\": [\n    {\n      \"from\": \"page:page_mtuudxid\",\n      \"to\": \"region_mtuudxj1_1\",\n      \"relation\": \"contains\"\n    }\n  ]\n}"
+        "text": "{\n  \"pageId\": \"page_mtulky71\",\n  \"nodes\": [\n    {\n      \"id\": \"page:page_mtulky71\",\n      \"name\": \"page\",\n      \"tag\": \"document\",\n      \"selector\": \"document\",\n      \"depth\": 0,\n      \"relationship\": \"page\"\n    },\n    {\n      \"id\": \"region_mtulky7b_1\",\n      \"name\": \"header_operational_dom_test_card\",\n      \"tag\": \"#fixture-header\",\n      \"selector\": \"#fixture-header\",\n      \"depth\": 1,\n      \"relationship\": \"region\"\n    }\n  ],\n  \"edges\": [\n    {\n      \"from\": \"page:page_mtulky71\",\n      \"to\": \"region_mtulky7b_1\",\n      \"relation\": \"contains\"\n    }\n  ]\n}"
       }
     ]
   }

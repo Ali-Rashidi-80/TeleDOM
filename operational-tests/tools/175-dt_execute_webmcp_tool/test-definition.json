@@ -1,0 +1,26 @@
+{
+  "tool": "dt_execute_webmcp_tool",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "toolName": {
+        "type": "string"
+      },
+      "args": {
+        "type": "object"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "toolName"
+    ]
+  },
+  "expectedBehavior": "Executes the registered WebMCP tool"
+}

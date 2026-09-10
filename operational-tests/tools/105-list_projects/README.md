@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 4ms
+**Duration**: 0ms
 
 ## Test Objective
 Lists page analysis projects
@@ -30,7 +30,7 @@ Lists page analysis projects
     "content": [
       {
         "type": "text",
-        "text": "[\n  {\n    \"name\": \"op-project\",\n    \"projectId\": \"proj_mtuudxid\",\n    \"description\": \"Operational project\",\n    \"regionCount\": 0,\n    \"pageCount\": 1,\n    \"commandRecordingCount\": 0,\n    \"createdAt\": 1789003321574,\n    \"updatedAt\": 1789003321574,\n    \"tags\": []\n  }\n]"
+        "text": "[\n  {\n    \"name\": \"op-project\",\n    \"projectId\": \"proj_mtulky71\",\n    \"description\": \"Operational project\",\n    \"regionCount\": 0,\n    \"pageCount\": 1,\n    \"commandRecordingCount\": 0,\n    \"createdAt\": 1788988532509,\n    \"updatedAt\": 1788988532509,\n    \"tags\": []\n  }\n]"
       }
     ]
   }

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 3ms
+**Duration**: 1ms
 
 ## Test Objective
 Starts command recording session
@@ -32,7 +32,7 @@ Starts command recording session
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"recordingId\": \"rec_mtuudxg5_1\",\n  \"name\": \"op-recording\",\n  \"active\": true,\n  \"note\": \"All subsequent tool calls (in this server process) are recorded until record_commands_stop.\"\n}"
+        "text": "{\n  \"recordingId\": \"rec_mtulky6h_1\",\n  \"name\": \"op-recording\",\n  \"active\": true,\n  \"note\": \"All subsequent tool calls (in this server process) are recorded until record_commands_stop.\"\n}"
       }
     ]
   }

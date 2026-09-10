@@ -1,0 +1,22 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_205_fx_evidence_scoring",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_evidence_scoring",
+    "arguments": {
+      "conclusion": "The injected button was removed by a parent subtree replacement",
+      "supporting": [
+        {
+          "source": "MUTATION_RECORD",
+          "description": "Parent subtree replaced at t=400ms",
+          "ref": "evt_op_007"
+        },
+        {
+          "source": "DOM_OBSERVATION",
+          "description": "Button absent from the reconstructed state at t=400ms"
+        }
+      ]
+    }
+  }
+}

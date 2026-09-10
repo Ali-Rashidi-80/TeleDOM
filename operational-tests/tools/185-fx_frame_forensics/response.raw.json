@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_185_fx_frame_forensics",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"frames\": [],\n  \"totalFrames\": 0,\n  \"crossOriginCount\": 0,\n  \"networkUnattributed\": 2,\n  \"notes\": [\n    \"No frames detected in this state.\",\n    \"2 network events could not be attributed to a specific frame (main frame or cross-origin restrictions).\"\n  ]\n}"
+      }
+    ]
+  }
+}

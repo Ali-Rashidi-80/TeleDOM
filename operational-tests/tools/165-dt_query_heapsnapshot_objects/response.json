@@ -1,0 +1,157 @@
+{
+  "snapshotId": "heap_12",
+  "matched": 15,
+  "nodes": [
+    {
+      "id": 4,
+      "index": 3,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 256,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 300,
+      "index": 15,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 2078,
+      "edgeCount": 1,
+      "detached": false
+    },
+    {
+      "id": 301,
+      "index": 16,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 3212,
+      "edgeCount": 0,
+      "detached": false
+    },
+    {
+      "id": 302,
+      "index": 17,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 726,
+      "edgeCount": 0,
+      "detached": false
+    },
+    {
+      "id": 303,
+      "index": 18,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 1362,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 304,
+      "index": 19,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 2347,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 305,
+      "index": 20,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 227,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 306,
+      "index": 21,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 2395,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 307,
+      "index": 22,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 4088,
+      "edgeCount": 1,
+      "detached": false
+    },
+    {
+      "id": 308,
+      "index": 23,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 2056,
+      "edgeCount": 0,
+      "detached": false
+    },
+    {
+      "id": 309,
+      "index": 24,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 64,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 310,
+      "index": 25,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 4021,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 311,
+      "index": 26,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 1176,
+      "edgeCount": 2,
+      "detached": false
+    },
+    {
+      "id": 312,
+      "index": 27,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 583,
+      "edgeCount": 1,
+      "detached": false
+    },
+    {
+      "id": 313,
+      "index": 28,
+      "type": "object",
+      "className": "Object",
+      "name": "Object",
+      "selfSize": 1655,
+      "edgeCount": 1,
+      "detached": false
+    }
+  ],
+  "simulated": true
+}

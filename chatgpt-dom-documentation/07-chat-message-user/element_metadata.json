@@ -1,0 +1,114 @@
+{
+  "tag": "div",
+  "classes": [
+    "min-h-8",
+    "text-message",
+    "relative",
+    "flex",
+    "w-full",
+    "flex-col",
+    "items-end",
+    "gap-2",
+    "text-start",
+    "break-words",
+    "whitespace-normal",
+    "outline-none",
+    "keyboard-focused:focus-ring",
+    "[.text-message+&]:mt-1"
+  ],
+  "text": "سلام",
+  "normalizedText": "سلام",
+  "selector": "div.min-h-8",
+  "bestSelector": "div.min-h-8",
+  "selectorCandidates": [
+    "div.min-h-8"
+  ],
+  "bounds": {
+    "x": 444.18182373046875,
+    "y": 116,
+    "width": 768,
+    "height": 44,
+    "top": 116,
+    "right": 1212.1818237304688,
+    "bottom": 160,
+    "left": 444.18182373046875
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "relative",
+    "zIndex": "auto",
+    "pointerEvents": "auto",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "data-message-author-role": "user",
+    "data-message-id": "28029107-9f88-4b9e-b296-3563f604f318",
+    "dir": "auto",
+    "class": "min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal outline-none keyboard-focused:focus-ring [.text-message+&]:mt-1"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.mx-auto > div:nth-of-type(1)",
+      "div.mx-auto",
+      "div.text-base",
+      "section[data-testid=\"conversation-turn-1\"]",
+      "div.qMYqUG_convSearchResultHighlightRoot > div:nth-of-type(2)",
+      "div.qMYqUG_convSearchResultHighlightRoot",
+      "div.flex.min-h-0.grow",
+      "div.relative.basis-auto.flex-col",
+      "div.composer-parent.flex.flex-1",
+      "#thread",
+      "div.contents",
+      "#main",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative > div:nth-of-type(2) > div:nth-of-type(1)",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(3)",
+      "body"
+    ],
+    "parentSelector": "div.mx-auto > div:nth-of-type(1)",
+    "childrenSummary": {
+      "count": 1,
+      "tags": [
+        "div"
+      ]
+    },
+    "containingBlock": "div.mx-auto > div:nth-of-type(1)",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

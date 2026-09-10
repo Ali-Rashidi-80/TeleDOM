@@ -1,0 +1,11 @@
+{
+  "closed": true,
+  "pageId": "page_2",
+  "url": "https://app.internal/newpage",
+  "mode": {
+    "mode": "SIMULATED",
+    "simulated": true,
+    "note": "JSDOM fixture DOM — deterministic simulation contract, not a real browser page.",
+    "source": "jsdom-fixture"
+  }
+}

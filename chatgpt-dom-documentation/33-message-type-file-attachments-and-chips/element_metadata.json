@@ -1,0 +1,25 @@
+{
+  "module": "33-message-type-file-attachments-and-chips",
+  "title": "File Attachments, PDF Chips & Document Badges",
+  "titleFa": "پیوست فایل‌ها، اسناد PDF و چیپ‌های دانلودی (File Attachments)",
+  "tag": "article",
+  "selector": "[data-testid=\"33-message-type-file-attachments-and-chips\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

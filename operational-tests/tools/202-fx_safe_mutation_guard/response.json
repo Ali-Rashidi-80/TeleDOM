@@ -1,0 +1,49 @@
+{
+  "guard": {
+    "verdict": "HIGH_RISK",
+    "reasons": [
+      "Destructive operation (set_outer_html) on a subtree of 2 element(s).",
+      "Layout impact: Subtree removal/replacement reflows ancestors and siblings (2 descendant elements affected)."
+    ],
+    "conditions": [
+      "Wrap in a transaction: mutate_dom_transaction {mode:\"begin\"} → mutation → commit (rollback path guaranteed).",
+      "Capture state first: capture_page_state — enables before/after verification via compare_page_states.",
+      "Verify with get_mutation_history after the change."
+    ],
+    "reversible": false
+  },
+  "prediction": {
+    "target": "#removable-card",
+    "operation": "set_outer_html",
+    "affectedSubtreeSize": 2,
+    "affectedElements": [
+      {
+        "selector": "#removable-card",
+        "reason": "destroyed by the operation"
+      },
+      {
+        "selector": "#removable-label",
+        "reason": "destroyed by the operation"
+      }
+    ],
+    "selectorBreakage": [],
+    "listenerImpact": {
+      "estimatedListenersOnSubtree": 0,
+      "note": "No listeners expected on the subtree."
+    },
+    "layoutImpact": {
+      "severity": "HIGH",
+      "reasoning": "Subtree removal/replacement reflows ancestors and siblings (2 descendant elements affected)."
+    },
+    "a11yImpact": {
+      "severity": "NONE",
+      "reasoning": "No interactive elements in the affected subtree."
+    },
+    "formStateImpact": {
+      "affected": false,
+      "detail": "No form fields in the affected subtree."
+    },
+    "overallRisk": "HIGH",
+    "confidence": 0.85
+  }
+}

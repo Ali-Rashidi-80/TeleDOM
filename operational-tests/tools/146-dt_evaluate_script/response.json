@@ -1,0 +1,12 @@
+{
+  "evaluated": true,
+  "pageId": "page_1",
+  "result": "{\n \"ok\": true,\n \"fixture\": \"MCP Operational Acceptance DOM Fixture\"\n}",
+  "execution": {
+    "status": "EXECUTED_SUCCESSFULLY",
+    "durationMs": 0,
+    "executionId": "js_mtull1qe_10",
+    "consoleOutput": [],
+    "domChanged": false
+  }
+}

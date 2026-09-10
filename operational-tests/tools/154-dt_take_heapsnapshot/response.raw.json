@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_154_dt_take_heapsnapshot",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"taken\": true,\n  \"snapshotId\": \"heap_1\",\n  \"nodeCount\": 29,\n  \"edgeCount\": 29,\n  \"mode\": \"SIMULATED\",\n  \"simulated\": true,\n  \"pageId\": \"page_1\",\n  \"note\": \"Deterministic fixture in the REAL .heapsnapshot JSON format. Parser/analysis code paths are identical to live captures, but THIS DATA IS NOT a real V8 heap — contract validation only.\"\n}"
+      }
+    ]
+  }
+}

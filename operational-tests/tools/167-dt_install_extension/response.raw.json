@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_167_dt_install_extension",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"installed\": false,\n  \"mode\": \"UNAVAILABLE\",\n  \"note\": \"chrome.management can only uninstall/enable/disable. To install an unpacked extension, load it once via chrome://extensions (Load unpacked), then manage it here. Provide the extensionId after loading.\"\n}"
+      }
+    ]
+  }
+}

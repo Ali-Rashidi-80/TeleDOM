@@ -1,0 +1,94 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "overall": 98,
+  "grade": "A",
+  "subscores": [
+    {
+      "key": "console",
+      "score": 100,
+      "status": "HEALTHY",
+      "detail": "0 error(s), 0 warning(s) recorded.",
+      "metrics": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "key": "network",
+      "score": 100,
+      "status": "HEALTHY",
+      "detail": "0 failed of 2 requests (0.0%).",
+      "metrics": {
+        "total": 2,
+        "failed": 0
+      }
+    },
+    {
+      "key": "accessibility",
+      "score": 85,
+      "status": "HEALTHY",
+      "detail": "1 critical + 0 moderate a11y divergences (missing names, alt, semantics).",
+      "metrics": {
+        "errors": 1,
+        "warnings": 0,
+        "interactiveWithoutName": 1
+      }
+    },
+    {
+      "key": "performance",
+      "score": 100,
+      "status": "HEALTHY",
+      "detail": "LCP=n/ams INP=n/ams CLS=n/a mutations=2.",
+      "metrics": {
+        "domMutations": 2
+      }
+    },
+    {
+      "key": "memory",
+      "score": 100,
+      "status": "HEALTHY",
+      "detail": "0 memory warning(s) recorded.",
+      "metrics": {
+        "warnings": 0
+      }
+    },
+    {
+      "key": "layout-stability",
+      "score": 100,
+      "status": "HEALTHY",
+      "detail": "0 layout-affecting mutations + 0 style changes.",
+      "metrics": {
+        "styleChanges": 0,
+        "layoutMutations": 0
+      }
+    },
+    {
+      "key": "interactions",
+      "score": 100,
+      "status": "HEALTHY",
+      "detail": "0 failed interaction(s) of 1 user events.",
+      "metrics": {
+        "failed": 0,
+        "userEvents": 1
+      }
+    },
+    {
+      "key": "dom-anomalies",
+      "score": 100,
+      "status": "HEALTHY",
+      "detail": "0 large subtree removal(s) (possible re-render churn).",
+      "metrics": {
+        "subtreeRemovals": 0,
+        "totalRemovals": 1
+      }
+    }
+  ],
+  "topIssues": [
+    {
+      "area": "a11y",
+      "issue": "missing-name: #search-input",
+      "severity": "error"
+    }
+  ],
+  "methodology": "Weighted composite: console 20%, network 20%, performance 20%, a11y 15%, layout stability 10%, memory/interactions/DOM anomalies 5% each. Every subscore is independently inspectable above."
+}

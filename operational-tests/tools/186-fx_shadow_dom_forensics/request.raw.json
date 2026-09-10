@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_186_fx_shadow_dom_forensics",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_shadow_dom_forensics",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

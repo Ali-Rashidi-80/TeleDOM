@@ -1,0 +1,21 @@
+{
+  "tool": "fx_resource_waterfall",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "from": {
+        "type": "number"
+      },
+      "to": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Builds the resource waterfall with milestones"
+}

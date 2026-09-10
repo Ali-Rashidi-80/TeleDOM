@@ -1,0 +1,17 @@
+{
+  "tool": "dt_trigger_extension_action",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "extensionId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "extensionId"
+    ]
+  },
+  "expectedBehavior": "Reports extension action requirement"
+}

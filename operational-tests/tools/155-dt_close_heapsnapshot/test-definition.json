@@ -1,0 +1,17 @@
+{
+  "tool": "dt_close_heapsnapshot",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "snapshotId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "snapshotId"
+    ]
+  },
+  "expectedBehavior": "Closes the loaded heap snapshot (lifecycle §24)"
+}

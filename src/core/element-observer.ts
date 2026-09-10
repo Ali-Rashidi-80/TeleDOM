@@ -86,10 +86,9 @@ export class ElementObserver {
           // Check removed nodes
           for (let i = 0; i < mut.removedNodes.length; i++) {
             const removed = mut.removedNodes[i];
-            if (removed && (removed as any).nodeType === 1) {
-              const remEl = removed as Element;
-              const remNodeId = this.registry ? this.registry.getId(remEl) || undefined : undefined;
-              const parentNodeId = mut.target && (mut.target as any).nodeType === 1 && this.registry ? this.registry.getId(mut.target as Element) || undefined : undefined;
+            if (removed instanceof Element) {
+              const remNodeId = this.registry ? this.registry.getId(removed) || undefined : undefined;
+              const parentNodeId = mut.target instanceof Element && this.registry ? this.registry.getId(mut.target) || undefined : undefined;
 
               events.push({
                 id: `evt_rem_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
@@ -101,7 +100,7 @@ export class ElementObserver {
                 category: 'DOM',
                 source: 'PAGE',
                 targetNodeId: remNodeId,
-                targetSelector: LiveDOMInspector.computeBestSelector(remEl),
+                targetSelector: LiveDOMInspector.computeBestSelector(removed),
                 payload: {
                   nodeId: remNodeId || 0,
                   parentId: parentNodeId || null,
@@ -115,9 +114,8 @@ export class ElementObserver {
           // Check added nodes
           for (let i = 0; i < mut.addedNodes.length; i++) {
             const added = mut.addedNodes[i];
-            if (added && (added as any).nodeType === 1) {
-              const addEl = added as Element;
-              const addNodeId = this.registry ? this.registry.getOrCreateId(addEl, relTime) : undefined;
+            if (added instanceof Element) {
+              const addNodeId = this.registry ? this.registry.getOrCreateId(added, relTime) : undefined;
               events.push({
                 id: `evt_add_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
                 sessionId: observationId,
@@ -128,12 +126,12 @@ export class ElementObserver {
                 category: 'DOM',
                 source: 'PAGE',
                 targetNodeId: addNodeId,
-                targetSelector: LiveDOMInspector.computeBestSelector(addEl),
+                targetSelector: LiveDOMInspector.computeBestSelector(added),
                 payload: {
                   node: {
                     id: addNodeId || 0,
                     nodeType: 1,
-                    tagName: addEl.tagName.toLowerCase(),
+                    tagName: added.tagName.toLowerCase(),
                     attributes: {},
                     children: [],
                     parentId: null,
@@ -144,9 +142,8 @@ export class ElementObserver {
               });
             }
           }
-        } else if (mut.type === 'attributes' && mut.target && (mut.target as any).nodeType === 1) {
-          const targetEl = mut.target as Element;
-          const attrNodeId = this.registry ? this.registry.getId(targetEl) || undefined : undefined;
+        } else if (mut.type === 'attributes' && mut.target instanceof Element) {
+          const attrNodeId = this.registry ? this.registry.getId(mut.target) || undefined : undefined;
           const attrName = mut.attributeName || 'class';
           events.push({
             id: `evt_attr_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
@@ -158,12 +155,12 @@ export class ElementObserver {
             category: 'DOM',
             source: 'PAGE',
             targetNodeId: attrNodeId,
-            targetSelector: LiveDOMInspector.computeBestSelector(targetEl),
+            targetSelector: LiveDOMInspector.computeBestSelector(mut.target),
             payload: {
               nodeId: attrNodeId || 0,
               attributeName: attrName,
               oldValue: mut.oldValue || '',
-              newValue: targetEl.getAttribute(attrName) || '',
+              newValue: mut.target.getAttribute(attrName) || '',
             },
           });
         }

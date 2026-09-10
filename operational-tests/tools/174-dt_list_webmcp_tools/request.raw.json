@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_174_dt_list_webmcp_tools",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_list_webmcp_tools",
+    "arguments": {}
+  }
+}

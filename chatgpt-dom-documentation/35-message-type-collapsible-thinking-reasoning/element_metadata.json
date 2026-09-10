@@ -1,0 +1,25 @@
+{
+  "module": "35-message-type-collapsible-thinking-reasoning",
+  "title": "Collapsible Reasoning Process & Chain-of-Thought Logs",
+  "titleFa": "فرایند تفکر و استدلال عمیق (o1/o3 Thinking Trace)",
+  "tag": "article",
+  "selector": "[data-testid=\"35-message-type-collapsible-thinking-reasoning\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

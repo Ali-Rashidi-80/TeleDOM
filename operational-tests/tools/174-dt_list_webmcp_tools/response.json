@@ -1,0 +1,7 @@
+{
+  "total": 0,
+  "tools": [],
+  "pageId": "page_1",
+  "contract": "WebMCP tools are exposed by the page (navigator.webMCP). Execution via dt_execute_webmcp_tool.",
+  "note": "No WebMCP tools exposed by this page (navigator.webMCP). WebMCP is a draft API — pages must opt in."
+}

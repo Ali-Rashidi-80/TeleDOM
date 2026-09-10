@@ -2,13 +2,13 @@
   "pipelineSuccess": true,
   "totalSteps": 2,
   "executedSteps": 2,
-  "durationMs": 78,
+  "durationMs": 77,
   "steps": [
     {
       "stepIndex": 0,
       "action": "inspect_live_page",
       "success": true,
-      "durationMs": 8,
+      "durationMs": 5,
       "result": {
         "url": "https://app.internal/dashboard",
         "title": "MCP Operational Acceptance DOM Fixture",
@@ -38,7 +38,7 @@
       "stepIndex": 1,
       "action": "inspect_live_element",
       "success": true,
-      "durationMs": 70,
+      "durationMs": 72,
       "result": {
         "tag": "input",
         "id": "search-input",
@@ -54,7 +54,6 @@
         "bestSelector": "#search-input",
         "selectorCandidates": [
           "#search-input",
-          "input.input-field",
           "input.input-field"
         ],
         "bounds": {

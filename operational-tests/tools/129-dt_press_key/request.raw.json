@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_129_dt_press_key",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_press_key",
+    "arguments": {
+      "key": "Enter"
+    }
+  }
+}

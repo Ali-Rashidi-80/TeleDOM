@@ -1,0 +1,28 @@
+{
+  "finding": {
+    "id": "find_manual_mtull2br",
+    "conclusion": "The injected button was removed by a parent subtree replacement",
+    "confidence": 0.964,
+    "band": "VERY_HIGH",
+    "evidenceCount": 2,
+    "evidenceTypes": [
+      "MUTATION_RECORD",
+      "DOM_OBSERVATION"
+    ],
+    "evidence": [
+      {
+        "source": "MUTATION_RECORD",
+        "description": "Parent subtree replaced at t=400ms",
+        "ref": "evt_op_007",
+        "weight": 0.8
+      },
+      {
+        "source": "DOM_OBSERVATION",
+        "description": "Button absent from the reconstructed state at t=400ms",
+        "weight": 0.72
+      }
+    ],
+    "method": "Direct evidence scoring (fx_evidence_scoring)"
+  },
+  "methodology": "Noisy-OR over evidence weights + source diversity bonus − contradiction penalty. Capped [0.05, 0.98]; single-evidence findings cap at 0.75."
+}

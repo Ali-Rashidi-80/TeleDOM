@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_131_dt_upload_file",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"uploaded\": true,\n  \"files\": [\n    \"report.pdf\"\n  ],\n  \"selector\": \"#report-file-input\",\n  \"pageId\": \"page_1\",\n  \"detail\": {\n    \"set\": true,\n    \"acceptedFiles\": [\n      \"report.pdf\"\n    ],\n    \"mechanism\": \"FileList-property (DataTransfer unavailable in this context)\"\n  }\n}"
+      }
+    ]
+  }
+}

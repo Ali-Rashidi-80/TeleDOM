@@ -1,0 +1,45 @@
+# Operational Test: `fx_exploration_planner`
+
+**Status**: **PASS** (2/2 Assertions Passed)
+**Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
+**Execution Mode**: `historical`
+**Duration**: 6ms
+
+## Test Objective
+Plans next investigation actions
+
+## Raw Transmitted JSON-RPC Request
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_196_fx_exploration_planner",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_exploration_planner",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "symptom": "injected button disappeared"
+    }
+  }
+}
+```
+
+## Raw Received JSON-RPC Response
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_196_fx_exploration_planner",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"currentUnderstanding\": \"8 events recorded (DOM 2, network 2, console 2, user 1, screenshots 0). Symptom: \\\"injected button disappeared\\\".\",\n  \"plannedActions\": [\n    {\n      \"order\": 1,\n      \"action\": \"Inspect parent mutation history for the disappeared element\",\n      \"tool\": \"get_mutation_history + trace_element\",\n      \"rationale\": \"Removal is usually a parent-subtree replacement; the parent chain tells whether the element was unmounted, replaced or hidden.\",\n      \"expectedOutcome\": \"Removal mechanism + responsible mutation event id.\"\n    },\n    {\n      \"order\": 2,\n      \"action\": \"Correlate DOM removal with nearby network responses\",\n      \"tool\": \"fx_correlate_dom_network\",\n      \"rationale\": \"2 network events recorded — response-driven re-renders are the top cause of element disappearance.\",\n      \"expectedOutcome\": \"Ranked request→mutation causal candidates with confidence.\"\n    },\n    {\n      \"order\": 3,\n      \"action\": \"Check console errors around the removal time\",\n      \"tool\": \"fx_error_root_cause\",\n      \"rationale\": \"2 console events — a runtime error can abort a render and unmount the subtree.\",\n      \"expectedOutcome\": \"Error → mutation root-cause graph.\"\n    },\n    {\n      \"order\": 4,\n      \"action\": \"Diff the DOM state before/after the disappearance\",\n      \"tool\": \"fx_dom_regression_diff\",\n      \"rationale\": \"Full-dimension diff reveals whether the element was replaced, moved, or restyled into invisibility.\",\n      \"expectedOutcome\": \"Machine+human diff across 8 dimensions.\"\n    }\n  ],\n  \"dataGaps\": [\n    \"No screenshots recorded — visual regression analysis unavailable for this session.\"\n  ]\n}"
+      }
+    ]
+  }
+}
+```
+
+## Assertions
+- [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
+- [x] **Plans next investigation actions**: sessionId, currentUnderstanding, plannedActions, dataGaps

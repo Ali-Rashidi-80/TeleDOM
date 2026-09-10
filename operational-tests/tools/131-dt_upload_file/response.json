@@ -1,0 +1,15 @@
+{
+  "uploaded": true,
+  "files": [
+    "report.pdf"
+  ],
+  "selector": "#report-file-input",
+  "pageId": "page_1",
+  "detail": {
+    "set": true,
+    "acceptedFiles": [
+      "report.pdf"
+    ],
+    "mechanism": "FileList-property (DataTransfer unavailable in this context)"
+  }
+}

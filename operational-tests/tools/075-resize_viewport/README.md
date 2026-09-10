@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 5ms
+**Duration**: 2ms
 
 ## Test Objective
 Resizes viewport reversibly with before/after digests
@@ -33,7 +33,7 @@ Resizes viewport reversibly with before/after digests
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"success\": true,\n  \"applied\": {\n    \"width\": 800,\n    \"height\": 600\n  },\n  \"previous\": {\n    \"width\": 1024,\n    \"height\": 768\n  },\n  \"original\": {\n    \"width\": 1024,\n    \"height\": 768\n  },\n  \"beforeState\": {\n    \"url\": \"https://app.internal/dashboard\",\n    \"domLength\": 4222,\n    \"interactiveCount\": 9\n  },\n  \"afterState\": {\n    \"url\": \"https://app.internal/dashboard\",\n    \"domLength\": 4222,\n    \"interactiveCount\": 9\n  },\n  \"reversible\": true,\n  \"mode\": \"simulation\"\n}"
+        "text": "{\n  \"success\": true,\n  \"applied\": {\n    \"width\": 800,\n    \"height\": 600\n  },\n  \"previous\": {\n    \"width\": 1024,\n    \"height\": 768\n  },\n  \"original\": {\n    \"width\": 1024,\n    \"height\": 768\n  },\n  \"beforeState\": {\n    \"url\": \"https://app.internal/dashboard\",\n    \"domLength\": 4430,\n    \"interactiveCount\": 10\n  },\n  \"afterState\": {\n    \"url\": \"https://app.internal/dashboard\",\n    \"domLength\": 4430,\n    \"interactiveCount\": 10\n  },\n  \"reversible\": true,\n  \"mode\": \"simulation\"\n}"
       }
     ]
   }

@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_132_dt_list_pages",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_list_pages",
+    "arguments": {}
+  }
+}

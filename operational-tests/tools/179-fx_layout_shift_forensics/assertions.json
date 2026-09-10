@@ -1,0 +1,12 @@
+[
+  {
+    "assertion": "JSON-RPC 2.0 Stdio Status Code & Envelope",
+    "passed": true,
+    "details": "Successful JSON-RPC 2.0 resolution across stdio pipe"
+  },
+  {
+    "assertion": "Builds a layout-shift evidence chain",
+    "passed": true,
+    "details": "sessionId, shiftEvent, affectedElement, previousPosition, newPosition, triggerMutations, networkActivity, styleChanges, confidence, band, evidenceCount"
+  }
+]

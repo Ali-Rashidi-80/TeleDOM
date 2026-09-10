@@ -1,0 +1,10 @@
+{
+  "condition": "load",
+  "met": true,
+  "waitedMs": 0,
+  "pageId": "page_1",
+  "state": {
+    "readyState": "complete",
+    "inflight": 0
+  }
+}

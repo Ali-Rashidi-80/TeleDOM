@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_163_dt_heapsnapshot_duplicate_strings",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"snapshotId\": \"heap_10\",\n  \"duplicateGroups\": 2,\n  \"totalWastedBytes\": 288,\n  \"duplicates\": [\n    {\n      \"value\": \"dashboard-state\",\n      \"instances\": 3,\n      \"wastedBytes\": 192\n    },\n    {\n      \"value\": \"hello-world\",\n      \"instances\": 2,\n      \"wastedBytes\": 96\n    }\n  ],\n  \"simulated\": true\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_172_dt_list_3p_developer_tools",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"total\": 0,\n  \"tools\": [],\n  \"pageId\": \"page_1\",\n  \"contract\": \"Tools expose { id, run(args) } on window.__devtools_3p_tools. Execution via dt_execute_3p_developer_tool with validated args.\",\n  \"note\": \"No third-party developer tools registered by this page (window.__devtools_3p_tools).\"\n}"
+      }
+    ]
+  }
+}

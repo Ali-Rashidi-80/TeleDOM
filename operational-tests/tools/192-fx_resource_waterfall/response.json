@@ -1,0 +1,30 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "waterfall": [
+    {
+      "url": "https://api.internal/v1/analyze",
+      "resourceType": "other",
+      "startMs": 0,
+      "durationMs": 80,
+      "status": 200,
+      "phase": "complete"
+    }
+  ],
+  "milestones": [],
+  "summary": {
+    "totalRequests": 1,
+    "failed": 0,
+    "totalBytes": 0,
+    "slowest": {
+      "url": "https://api.internal/v1/analyze",
+      "resourceType": "other",
+      "startMs": 0,
+      "durationMs": 80,
+      "status": 200,
+      "phase": "complete"
+    },
+    "byType": {
+      "other": 1
+    }
+  }
+}

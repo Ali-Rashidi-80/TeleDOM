@@ -1,0 +1,26 @@
+{
+  "tool": "fx_impact_prediction",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "operation": {
+        "type": "string",
+        "description": "Planned operation (set_attribute, set_style, remove, set_outer_html…)"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      }
+    },
+    "required": [
+      "operation",
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Predicts mutation impact across dimensions"
+}

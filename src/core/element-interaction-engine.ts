@@ -61,8 +61,8 @@ export class ElementInteractionEngine {
     // 2. Target by LogicalNodeId (if registry available)
     if (typeof targetSpec.nodeId === 'number' && this.registry) {
       const node = this.registry.getNode(targetSpec.nodeId);
-      if (node && (node as any).nodeType === 1 && doc.contains(node)) {
-        return node as Element;
+      if (node && node instanceof Element && doc.contains(node)) {
+        return node;
       }
     }
 
@@ -98,8 +98,8 @@ export class ElementInteractionEngine {
           XPathResult.FIRST_ORDERED_NODE_TYPE,
           null
         );
-        if (result.singleNodeValue && (result.singleNodeValue as any).nodeType === 1) {
-          return result.singleNodeValue as Element;
+        if (result.singleNodeValue && result.singleNodeValue instanceof Element) {
+          return result.singleNodeValue;
         }
       } catch (err: any) {
         throw new Error(`Invalid XPath "${targetSpec.xpath}": ${err.message}`);

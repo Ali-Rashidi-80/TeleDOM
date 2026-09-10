@@ -1,0 +1,28 @@
+{
+  "tool": "dt_evaluate_script",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "script": {
+        "type": "string",
+        "description": "JavaScript to evaluate"
+      },
+      "awaitPromise": {
+        "type": "boolean",
+        "description": "Await returned promises (default true)"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "script"
+    ]
+  },
+  "expectedBehavior": "Evaluates a script in the page context"
+}

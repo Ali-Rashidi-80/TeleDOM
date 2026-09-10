@@ -1,0 +1,11 @@
+{
+  "ran": true,
+  "toolName": "fixture-webmcp-tool",
+  "pageId": "page_1",
+  "output": {
+    "tool": "fixture-webmcp-tool",
+    "received": {
+      "query": "test"
+    }
+  }
+}

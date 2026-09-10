@@ -1,0 +1,37 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "currentUnderstanding": "8 events recorded (DOM 2, network 2, console 2, user 1, screenshots 0). Symptom: \"injected button disappeared\".",
+  "plannedActions": [
+    {
+      "order": 1,
+      "action": "Inspect parent mutation history for the disappeared element",
+      "tool": "get_mutation_history + trace_element",
+      "rationale": "Removal is usually a parent-subtree replacement; the parent chain tells whether the element was unmounted, replaced or hidden.",
+      "expectedOutcome": "Removal mechanism + responsible mutation event id."
+    },
+    {
+      "order": 2,
+      "action": "Correlate DOM removal with nearby network responses",
+      "tool": "fx_correlate_dom_network",
+      "rationale": "2 network events recorded — response-driven re-renders are the top cause of element disappearance.",
+      "expectedOutcome": "Ranked request→mutation causal candidates with confidence."
+    },
+    {
+      "order": 3,
+      "action": "Check console errors around the removal time",
+      "tool": "fx_error_root_cause",
+      "rationale": "2 console events — a runtime error can abort a render and unmount the subtree.",
+      "expectedOutcome": "Error → mutation root-cause graph."
+    },
+    {
+      "order": 4,
+      "action": "Diff the DOM state before/after the disappearance",
+      "tool": "fx_dom_regression_diff",
+      "rationale": "Full-dimension diff reveals whether the element was replaced, moved, or restyled into invisibility.",
+      "expectedOutcome": "Machine+human diff across 8 dimensions."
+    }
+  ],
+  "dataGaps": [
+    "No screenshots recorded — visual regression analysis unavailable for this session."
+  ]
+}

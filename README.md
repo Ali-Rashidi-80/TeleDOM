@@ -1,22 +1,26 @@
-# ⚡ TeleDOM — AI Agent Browser Interface, DOM Time-Travel Debugger & Universal MCP Suite
+# ⚡ Browser Forensic Recorder, Live DOM Intelligence & Universal MCP Server
 
 <div align="center">
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8%2B-blue.svg?logo=typescript)](https://www.typescriptlang.org/)
 [![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-Manifest_V3-red.svg?logo=googlechrome)](https://developer.chrome.com/docs/extensions/mv3/)
-[![MCP](https://img.shields.io/badge/Model_Context_Protocol-121_Tools_(JSON--RPC_2.0)-purple.svg)](https://modelcontextprotocol.io/)
-[![Operational Certification](https://img.shields.io/badge/MCP_Certification-121%2F121_Certified_(Stdio_JSON--RPC)-brightgreen.svg)](./operational-tests/)
-[![Tests](https://img.shields.io/badge/Unit_%26_E2E_Tests-113%2F113_Passed_(25_Suites)-brightgreen.svg)]()
-[![CLI](https://img.shields.io/badge/CLI-teledom-orange.svg)](#-dedicated-universal-cli-teledom)
+[![MCP](https://img.shields.io/badge/Model_Context_Protocol-206_Tools_(JSON--RPC_2.0)-purple.svg)](https://modelcontextprotocol.io/)
+[![Operational Certification](https://img.shields.io/badge/MCP_Certification-206%2F206_Certified_(Stdio_JSON--RPC)-brightgreen.svg)](./operational-tests/)
+[![Tests](https://img.shields.io/badge/Unit_%26_E2E_Tests-178%2F178_Passed_(20_Suites)-brightgreen.svg)]()
+[![CLI](https://img.shields.io/badge/CLI-dom--antigravity-orange.svg)](#-dedicated-universal-cli-dom-antigravity)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-**TeleDOM gives AI agents physical hands and forensic vision on the live web — an autonomous browser control suite, sub-millisecond DOM time-travel debugger, transactional mutation engine, and 121-tool Model Context Protocol (MCP) server for Claude, Cursor, Antigravity, and autonomous coding agents.**
+**A high-fidelity browser forensic recorder, sub-millisecond DOM time-travel state reconstruction engine, element lifecycle tracer, live DOM intelligence controller, zero-config on-demand auto-bridge, and 206-tool Model Context Protocol (MCP) server for autonomous AI coding agents and frontend engineers — now evolved into the MCPDOM v3.1 UNIFIED PLATFORM: the original 121 MCPDOM tools, the Chrome DevTools MCP capability families integrated natively (`dt_`), and 30 MCPDOM-native advanced forensic capabilities (`fx_`) over one unified browser runtime.**
 
-[🚀 Quickstart Guide](docs/tutorials/quickstart.md) •
-[📚 Complete 121 Tools](docs/reference/COMPLETE_TOOL_CATALOG.md) •
-[🏗️ Architecture](docs/explanation/architecture-deep-dive.md) •
-[💻 CLI Reference](docs/reference/cli-reference.md) •
-[🧪 Operational Tests](operational-tests/)
+[Overview](#-overview--why-this-project-exists) •
+[Key Features](#-key-features) •
+[Universal CLI](#-dedicated-universal-cli-dom-antigravity) •
+[Architecture](#-system-architecture) •
+[MCP Tools (206)](#-model-context-protocol-mcp-tools-reference) •
+[Auto-Bridge Engine](#-zero-config-on-demand-auto-bridge) •
+[Visual Forensics & Screenshots](#-clean-screenshot--visual-forensics-pipeline) •
+[Installation & Quick Start](#-installation--quick-start) •
+[Testing & Certification](#-testing--quality-verification)
 
 </div>
 
@@ -46,6 +50,8 @@
 - [🤖 Model Context Protocol (MCP) Tools Reference](#-model-context-protocol-mcp-tools-reference)
   - [Complete Tool Catalog](#complete-tool-catalog)
   - [MCPDOM v3 Platform Evolution (74 New Tools)](#mcpdom-v3-platform-evolution-74-new-tools)
+  - [v3.1 UNIFIED PLATFORM: Chrome DevTools Fusion (54 `dt_` tools)](#v31-unified-platform-chrome-devtools-fusion-54-dt_-tools)
+  - [v3.1 UNIFIED PLATFORM: 30 Advanced Forensic Capabilities (31 `fx_` tools)](#v31-unified-platform-30-advanced-forensic-capabilities-31-fx_-tools)
   - [Representative MCP Tool Invocations](#representative-mcp-tool-invocations)
 - [🚀 Installation & Quick Start](#-installation--quick-start)
   - [1. Global System Installation (One-Click)](#1-global-system-installation-one-click)
@@ -429,6 +435,54 @@ The platform evolution adds 74 tools on top of the 47 preserved originals — **
 Full per-tool reference: [docs/MCP_TOOLS.md](docs/MCP_TOOLS.md) · Capability matrix: [docs/CAPABILITY_MATRIX.md](docs/CAPABILITY_MATRIX.md) · Architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ---
+
+
+## v3.1 UNIFIED PLATFORM: Chrome DevTools Fusion (54 `dt_` tools)
+
+The official [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)
+capability families (input automation, navigation, emulation, performance,
+network, debugging, memory, extensions, third-party devtools, WebMCP) are
+integrated NATIVELY into the MCPDOM architecture — one unified browser runtime,
+one page identity model, one event bus, one tool registry. No existing tool
+was renamed or removed; DevTools tools are namespaced `dt_` and address the
+same extension bridge and session storage the 121 MCPDOM tools use.
+
+- **Input automation**: `dt_click`, `dt_click_at`, `dt_drag`, `dt_fill`, `dt_fill_form` (§39 batching), `dt_handle_dialog`, `dt_hover`, `dt_press_key`, `dt_type_text`, `dt_upload_file` — uid-addressable via `dt_take_snapshot`.
+- **Navigation**: `dt_list_pages`, `dt_select_page`, `dt_new_page`, `dt_close_page`, `dt_navigate_page`, `dt_history_navigation`, `dt_wait_for`.
+- **Emulation** (reversible): `dt_emulate` (viewport, DPR, UA, CPU throttling, network conditions, geolocation, color scheme, headers), `dt_resize_page`.
+- **Performance**: `dt_performance_start_trace` / `dt_performance_stop_trace` / `dt_performance_analyze_insight` — CDP tracing through the extension gateway with LCP/INP/CLS/FCP extraction, long tasks, layout shifts, phase breakdowns.
+- **Network**: `dt_list_network_requests`, `dt_get_network_request` — unified network log with filters/pagination, shared with MCPDOM capture.
+- **Debugging**: `dt_evaluate_script`, `dt_list_console_messages`, `dt_get_console_message`, `dt_take_screenshot`, `dt_take_snapshot` (semantic, uid-addressable), `dt_screencast_start/stop` + `dt_lighthouse_audit` (experimental, live CDP only).
+- **Memory** (13 tools): `dt_take_heapsnapshot` + a self-contained V8 `.heapsnapshot` parser powering summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries and snapshot comparison.
+- **Extensions**: `dt_install_extension`, `dt_list_extensions`, `dt_reload_extension`, `dt_trigger_extension_action`, `dt_uninstall_extension`.
+- **Third-party devtools + WebMCP**: `dt_list_3p_developer_tools` / `dt_execute_3p_developer_tool` / `dt_list_webmcp_tools` / `dt_execute_webmcp_tool`.
+
+Full inventory + integration classification: [`docs/DEEPTOOLS_INTEGRATION.md`](docs/DEEPTOOLS_INTEGRATION.md).
+Unified architecture: [`docs/UNIFIED_ARCHITECTURE.md`](docs/UNIFIED_ARCHITECTURE.md).
+
+## v3.1 UNIFIED PLATFORM: 30 Advanced Forensic Capabilities (31 `fx_` tools)
+
+Thirty MCPDOM-native capabilities for cross-signal investigation, each with a
+real algorithm and evidence-based confidence (CAP 29 model):
+
+| Group | Tools |
+|---|---|
+| Causal correlation | `fx_correlate_dom_network`, `fx_error_root_cause`, `fx_network_dom_binding`, `fx_layout_shift_forensics`, `fx_resource_waterfall` |
+| Regression & visual diff | `fx_dom_regression_diff` (8 dimensions), `fx_visual_regression_forensics` (real PNG decode + DOM attribution) |
+| Replay | `fx_record_interactions` / `fx_replay_interactions` (fingerprint recovery), `fx_failure_replay` (structured failure capture) |
+| Targeting quality | `fx_selector_survivability`, `fx_component_boundaries`, `fx_frame_forensics`, `fx_shadow_dom_forensics` |
+| Live-DOM analysis | `fx_css_influence`, `fx_zindex_occlusion`, `fx_event_listeners`, `fx_font_forensics` |
+| Accessibility & health | `fx_a11y_divergence`, `fx_page_health`, `fx_exploration_planner` |
+| Token efficiency & search | `fx_smart_snapshot` (MINIMAL…FULL), `fx_cross_signal_search` |
+| Safety & mutations | `fx_impact_prediction`, `fx_safe_mutation_guard` (SAFE/CAUTION/HIGH_RISK/BLOCKED), `fx_transaction_journal` |
+| Session intelligence | `fx_session_graph`, `fx_forensic_export` / `fx_forensic_import` (SHA-256 verified), `fx_evidence_scoring`, `fx_incident_report` (JSON + Markdown) |
+
+Full documentation: [`docs/FORENSIC_CAPABILITIES.md`](docs/FORENSIC_CAPABILITIES.md).
+
+Every capability is covered by unit tests (`tests/unit/forensics-capabilities.test.ts`)
+and the operational certification suite (`operational-tests/tools/`), and every
+simulated result is explicitly labeled `simulated: true` (§16 — no fake
+browser measurements).
 
 ### Representative MCP Tool Invocations
 

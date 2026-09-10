@@ -1,20 +1,20 @@
 {
   "execution": {
     "status": "EXECUTED_SUCCESSFULLY",
-    "executionId": "js_mtuudxdq_2",
+    "executionId": "js_mtulky5e_2",
     "durationMs": 0,
     "result": "MCP Operational Acceptance DOM Fixture",
     "consoleOutput": [],
     "domChanged": false,
-    "domLengthBefore": 4222,
-    "domLengthAfter": 4222,
+    "domLengthBefore": 4430,
+    "domLengthAfter": 4430,
     "world": "ISOLATED",
     "timeoutMs": 5000,
     "codePreview": "return document.title;"
   },
   "before": {
-    "snapshotId": "snap_mtuudxdo_1",
-    "timestamp": 1789003321404,
+    "snapshotId": "snap_mtulky5d_1",
+    "timestamp": 1788988532449,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
     "viewport": {
@@ -24,17 +24,17 @@
       "scrollY": 0,
       "devicePixelRatio": 2.625
     },
-    "domLength": 4222,
-    "domHash": "c8b73284",
-    "interactiveCount": 9,
+    "domLength": 4430,
+    "domHash": "b5a14eea",
+    "interactiveCount": 10,
     "selectedRegions": [],
     "extensionEnabled": true,
     "pendingMutations": 0,
     "annotationCount": 0
   },
   "after": {
-    "snapshotId": "snap_mtuudxds_2",
-    "timestamp": 1789003321408,
+    "snapshotId": "snap_mtulky5e_2",
+    "timestamp": 1788988532450,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
     "viewport": {
@@ -44,9 +44,9 @@
       "scrollY": 0,
       "devicePixelRatio": 2.625
     },
-    "domLength": 4222,
-    "domHash": "c8b73284",
-    "interactiveCount": 9,
+    "domLength": 4430,
+    "domHash": "b5a14eea",
+    "interactiveCount": 10,
     "selectedRegions": [],
     "extensionEnabled": true,
     "pendingMutations": 0,
@@ -56,8 +56,8 @@
     "identical": true,
     "changes": [],
     "domDelta": {
-      "beforeLength": 4222,
-      "afterLength": 4222,
+      "beforeLength": 4430,
+      "afterLength": 4430,
       "delta": 0
     },
     "summary": "States are identical."

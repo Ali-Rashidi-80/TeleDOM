@@ -1,0 +1,34 @@
+{
+  "tool": "fx_css_influence",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string"
+      },
+      "group": {
+        "type": "string",
+        "enum": [
+          "visibility",
+          "dimensions",
+          "position",
+          "stacking",
+          "typography",
+          "overflow",
+          "clipping",
+          "all"
+        ],
+        "description": "Property group focus (default all)"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Ranks CSS rules influencing the element"
+}

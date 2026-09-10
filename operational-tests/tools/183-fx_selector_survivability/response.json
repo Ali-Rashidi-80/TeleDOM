@@ -1,0 +1,24 @@
+{
+  "ranked": [
+    {
+      "selector": "#injected-action-btn",
+      "survivability": 0.822,
+      "band": "ROBUST",
+      "breakdown": {
+        "domStability": 0.76,
+        "semanticStability": 0.55,
+        "uniqueness": 0.92,
+        "ancestryStability": 0.85,
+        "frameworkAttributeRisk": 1,
+        "textVolatility": 0.9,
+        "positionDependence": 0.9
+      },
+      "evidenceCount": 4,
+      "notes": [
+        "ID-based selector: high uniqueness.",
+        "2 recorded mutation(s) touched this element."
+      ]
+    }
+  ],
+  "method": "Weighted: DOM stability 25%, uniqueness 20%, semantics 15%, ancestry 15%, framework risk 10%, text 7.5%, position 7.5%."
+}

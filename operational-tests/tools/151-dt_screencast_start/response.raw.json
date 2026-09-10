@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_151_dt_screencast_start",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"started\": false,\n  \"mode\": \"UNAVAILABLE\",\n  \"note\": \"Screencast requires a live CDP session (Page.startScreencast). Simulation never fakes frame streams.\",\n  \"pageId\": \"page_1\"\n}"
+      }
+    ]
+  }
+}

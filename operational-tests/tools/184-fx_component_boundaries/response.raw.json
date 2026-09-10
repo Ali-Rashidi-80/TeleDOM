@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_184_fx_component_boundaries",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"components\": [],\n  \"framework\": {\n    \"detected\": \"generic\",\n    \"evidence\": []\n  },\n  \"summary\": {\n    \"totalComponents\": 0,\n    \"byFramework\": {}\n  }\n}"
+      }
+    ]
+  }
+}

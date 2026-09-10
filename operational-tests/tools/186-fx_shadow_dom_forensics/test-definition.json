@@ -1,0 +1,25 @@
+{
+  "tool": "fx_shadow_dom_forensics",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "timestamp": {
+        "type": "number"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Live host selector to probe (open roots)"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Analyzes shadow DOM hosts and boundaries"
+}

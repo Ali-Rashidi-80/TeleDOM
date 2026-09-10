@@ -1,0 +1,60 @@
+{
+  "snapshotId": "heap_3",
+  "simulated": true,
+  "nodeCount": 29,
+  "edgeCount": 29,
+  "totalSelfSize": 170022,
+  "stringCount": 19,
+  "classes": [
+    {
+      "className": "retained-blob",
+      "count": 1,
+      "selfSize": 131072
+    },
+    {
+      "className": "Object",
+      "count": 15,
+      "selfSize": 26246
+    },
+    {
+      "className": "system / Context",
+      "count": 1,
+      "selfSize": 8192
+    },
+    {
+      "className": "GlobalStore",
+      "count": 1,
+      "selfSize": 2048
+    },
+    {
+      "className": "Window",
+      "count": 1,
+      "selfSize": 1024
+    },
+    {
+      "className": "HTMLDivElement",
+      "count": 1,
+      "selfSize": 512
+    },
+    {
+      "className": "Array",
+      "count": 1,
+      "selfSize": 384
+    },
+    {
+      "className": "string",
+      "count": 5,
+      "selfSize": 288
+    },
+    {
+      "className": "closure:anonymous",
+      "count": 2,
+      "selfSize": 256
+    },
+    {
+      "className": "synthetic:(roots)",
+      "count": 1,
+      "selfSize": 0
+    }
+  ]
+}

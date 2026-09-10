@@ -9,16 +9,16 @@
       "label": "sm",
       "width": 400,
       "height": 700,
-      "domLength": 4222,
-      "interactiveCount": 9,
+      "domLength": 4430,
+      "interactiveCount": 10,
       "horizontalOverflow": false
     },
     {
       "label": "lg",
       "width": 1200,
       "height": 800,
-      "domLength": 4222,
-      "interactiveCount": 9,
+      "domLength": 4430,
+      "interactiveCount": 10,
       "horizontalOverflow": false
     }
   ],

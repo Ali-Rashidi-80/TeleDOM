@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_124_dt_drag",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_drag",
+    "arguments": {
+      "fromSelector": "#removable-card",
+      "toX": 200,
+      "toY": 200
+    }
+  }
+}

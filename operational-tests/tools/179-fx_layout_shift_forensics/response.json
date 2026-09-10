@@ -1,0 +1,45 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "shiftEvent": {
+    "type": "DOM_MUTATION_ADD",
+    "eventId": "evt_op_001",
+    "timestamp": 50
+  },
+  "affectedElement": {
+    "selector": "#injected-action-btn",
+    "nodeId": 10,
+    "tagName": "element"
+  },
+  "previousPosition": null,
+  "newPosition": null,
+  "triggerMutations": [
+    {
+      "summary": "- <?> node=4 subtree=2",
+      "eventId": "evt_op_007",
+      "timestamp": 380,
+      "deltaMs": 330
+    },
+    {
+      "summary": "SCREENSHOT_CHECKPOINT {\"screenshotId\":\"scr_op_chk_1\",\"dataUrl\":\"data:image/png;base64,iVBORw0KGgoAAAAN",
+      "eventId": "evt_op_008",
+      "timestamp": 450,
+      "deltaMs": 400
+    }
+  ],
+  "networkActivity": [
+    {
+      "summary": "→ POST https://api.internal/v1/analyze",
+      "eventId": "evt_op_004",
+      "timestamp": 200
+    },
+    {
+      "summary": "← 200 https://api.internal/v1/analyze (0B)",
+      "eventId": "evt_op_005",
+      "timestamp": 280
+    }
+  ],
+  "styleChanges": [],
+  "confidence": 0.98,
+  "band": "VERY_HIGH",
+  "evidenceCount": 6
+}

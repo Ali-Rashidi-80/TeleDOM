@@ -1,0 +1,100 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "nodes": [
+    {
+      "id": "session:operational_acceptance_session_001",
+      "kind": "page",
+      "label": "Session operational_acceptance_session_001 (https://app.internal/dashboard)",
+      "meta": {
+        "url": "https://app.internal/dashboard",
+        "title": "Cloud Management Dashboard"
+      }
+    },
+    {
+      "id": "page:recorded",
+      "kind": "page",
+      "label": "https://app.internal/dashboard",
+      "meta": {
+        "url": "https://app.internal/dashboard",
+        "title": "Cloud Management Dashboard",
+        "recorded": true
+      }
+    },
+    {
+      "id": "page:page_1",
+      "kind": "page",
+      "label": "https://app.internal/navigated",
+      "meta": {
+        "tabId": 2,
+        "title": "Simulated Tab 2",
+        "frames": 1,
+        "navigations": 2
+      }
+    },
+    {
+      "id": "act:evt_op_002",
+      "kind": "interaction",
+      "label": "USER_CLICK #injected-action-btn",
+      "timestamp": 100
+    },
+    {
+      "id": "req:evt_op_004",
+      "kind": "request",
+      "label": "https://api.internal/v1/analyze",
+      "timestamp": 200,
+      "meta": {
+        "type": "NETWORK_REQUEST_START"
+      }
+    },
+    {
+      "id": "req:evt_op_005",
+      "kind": "request",
+      "label": "https://api.internal/v1/analyze",
+      "timestamp": 280,
+      "meta": {
+        "type": "NETWORK_RESPONSE_COMPLETE",
+        "status": 200
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "session:operational_acceptance_session_001",
+      "to": "page:recorded",
+      "relation": "recorded"
+    },
+    {
+      "from": "session:operational_acceptance_session_001",
+      "to": "page:page_1",
+      "relation": "open-tab"
+    },
+    {
+      "from": "page:recorded",
+      "to": "act:evt_op_002",
+      "relation": "interaction"
+    },
+    {
+      "from": "page:recorded",
+      "to": "req:evt_op_004",
+      "relation": "request"
+    },
+    {
+      "from": "page:recorded",
+      "to": "req:evt_op_005",
+      "relation": "request"
+    },
+    {
+      "from": "act:evt_op_002",
+      "to": "req:evt_op_004",
+      "relation": "triggered-request"
+    }
+  ],
+  "summary": {
+    "pages": 2,
+    "navigations": 0,
+    "requests": 2,
+    "interactions": 1,
+    "screenshots": 0,
+    "domStates": 0
+  }
+}

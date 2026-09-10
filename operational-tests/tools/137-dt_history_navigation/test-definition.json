@@ -1,0 +1,29 @@
+{
+  "tool": "dt_history_navigation",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "direction": {
+        "type": "string",
+        "enum": [
+          "back",
+          "forward",
+          "reload"
+        ],
+        "description": "History direction"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "direction"
+    ]
+  },
+  "expectedBehavior": "Reports history availability honestly"
+}

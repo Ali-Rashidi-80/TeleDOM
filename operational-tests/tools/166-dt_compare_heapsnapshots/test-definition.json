@@ -1,0 +1,23 @@
+{
+  "tool": "dt_compare_heapsnapshots",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "snapshotA": {
+        "type": "string",
+        "description": "Baseline snapshot id"
+      },
+      "snapshotB": {
+        "type": "string",
+        "description": "Comparison snapshot id"
+      }
+    },
+    "required": [
+      "snapshotA",
+      "snapshotB"
+    ]
+  },
+  "expectedBehavior": "Parses and analyzes the heap snapshot with the real V8-format parser"
+}

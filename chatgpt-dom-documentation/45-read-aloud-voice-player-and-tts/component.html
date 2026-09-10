@@ -1,0 +1,53 @@
+<!-- ChatGPT Native Read Aloud Trigger & Stream Player -->
+<div class="message-audio-player-wrapper flex flex-col gap-2 mt-3 pt-2 border-t border-token-border-light">
+  <!-- 1. Native Speaker / Read Aloud Action Button -->
+  <div class="flex items-center gap-2">
+    <button type="button" aria-label="Read aloud" data-testid="read-aloud-button" class="flex h-7 w-7 items-center justify-center rounded-md text-token-text-tertiary hover:bg-token-surface-hover hover:text-token-text-primary transition-colors">
+      <!-- Speaker SVG Icon -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      </svg>
+    </button>
+    <span class="text-xs text-token-text-tertiary">پخش صوتی پیام (Read Aloud)</span>
+  </div>
+
+  <!-- 2. Full Featured Custom Injected Audio Player (برای پخش ویس با پلیر کامل) -->
+  <div class="custom-chatgpt-audio-player flex items-center gap-3 rounded-xl bg-token-main-surface-secondary border border-token-border-light p-3 shadow-md text-token-text-primary">
+    <!-- Play / Pause Toggle Button -->
+    <button class="player-toggle-btn flex h-9 w-9 items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-700 shadow transition-transform active:scale-90">
+      <!-- Play Icon -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </button>
+
+    <!-- Time & Progress Scrubber Bar -->
+    <div class="flex-1 flex flex-col gap-1">
+      <div class="flex justify-between text-[11px] text-token-text-secondary font-mono">
+        <span class="current-time">0:14</span>
+        <span class="total-duration">1:32</span>
+      </div>
+      <!-- Interactive Progress Bar -->
+      <div class="relative h-2 w-full rounded-full bg-token-surface-hover cursor-pointer overflow-hidden group">
+        <div class="h-full bg-green-500 rounded-full transition-all" style="width: 25%"></div>
+      </div>
+    </div>
+
+    <!-- Speed Multiplier (1x, 1.25x, 1.5x, 2x) -->
+    <button class="playback-speed-btn px-2 py-1 rounded-md text-xs font-semibold bg-token-surface-hover hover:bg-token-main-surface-tertiary transition-colors">
+      1.5x
+    </button>
+
+    <!-- Audio Waveform Visualizer -->
+    <div class="flex items-center gap-0.5 h-5 px-1">
+      <span class="w-1 bg-green-500 rounded-full h-2 animate-pulse"></span>
+      <span class="w-1 bg-green-500 rounded-full h-5 animate-pulse" style="animation-delay: 100ms"></span>
+      <span class="w-1 bg-green-500 rounded-full h-3 animate-pulse" style="animation-delay: 200ms"></span>
+      <span class="w-1 bg-green-500 rounded-full h-4 animate-pulse" style="animation-delay: 300ms"></span>
+    </div>
+
+    <!-- Download MP3 Button -->
+    <button aria-label="Download voice" class="download-audio-btn text-token-text-tertiary hover:text-token-text-primary p-1.5 rounded-lg hover:bg-token-surface-hover">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+    </button>
+  </div>
+</div>

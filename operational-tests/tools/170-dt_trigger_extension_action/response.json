@@ -1,0 +1,11 @@
+{
+  "triggered": true,
+  "extensionId": "forensic-recorder@mcpdom",
+  "detail": {
+    "focused": true,
+    "tabId": 2,
+    "url": "about:blank",
+    "simulated": true
+  },
+  "mode": "LIVE"
+}

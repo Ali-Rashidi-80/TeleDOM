@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_190_fx_error_root_cause",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_error_root_cause",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

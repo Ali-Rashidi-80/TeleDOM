@@ -1,9 +1,11 @@
 import * as readline from "readline";
 import * as fs from "fs";
-import { M as MCPDOM_V3_TOOLS, F as FileStorageProvider, a as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
+import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, a as FileStorageProvider, b as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
 import "http";
 import "ws";
 import "path";
+import "zlib";
+import "crypto";
 const FORENSIC_MCP_TOOLS = [
   {
     name: "list_sessions",
@@ -623,7 +625,11 @@ const FORENSIC_MCP_TOOLS = [
       }
     }
   },
-  ...MCPDOM_V3_TOOLS
+  ...MCPDOM_V3_TOOLS,
+  // §8 Chrome DevTools MCP capability families (dt_ namespace, no collisions)
+  ...DEVTOOLS_TOOLS,
+  // §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace)
+  ...FORENSICS_TOOLS
 ];
 class MCPResourcesHandler {
   storage;
@@ -694,7 +700,7 @@ class ForensicMCPServer {
   bridgeServer = null;
   protocolVersion = "2024-11-05";
   serverInfo = {
-    name: "teledom-mcp",
+    name: "browser-forensic-mcp",
     version: "3.0.0"
   };
   constructor(storage, liveToolsHandler) {
@@ -854,11 +860,14 @@ class ForensicMCPServer {
       return { jsonrpc: "2.0", id, result: {} };
     }
     if (method === "tools/list") {
+      const disableDevTools = process.env.FORENSIC_DISABLE_DEVTOOLS === "true";
+      const disableForensics = process.env.FORENSIC_DISABLE_FORENSICS === "true";
+      const tools = disableDevTools || disableForensics ? FORENSIC_MCP_TOOLS.filter((t) => !(disableDevTools && t.name.startsWith("dt_")) && !(disableForensics && t.name.startsWith("fx_"))) : FORENSIC_MCP_TOOLS;
       return {
         jsonrpc: "2.0",
         id,
         result: {
-          tools: FORENSIC_MCP_TOOLS
+          tools
         }
       };
     }

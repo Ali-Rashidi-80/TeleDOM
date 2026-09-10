@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_123_dt_click_at",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_click_at",
+    "arguments": {
+      "x": 120,
+      "y": 45
+    }
+  }
+}

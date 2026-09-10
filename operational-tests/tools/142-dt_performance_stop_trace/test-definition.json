@@ -1,0 +1,17 @@
+{
+  "tool": "dt_performance_stop_trace",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "traceId": {
+        "type": "string"
+      },
+      "pageId": {
+        "type": "string"
+      }
+    }
+  },
+  "expectedBehavior": "Stops the active trace and returns vitals analysis"
+}

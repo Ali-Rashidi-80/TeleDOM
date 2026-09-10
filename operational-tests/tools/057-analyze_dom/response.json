@@ -1,7 +1,7 @@
 {
   "analyzer": "census_interactive_elements",
-  "summary": "9 interactive elements: textbox×3, button×2, combobox×1, checkbox×1, radio×2",
-  "count": 9,
+  "summary": "10 interactive elements: textbox×4, button×2, combobox×1, checkbox×1, radio×2",
+  "count": 10,
   "items": [
     {
       "selector": "#search-input",
@@ -34,6 +34,15 @@
       "selector": "#feature-toggle",
       "tag": "input",
       "role": "checkbox",
+      "text": "",
+      "visible": true,
+      "disabled": false,
+      "inViewport": true
+    },
+    {
+      "selector": "#report-file-input",
+      "tag": "input",
+      "role": "textbox",
       "text": "",
       "visible": true,
       "disabled": false,

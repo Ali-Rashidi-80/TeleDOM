@@ -1,0 +1,28 @@
+{
+  "tool": "fx_replay_interactions",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "recordingId": {
+        "type": "string"
+      },
+      "stopOnFailure": {
+        "type": "boolean",
+        "description": "Default true"
+      },
+      "verifySelectorsOnly": {
+        "type": "boolean",
+        "description": "Resolve targets without executing (dry-run)"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "recordingId"
+    ]
+  },
+  "expectedBehavior": "Replays the recorded interaction set with resilient resolution"
+}

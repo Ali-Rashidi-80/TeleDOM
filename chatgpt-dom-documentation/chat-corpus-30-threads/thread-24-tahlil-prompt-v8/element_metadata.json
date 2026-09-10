@@ -1,0 +1,95 @@
+{
+  "tag": "main",
+  "id": "main",
+  "classes": [
+    "not-keyboard-focused:outline-none",
+    "min-h-0",
+    "flex-1"
+  ],
+  "role": "main",
+  "text": "Monday 10:49 PMYou said:بدون ترحم منو روست کن ChatGPT said:باشه، خودت خواستی؛ کمربند ایمنی رو باز کن 😂\nتو از اون آدمایی هستی که میگه «یه پروژه کوچیک دارم» و پنج دقیقه بعد معماری سیستمش شامل MCP، Dock",
+  "normalizedText": "Monday 10:49 PMYou said:بدون ترحم منو روست کن ChatGPT said:باشه، خودت خواستی؛ کمربند ایمنی رو باز کن 😂 تو از اون آدمایی هستی که میگه «یه پروژه کوچیک دارم» و پنج دقیقه بعد معماری سیستمش شامل MCP، Dock",
+  "selector": "#main",
+  "bestSelector": "#main",
+  "selectorCandidates": [
+    "#main",
+    "main.min-h-0.flex-1",
+    "main.min-h-0"
+  ],
+  "bounds": {
+    "x": 273.81817626953125,
+    "y": -1560.3636474609375,
+    "width": 1108.727294921875,
+    "height": 611.2727661132812,
+    "top": -1560.3636474609375,
+    "right": 1382.5454711914062,
+    "bottom": -949.0908813476562,
+    "left": 273.81817626953125
+  },
+  "visibility": {
+    "isVisible": false,
+    "display": "block",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": true,
+    "isInViewport": false,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "block",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "static",
+    "zIndex": "auto",
+    "pointerEvents": "auto",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "class": "not-keyboard-focused:outline-none min-h-0 flex-1",
+    "id": "main",
+    "tabindex": "-1",
+    "z-index": "-1"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative > div:nth-of-type(2) > div:nth-of-type(1)",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(3)",
+      "body"
+    ],
+    "parentSelector": "div.relative > div:nth-of-type(2)",
+    "childrenSummary": {
+      "count": 1,
+      "tags": [
+        "div"
+      ]
+    },
+    "containingBlock": "div.relative > div:nth-of-type(2)",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

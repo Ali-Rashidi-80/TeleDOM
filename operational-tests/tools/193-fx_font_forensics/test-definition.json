@@ -1,0 +1,14 @@
+{
+  "tool": "fx_font_forensics",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number"
+      }
+    }
+  },
+  "expectedBehavior": "Analyzes @font-face usage and font issues"
+}

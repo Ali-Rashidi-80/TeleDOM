@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_145_dt_get_network_request",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"requestId\": \"req_1\",\n  \"url\": \"https://app.internal/api/seeded-request\",\n  \"method\": \"GET\",\n  \"status\": 200,\n  \"failed\": false,\n  \"startTime\": 1788988537091\n}"
+      }
+    ]
+  }
+}

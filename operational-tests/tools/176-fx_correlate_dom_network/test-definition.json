@@ -1,0 +1,38 @@
+{
+  "tool": "fx_correlate_dom_network",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "eventId": {
+        "type": "string",
+        "description": "Focal event id (mutation or request)"
+      },
+      "timestamp": {
+        "type": "number",
+        "description": "Focal timestamp (ms) — closest mutation/request is used"
+      },
+      "anchor": {
+        "type": "string",
+        "enum": [
+          "mutation",
+          "request"
+        ]
+      },
+      "windowMs": {
+        "type": "number",
+        "description": "Causality window (default 800ms)"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max candidates (default 8)"
+      }
+    }
+  },
+  "expectedBehavior": "Ranks DOM↔network causal candidates with confidence"
+}

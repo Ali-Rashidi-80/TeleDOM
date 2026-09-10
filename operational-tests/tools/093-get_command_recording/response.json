@@ -1,18 +1,18 @@
 {
-  "recordingId": "rec_mtuudxg5_1",
+  "recordingId": "rec_mtulky6h_1",
   "name": "op-recording",
-  "createdAt": 1789003321493,
-  "updatedAt": 1789003321494,
+  "createdAt": 1788988532489,
+  "updatedAt": 1788988532489,
   "commandCount": 1,
   "commands": [
     {
       "index": 1,
-      "commandId": "rcmd_1_mtuudxg6",
+      "commandId": "rcmd_1_mtulky6h",
       "tool": "record_commands_start",
       "args": {
         "name": "op-recording"
       },
-      "recordedAt": 1789003321494,
+      "recordedAt": 1788988532489,
       "outcome": "SUCCESS",
       "resultSummary": "object with keys [recordingId, name, active, note]"
     }

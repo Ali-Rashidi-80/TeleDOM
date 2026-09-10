@@ -1,0 +1,117 @@
+{
+  "tag": "div",
+  "classes": [
+    "min-h-8",
+    "text-message",
+    "relative",
+    "flex",
+    "w-full",
+    "flex-col",
+    "items-end",
+    "gap-2",
+    "text-start",
+    "break-words",
+    "whitespace-normal",
+    "outline-none",
+    "keyboard-focused:focus-ring",
+    "[.text-message+&]:mt-1"
+  ],
+  "text": "سلام ماهو 😄❤️\nخوبی؟ امروز بریم سراغ چی؟ 😎",
+  "normalizedText": "سلام ماهو 😄❤️ خوبی؟ امروز بریم سراغ چی؟ 😎",
+  "selector": "div.min-h-8",
+  "bestSelector": "div.min-h-8",
+  "selectorCandidates": [
+    "div.min-h-8"
+  ],
+  "bounds": {
+    "x": 444.18182373046875,
+    "y": 200,
+    "width": 768,
+    "height": 56,
+    "top": 200,
+    "right": 1212.1818237304688,
+    "bottom": 256,
+    "left": 444.18182373046875
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "relative",
+    "zIndex": "auto",
+    "pointerEvents": "auto",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "data-message-author-role": "assistant",
+    "data-message-id": "50f9b9d0-79c1-44df-a577-de0b6726b20d",
+    "data-turn-start-message": "true",
+    "dir": "auto",
+    "tabindex": "0",
+    "data-message-model-slug": "gpt-5-6",
+    "class": "min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal outline-none keyboard-focused:focus-ring [.text-message+&]:mt-1"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": true,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.text-base > div:nth-of-type(1) > div:nth-of-type(1)",
+      "div.text-base > div:nth-of-type(1)",
+      "div.text-base",
+      "section[data-testid=\"conversation-turn-2\"]",
+      "div.qMYqUG_convSearchResultHighlightRoot > div:nth-of-type(3)",
+      "div.qMYqUG_convSearchResultHighlightRoot",
+      "div.flex.min-h-0.grow",
+      "div.relative.basis-auto.flex-col",
+      "div.composer-parent.flex.flex-1",
+      "#thread",
+      "div.contents",
+      "#main",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative > div:nth-of-type(2) > div:nth-of-type(1)",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(3)",
+      "body"
+    ],
+    "parentSelector": "div.text-base > div:nth-of-type(1) > div:nth-of-type(1)",
+    "childrenSummary": {
+      "count": 1,
+      "tags": [
+        "div"
+      ]
+    },
+    "containingBlock": "div.text-base > div:nth-of-type(1) > div:nth-of-type(1)",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

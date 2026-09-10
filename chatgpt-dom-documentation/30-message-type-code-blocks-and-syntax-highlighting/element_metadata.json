@@ -1,0 +1,25 @@
+{
+  "module": "30-message-type-code-blocks-and-syntax-highlighting",
+  "title": "Code Blocks, Syntax Highlighting & Copy Button",
+  "titleFa": "بلوک‌های کدنویسی و سینتکس هایلایتینگ (Code Blocks)",
+  "tag": "article",
+  "selector": "[data-testid=\"30-message-type-code-blocks-and-syntax-highlighting\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

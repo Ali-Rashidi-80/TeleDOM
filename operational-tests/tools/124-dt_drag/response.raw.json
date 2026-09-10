@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_124_dt_drag",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"dragged\": true,\n  \"from\": \"#removable-card\",\n  \"to\": {\n    \"x\": 200,\n    \"y\": 200\n  },\n  \"pageId\": \"page_1\",\n  \"detail\": {\n    \"success\": true,\n    \"sourceSelector\": \"#removable-card\",\n    \"targetSelector\": \"(offset drop)\",\n    \"eventsFired\": [\n      \"pointerdown\",\n      \"mousedown\",\n      \"dragstart\",\n      \"dragend\",\n      \"pointerup\",\n      \"mouseup\"\n    ],\n    \"finalPosition\": {\n      \"x\": 200,\n      \"y\": 200\n    },\n    \"html5DndUsed\": true\n  }\n}"
+      }
+    ]
+  }
+}

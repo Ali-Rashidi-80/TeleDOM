@@ -1,0 +1,14 @@
+{
+  "traceId": "trace_1",
+  "pageId": "page_1",
+  "started": true,
+  "categories": [
+    "devtools.timeline",
+    "loading",
+    "netlog"
+  ],
+  "mode": "SIMULATED",
+  "simulated": true,
+  "note": "Deterministic simulated trace buffer — NOT real Chrome trace data. Analysis algorithms are identical to live traces; the DATA here is a deterministic fixture, not real Chrome measurements.",
+  "source": "simulation"
+}

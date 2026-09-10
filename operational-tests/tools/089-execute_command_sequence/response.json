@@ -1,10 +1,10 @@
 {
-  "sequenceId": "seq_mtuudxfs_1",
+  "sequenceId": "seq_mtulky6b_1",
   "success": true,
   "totalSteps": 2,
   "executedSteps": 2,
   "skippedSteps": 0,
-  "durationMs": 9,
+  "durationMs": 4,
   "stopOnError": true,
   "steps": [
     {
@@ -13,7 +13,7 @@
       "tool": "inspect_live_page",
       "args": {},
       "status": "SUCCESS",
-      "durationMs": 2,
+      "durationMs": 0,
       "resultSummary": "OK: object with keys [url, title, origin, viewport, documentDimensions, activeElement]",
       "result": {
         "url": "https://app.internal/dashboard",
@@ -48,10 +48,10 @@
         "selector": "#search-input"
       },
       "status": "SUCCESS",
-      "durationMs": 7,
+      "durationMs": 4,
       "resultSummary": "OK: object with keys [targetId, tag, role, selector, selectorCandidates, xpath]",
       "result": {
-        "targetId": "tgt_mtuudxg1_2",
+        "targetId": "tgt_mtulky6f_2",
         "tag": "input",
         "role": "textbox",
         "selector": "#search-input",
@@ -63,16 +63,6 @@
             "unique": true,
             "reasons": [
               "unique stable id",
-              "matches exactly this element"
-            ]
-          },
-          {
-            "selector": "input.input-field",
-            "strategy": "class",
-            "confidence": 0.72,
-            "unique": true,
-            "reasons": [
-              "stable class names",
               "matches exactly this element"
             ]
           },
@@ -94,6 +84,16 @@
             "reasons": [
               "position-based structural path",
               "matches exactly this element"
+            ]
+          },
+          {
+            "selector": "input.input-field",
+            "strategy": "class",
+            "confidence": 0.29,
+            "unique": false,
+            "reasons": [
+              "stable class names",
+              "matches 2 elements — ambiguous"
             ]
           }
         ],

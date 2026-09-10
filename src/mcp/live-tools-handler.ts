@@ -140,27 +140,30 @@ export class LiveToolsHandler {
       try {
         return await this.bridgeClient.sendCommand(command, payload);
       } catch (bridgeErr: any) {
-        const doc = typeof document !== 'undefined' ? document : undefined;
-        const req = {
-          id: `cmd_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
-          command,
-          timestamp: Date.now(),
-          payload,
-        };
-        const res = await this.localController.handleCommand(req, doc);
-        if (res.success) {
-          return res.data;
+        if (typeof document !== 'undefined' || typeof window !== 'undefined') {
+          const doc = typeof document !== 'undefined' ? document : undefined;
+          const req = {
+            id: `cmd_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            command,
+            timestamp: Date.now(),
+            payload,
+          };
+          const res = await this.localController.handleCommand(req, doc);
+          if (res.success) {
+            return res.data;
+          }
+          // §83/§84: never mask the local failure behind the bridge error —
+          // surface BOTH causes so agents can diagnose the real problem.
+          const localCode = res.error?.code || 'LOCAL_COMMAND_FAILED';
+          const localMessage = res.error?.message || 'unknown local error';
+          const combined = new Error(
+            `${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`
+          );
+          (combined as any).code = localCode;
+          (combined as any).bridgeError = bridgeErr.message;
+          throw combined;
         }
-        // §83/§84: never mask the local failure behind the bridge error —
-        // surface BOTH causes so agents can diagnose the real problem.
-        const localCode = res.error?.code || 'LOCAL_COMMAND_FAILED';
-        const localMessage = res.error?.message || 'unknown local error';
-        const combined = new Error(
-          `${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`
-        );
-        (combined as any).code = localCode;
-        (combined as any).bridgeError = bridgeErr.message;
-        throw combined;
+        throw bridgeErr;
       }
     }
     const doc = typeof document !== 'undefined' ? document : undefined;

@@ -110,10 +110,7 @@ export class LiveBrowserController {
   }
 
   private isSimulation(): boolean {
-    return (
-      typeof (globalThis as any).__FORENSIC_SIMULATION__ !== 'undefined' ||
-      typeof (globalThis as any).chrome === 'undefined'
-    );
+    return typeof (globalThis as any).__FORENSIC_SIMULATION__ !== 'undefined';
   }
 
   public getPicker(): ElementPicker {

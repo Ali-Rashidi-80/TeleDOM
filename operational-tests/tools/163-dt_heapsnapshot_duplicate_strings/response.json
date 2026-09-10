@@ -1,0 +1,18 @@
+{
+  "snapshotId": "heap_10",
+  "duplicateGroups": 2,
+  "totalWastedBytes": 288,
+  "duplicates": [
+    {
+      "value": "dashboard-state",
+      "instances": 3,
+      "wastedBytes": 192
+    },
+    {
+      "value": "hello-world",
+      "instances": 2,
+      "wastedBytes": 96
+    }
+  ],
+  "simulated": true
+}

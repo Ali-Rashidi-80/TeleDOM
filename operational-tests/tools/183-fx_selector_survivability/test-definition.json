@@ -1,0 +1,33 @@
+{
+  "tool": "fx_selector_survivability",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "candidateSelectors": {
+        "type": "array",
+        "description": "Alternative candidates [{selector, matches}]",
+        "items": {
+          "type": "object",
+          "properties": {
+            "selector": {
+              "type": "string"
+            },
+            "matches": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  },
+  "expectedBehavior": "Scores selector survivability with breakdown"
+}

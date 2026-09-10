@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_188_fx_zindex_occlusion",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_zindex_occlusion",
+    "arguments": {
+      "selector": "#search-input"
+    }
+  }
+}

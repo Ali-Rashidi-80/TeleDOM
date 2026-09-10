@@ -1,0 +1,99 @@
+{
+  "tag": "div",
+  "id": "stage-slideover-sidebar",
+  "classes": [
+    "border-token-border-extra-light",
+    "bg-token-sidebar-surface-primary",
+    "relative",
+    "z-21",
+    "h-full",
+    "shrink-0",
+    "border-e",
+    "max-md:hidden",
+    "print:hidden",
+    "overflow-hidden",
+    "stage-sidebar-pure-surface"
+  ],
+  "text": "New chatImagesSearchPinnedRecentsمChat historyChatGPTNew chatCtrlShiftOImagesUpdatedLibraryScheduledPluginsProjectsCodexMorePinnedسلام و خوشامدگوییسلام و احوالپرسیسلام و خوشامدگوییتحلیل و ارزیابی Endت",
+  "normalizedText": "New chatImagesSearchPinnedRecentsمChat historyChatGPTNew chatCtrlShiftOImagesUpdatedLibraryScheduledPluginsProjectsCodexMorePinnedسلام و خوشامدگوییسلام و احوالپرسیسلام و خوشامدگوییتحلیل و ارزیابی Endت",
+  "selector": "#stage-slideover-sidebar",
+  "bestSelector": "#stage-slideover-sidebar",
+  "selectorCandidates": [
+    "#stage-slideover-sidebar",
+    "div.border-token-border-extra-light.bg-token-sidebar-surface-primary.relative",
+    "div.relative > div:nth-of-type(1)",
+    "div.border-token-border-extra-light"
+  ],
+  "bounds": {
+    "x": 0,
+    "y": 0,
+    "width": 260,
+    "height": 663.2727661132812,
+    "top": 0,
+    "right": 260,
+    "bottom": 663.2727661132812,
+    "left": 0
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "block",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "21"
+  },
+  "computedStyle": {
+    "display": "block",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "relative",
+    "zIndex": "21",
+    "pointerEvents": "auto",
+    "overflow": "hidden",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgb(0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "class": "border-token-border-extra-light bg-token-sidebar-surface-primary relative z-21 h-full shrink-0 border-e max-md:hidden print:hidden overflow-hidden stage-sidebar-pure-surface",
+    "data-state": "open",
+    "id": "stage-slideover-sidebar",
+    "style": "width:var(--sidebar-width)"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(3)",
+      "body"
+    ],
+    "parentSelector": "div.relative",
+    "childrenSummary": {
+      "count": 1,
+      "tags": [
+        "div"
+      ]
+    },
+    "containingBlock": "div.relative",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

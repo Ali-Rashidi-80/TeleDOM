@@ -1,0 +1,468 @@
+{
+  "pageId": "page_1",
+  "totalNodes": 57,
+  "snapshot": [
+    {
+      "uid": "e1",
+      "role": "banner",
+      "name": "Operational DOM Test Fixture Deterministic test harness for live & historical MC",
+      "selector": "#fixture-header",
+      "interactive": false,
+      "depth": 0
+    },
+    {
+      "uid": "e2",
+      "role": "generic",
+      "name": "Operational DOM Test Fixture",
+      "selector": "#main-title",
+      "interactive": false,
+      "depth": 1
+    },
+    {
+      "uid": "e3",
+      "role": "generic",
+      "name": "Deterministic test harness for live & historical MCP capabilities",
+      "selector": "#sub-title",
+      "interactive": false,
+      "depth": 1
+    },
+    {
+      "uid": "e4",
+      "role": "generic",
+      "name": "ACTIVE_VERSION_2.0",
+      "selector": "#header-badge",
+      "interactive": false,
+      "depth": 1
+    },
+    {
+      "uid": "e5",
+      "role": "main",
+      "name": "Interactive Form Controls Search Input: ⚡ Run Analysis Clicks: 0 Category: Defau",
+      "selector": "#main-content",
+      "interactive": false,
+      "depth": 0
+    },
+    {
+      "uid": "e6",
+      "role": "generic",
+      "name": "Interactive Form Controls Search Input: ⚡ Run Analysis Clicks: 0 Category: Defau",
+      "selector": "#interactive-section",
+      "interactive": false,
+      "depth": 1
+    },
+    {
+      "uid": "e7",
+      "role": "generic",
+      "name": "Interactive Form Controls",
+      "selector": "#interactive-section > h2",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e8",
+      "role": "generic",
+      "name": "Search Input:",
+      "selector": "#interactive-section > div:nth-of-type(1)",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e9",
+      "role": "generic",
+      "name": "Search Input:",
+      "selector": "#interactive-section > div:nth-of-type(1) > label",
+      "interactive": true,
+      "depth": 3
+    },
+    {
+      "uid": "e10",
+      "role": "textbox",
+      "name": "Search Input:",
+      "selector": "#search-input",
+      "interactive": true,
+      "value": "form valuetyped text",
+      "depth": 3
+    },
+    {
+      "uid": "e11",
+      "role": "generic",
+      "name": "⚡ Run Analysis Clicks: 0",
+      "selector": "#interactive-section > div:nth-of-type(2)",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e12",
+      "role": "button",
+      "name": "⚡ Run Analysis",
+      "selector": "#primary-action-btn",
+      "interactive": true,
+      "depth": 3
+    },
+    {
+      "uid": "e13",
+      "role": "generic",
+      "name": "Clicks: 0",
+      "selector": "#click-counter",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e14",
+      "role": "generic",
+      "name": "Category: Default Option Security Analysis Performance Trace",
+      "selector": "#interactive-section > div:nth-of-type(3)",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e15",
+      "role": "generic",
+      "name": "Category:",
+      "selector": "#interactive-section > div:nth-of-type(3) > label",
+      "interactive": true,
+      "depth": 3
+    },
+    {
+      "uid": "e16",
+      "role": "combobox",
+      "name": "Default Option Security Analysis Performance Trace",
+      "selector": "#category-select",
+      "interactive": true,
+      "value": "opt-security",
+      "depth": 3
+    },
+    {
+      "uid": "e17",
+      "role": "generic",
+      "name": "Default Option",
+      "selector": "#category-select > option:nth-of-type(1)",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e18",
+      "role": "generic",
+      "name": "Security Analysis",
+      "selector": "#category-select > option:nth-of-type(2)",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e19",
+      "role": "generic",
+      "name": "Performance Trace",
+      "selector": "#category-select > option:nth-of-type(3)",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e20",
+      "role": "generic",
+      "name": "Enable Deep Scanning",
+      "selector": "#interactive-section > div:nth-of-type(4)",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e21",
+      "role": "generic",
+      "name": "Enable Deep Scanning",
+      "selector": "#interactive-section > div:nth-of-type(4) > label",
+      "interactive": true,
+      "depth": 3
+    },
+    {
+      "uid": "e22",
+      "role": "checkbox",
+      "name": "",
+      "selector": "#feature-toggle",
+      "interactive": true,
+      "value": "on",
+      "depth": 4
+    },
+    {
+      "uid": "e23",
+      "role": "generic",
+      "name": "Report upload:",
+      "selector": "#interactive-section > div:nth-of-type(5)",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e24",
+      "role": "generic",
+      "name": "Report upload:",
+      "selector": "#interactive-section > div:nth-of-type(5) > label",
+      "interactive": true,
+      "depth": 3
+    },
+    {
+      "uid": "e25",
+      "role": "textbox",
+      "name": "Report upload:",
+      "selector": "#report-file-input",
+      "interactive": true,
+      "depth": 3
+    },
+    {
+      "uid": "e26",
+      "role": "generic",
+      "name": "Scrollable item 1 Scrollable item 2 Scrollable item 3 Scrollable item 4 🎯 Deep ",
+      "selector": "#scroll-box",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e27",
+      "role": "generic",
+      "name": "Scrollable item 1",
+      "selector": "#scroll-box > p:nth-of-type(1)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e28",
+      "role": "generic",
+      "name": "Scrollable item 2",
+      "selector": "#scroll-box > p:nth-of-type(2)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e29",
+      "role": "generic",
+      "name": "Scrollable item 3",
+      "selector": "#scroll-box > p:nth-of-type(3)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e30",
+      "role": "generic",
+      "name": "Scrollable item 4",
+      "selector": "#scroll-box > p:nth-of-type(4)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e31",
+      "role": "generic",
+      "name": "🎯 Deep Target Element",
+      "selector": "#scroll-target",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e32",
+      "role": "generic",
+      "name": "Scrollable item 6",
+      "selector": "#scroll-box > p:nth-of-type(6)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e33",
+      "role": "generic",
+      "name": "Dynamic Mutation Sandbox Original Static Text Content This element can be unmoun",
+      "selector": "#mutation-target-container",
+      "interactive": false,
+      "depth": 1
+    },
+    {
+      "uid": "e34",
+      "role": "generic",
+      "name": "Dynamic Mutation Sandbox",
+      "selector": "#mutation-target-container > h2",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e35",
+      "role": "generic",
+      "name": "Original Static Text Content This element can be unmounted or restyled This elem",
+      "selector": "#dynamic-wrapper",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e36",
+      "role": "generic",
+      "name": "Original Static Text Content",
+      "selector": "#dynamic-text",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e37",
+      "role": "generic",
+      "name": "This element can be unmounted or restyled",
+      "selector": "#removable-card",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e38",
+      "role": "generic",
+      "name": "This element can be unmounted or restyled",
+      "selector": "#removable-label",
+      "interactive": false,
+      "depth": 4
+    },
+    {
+      "uid": "e39",
+      "role": "generic",
+      "name": "This element can be unmounted or restyled",
+      "selector": "#dynamic-wrapper > div:nth-of-type(2)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e40",
+      "role": "generic",
+      "name": "This element can be unmounted or restyled",
+      "selector": "#removable-label",
+      "interactive": false,
+      "depth": 4
+    },
+    {
+      "uid": "e41",
+      "role": "generic",
+      "name": "Form Analysis Fixture Username: Password: Fast Scan Deep Scan Save Settings",
+      "selector": "#form-section",
+      "interactive": false,
+      "depth": 1
+    },
+    {
+      "uid": "e42",
+      "role": "generic",
+      "name": "Form Analysis Fixture",
+      "selector": "#form-section > h2",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e43",
+      "role": "form",
+      "name": "Username: Password: Fast Scan Deep Scan Save Settings",
+      "selector": "#settings-form",
+      "interactive": false,
+      "depth": 2
+    },
+    {
+      "uid": "e44",
+      "role": "generic",
+      "name": "Username:",
+      "selector": "#settings-form > div:nth-of-type(1)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e45",
+      "role": "generic",
+      "name": "Username:",
+      "selector": "#settings-form > div:nth-of-type(1) > label",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e46",
+      "role": "textbox",
+      "name": "Username:",
+      "selector": "#username-input",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e47",
+      "role": "generic",
+      "name": "Password:",
+      "selector": "#settings-form > div:nth-of-type(2)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e48",
+      "role": "generic",
+      "name": "Password:",
+      "selector": "#settings-form > div:nth-of-type(2) > label",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e49",
+      "role": "textbox",
+      "name": "Password:",
+      "selector": "#password-input",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e50",
+      "role": "generic",
+      "name": "Fast Scan Deep Scan",
+      "selector": "#settings-form > div:nth-of-type(3)",
+      "interactive": false,
+      "depth": 3
+    },
+    {
+      "uid": "e51",
+      "role": "generic",
+      "name": "Fast Scan",
+      "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(1)",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e52",
+      "role": "radio",
+      "name": "",
+      "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(1) > input",
+      "interactive": true,
+      "value": "fast",
+      "depth": 5
+    },
+    {
+      "uid": "e53",
+      "role": "generic",
+      "name": "Deep Scan",
+      "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(2)",
+      "interactive": true,
+      "depth": 4
+    },
+    {
+      "uid": "e54",
+      "role": "radio",
+      "name": "",
+      "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(2) > input",
+      "interactive": true,
+      "value": "deep",
+      "depth": 5
+    },
+    {
+      "uid": "e55",
+      "role": "button",
+      "name": "Save Settings",
+      "selector": "#settings-submit-btn",
+      "interactive": true,
+      "depth": 3
+    },
+    {
+      "uid": "e56",
+      "role": "contentinfo",
+      "name": "Forensic MCP Operational Test Suite — Browser Environment",
+      "selector": "#fixture-footer",
+      "interactive": false,
+      "depth": 0
+    },
+    {
+      "uid": "e57",
+      "role": "generic",
+      "name": "Forensic MCP Operational Test Suite — Browser Environment",
+      "selector": "#fixture-footer > p",
+      "interactive": false,
+      "depth": 1
+    }
+  ],
+  "usage": "Use the uid values with dt_click / dt_fill / dt_hover input tools."
+}

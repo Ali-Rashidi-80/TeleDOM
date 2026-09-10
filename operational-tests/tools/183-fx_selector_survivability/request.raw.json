@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_183_fx_selector_survivability",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_selector_survivability",
+    "arguments": {
+      "selector": "#injected-action-btn",
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

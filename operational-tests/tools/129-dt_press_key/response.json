@@ -1,0 +1,239 @@
+{
+  "performed": "press_key",
+  "selector": "body",
+  "pageId": "page_1",
+  "interaction": {
+    "success": true,
+    "action": "press_key",
+    "target": {
+      "tag": "body",
+      "classes": [],
+      "text": "\n  \n    Operational DOM Test Fixture\n    Deterministic test harness for live & historical MCP capabilities\n    ACTIVE_VERSION_2.0\n  \n\n  \n    \n      Interactive Form Controls\n      \n        Search Inpu",
+      "normalizedText": "Operational DOM Test Fixture Deterministic test harness for live & historical MCP capabilities ACTIVE_VERSION_2.0 Interactive Form Controls Search Input: ⚡ Run Analysis Clicks: 0 Category: Default Opt",
+      "selector": "body",
+      "bestSelector": "body",
+      "selectorCandidates": [
+        "body"
+      ],
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "visibility": {
+        "isVisible": true,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "isClipped": false,
+        "isInViewport": true,
+        "zIndex": "auto"
+      },
+      "computedStyle": {
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1",
+        "position": "static",
+        "zIndex": "auto",
+        "pointerEvents": "auto",
+        "overflow": "",
+        "boxSizing": "content-box",
+        "color": "rgb(248, 250, 252)",
+        "backgroundColor": "rgb(15, 23, 42)",
+        "fontSize": "medium"
+      },
+      "attributes": {
+        "style": "cursor: default;"
+      },
+      "state": {
+        "disabled": false,
+        "readOnly": false,
+        "focused": false,
+        "isShadowHost": false,
+        "hasShadowRoot": false
+      },
+      "context": {
+        "parentChain": [],
+        "childrenSummary": {
+          "count": 3,
+          "tags": [
+            "header",
+            "main",
+            "footer"
+          ]
+        },
+        "iframe": null,
+        "shadowRoot": null
+      },
+      "forensics": {
+        "logicalNodeId": null,
+        "creationSequence": null,
+        "lastMutationSequence": null,
+        "eventCount": 0,
+        "isRecorded": false
+      }
+    },
+    "beforeState": {
+      "tag": "body",
+      "classes": [],
+      "text": "\n  \n    Operational DOM Test Fixture\n    Deterministic test harness for live & historical MCP capabilities\n    ACTIVE_VERSION_2.0\n  \n\n  \n    \n      Interactive Form Controls\n      \n        Search Inpu",
+      "normalizedText": "Operational DOM Test Fixture Deterministic test harness for live & historical MCP capabilities ACTIVE_VERSION_2.0 Interactive Form Controls Search Input: ⚡ Run Analysis Clicks: 0 Category: Default Opt",
+      "selector": "body",
+      "bestSelector": "body",
+      "selectorCandidates": [
+        "body"
+      ],
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "visibility": {
+        "isVisible": true,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "isClipped": false,
+        "isInViewport": true,
+        "zIndex": "auto"
+      },
+      "computedStyle": {
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1",
+        "position": "static",
+        "zIndex": "auto",
+        "pointerEvents": "auto",
+        "overflow": "",
+        "boxSizing": "content-box",
+        "color": "rgb(248, 250, 252)",
+        "backgroundColor": "rgb(15, 23, 42)",
+        "fontSize": "medium"
+      },
+      "attributes": {
+        "style": "cursor: default;"
+      },
+      "state": {
+        "disabled": false,
+        "readOnly": false,
+        "focused": false,
+        "isShadowHost": false,
+        "hasShadowRoot": false
+      },
+      "context": {
+        "parentChain": [],
+        "childrenSummary": {
+          "count": 3,
+          "tags": [
+            "header",
+            "main",
+            "footer"
+          ]
+        },
+        "iframe": null,
+        "shadowRoot": null
+      },
+      "forensics": {
+        "logicalNodeId": null,
+        "creationSequence": null,
+        "lastMutationSequence": null,
+        "eventCount": 0,
+        "isRecorded": false
+      }
+    },
+    "afterState": {
+      "tag": "body",
+      "classes": [],
+      "text": "\n  \n    Operational DOM Test Fixture\n    Deterministic test harness for live & historical MCP capabilities\n    ACTIVE_VERSION_2.0\n  \n\n  \n    \n      Interactive Form Controls\n      \n        Search Inpu",
+      "normalizedText": "Operational DOM Test Fixture Deterministic test harness for live & historical MCP capabilities ACTIVE_VERSION_2.0 Interactive Form Controls Search Input: ⚡ Run Analysis Clicks: 0 Category: Default Opt",
+      "selector": "body",
+      "bestSelector": "body",
+      "selectorCandidates": [
+        "body"
+      ],
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "visibility": {
+        "isVisible": true,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "isClipped": false,
+        "isInViewport": true,
+        "zIndex": "auto"
+      },
+      "computedStyle": {
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1",
+        "position": "static",
+        "zIndex": "auto",
+        "pointerEvents": "auto",
+        "overflow": "",
+        "boxSizing": "content-box",
+        "color": "rgb(248, 250, 252)",
+        "backgroundColor": "rgb(15, 23, 42)",
+        "fontSize": "medium"
+      },
+      "attributes": {
+        "style": "cursor: default;"
+      },
+      "state": {
+        "disabled": false,
+        "readOnly": false,
+        "focused": false,
+        "isShadowHost": false,
+        "hasShadowRoot": false
+      },
+      "context": {
+        "parentChain": [],
+        "childrenSummary": {
+          "count": 3,
+          "tags": [
+            "header",
+            "main",
+            "footer"
+          ]
+        },
+        "iframe": null,
+        "shadowRoot": null
+      },
+      "forensics": {
+        "logicalNodeId": null,
+        "creationSequence": null,
+        "lastMutationSequence": null,
+        "eventCount": 0,
+        "isRecorded": false
+      }
+    },
+    "effects": {
+      "domMutations": 0,
+      "consoleErrors": 0,
+      "networkRequests": 0,
+      "runtimeErrors": []
+    },
+    "durationMs": 2,
+    "stabilized": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "tool": "fx_frame_forensics",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      },
+      "timestamp": {
+        "type": "number",
+        "description": "DOM state timestamp (default: latest)"
+      }
+    }
+  },
+  "expectedBehavior": "Analyzes frame hierarchy and event attribution"
+}

@@ -1,6 +1,6 @@
 {
-  "replayed": "rec_mtuudxg5_1",
-  "sequenceId": "seq_mtuudxgs_2",
+  "replayed": "rec_mtulky6h_1",
+  "sequenceId": "seq_mtulky6m_2",
   "success": true,
   "totalSteps": 1,
   "executedSteps": 1,
@@ -10,7 +10,7 @@
   "steps": [
     {
       "stepIndex": 0,
-      "commandId": "rcmd_1_mtuudxg6",
+      "commandId": "rcmd_1_mtulky6h",
       "tool": "record_commands_start",
       "args": {
         "name": "op-recording"
@@ -19,7 +19,7 @@
       "durationMs": 0,
       "resultSummary": "OK: object with keys [recordingId, name, active, note]",
       "result": {
-        "recordingId": "rec_mtuudxgs_2",
+        "recordingId": "rec_mtulky6m_2",
         "name": "op-recording",
         "active": true,
         "note": "All subsequent tool calls (in this server process) are recorded until record_commands_stop."

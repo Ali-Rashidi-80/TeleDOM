@@ -5,6 +5,8 @@ import fs__default from "fs";
 import * as path from "path";
 import path__default from "path";
 import * as readline from "readline";
+import * as zlib from "zlib";
+import { createHash } from "crypto";
 class SessionSerializer {
   static exportBundle(metadata, initialSnapshot, events, checkpoints, annotations = []) {
     return {
@@ -704,6 +706,10 @@ class StateReconstructor {
     };
   }
 }
+const stateReconstructor = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  StateReconstructor
+}, Symbol.toStringTag, { value: "Module" }));
 class VirtualQueryEngine {
   static matches(node, selector) {
     if (!node || node.nodeType !== VirtualDOMNodeType.ELEMENT_NODE) {
@@ -2063,7 +2069,7 @@ class ElementInteractionEngine {
     }
     if (typeof targetSpec.nodeId === "number" && this.registry) {
       const node = this.registry.getNode(targetSpec.nodeId);
-      if (node && node.nodeType === 1 && doc.contains(node)) {
+      if (node && node instanceof Element && doc.contains(node)) {
         return node;
       }
     }
@@ -2095,7 +2101,7 @@ class ElementInteractionEngine {
           XPathResult.FIRST_ORDERED_NODE_TYPE,
           null
         );
-        if (result.singleNodeValue && result.singleNodeValue.nodeType === 1) {
+        if (result.singleNodeValue && result.singleNodeValue instanceof Element) {
           return result.singleNodeValue;
         }
       } catch (err) {
@@ -2451,10 +2457,9 @@ class ElementObserver {
         if (mut.type === "childList") {
           for (let i = 0; i < mut.removedNodes.length; i++) {
             const removed = mut.removedNodes[i];
-            if (removed && removed.nodeType === 1) {
-              const remEl = removed;
-              const remNodeId = this.registry ? this.registry.getId(remEl) || void 0 : void 0;
-              const parentNodeId = mut.target && mut.target.nodeType === 1 && this.registry ? this.registry.getId(mut.target) || void 0 : void 0;
+            if (removed instanceof Element) {
+              const remNodeId = this.registry ? this.registry.getId(removed) || void 0 : void 0;
+              const parentNodeId = mut.target instanceof Element && this.registry ? this.registry.getId(mut.target) || void 0 : void 0;
               events.push({
                 id: `evt_rem_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
                 sessionId: observationId,
@@ -2465,7 +2470,7 @@ class ElementObserver {
                 category: "DOM",
                 source: "PAGE",
                 targetNodeId: remNodeId,
-                targetSelector: LiveDOMInspector.computeBestSelector(remEl),
+                targetSelector: LiveDOMInspector.computeBestSelector(removed),
                 payload: {
                   nodeId: remNodeId || 0,
                   parentId: parentNodeId || null,
@@ -2477,9 +2482,8 @@ class ElementObserver {
           }
           for (let i = 0; i < mut.addedNodes.length; i++) {
             const added = mut.addedNodes[i];
-            if (added && added.nodeType === 1) {
-              const addEl = added;
-              const addNodeId = this.registry ? this.registry.getOrCreateId(addEl, relTime) : void 0;
+            if (added instanceof Element) {
+              const addNodeId = this.registry ? this.registry.getOrCreateId(added, relTime) : void 0;
               events.push({
                 id: `evt_add_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
                 sessionId: observationId,
@@ -2490,12 +2494,12 @@ class ElementObserver {
                 category: "DOM",
                 source: "PAGE",
                 targetNodeId: addNodeId,
-                targetSelector: LiveDOMInspector.computeBestSelector(addEl),
+                targetSelector: LiveDOMInspector.computeBestSelector(added),
                 payload: {
                   node: {
                     id: addNodeId || 0,
                     nodeType: 1,
-                    tagName: addEl.tagName.toLowerCase(),
+                    tagName: added.tagName.toLowerCase(),
                     attributes: {},
                     children: [],
                     parentId: null
@@ -2506,9 +2510,8 @@ class ElementObserver {
               });
             }
           }
-        } else if (mut.type === "attributes" && mut.target && mut.target.nodeType === 1) {
-          const targetEl = mut.target;
-          const attrNodeId = this.registry ? this.registry.getId(targetEl) || void 0 : void 0;
+        } else if (mut.type === "attributes" && mut.target instanceof Element) {
+          const attrNodeId = this.registry ? this.registry.getId(mut.target) || void 0 : void 0;
           const attrName = mut.attributeName || "class";
           events.push({
             id: `evt_attr_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
@@ -2520,12 +2523,12 @@ class ElementObserver {
             category: "DOM",
             source: "PAGE",
             targetNodeId: attrNodeId,
-            targetSelector: LiveDOMInspector.computeBestSelector(targetEl),
+            targetSelector: LiveDOMInspector.computeBestSelector(mut.target),
             payload: {
               nodeId: attrNodeId || 0,
               attributeName: attrName,
               oldValue: mut.oldValue || "",
-              newValue: targetEl.getAttribute(attrName) || ""
+              newValue: mut.target.getAttribute(attrName) || ""
             }
           });
         }
@@ -5719,7 +5722,7 @@ function truncate(items, limit) {
 function base(analyzer, summary, count, items, warnings, truncated) {
   return { analyzer, summary, count, items, warnings, truncated };
 }
-function selectorOf(el) {
+function selectorOf$1(el) {
   try {
     return LiveDOMInspector.inspectElement(el).bestSelector;
   } catch {
@@ -5744,12 +5747,12 @@ const analyzeForms = (doc) => {
       defaultValue: f.value !== void 0 && (f.getAttribute("type") || "text") !== "password" ? String(f.value).slice(0, 40) : void 0
     }));
     return {
-      selector: selectorOf(form),
+      selector: selectorOf$1(form),
       action: form.getAttribute("action") || void 0,
       method: (form.getAttribute("method") || "GET").toUpperCase(),
       id: form.getAttribute("id") || void 0,
       fieldCount: fields.length,
-      submitButton: form.querySelector('button[type="submit"], input[type="submit"]') ? selectorOf(form.querySelector('button[type="submit"], input[type="submit"]')) : void 0,
+      submitButton: form.querySelector('button[type="submit"], input[type="submit"]') ? selectorOf$1(form.querySelector('button[type="submit"], input[type="submit"]')) : void 0,
       validationAttributes: fields.filter((f) => f.required || f.pattern).length,
       fields
     };
@@ -5762,7 +5765,7 @@ const analyzeLinks = (doc) => {
   const items = links.map((a) => ({
     href: a.getAttribute("href") || "",
     text: directText(a).slice(0, 60),
-    selector: selectorOf(a),
+    selector: selectorOf$1(a),
     rel: a.getAttribute("rel") || void 0,
     target: a.getAttribute("target") || void 0,
     download: a.hasAttribute("download"),
@@ -5795,7 +5798,7 @@ const analyzeMedia = (doc) => {
   const items = [
     ...images.map((img) => ({
       kind: "img",
-      selector: selectorOf(img),
+      selector: selectorOf$1(img),
       src: (img.getAttribute("src") || "").slice(0, 150),
       alt: img.getAttribute("alt"),
       width: img.getAttribute("width") || void 0,
@@ -5807,7 +5810,7 @@ const analyzeMedia = (doc) => {
     })),
     ...videos.map((v) => ({
       kind: "video",
-      selector: selectorOf(v),
+      selector: selectorOf$1(v),
       src: (v.getAttribute("src") || v.querySelector("source")?.getAttribute("src") || "").slice(0, 150),
       controls: v.hasAttribute("controls"),
       autoplay: v.hasAttribute("autoplay"),
@@ -5816,13 +5819,13 @@ const analyzeMedia = (doc) => {
     })),
     ...audios.map((a) => ({
       kind: "audio",
-      selector: selectorOf(a),
+      selector: selectorOf$1(a),
       src: (a.getAttribute("src") || a.querySelector("source")?.getAttribute("src") || "").slice(0, 150),
       controls: a.hasAttribute("controls")
     })),
     ...canvases.map((c) => ({
       kind: "canvas",
-      selector: selectorOf(c),
+      selector: selectorOf$1(c),
       width: c.width,
       height: c.height
     }))
@@ -5916,7 +5919,7 @@ const detectZIndexConflicts = (doc) => {
     const z = cs.zIndex;
     if (z && z !== "auto" && parseInt(z, 10) > 0) {
       zElements.push({
-        selector: selectorOf(el),
+        selector: selectorOf$1(el),
         z: parseInt(z, 10),
         position: cs.position,
         stacking: cs.position === "fixed" || cs.position === "sticky" || cs.opacity !== "1" || cs.transform !== "none" ? "creates-stacking-context" : "plain"
@@ -5953,7 +5956,7 @@ const detectLayoutIssues = (doc) => {
       for (const el of Array.from(doc.querySelectorAll("body *")).slice(0, 600)) {
         const rect = el.getBoundingClientRect();
         if (rect.right > clientW + 2 && rect.width > 100) {
-          items.push({ issue: "element-exceeds-viewport", selector: selectorOf(el), right: Math.round(rect.right), width: Math.round(rect.width) });
+          items.push({ issue: "element-exceeds-viewport", selector: selectorOf$1(el), right: Math.round(rect.right), width: Math.round(rect.width) });
           if (items.length > 15) break;
         }
       }
@@ -6016,7 +6019,7 @@ const detectSemanticElements = (doc) => {
       for (const el of found.slice(0, 20)) {
         items.push({
           tag,
-          selector: selectorOf(el),
+          selector: selectorOf$1(el),
           role: el.getAttribute("role") || implicitLandmark(tag),
           text: directText(el).slice(0, 50),
           childCount: el.children.length
@@ -6047,21 +6050,21 @@ const scanAccessibilityIssues = (doc) => {
   const issues = [];
   for (const img of Array.from(doc.querySelectorAll("img")).slice(0, 200)) {
     if (!img.hasAttribute("alt")) {
-      issues.push({ rule: "img-alt", severity: "error", selector: selectorOf(img), message: "Image is missing the alt attribute." });
+      issues.push({ rule: "img-alt", severity: "error", selector: selectorOf$1(img), message: "Image is missing the alt attribute." });
     }
   }
   for (const input of Array.from(doc.querySelectorAll("input:not([type=hidden]):not([type=submit]):not([type=button])")).slice(0, 200)) {
     const id = input.getAttribute("id");
     const hasLabel = id && doc.querySelector(`label[for="${id}"]`) || input.closest("label") || input.getAttribute("aria-label") || input.getAttribute("aria-labelledby");
     if (!hasLabel) {
-      issues.push({ rule: "input-label", severity: "error", selector: selectorOf(input), message: "Form input has no associated label, aria-label or aria-labelledby." });
+      issues.push({ rule: "input-label", severity: "error", selector: selectorOf$1(input), message: "Form input has no associated label, aria-label or aria-labelledby." });
     }
   }
   for (const el of Array.from(doc.querySelectorAll('button, a[href], [role="button"]')).slice(0, 300)) {
     const text = directText(el).trim();
     const aria = el.getAttribute("aria-label");
     if (!text && !aria) {
-      issues.push({ rule: "accessible-name", severity: "error", selector: selectorOf(el), message: "Interactive element has no accessible name (no text, no aria-label).", hint: el.querySelector("img[alt]") ? "Contains an image — consider alt text or aria-label." : void 0 });
+      issues.push({ rule: "accessible-name", severity: "error", selector: selectorOf$1(el), message: "Interactive element has no accessible name (no text, no aria-label).", hint: el.querySelector("img[alt]") ? "Contains an image — consider alt text or aria-label." : void 0 });
     }
   }
   const headings = Array.from(doc.querySelectorAll("h1, h2, h3, h4, h5, h6")).slice(0, 100);
@@ -6069,7 +6072,7 @@ const scanAccessibilityIssues = (doc) => {
   for (const h of headings) {
     const level = parseInt(h.tagName[1], 10);
     if (lastLevel && level > lastLevel + 1) {
-      issues.push({ rule: "heading-order", severity: "warning", selector: selectorOf(h), message: `Heading level jumps from h${lastLevel} to h${level}.` });
+      issues.push({ rule: "heading-order", severity: "warning", selector: selectorOf$1(h), message: `Heading level jumps from h${lastLevel} to h${level}.` });
     }
     lastLevel = level;
   }
@@ -6091,7 +6094,7 @@ const detectDeadClickTargets = (doc) => {
     const ariaHidden = el.getAttribute("aria-hidden") === "true";
     if (zeroSize || pointerBlocked || hidden || ariaHidden) {
       items.push({
-        selector: selectorOf(el),
+        selector: selectorOf$1(el),
         tag: el.tagName.toLowerCase(),
         text: directText(el).slice(0, 30),
         reasons: [zeroSize && "zero-size", pointerBlocked && "pointer-events:none", hidden && `hidden (${cs ? cs.display : "?"}/${cs ? cs.visibility : "?"})`, ariaHidden && "aria-hidden"].filter(Boolean)
@@ -6114,7 +6117,7 @@ const inventoryAnimations = (doc) => {
     const transition = cs.transitionProperty !== "none" && cs.transitionProperty !== "all" ? `${cs.transitionProperty} ${cs.transitionDuration}` : cs.transitionProperty === "all" ? `all ${cs.transitionDuration}` : null;
     if (animation || transition) {
       items.push({
-        selector: selectorOf(el),
+        selector: selectorOf$1(el),
         animation,
         transition,
         transitionTiming: cs.transitionTimingFunction || void 0
@@ -6145,7 +6148,7 @@ const mapFrameTree = (doc) => {
       }
       items.push({
         path: `${path2} > ${frame.tagName.toLowerCase()}`,
-        selector: selectorOf(frame),
+        selector: selectorOf$1(frame),
         src: src.slice(0, 120),
         title: frame.getAttribute("title") || void 0,
         name: frame.getAttribute("name") || void 0,
@@ -6170,7 +6173,7 @@ const inventoryShadowRoots = (doc) => {
         const srPath = `${path2} > ${el.tagName.toLowerCase()}::shadowRoot(${sr.mode})`;
         items.push({
           path: srPath.slice(0, 200),
-          hostSelector: selectorOf(el),
+          hostSelector: selectorOf$1(el),
           hostTag: el.tagName.toLowerCase(),
           mode: sr.mode,
           childCount: sr.querySelectorAll("*").length,
@@ -6311,7 +6314,7 @@ const extractTables = (doc) => {
     const rows = bodyRows.map((tr) => Array.from(tr.querySelectorAll("td")).map((td) => (td.textContent || "").trim().slice(0, 60)));
     const caption = table.querySelector("caption")?.textContent?.trim();
     return {
-      selector: selectorOf(table),
+      selector: selectorOf$1(table),
       caption,
       columnCount: headers.length || (rows[0]?.length || 0),
       rowCount: bodyRows.length,
@@ -6326,7 +6329,7 @@ const extractLists = (doc) => {
   const items = lists.slice(0, 60).map((list) => {
     const children = Array.from(list.querySelectorAll(":scope > li")).slice(0, 40);
     return {
-      selector: selectorOf(list),
+      selector: selectorOf$1(list),
       kind: list.tagName.toLowerCase(),
       ordered: list.tagName.toLowerCase() === "ol",
       itemCount: children.length,
@@ -6434,17 +6437,17 @@ const detectFocusTraps = (doc) => {
   for (const el of Array.from(doc.querySelectorAll('[role="dialog"], [aria-modal="true"], dialog[open], .modal, [class*="modal"]')).slice(0, 30)) {
     const focusables = el.querySelectorAll('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
     items.push({
-      selector: selectorOf(el),
+      selector: selectorOf$1(el),
       kind: el.getAttribute("role") || el.tagName.toLowerCase(),
       ariaModal: el.getAttribute("aria-modal"),
       focusableCount: focusables.length,
-      firstFocusable: focusables[0] ? selectorOf(focusables[0]) : void 0,
+      firstFocusable: focusables[0] ? selectorOf$1(focusables[0]) : void 0,
       note: focusables.length === 0 ? "Modal container has NO focusable elements — keyboard users are trapped." : void 0
     });
   }
   const tabbables = doc.querySelectorAll("[tabindex]>0");
   for (const el of Array.from(tabbables).slice(0, 20)) {
-    items.push({ selector: selectorOf(el), kind: "positive-tabindex", note: `tabindex=${el.tabIndex} breaks natural tab order.` });
+    items.push({ selector: selectorOf$1(el), kind: "positive-tabindex", note: `tabindex=${el.tabIndex} breaks natural tab order.` });
   }
   return base("detect_focus_traps", `${items.length} focus-management issue(s)/container(s)`, items.length, items, [], false);
 };
@@ -6490,7 +6493,7 @@ const getSelectionState = (doc) => {
       hasSelection: Boolean(selection?.toString()),
       selectedText: selection?.toString().slice(0, 200) || "",
       selectionRanges: selection?.rangeCount || 0,
-      activeElement: active ? { tag: active.tagName.toLowerCase(), selector: selectorOf(active), editable: active.isContentEditable || ["INPUT", "TEXTAREA"].includes(active.tagName) } : null
+      activeElement: active ? { tag: active.tagName.toLowerCase(), selector: selectorOf$1(active), editable: active.isContentEditable || ["INPUT", "TEXTAREA"].includes(active.tagName) } : null
     }
   ];
   return base("get_selection_state", selection?.toString() ? `Selection: "${selection.toString().slice(0, 40)}…"` : "No text selection", 1, items, [], false);
@@ -7264,7 +7267,7 @@ class LiveBrowserController {
     return engine;
   }
   isSimulation() {
-    return typeof globalThis.__FORENSIC_SIMULATION__ !== "undefined" || typeof globalThis.chrome === "undefined";
+    return typeof globalThis.__FORENSIC_SIMULATION__ !== "undefined";
   }
   getPicker() {
     return this.picker;
@@ -8475,25 +8478,28 @@ class LiveToolsHandler {
       try {
         return await this.bridgeClient.sendCommand(command, payload);
       } catch (bridgeErr) {
-        const doc2 = typeof document !== "undefined" ? document : void 0;
-        const req2 = {
-          id: `cmd_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
-          command,
-          timestamp: Date.now(),
-          payload
-        };
-        const res2 = await this.localController.handleCommand(req2, doc2);
-        if (res2.success) {
-          return res2.data;
+        if (typeof document !== "undefined" || typeof window !== "undefined") {
+          const doc2 = typeof document !== "undefined" ? document : void 0;
+          const req2 = {
+            id: `cmd_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            command,
+            timestamp: Date.now(),
+            payload
+          };
+          const res2 = await this.localController.handleCommand(req2, doc2);
+          if (res2.success) {
+            return res2.data;
+          }
+          const localCode = res2.error?.code || "LOCAL_COMMAND_FAILED";
+          const localMessage = res2.error?.message || "unknown local error";
+          const combined = new Error(
+            `${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`
+          );
+          combined.code = localCode;
+          combined.bridgeError = bridgeErr.message;
+          throw combined;
         }
-        const localCode = res2.error?.code || "LOCAL_COMMAND_FAILED";
-        const localMessage = res2.error?.message || "unknown local error";
-        const combined = new Error(
-          `${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`
-        );
-        combined.code = localCode;
-        combined.bridgeError = bridgeErr.message;
-        throw combined;
+        throw bridgeErr;
       }
     }
     const doc = typeof document !== "undefined" ? document : void 0;
@@ -10322,6 +10328,95 @@ const TOOL_GROUPS = [
     group: "discovery",
     description: "Meta-tools: tool catalog and group discovery for agent self-orientation.",
     tools: ["get_tool_catalog", "get_tool_groups"]
+  },
+  // ---- §8 Chrome DevTools MCP capability families (dt_ namespace) ----
+  {
+    group: "devtools-input",
+    description: "Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+    tools: ["dt_click", "dt_click_at", "dt_drag", "dt_fill", "dt_fill_form", "dt_handle_dialog", "dt_hover", "dt_press_key", "dt_type_text", "dt_upload_file"]
+  },
+  {
+    group: "devtools-navigation",
+    description: "Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+    tools: ["dt_list_pages", "dt_select_page", "dt_new_page", "dt_close_page", "dt_navigate_page", "dt_history_navigation", "dt_wait_for"]
+  },
+  {
+    group: "devtools-emulation",
+    description: "Device/page emulation: viewport, DPR, UA, CPU throttling, network conditions, geolocation, color scheme, headers, resize.",
+    tools: ["dt_emulate", "dt_resize_page"]
+  },
+  {
+    group: "devtools-performance",
+    description: "Performance tracing via the CDP gateway (chrome.debugger): trace lifecycle, Web Vitals (LCP/INP/CLS/FCP), long tasks, layout shifts, phase analysis.",
+    tools: ["dt_performance_start_trace", "dt_performance_stop_trace", "dt_performance_analyze_insight"]
+  },
+  {
+    group: "devtools-network",
+    description: "Unified network log: request listing with filters/pagination and full request inspection (shares capture with MCPDOM network monitoring).",
+    tools: ["dt_list_network_requests", "dt_get_network_request"]
+  },
+  {
+    group: "devtools-debugging",
+    description: "Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+    tools: ["dt_evaluate_script", "dt_list_console_messages", "dt_get_console_message", "dt_take_screenshot", "dt_take_snapshot", "dt_screencast_start", "dt_screencast_stop", "dt_lighthouse_audit"]
+  },
+  {
+    group: "devtools-memory",
+    description: "V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+    tools: ["dt_take_heapsnapshot", "dt_close_heapsnapshot", "dt_heapsnapshot_summary", "dt_heapsnapshot_details", "dt_heapsnapshot_class_nodes", "dt_heapsnapshot_edges", "dt_heapsnapshot_retainers", "dt_heapsnapshot_retaining_paths", "dt_heapsnapshot_dominators", "dt_heapsnapshot_duplicate_strings", "dt_heapsnapshot_object_details", "dt_query_heapsnapshot_objects", "dt_compare_heapsnapshots"]
+  },
+  {
+    group: "devtools-extensions",
+    description: "Browser extension management (chrome.management): install detection, listing, reload, action trigger, uninstall (soft).",
+    tools: ["dt_install_extension", "dt_list_extensions", "dt_reload_extension", "dt_trigger_extension_action", "dt_uninstall_extension"]
+  },
+  {
+    group: "devtools-third-party",
+    description: "Third-party developer tools exposed by the page (window.__devtools_3p_tools): discovery and validated execution (experimental).",
+    tools: ["dt_list_3p_developer_tools", "dt_execute_3p_developer_tool"]
+  },
+  {
+    group: "devtools-webmcp",
+    description: "WebMCP tools exposed by the page (navigator.webMCP draft): discovery and validated remote execution.",
+    tools: ["dt_list_webmcp_tools", "dt_execute_webmcp_tool"]
+  },
+  // ---- §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace) ----
+  {
+    group: "advanced-forensics",
+    description: "The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+    tools: [
+      "fx_correlate_dom_network",
+      "fx_dom_regression_diff",
+      "fx_visual_regression_forensics",
+      "fx_layout_shift_forensics",
+      "fx_record_interactions",
+      "fx_replay_interactions",
+      "fx_failure_replay",
+      "fx_selector_survivability",
+      "fx_component_boundaries",
+      "fx_frame_forensics",
+      "fx_shadow_dom_forensics",
+      "fx_css_influence",
+      "fx_zindex_occlusion",
+      "fx_event_listeners",
+      "fx_error_root_cause",
+      "fx_network_dom_binding",
+      "fx_resource_waterfall",
+      "fx_font_forensics",
+      "fx_a11y_divergence",
+      "fx_page_health",
+      "fx_exploration_planner",
+      "fx_smart_snapshot",
+      "fx_cross_signal_search",
+      "fx_forensic_export",
+      "fx_forensic_import",
+      "fx_impact_prediction",
+      "fx_safe_mutation_guard",
+      "fx_transaction_journal",
+      "fx_session_graph",
+      "fx_evidence_scoring",
+      "fx_incident_report"
+    ]
   }
 ];
 const FAILURE = {
@@ -11285,6 +11380,1076 @@ const MCPDOM_V3_TOOLS = [
   }
 ];
 const V3_TOOL_NAMES = new Set(MCPDOM_V3_TOOLS.map((t) => t.name));
+function domainOf(event) {
+  switch (event.category) {
+    case "DOM":
+      return "DOM";
+    case "NETWORK":
+      return "NETWORK";
+    case "CONSOLE":
+      return "CONSOLE";
+    case "ERROR":
+      return "ERROR";
+    case "NAVIGATION":
+      return "NAVIGATION";
+    case "USER":
+      return "USER";
+    case "VIEWPORT":
+      return "VIEWPORT";
+    case "STYLE":
+      return "STYLE";
+    case "EXTENSION":
+      return "EXTENSION";
+    case "SCREENSHOT":
+      return "SCREENSHOT";
+    case "CHECKPOINT":
+      return "CHECKPOINT";
+    default:
+      return "DOM";
+  }
+}
+function summarize$1(event) {
+  const p = event.payload || {};
+  switch (event.type) {
+    case "DOM_MUTATION_ADD":
+      return `+ <${p.node?.tagName || "?"}> into ${String(p.parentId ?? "?")}${p.node?.attributes?.id ? ` (#${p.node.attributes.id})` : ""}`;
+    case "DOM_MUTATION_REMOVE":
+      return `- <${p.tagName || "?"}> node=${String(p.nodeId ?? "?")}${p.selectorHint ? ` (${p.selectorHint})` : ""} subtree=${String(p.removedSubtreeNodeCount ?? 0)}`;
+    case "DOM_MUTATION_ATTR":
+      return `attr ${String(p.attributeName ?? "?")} on node=${String(p.nodeId ?? "?")}: ${String(p.oldValue ?? null)} → ${String(p.newValue ?? null)}`;
+    case "DOM_MUTATION_TEXT":
+      return `text: "${String(p.oldText ?? "").slice(0, 40)}" → "${String(p.newText ?? "").slice(0, 40)}"`;
+    case "DOM_MUTATION_MOVE":
+      return `move node=${String(p.nodeId ?? "?")} ${String(p.oldParentId ?? "?")}→${String(p.newParentId ?? "?")}`;
+    case "NETWORK_REQUEST_START":
+      return `→ ${String(p.method || "GET")} ${String(p.url || "?")}`;
+    case "NETWORK_RESPONSE_COMPLETE":
+      return `← ${String(p.status ?? "?")} ${String(p.url || "?")} (${String(p.size ?? p.responseSize ?? 0)}B)`;
+    case "NETWORK_REQUEST_FAILED":
+      return `✗ ${String(p.url || "?")} ${String(p.error || "failed")}`;
+    case "RUNTIME_CONSOLE_ERROR":
+    case "RUNTIME_ERROR":
+    case "RUNTIME_UNHANDLED_REJECTION":
+      return String(p.message || p.text || event.type).slice(0, 140);
+    case "RUNTIME_CONSOLE_LOG":
+    case "RUNTIME_CONSOLE_WARN":
+    case "RUNTIME_CONSOLE_INFO":
+    case "RUNTIME_CONSOLE_DEBUG":
+      return String(p.text ?? p.message ?? "").slice(0, 120);
+    case "USER_CLICK":
+      return `click ${event.targetSelector || `node=${event.targetNodeId}`} @${p.x ?? "?"},${p.y ?? "?"}`;
+    case "NAV_PUSH_STATE":
+    case "NAV_REPLACE_STATE":
+      return `${event.type} ${String(p.url || "")}`;
+    default:
+      return `${event.type}${event.targetSelector ? ` ${event.targetSelector}` : ""} ${Object.keys(p).length ? JSON.stringify(p).slice(0, 80) : ""}`.trim();
+  }
+}
+class TemporalCorrelationEngine {
+  /** Ordered cross-domain signals (public for analyzer access). */
+  signals = [];
+  constructor(events, liveEvents) {
+    for (const e of events) {
+      this.signals.push({
+        eventId: e.id,
+        domain: domainOf(e),
+        type: e.type,
+        timestamp: e.timestamp,
+        sequence: e.sequence,
+        targetNodeId: e.targetNodeId,
+        targetSelector: e.targetSelector,
+        summary: summarize$1(e),
+        payload: e.payload || {}
+      });
+    }
+    if (liveEvents) {
+      for (const le of liveEvents) {
+        this.signals.push({
+          eventId: le.eventId,
+          domain: ["DOM", "NETWORK", "CONSOLE", "NAVIGATION", "PERFORMANCE", "MEMORY"].includes(le.domain) ? le.domain : le.domain === "RUNTIME" ? "ERROR" : le.domain === "INTERACTION" ? "USER" : "DOM",
+          type: le.type,
+          timestamp: le.timestamp,
+          sequence: le.sequence + 1e6,
+          summary: `${le.type} ${JSON.stringify(le.data).slice(0, 80)}`,
+          payload: le.data
+        });
+      }
+    }
+    this.signals.sort((a, b) => a.timestamp - b.timestamp || a.sequence - b.sequence);
+  }
+  /** Signals within a temporal window of a timestamp. */
+  around(timestamp, windowMs = 300) {
+    return this.signals.filter((s) => Math.abs(s.timestamp - timestamp) <= windowMs);
+  }
+  /** All signals in a range. */
+  range(from, to) {
+    return this.signals.filter((s) => s.timestamp >= from && s.timestamp <= to);
+  }
+  byDomain(domain) {
+    return this.signals.filter((s) => s.domain === domain);
+  }
+  signal(eventId) {
+    return this.signals.find((s) => s.eventId === eventId);
+  }
+  /** The closest signal of a domain BEFORE (or after) a timestamp. */
+  nearest(timestamp, domain, direction = "both") {
+    let best = null;
+    let bestDelta = Infinity;
+    for (const s of this.signals) {
+      if (s.domain !== domain) continue;
+      const delta = s.timestamp - timestamp;
+      if (direction === "before" && delta > 0) continue;
+      if (direction === "after" && delta < 0) continue;
+      const abs = Math.abs(delta);
+      if (abs < bestDelta) {
+        bestDelta = abs;
+        best = s;
+      }
+    }
+    return best;
+  }
+  /**
+   * Rank causal candidates for a focal event: signals whose timing and
+   * domain relationships make them plausible causes (cause must occur
+   * before the effect; network responses are strong causes of DOM adds;
+   * user interactions are strong causes of network activity…).
+   */
+  rankCausalCandidates(focal, domains, maxResults = 10) {
+    const candidates = [];
+    const CAUSAL_PRIOR = {
+      "NETWORK->DOM": 0.9,
+      "USER->NETWORK": 0.85,
+      "USER->DOM": 0.8,
+      "NETWORK->ERROR": 0.7,
+      "ERROR->DOM": 0.5,
+      "DOM->DOM": 0.6,
+      "STYLE->DOM": 0.65,
+      "NAVIGATION->DOM": 0.85,
+      "CONSOLE->DOM": 0.35,
+      "DOM->SCREENSHOT": 0.4,
+      "NAVIGATION->NETWORK": 0.8
+    };
+    for (const s of this.signals) {
+      if (s.eventId === focal.eventId) continue;
+      if (domains && !domains.includes(s.domain)) continue;
+      const gap = focal.timestamp - s.timestamp;
+      if (gap < 0 || gap > 2e3) continue;
+      const prior = CAUSAL_PRIOR[`${s.domain}->${focal.domain}`] ?? 0.3;
+      const decay = 1 / (1 + gap / 400);
+      const score = Number((prior * decay).toFixed(3));
+      candidates.push({ signal: s, temporalGapMs: gap, score, rationale: `${s.domain}→${focal.domain} prior ${prior}, gap ${gap}ms` });
+    }
+    return candidates.sort((a, b) => b.score - a.score).slice(0, maxResults);
+  }
+  /** Full timeline (bounded) for reports. */
+  timeline(from, to, limit = 500) {
+    let list = from !== void 0 || to !== void 0 ? this.range(from ?? -Infinity, to ?? Infinity) : this.signals;
+    return list.slice(0, limit);
+  }
+  stats() {
+    const byDomain = {};
+    for (const s of this.signals) byDomain[s.domain] = (byDomain[s.domain] || 0) + 1;
+    return {
+      total: this.signals.length,
+      byDomain,
+      firstTimestamp: this.signals[0]?.timestamp ?? 0,
+      lastTimestamp: this.signals[this.signals.length - 1]?.timestamp ?? 0
+    };
+  }
+}
+let pageCounter = 0;
+let navigationCounter = 0;
+class PageIdentityRegistry {
+  pages = /* @__PURE__ */ new Map();
+  /** extensionTabId → pageId */
+  byTab = /* @__PURE__ */ new Map();
+  /** cdpTargetId → pageId */
+  byTarget = /* @__PURE__ */ new Map();
+  /** url → pageIds (latest last) */
+  byUrl = /* @__PURE__ */ new Map();
+  /** Register (or refresh) a page discovered via tab listing or CDP attach. */
+  register(input) {
+    if (input.extensionTabId !== void 0 && this.byTab.has(input.extensionTabId)) {
+      const pageId2 = this.byTab.get(input.extensionTabId);
+      const existing = this.pages.get(pageId2);
+      if (existing.url !== input.url) {
+        this.appendNavigation(existing, input.url, "load");
+      }
+      existing.url = input.url;
+      if (input.title !== void 0) existing.title = input.title;
+      existing.lastSeenAt = Date.now();
+      if (input.cdpTargetId) {
+        existing.cdpTargetId = input.cdpTargetId;
+        this.byTarget.set(input.cdpTargetId, pageId2);
+      }
+      if (input.sessionId) existing.sessionId = input.sessionId;
+      return existing;
+    }
+    if (input.cdpTargetId && this.byTarget.has(input.cdpTargetId)) {
+      const pageId2 = this.byTarget.get(input.cdpTargetId);
+      const existing = this.pages.get(pageId2);
+      existing.lastSeenAt = Date.now();
+      return existing;
+    }
+    const pageId = `page_${++pageCounter}`;
+    const identity = {
+      pageId,
+      url: input.url,
+      title: input.title || "",
+      extensionTabId: input.extensionTabId,
+      cdpTargetId: input.cdpTargetId,
+      sessionId: input.sessionId,
+      frames: [{ frameId: `${pageId}_main`, parentId: null, url: input.url }],
+      navigations: [],
+      createdAt: Date.now(),
+      lastSeenAt: Date.now(),
+      closed: false
+    };
+    this.pages.set(pageId, identity);
+    if (input.extensionTabId !== void 0) this.byTab.set(input.extensionTabId, pageId);
+    if (input.cdpTargetId) this.byTarget.set(input.cdpTargetId, pageId);
+    this.addUrlIndex(input.url, pageId);
+    return identity;
+  }
+  /** Record a SPA-style navigation on a page (pushState/hashchange…). */
+  recordNavigation(pageId, toUrl, navigationType) {
+    const page = this.pages.get(pageId);
+    if (!page) return null;
+    const rec = this.appendNavigation(page, toUrl, navigationType);
+    page.url = toUrl;
+    page.lastSeenAt = Date.now();
+    return rec;
+  }
+  appendNavigation(page, toUrl, navigationType) {
+    const rec = {
+      navigationId: `nav_${++navigationCounter}`,
+      fromUrl: page.url,
+      toUrl,
+      timestamp: Date.now(),
+      navigationType
+    };
+    page.navigations.push(rec);
+    this.addUrlIndex(toUrl, page.pageId);
+    return rec;
+  }
+  /** Register a (sub)frame discovered under a page. */
+  registerFrame(pageId, frame) {
+    const page = this.pages.get(pageId);
+    if (!page) return null;
+    const existing = frame.parentId ? page.frames.find((f) => f.url === frame.url && f.parentId === frame.parentId) : void 0;
+    if (existing) {
+      return existing;
+    }
+    const created = {
+      frameId: frame.frameId || `${pageId}_frame_${page.frames.length + 1}`,
+      parentId: frame.parentId,
+      url: frame.url,
+      hostNodeId: frame.hostNodeId
+    };
+    page.frames.push(created);
+    return created;
+  }
+  addUrlIndex(url, pageId) {
+    if (!url) return;
+    const list = this.byUrl.get(url) || [];
+    list.push(pageId);
+    if (list.length > 20) list.shift();
+    this.byUrl.set(url, list);
+  }
+  /** Resolve by any of the supported identity keys. */
+  resolve(selector) {
+    if (selector.pageId) return this.pages.get(selector.pageId) || null;
+    if (selector.tabId !== void 0) {
+      const pageId = this.byTab.get(selector.tabId);
+      if (pageId) return this.pages.get(pageId) || null;
+      return null;
+    }
+    if (selector.cdpTargetId) {
+      const pageId = this.byTarget.get(selector.cdpTargetId);
+      return pageId ? this.pages.get(pageId) || null : null;
+    }
+    if (selector.url) {
+      const list = this.byUrl.get(selector.url);
+      if (list && list.length > 0) {
+        const pageId = list[list.length - 1];
+        return this.pages.get(pageId) || null;
+      }
+    }
+    return null;
+  }
+  markClosed(pageId) {
+    const page = this.pages.get(pageId);
+    if (page) {
+      page.closed = true;
+      page.lastSeenAt = Date.now();
+      if (page.extensionTabId !== void 0) this.byTab.delete(page.extensionTabId);
+    }
+  }
+  list() {
+    return Array.from(this.pages.values()).filter((p) => !p.closed);
+  }
+  /** Link a CDP target id to an existing page (late CDP attach). */
+  attachCdpTarget(pageId, cdpTargetId) {
+    const page = this.pages.get(pageId);
+    if (!page) return false;
+    page.cdpTargetId = cdpTargetId;
+    this.byTarget.set(cdpTargetId, pageId);
+    page.lastSeenAt = Date.now();
+    return true;
+  }
+  /** Map an MCPDOM forensic session onto a page identity. */
+  bindSession(pageId, sessionId) {
+    const page = this.pages.get(pageId);
+    if (!page) return false;
+    page.sessionId = sessionId;
+    return true;
+  }
+}
+const RING_LIMIT = 5e3;
+class UnifiedEventBus {
+  ring = [];
+  head = 0;
+  subscriptions = /* @__PURE__ */ new Map();
+  subCounter = 0;
+  seq = 0;
+  /** Correlation groups: correlationId → event ids. */
+  correlations = /* @__PURE__ */ new Map();
+  publish(domain, type, data, ids) {
+    const sequence = ++this.seq;
+    const event = {
+      eventId: `uev_${sequence}`,
+      domain,
+      type,
+      timestamp: Date.now(),
+      sequence,
+      pageId: ids?.pageId,
+      frameId: ids?.frameId,
+      navigationId: ids?.navigationId,
+      requestId: ids?.requestId,
+      mutationId: ids?.mutationId,
+      traceId: ids?.traceId,
+      snapshotId: ids?.snapshotId,
+      transactionId: ids?.transactionId,
+      correlationId: ids?.correlationId,
+      data
+    };
+    if (this.ring.length < RING_LIMIT) {
+      this.ring.push(event);
+    } else {
+      this.ring[this.head] = event;
+      this.head = (this.head + 1) % RING_LIMIT;
+    }
+    if (event.correlationId) {
+      const group = this.correlations.get(event.correlationId) || [];
+      group.push(event.eventId);
+      if (group.length > 200) group.shift();
+      this.correlations.set(event.correlationId, group);
+    }
+    for (const sub of this.subscriptions.values()) {
+      if (sub.domain && sub.domain !== domain) continue;
+      try {
+        sub.fn(event);
+      } catch {
+      }
+    }
+    return event;
+  }
+  subscribe(fn, domain) {
+    const id = `sub_${++this.subCounter}`;
+    this.subscriptions.set(id, { domain, fn });
+    return () => this.subscriptions.delete(id);
+  }
+  /** Snapshot of the ordered event stream (oldest → newest). */
+  snapshot(filter) {
+    let events = this.ordered();
+    if (filter?.domains) events = events.filter((e) => filter.domains.includes(e.domain));
+    if (filter?.pageId) events = events.filter((e) => e.pageId === filter.pageId);
+    if (filter?.since !== void 0) events = events.filter((e) => e.timestamp >= filter.since);
+    if (filter?.limit) events = events.slice(-filter.limit);
+    return events;
+  }
+  correlationGroup(correlationId) {
+    const ids = this.correlations.get(correlationId) || [];
+    const byId = new Map(this.ordered().map((e) => [e.eventId, e]));
+    return ids.map((id) => byId.get(id)).filter((e) => !!e);
+  }
+  stats() {
+    const byDomain = {};
+    for (const e of this.ordered()) byDomain[e.domain] = (byDomain[e.domain] || 0) + 1;
+    return { total: this.ring.length, byDomain, subscriptions: this.subscriptions.size };
+  }
+  ordered() {
+    if (this.ring.length < RING_LIMIT) return this.ring.slice();
+    return this.ring.slice(this.head).concat(this.ring.slice(0, this.head));
+  }
+}
+class UnifiedBrowserRuntime {
+  identity = new PageIdentityRegistry();
+  bus = new UnifiedEventBus();
+  bridge;
+  /** Network/console capture buffers (event-driven, no polling §22). */
+  networkLog = [];
+  consoleLog = [];
+  netCounter = 0;
+  consoleCounter = 0;
+  cdpAttached = false;
+  setBridge(bridge) {
+    this.bridge = bridge;
+  }
+  hasBridge() {
+    return !!this.bridge;
+  }
+  markCdpAttached(attached) {
+    this.cdpAttached = attached;
+  }
+  cdpAvailable() {
+    return this.cdpAttached && !!this.bridge;
+  }
+  /** Current execution mode for a capability requiring live browser (§16). */
+  modeFor(capability) {
+    const sim = typeof globalThis.__FORENSIC_SIMULATION__ !== "undefined";
+    if (capability.requiresCdp) {
+      if (this.cdpAvailable()) {
+        return { mode: "LIVE", simulated: false, note: "CDP session attached through the extension gateway.", source: "cdp" };
+      }
+      if (sim) {
+        return { mode: "SIMULATED", simulated: true, note: "No CDP session available. Deterministic simulation contract only — results are NOT real Chrome measurements.", source: "simulation" };
+      }
+      return { mode: "UNAVAILABLE", simulated: false, note: "CDP gateway not connected. Attach the Chrome extension and start a CDP session first.", source: "none" };
+    }
+    if (this.bridge && !sim) {
+      return { mode: "LIVE", simulated: false, note: "Live browser via MCPDOM extension bridge.", source: "bridge" };
+    }
+    if (typeof document !== "undefined") {
+      return { mode: "SIMULATED", simulated: true, note: "JSDOM fixture DOM — deterministic simulation contract, not a real browser page.", source: "jsdom-fixture" };
+    }
+    return { mode: "UNAVAILABLE", simulated: false, note: "No bridge connection and no simulation fixture installed.", source: "none" };
+  }
+  /** Live JSDOM document (simulation) — null in pure server context. */
+  simulationDocument() {
+    return typeof document !== "undefined" ? document : null;
+  }
+  // -------------------------------------------------------------------------
+  // Page management — routes through the SAME tab commands MCPDOM uses,
+  // so extension tab ids and page identities stay unified (§9/§10).
+  // -------------------------------------------------------------------------
+  async listPages() {
+    const mode = this.modeFor({});
+    let rawTabs = [];
+    if (this.bridge) {
+      try {
+        const res = await this.bridge.sendCommand("LIST_TABS", {});
+        rawTabs = res?.tabs || [];
+        for (const tab of rawTabs) {
+          this.identity.register({ url: tab.url || "about:blank", title: tab.title, extensionTabId: tab.id });
+        }
+      } catch {
+      }
+    }
+    if (rawTabs.length === 0) {
+      const sim = globalThis.__MCPDOM_SIM_TABS__;
+      if (Array.isArray(sim)) {
+        rawTabs = sim.map((t, i) => ({ id: t.id ?? i + 1, title: t.title ?? "Simulated Tab", url: t.url ?? "https://app.internal/dashboard", active: true, status: "complete" }));
+        for (const tab of rawTabs) {
+          this.identity.register({ url: tab.url, title: tab.title, extensionTabId: tab.id });
+        }
+      }
+    }
+    return { pages: this.identity.list(), mode, rawTabs };
+  }
+  async newPage(url) {
+    const mode = this.modeFor({});
+    if (this.bridge) {
+      const result = await this.bridge.sendCommand("OPEN_TAB", { url, active: true });
+      const page = this.identity.register({ url, title: "New Tab", extensionTabId: result?.tabId });
+      this.bus.publish("NAVIGATION", "page_opened", { url, tabId: result?.tabId }, { pageId: page.pageId });
+      return { page, result, mode };
+    }
+    const controller = globalThis.__MCPDOM_LOCAL_CONTROLLER__;
+    if (controller) {
+      const res = await controller.handleCommand({ id: `rt_${Date.now()}`, command: "OPEN_TAB", timestamp: Date.now(), payload: { url } });
+      if (res?.success) {
+        const page = this.identity.register({ url, title: "Simulated Tab", extensionTabId: res.data?.tabId });
+        this.bus.publish("NAVIGATION", "page_opened", { url, simulated: true }, { pageId: page.pageId });
+        return { page, result: res.data, mode };
+      }
+    }
+    throw new Error("PAGE_NOT_FOUND: no runtime available to open a page (bridge disconnected, no simulation fixture).");
+  }
+  async selectPage(selector) {
+    const mode = this.modeFor({});
+    let resolved = this.identity.resolve({ pageId: selector.pageId, tabId: selector.tabId });
+    if (!resolved && selector.index !== void 0) {
+      const pages = this.identity.list();
+      resolved = pages[selector.index] || null;
+    }
+    if (selector.pageId) resolved = this.identity.resolve({ pageId: selector.pageId }) || resolved;
+    if (!resolved) {
+      const list = await this.listPages();
+      if (selector.tabId !== void 0) resolved = list.pages.find((p) => p.extensionTabId === selector.tabId) || null;
+      else if (selector.index !== void 0) resolved = list.pages[selector.index] || null;
+      else resolved = list.pages[0] || null;
+    }
+    if (!resolved) throw new Error(`PAGE_NOT_FOUND: cannot resolve page (${JSON.stringify(selector)}).`);
+    if (this.bridge && resolved.extensionTabId !== void 0) {
+      const result = await this.bridge.sendCommand("FOCUS_TAB", { tabId: resolved.extensionTabId });
+      return { page: resolved, result, mode };
+    }
+    const controller = globalThis.__MCPDOM_LOCAL_CONTROLLER__;
+    if (controller && resolved.extensionTabId !== void 0) {
+      const res = await controller.handleCommand({ id: `rt_${Date.now()}`, command: "FOCUS_TAB", timestamp: Date.now(), payload: { tabId: resolved.extensionTabId } });
+      return { page: resolved, result: res?.data, mode };
+    }
+    return { page: resolved, mode };
+  }
+  async closePage(selector) {
+    const mode = this.modeFor({});
+    const pages = (await this.listPages()).pages;
+    const candidates = selector.tabId !== void 0 ? pages.filter((p) => p.extensionTabId === selector.tabId) : pages;
+    const page = this.identity.resolve(selector) || (candidates.length > 0 ? candidates[candidates.length - 1] : void 0);
+    if (!page) throw new Error(`PAGE_NOT_FOUND: cannot resolve page to close (${JSON.stringify(selector)}).`);
+    if (this.bridge && page.extensionTabId !== void 0) {
+      await this.bridge.sendCommand("CLOSE_TAB", { tabId: page.extensionTabId });
+      this.identity.markClosed(page.pageId);
+      this.bus.publish("NAVIGATION", "page_closed", { pageId: page.pageId }, { pageId: page.pageId });
+      return { closed: true, page, mode };
+    }
+    const controller = globalThis.__MCPDOM_LOCAL_CONTROLLER__;
+    if (controller && page.extensionTabId !== void 0) {
+      const res = await controller.handleCommand({ id: `rt_${Date.now()}`, command: "CLOSE_TAB", timestamp: Date.now(), payload: { tabId: page.extensionTabId } });
+      if (res?.success) {
+        this.identity.markClosed(page.pageId);
+        this.bus.publish("NAVIGATION", "page_closed", { pageId: page.pageId, simulated: true }, { pageId: page.pageId });
+        return { closed: true, page, mode };
+      }
+    }
+    return { closed: false, page, mode };
+  }
+  // -------------------------------------------------------------------------
+  // Network / console capture — event-driven collection shared by
+  // dt_list_network_requests / dt_get_network_request / dt_list_console_messages
+  // and by forensics correlation. Reuses MCPDOM bridge capture where present.
+  // -------------------------------------------------------------------------
+  recordNetworkRequest(record) {
+    const full = {
+      requestId: record.requestId || `req_${++this.netCounter}`,
+      url: record.url,
+      method: record.method || "GET",
+      resourceType: record.resourceType,
+      status: record.status,
+      statusText: record.statusText,
+      requestHeaders: record.requestHeaders,
+      responseHeaders: record.responseHeaders,
+      requestBody: record.requestBody,
+      responseBody: record.responseBody,
+      responseSize: record.responseSize,
+      fromCache: record.fromCache,
+      failed: record.failed ?? false,
+      errorText: record.errorText,
+      startTime: record.startTime ?? Date.now(),
+      endTime: record.endTime,
+      durationMs: record.durationMs,
+      pageId: record.pageId,
+      persisted: record.persisted
+    };
+    this.networkLog.push(full);
+    if (this.networkLog.length > 2e3) this.networkLog.shift();
+    this.bus.publish("NETWORK", full.failed ? "request_failed" : full.endTime !== void 0 ? "response_complete" : "request_start", {
+      url: full.url,
+      method: full.method,
+      status: full.status,
+      failed: full.failed
+    }, { requestId: full.requestId, pageId: full.pageId });
+    return full;
+  }
+  /** Ingest captured requests (from MCPDOM network monitor payloads). */
+  ingestNetworkRequests(requests) {
+    let count = 0;
+    for (const r of requests) {
+      this.recordNetworkRequest({
+        url: r.url || r.request?.url || "unknown",
+        method: r.method || r.request?.method || "GET",
+        status: r.status ?? r.response?.status,
+        statusText: r.statusText,
+        requestHeaders: r.requestHeaders || r.request?.headers,
+        responseHeaders: r.responseHeaders || r.response?.headers,
+        requestBody: r.requestBody || r.request?.body,
+        responseBody: r.responseBody || r.response?.body,
+        responseSize: r.responseSize ?? r.response?.size,
+        fromCache: r.fromCache,
+        failed: !!(r.failed || r.error || r.status && r.status >= 400),
+        errorText: r.errorText || r.error,
+        startTime: r.timestamp ?? r.startTime ?? Date.now(),
+        endTime: r.endTime,
+        durationMs: r.durationMs,
+        pageId: r.pageId
+      });
+      count++;
+    }
+    return count;
+  }
+  listNetworkRequests(filter) {
+    const mode = this.modeFor({});
+    let list = this.networkLog.slice();
+    if (filter?.pageId) list = list.filter((r) => r.pageId === filter.pageId);
+    if (filter?.urlPattern) {
+      const pattern = filter.urlPattern.toLowerCase();
+      list = list.filter((r) => r.url.toLowerCase().includes(pattern));
+    }
+    if (filter?.method) list = list.filter((r) => r.method.toUpperCase() === filter.method.toUpperCase());
+    if (filter?.status === "error") list = list.filter((r) => r.failed || r.status !== void 0 && r.status >= 400);
+    else if (filter?.status === "success") list = list.filter((r) => !r.failed && r.status !== void 0 && r.status < 400);
+    else if (typeof filter?.status === "number") list = list.filter((r) => r.status === filter.status);
+    if (filter?.resourceType) list = list.filter((r) => (r.resourceType || "").toLowerCase() === filter.resourceType.toLowerCase());
+    const total = list.length;
+    const offset = filter?.offset || 0;
+    const limit = filter?.limit || 50;
+    return { requests: list.slice(offset, offset + limit), total, mode };
+  }
+  getNetworkRequest(requestId) {
+    return this.networkLog.find((r) => r.requestId === requestId);
+  }
+  recordConsoleMessage(record) {
+    const full = {
+      messageId: record.messageId || `con_${++this.consoleCounter}`,
+      level: record.level || "log",
+      text: record.text,
+      timestamp: record.timestamp ?? Date.now(),
+      pageId: record.pageId,
+      source: record.source,
+      stackTrace: record.stackTrace
+    };
+    this.consoleLog.push(full);
+    if (this.consoleLog.length > 1e3) this.consoleLog.shift();
+    this.bus.publish("CONSOLE", `console_${full.level}`, { text: full.text, level: full.level }, { pageId: full.pageId });
+    return full;
+  }
+  ingestConsoleMessages(messages) {
+    let count = 0;
+    for (const m of messages) {
+      this.recordConsoleMessage({
+        level: (m.level || m.type || "log").toLowerCase(),
+        text: m.text ?? m.message ?? String(m.args ?? ""),
+        pageId: m.pageId,
+        source: m.source,
+        stackTrace: m.stackTrace || (m.stack?.length ? m.stack.join("\n") : void 0)
+      });
+      count++;
+    }
+    return count;
+  }
+  listConsoleMessages(filter) {
+    const mode = this.modeFor({});
+    let list = this.consoleLog.slice();
+    if (filter?.level) {
+      const levels = filter.level.toLowerCase().split(",").map((s) => s.trim());
+      list = list.filter((m) => levels.includes(m.level));
+    }
+    if (filter?.pageId) list = list.filter((m) => m.pageId === filter.pageId);
+    if (filter?.searchQuery) {
+      const q = filter.searchQuery.toLowerCase();
+      list = list.filter((m) => m.text.toLowerCase().includes(q));
+    }
+    const total = list.length;
+    const offset = filter?.offset || 0;
+    const limit = filter?.limit || 50;
+    return { messages: list.slice(offset, offset + limit), total, mode };
+  }
+  // Shared bridge access for capability modules.
+  async bridgeCommand(command, payload) {
+    if (!this.bridge) throw new Error("BROWSER_UNAVAILABLE: bridge client not connected.");
+    return this.bridge.sendCommand(command, payload);
+  }
+}
+const unifiedRuntime = new UnifiedBrowserRuntime();
+class SessionAccess {
+  constructor(storage) {
+    this.storage = storage;
+  }
+  async requireSession(sessionId) {
+    const meta = await this.storage.getSession(sessionId);
+    if (!meta) {
+      const known = (await this.storage.listSessions()).slice(0, 10).map((s) => s.id).join(", ");
+      throw new Error(`INVALID_INPUT: session '${sessionId}' not found. Known sessions: ${known || "none recorded yet"}.`);
+    }
+    return meta;
+  }
+  async events(sessionId) {
+    return this.storage.getEvents(sessionId, { limit: 1e5 });
+  }
+  async correlation(sessionId) {
+    const events = await this.events(sessionId);
+    return new TemporalCorrelationEngine(events, unifiedRuntime.bus.snapshot({ limit: 500 }));
+  }
+  async initialSnapshot(sessionId) {
+    return this.storage.getInitialSnapshot(sessionId);
+  }
+  /** Reconstruct DOM state at timestamp T using the EXISTING reconstruction stack. */
+  async domStateAt(sessionId, timestamp) {
+    const { StateReconstructor: StateReconstructor2 } = await Promise.resolve().then(() => stateReconstructor);
+    const events = await this.events(sessionId);
+    const initial = await this.initialSnapshot(sessionId);
+    const checkpoints = await this.storage.getCheckpoints(sessionId);
+    const allCheckpoints = initial && !checkpoints.some((c) => c.sequence <= 1) ? [{
+      checkpointId: `init_${sessionId}`,
+      sessionId,
+      timestamp: initial.timestamp ?? 0,
+      sequence: 1,
+      wallClockTime: 0,
+      snapshot: initial,
+      eventIndex: 0,
+      eventsSinceLastCheckpoint: 0,
+      trigger: "INITIAL"
+    }, ...checkpoints] : checkpoints;
+    const reconstructor = new StateReconstructor2(allCheckpoints, events);
+    const snapshot = reconstructor.getStateAt({ timestamp });
+    if (!snapshot || snapshot.snapshotId === "snap_empty") {
+      return initial;
+    }
+    return snapshot;
+  }
+  /** Events filtered around a timestamp window. */
+  async eventsAround(sessionId, timestamp, windowMs) {
+    const all = await this.events(sessionId);
+    return all.filter((e) => Math.abs(e.timestamp - timestamp) <= windowMs);
+  }
+  /** Latest snapshot at or before T among initial + checkpoints. */
+  async latestSnapshotBefore(sessionId, timestamp) {
+    const initial = await this.initialSnapshot(sessionId);
+    const checkpoints = await this.storage.getCheckpoints(sessionId);
+    let best = null;
+    if (initial) best = { snapshot: initial, at: initial.timestamp ?? 0 };
+    for (const cp of checkpoints) {
+      const t = cp.timestamp ?? cp.snapshot?.timestamp ?? 0;
+      if (t <= timestamp && (!best || t > best.at)) {
+        best = { snapshot: cp.snapshot || cp, at: t };
+      }
+    }
+    return best;
+  }
+}
+function flattenSnapshot$1(snapshot) {
+  const elements = [];
+  const byId = /* @__PURE__ */ new Map();
+  const nodes = snapshot.nodes || {};
+  const walk = (id, depth, parentId) => {
+    const node = nodes[id];
+    if (!node) return;
+    if (node.nodeType === 1) {
+      const el = {
+        id: node.id,
+        parentId,
+        tagName: String(node.tagName || "").toLowerCase(),
+        attributes: { ...node.attributes || {} },
+        textContent: String(node.textContent || ""),
+        childCount: (node.children || []).length,
+        depth
+      };
+      elements.push(el);
+      byId.set(el.id, el);
+      for (const childId of node.children || []) walk(childId, depth + 1, node.id);
+    } else {
+      for (const childId of node.children || []) walk(childId, depth, parentId);
+    }
+  };
+  walk(snapshot.rootId, 0, null);
+  return { elements, byId };
+}
+function selectorOfFlat(el, byId) {
+  if (el.attributes.id) return `#${el.attributes.id}`;
+  const path2 = [];
+  let cursor = el;
+  while (cursor && path2.length < 6) {
+    let seg = cursor.tagName;
+    if (cursor.attributes.id) {
+      path2.unshift(`#${cursor.attributes.id}`);
+      break;
+    }
+    if (cursor.attributes.class) {
+      const cls = cursor.attributes.class.split(/\s+/).filter(Boolean)[0];
+      if (cls) seg += `.${cls}`;
+    }
+    path2.unshift(seg);
+    cursor = cursor.parentId !== null && cursor.parentId !== void 0 ? byId.get(cursor.parentId) : void 0;
+  }
+  return path2.join(" > ");
+}
+const MODE_CONFIG = {
+  MINIMAL: { description: "Landmarks + headings only: the skeleton of the page (~5-10% of FULL size).", tags: ["main", "header", "footer", "nav", "section", "article", "aside", "h1", "h2", "h3"], attrs: ["id"], textLimit: 60, includeLayout: false, includeA11y: false },
+  SEMANTIC: { description: "Semantic structure: landmarks, headings, lists, forms, images with names (~20% of FULL).", tags: null, attrs: ["id", "class", "role", "aria-label", "alt", "title", "type", "name", "value", "for"], textLimit: 80, includeLayout: false, includeA11y: true },
+  INTERACTION: { description: "Interactive elements only: links, buttons, inputs, selects, textareas with names and values (~10-15%).", tags: ["a", "button", "input", "select", "textarea", "label", "form", "option", "summary", "details"], attrs: ["id", "name", "type", "value", "placeholder", "aria-label", "role", "disabled", "checked", "href"], textLimit: 40, includeLayout: false, includeA11y: true },
+  FORENSIC: { description: "Full structure with mutation-relevant details: attributes, text, style hints, a11y flags (~60-70%).", tags: null, attrs: null, textLimit: 120, includeLayout: true, includeA11y: true },
+  FULL: { description: "Everything the recorder captured — no filtering (100%).", tags: null, attrs: null, textLimit: Infinity, includeLayout: true, includeA11y: true }
+};
+function smartSnapshot(input) {
+  const config = MODE_CONFIG[input.mode];
+  const flat = flattenSnapshot$1(input.snapshot);
+  const full = flat.elements;
+  let nodes;
+  if (config.tags === null) {
+    nodes = full;
+  } else {
+    const allowed = new Set(config.tags.map((t) => t.toUpperCase()));
+    nodes = full.filter((el) => allowed.has(el.tagName.toUpperCase()));
+  }
+  const out = nodes.map((el) => {
+    const record = {
+      tag: el.tagName
+    };
+    if (el.attributes.id) record.id = el.attributes.id;
+    if (config.attrs !== null) {
+      for (const attr of config.attrs) {
+        if (el.attributes[attr] !== void 0) record[attr] = el.attributes[attr];
+      }
+    } else {
+      record.attributes = el.attributes;
+    }
+    const text = el.textContent.trim();
+    if (text) record.text = text.length > config.textLimit ? text.slice(0, config.textLimit) + "…" : text;
+    record.path = `${el.depth}:${el.childCount > 0 ? `${el.childCount} children` : "leaf"}`;
+    if (config.includeLayout) {
+      record.style = el.attributes.style ? String(el.attributes.style).slice(0, 100) : void 0;
+    }
+    if (config.includeA11y) {
+      const role = el.attributes.role || (el.tagName === "a" ? "link" : el.tagName === "button" ? "button" : el.tagName.startsWith("h") ? "heading" : el.tagName === "img" ? "img" : void 0);
+      if (role) record.role = role;
+      if (el.attributes["aria-hidden"]) record.hidden = true;
+    }
+    return record;
+  });
+  const serialize = (obj) => JSON.stringify(obj);
+  const fullSize = full.length ? serialize(full.map((el) => ({ ...el, attributes: el.attributes, textContent: el.textContent.slice(0, 200) }))).length : 1;
+  const compressedSize = serialize(out).length;
+  const compressionRatio = Number((compressedSize / fullSize).toFixed(3));
+  const estimatedTokens = Math.ceil(compressedSize / 4);
+  return {
+    mode: input.mode,
+    description: config.description,
+    nodeCount: out.length,
+    fullNodeCount: full.length,
+    compressionRatio,
+    estimatedTokens,
+    nodes: out.slice(0, 300),
+    usage: input.mode === "FULL" ? "Full fidelity — use only when every attribute matters." : `This mode returns ~${Math.round(compressionRatio * 100)}% of the FULL snapshot size. Prefer the smallest mode that answers your question (§39).`
+  };
+}
+function recommendSnapshotMode(question) {
+  const q = question.toLowerCase();
+  if (/structure|landmark|outline|overview|skeleton/.test(q)) return "MINIMAL";
+  if (/button|link|click|type|input|form|fill|interact|tab order/.test(q)) return "INTERACTION";
+  if (/role|a11y|accessib|semantic|name|label|heading/.test(q)) return "SEMANTIC";
+  if (/mutation|diff|change|style|layout|why|disappear|forensic|evidence/.test(q)) return "FORENSIC";
+  return "SEMANTIC";
+}
+const DESTRUCTIVE_OPS = /* @__PURE__ */ new Set(["set_outer_html", "remove", "set_inner_html", "replace", "remove_attribute"]);
+function predictChangeImpact(input) {
+  const flat = input.snapshot ? flattenSnapshot$1(input.snapshot) : null;
+  flat ? flat.byId : /* @__PURE__ */ new Map();
+  const elements = flat ? flat.elements : [];
+  let target;
+  if (flat && input.selector) {
+    const clean = input.selector.replace(/^#/, "");
+    target = elements.find((el) => el.attributes.id === clean) || elements.find((el) => `#${el.attributes.id}` === input.selector || el.tagName === input.selector.toLowerCase());
+  }
+  const subtreeIds = /* @__PURE__ */ new Set();
+  if (target && flat) {
+    const collect = (id) => {
+      subtreeIds.add(id);
+      const node = input.snapshot.nodes[id];
+      for (const c of node?.children || []) collect(c);
+    };
+    collect(target.id);
+  }
+  const subtree = elements.filter((el) => subtreeIds.has(el.id));
+  const affectedElements = subtree.slice(0, 25).map((el) => ({ selector: el.attributes.id ? `#${el.attributes.id}` : el.tagName, reason: DESTRUCTIVE_OPS.has(input.operation) ? "destroyed by the operation" : "attribute/layout state changes" }));
+  const stored = input.storedSelectors || [];
+  const selectorBreakage = stored.map((sel) => {
+    const depends = subtree.some((el) => sel.includes(el.attributes.id ? `#${el.attributes.id}` : el.tagName)) || target && sel.includes(input.selector);
+    return {
+      selector: sel,
+      risk: DESTRUCTIVE_OPS.has(input.operation) && depends ? "HIGH" : depends ? "MEDIUM" : "LOW",
+      reason: depends ? `References an element inside the affected subtree (${input.operation}).` : "No dependency on the affected subtree detected."
+    };
+  });
+  let layoutSeverity = "NONE";
+  let layoutReason = "Read-only or attribute-scoped operation with no layout effect detected.";
+  if (["set_style", "add_class", "remove_class", "set_attribute"].includes(input.operation)) {
+    layoutSeverity = "MEDIUM";
+    layoutReason = "Style/class changes trigger reflow of the subtree and possibly siblings.";
+  } else if (DESTRUCTIVE_OPS.has(input.operation)) {
+    layoutSeverity = "HIGH";
+    layoutReason = `Subtree removal/replacement reflows ancestors and siblings (${subtree.length} descendant elements affected).`;
+  } else if (input.operation === "set_text" || input.operation === "replace_text") {
+    layoutSeverity = "LOW";
+    layoutReason = "Text changes cause local reflow (line wrapping).";
+  }
+  const interactiveInSubtree = subtree.filter((el) => /^(a|button|input|select|textarea|img)$/i.test(el.tagName));
+  const a11ySeverity = DESTRUCTIVE_OPS.has(input.operation) && interactiveInSubtree.length > 0 ? "HIGH" : interactiveInSubtree.length > 0 ? "LOW" : "NONE";
+  const a11yReason = interactiveInSubtree.length > 0 ? `${interactiveInSubtree.length} interactive element(s) in the subtree${DESTRUCTIVE_OPS.has(input.operation) ? " will be REMOVED from the a11y tree" : " may change semantics"}.` : "No interactive elements in the affected subtree.";
+  const formFields = subtree.filter((el) => /^(input|select|textarea)$/i.test(el.tagName));
+  const formStateImpact = {
+    affected: formFields.length > 0,
+    detail: formFields.length > 0 ? `${formFields.length} form field(s) in the subtree${DESTRUCTIVE_OPS.has(input.operation) ? " — user input state WILL BE LOST (undo does not restore user-typed values)." : " — values may be reset."}` : "No form fields in the affected subtree."
+  };
+  const listeners = input.listenersOnSubtree ?? Math.round(subtree.length * 0.12);
+  const overallRisk = DESTRUCTIVE_OPS.has(input.operation) && (subtree.length > 10 || formStateImpact.affected || interactiveInSubtree.length > 2) ? "HIGH" : layoutSeverity === "HIGH" || a11ySeverity === "HIGH" ? "HIGH" : layoutSeverity === "MEDIUM" || subtree.length > 3 ? "MEDIUM" : "LOW";
+  return {
+    target: input.selector,
+    operation: input.operation,
+    affectedSubtreeSize: subtree.length,
+    affectedElements,
+    selectorBreakage,
+    listenerImpact: {
+      estimatedListenersOnSubtree: listeners,
+      note: listeners > 0 ? "Listeners attached inside the subtree will be orphaned by destructive operations (listener leak risk)." : "No listeners expected on the subtree."
+    },
+    layoutImpact: { severity: layoutSeverity, reasoning: layoutReason },
+    a11yImpact: { severity: a11ySeverity, reasoning: a11yReason },
+    formStateImpact,
+    overallRisk,
+    confidence: flat && target ? 0.85 : 0.5
+  };
+}
+function evaluateMutationGuard(input) {
+  const reasons = [];
+  const conditions = [];
+  const p = input.prediction;
+  if (/(document|html|body|head)\b/i.test(input.selector) && DESTRUCTIVE_OPS.has(input.operation)) {
+    reasons.push(`Refusing to ${input.operation} the ${input.selector.match(/(document|html|body|head)/i)[0]} element — page-level structural destruction.`);
+    return { verdict: "BLOCKED", reasons, conditions: [], reversible: false };
+  }
+  if (p.formStateImpact.affected && input.operation === "set_outer_html") {
+    reasons.push(`set_outer_html destroys ${p.affectedSubtreeSize} nodes including form state — irreversible user-input loss.`);
+    return { verdict: "BLOCKED", reasons, conditions: ["Use surgical operations (set_attribute/set_text) instead, or export form values first."], reversible: false };
+  }
+  let verdict = "SAFE";
+  if (DESTRUCTIVE_OPS.has(input.operation)) {
+    verdict = p.affectedSubtreeSize > 20 ? "HIGH_RISK" : "CAUTION";
+    reasons.push(`Destructive operation (${input.operation}) on a subtree of ${p.affectedSubtreeSize} element(s).`);
+  }
+  if (p.layoutImpact.severity === "HIGH") {
+    verdict = verdict === "SAFE" ? "CAUTION" : "HIGH_RISK";
+    reasons.push(`Layout impact: ${p.layoutImpact.reasoning}`);
+  }
+  if (p.a11yImpact.severity === "HIGH") {
+    verdict = "HIGH_RISK";
+    reasons.push(`Accessibility impact: ${p.a11yImpact.reasoning}`);
+  }
+  if (p.formStateImpact.affected && verdict === "SAFE") {
+    verdict = "CAUTION";
+    reasons.push(p.formStateImpact.detail);
+  }
+  const highBreakage = p.selectorBreakage.filter((b) => b.risk === "HIGH");
+  if (highBreakage.length > 0) {
+    verdict = verdict === "SAFE" ? "CAUTION" : "HIGH_RISK";
+    reasons.push(`${highBreakage.length} stored selector(s) will break: ${highBreakage.map((b) => b.selector).slice(0, 5).join(", ")}`);
+  }
+  if (p.listenerImpact.estimatedListenersOnSubtree > 3) {
+    reasons.push(`${p.listenerImpact.estimatedListenersOnSubtree} listeners estimated on the subtree — orphan/leak risk.`);
+    if (verdict === "SAFE") verdict = "CAUTION";
+  }
+  if (verdict === "SAFE") reasons.push("Surgical, reversible operation with bounded subtree impact.");
+  if (verdict === "CAUTION" || verdict === "HIGH_RISK") {
+    conditions.push(
+      'Wrap in a transaction: mutate_dom_transaction {mode:"begin"} → mutation → commit (rollback path guaranteed).',
+      "Capture state first: capture_page_state — enables before/after verification via compare_page_states.",
+      "Verify with get_mutation_history after the change."
+    );
+  }
+  return { verdict, reasons, conditions, reversible: !DESTRUCTIVE_OPS.has(input.operation) || input.operation !== "set_outer_html" };
+}
+class TransactionJournalStore {
+  entries = [];
+  counter = 0;
+  append(entry) {
+    const full = {
+      transactionId: entry.transactionId || `tx_${++this.counter}`,
+      actor: entry.actor,
+      intent: entry.intent,
+      operation: entry.operation,
+      target: entry.target,
+      before: entry.before,
+      after: entry.after ?? null,
+      diff: entry.diff,
+      evidence: entry.evidence,
+      timestamp: entry.timestamp ?? Date.now(),
+      rollbackInfo: entry.rollbackInfo,
+      outcome: entry.outcome
+    };
+    this.entries.push(full);
+    if (this.entries.length > 500) this.entries.shift();
+    return full;
+  }
+  markOutcome(transactionId, outcome) {
+    let count = 0;
+    for (const e of this.entries) {
+      if (e.transactionId === transactionId && e.outcome === "OPEN") {
+        e.outcome = outcome;
+        count++;
+      }
+    }
+    return count;
+  }
+  query(filter) {
+    let list = this.entries.slice();
+    if (filter?.transactionId) list = list.filter((e) => e.transactionId === filter.transactionId);
+    if (filter?.operation) list = list.filter((e) => e.operation === filter.operation);
+    if (filter?.since !== void 0) list = list.filter((e) => e.timestamp >= filter.since);
+    return { entries: list.slice(-(filter?.limit || 50)).reverse(), total: this.entries.length };
+  }
+  stats() {
+    const committed = this.entries.filter((e) => e.outcome === "COMMITTED").length;
+    const rolledBack = this.entries.filter((e) => e.outcome === "ROLLED_BACK").length;
+    return { total: this.entries.length, committed, rolledBack, open: this.entries.length - committed - rolledBack };
+  }
+}
+const transactionJournal = new TransactionJournalStore();
+function journalFromMutation(result, actor = "mcp-agent") {
+  const before = result?.before || {};
+  const after = result?.after || null;
+  const changed = [];
+  if (before.attributes && after?.attributes) {
+    for (const key of /* @__PURE__ */ new Set([...Object.keys(before.attributes), ...Object.keys(after.attributes)])) {
+      if (before.attributes[key] !== after.attributes[key]) changed.push(`${key}: ${before.attributes[key] ?? "∅"} → ${after.attributes[key] ?? "∅"}`);
+    }
+  }
+  if (before.textContent !== void 0 && after?.textContent !== void 0 && before.textContent !== after.textContent) {
+    changed.push(`text: "${String(before.textContent).slice(0, 40)}" → "${String(after.textContent).slice(0, 40)}"`);
+  }
+  return {
+    actor,
+    intent: String(result?.intent || result?.operation || "unspecified"),
+    operation: String(result?.operation || "unknown"),
+    target: String(before.selector || result?.selector || "unknown"),
+    before: { selector: String(before.selector || "?"), htmlPreview: String(before.html || before.outerHTML || "").slice(0, 200), attributes: before.attributes || null },
+    after: after ? { selector: String(after.selector || before.selector || "?"), htmlPreview: String(after.html || after.outerHTML || "").slice(0, 200), attributes: after.attributes || null } : null,
+    diff: changed.length ? changed.join("; ") : result?.success ? "no property-level diff detected" : String(result?.error || "operation failed"),
+    evidence: [
+      result?.undoRecord ? `undo record available (${result.undoRecord.operation || "undo"})` : "no undo record (transaction-internal rollback only)",
+      result?.mutationId ? `mutation id ${result.mutationId}` : "mutation id unavailable"
+    ],
+    rollbackInfo: {
+      reversible: !!result?.undoRecord,
+      undoRecordAvailable: !!result?.undoRecord,
+      rollbackCommand: result?.undoRecord ? 'undo_dom_mutation (or mutate_dom_transaction {mode:"rollback"})' : 'mutate_dom_transaction {mode:"rollback"}'
+    },
+    outcome: result?.transactionId ? "OPEN" : "COMMITTED"
+  };
+}
+function journalMutationResult(result, actor = "mcp-agent") {
+  try {
+    const entry = journalFromMutation(result, actor);
+    const stored = transactionJournal.append({ ...entry, transactionId: result?.transactionId });
+    if (result?.transactionId) {
+      transactionJournal.markOutcome(String(result.transactionId), result?.committed === true ? "COMMITTED" : "ROLLED_BACK");
+    } else {
+      transactionJournal.markOutcome(stored.transactionId, "COMMITTED");
+    }
+    return stored;
+  } catch {
+    return null;
+  }
+}
 class ExtendedToolsHandler {
   localController;
   bridgeClient;
@@ -11465,19 +12630,26 @@ class ExtendedToolsHandler {
         return this.wrap({ execution: exec, before, after, comparison });
       }
       // --- DOM mutation ---
-      case "mutate_dom":
-        return this.wrap(await this.dispatch("DOM_MUTATE", this.mutationPayload(args)));
-      case "clone_dom_subtree":
-        return this.wrap(
-          await this.dispatch("DOM_MUTATE", {
-            operation: "clone_subtree",
-            target: args.target,
-            parent: args.parent,
-            copyAttributes: args.copyAttributes
-          })
-        );
-      case "mutate_dom_transaction":
-        return this.wrap(await this.dispatch("DOM_MUTATE_TRANSACTION", args));
+      case "mutate_dom": {
+        const result = await this.dispatch("DOM_MUTATE", this.mutationPayload(args));
+        this.journal(result, args.intent || "mutate_dom");
+        return this.wrap(result);
+      }
+      case "clone_dom_subtree": {
+        const result = await this.dispatch("DOM_MUTATE", {
+          operation: "clone_subtree",
+          target: args.target,
+          parent: args.parent,
+          copyAttributes: args.copyAttributes
+        });
+        this.journal(result, args.intent || "clone_dom_subtree");
+        return this.wrap(result);
+      }
+      case "mutate_dom_transaction": {
+        const result = await this.dispatch("DOM_MUTATE_TRANSACTION", args);
+        this.journal(result, args.intent || `transaction:${args.mode || "begin"}`);
+        return this.wrap(result);
+      }
       case "undo_dom_mutation":
         return this.wrap(await this.dispatch("UNDO_DOM_MUTATION", {}));
       case "redo_dom_mutation":
@@ -11791,34 +12963,9 @@ class ExtendedToolsHandler {
       return { success: false, error: "NO_HANDLER", summary: "Tool handler unavailable for sequence execution." };
     };
   }
-  fallbackDoc;
   document() {
     if (typeof document !== "undefined") return document;
-    if (typeof window !== "undefined" && window.document) return window.document;
-    if (!this.fallbackDoc) {
-      try {
-        const { JSDOM } = require("jsdom");
-        this.fallbackDoc = new JSDOM('<!DOCTYPE html><html><head><title>TeleDOM Simulation</title></head><body><div id="root"></div></body></html>').window.document;
-      } catch {
-        this.fallbackDoc = {
-          title: "TeleDOM Simulation",
-          readyState: "complete",
-          documentElement: {
-            outerHTML: '<html><head><title>TeleDOM Simulation</title></head><body><div id="root"></div></body></html>',
-            cloneNode: () => ({ outerHTML: '<html><head><title>TeleDOM Simulation</title></head><body><div id="root"></div></body></html>' })
-          },
-          defaultView: {
-            location: { href: "http://localhost:3847/simulation" },
-            innerWidth: 1280,
-            innerHeight: 800
-          },
-          querySelector: () => null,
-          querySelectorAll: () => [],
-          getElementById: () => null
-        };
-      }
-    }
-    return this.fallbackDoc;
+    throw new Error("NOT_CONNECTED: no live DOM context available (bridge has no connected browser).");
   }
   target(args) {
     return args.target || (args.selector ? { selector: args.selector } : void 0);
@@ -11844,7 +12991,6 @@ class ExtendedToolsHandler {
     };
   }
   cleanDom(doc) {
-    if (!doc) return "<html><head></head><body></body></html>";
     const clone = doc.documentElement.cloneNode(true);
     const redaction = new RedactionEngine();
     return redaction.redactValue(clone.outerHTML);
@@ -11854,25 +13000,31 @@ class ExtendedToolsHandler {
       try {
         return await this.bridgeClient.sendCommand(command, payload);
       } catch (bridgeErr) {
-        const doc2 = this.document();
-        const req2 = {
-          id: `x_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
-          command,
-          timestamp: Date.now(),
-          payload
-        };
-        const res2 = await this.localController.handleCommand(req2, doc2);
-        if (res2.success) {
-          return res2.data;
+        if (typeof document !== "undefined" || typeof window !== "undefined") {
+          const doc2 = typeof document !== "undefined" ? document : void 0;
+          const req2 = {
+            id: `x_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            command,
+            timestamp: Date.now(),
+            payload
+          };
+          const res2 = await this.localController.handleCommand(req2, doc2);
+          if (res2.success) {
+            return res2.data;
+          }
+          const localCode = res2.error?.code || "LOCAL_COMMAND_FAILED";
+          const localMessage = res2.error?.message || "unknown local error";
+          const combined = new Error(`${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`);
+          combined.code = localCode;
+          throw combined;
         }
-        const localCode = res2.error?.code || "LOCAL_COMMAND_FAILED";
-        const localMessage = res2.error?.message || "unknown local error";
-        const combined = new Error(`${bridgeErr.message} | local fallback also failed: [${localCode}] ${localMessage}`);
-        combined.code = localCode;
-        throw combined;
+        throw bridgeErr;
       }
     }
-    const doc = this.document();
+    const doc = typeof document !== "undefined" ? document : void 0;
+    if (!doc) {
+      throw new Error("NOT_CONNECTED: no browser extension connected to the bridge and no simulation DOM available.");
+    }
     const req = {
       id: `x_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
       command,
@@ -11884,6 +13036,16 @@ class ExtendedToolsHandler {
       throw new Error(`[${res.error?.code || "COMMAND_FAILED"}] ${res.error?.message || "Browser command failed"}`);
     }
     return res.data;
+  }
+  /**
+   * CAP 27 — feed the DOM transaction journal from the mutation flow.
+   * Journaling is best-effort and NEVER blocks a mutation.
+   */
+  journal(result, intent) {
+    try {
+      journalMutationResult({ ...result, intent }, "mcp-agent");
+    } catch {
+    }
   }
   wrap(data) {
     const text = typeof data === "string" ? data : JSON.stringify(data, null, 2);
@@ -11928,15 +13090,5553 @@ function inferTagFromSelector(selector) {
   const m = /^([a-z0-9-]+)/i.exec(selector || "");
   return m ? m[1].toLowerCase() : "div";
 }
+const D$1 = (name, description, inputSchema) => ({ name, description, inputSchema });
+const targetSchema = {
+  properties: {
+    uid: { type: "string", description: "Element uid from dt_take_snapshot" },
+    selector: { type: "string", description: "CSS selector of the element (fallback when no uid)" },
+    pageId: { type: "string", description: "Unified page id (defaults to active page)" },
+    tabId: { type: "number", description: "Extension tab id (alias for the page)" }
+  }
+};
+const DEVTOOLS_TOOLS = [
+  // ===================== INPUT AUTOMATION (10) =====================
+  D$1("dt_click", "Clicks an element (chrome-devtools-mcp click). Input: uid/selector (+pageId/tabId). Options: dblClick, includeSnapshot. Dispatches a real synthetic click through the unified runtime; verifies the element becomes interactive, else fails with actionable error.", {
+    type: "object",
+    properties: { ...targetSchema.properties, dblClick: { type: "boolean", description: "Double click (default false)" }, includeSnapshot: { type: "boolean", description: "Include an updated page snapshot in the response" } },
+    required: []
+  }),
+  D$1("dt_click_at", "Click at viewport coordinates with vision-assisted element resolution: reports which element the point hits before clicking. Input: x, y (+page). Use when only a screenshot position is known.", {
+    type: "object",
+    properties: { x: { type: "number", description: "X coordinate in CSS pixels" }, y: { type: "number", description: "Y coordinate in CSS pixels" }, pageId: { type: "string" }, tabId: { type: "number" }, includeSnapshot: { type: "boolean" } },
+    required: ["x", "y"]
+  }),
+  D$1("dt_drag", "Drag an element onto another element (or coordinates). Input: from(uid/selector), to(uid/selector or x/y). Uses real pointer event sequences when live.", {
+    type: "object",
+    properties: {
+      fromUid: { type: "string", description: "Uid of the element to drag" },
+      fromSelector: { type: "string", description: "CSS selector of the element to drag" },
+      toUid: { type: "string", description: "Uid of the drop target" },
+      toSelector: { type: "string", description: "CSS selector of the drop target" },
+      toX: { type: "number" },
+      toY: { type: "number" },
+      pageId: { type: "string" },
+      tabId: { type: "number" }
+    },
+    required: []
+  }),
+  D$1("dt_fill", "Set the value of a form field (clear + type) with optional submit key. Input: uid/selector, value, submitKey.", {
+    type: "object",
+    properties: { ...targetSchema.properties, value: { type: "string", description: "Value to set" }, submitKey: { type: "string", description: 'Key pressed after typing, e.g. "Enter"' }, includeSnapshot: { type: "boolean" } },
+    required: ["value"]
+  }),
+  D$1("dt_fill_form", "Fill MULTIPLE form fields in one batched call (§39: prefer this over repeated dt_fill). Input: fields[] each {uid/selector, value, submitKey}.", {
+    type: "object",
+    properties: {
+      fields: { type: "array", description: "Fields to fill", items: { type: "object", properties: { uid: { type: "string" }, selector: { type: "string" }, value: { type: "string", description: "Value to set" }, submitKey: { type: "string" } }, required: ["value"] } },
+      pageId: { type: "string" },
+      tabId: { type: "number" }
+    },
+    required: ["fields"]
+  }),
+  D$1("dt_handle_dialog", "Accept or dismiss an open JavaScript dialog (alert/confirm/prompt). Input: accept (boolean), promptText.", {
+    type: "object",
+    properties: { accept: { type: "boolean", description: "true to accept, false to dismiss" }, promptText: { type: "string", description: "Text to enter in a prompt dialog" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["accept"]
+  }),
+  D$1("dt_hover", "Hover over an element. Input: uid/selector.", { type: "object", properties: { ...targetSchema.properties } }),
+  D$1("dt_press_key", 'Press a key or key combination, e.g. "a", "Enter", "Control+Or,Control+a". Input: key.', {
+    type: "object",
+    properties: { key: { type: "string", description: "Key or combo string" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["key"]
+  }),
+  D$1("dt_type_text", "Type text into a field (keystroke by keystroke), optional submit key. Input: uid/selector, text, submitKey.", {
+    type: "object",
+    properties: { ...targetSchema.properties, text: { type: "string", description: "Text to type" }, submitKey: { type: "string" } },
+    required: ["text"]
+  }),
+  D$1("dt_upload_file", "Set the files of a file input programmatically. Input: uid/selector, files[] (paths or names).", {
+    type: "object",
+    properties: { ...targetSchema.properties, files: { type: "array", items: { type: "string" }, description: "File paths/names to attach" } },
+    required: ["files"]
+  }),
+  // ===================== NAVIGATION (7) =====================
+  D$1("dt_list_pages", "List all pages/tabs known to the unified runtime with the canonical page identity mapping (pageId ↔ tabId ↔ url ↔ frames). Read-only.", { type: "object", properties: {} }),
+  D$1("dt_select_page", "Bring a page to focus. Input: pageId / tabId / index (0-based).", {
+    type: "object",
+    properties: { pageId: { type: "string" }, tabId: { type: "number" }, index: { type: "number", description: "0-based index into the page list" } }
+  }),
+  D$1("dt_new_page", "Open a new page/tab. Input: url. Returns the new canonical page identity.", {
+    type: "object",
+    properties: { url: { type: "string", description: "Initial URL (http/https/file)" } },
+    required: ["url"]
+  }),
+  D$1("dt_close_page", "Close a page. Input: pageId/tabId. Fails with PAGE_NOT_FOUND when the page is unknown.", {
+    type: "object",
+    properties: { pageId: { type: "string" }, tabId: { type: "number" } }
+  }),
+  D$1("dt_navigate_page", "Navigate a page to a URL. Records a NavigationRecord on the page identity (identity survives navigation). Input: url (+page).", {
+    type: "object",
+    properties: { url: { type: "string" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["url"]
+  }),
+  D$1("dt_history_navigation", "Navigate browser history: back / forward / reload. Input: direction (+page).", {
+    type: "object",
+    properties: { direction: { type: "string", enum: ["back", "forward", "reload"], description: "History direction" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["direction"]
+  }),
+  D$1("dt_wait_for", 'Wait until a condition: "load", "domcontentloaded", "networkidle" (0 inflight ≥500ms) or a selector becoming visible. Input: condition, selector?, timeoutMs (default 8000).', {
+    type: "object",
+    properties: {
+      condition: { type: "string", enum: ["load", "domcontentloaded", "networkidle", "selector-visible"], description: "What to wait for" },
+      selector: { type: "string", description: "CSS selector to wait for (selector-visible)" },
+      timeoutMs: { type: "number", description: "Timeout in ms (default 8000)" },
+      pageId: { type: "string" },
+      tabId: { type: "number" }
+    },
+    required: ["condition"]
+  }),
+  // ===================== EMULATION (2) =====================
+  D$1("dt_emulate", "Emulate device/page characteristics in one call: viewport, deviceScaleFactor, userAgent, cpuThrottlingRate (×), network conditions (downloadKbps/uploadKbps/latencyMs), geolocation, colorScheme, extra headers, locale, timezone. All reversible via dt_emulate reset:true. Integrates with MCPDOM viewport controller for live extension tabs.", {
+    type: "object",
+    properties: {
+      reset: { type: "boolean", description: "Reset all emulation to defaults" },
+      viewport: { type: "object", properties: { width: { type: "number" }, height: { type: "number" } } },
+      deviceScaleFactor: { type: "number" },
+      userAgent: { type: "string" },
+      cpuThrottlingRate: { type: "number", description: "CPU throttle multiplier (1–20), e.g. 4 = 4× slower" },
+      networkConditions: { type: "object", properties: { downloadKbps: { type: "number" }, uploadKbps: { type: "number" }, latencyMs: { type: "number" } } },
+      geolocation: { type: "object", properties: { latitude: { type: "number" }, longitude: { type: "number" }, accuracy: { type: "number" } } },
+      colorScheme: { type: "string", enum: ["light", "dark"] },
+      extraHeaders: { type: "object", description: "Extra HTTP headers (name → value)" },
+      locale: { type: "string" },
+      timezoneId: { type: "string" },
+      pageId: { type: "string" },
+      tabId: { type: "number" }
+    }
+  }),
+  D$1("dt_resize_page", "Resize the page viewport. Input: width, height (+page). Reversible (call again with the original size or dt_emulate reset).", {
+    type: "object",
+    properties: { width: { type: "number" }, height: { type: "number" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["width", "height"]
+  }),
+  // ===================== PERFORMANCE (3) =====================
+  D$1("dt_performance_start_trace", "Start a performance trace on a page (CDP Tracing/Performance domains through the extension gateway). One trace per page at a time (NAVIGATION_CONFLICT-style guard). Without a CDP session, runs a deterministic SIMULATED trace buffer clearly labeled simulated:true — never presented as real Chrome data.", {
+    type: "object",
+    properties: { categories: { type: "array", items: { type: "string" }, description: "Trace categories (default devtools.timeline)" }, pageId: { type: "string" }, tabId: { type: "number" } }
+  }),
+  D$1("dt_performance_stop_trace", "Stop the active trace and return normalized trace events, Web Vitals (LCP/INP/CLS/FCP), long tasks, layout shifts and phase breakdown. Input: traceId (optional — active trace of the page is used).", {
+    type: "object",
+    properties: { traceId: { type: "string" }, pageId: { type: "string" } }
+  }),
+  D$1("dt_performance_analyze_insight", "Analyze a stopped trace or a provided Chrome trace-events array: extracts insights (long tasks, layout shifts, LCP candidates, parse/layout/paint/network phases) with durations. Input: traceId or events[].", {
+    type: "object",
+    properties: {
+      traceId: { type: "string" },
+      events: { type: "array", description: "Raw Chrome trace events to analyze (ts/dur/name/cat/ph)", items: { type: "object" } },
+      insight: { type: "string", enum: ["all", "long-tasks", "layout-shifts", "web-vitals", "phases"], description: "Focus of the analysis (default all)" }
+    }
+  }),
+  // ===================== NETWORK (2) =====================
+  D$1("dt_list_network_requests", 'List captured network requests from the unified runtime network log (shared with MCPDOM capture). Filters: urlPattern, method, status (number|"error"|"success"), resourceType; pagination offset/limit; includeBody.', {
+    type: "object",
+    properties: {
+      urlPattern: { type: "string" },
+      method: { type: "string" },
+      status: { description: 'Exact status code, "error", or "success"' },
+      resourceType: { type: "string" },
+      offset: { type: "number" },
+      limit: { type: "number" },
+      pageId: { type: "string" },
+      tabId: { type: "number" },
+      ingestTabId: { type: "number", description: "First ingest MCPDOM-captured requests for this tab (bridge) before listing" }
+    }
+  }),
+  D$1("dt_get_network_request", "Inspect one network request in full: headers, body (when captured), timings, cache state. Input: requestId.", {
+    type: "object",
+    properties: { requestId: { type: "string", description: "Request id from dt_list_network_requests" }, includeBody: { type: "boolean", description: "Include captured bodies (default true)" } },
+    required: ["requestId"]
+  }),
+  // ===================== DEBUGGING (8) =====================
+  D$1("dt_evaluate_script", "Evaluate JavaScript in page context and return the serialized result. EXPLICIT tool — other capabilities must not wrap everything through this. Input: script (expression or statements), awaitPromise.", {
+    type: "object",
+    properties: { script: { type: "string", description: "JavaScript to evaluate" }, awaitPromise: { type: "boolean", description: "Await returned promises (default true)" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["script"]
+  }),
+  D$1("dt_list_console_messages", "List console messages captured by the unified runtime (shares capture with MCPDOM console interception). Filters: level (log,info,warn,error or csv), searchQuery; pagination. In simulation, first ingests MCPDOM-captured console logs for the tab.", {
+    type: "object",
+    properties: { level: { type: "string" }, searchQuery: { type: "string" }, offset: { type: "number" }, limit: { type: "number" }, pageId: { type: "string" }, tabId: { type: "number" }, ingestTabId: { type: "number" } }
+  }),
+  D$1("dt_get_console_message", "Inspect one console message with full text, source and stack. Input: messageId.", {
+    type: "object",
+    properties: { messageId: { type: "string" } },
+    required: ["messageId"]
+  }),
+  D$1("dt_take_screenshot", "Capture a page screenshot (png/jpeg), viewport or element-bounded. Routes through MCPDOM capture (DPR-preserving). Input: format, uid/selector for element capture, outputPath to persist.", {
+    type: "object",
+    properties: {
+      format: { type: "string", enum: ["png", "jpeg"], description: "Image format (default png)" },
+      uid: { type: "string", description: "Element uid for element-bounded capture" },
+      selector: { type: "string", description: "CSS selector for element-bounded capture" },
+      outputPath: { type: "string", description: "Optional file path to persist the capture" },
+      pageId: { type: "string" },
+      tabId: { type: "number" }
+    }
+  }),
+  D$1("dt_take_snapshot", "Take a semantic text snapshot of the page (a11y-structured, uid-addressable) used by uid-based input tools. Returns node tree with roles/names and uids. §39: prefer this compact snapshot over full DOM dumps for page understanding.", {
+    type: "object",
+    properties: { pageId: { type: "string" }, tabId: { type: "number" }, selector: { type: "string", description: "Limit the snapshot to a subtree" } }
+  }),
+  D$1("dt_screencast_start", "EXPERIMENTAL: start screencast frame streaming (CDP Page.screencast). Requires live CDP session; UNSUPPORTED in simulation (reports mode UNAVAILABLE, never fake frames).", {
+    type: "object",
+    properties: { pageId: { type: "string" }, tabId: { type: "number" }, maxDurationMs: { type: "number" } }
+  }),
+  D$1("dt_screencast_stop", "EXPERIMENTAL: stop screencast streaming and return captured frame metadata. Requires live CDP session.", { type: "object", properties: { pageId: { type: "string" }, tabId: { type: "number" } } }),
+  D$1("dt_lighthouse_audit", "EXPERIMENTAL: run a Lighthouse audit via the DevTools connection. Requires live CDP session — in simulation reports mode UNAVAILABLE (Lighthouse results are never synthesized).", {
+    type: "object",
+    properties: { categories: { type: "array", items: { type: "string" }, description: "Audit categories (default performance,accessibility,best-practices)" }, pageId: { type: "string" }, tabId: { type: "number" } }
+  }),
+  // ===================== MEMORY (13) =====================
+  D$1("dt_take_heapsnapshot", "Capture a V8 heap snapshot of a page via CDP HeapProfiler (live). In simulation, registers a deterministic fixture snapshot in the REAL .heapsnapshot format, marked simulated:true — analysis code paths are identical; the DATA is explicitly not a real V8 capture. Input: pageId/tabId, raw (optional: pre-captured snapshot JSON string).", {
+    type: "object",
+    properties: {
+      pageId: { type: "string" },
+      tabId: { type: "number" },
+      raw: { type: "string", description: "Optional pre-captured .heapsnapshot JSON string to register instead of live capture" },
+      saveToPath: { type: "string", description: "Optional path to persist the raw snapshot JSON" }
+    }
+  }),
+  D$1("dt_close_heapsnapshot", "Release a loaded heap snapshot (§24 lifecycle). Input: snapshotId.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_summary", "Class aggregates of a heap snapshot: per-class object counts and self sizes, totals, top retainers of size. Input: snapshotId.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, limit: { type: "number", description: "Max classes returned (default 50)" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_details", "Snapshot details: node/edge counts, meta field layout, parse duration. Input: snapshotId.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_class_nodes", "List the node ids of a class with pagination. Input: snapshotId, className, offset, limit.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, className: { type: "string" }, offset: { type: "number" }, limit: { type: "number" } },
+    required: ["snapshotId", "className"]
+  }),
+  D$1("dt_heapsnapshot_edges", "Outgoing edges (references) of a node. Input: snapshotId, nodeId (V8 object id) or nodeIndex.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, nodeId: { type: "number" }, nodeIndex: { type: "number" }, limit: { type: "number" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_retainers", "Retainers (incoming references) of a node — who keeps it alive. Input: snapshotId, nodeId/nodeIndex.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, nodeId: { type: "number" }, nodeIndex: { type: "number" }, limit: { type: "number" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_retaining_paths", "Retaining paths from GC roots to a node (shortest path reconstruction). Input: snapshotId, nodeId/nodeIndex, maxPaths.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, nodeId: { type: "number" }, nodeIndex: { type: "number" }, maxPaths: { type: "number" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_dominators", "Dominator analysis: nodes ranked by retained tree size with their immediate dominator class. Input: snapshotId, limit.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, limit: { type: "number" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_duplicate_strings", "Duplicate string instances in the heap — wasted memory detection with instance counts and bytes. Input: snapshotId, limit.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, limit: { type: "number" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_heapsnapshot_object_details", "Full details of one object: type, class, self size, outgoing edges, retainers, detachedness. Input: snapshotId, nodeId (V8 id) or nodeIndex.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, nodeId: { type: "number" }, nodeIndex: { type: "number" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_query_heapsnapshot_objects", "Query heap objects by type, className (substring match) and minimum self size. Input: snapshotId + filters.", {
+    type: "object",
+    properties: { snapshotId: { type: "string" }, type: { type: "string" }, className: { type: "string" }, minSize: { type: "number" }, limit: { type: "number" } },
+    required: ["snapshotId"]
+  }),
+  D$1("dt_compare_heapsnapshots", "Compare two heap snapshots: per-class added/removed objects and size deltas, plus totals. Input: snapshotA, snapshotB.", {
+    type: "object",
+    properties: { snapshotA: { type: "string", description: "Baseline snapshot id" }, snapshotB: { type: "string", description: "Comparison snapshot id" } },
+    required: ["snapshotA", "snapshotB"]
+  }),
+  // ===================== EXTENSIONS (5) =====================
+  D$1("dt_install_extension", "Install (load) a browser extension by path/id (live extension management via chrome.management). DANGEROUS: changes browser state. Input: extensionPath or extensionId.", {
+    type: "object",
+    properties: { extensionPath: { type: "string" }, extensionId: { type: "string" } }
+  }),
+  D$1("dt_list_extensions", "List installed browser extensions with enable state. Shares capture with MCPDOM list_extensions but returns the DevTools-normalized extension model.", { type: "object", properties: {} }),
+  D$1("dt_reload_extension", "Reload an extension by id (dev workflow). Input: extensionId.", {
+    type: "object",
+    properties: { extensionId: { type: "string" } },
+    required: ["extensionId"]
+  }),
+  D$1("dt_trigger_extension_action", "Trigger (activate) an extension action by id. Input: extensionId.", {
+    type: "object",
+    properties: { extensionId: { type: "string" } },
+    required: ["extensionId"]
+  }),
+  D$1("dt_uninstall_extension", "Uninstall an extension by id. DANGEROUS: destructive. Input: extensionId.", {
+    type: "object",
+    properties: { extensionId: { type: "string" } },
+    required: ["extensionId"]
+  }),
+  // ===================== THIRD-PARTY DEVTOOLS (2) =====================
+  D$1("dt_list_3p_developer_tools", "Discover third-party developer tools exposed by the page (window-registered devtools integrations). Returns registry with invocation contracts.", { type: "object", properties: { pageId: { type: "string" }, tabId: { type: "number" } } }),
+  D$1("dt_execute_3p_developer_tool", "Execute a discovered third-party developer tool. EXPERIMENTAL. Input: toolId + args (validated against the discovered contract).", {
+    type: "object",
+    properties: { toolId: { type: "string" }, args: { type: "object" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["toolId"]
+  }),
+  // ===================== WEBMCP (2) =====================
+  D$1("dt_list_webmcp_tools", "Discover WebMCP tools exposed by the page (navigator.webMCP registrations per the WebMCP draft). Returns tool schemas for remote execution.", { type: "object", properties: { pageId: { type: "string" }, tabId: { type: "number" } } }),
+  D$1("dt_execute_webmcp_tool", "Execute a WebMCP tool exposed by the page. Input: toolName + args (validated against the discovered schema).", {
+    type: "object",
+    properties: { toolName: { type: "string" }, args: { type: "object" }, pageId: { type: "string" }, tabId: { type: "number" } },
+    required: ["toolName"]
+  })
+];
+const DEVTOOLS_TOOL_NAMES = new Set(DEVTOOLS_TOOLS.map((t) => t.name));
+class ToolError extends Error {
+  code;
+  details;
+  retriable;
+  constructor(code, message, details, retriable = false) {
+    super(message);
+    this.name = "ToolError";
+    this.code = code;
+    this.details = details;
+    this.retriable = retriable;
+  }
+}
+const RECOVERY_HINTS = {
+  INVALID_INPUT: "Check the tool schema; validate argument types and required fields.",
+  BROWSER_UNAVAILABLE: "Connect the Chrome extension and verify the bridge on ws://127.0.0.1:3847 (GET /health).",
+  PAGE_NOT_FOUND: "Re-list pages/tabs and retry with a valid pageId/tabId.",
+  TARGET_STALE: "The page changed (navigation/mutation). Re-resolve the target or use recover_selector.",
+  CAPABILITY_UNAVAILABLE: "The capability requires a subsystem that is disabled or not connected (CDP/bridge/extension).",
+  TIMEOUT: "Retry, or raise the timeout parameter; check page responsiveness.",
+  NAVIGATION_CONFLICT: "A navigation is in flight. Wait for it to settle (wait_for) before retrying.",
+  MUTATION_CONFLICT: "A mutation transaction is open. Commit or roll back before starting another.",
+  RESOURCE_EXHAUSTED: "Too many resources of this kind are open (traces, heap snapshots). Close unused ones.",
+  UNSUPPORTED_OPERATION: "The operation is not supported in this execution mode or on this target.",
+  INTERNAL_ERROR: "Unexpected internal failure; see server logs and report with correlation id."
+};
+let errorCounter = 0;
+function toErrorEnvelope(err) {
+  let code = "INTERNAL_ERROR";
+  let message = "Unknown internal error";
+  let details;
+  let retriable = false;
+  if (err instanceof ToolError) {
+    code = err.code;
+    message = err.message;
+    details = err.details;
+    retriable = err.retriable;
+  } else if (err instanceof Error) {
+    message = err.message;
+    const lower = message.toLowerCase();
+    if (lower.includes("timeout") || lower.includes("timed out")) {
+      code = "TIMEOUT";
+      retriable = true;
+    } else if (lower.includes("no active browser extension") || lower.includes("bridge")) {
+      code = "BROWSER_UNAVAILABLE";
+      retriable = true;
+    } else if (lower.includes("tab_not_found") || lower.includes("no simulated tab") || lower.includes("page not found")) {
+      code = "PAGE_NOT_FOUND";
+    } else if (lower.includes("transaction") && (lower.includes("open") || lower.includes("already"))) {
+      code = "MUTATION_CONFLICT";
+    } else if (lower.includes("invalid") || lower.includes("required") || lower.includes("must be")) {
+      code = "INVALID_INPUT";
+    }
+  } else if (typeof err === "string") {
+    message = err;
+  }
+  return {
+    isError: true,
+    code,
+    message,
+    details,
+    recoveryHint: RECOVERY_HINTS[code],
+    retriable,
+    correlationId: `err_${Date.now()}_${++errorCounter}`
+  };
+}
+class SnapshotStore {
+  latest = /* @__PURE__ */ new Map();
+  uidCounter = 0;
+  store(pageId, tree) {
+    const uidMap = /* @__PURE__ */ new Map();
+    const walk = (nodes) => {
+      for (const n of nodes) {
+        uidMap.set(n.uid, n);
+        walk(n.children);
+      }
+    };
+    walk(tree);
+    this.latest.set(pageId, { tree, uidMap, takenAt: Date.now() });
+    return { snapshotSize: uidMap.size };
+  }
+  resolve(pageId, uid) {
+    return this.latest.get(pageId)?.uidMap.get(uid);
+  }
+  get(pageId) {
+    const entry = this.latest.get(pageId);
+    return entry ? { tree: entry.tree, takenAt: entry.takenAt } : void 0;
+  }
+  nextUid() {
+    return `e${++this.uidCounter}`;
+  }
+}
+const snapshotStore = new SnapshotStore();
+const INTERACTIVE_TAGS$1 = /* @__PURE__ */ new Set(["a", "button", "input", "select", "textarea", "summary", "details", "option", "label", "menuitem", "tab"]);
+const CLICKABLE_ROLES = /* @__PURE__ */ new Set(["button", "link", "checkbox", "radio", "menuitem", "option", "tab", "textbox", "combobox", "listbox", "slider", "switch"]);
+function roleOf(el) {
+  const explicit = el.getAttribute("role");
+  if (explicit) return explicit;
+  const tag = el.tagName.toLowerCase();
+  switch (tag) {
+    case "a":
+      return el.getAttribute("href") ? "link" : "generic";
+    case "button":
+      return "button";
+    case "input": {
+      const type = (el.getAttribute("type") || "text").toLowerCase();
+      if (type === "checkbox") return "checkbox";
+      if (type === "radio") return "radio";
+      if (type === "submit" || type === "button" || type === "reset") return "button";
+      return "textbox";
+    }
+    case "select":
+      return "combobox";
+    case "textarea":
+      return "textbox";
+    case "img":
+      return "img";
+    case "ul":
+      return "list";
+    case "li":
+      return "listitem";
+    case "table":
+      return "table";
+    case "nav":
+      return "navigation";
+    case "main":
+      return "main";
+    case "header":
+      return "banner";
+    case "footer":
+      return "contentinfo";
+    case "form":
+      return "form";
+    default:
+      return "generic";
+  }
+}
+function nameOf(el) {
+  const aria = el.getAttribute("aria-label") || el.getAttribute("title");
+  if (aria) return aria;
+  const labelledBy = el.getAttribute("aria-labelledby");
+  if (labelledBy && typeof document !== "undefined") {
+    const label = document.getElementById(labelledBy);
+    if (label) return (label.textContent || "").trim().slice(0, 80);
+  }
+  if (el.tagName.toLowerCase() === "input") {
+    const id = el.getAttribute("id");
+    if (id && typeof document !== "undefined") {
+      const label = document.querySelector(`label[for="${id}"]`);
+      if (label) return (label.textContent || "").trim().slice(0, 80);
+    }
+    const type = el.getAttribute("type");
+    if (type === "submit" || type === "button") return el.getAttribute("value") || "";
+  }
+  return (el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80);
+}
+function selectorOf(el) {
+  const id = el.getAttribute("id");
+  if (id && typeof document !== "undefined") {
+    try {
+      if (document.querySelectorAll(`#${CSS.escape ? CSS.escape(id) : id}`).length === 1) return `#${id}`;
+    } catch {
+    }
+  }
+  const path2 = [];
+  let cursor = el;
+  while (cursor && cursor.tagName && path2.length < 8) {
+    const seg = cursor.tagName.toLowerCase();
+    const cursorId = cursor.getAttribute?.("id");
+    if (cursorId) {
+      path2.unshift(`#${cursorId}`);
+      break;
+    }
+    const parent = cursor.parentElement;
+    if (parent) {
+      const siblings = Array.from(parent.children).filter((c) => c.tagName === cursor.tagName);
+      const idx = siblings.indexOf(cursor);
+      path2.unshift(seg + (siblings.length > 1 ? `:nth-of-type(${idx + 1})` : ""));
+    } else {
+      path2.unshift(seg);
+    }
+    cursor = parent;
+  }
+  return path2.join(" > ");
+}
+function buildPageSnapshot(root) {
+  const buildNode = (el) => {
+    const tag = el.tagName.toLowerCase();
+    const interactive = INTERACTIVE_TAGS$1.has(tag) || CLICKABLE_ROLES.has(roleOf(el)) || el.hasAttribute("onclick") || el.getAttribute("tabindex") !== null;
+    const node = {
+      uid: snapshotStore.nextUid(),
+      role: roleOf(el),
+      name: nameOf(el),
+      selector: selectorOf(el),
+      tagName: tag,
+      interactive,
+      children: []
+    };
+    if (tag === "input" || tag === "select" || tag === "textarea") {
+      const value = el.value;
+      if (value !== void 0 && value !== "") node.value = String(value).slice(0, 40);
+    }
+    for (const child of Array.from(el.children)) {
+      node.children.push(buildNode(child));
+    }
+    return node;
+  };
+  const tree = [];
+  const scope = root || (typeof document !== "undefined" ? document.body : null);
+  if (scope) {
+    for (const el of Array.from(scope.children)) tree.push(buildNode(el));
+  }
+  return { tree };
+}
+function resolveTarget(args, pageId) {
+  if (args.uid) {
+    const node = snapshotStore.resolve(pageId, args.uid);
+    if (!node) {
+      throw new Error(`INVALID_INPUT: uid '${args.uid}' is not known. Take a fresh snapshot with dt_take_snapshot — uids reset after navigation.`);
+    }
+    return { selector: node.selector, uid: args.uid };
+  }
+  if (args.selector) return { selector: args.selector };
+  return {};
+}
+async function resolvePageId(args) {
+  if (args.pageId) return { pageId: args.pageId };
+  if (args.tabId !== void 0) {
+    const page2 = unifiedRuntime.identity.resolve({ tabId: args.tabId });
+    if (page2) return { pageId: page2.pageId, tabId: args.tabId };
+    const registered = unifiedRuntime.identity.register({ url: "about:blank", extensionTabId: args.tabId });
+    return { pageId: registered.pageId, tabId: args.tabId };
+  }
+  const pages = unifiedRuntime.identity.list();
+  if (pages.length > 0) return { pageId: pages[pages.length - 1].pageId, tabId: pages[pages.length - 1].extensionTabId };
+  const list = await unifiedRuntime.listPages();
+  if (list.pages.length > 0) {
+    const last = list.pages[list.pages.length - 1];
+    return { pageId: last.pageId, tabId: last.extensionTabId };
+  }
+  const page = unifiedRuntime.identity.register({ url: typeof document !== "undefined" && document.location?.href || "https://app.internal/dashboard", title: "Simulation Fixture" });
+  return { pageId: page.pageId };
+}
+function flattenSnapshot(tree, maxNodes = 400) {
+  const out = [];
+  const walk = (nodes, depth) => {
+    for (const n of nodes) {
+      if (out.length >= maxNodes) return;
+      out.push({ uid: n.uid, role: n.role, name: n.name, selector: n.selector, interactive: n.interactive, value: n.value, depth });
+      walk(n.children, depth + 1);
+    }
+  };
+  walk(tree, 0);
+  return out;
+}
+async function runInPage(code, tabId, timeoutMs) {
+  const normalized = normalizeForExecution(code);
+  const raw = await unifiedRuntime.bridgeCommand("EXECUTE_JS", { code: normalized, tabId, timeoutMs });
+  const envelope = raw;
+  const status = String(envelope?.status || "");
+  if (status && (status.includes("ERROR") || status.includes("TIMED_OUT") || status.includes("BLOCKED"))) {
+    throw new Error(`TARGET_STALE/EXECUTION: ${status}: ${envelope?.error?.message || "script execution failed"}`);
+  }
+  const result = envelope?.result;
+  if (typeof result === "string") {
+    const trimmed = result.trim();
+    if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+      try {
+        return JSON.parse(trimmed);
+      } catch {
+        return result;
+      }
+    }
+    if (trimmed === "undefined" || trimmed === "") return void 0;
+    return result;
+  }
+  return result ?? envelope;
+}
+function normalizeForExecution(code) {
+  const trimmed = code.trim();
+  const startsWithExpression = /^[[({]/.test(trimmed);
+  const startsWithReturn = /^return\b/.test(trimmed);
+  const hasLineStartReturn = /(^|\n)\s*return\b/.test(trimmed);
+  if (startsWithExpression && !startsWithReturn) {
+    return `return (${trimmed});`;
+  }
+  if (startsWithReturn || hasLineStartReturn) {
+    return code;
+  }
+  return `return (${trimmed});`;
+}
+const interactionCore = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  buildPageSnapshot,
+  flattenSnapshot,
+  normalizeForExecution,
+  resolvePageId,
+  resolveTarget,
+  runInPage,
+  snapshotStore
+}, Symbol.toStringTag, { value: "Module" }));
+class CdpGateway {
+  bridge;
+  sessions = /* @__PURE__ */ new Map();
+  sessionCounter = 0;
+  /** command serialization per session (§23). */
+  queues = /* @__PURE__ */ new Map();
+  remoteListeners = /* @__PURE__ */ new Map();
+  setBridge(bridge) {
+    this.bridge = bridge;
+  }
+  isAvailable() {
+    return !!this.bridge;
+  }
+  /** Attach a CDP session to a target (tab). */
+  async attach(target) {
+    if (!this.bridge) {
+      throw new Error("CAPABILITY_UNAVAILABLE: CDP gateway requires the MCPDOM extension bridge (chrome.debugger transport).");
+    }
+    for (const session of this.sessions.values()) {
+      if (target.tabId !== void 0 && session.tabId === target.tabId) return session;
+      if (target.targetId && session.targetId === target.targetId) return session;
+    }
+    const sessionId = `cdp_${++this.sessionCounter}`;
+    const targetId = target.targetId || `tab_${target.tabId ?? "active"}`;
+    const attachResult = await this.bridge.sendCommand("CDP_ATTACH", { sessionId, tabId: target.tabId, targetId });
+    const info = {
+      sessionId,
+      targetId: attachResult?.targetId || targetId,
+      tabId: target.tabId ?? attachResult?.tabId,
+      attachedAt: Date.now(),
+      commandsSent: 0,
+      domains: /* @__PURE__ */ new Set()
+    };
+    this.sessions.set(sessionId, info);
+    return info;
+  }
+  /**
+   * Send a CDP command. Serialized per session to avoid interleaved
+   * protocol corruption during concurrent tool calls.
+   */
+  async send(sessionId, method, params) {
+    const session = this.sessions.get(sessionId);
+    if (!session) throw new Error(`PAGE_NOT_FOUND: no CDP session '${sessionId}'. Attach first.`);
+    const bridge = this.bridge;
+    if (!bridge) throw new Error("CAPABILITY_UNAVAILABLE: CDP gateway bridge disconnected.");
+    const domain = method.split(".")[0];
+    session.domains.add(domain);
+    session.commandsSent++;
+    const run = async () => {
+      const result = await bridge.sendCommand("CDP_COMMAND", { sessionId, method, params: params || {} });
+      if (result && result.__cdpError) {
+        throw new Error(`CDP error ${result.code || "UNKNOWN"}: ${result.message || "protocol error"} (method: ${method})`);
+      }
+      return result?.result !== void 0 ? result.result : result;
+    };
+    const prev = this.queues.get(sessionId) || Promise.resolve();
+    const next = prev.then(run, run);
+    this.queues.set(sessionId, next.catch(() => {
+    }));
+    return next;
+  }
+  /** Subscribe to CDP domain events routed from the extension. */
+  onRemoteEvent(sessionId, listener) {
+    const list = this.remoteListeners.get(sessionId) || [];
+    list.push(listener);
+    this.remoteListeners.set(sessionId, list);
+    return () => {
+      const arr = this.remoteListeners.get(sessionId);
+      if (arr) {
+        const idx = arr.indexOf(listener);
+        if (idx >= 0) arr.splice(idx, 1);
+      }
+    };
+  }
+  /** Feed events arriving from the extension into listeners (called by gateway transport). */
+  dispatchRemoteEvent(sessionId, method, params) {
+    for (const listener of this.remoteListeners.get(sessionId) || []) {
+      try {
+        listener({ method, params });
+      } catch {
+      }
+    }
+  }
+  async detach(sessionId) {
+    const session = this.sessions.get(sessionId);
+    if (!session) return false;
+    if (this.bridge) {
+      try {
+        await this.bridge.sendCommand("CDP_DETACH", { sessionId });
+      } catch {
+      }
+    }
+    this.sessions.delete(sessionId);
+    this.queues.delete(sessionId);
+    this.remoteListeners.delete(sessionId);
+    return true;
+  }
+  /** Detach everything (server shutdown, §24). */
+  async detachAll() {
+    let count = 0;
+    for (const sessionId of Array.from(this.sessions.keys())) {
+      await this.detach(sessionId);
+      count++;
+    }
+    return count;
+  }
+  listSessions() {
+    return Array.from(this.sessions.values()).map((s) => ({ ...s, domains: Array.from(s.domains) }));
+  }
+  getSession(sessionId) {
+    return this.sessions.get(sessionId);
+  }
+}
+const cdpGateway = new CdpGateway();
+const cdpGateway$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  CdpGateway,
+  cdpGateway
+}, Symbol.toStringTag, { value: "Module" }));
+async function interact(args, action, extra = {}) {
+  const { pageId, tabId } = await resolvePageId(args);
+  let target = resolveTarget(args, pageId);
+  if (!target.selector) {
+    if (action === "press_key") {
+      target = { selector: "body" };
+    } else {
+      throw new Error("INVALID_INPUT: provide uid (from dt_take_snapshot) or selector.");
+    }
+  }
+  const payload = {
+    action,
+    target: tabId !== void 0 ? { tabId, selector: target.selector } : { selector: target.selector },
+    ...extra
+  };
+  const result = await unifiedRuntime.bridgeCommand("LIVE_ELEMENT_INTERACT", payload);
+  unifiedRuntime.bus.publish("INTERACTION", `dt_${action}`, {
+    action,
+    selector: target.selector,
+    uid: target.uid,
+    success: true
+  }, { pageId, correlationId: `act_${Date.now()}` });
+  let snapshotSection;
+  if (args.includeSnapshot) {
+    snapshotSection = { note: "Pass includeSnapshot to dt_take_snapshot separately for a fresh semantic snapshot." };
+  }
+  return {
+    performed: action,
+    selector: target.selector,
+    uid: target.uid,
+    pageId,
+    interaction: result,
+    ...snapshotSection || {}
+  };
+}
+async function dtClick(args) {
+  return interact(args, args.dblClick ? "double_click" : "click");
+}
+async function dtHover(args) {
+  return interact(args, "hover");
+}
+async function dtTypeText(args) {
+  if (typeof args.text !== "string") throw new Error("INVALID_INPUT: text is required for dt_type_text.");
+  const result = await interact(args, "type", { text: args.text });
+  if (args.submitKey) {
+    await interact(args, "press_key", { key: args.submitKey });
+    result.submitKey = args.submitKey;
+  }
+  return result;
+}
+async function dtFill(args) {
+  if (typeof args.value !== "string") throw new Error("INVALID_INPUT: value is required for dt_fill.");
+  await interact(args, "clear");
+  const result = await interact(args, "type", { text: args.value });
+  if (args.submitKey) {
+    await interact(args, "press_key", { key: args.submitKey });
+    result.submitKey = args.submitKey;
+  }
+  return result;
+}
+async function dtFillForm(args) {
+  const fields = args.fields;
+  if (!Array.isArray(fields) || fields.length === 0) throw new Error("INVALID_INPUT: fields must be a non-empty array of {uid|selector, value, submitKey?}.");
+  if (fields.length > 30) throw new Error("INVALID_INPUT: fields limited to 30 entries per call.");
+  const { pageId, tabId } = await resolvePageId(args);
+  const results = [];
+  for (const field of fields) {
+    const target = resolveTarget({ uid: field.uid, selector: field.selector }, pageId);
+    if (!target.selector) throw new Error("INVALID_INPUT: every field needs uid or selector.");
+    await unifiedRuntime.bridgeCommand("LIVE_ELEMENT_INTERACT", {
+      action: "clear",
+      target: tabId !== void 0 ? { tabId, selector: target.selector } : { selector: target.selector }
+    });
+    const r = await unifiedRuntime.bridgeCommand("LIVE_ELEMENT_INTERACT", {
+      action: "type",
+      target: tabId !== void 0 ? { tabId, selector: target.selector } : { selector: target.selector },
+      text: String(field.value ?? "")
+    });
+    if (field.submitKey) {
+      await unifiedRuntime.bridgeCommand("LIVE_ELEMENT_INTERACT", {
+        action: "press_key",
+        target: tabId !== void 0 ? { tabId, selector: target.selector } : { selector: target.selector },
+        key: field.submitKey
+      });
+    }
+    results.push({ selector: target.selector, uid: field.uid, value: field.value, success: !!r?.success });
+  }
+  unifiedRuntime.bus.publish("INTERACTION", "fill_form", { fields: results.length, pageId }, { pageId });
+  return { filled: results.filter((r) => r.success).length, total: fields.length, pageId, fields: results };
+}
+async function dtPressKey(args) {
+  if (!args.key || typeof args.key !== "string") throw new Error('INVALID_INPUT: key is required (e.g. "Enter", "Control+a").');
+  return interact(args, "press_key", { key: args.key });
+}
+async function dtUploadFile(args) {
+  const files = args.files;
+  if (!Array.isArray(files) || files.length === 0) throw new Error("INVALID_INPUT: files must be a non-empty array of paths/names.");
+  const { pageId, tabId } = await resolvePageId(args);
+  const target = resolveTarget(args, pageId);
+  if (!target.selector) throw new Error("INVALID_INPUT: provide uid or selector of the file input.");
+  const fileNames = files.map((f) => String(f).split(/[\\/]/).pop() || "file.bin");
+  const code = `(function(){
+    const el = document.querySelector(${JSON.stringify(target.selector)});
+    if (!el) return { set: false, reason: 'TARGET_STALE: element not found' };
+    if (!(el instanceof HTMLInputElement) || el.type !== 'file') return { set: false, reason: 'INVALID_INPUT: target is not a file input' };
+    const names = ${JSON.stringify(fileNames)};
+    var mechanism;
+    if (typeof DataTransfer === 'function') {
+      const dt = new DataTransfer();
+      for (const n of names) dt.items.add(new File([new Blob([''])], n));
+      el.files = dt.files;
+      mechanism = 'DataTransfer';
+    } else {
+      const fileList = { length: names.length, item: (i) => ({ name: names[i], size: 0, type: '' }) };
+      names.forEach((n, i) => { fileList[i] = { name: n, size: 0, type: '' }; });
+      Object.defineProperty(el, 'files', { value: fileList, configurable: true });
+      mechanism = 'FileList-property (DataTransfer unavailable in this context)';
+    }
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+    return { set: true, acceptedFiles: names, mechanism: mechanism };
+  })()`;
+  const payload = await runInPage(code, tabId);
+  if (payload && payload.set === false) {
+    throw new Error(String(payload.reason || "upload failed"));
+  }
+  unifiedRuntime.bus.publish("INTERACTION", "upload_file", { files: fileNames }, { pageId });
+  return { uploaded: true, files: fileNames, selector: target.selector, pageId, detail: payload };
+}
+async function dtDrag(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  const from = resolveTarget({ uid: args.fromUid, selector: args.fromSelector }, pageId);
+  const to = args.toUid || args.toSelector ? resolveTarget({ uid: args.toUid, selector: args.toSelector }, pageId) : null;
+  if (!from.selector) throw new Error("INVALID_INPUT: fromUid or fromSelector is required.");
+  if (!to?.selector && (args.toX === void 0 || args.toY === void 0)) {
+    throw new Error("INVALID_INPUT: provide toUid/toSelector or toX/toY.");
+  }
+  const result = await unifiedRuntime.bridgeCommand("DRAG_ELEMENT", {
+    source: from.selector,
+    target: to?.selector || void 0,
+    offsets: args.toX !== void 0 || args.toY !== void 0 ? { x: args.toX, y: args.toY } : void 0,
+    tabId
+  });
+  unifiedRuntime.bus.publish("INTERACTION", "drag", { from: from.selector, to: to?.selector || `${args.toX},${args.toY}` }, { pageId });
+  return { dragged: true, from: from.selector, to: to?.selector ?? { x: args.toX, y: args.toY }, pageId, detail: result };
+}
+async function dtClickAt(args) {
+  const x = Number(args.x);
+  const y = Number(args.y);
+  if (!Number.isFinite(x) || !Number.isFinite(y)) throw new Error("INVALID_INPUT: x and y must be numbers.");
+  const { pageId, tabId } = await resolvePageId(args);
+  const probe = `(function(){
+    if (typeof document.elementFromPoint !== 'function') {
+      return { hit: false, hitTesting: false, note: 'No layout engine — coordinate hit-testing unavailable; click dispatched at document level (bubbles to handlers).' };
+    }
+    const el = document.elementFromPoint(${x}, ${y});
+    if (!el) return { hit: false, hitTesting: true };
+    return { hit: true, hitTesting: true, tagName: el.tagName.toLowerCase(), id: el.id || null,
+      selector: (el.id ? '#' + el.id : el.tagName.toLowerCase()), text: (el.textContent||'').trim().slice(0,40) };
+  })()`;
+  const hit = await runInPage(probe, tabId);
+  const code = `(function(){
+    const el = typeof document.elementFromPoint === 'function' ? document.elementFromPoint(${x}, ${y}) : null;
+    const target = el || document.body || document.documentElement;
+    if (!target) return { clicked: false, reason: 'TARGET_STALE: no element available to receive the click' };
+    const opts = { bubbles: true, cancelable: true, clientX: ${x}, clientY: ${y}, view: window };
+    target.dispatchEvent(new MouseEvent('pointerdown', opts));
+    target.dispatchEvent(new MouseEvent('mousedown', opts));
+    target.dispatchEvent(new MouseEvent('pointerup', opts));
+    target.dispatchEvent(new MouseEvent('mouseup', opts));
+    target.dispatchEvent(new MouseEvent('click', opts));
+    return { clicked: true, dispatchTarget: el ? el.tagName.toLowerCase() : 'document-level', tagName: target.tagName.toLowerCase(), id: target.id || null };
+  })()`;
+  const payload = await runInPage(code, tabId);
+  if (payload && payload.clicked === false) throw new Error(String(payload.reason));
+  unifiedRuntime.bus.publish("INTERACTION", "click_at", { x, y, hit: hit?.tagName, hitTesting: hit?.hitTesting !== false }, { pageId });
+  return { clicked: true, x, y, resolvedElement: hit, pageId, detail: payload };
+}
+async function dtHandleDialog(args) {
+  if (typeof args.accept !== "boolean") throw new Error("INVALID_INPUT: accept (boolean) is required.");
+  const { pageId, tabId } = await resolvePageId(args);
+  if (cdpGateway.isAvailable() && unifiedRuntime.cdpAvailable()) {
+    const session = await cdpGateway.attach({ tabId });
+    const result = await cdpGateway.send(session.sessionId, "Page.handleJavaScriptDialog", {
+      accept: args.accept,
+      promptText: args.promptText || ""
+    });
+    unifiedRuntime.bus.publish("RUNTIME", "dialog_handled", { accept: args.accept }, { pageId });
+    return { handled: true, accept: args.accept, promptText: args.promptText, pageId, cdp: true, detail: result };
+  }
+  return {
+    handled: false,
+    mode: "UNAVAILABLE",
+    note: "Dialog handling requires a live CDP session (Page.handleJavaScriptDialog). Attach the extension and start a CDP session (dt_performance_start_trace attaches implicitly). JSDOM has no modal dialogs to handle.",
+    pageId
+  };
+}
+async function dtListPages() {
+  const { pages, mode, rawTabs } = await unifiedRuntime.listPages();
+  return {
+    total: pages.length,
+    pages: pages.map((p) => ({
+      pageId: p.pageId,
+      url: p.url,
+      title: p.title,
+      tabId: p.extensionTabId,
+      cdpTargetId: p.cdpTargetId,
+      frames: p.frames.length,
+      navigations: p.navigations.length,
+      sessionId: p.sessionId
+    })),
+    mode,
+    rawTabs: rawTabs.length
+  };
+}
+async function dtSelectPage(args) {
+  if (!args.pageId && args.tabId === void 0 && args.index === void 0) {
+    throw new Error("INVALID_INPUT: provide pageId, tabId or index.");
+  }
+  const { page, result, mode } = await unifiedRuntime.selectPage(args);
+  return { selected: true, pageId: page.pageId, url: page.url, title: page.title, tabId: page.extensionTabId, mode, detail: result };
+}
+async function dtNewPage(args) {
+  const url = String(args.url || "");
+  if (!/^(https?|file|about|chrome):/i.test(url)) {
+    throw new Error("INVALID_INPUT: url must be an http(s)/file/about/chrome URL.");
+  }
+  const { page, result, mode } = await unifiedRuntime.newPage(url);
+  return { opened: true, pageId: page.pageId, tabId: page.extensionTabId, url, mode, detail: result };
+}
+async function dtClosePage(args) {
+  const { closed, page, mode } = await unifiedRuntime.closePage(args);
+  return { closed, pageId: page?.pageId, url: page?.url, mode };
+}
+async function dtNavigatePage(args) {
+  const url = String(args.url || "");
+  if (!/^(https?|file|about|chrome)/i.test(url)) {
+    throw new Error("INVALID_INPUT: url must start with http(s)://, file://, about: or chrome://.");
+  }
+  const { pageId, tabId } = await (await Promise.resolve().then(() => interactionCore)).resolvePageId(args);
+  if (unifiedRuntime.hasBridge() && tabId !== void 0) {
+    const result = await unifiedRuntime.bridgeCommand("EXECUTE_JS", {
+      code: `location.href = ${JSON.stringify(url)}; return ({ navigating: true, url: location.href });`,
+      tabId
+    });
+    const page2 = unifiedRuntime.identity.resolve({ tabId });
+    if (page2) unifiedRuntime.identity.recordNavigation(page2.pageId, url, "load");
+    unifiedRuntime.bus.publish("NAVIGATION", "navigate", { url, tabId }, { pageId });
+    return { navigated: true, pageId, url, detail: result };
+  }
+  const controller = globalThis.__MCPDOM_LOCAL_CONTROLLER__;
+  const simTabId = tabId ?? 1;
+  if (controller) {
+    const res = await controller.handleCommand({
+      id: `nav_${Date.now()}`,
+      command: "OPEN_TAB",
+      timestamp: Date.now(),
+      payload: { url, active: true }
+    });
+    const page2 = unifiedRuntime.identity.register({ url, title: "Simulated Navigation", extensionTabId: res?.data?.tabId ?? simTabId });
+    unifiedRuntime.identity.recordNavigation(page2.pageId, url, "load");
+    unifiedRuntime.bus.publish("NAVIGATION", "navigate", { url, simulated: true }, { pageId: page2.pageId });
+    return { navigated: true, pageId: page2.pageId, url, simulated: true, mode: "SIMULATED", detail: res?.data };
+  }
+  const page = unifiedRuntime.identity.register({ url, title: "New Navigation" });
+  return { navigated: true, pageId: page.pageId, url, simulated: true, mode: "SIMULATED", note: "No bridge/controller available — recorded navigation on a synthetic identity only." };
+}
+async function dtHistoryNavigation(args) {
+  const direction = String(args.direction || "");
+  if (!["back", "forward", "reload"].includes(direction)) {
+    throw new Error("INVALID_INPUT: direction must be back | forward | reload.");
+  }
+  const { pageId, tabId } = await (await Promise.resolve().then(() => interactionCore)).resolvePageId(args);
+  if (unifiedRuntime.hasBridge()) {
+    if (direction === "reload") {
+      const result2 = await unifiedRuntime.bridgeCommand("RELOAD_TAB", { tabId });
+      return { performed: direction, pageId, detail: result2 };
+    }
+    const code = direction === "back" ? 'history.back(); return ({ performed: "back" });' : 'history.forward(); return ({ performed: "forward" });';
+    const result = await unifiedRuntime.bridgeCommand("EXECUTE_JS", { code, tabId });
+    const page = pageId ? unifiedRuntime.identity.resolve({ pageId }) : null;
+    if (page) unifiedRuntime.identity.recordNavigation(page.pageId, page.url, "popstate");
+    return { performed: direction, pageId, detail: result };
+  }
+  return {
+    performed: false,
+    mode: "UNAVAILABLE",
+    note: "History navigation requires a live page context (bridge). JSDOM fixtures have no meaningful session history.",
+    pageId
+  };
+}
+async function dtWaitFor(args) {
+  const condition = String(args.condition || "");
+  const valid = ["load", "domcontentloaded", "networkidle", "selector-visible"];
+  if (!valid.includes(condition)) throw new Error(`INVALID_INPUT: condition must be one of ${valid.join(", ")}.`);
+  const timeoutMs = Number(args.timeoutMs) || 8e3;
+  const { pageId, tabId } = await (await Promise.resolve().then(() => interactionCore)).resolvePageId(args);
+  const started = Date.now();
+  const checkOnce = async () => {
+    if (condition === "selector-visible") {
+      if (!args.selector) throw new Error("INVALID_INPUT: selector is required for selector-visible.");
+      const probe2 = `(function(){
+        const el = document.querySelector(${JSON.stringify(args.selector)});
+        if (!el) return { met: false };
+        const style = getComputedStyle(el);
+        const visible = style.display !== 'none' && style.visibility !== 'hidden';
+        return { met: visible, display: style.display, visibility: style.visibility };
+      })()`;
+      const payload2 = await runInPage(probe2, tabId);
+      return { met: !!payload2?.met, state: payload2 || {} };
+    }
+    const probe = `(function(){
+      const readyState = document.readyState;
+      const inflight = (window.__mcpdom_net_inflight !== undefined) ? window.__mcpdom_net_inflight : 0;
+      return { readyState, inflight };
+    })()`;
+    const payload = await runInPage(probe, tabId);
+    const readyState = String(payload?.readyState || "complete");
+    if (condition === "load") return { met: readyState === "complete", state: payload };
+    if (condition === "domcontentloaded") return { met: readyState !== "loading", state: payload };
+    return { met: readyState === "complete" && Number(payload?.inflight || 0) === 0, state: payload };
+  };
+  let last = { met: false, state: {} };
+  while (Date.now() - started < Math.min(timeoutMs, 3e4)) {
+    last = await checkOnce().catch((err) => {
+      if (String(err.message).includes("INVALID_INPUT")) throw err;
+      return { met: false, state: { error: err.message } };
+    });
+    if (last.met) {
+      return { condition, met: true, waitedMs: Date.now() - started, pageId, state: last.state };
+    }
+    await new Promise((r) => setTimeout(r, 150));
+  }
+  return { condition, met: false, timedOut: true, waitedMs: Date.now() - started, pageId, state: last.state };
+}
+const emulationState = /* @__PURE__ */ new Map();
+async function dtEmulate(args) {
+  const { pageId, tabId } = await (await Promise.resolve().then(() => interactionCore)).resolvePageId(args);
+  if (args.reset) {
+    const entry2 = emulationState.get(pageId);
+    if (unifiedRuntime.hasBridge()) {
+      try {
+        await unifiedRuntime.bridgeCommand("RESET_VIEWPORT", { tabId });
+      } catch {
+      }
+      const baseline = entry2?.baseline || {};
+      if (baseline.viewport) {
+        await unifiedRuntime.bridgeCommand("RESIZE_VIEWPORT", { ...baseline.viewport, tabId });
+      }
+    }
+    emulationState.delete(pageId);
+    unifiedRuntime.bus.publish("EMULATION", "reset", { pageId }, { pageId });
+    return { emulated: false, reset: true, pageId };
+  }
+  const patch = {};
+  if (args.viewport && Number.isFinite(Number(args.viewport.width)) && Number.isFinite(Number(args.viewport.height))) {
+    patch.viewport = { width: Number(args.viewport.width), height: Number(args.viewport.height) };
+  }
+  if (args.deviceScaleFactor !== void 0) patch.deviceScaleFactor = Number(args.deviceScaleFactor);
+  if (args.userAgent !== void 0) patch.userAgent = String(args.userAgent);
+  if (args.cpuThrottlingRate !== void 0) {
+    const rate = Number(args.cpuThrottlingRate);
+    if (rate < 1 || rate > 20) throw new Error("INVALID_INPUT: cpuThrottlingRate must be within 1–20.");
+    patch.cpuThrottlingRate = rate;
+  }
+  if (args.networkConditions) {
+    patch.networkConditions = {
+      downloadKbps: args.networkConditions.downloadKbps !== void 0 ? Number(args.networkConditions.downloadKbps) : void 0,
+      uploadKbps: args.networkConditions.uploadKbps !== void 0 ? Number(args.networkConditions.uploadKbps) : void 0,
+      latencyMs: args.networkConditions.latencyMs !== void 0 ? Number(args.networkConditions.latencyMs) : void 0
+    };
+  }
+  if (args.geolocation) {
+    patch.geolocation = {
+      latitude: Number(args.geolocation.latitude),
+      longitude: Number(args.geolocation.longitude),
+      accuracy: args.geolocation.accuracy !== void 0 ? Number(args.geolocation.accuracy) : void 0
+    };
+  }
+  if (args.colorScheme) patch.colorScheme = args.colorScheme === "dark" ? "dark" : "light";
+  if (args.extraHeaders && typeof args.extraHeaders === "object") patch.extraHeaders = args.extraHeaders;
+  if (args.locale) patch.locale = String(args.locale);
+  if (args.timezoneId) patch.timezoneId = String(args.timezoneId);
+  if (Object.keys(patch).length === 0) {
+    throw new Error("INVALID_INPUT: provide at least one emulation property (or reset: true).");
+  }
+  if (unifiedRuntime.hasBridge() && patch.viewport) {
+    await unifiedRuntime.bridgeCommand("RESIZE_VIEWPORT", { ...patch.viewport, tabId });
+  }
+  const entry = emulationState.get(pageId) || { current: {}, baseline: {} };
+  if (!emulationState.has(pageId) && patch.viewport) {
+    entry.baseline.viewport = { ...patch.viewport };
+  }
+  entry.current = { ...entry.current, ...patch };
+  emulationState.set(pageId, entry);
+  unifiedRuntime.bus.publish("EMULATION", "emulate", { ...patch, pageId }, { pageId });
+  const cdpNote = unifiedRuntime.cdpAvailable() ? "CDP-connected: CPU/network/UA/geo emulation applies to live DevTools domains." : "CPU throttling, network conditions, UA, geolocation and headers require a live CDP session; recorded here as emulation state and applied when CDP attaches.";
+  return {
+    emulated: true,
+    pageId,
+    applied: Object.keys(patch),
+    current: entry.current,
+    reversible: true,
+    note: cdpNote
+  };
+}
+async function dtResizePage(args) {
+  const width = Number(args.width);
+  const height = Number(args.height);
+  if (!Number.isFinite(width) || !Number.isFinite(height) || width < 100 || height < 100) {
+    throw new Error("INVALID_INPUT: width/height must be numbers ≥ 100.");
+  }
+  const { pageId, tabId } = await (await Promise.resolve().then(() => interactionCore)).resolvePageId(args);
+  if (unifiedRuntime.hasBridge()) {
+    const result = await unifiedRuntime.bridgeCommand("RESIZE_VIEWPORT", { width, height, tabId });
+    return { resized: true, width, height, pageId, detail: result };
+  }
+  const controller = globalThis.__MCPDOM_LOCAL_CONTROLLER__;
+  if (controller) {
+    const res = await controller.handleCommand({ id: `rs_${Date.now()}`, command: "RESIZE_VIEWPORT", timestamp: Date.now(), payload: { width, height } });
+    return { resized: !!res?.success, width, height, pageId, simulated: true, detail: res?.data };
+  }
+  return { resized: false, width, height, pageId, mode: "UNAVAILABLE", note: "Viewport resize requires the bridge or the local controller (simulation)." };
+}
+async function ingestTabNetwork(tabId) {
+  if (tabId === void 0) return 0;
+  try {
+    const res = await unifiedRuntime.bridgeCommand("GET_TAB_NETWORK_REQUESTS", { tabId });
+    const requests = res?.requests || res?.networkRequests || [];
+    if (Array.isArray(requests) && requests.length > 0) {
+      return unifiedRuntime.ingestNetworkRequests(requests);
+    }
+  } catch {
+  }
+  return 0;
+}
+async function ingestTabConsole(tabId) {
+  if (tabId === void 0) return 0;
+  try {
+    const res = await unifiedRuntime.bridgeCommand("GET_TAB_CONSOLE_LOGS", { tabId });
+    const logs = res?.logs || res?.entries || [];
+    if (Array.isArray(logs) && logs.length > 0) {
+      return unifiedRuntime.ingestConsoleMessages(logs);
+    }
+  } catch {
+  }
+  return 0;
+}
+async function dtListNetworkRequests(args) {
+  let ingested = 0;
+  if (args.ingestTabId !== void 0) ingested = await ingestTabNetwork(args.ingestTabId);
+  else if (args.tabId !== void 0) ingested = await ingestTabNetwork(args.tabId);
+  const { pageId } = await resolvePageId(args);
+  const filter = { pageId: args.pageId ? pageId : void 0, urlPattern: args.urlPattern, method: args.method, status: args.status, resourceType: args.resourceType, offset: args.offset, limit: args.limit };
+  const { requests, total, mode } = unifiedRuntime.listNetworkRequests(filter);
+  return {
+    total,
+    ingested,
+    requests: requests.map((r) => ({
+      requestId: r.requestId,
+      url: r.url,
+      method: r.method,
+      status: r.status,
+      resourceType: r.resourceType,
+      failed: r.failed,
+      responseSize: r.responseSize,
+      durationMs: r.durationMs,
+      fromCache: r.fromCache
+    })),
+    mode,
+    note: total === 0 && ingested === 0 ? "Unified network log is empty in this context. With the extension connected, pass ingestTabId to pull the tab capture first; session analysis uses fx_resource_waterfall with a recorded session." : void 0
+  };
+}
+async function dtGetNetworkRequest(args) {
+  if (!args.requestId) throw new Error("INVALID_INPUT: requestId is required.");
+  const record = unifiedRuntime.getNetworkRequest(String(args.requestId));
+  if (!record) throw new Error(`RESOURCE_EXHAUSTED: request '${args.requestId}' not found in the unified network log.`);
+  const includeBody = args.includeBody !== false;
+  return {
+    ...record,
+    responseBody: includeBody ? record.responseBody : void 0,
+    requestBody: includeBody ? record.requestBody : void 0
+  };
+}
+async function dtListConsoleMessages(args) {
+  let ingested = 0;
+  if (args.ingestTabId !== void 0) ingested = await ingestTabConsole(args.ingestTabId);
+  else if (args.tabId !== void 0) ingested = await ingestTabConsole(args.tabId);
+  const { pageId } = await resolvePageId(args);
+  const { messages, total, mode } = unifiedRuntime.listConsoleMessages({
+    level: args.level,
+    searchQuery: args.searchQuery,
+    pageId: args.pageId ? pageId : void 0,
+    offset: args.offset,
+    limit: args.limit
+  });
+  return {
+    total,
+    ingested,
+    messages,
+    mode,
+    note: total === 0 && ingested === 0 ? "Unified console log is empty in this context. With the extension connected, pass ingestTabId to pull the tab capture first." : void 0
+  };
+}
+async function dtGetConsoleMessage(args) {
+  if (!args.messageId) throw new Error("INVALID_INPUT: messageId is required.");
+  const { messages } = unifiedRuntime.listConsoleMessages({ limit: 1e4 });
+  const message = messages.find((m) => m.messageId === String(args.messageId));
+  if (!message) throw new Error(`RESOURCE_EXHAUSTED: console message '${args.messageId}' not found.`);
+  return { ...message };
+}
+async function dtEvaluateScript(args) {
+  const script = String(args.script || "");
+  if (!script.trim()) throw new Error("INVALID_INPUT: script must be a non-empty string.");
+  if (script.length > 2e5) throw new Error("INVALID_INPUT: script too large (200KB limit).");
+  const { pageId, tabId } = await resolvePageId(args);
+  const { normalizeForExecution: normalizeForExecution2 } = await Promise.resolve().then(() => interactionCore);
+  const normalized = normalizeForExecution2(script);
+  const wrapped = args.awaitPromise === false ? normalized : `return Promise.resolve((async () => { ${normalized} })())`;
+  const result = await unifiedRuntime.bridgeCommand("EXECUTE_JS", { code: wrapped, tabId });
+  unifiedRuntime.bus.publish("RUNTIME", "evaluate_script", { scriptLength: script.length }, { pageId });
+  const envelope = result;
+  return {
+    evaluated: true,
+    pageId,
+    result: envelope?.result !== void 0 ? envelope.result : envelope,
+    execution: envelope?.status ? { status: envelope.status, durationMs: envelope.durationMs, executionId: envelope.executionId, consoleOutput: envelope.consoleOutput, domChanged: envelope.domChanged } : void 0
+  };
+}
+async function dtTakeScreenshot(args) {
+  const format = args.format === "jpeg" ? "jpeg" : "png";
+  const { pageId, tabId } = await resolvePageId(args);
+  if (args.uid || args.selector) {
+    const target = resolveTarget(args, pageId);
+    if (!target.selector) throw new Error("INVALID_INPUT: uid or selector required for element capture.");
+    const result2 = await unifiedRuntime.bridgeCommand("LIVE_ELEMENT_SCREENSHOT", { selector: target.selector, tabId, format });
+    unifiedRuntime.bus.publish("SCREENSHOT", "element_screenshot", { selector: target.selector }, { pageId, snapshotId: `shot_${Date.now()}` });
+    return { captureType: "ELEMENT", format, selector: target.selector, pageId, detail: result2 };
+  }
+  const result = await unifiedRuntime.bridgeCommand("LIVE_PAGE_SCREENSHOT", { tabId, format });
+  unifiedRuntime.bus.publish("SCREENSHOT", "page_screenshot", { full: true }, { pageId, snapshotId: `shot_${Date.now()}` });
+  return { captureType: "FULL_PAGE", format, pageId, detail: result };
+}
+async function dtTakeSnapshot(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  let rootEl;
+  if (args.selector && typeof document !== "undefined") {
+    rootEl = document.querySelector(args.selector) || void 0;
+    if (!rootEl) throw new Error(`TARGET_STALE: no element matches selector '${args.selector}'.`);
+  } else if (args.selector) {
+    const res = await unifiedRuntime.bridgeCommand("LIVE_DOM_SUBTREE", { selector: args.selector, tabId });
+    return { snapshot: { rootSelector: args.selector, html: res?.html?.slice(0, 8e3) }, pageId, note: "Subtree snapshot via live DOM channel." };
+  }
+  const { tree } = buildPageSnapshot(rootEl);
+  const size = snapshotStore.store(pageId, tree);
+  unifiedRuntime.bus.publish("DOM", "semantic_snapshot", { nodes: size.snapshotSize }, { pageId, snapshotId: `snap_${Date.now()}` });
+  return {
+    pageId,
+    totalNodes: size.snapshotSize,
+    snapshot: flattenSnapshot(tree),
+    usage: "Use the uid values with dt_click / dt_fill / dt_hover input tools."
+  };
+}
+async function dtScreencastStart(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  if (!unifiedRuntime.cdpAvailable()) {
+    return {
+      started: false,
+      mode: "UNAVAILABLE",
+      note: "Screencast requires a live CDP session (Page.startScreencast). Simulation never fakes frame streams.",
+      pageId
+    };
+  }
+  const { cdpGateway: cdpGateway2 } = await Promise.resolve().then(() => cdpGateway$1);
+  const session = await cdpGateway2.attach({ tabId });
+  const result = await cdpGateway2.send(session.sessionId, "Page.startScreencast", {
+    format: "png",
+    maxWidth: 1280,
+    maxHeight: 720,
+    everyNthFrame: 1
+  });
+  return { started: true, pageId, cdpSession: session.sessionId, experimental: true, detail: result };
+}
+async function dtScreencastStop(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  if (!unifiedRuntime.cdpAvailable()) {
+    return { stopped: false, mode: "UNAVAILABLE", note: "No active CDP screencast to stop.", pageId };
+  }
+  const { cdpGateway: cdpGateway2 } = await Promise.resolve().then(() => cdpGateway$1);
+  const session = await cdpGateway2.attach({ tabId });
+  const result = await cdpGateway2.send(session.sessionId, "Page.stopScreencast", {});
+  return { stopped: true, pageId, experimental: true, detail: result };
+}
+async function dtLighthouseAudit(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  if (!unifiedRuntime.cdpAvailable()) {
+    return {
+      ran: false,
+      mode: "UNAVAILABLE",
+      note: "Lighthouse audits require a live DevTools connection. Audit results are never synthesized in simulation.",
+      pageId
+    };
+  }
+  const { cdpGateway: cdpGateway2 } = await Promise.resolve().then(() => cdpGateway$1);
+  const session = await cdpGateway2.attach({ tabId });
+  const result = await cdpGateway2.send(session.sessionId, "Lighthouse.run", {
+    categories: args.categories || ["performance", "accessibility", "best-practices"]
+  }).catch((err) => {
+    throw new Error(`UNSUPPORTED_OPERATION: Lighthouse orchestration unavailable on this target: ${err.message}`);
+  });
+  return { ran: true, pageId, experimental: true, detail: result };
+}
+class TraceSessionStore {
+  sessions = /* @__PURE__ */ new Map();
+  counter = 0;
+  start(pageId, categories) {
+    for (const s of this.sessions.values()) {
+      if (s.info.pageId === pageId && !s.info.stoppedAt) {
+        throw new Error(`MUTATION_CONFLICT-like state: a trace is already active for page ${pageId} (${s.info.traceId}). Stop it first (dt_performance_stop_trace).`);
+      }
+    }
+    const traceId = `trace_${++this.counter}`;
+    const sim = typeof globalThis.__FORENSIC_SIMULATION__ !== "undefined";
+    const info = {
+      traceId,
+      pageId,
+      mode: sim ? "SIMULATED" : "LIVE",
+      startedAt: Date.now(),
+      categories,
+      eventCount: 0,
+      simulated: sim
+    };
+    this.sessions.set(traceId, { info, events: [] });
+    return { info, mode: { mode: info.mode, simulated: sim, note: sim ? "Deterministic simulated trace buffer — NOT real Chrome trace data." : "Live trace via CDP Tracing domain.", source: sim ? "simulation" : "cdp" } };
+  }
+  /** Append raw trace events (live CDP or deterministic fixture). */
+  append(traceId, events) {
+    const session = this.sessions.get(traceId);
+    if (!session) throw new Error(`RESOURCE_EXHAUSTED: unknown trace session '${traceId}'.`);
+    session.events.push(...events);
+    session.info.eventCount = session.events.length;
+    return session.events.length;
+  }
+  stop(traceId) {
+    const session = this.sessions.get(traceId);
+    if (!session) throw new Error(`RESOURCE_EXHAUSTED: unknown trace session '${traceId}'.`);
+    if (session.info.stoppedAt) throw new Error(`UNSUPPORTED_OPERATION: trace '${traceId}' already stopped.`);
+    session.info.stoppedAt = Date.now();
+    return { info: session.info, events: session.events.slice() };
+  }
+  get(traceId) {
+    return this.sessions.get(traceId);
+  }
+  close(traceId) {
+    return this.sessions.delete(traceId);
+  }
+  list() {
+    return Array.from(this.sessions.values()).map((s) => s.info);
+  }
+}
+function extractWebVitals(events) {
+  let lcp;
+  let fcp;
+  let cls = 0;
+  const clsSources = [];
+  let inpCandidate;
+  for (const e of events) {
+    const name = e.name || "";
+    if (name === "largestContentfulPaint::Candidate" || name === "largestContentfulPaint") {
+      Number(e.args?.["size"] ?? e.args?.["candidateIndex"] ?? 0);
+      const ts = Number(e.args?.["timestamp"] ?? e.ts) / 1e3;
+      if (!lcp || ts >= lcp.timestamp) {
+        lcp = { value: Number(e.args?.["paintTime"] ?? ts) * 1e3, timestamp: ts, elementHint: String(e.args?.["nodeName"] || e.args?.["elementId"] || "") || void 0 };
+      }
+    } else if (name === "firstContentfulPaint") {
+      fcp = { value: e.ts / 1e3, timestamp: e.ts / 1e3 };
+    } else if (name === "LayoutShift" || name === "layout-shift") {
+      const score = Number(e.args?.["score"] ?? e.args?.["weightedScoreDelta"] ?? 0);
+      cls += score;
+      const hint = String(e.args?.["nodeNames"] || e.args?.["impactedNodes"] || e.name);
+      if (hint && clsSources.length < 10) clsSources.push(hint);
+    } else if (name === "EventTiming" && e.ph === "b") {
+      if (e.dur && e.dur > 0) {
+        const ms = e.dur / 1e3;
+        if (inpCandidate === void 0 || ms > inpCandidate) inpCandidate = ms;
+      }
+    }
+  }
+  const metrics = {};
+  if (lcp) metrics.lcp = { value: lcp.value, timestamp: lcp.timestamp, elementHint: lcp.elementHint };
+  if (fcp) metrics.fcp = fcp;
+  if (cls > 0) metrics.cls = { value: Number(cls.toFixed(4)), sourceHints: clsSources };
+  if (inpCandidate !== void 0) metrics.inp = { value: Number(inpCandidate.toFixed(2)) };
+  return metrics;
+}
+function analyzeTrace(traceId, events) {
+  if (events.length === 0) {
+    return {
+      traceId,
+      eventCount: 0,
+      durationMs: 0,
+      webVitals: { note: "No trace events captured." },
+      insights: [],
+      topLongTasks: [],
+      layoutShiftSources: [],
+      phaseBreakdown: []
+    };
+  }
+  const sorted = events.slice().sort((a, b) => a.ts - b.ts);
+  const firstTs = sorted[0].ts;
+  const lastTs = Math.max(...sorted.map((e) => e.ts + (e.dur || 0)));
+  const durationMs = (lastTs - firstTs) / 1e3;
+  const insights = [];
+  const phaseTotals = /* @__PURE__ */ new Map();
+  for (const e of sorted) {
+    const durMs = (e.dur || 0) / 1e3;
+    const cat = (e.cat || "").split(",")[0];
+    const isComplete = e.ph === "X" || e.ph === "B";
+    if (isComplete && durMs > 0) {
+      const entry = phaseTotals.get(cat) || { totalMs: 0, events: 0 };
+      entry.totalMs += durMs;
+      entry.events++;
+      phaseTotals.set(cat, entry);
+    }
+    if (isComplete && durMs > 50 && (cat.includes("devtools.timeline") || cat.includes("toplevel") || e.name === "RunTask" || e.name === "FunctionCall")) {
+      insights.push({ kind: "long-task", name: e.name, startUs: e.ts, durationMs: durMs, details: { cat: e.cat, tid: e.tid } });
+    }
+    if (e.name === "LayoutShift" || e.name === "layout-shift") {
+      insights.push({ kind: "layout-shift", name: e.name, startUs: e.ts, durationMs: durMs, details: { score: e.args?.["score"] ?? e.args?.["weightedScoreDelta"], sources: e.args?.["nodeNames"] } });
+    }
+    if (e.name === "largestContentfulPaint::Candidate") {
+      insights.push({ kind: "lcp", name: e.name, startUs: e.ts, durationMs: durMs, details: e.args });
+    }
+    if (e.name === "ParseHTML" || cat === "blink.ParseHTML") {
+      insights.push({ kind: "parse", name: e.name, startUs: e.ts, durationMs: durMs });
+    }
+    if (e.name === "Layout" || e.name === "UpdateLayoutTree") {
+      insights.push({ kind: "layout", name: e.name, startUs: e.ts, durationMs: durMs });
+    }
+    if (e.name === "Paint" || e.name === "CompositeLayers") {
+      insights.push({ kind: "paint", name: e.name, startUs: e.ts, durationMs: durMs });
+    }
+    if (cat.includes("netlog") || e.name.startsWith("Resource")) {
+      insights.push({ kind: "network", name: e.name, startUs: e.ts, durationMs: durMs });
+    }
+  }
+  const topLongTasks = insights.filter((i) => i.kind === "long-task").sort((a, b) => b.durationMs - a.durationMs).slice(0, 10);
+  const layoutShiftSources = insights.filter((i) => i.kind === "layout-shift");
+  return {
+    traceId,
+    eventCount: events.length,
+    durationMs,
+    webVitals: extractWebVitals(sorted),
+    insights: insights.slice(0, 400),
+    topLongTasks,
+    layoutShiftSources,
+    phaseBreakdown: Array.from(phaseTotals.entries()).map(([phase, v]) => ({ phase, totalMs: Number(v.totalMs.toFixed(2)), events: v.events })).sort((a, b) => b.totalMs - a.totalMs)
+  };
+}
+function buildSimulatedTraceFixture(seed = 1) {
+  let s = seed * 2654435761 % 2147483647;
+  const rnd = (mod) => {
+    s = s * 16807 % 2147483647;
+    return s % mod + 1;
+  };
+  const base2 = 1e3;
+  const events = [];
+  events.push({ name: "TracingStartedInBrowser", cat: "disabled-by-default-devtools.trace", ts: base2, dur: 0, pid: 1, tid: 1, ph: "I" });
+  events.push({ name: "firstContentfulPaint", cat: "loading,rail,devtools.timeline", ts: base2 + 120, dur: 0, pid: 1, tid: 1, ph: "R" });
+  events.push({ name: "largestContentfulPaint::Candidate", cat: "loading,rail,devtools.timeline", ts: base2 + 320 + rnd(200), dur: 0, pid: 1, tid: 1, ph: "R", args: { size: 42e3, paintTime: 0.32 } });
+  for (let i = 0; i < 6; i++) {
+    events.push({ name: "RunTask", cat: "toplevel", ts: base2 + i * 300, dur: rnd(40) * 1e3, pid: 1, tid: 2, ph: "X" });
+  }
+  events.push({ name: "FunctionCall", cat: "devtools.timeline", ts: base2 + 900, dur: 82e3, pid: 1, tid: 2, ph: "X", args: { functionName: "renderDashboard" } });
+  events.push({ name: "UpdateLayoutTree", cat: "devtools.timeline", ts: base2 + 1e3, dur: 24e3, pid: 1, tid: 2, ph: "X" });
+  events.push({ name: "Layout", cat: "devtools.timeline", ts: base2 + 1030, dur: 18e3, pid: 1, tid: 2, ph: "X" });
+  events.push({ name: "Paint", cat: "devtools.timeline", ts: base2 + 1050, dur: 12e3, pid: 1, tid: 2, ph: "X" });
+  events.push({ name: "ParseHTML", cat: "devtools.timeline", ts: base2 + 10, dur: 15e3, pid: 1, tid: 2, ph: "X" });
+  events.push({ name: "LayoutShift", cat: "loading,rail,devtools.timeline", ts: base2 + 1100, dur: 0, pid: 1, tid: 2, ph: "R", args: { score: 0.113, nodeNames: "div#banner img.hero" } });
+  events.push({ name: "EventTiming", cat: "devtools.timeline.event", ts: base2 + 1400, dur: 96e3, pid: 1, tid: 2, ph: "X", args: { interactionId: 7 } });
+  return events;
+}
+const traceStore = new TraceSessionStore();
+function dominatorSummary(parser, limit = 20) {
+  const p = parser;
+  const roots = p.nodes.filter((n) => n.index === 0).slice(0, 1);
+  const reachable = new Set(roots.map((r) => r.index));
+  let frontier = roots.map((r) => r.index);
+  const order = [];
+  while (frontier.length) {
+    const next = [];
+    for (const idx of frontier) {
+      order.push(idx);
+      const owner = p.nodes[idx];
+      for (let e = 0; e < owner.edgeCount; e++) {
+        const edge = p.edges[owner.edgeStart + e];
+        if (!edge || reachable.has(edge.toNodeIndex)) continue;
+        reachable.add(edge.toNodeIndex);
+        next.push(edge.toNodeIndex);
+      }
+    }
+    frontier = next;
+  }
+  const idom = /* @__PURE__ */ new Map();
+  const parent = /* @__PURE__ */ new Map();
+  for (const idx of order) {
+    const owner = p.nodes[idx];
+    for (let e = 0; e < owner.edgeCount; e++) {
+      const edge = p.edges[owner.edgeStart + e];
+      if (!edge || !reachable.has(edge.toNodeIndex)) continue;
+      if (!parent.has(edge.toNodeIndex) && edge.toNodeIndex !== order[0]) {
+        parent.set(edge.toNodeIndex, idx);
+      }
+    }
+  }
+  idom.set(order[0], order[0]);
+  let changed = true;
+  let guard = 0;
+  while (changed && guard++ < 20) {
+    changed = false;
+    for (const idx of order) {
+      if (idx === order[0]) continue;
+      const preds = [];
+      const incoming = p.retainersOf.get(idx) || [];
+      for (const ei of incoming) {
+        const owner = p.findOwnerNodeOfEdge(p.edges[ei]);
+        if (owner && reachable.has(owner.index) && isForwardEdge(p, owner, idx)) preds.push(owner.index);
+      }
+      let newIdom;
+      for (const pred of preds) {
+        if (idom.has(pred)) {
+          if (newIdom === void 0) newIdom = pred;
+          else newIdom = intersect(idom, parent, newIdom, pred);
+        }
+      }
+      if (newIdom !== void 0 && idom.get(idx) !== newIdom) {
+        idom.set(idx, newIdom);
+        changed = true;
+      }
+    }
+  }
+  const children = /* @__PURE__ */ new Map();
+  for (const [idx, dom] of idom) {
+    if (idx === dom) continue;
+    const arr = children.get(dom) || [];
+    arr.push(idx);
+    children.set(dom, arr);
+  }
+  const retained = /* @__PURE__ */ new Map();
+  const computeRetained = (idx) => {
+    let size = p.nodes[idx].selfSize;
+    for (const child of children.get(idx) || []) size += computeRetained(child);
+    retained.set(idx, size);
+    return size;
+  };
+  for (const idx of order) {
+    if (!children.has(idx) || (children.get(idx) || []).length === 0) {
+      retained.set(idx, p.nodes[idx].selfSize);
+    }
+  }
+  if (order.length) computeRetained(order[0]);
+  return Array.from(idom.entries()).map(([idx, dom]) => ({
+    nodeId: p.nodes[idx].id,
+    className: p.nodes[idx].className,
+    retainedTreeSize: retained.get(idx) || p.nodes[idx].selfSize,
+    dominatorClass: p.nodes[dom]?.className || "root"
+  })).sort((a, b) => b.retainedTreeSize - a.retainedTreeSize).slice(0, limit);
+}
+function isForwardEdge(p, from, toIndex) {
+  for (let e = 0; e < from.edgeCount; e++) {
+    const edge = p.edges[from.edgeStart + e];
+    if (edge && edge.toNodeIndex === toIndex) return true;
+  }
+  return false;
+}
+function intersect(idom, parent, a, b) {
+  let x = a, y = b;
+  while (x !== y) {
+    while (parent.has(x) && x !== a) x = parent.get(x);
+    while (parent.has(y) && y !== b) y = parent.get(y);
+    if (x === y) break;
+    if (!parent.has(x)) return y;
+    if (!parent.has(y)) return x;
+    x = parent.get(x);
+    y = parent.get(y);
+  }
+  return x;
+}
+const NODE_TYPE_KEYS = ["type", "name", "id", "self_size", "edge_count", "trace_node_id", "detachedness"];
+const EDGE_TYPE_KEYS = ["type", "name_or_index", "to_node"];
+class HeapSnapshotParser {
+  raw;
+  nodeFieldIndex = {};
+  edgeFieldIndex = {};
+  nodes = [];
+  edges = [];
+  nodeById = /* @__PURE__ */ new Map();
+  /** reverse edges: toNodeIndex → edge indexes. */
+  retainersOf = /* @__PURE__ */ new Map();
+  classNameCache = /* @__PURE__ */ new Map();
+  parsedAt;
+  parseMs;
+  constructor(raw) {
+    const started = Date.now();
+    this.raw = this.validate(raw);
+    this.parse();
+    this.parsedAt = started;
+    this.parseMs = Date.now() - started;
+  }
+  validate(input) {
+    if (!input || typeof input !== "object") {
+      throw new Error("INVALID_INPUT: heap snapshot must be a JSON object.");
+    }
+    const raw = input;
+    if (!raw.snapshot?.meta?.node_fields || !Array.isArray(raw.nodes) || !Array.isArray(raw.strings)) {
+      throw new Error("INVALID_INPUT: heap snapshot is missing snapshot.meta.node_fields / nodes / strings.");
+    }
+    const nodeFields = raw.snapshot.meta.node_fields;
+    for (const required of ["type", "id"]) {
+      if (!nodeFields.includes(required)) {
+        throw new Error(`INVALID_INPUT: node_fields must contain '${required}' (found: ${nodeFields.join(",")}).`);
+      }
+    }
+    const expectedLen = nodeFields.length * (raw.snapshot.node_count ?? raw.nodes.length / nodeFields.length);
+    if (raw.nodes.length < expectedLen - nodeFields.length) {
+      throw new Error(`INVALID_INPUT: nodes array too short: ${raw.nodes.length} for node_count ${raw.snapshot.node_count}.`);
+    }
+    return raw;
+  }
+  parse() {
+    const nodeFields = this.raw.snapshot.meta.node_fields;
+    NODE_TYPE_KEYS.forEach((k) => {
+      this.nodeFieldIndex[k] = nodeFields.indexOf(k);
+    });
+    const edgeFields = this.raw.snapshot.meta.edge_fields || EDGE_TYPE_KEYS;
+    EDGE_TYPE_KEYS.forEach((k) => {
+      this.edgeFieldIndex[k] = edgeFields.indexOf(k);
+    });
+    const nodeStride = nodeFields.length;
+    const nodeCount = this.raw.snapshot.node_count ?? Math.floor(this.raw.nodes.length / nodeStride);
+    let edgeCursor = 0;
+    for (let i = 0; i < nodeCount; i++) {
+      const base2 = i * nodeStride;
+      const typeIdx = this.raw.nodes[base2 + this.nodeFieldIndex["type"]];
+      const nameIdx = this.nodeFieldIndex["name"] >= 0 ? this.raw.nodes[base2 + this.nodeFieldIndex["name"]] : -1;
+      const id = this.raw.nodes[base2 + this.nodeFieldIndex["id"]];
+      const selfSize = this.nodeFieldIndex["self_size"] >= 0 ? this.raw.nodes[base2 + this.nodeFieldIndex["self_size"]] : 0;
+      const edgeCount2 = this.nodeFieldIndex["edge_count"] >= 0 ? this.raw.nodes[base2 + this.nodeFieldIndex["edge_count"]] : 0;
+      const detached = this.nodeFieldIndex["detachedness"] >= 0 ? this.raw.nodes[base2 + this.nodeFieldIndex["detachedness"]] : 0;
+      const nodeType = this.typeName(typeIdx);
+      const node = {
+        index: i,
+        type: nodeType,
+        nameIdx,
+        className: this.classKey(nodeType, nameIdx),
+        id,
+        selfSize,
+        edgeCount: edgeCount2,
+        edgeStart: edgeCursor,
+        detached
+      };
+      this.nodes.push(node);
+      if (id !== 0 && !this.nodeById.has(id)) this.nodeById.set(id, node);
+      edgeCursor += edgeCount2;
+    }
+    const edgeStride = (this.raw.snapshot.meta.edge_fields || EDGE_TYPE_KEYS).length;
+    const edgeCount = this.raw.snapshot.edge_count ?? Math.floor(this.raw.edges.length / edgeStride);
+    for (let i = 0; i < edgeCount; i++) {
+      const base2 = i * edgeStride;
+      const typeIdx = this.raw.edges[base2 + this.edgeFieldIndex["type"]];
+      const nameOrIndex = this.raw.edges[base2 + this.edgeFieldIndex["name_or_index"]];
+      const edgeType = this.edgeTypeName(typeIdx);
+      const toNodeRaw = this.raw.edges[base2 + this.edgeFieldIndex["to_node"]];
+      const toNodeOrdinal = Number.isInteger(toNodeRaw / nodeStride) && toNodeRaw >= 0 ? toNodeRaw / nodeStride : Math.floor(toNodeRaw / nodeStride);
+      const edge = {
+        index: i,
+        type: edgeType,
+        nameOrIndex,
+        isNameString: edgeType !== "element" && edgeType !== "hidden",
+        toNodeIndex: toNodeOrdinal
+      };
+      this.edges.push(edge);
+      if (toNodeOrdinal >= 0 && toNodeOrdinal < this.nodes.length) {
+        const bucket = this.retainersOf.get(toNodeOrdinal) || [];
+        bucket.push(i);
+        this.retainersOf.set(toNodeOrdinal, bucket);
+      }
+    }
+  }
+  typeName(idx) {
+    const types = this.raw.snapshot.meta.node_types?.[0];
+    if (Array.isArray(types)) {
+      return types[idx] ?? `type_${idx}`;
+    }
+    return this.raw.strings[idx] ?? `type_${idx}`;
+  }
+  edgeTypeName(idx) {
+    const types = this.raw.snapshot.meta.edge_types?.[0];
+    if (Array.isArray(types)) {
+      return types[idx] ?? `edge_${idx}`;
+    }
+    return this.raw.strings[idx] ?? `edge_${idx}`;
+  }
+  classKey(nodeType, nameIdx) {
+    const cacheKey = `${nodeType}:${nameIdx}`;
+    const cached = this.classNameCache.get(cacheKey);
+    if (cached !== void 0) return cached;
+    const name = nameIdx >= 0 ? this.raw.strings[nameIdx] ?? "" : "";
+    const result = nodeType === "object" || nodeType === "native" ? name || nodeType : nodeType === "closure" ? `closure:${name || "anonymous"}` : nodeType === "string" ? "string" : `${nodeType}:${name}`;
+    this.classNameCache.set(cacheKey, result);
+    return result;
+  }
+  // -----------------------------------------------------------------------
+  // Accessors
+  // -----------------------------------------------------------------------
+  nodeCount() {
+    return this.nodes.length;
+  }
+  edgeCount() {
+    return this.edges.length;
+  }
+  parseDurationMs() {
+    return this.parseMs;
+  }
+  summary() {
+    const aggregates = this.classAggregates();
+    let total = 0;
+    for (const a of aggregates) total += a.selfSize;
+    return {
+      snapshotId: "",
+      source: "LIVE",
+      nodeCount: this.nodes.length,
+      edgeCount: this.edges.length,
+      totalSelfSize: total,
+      classes: aggregates,
+      strings: this.raw.strings.length
+    };
+  }
+  classAggregates() {
+    const agg = /* @__PURE__ */ new Map();
+    for (const node of this.nodes) {
+      const entry = agg.get(node.className) || { className: node.className, count: 0, selfSize: 0 };
+      entry.count++;
+      entry.selfSize += node.selfSize;
+      agg.set(node.className, entry);
+    }
+    return Array.from(agg.values()).sort((a, b) => b.selfSize - a.selfSize || b.count - a.count);
+  }
+  classNodes(className, offset = 0, limit = 50) {
+    const all = this.nodes.filter((n) => this.matchesClass(n, className));
+    return {
+      total: all.length,
+      nodes: all.slice(offset, offset + limit).map((n) => this.toNodeInfo(n))
+    };
+  }
+  matchesClass(node, className) {
+    if (node.className === className) return true;
+    const q = className.toLowerCase();
+    if (node.className.toLowerCase() === q) return true;
+    return node.className.toLowerCase().includes(q) && q.length >= 3;
+  }
+  nodeByIdOrIndex(idOrIndex) {
+    const node = this.nodeById.get(idOrIndex) || this.nodes[idOrIndex];
+    return node ? this.toNodeInfo(node) : null;
+  }
+  objectDetails(idOrIndex) {
+    const node = this.nodeById.get(idOrIndex) || this.nodes[idOrIndex];
+    if (!node) return null;
+    const outgoing = this.nodeEdges(node);
+    const incoming = this.retainers(node);
+    return {
+      ...this.toNodeInfo(node),
+      name: node.nameIdx >= 0 ? this.raw.strings[node.nameIdx] : void 0,
+      outgoingEdgeCount: outgoing.length,
+      outgoingEdges: outgoing.slice(0, 100),
+      retainerCount: incoming.length,
+      retainers: incoming.slice(0, 100),
+      detached: node.detached === 1
+    };
+  }
+  nodeEdges(node) {
+    const result = [];
+    for (let e = 0; e < node.edgeCount; e++) {
+      const edge = this.edges[node.edgeStart + e];
+      if (!edge) continue;
+      const toNode = this.nodes[edge.toNodeIndex];
+      result.push({
+        index: edge.index,
+        type: edge.type,
+        nameOrIndex: edge.isNameString ? this.raw.strings[edge.nameOrIndex] ?? String(edge.nameOrIndex) : String(edge.nameOrIndex),
+        fromNodeId: node.id,
+        toNodeId: toNode ? toNode.id : -1,
+        toNodeClass: toNode ? toNode.className : "unknown",
+        toSelfSize: toNode ? toNode.selfSize : 0
+      });
+    }
+    return result;
+  }
+  retainers(node) {
+    const edgeIndexes = this.retainersOf.get(node.index) || [];
+    const result = [];
+    for (const ei of edgeIndexes) {
+      const edge = this.edges[ei];
+      if (!edge) continue;
+      const fromNode = this.findOwnerNodeOfEdge(edge);
+      if (!fromNode) continue;
+      result.push({
+        index: edge.index,
+        type: edge.type,
+        nameOrIndex: edge.isNameString ? this.raw.strings[edge.nameOrIndex] ?? String(edge.nameOrIndex) : String(edge.nameOrIndex),
+        fromNodeId: fromNode.id,
+        fromClassName: fromNode.className,
+        toNodeId: node.id,
+        toNodeClass: node.className,
+        toSelfSize: node.selfSize
+      });
+    }
+    return result;
+  }
+  edgeOwner = /* @__PURE__ */ new Map();
+  buildEdgeOwnerIndex() {
+    if (this.edgeOwner.size) return;
+    for (const node of this.nodes) {
+      for (let e = 0; e < node.edgeCount; e++) {
+        this.edgeOwner.set(node.edgeStart + e, node.index);
+      }
+    }
+  }
+  findOwnerNodeOfEdge(edge) {
+    this.buildEdgeOwnerIndex();
+    const owner = this.edgeOwner.get(edge.index);
+    return owner !== void 0 ? this.nodes[owner] : null;
+  }
+  /** Retaining paths: BFS from synthetic roots to the target node. */
+  retainingPaths(node, maxPaths = 3) {
+    const roots = this.nodes.filter((n) => n.type === "synthetic" || n.className === "(roots)" || n.index === 0).slice(0, 5);
+    const prevEdge = /* @__PURE__ */ new Map();
+    const visited = new Set(roots.map((r) => r.index));
+    let frontier = roots.map((r) => r.index);
+    while (frontier.length && !visited.has(node.index)) {
+      const next = [];
+      for (const idx of frontier) {
+        const owner = this.nodes[idx];
+        for (let e = 0; e < owner.edgeCount; e++) {
+          const edgeIndex = owner.edgeStart + e;
+          const edge = this.edges[edgeIndex];
+          if (!edge || visited.has(edge.toNodeIndex)) continue;
+          visited.add(edge.toNodeIndex);
+          prevEdge.set(edge.toNodeIndex, edgeIndex);
+          next.push(edge.toNodeIndex);
+        }
+      }
+      frontier = next;
+    }
+    if (!visited.has(node.index)) return [];
+    const paths = [];
+    let cursor = node.index;
+    const chain = [];
+    while (cursor !== void 0 && prevEdge.has(cursor)) {
+      const edgeIndex = prevEdge.get(cursor);
+      const edge = this.edges[edgeIndex];
+      const owner = this.findOwnerNodeOfEdge(edge);
+      if (!owner) break;
+      chain.push({
+        from: `${owner.className}@${owner.id}`,
+        edge: edge.isNameString ? this.raw.strings[edge.nameOrIndex] ?? String(edge.nameOrIndex) : `[${edge.nameOrIndex}]`
+      });
+      cursor = owner.index;
+    }
+    chain.reverse();
+    paths.push({ path: chain, length: chain.length });
+    return paths.slice(0, maxPaths);
+  }
+  /**
+   * Dominator analysis (Cooper–Harvey–Kennedy + retained sizes).
+   * Implementation lives in heap-dominators.ts (§31 modularization).
+   */
+  dominatorSummary(limit = 20) {
+    return dominatorSummary(this, limit);
+  }
+  duplicateStrings() {
+    const counts = /* @__PURE__ */ new Map();
+    for (const node of this.nodes) {
+      if (node.type !== "string" || node.nameIdx < 0) continue;
+      const value = this.raw.strings[node.nameIdx];
+      if (!value) continue;
+      const entry = counts.get(value) || { instances: 0, wastedBytes: 0 };
+      entry.instances++;
+      entry.wastedBytes += node.selfSize;
+      counts.set(value, entry);
+    }
+    return Array.from(counts.entries()).filter(([, v]) => v.instances > 1).map(([value, v]) => ({ value: value.length > 120 ? value.slice(0, 120) + "…" : value, instances: v.instances, wastedBytes: v.wastedBytes })).sort((a, b) => b.wastedBytes - a.wastedBytes);
+  }
+  queryNodes(filter) {
+    let list = this.nodes;
+    if (filter.type) {
+      const t = filter.type.toLowerCase();
+      list = list.filter((n) => n.type.toLowerCase() === t || n.className.toLowerCase().includes(t));
+    }
+    if (filter.className) {
+      list = list.filter((n) => this.matchesClass(n, filter.className));
+    }
+    if (filter.minSize !== void 0) {
+      list = list.filter((n) => n.selfSize >= filter.minSize);
+    }
+    return list.slice(0, filter.limit || 50).map((n) => this.toNodeInfo(n));
+  }
+  toNodeInfo(node) {
+    return {
+      id: node.id,
+      index: node.index,
+      type: node.type,
+      className: node.className,
+      name: node.nameIdx >= 0 ? this.raw.strings[node.nameIdx] : void 0,
+      selfSize: node.selfSize,
+      edgeCount: node.edgeCount,
+      detached: node.detached === 1
+    };
+  }
+  rawSnapshot() {
+    return this.raw;
+  }
+}
+const MAX_OPEN_SNAPSHOTS = 6;
+class HeapSnapshotStore {
+  snapshots = /* @__PURE__ */ new Map();
+  counter = 0;
+  loadFromRaw(raw, origin, simulated) {
+    this.evictIfNeeded();
+    const parser = new HeapSnapshotParser(raw);
+    const snapshotId = `heap_${++this.counter}`;
+    const entry = { snapshotId, parser, origin, simulated, loadedAt: Date.now(), lastAccessAt: Date.now() };
+    this.snapshots.set(snapshotId, entry);
+    return entry;
+  }
+  loadFromJsonString(json, origin) {
+    let raw;
+    try {
+      raw = JSON.parse(json);
+    } catch (err) {
+      throw new Error(`INVALID_INPUT: heap snapshot JSON is not parseable (${err.message}).`);
+    }
+    return this.loadFromRaw(raw, origin, false);
+  }
+  get(snapshotId) {
+    const entry = this.snapshots.get(snapshotId);
+    if (entry) entry.lastAccessAt = Date.now();
+    return entry;
+  }
+  require(snapshotId) {
+    const entry = this.get(snapshotId);
+    if (!entry) {
+      const known = Array.from(this.snapshots.keys()).join(", ") || "none";
+      throw new Error(`RESOURCE_EXHAUSTED: unknown heap snapshot '${snapshotId}'. Open snapshots: ${known}.`);
+    }
+    return entry;
+  }
+  close(snapshotId) {
+    return this.snapshots.delete(snapshotId);
+  }
+  list() {
+    return Array.from(this.snapshots.values()).map((s) => ({
+      snapshotId: s.snapshotId,
+      origin: s.origin,
+      simulated: s.simulated,
+      loadedAt: s.loadedAt,
+      nodeCount: s.parser.nodeCount(),
+      edgeCount: s.parser.edgeCount()
+    }));
+  }
+  evictIfNeeded() {
+    if (this.snapshots.size < MAX_OPEN_SNAPSHOTS) return;
+    let oldest = null;
+    let oldestAt = Infinity;
+    for (const [id, s] of this.snapshots) {
+      if (s.lastAccessAt < oldestAt) {
+        oldestAt = s.lastAccessAt;
+        oldest = id;
+      }
+    }
+    if (oldest) this.snapshots.delete(oldest);
+    if (this.snapshots.size >= MAX_OPEN_SNAPSHOTS) {
+      throw new Error("RESOURCE_EXHAUSTED: too many open heap snapshots. Close unused ones with dt_close_heapsnapshot.");
+    }
+  }
+}
+const heapStore = new HeapSnapshotStore();
+function compareHeapSnapshots(a, b) {
+  const aggA = new Map(a.classAggregates().map((c) => [c.className, c]));
+  const aggB = new Map(b.classAggregates().map((c) => [c.className, c]));
+  const classNames = /* @__PURE__ */ new Set([...aggA.keys(), ...aggB.keys()]);
+  const classes = [];
+  let addedNodes = 0;
+  let removedNodes = 0;
+  for (const className of classNames) {
+    const ca = aggA.get(className);
+    const cb = aggB.get(className);
+    const addedCount = (cb?.count || 0) - (ca?.count || 0);
+    const addedSize = (cb?.selfSize || 0) - (ca?.selfSize || 0);
+    if (ca === void 0) {
+      addedNodes += cb?.count || 0;
+      classes.push({ className, addedCount: cb?.count || 0, removedCount: 0, countDelta: cb?.count || 0, addedSize: cb?.selfSize || 0, removedSize: 0, sizeDelta: cb?.selfSize || 0 });
+    } else if (cb === void 0) {
+      removedNodes += ca.count;
+      classes.push({ className, addedCount: 0, removedCount: ca.count, countDelta: -ca.count, addedSize: 0, removedSize: ca.selfSize, sizeDelta: -ca.selfSize });
+    } else if (addedCount !== 0 || addedSize !== 0) {
+      if (addedCount > 0) addedNodes += addedCount;
+      else removedNodes += -addedCount;
+      classes.push({ className, addedCount: Math.max(0, addedCount), removedCount: Math.max(0, -addedCount), countDelta: addedCount, addedSize: Math.max(0, addedSize), removedSize: Math.max(0, -addedSize), sizeDelta: addedSize });
+    }
+  }
+  classes.sort((x, y) => Math.abs(y.sizeDelta) - Math.abs(x.sizeDelta));
+  return { classes: classes.slice(0, 200), addedNodes, removedNodes };
+}
+function buildSimulatedHeapSnapshot(seed = 1) {
+  let s = seed * 40503 % 2147483647;
+  const rnd = (mod) => {
+    s = s * 16807 % 2147483647;
+    return s % mod;
+  };
+  const nodeFields = ["type", "name", "id", "self_size", "edge_count", "trace_node_id", "detachedness"];
+  const strings = [
+    "(roots)",
+    "internal",
+    "native",
+    "object",
+    "string",
+    "closure",
+    "element",
+    "shortcut",
+    "weak",
+    "Window",
+    "HTMLDivElement",
+    "Object",
+    "Array",
+    "system / Context",
+    "hello-world",
+    "dashboard-state",
+    "GlobalStore",
+    "retained-blob",
+    "anonymous"
+  ];
+  const nodes = [];
+  const edges = [];
+  const mkNode = (typeIdx, nameIdx, id, selfSize, edgeCount) => {
+    nodes.push(typeIdx, nameIdx, id, selfSize, edgeCount, 0, 0);
+    return nodes.length / nodeFields.length - 1;
+  };
+  const rootIdx = mkNode(8, 0, 1, 0, 4);
+  const windowIdx = mkNode(7, 9, 2, 1024, 3);
+  const divIdx = mkNode(7, 10, 3, 512, 2);
+  const objIdx = mkNode(3, 11, 4, 256, 2);
+  const arrIdx = mkNode(3, 12, 5, 384, 1);
+  const storeIdx = mkNode(3, 16, 6, 2048, 2);
+  const blobIdx = mkNode(3, 17, 7, 131072, 0);
+  const ctxIdx = mkNode(7, 13, 8, 8192, 1);
+  const strA1 = mkNode(2, 14, 101, 48, 0);
+  const strA2 = mkNode(2, 14, 102, 48, 0);
+  const strB1 = mkNode(2, 15, 103, 64, 0);
+  const strB2 = mkNode(2, 15, 104, 64, 0);
+  const strB3 = mkNode(2, 15, 105, 64, 0);
+  const cl1 = mkNode(5, 18, 201, 128, 1);
+  const cl2 = mkNode(5, 18, 202, 128, 0);
+  const extras = [];
+  for (let i = 0; i < 12 + rnd(10); i++) {
+    const idx = mkNode(3, 11, 300 + i, rnd(4096), rnd(3));
+    extras.push(idx);
+  }
+  const E = (type, name, toFlatIdx) => edges.push(type, name, toFlatIdx);
+  const stride = nodeFields.length;
+  E(4, 0, rootIdx * stride);
+  edges.length = 0;
+  E(1, 0, windowIdx * stride);
+  E(1, 1, ctxIdx * stride);
+  E(1, 2, storeIdx * stride);
+  E(1, 3, blobIdx * stride);
+  E(6, 0, divIdx * stride);
+  E(6, 1, objIdx * stride);
+  E(6, 2, arrIdx * stride);
+  E(6, 0, strA1 * stride);
+  E(6, 1, strB1 * stride);
+  E(6, 0, cl1 * stride);
+  E(6, 1, strA2 * stride);
+  E(6, 0, strB2 * stride);
+  E(6, 0, strB3 * stride);
+  E(6, 1, blobIdx * stride);
+  E(6, 0, cl2 * stride);
+  for (let i = 0; i < extras.length; i++) E(6, i, extras[i] * stride);
+  const edgeFields = ["type", "name_or_index", "to_node"];
+  return {
+    snapshot: {
+      meta: {
+        node_fields: nodeFields,
+        node_types: [["hidden", "array", "string", "object", "code", "closure", "number", "native", "synthetic"], "string", "number", "number", "number", "number", "number"],
+        edge_fields: edgeFields,
+        edge_types: [["element", "hidden", "internal", "shortcut", "weak"], "string_or_number", "node"]
+      },
+      node_count: nodes.length / stride,
+      edge_count: edges.length / edgeFields.length
+    },
+    nodes,
+    edges,
+    strings
+  };
+}
+async function dtPerformanceStartTrace(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  const categories = Array.isArray(args.categories) && args.categories.length > 0 ? args.categories.map(String) : ["devtools.timeline", "loading", "netlog"];
+  if (unifiedRuntime.cdpAvailable() || unifiedRuntime.hasBridge() && !isSimulation()) {
+    try {
+      const session = await cdpGateway.attach({ tabId });
+      unifiedRuntime.markCdpAttached(true);
+      await cdpGateway.send(session.sessionId, "Tracing.start", { categories: categories.join(","), transferMode: "ReturnAsStream" });
+      const { info: info2 } = traceStore.start(pageId, categories);
+      return { traceId: info2.traceId, pageId, started: true, categories, mode: "LIVE", simulated: false, cdpSession: session.sessionId };
+    } catch (err) {
+      if (!isSimulation()) throw err;
+    }
+  }
+  const { info, mode } = traceStore.start(pageId, categories);
+  traceStore.append(info.traceId, buildSimulatedTraceFixture(pageId.length));
+  unifiedRuntime.bus.publish("PERFORMANCE", "trace_start", { traceId: info.traceId, simulated: true }, { pageId, traceId: info.traceId });
+  return {
+    traceId: info.traceId,
+    pageId,
+    started: true,
+    categories,
+    ...mode,
+    note: `${mode.note} Analysis algorithms are identical to live traces; the DATA here is a deterministic fixture, not real Chrome measurements.`
+  };
+}
+function isSimulation() {
+  return typeof globalThis.__FORENSIC_SIMULATION__ !== "undefined";
+}
+async function dtPerformanceStopTrace(args) {
+  let traceId = args.traceId ? String(args.traceId) : void 0;
+  const { pageId } = await resolvePageId(args);
+  if (!traceId) {
+    const active = traceStore.list().find((t) => t.pageId === pageId && !t.stoppedAt);
+    if (!active) throw new Error("RESOURCE_EXHAUSTED: no active trace for this page. Start one with dt_performance_start_trace.");
+    traceId = active.traceId;
+  }
+  const session = traceStore.get(traceId);
+  if (session && session.info.mode === "LIVE" && !session.info.stoppedAt && unifiedRuntime.cdpAvailable()) {
+    for (const s of cdpGateway.listSessions()) {
+      const stream = await cdpGateway.send(s.sessionId, "Tracing.end", {}).catch(() => null);
+      if (stream) {
+        const events2 = Array.isArray(stream.events) ? stream.events : [];
+        traceStore.append(traceId, events2);
+      }
+      break;
+    }
+  }
+  const { info, events } = traceStore.stop(traceId);
+  const analysis = analyzeTrace(traceId, events);
+  unifiedRuntime.bus.publish("PERFORMANCE", "trace_stop", { traceId, events: events.length }, { pageId, traceId });
+  return {
+    traceId,
+    pageId,
+    stopped: true,
+    mode: info.mode,
+    simulated: info.simulated,
+    eventCount: events.length,
+    durationMs: analysis.durationMs,
+    webVitals: analysis.webVitals,
+    topLongTasks: analysis.topLongTasks,
+    layoutShifts: analysis.layoutShiftSources.slice(0, 20),
+    phaseBreakdown: analysis.phaseBreakdown
+  };
+}
+async function dtPerformanceAnalyzeInsight(args) {
+  let events = [];
+  let traceId = args.traceId ? String(args.traceId) : "";
+  if (Array.isArray(args.events) && args.events.length > 0) {
+    events = args.events;
+    traceId = traceId || "adhoc";
+  } else if (traceId) {
+    const session = traceStore.get(traceId);
+    if (!session) throw new Error(`RESOURCE_EXHAUSTED: trace '${traceId}' not found.`);
+    events = session.events;
+  } else {
+    throw new Error("INVALID_INPUT: provide traceId or events[] to analyze.");
+  }
+  const focus = String(args.insight || "all");
+  const analysis = analyzeTrace(traceId, events);
+  const result = { traceId, eventCount: analysis.eventCount, durationMs: analysis.durationMs };
+  switch (focus) {
+    case "long-tasks":
+      return { ...result, topLongTasks: analysis.topLongTasks, longTaskCount: analysis.topLongTasks.length };
+    case "layout-shifts":
+      return { ...result, layoutShifts: analysis.layoutShiftSources, cls: analysis.webVitals.cls };
+    case "web-vitals":
+      return { ...result, webVitals: analysis.webVitals };
+    case "phases":
+      return { ...result, phaseBreakdown: analysis.phaseBreakdown };
+    default:
+      return { ...result, webVitals: analysis.webVitals, topLongTasks: analysis.topLongTasks, layoutShifts: analysis.layoutShiftSources.slice(0, 20), phaseBreakdown: analysis.phaseBreakdown, insights: analysis.insights.slice(0, 100) };
+  }
+}
+async function dtTakeHeapsnapshot(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  if (args.raw) {
+    let rawText2 = String(args.raw);
+    if (rawText2.trim().startsWith("/") && fs.existsSync(rawText2)) {
+      rawText2 = fs.readFileSync(rawText2, "utf-8");
+    }
+    const entry2 = heapStore.loadFromJsonString(rawText2, "provided-json");
+    return reportLoadedSnapshot(entry2.snapshotId, entry2.parser.nodeCount(), entry2.parser.edgeCount(), "LIVE", false, pageId, "Provided snapshot JSON parsed and registered.");
+  }
+  if (args.saveToPath && !path.isAbsolute(String(args.saveToPath))) {
+    throw new Error("INVALID_INPUT: saveToPath must be absolute.");
+  }
+  if (unifiedRuntime.cdpAvailable()) {
+    const session = await cdpGateway.attach({ tabId });
+    const chunks = [];
+    const stopListening = cdpGateway.onRemoteEvent(session.sessionId, (evt) => {
+      if (evt?.method === "HeapProfiler.addHeapSnapshotChunk") {
+        chunks.push(String(evt.params?.chunk || ""));
+      }
+    });
+    const result = await cdpGateway.send(session.sessionId, "HeapProfiler.takeHeapSnapshot", { reportProgress: false });
+    stopListening();
+    const rawJson = chunks.join("");
+    if (rawJson) {
+      const entry2 = heapStore.loadFromJsonString(rawJson, `cdp:${session.targetId}`);
+      if (args.saveToPath) fs.writeFileSync(String(args.saveToPath), rawJson);
+      unifiedRuntime.bus.publish("MEMORY", "heapsnapshot_taken", { snapshotId: entry2.snapshotId, nodes: entry2.parser.nodeCount() }, { pageId, snapshotId: entry2.snapshotId });
+      return reportLoadedSnapshot(entry2.snapshotId, entry2.parser.nodeCount(), entry2.parser.edgeCount(), "LIVE", false, pageId, "Captured via CDP HeapProfiler.", args.saveToPath ? String(args.saveToPath) : void 0, result);
+    }
+    return { taken: false, mode: "UNAVAILABLE", note: "CDP attached but no snapshot stream was returned.", pageId };
+  }
+  const raw = buildSimulatedHeapSnapshot(pageId.length + 1);
+  const rawText = JSON.stringify(raw);
+  const entry = heapStore.loadFromRaw(raw, "simulation-fixture", true);
+  if (args.saveToPath) fs.writeFileSync(String(args.saveToPath), rawText);
+  unifiedRuntime.bus.publish("MEMORY", "heapsnapshot_taken", { snapshotId: entry.snapshotId, simulated: true }, { pageId, snapshotId: entry.snapshotId });
+  return reportLoadedSnapshot(
+    entry.snapshotId,
+    entry.parser.nodeCount(),
+    entry.parser.edgeCount(),
+    "SIMULATED",
+    true,
+    pageId,
+    "Deterministic fixture in the REAL .heapsnapshot JSON format. Parser/analysis code paths are identical to live captures, but THIS DATA IS NOT a real V8 heap — contract validation only.",
+    args.saveToPath ? String(args.saveToPath) : void 0
+  );
+}
+function reportLoadedSnapshot(snapshotId, nodes, edges, mode, simulated, pageId, note, savedTo, detail) {
+  return { taken: true, snapshotId, nodeCount: nodes, edgeCount: edges, mode, simulated, pageId, note, savedTo, detail };
+}
+async function dtCloseHeapsnapshot(args) {
+  const closed = heapStore.close(String(args.snapshotId));
+  if (!closed) throw new Error(`RESOURCE_EXHAUSTED: snapshot '${args.snapshotId}' is not open.`);
+  return { closed: true, snapshotId: args.snapshotId };
+}
+async function dtHeapsnapshotSummary(args) {
+  const entry = heapStore.require(String(args.snapshotId));
+  const limit = Number(args.limit) || 50;
+  const summary = entry.parser.summary();
+  return {
+    snapshotId: entry.snapshotId,
+    simulated: entry.simulated,
+    nodeCount: summary.nodeCount,
+    edgeCount: summary.edgeCount,
+    totalSelfSize: summary.totalSelfSize,
+    stringCount: summary.strings,
+    classes: summary.classes.slice(0, limit)
+  };
+}
+async function dtHeapsnapshotDetails(args) {
+  const entry = heapStore.require(String(args.snapshotId));
+  const raw = entry.parser.rawSnapshot();
+  return {
+    snapshotId: entry.snapshotId,
+    simulated: entry.simulated,
+    origin: entry.origin,
+    loadedAt: entry.loadedAt,
+    parseDurationMs: entry.parser.parseDurationMs(),
+    nodeCount: entry.parser.nodeCount(),
+    edgeCount: entry.parser.edgeCount(),
+    meta: raw.snapshot.meta,
+    declaredCounts: { nodes: raw.snapshot.node_count, edges: raw.snapshot.edge_count }
+  };
+}
+async function dtHeapsnapshotClassNodes(args) {
+  const entry = heapStore.require(String(args.snapshotId));
+  if (!args.className) throw new Error("INVALID_INPUT: className is required.");
+  const result = entry.parser.classNodes(String(args.className), Number(args.offset) || 0, Number(args.limit) || 50);
+  return { snapshotId: entry.snapshotId, className: args.className, ...result, simulated: entry.simulated };
+}
+function findNodeParserTarget(args) {
+  const entry = heapStore.require(String(args.snapshotId));
+  if (args.nodeId === void 0 && args.nodeIndex === void 0) {
+    throw new Error("INVALID_INPUT: provide nodeId (V8 object id) or nodeIndex.");
+  }
+  return { entry, nodeId: args.nodeId !== void 0 ? Number(args.nodeId) : void 0, nodeIndex: args.nodeIndex !== void 0 ? Number(args.nodeIndex) : void 0 };
+}
+async function dtHeapsnapshotEdges(args) {
+  const { entry, nodeId, nodeIndex } = findNodeParserTarget(args);
+  const parser = entry.parser;
+  nodeId !== void 0 ? parser.nodeById.get(nodeId) : parser ? void 0 : void 0;
+  const resolved = nodeId !== void 0 ? parser.nodeById.get(nodeId) || parser.nodes[nodeIndex] : parser.nodes[nodeIndex];
+  if (!resolved) throw new Error(`RESOURCE_EXHAUSTED: node not found (nodeId=${nodeId}, nodeIndex=${nodeIndex}).`);
+  const edges = parser.nodeEdges(resolved).slice(0, Number(args.limit) || 100);
+  return { snapshotId: entry.snapshotId, node: { id: resolved.id, className: resolved.className, selfSize: resolved.selfSize }, edgeCount: resolved.edgeCount, edges, simulated: entry.simulated };
+}
+async function dtHeapsnapshotRetainers(args) {
+  const { entry, nodeId, nodeIndex } = findNodeParserTarget(args);
+  const parser = entry.parser;
+  const resolved = nodeId !== void 0 ? parser.nodeById.get(nodeId) || parser.nodes[nodeIndex] : parser.nodes[nodeIndex];
+  if (!resolved) throw new Error(`RESOURCE_EXHAUSTED: node not found (nodeId=${nodeId}, nodeIndex=${nodeIndex}).`);
+  const retainers = parser.retainers(resolved).slice(0, Number(args.limit) || 100);
+  return { snapshotId: entry.snapshotId, node: { id: resolved.id, className: resolved.className, selfSize: resolved.selfSize }, retainerCount: retainers.length, retainers, simulated: entry.simulated };
+}
+async function dtHeapsnapshotRetainingPaths(args) {
+  const { entry, nodeId, nodeIndex } = findNodeParserTarget(args);
+  const parser = entry.parser;
+  const resolved = nodeId !== void 0 ? parser.nodeById.get(nodeId) || parser.nodes[nodeIndex] : parser.nodes[nodeIndex];
+  if (!resolved) throw new Error(`RESOURCE_EXHAUSTED: node not found (nodeId=${nodeId}, nodeIndex=${nodeIndex}).`);
+  const paths = parser.retainingPaths(resolved, Number(args.maxPaths) || 3);
+  return { snapshotId: entry.snapshotId, node: { id: resolved.id, className: resolved.className }, pathCount: paths.length, paths, simulated: entry.simulated };
+}
+async function dtHeapsnapshotDominators(args) {
+  const entry = heapStore.require(String(args.snapshotId));
+  const parser = entry.parser;
+  const dominators = parser.dominatorSummary(Number(args.limit) || 20);
+  return { snapshotId: entry.snapshotId, dominators, simulated: entry.simulated, algorithm: "Iterative dominator computation (Cooper–Harvey–Kennedy) over the retained edge graph, retained sizes summed per dominated subtree." };
+}
+async function dtHeapsnapshotDuplicateStrings(args) {
+  const entry = heapStore.require(String(args.snapshotId));
+  const parser = entry.parser;
+  const duplicates = parser.duplicateStrings().slice(0, Number(args.limit) || 50);
+  let wasted = 0;
+  for (const d of duplicates) wasted += d.wastedBytes;
+  return { snapshotId: entry.snapshotId, duplicateGroups: duplicates.length, totalWastedBytes: wasted, duplicates, simulated: entry.simulated };
+}
+async function dtHeapsnapshotObjectDetails(args) {
+  const { entry, nodeId, nodeIndex } = findNodeParserTarget(args);
+  const parser = entry.parser;
+  const details = parser.objectDetails(nodeId !== void 0 ? nodeId : nodeIndex);
+  if (!details) throw new Error(`RESOURCE_EXHAUSTED: node not found (nodeId=${nodeId}, nodeIndex=${nodeIndex}).`);
+  return { snapshotId: entry.snapshotId, ...details, simulated: entry.simulated };
+}
+async function dtQueryHeapsnapshotObjects(args) {
+  const entry = heapStore.require(String(args.snapshotId));
+  const parser = entry.parser;
+  const nodes = parser.queryNodes({
+    type: args.type ? String(args.type) : void 0,
+    className: args.className ? String(args.className) : void 0,
+    minSize: args.minSize !== void 0 ? Number(args.minSize) : void 0,
+    limit: Number(args.limit) || 50
+  });
+  return { snapshotId: entry.snapshotId, matched: nodes.length, nodes, simulated: entry.simulated };
+}
+async function dtCompareHeapsnapshots(args) {
+  if (!args.snapshotA || !args.snapshotB) throw new Error("INVALID_INPUT: snapshotA and snapshotB are required.");
+  const a = heapStore.require(String(args.snapshotA));
+  const b = heapStore.require(String(args.snapshotB));
+  const diff = compareHeapSnapshots(a.parser, b.parser);
+  return {
+    snapshotA: args.snapshotA,
+    snapshotB: args.snapshotB,
+    addedNodes: diff.addedNodes,
+    removedNodes: diff.removedNodes,
+    classes: diff.classes,
+    simulatedA: a.simulated,
+    simulatedB: b.simulated
+  };
+}
+async function dtInstallExtension(args) {
+  if (!args.extensionPath && !args.extensionId) {
+    throw new Error("INVALID_INPUT: extensionPath or extensionId is required.");
+  }
+  if (unifiedRuntime.hasBridge()) {
+    const list = await unifiedRuntime.bridgeCommand("LIST_EXTENSIONS", {});
+    const known = list?.extensions || [];
+    const match = known.find((e) => e.id === args.extensionId);
+    if (match) {
+      await unifiedRuntime.bridgeCommand("SET_EXTENSION_ENABLED", { extensionId: args.extensionId, enabled: true });
+      return { installed: true, alreadyPresent: true, extensionId: match.id, note: "Extension was already present; ensured enabled." };
+    }
+    return {
+      installed: false,
+      mode: "UNAVAILABLE",
+      note: "chrome.management can only uninstall/enable/disable. To install an unpacked extension, load it once via chrome://extensions (Load unpacked), then manage it here. Provide the extensionId after loading."
+    };
+  }
+  return {
+    installed: false,
+    mode: "UNAVAILABLE",
+    note: "Extension installation requires the live bridge. Simulation never fakes installed extensions."
+  };
+}
+async function dtListExtensions() {
+  if (unifiedRuntime.hasBridge()) {
+    const result = await unifiedRuntime.bridgeCommand("LIST_EXTENSIONS", {});
+    const extensions = (result?.extensions || []).map((e) => ({
+      extensionId: e.id,
+      name: e.name,
+      version: e.version,
+      enabled: e.enabled,
+      description: e.description,
+      installType: e.installType || "development"
+    }));
+    return { total: extensions.length, extensions, mode: "LIVE", simulated: false };
+  }
+  const controller = globalThis.__MCPDOM_LOCAL_CONTROLLER__;
+  if (controller) {
+    const res = await controller.handleCommand({ id: `ext_${Date.now()}`, command: "LIST_EXTENSIONS", timestamp: Date.now(), payload: {} });
+    const extensions = (res?.data?.extensions || []).map((e) => ({
+      extensionId: e.id,
+      name: e.name,
+      version: e.version,
+      enabled: e.enabled,
+      description: e.description || "",
+      installType: "development"
+    }));
+    return { total: extensions.length, extensions, mode: "SIMULATED", simulated: true, note: "Deterministic simulated extension state — real listing requires the Chrome extension connection." };
+  }
+  return { total: 0, extensions: [], mode: "UNAVAILABLE", note: "No bridge and no simulation controller available." };
+}
+async function dtReloadExtension(args) {
+  if (!args.extensionId) throw new Error("INVALID_INPUT: extensionId is required.");
+  if (unifiedRuntime.hasBridge()) {
+    const result = await unifiedRuntime.bridgeCommand("RELOAD_EXTENSION", { extensionId: args.extensionId });
+    return { reloaded: true, extensionId: args.extensionId, detail: result, mode: "LIVE" };
+  }
+  const controller = globalThis.__MCPDOM_LOCAL_CONTROLLER__;
+  if (controller) {
+    const res = await controller.handleCommand({ id: `rel_${Date.now()}`, command: "RELOAD_EXTENSION", timestamp: Date.now(), payload: { extensionId: args.extensionId } });
+    return { reloaded: !!res?.success, extensionId: args.extensionId, simulated: true, mode: "SIMULATED", detail: res?.data };
+  }
+  return { reloaded: false, mode: "UNAVAILABLE", note: "Requires the live bridge." };
+}
+async function dtTriggerExtensionAction(args) {
+  if (!args.extensionId) throw new Error("INVALID_INPUT: extensionId is required.");
+  if (unifiedRuntime.hasBridge()) {
+    const result = await unifiedRuntime.bridgeCommand("FOCUS_TAB", { tabId: void 0, extensionId: args.extensionId });
+    return { triggered: true, extensionId: args.extensionId, detail: result, mode: "LIVE" };
+  }
+  return { triggered: false, mode: "UNAVAILABLE", note: "Requires the live bridge (extension action API)." };
+}
+async function dtUninstallExtension(args) {
+  if (!args.extensionId) throw new Error("INVALID_INPUT: extensionId is required.");
+  if (unifiedRuntime.hasBridge()) {
+    const result = await unifiedRuntime.bridgeCommand("SET_EXTENSION_ENABLED", { extensionId: args.extensionId, enabled: false });
+    return {
+      uninstalled: true,
+      softUninstall: true,
+      extensionId: args.extensionId,
+      note: "Disabled via chrome.management (soft uninstall). Hard removal requires user confirmation in chrome://extensions — never auto-destroyed.",
+      detail: result
+    };
+  }
+  return { uninstalled: false, mode: "UNAVAILABLE", note: "Requires the live bridge." };
+}
+const THIRD_PARTY_PROBE = `(function(){
+  const tools = [];
+  const registry = (window.__devtools_3p_tools || window.__thirdPartyDevtools || []);
+  if (Array.isArray(registry)) {
+    for (const t of registry) {
+      if (t && t.id && typeof t.run === 'function') {
+        tools.push({ toolId: t.id, name: t.name || t.id, description: t.description || '',
+          inputContract: t.input || t.inputSchema || null, version: t.version || null });
+      }
+    }
+  }
+  return { tools };
+})()`;
+const WEBMCP_PROBE = `(function(){
+  const tools = [];
+  try {
+    const webmcp = navigator.webMCP || window.webMCP;
+    if (webmcp && typeof webmcp.listTools === 'function') {
+      const listed = webmcp.listTools() || [];
+      for (const t of listed) {
+        tools.push({ toolName: t.name || t.id, description: t.description || '',
+          inputSchema: t.inputSchema || t.parameters || null });
+      }
+    } else if (webmcp && typeof webmcp.tools === 'object') {
+      for (const [name, tool] of Object.entries(webmcp.tools)) {
+        tools.push({ toolName: name, description: tool.description || '', inputSchema: tool.inputSchema || null });
+      }
+    }
+  } catch (e) { return { tools, error: String(e) } }
+  return { tools };
+})()`;
+async function runInPageLocal(script, tabId) {
+  return runInPage(script, tabId);
+}
+async function dtList3pDeveloperTools(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  const probe = await runInPageLocal(THIRD_PARTY_PROBE, tabId);
+  const tools = probe?.tools || [];
+  return {
+    total: tools.length,
+    tools,
+    pageId,
+    contract: "Tools expose { id, run(args) } on window.__devtools_3p_tools. Execution via dt_execute_3p_developer_tool with validated args.",
+    note: tools.length === 0 ? "No third-party developer tools registered by this page (window.__devtools_3p_tools)." : void 0
+  };
+}
+async function dtExecute3pDeveloperTool(args) {
+  if (!args.toolId) throw new Error("INVALID_INPUT: toolId is required.");
+  const { pageId, tabId } = await resolvePageId(args);
+  const toolArgs = args.args && typeof args.args === "object" ? args.args : {};
+  const script = `(function(){
+    const registry = (window.__devtools_3p_tools || window.__thirdPartyDevtools || []);
+    const tool = registry.find(t => t && t.id === ${JSON.stringify(String(args.toolId))});
+    if (!tool) return { ran: false, code: 'TOOL_NOT_FOUND', reason: 'Tool not registered — re-discover with dt_list_3p_developer_tools' };
+    try {
+      const out = tool.run(${JSON.stringify(toolArgs)});
+      return { ran: true, output: (out && typeof out.then === 'function') ? 'PROMISE' : out };
+    } catch (e) { return { ran: false, code: 'EXECUTION_ERROR', reason: String(e) } }
+  })()`;
+  const res = await runInPageLocal(script, tabId);
+  if (res?.ran === false) throw new Error(`${res.code}: ${res.reason}`);
+  unifiedRuntime.bus.publish("EXTENSION", "3p_tool_executed", { toolId: args.toolId }, { pageId });
+  return { ran: true, toolId: args.toolId, pageId, output: res?.output };
+}
+async function dtListWebmcpTools(args) {
+  const { pageId, tabId } = await resolvePageId(args);
+  const probe = await runInPageLocal(WEBMCP_PROBE, tabId);
+  const tools = probe?.tools || [];
+  return {
+    total: tools.length,
+    tools,
+    pageId,
+    contract: "WebMCP tools are exposed by the page (navigator.webMCP). Execution via dt_execute_webmcp_tool.",
+    note: tools.length === 0 ? "No WebMCP tools exposed by this page (navigator.webMCP). WebMCP is a draft API — pages must opt in." : probe?.error ? `Probe warning: ${probe.error}` : void 0
+  };
+}
+async function dtExecuteWebmcpTool(args) {
+  if (!args.toolName) throw new Error("INVALID_INPUT: toolName is required.");
+  const { pageId, tabId } = await resolvePageId(args);
+  const toolArgs = args.args && typeof args.args === "object" ? args.args : {};
+  const script = `(async function(){
+    const webmcp = navigator.webMCP || window.webMCP;
+    if (!webmcp) return { ran: false, code: 'CAPABILITY_UNAVAILABLE', reason: 'Page does not expose WebMCP' };
+    const runner = typeof webmcp.executeTool === 'function'
+      ? webmcp.executeTool.bind(webmcp)
+      : (typeof webmcp.callTool === 'function' ? webmcp.callTool.bind(webmcp) : null);
+    if (!runner) return { ran: false, code: 'UNSUPPORTED_OPERATION', reason: 'WebMCP runner API not found' };
+    try {
+      const out = await runner(${JSON.stringify(String(args.toolName))}, ${JSON.stringify(toolArgs)});
+      return { ran: true, output: out };
+    } catch (e) { return { ran: false, code: 'EXECUTION_ERROR', reason: String(e) } }
+  })()`;
+  const res = await runInPageLocal(script, tabId);
+  if (res?.ran === false) throw new Error(`${res.code}: ${res.reason}`);
+  unifiedRuntime.bus.publish("WEBMCP", "tool_executed", { toolName: args.toolName }, { pageId });
+  return { ran: true, toolName: args.toolName, pageId, output: res?.output };
+}
+const ROUTES = {
+  // input
+  dt_click: dtClick,
+  dt_click_at: dtClickAt,
+  dt_drag: dtDrag,
+  dt_fill: dtFill,
+  dt_fill_form: dtFillForm,
+  dt_handle_dialog: dtHandleDialog,
+  dt_hover: dtHover,
+  dt_press_key: dtPressKey,
+  dt_type_text: dtTypeText,
+  dt_upload_file: dtUploadFile,
+  // navigation
+  dt_list_pages: dtListPages,
+  dt_select_page: dtSelectPage,
+  dt_new_page: dtNewPage,
+  dt_close_page: dtClosePage,
+  dt_navigate_page: dtNavigatePage,
+  dt_history_navigation: dtHistoryNavigation,
+  dt_wait_for: dtWaitFor,
+  // emulation
+  dt_emulate: dtEmulate,
+  dt_resize_page: dtResizePage,
+  // network / console / debugging
+  dt_list_network_requests: dtListNetworkRequests,
+  dt_get_network_request: dtGetNetworkRequest,
+  dt_list_console_messages: dtListConsoleMessages,
+  dt_get_console_message: dtGetConsoleMessage,
+  dt_evaluate_script: dtEvaluateScript,
+  dt_take_screenshot: dtTakeScreenshot,
+  dt_take_snapshot: dtTakeSnapshot,
+  dt_screencast_start: dtScreencastStart,
+  dt_screencast_stop: dtScreencastStop,
+  dt_lighthouse_audit: dtLighthouseAudit,
+  // performance
+  dt_performance_start_trace: dtPerformanceStartTrace,
+  dt_performance_stop_trace: dtPerformanceStopTrace,
+  dt_performance_analyze_insight: dtPerformanceAnalyzeInsight,
+  // memory
+  dt_take_heapsnapshot: dtTakeHeapsnapshot,
+  dt_close_heapsnapshot: dtCloseHeapsnapshot,
+  dt_heapsnapshot_summary: dtHeapsnapshotSummary,
+  dt_heapsnapshot_details: dtHeapsnapshotDetails,
+  dt_heapsnapshot_class_nodes: dtHeapsnapshotClassNodes,
+  dt_heapsnapshot_edges: dtHeapsnapshotEdges,
+  dt_heapsnapshot_retainers: dtHeapsnapshotRetainers,
+  dt_heapsnapshot_retaining_paths: dtHeapsnapshotRetainingPaths,
+  dt_heapsnapshot_dominators: dtHeapsnapshotDominators,
+  dt_heapsnapshot_duplicate_strings: dtHeapsnapshotDuplicateStrings,
+  dt_heapsnapshot_object_details: dtHeapsnapshotObjectDetails,
+  dt_query_heapsnapshot_objects: dtQueryHeapsnapshotObjects,
+  dt_compare_heapsnapshots: dtCompareHeapsnapshots,
+  // extensions / 3p / webmcp
+  dt_install_extension: dtInstallExtension,
+  dt_list_extensions: dtListExtensions,
+  dt_reload_extension: dtReloadExtension,
+  dt_trigger_extension_action: dtTriggerExtensionAction,
+  dt_uninstall_extension: dtUninstallExtension,
+  dt_list_3p_developer_tools: dtList3pDeveloperTools,
+  dt_execute_3p_developer_tool: dtExecute3pDeveloperTool,
+  dt_list_webmcp_tools: dtListWebmcpTools,
+  dt_execute_webmcp_tool: dtExecuteWebmcpTool
+};
+class DevToolsToolsHandler {
+  knows(toolName) {
+    return DEVTOOLS_TOOL_NAMES.has(toolName);
+  }
+  async handleToolCall(name, args) {
+    const started = Date.now();
+    const handler = ROUTES[name];
+    if (!handler) {
+      return {
+        isError: true,
+        content: [{ type: "text", text: `Unknown DevTools tool: ${name}` }]
+      };
+    }
+    try {
+      const result = await handler(args || {});
+      const durationMs = Date.now() - started;
+      unifiedRuntime.bus.publish("RUNTIME", "tool_invocation", { tool: name, ok: true, durationMs });
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err) {
+      const durationMs = Date.now() - started;
+      unifiedRuntime.bus.publish("RUNTIME", "tool_invocation", { tool: name, ok: false, durationMs });
+      const envelope = toErrorEnvelope(err);
+      return {
+        isError: true,
+        content: [{ type: "text", text: JSON.stringify(envelope, null, 2) }]
+      };
+    }
+  }
+}
+const D = (name, description, inputSchema) => ({ name, description, inputSchema });
+const sessionArg = { sessionId: { type: "string", description: "Recorded forensic session id (list_sessions)" } };
+const FORENSICS_TOOLS = [
+  // CAP 01
+  D("fx_correlate_dom_network", "CAP 01 — DOM↔network causal correlator: anchors on a mutation (or request) and reconstructs request → response → render chains with RANKED causal candidates, temporal gaps and evidence-based confidence. Input: sessionId (+ eventId | timestamp | anchor, windowMs, limit).", {
+    type: "object",
+    properties: { ...sessionArg, eventId: { type: "string", description: "Focal event id (mutation or request)" }, timestamp: { type: "number", description: "Focal timestamp (ms) — closest mutation/request is used" }, anchor: { type: "string", enum: ["mutation", "request"] }, windowMs: { type: "number", description: "Causality window (default 800ms)" }, limit: { type: "number", description: "Max candidates (default 8)" } }
+  }),
+  // CAP 02
+  D("fx_dom_regression_diff", "CAP 02 — Full regression diff between two page states across 8 dimensions (added/removed/moved/attributes/styles/text/layout/a11y) with machine-readable diffs AND a human-readable report. Input: sessionId + t1 + t2 (timestamps).", {
+    type: "object",
+    properties: { ...sessionArg, t1: { type: "number", description: "First timestamp (before)" }, t2: { type: "number", description: "Second timestamp (after)" }, maxPerDimension: { type: "number", description: "Changes kept per dimension (default 40)" } },
+    required: ["sessionId", "t1", "t2"]
+  }),
+  // CAP 03
+  D("fx_visual_regression_forensics", "CAP 03 — Visual regression forensics: decodes two recorded screenshots (real PNG decoding), computes region-level pixel diffs and ATTRIBUTS changes to concurrent DOM/style mutations with ranked root-cause candidates. Input: sessionId + shot1/shot2 event ids (or timestamps).", {
+    type: "object",
+    properties: { ...sessionArg, shot1: { type: "string", description: "Screenshot event id before" }, shot2: { type: "string", description: "Screenshot event id after" }, t1: { type: "number", description: "Fallback: timestamp before" }, t2: { type: "number", description: "Fallback: timestamp after" } },
+    required: ["sessionId"]
+  }),
+  // CAP 04
+  D("fx_layout_shift_forensics", "CAP 04 — Layout shift forensics: evidence chains for CLS/layout instability — affected element, position transitions, trigger mutations, concurrent requests, style changes. Input: sessionId (+ eventId | timestamp | selector, windowMs).", {
+    type: "object",
+    properties: { ...sessionArg, eventId: { type: "string" }, timestamp: { type: "number" }, selector: { type: "string" }, windowMs: { type: "number", description: "Default 600ms" } }
+  }),
+  // CAP 05 (record)
+  D("fx_record_interactions", "CAP 05 — Start/stop recording of interactions WITH DOM context (fingerprint, matched count, mutation baseline) for deterministic replay. Input: mode start|stop|record-step, recordingId, action, selector, params. Start returns a recordingId; record-step appends one step; stop finalizes.", {
+    type: "object",
+    properties: {
+      mode: { type: "string", enum: ["start", "stop", "record-step", "list"], description: "Recording operation" },
+      recordingId: { type: "string", description: "Recording id (for stop/record-step)" },
+      action: { type: "string", description: "Interaction action for record-step (click/type/hover/…)" },
+      selector: { type: "string", description: "Target selector for record-step" },
+      params: { type: "object", description: "Action parameters (text, key…)" },
+      tabId: { type: "number" }
+    },
+    required: ["mode"]
+  }),
+  // CAP 05 (replay)
+  D("fx_replay_interactions", "CAP 05 — Deterministically replay a recorded interaction set with resilient target resolution (exact selector → fingerprint recovery), per-step results and success rate. Input: recordingId (+ stopOnFailure, verifySelectorsOnly, tabId).", {
+    type: "object",
+    properties: { recordingId: { type: "string" }, stopOnFailure: { type: "boolean", description: "Default true" }, verifySelectorsOnly: { type: "boolean", description: "Resolve targets without executing (dry-run)" }, tabId: { type: "number" } },
+    required: ["recordingId"]
+  }),
+  // CAP 06
+  D("fx_failure_replay", "CAP 06 — Capture a structured failure state (URL, page state, selector candidates, DOM subtree, console, network, timing, action history) as a replayable scenario; replay re-executes with resilient resolution. Input: mode capture|replay|list|get, failureId, failedAction, failedSelector, params, tabId.", {
+    type: "object",
+    properties: {
+      mode: { type: "string", enum: ["capture", "replay", "list", "get"] },
+      failureId: { type: "string", description: "Scenario id (replay/get)" },
+      failedAction: { type: "string", description: "Action that failed (capture)" },
+      failedSelector: { type: "string", description: "Selector that failed (capture)" },
+      params: { type: "object", description: "Original action params (capture)" },
+      url: { type: "string", description: "Page URL context (capture)" },
+      tabId: { type: "number" },
+      verifyOnly: { type: "boolean" }
+    },
+    required: ["mode"]
+  }),
+  // CAP 07
+  D("fx_selector_survivability", "CAP 07 — Selector survivability scorer: ranks selectors by DOM stability, semantic stability, uniqueness, ancestry stability, framework-attribute risk, text volatility and position dependence — computed from recorded mutation history. Input: selector (+ sessionId, candidateSelectors).", {
+    type: "object",
+    properties: { selector: { type: "string" }, ...sessionArg, candidateSelectors: { type: "array", description: "Alternative candidates [{selector, matches}]", items: { type: "object", properties: { selector: { type: "string" }, matches: { type: "number" } } } } }
+  }),
+  // CAP 08
+  D("fx_component_boundaries", "CAP 08 — Component boundary detector: infers React/Vue/Angular/WebComponents/generic boundaries from DOM markers (data-v-, _ngcontent, custom elements, React hydration attrs) and whole-subtree replacement mutation patterns; returns confidence + evidence per boundary. Input: sessionId + timestamp (state to analyze).", {
+    type: "object",
+    properties: { ...sessionArg, timestamp: { type: "number", description: "DOM state timestamp (default: latest)" } }
+  }),
+  // CAP 09
+  D("fx_frame_forensics", "CAP 09 — Frame/iframe forensics: complete frame hierarchy, cross-frame relationships, network/console/DOM event attribution per frame, cross-origin detection and frame-local selectors. Input: sessionId + timestamp.", {
+    type: "object",
+    properties: { ...sessionArg, timestamp: { type: "number", description: "DOM state timestamp (default: latest)" } }
+  }),
+  // CAP 10
+  D("fx_shadow_dom_forensics", "CAP 10 — Shadow DOM forensics: open/nested shadow roots, host relationships, slot distribution, shadow-tree mutations, style-boundary notes. Analyzes recorded shadow flags + live probing of open roots. Input: sessionId + timestamp, or live selector.", {
+    type: "object",
+    properties: { ...sessionArg, timestamp: { type: "number" }, selector: { type: "string", description: "Live host selector to probe (open roots)" }, tabId: { type: "number" } }
+  }),
+  // CAP 11
+  D("fx_css_influence", "CAP 11 — CSS influence analyzer: given an element, ranks the CSS rules that determine its visibility/dimensions/position/stacking/typography/overflow/clipping — with specificity, stylesheet source, declarations and inheritance flags. Input: selector (+ group, tabId).", {
+    type: "object",
+    properties: { selector: { type: "string" }, group: { type: "string", enum: ["visibility", "dimensions", "position", "stacking", "typography", "overflow", "clipping", "all"], description: "Property group focus (default all)" }, tabId: { type: "number" } },
+    required: ["selector"]
+  }),
+  // CAP 12
+  D("fx_zindex_occlusion", "CAP 12 — Z-index/occlusion forensics: stacking context chain, effective z-order, occluding element via hit-test at center, clipping parent, pointer-events interception, zero-size detection — actionable, not a computed-style dump. Input: selector (+ tabId).", {
+    type: "object",
+    properties: { selector: { type: "string" }, tabId: { type: "number" } },
+    required: ["selector"]
+  }),
+  // CAP 13
+  D("fx_event_listeners", "CAP 13 — Event listener forensics: inline on* attributes + addEventListener instrumentation (when the injected page script is active) with capture/passive flags, framework-ownership heuristics and coverage reporting. Input: selector (scope) or document-wide (+ tabId).", {
+    type: "object",
+    properties: { selector: { type: "string", description: "Scope to a subtree (omit for whole document)" }, tabId: { type: "number" } }
+  }),
+  // CAP 14
+  D("fx_error_root_cause", "CAP 14 — Runtime error root-cause graph: console error → stack trace → source location → failed request → DOM mutations → visible symptoms, with RANKED likely root causes and evidence. Input: sessionId (+ eventId | timestamp).", {
+    type: "object",
+    properties: { ...sessionArg, eventId: { type: "string", description: "Error event id" }, timestamp: { type: "number", description: "Timestamp near the error" } }
+  }),
+  // CAP 15
+  D("fx_network_dom_binding", "CAP 15 — Network-to-DOM binding analyzer: which DOM regions depend on which responses (response → mutations window → region grouping) with confidence, plus unbound requests with reasons. Input: sessionId (+ windowMs, minConfidence, limit).", {
+    type: "object",
+    properties: { ...sessionArg, windowMs: { type: "number", description: "Render window after response (default 1000ms)" }, minConfidence: { type: "number", description: "Minimum binding confidence (default 0.3)" }, limit: { type: "number" } }
+  }),
+  // CAP 16
+  D("fx_resource_waterfall", "CAP 16 — Resource waterfall forensics: unified document/CSS/JS/font/image/fetch waterfall with request phases, timings, failures, DOM-ready and visual milestones, slowest-resource ranking. Input: sessionId (+ from, to).", {
+    type: "object",
+    properties: { ...sessionArg, from: { type: "number" }, to: { type: "number" } }
+  }),
+  // CAP 17
+  D("fx_font_forensics", "CAP 17 — Font rendering forensics: @font-face declarations vs computed usage vs document.fonts load status; undeclared families, font-display behavior, missing fallback stacks, not-loaded faces. Input: tabId (live/simulated page).", {
+    type: "object",
+    properties: { tabId: { type: "number" } }
+  }),
+  // CAP 18
+  D("fx_a11y_divergence", "CAP 18 — Accessibility + DOM divergence: builds the a11y view from the DOM state and reports inaccessible elements, semantic mismatches, missing names, hidden-but-relevant content and unexpected accessible nodes. Input: sessionId + timestamp.", {
+    type: "object",
+    properties: { ...sessionArg, timestamp: { type: "number", description: "DOM state timestamp (default: latest)" } }
+  }),
+  // CAP 19
+  D("fx_page_health", "CAP 19 — Page health score: weighted composite of console errors, failed requests, a11y issues, performance signals, memory warnings, layout instability, broken interactions and DOM anomalies — every subscore independently inspectable. Input: sessionId (+ failedInteractions).", {
+    type: "object",
+    properties: { ...sessionArg, failedInteractions: { type: "number", description: "Known failed interaction count" } }
+  }),
+  // CAP 20
+  D("fx_exploration_planner", "CAP 20 — Agent exploration planner: given current evidence and a symptom, recommends the next investigation actions (tool + rationale + expected outcome) and reports data gaps. A planning aid — never autonomous browsing. Input: sessionId + symptom.", {
+    type: "object",
+    properties: { ...sessionArg, symptom: { type: "string", description: 'Observed symptom, e.g. "checkout button disappeared after login"' } }
+  }),
+  // CAP 21
+  D("fx_smart_snapshot", "CAP 21 — Smart snapshot compression: MINIMAL/SEMANTIC/INTERACTION/FORENSIC/FULL modes with compression ratio + token estimates; recommends the smallest mode answering a question (pass question). Input: sessionId (+ timestamp, mode, question).", {
+    type: "object",
+    properties: { ...sessionArg, timestamp: { type: "number" }, mode: { type: "string", enum: ["MINIMAL", "SEMANTIC", "INTERACTION", "FORENSIC", "FULL"], description: "Snapshot mode (default: recommended from question)" }, question: { type: "string", description: "What you need to answer — mode is auto-recommended" } }
+  }),
+  // CAP 22
+  D("fx_cross_signal_search", "CAP 22 — Cross-signal search: one query across DOM, mutations, console, network, navigation, interactions and screenshots — returns scored cross-domain hits plus temporally-adjacent related evidence. Input: sessionId + query (+ limit).", {
+    type: "object",
+    properties: { ...sessionArg, query: { type: "string", description: "Search keywords (selectors, text, URLs, error messages…)" }, limit: { type: "number", description: "Max hits (default 40)" } },
+    required: ["query"]
+  }),
+  // CAP 23
+  D("fx_forensic_export", "CAP 23 — Forensic session export: deterministic investigation bundle (metadata, timeline, evidence, findings, health, optional incident report) with SHA-256 content hash for tamper evidence. Input: sessionId (+ includeHealth, includeIncidentReport).", {
+    type: "object",
+    properties: { ...sessionArg, includeHealth: { type: "boolean", description: "Include page health analysis (default true)" }, includeIncidentReport: { type: "boolean", description: "Include a generated incident report (default false)" } }
+  }),
+  // CAP 24
+  D("fx_forensic_import", "CAP 24 — Forensic session import: validates a previously exported investigation bundle (format + contentHash) and installs it as HISTORICAL evidence — imported data is always marked historical, never live state. Input: bundleJson.", {
+    type: "object",
+    properties: { bundleJson: { type: "string", description: "Exported bundle JSON (from fx_forensic_export)" }, importAsSession: { type: "boolean", description: "Also register a queryable historical session (default true)" } },
+    required: ["bundleJson"]
+  }),
+  // CAP 25
+  D("fx_impact_prediction", "CAP 25 — Change impact predictor: pre-mutation estimation of subtree impact, selector breakage, listener orphaning, layout severity, a11y impact and form-state loss — integrates with the mutation preview workflow. Input: operation, selector (+ sessionId for stored selectors).", {
+    type: "object",
+    properties: { operation: { type: "string", description: "Planned operation (set_attribute, set_style, remove, set_outer_html…)" }, selector: { type: "string" }, ...sessionArg },
+    required: ["operation", "selector"]
+  }),
+  // CAP 26
+  D("fx_safe_mutation_guard", "CAP 26 — Safe mutation guard: verdict SAFE/CAUTION/HIGH_RISK/BLOCKED with reasons and required precautions for a planned mutation. Never silently blocks normal operations — BLOCKED only for page-level destruction or irreversible state loss. Input: operation, selector (+ sessionId).", {
+    type: "object",
+    properties: { operation: { type: "string" }, selector: { type: "string" }, ...sessionArg },
+    required: ["operation", "selector"]
+  }),
+  // CAP 27
+  D("fx_transaction_journal", "CAP 27 — DOM transaction journal: structured per-transaction records (BEFORE/INTENT/ACTION/AFTER/DIFF/EVIDENCE/TIMESTAMP/ACTOR/ROLLBACK info). Journal entries are written by the transactional mutation engine flow; this tool queries them. Input: transactionId/operation/since filters.", {
+    type: "object",
+    properties: { transactionId: { type: "string" }, operation: { type: "string" }, since: { type: "number" }, limit: { type: "number" } }
+  }),
+  // CAP 28
+  D("fx_session_graph", "CAP 28 — Multi-page session graph: nodes/edges connecting pages, frames, navigations, requests, interactions, screenshots and DOM states of one investigation (recorded session + live pages). Input: sessionId.", {
+    type: "object",
+    properties: { ...sessionArg }
+  }),
+  // CAP 29
+  D("fx_evidence_scoring", "CAP 29 — Forensic evidence scoring: score ANY finding from supporting/contradicting evidence items (source types with weights) — confidence, band, evidence count/types. The same model powers every fx_ conclusion. Input: conclusion + evidence arrays.", {
+    type: "object",
+    properties: {
+      conclusion: { type: "string", description: "The conclusion to score" },
+      supporting: { type: "array", description: "Supporting evidence [{source, description, ref?, weight?}]", items: { type: "object", properties: { source: { type: "string", description: "One of DOM_OBSERVATION, MUTATION_RECORD, NETWORK_CORRELATION, CONSOLE_EVIDENCE, SCREENSHOT_EVIDENCE, PERFORMANCE_TRACE, MEMORY_EVIDENCE, NAVIGATION_RECORD, USER_INTERACTION, STYLE_EVIDENCE, INFERRED" }, description: { type: "string" }, ref: { type: "string" }, weight: { type: "number" } } } },
+      contradicting: { type: "array", description: "Contradicting evidence [{source, description, weight?}]", items: { type: "object" } }
+    },
+    required: ["conclusion", "supporting"]
+  }),
+  // CAP 30
+  D("fx_incident_report", "CAP 30 — Agent incident report generator: structured incident report (summary, timeline, root cause, evidence, affected DOM/requests/components, performance+a11y impact, remediation, validation steps, confidence) in JSON AND Markdown. Input: sessionId (+ detectedIssue, rootCauseHint).", {
+    type: "object",
+    properties: { ...sessionArg, detectedIssue: { type: "string", description: "One-line issue description" }, rootCauseHint: { type: "string", description: "Known root-cause hint (otherwise derived from evidence)" } }
+  })
+];
+const FORENSICS_TOOL_NAMES = new Set(FORENSICS_TOOLS.map((t) => t.name));
+const SOURCE_WEIGHTS = {
+  DOM_OBSERVATION: 0.72,
+  MUTATION_RECORD: 0.8,
+  NETWORK_CORRELATION: 0.55,
+  CONSOLE_EVIDENCE: 0.68,
+  SCREENSHOT_EVIDENCE: 0.5,
+  PERFORMANCE_TRACE: 0.55,
+  MEMORY_EVIDENCE: 0.45,
+  NAVIGATION_RECORD: 0.6,
+  USER_INTERACTION: 0.7,
+  STYLE_EVIDENCE: 0.66,
+  INFERRED: 0.3
+};
+let findingCounter = 0;
+class EvidenceBuilder {
+  items = [];
+  contradictions = [];
+  conclusion;
+  method;
+  constructor(conclusion, method) {
+    this.conclusion = conclusion;
+    this.method = method;
+  }
+  add(source, description, ref, timestamp) {
+    this.items.push({ source, description, ref, timestamp, weight: SOURCE_WEIGHTS[source] });
+    return this;
+  }
+  contradict(source, description, ref) {
+    this.contradictions.push({ source, description, ref, weight: SOURCE_WEIGHTS[source] });
+    return this;
+  }
+  /** Build the scored finding. */
+  build() {
+    const confidence = scoreConfidence(this.items, this.contradictions);
+    const types = Array.from(new Set(this.items.map((i) => i.source)));
+    return {
+      id: `find_${++findingCounter}_${Date.now().toString(36)}`,
+      conclusion: this.conclusion,
+      confidence: Number(confidence.toFixed(3)),
+      band: confidenceBand(confidence),
+      evidenceCount: this.items.length,
+      evidenceTypes: types,
+      evidence: this.items,
+      contradictoryEvidence: this.contradictions.length ? this.contradictions : void 0,
+      method: this.method
+    };
+  }
+}
+function scoreConfidence(supporting, contradicting = []) {
+  if (supporting.length === 0) return 0;
+  let noisyOr = 0;
+  for (const item of supporting) {
+    const clamped = Math.min(1, Math.max(0.05, item.weight));
+    noisyOr = noisyOr + clamped * (1 - noisyOr);
+  }
+  const types = new Set(supporting.map((i) => i.source));
+  const diversity = Math.min(0.08, 0.02 * (types.size - 1));
+  let confidence = Math.min(0.98, noisyOr + diversity);
+  for (const contra of contradicting) {
+    confidence *= 1 - Math.min(0.6, contra.weight);
+  }
+  if (supporting.length === 1) confidence = Math.min(confidence, 0.75);
+  return Math.max(0.05, confidence);
+}
+function scoreFinding(conclusion, supporting, contradicting = []) {
+  const items = supporting.map((s) => ({
+    source: s.source,
+    description: s.description,
+    ref: s.ref,
+    timestamp: s.timestamp,
+    weight: s.weight !== void 0 ? Math.min(1, Math.max(0, s.weight)) : SOURCE_WEIGHTS[s.source]
+  }));
+  const contra = contradicting.map((c) => ({
+    source: c.source,
+    description: c.description,
+    weight: c.weight !== void 0 ? c.weight : SOURCE_WEIGHTS[c.source]
+  }));
+  return {
+    id: `find_manual_${Date.now().toString(36)}`,
+    conclusion,
+    confidence: Number(scoreConfidence(items, contra).toFixed(3)),
+    band: confidenceBand(scoreConfidence(items, contra)),
+    evidenceCount: items.length,
+    evidenceTypes: Array.from(new Set(items.map((i) => i.source))),
+    evidence: items,
+    contradictoryEvidence: contra.length ? contra : void 0,
+    method: "Direct evidence scoring (fx_evidence_scoring)"
+  };
+}
+function confidenceBand(confidence) {
+  if (confidence >= 0.85) return "VERY_HIGH";
+  if (confidence >= 0.65) return "HIGH";
+  if (confidence >= 0.4) return "MEDIUM";
+  if (confidence >= 0.2) return "LOW";
+  return "VERY_LOW";
+}
+function correlateDomNetwork(engine, options) {
+  const windowMs = options.windowMs ?? 800;
+  const limit = options.limit ?? 8;
+  let focal = null;
+  if (options.eventId) focal = engine.signal(options.eventId) || null;
+  if (!focal && options.timestamp !== void 0) {
+    focal = engine.nearest(options.timestamp, "DOM") || engine.nearest(options.timestamp, "NETWORK");
+  }
+  if (!focal) {
+    const dom = engine.byDomain("DOM");
+    focal = dom.find((s) => s.type === "DOM_MUTATION_ADD" || s.type === "DOM_MUTATION_REMOVE") || dom[0] || null;
+  }
+  if (!focal) {
+    return { anchor: { kind: "none" }, candidates: [], timelineSlice: [] };
+  }
+  const isRequestFocal = focal.domain === "NETWORK" || options.anchor === "request";
+  const candidates = [];
+  if (isRequestFocal) {
+    const request = focal;
+    const response = engine.signals.find((s) => s.domain === "NETWORK" && s.type === "NETWORK_RESPONSE_COMPLETE" && s.payload.url === request.payload.url && s.timestamp >= request.timestamp) || null;
+    const finish = response?.timestamp ?? request.timestamp;
+    const afterMutations = engine.range(finish, finish + windowMs).filter((s) => s.domain === "DOM" && s.type.startsWith("DOM_MUTATION"));
+    for (const m of afterMutations.slice(0, limit)) {
+      const ev = new EvidenceBuilder(
+        `Response of ${String(request.payload.url || "?")} caused ${m.summary}`,
+        "Temporal correlation: request → response → mutation chain (CAP 01)"
+      ).add("NETWORK_CORRELATION", `Request ${request.summary}`, request.eventId, request.timestamp).add("NETWORK_CORRELATION", `Response ${response?.summary ?? "no response recorded (still in flight or failed)"}`, response?.eventId, response?.timestamp).add("MUTATION_RECORD", m.summary, m.eventId, m.timestamp);
+      if (response?.payload.status && Number(response.payload.status) >= 400) {
+        ev.contradict("NETWORK_CORRELATION", `Response status ${response.payload.status} — error responses rarely render new content`, response.eventId);
+      }
+      const finding = ev.build();
+      candidates.push({
+        rank: 0,
+        chain: [request.summary, response?.summary ?? "…", m.summary],
+        request,
+        response: response || null,
+        beforeMutation: null,
+        afterMutation: m,
+        temporalGapMs: m.timestamp - finish,
+        confidence: finding.confidence,
+        evidenceCount: finding.evidenceCount,
+        band: confidenceBand(finding.confidence)
+      });
+    }
+  } else {
+    const mutation = focal;
+    const requests = engine.range(mutation.timestamp - windowMs * 4, mutation.timestamp).filter((s) => s.domain === "NETWORK" && (s.type === "NETWORK_RESPONSE_COMPLETE" || s.type === "NETWORK_REQUEST_START"));
+    const ranked = engine.rankCausalCandidates(mutation, ["NETWORK"], limit);
+    const usedRequests = ranked.map((r) => r.signal);
+    const pool = usedRequests.length > 0 ? usedRequests : requests.slice(0, limit);
+    for (const request of pool) {
+      const response = engine.signals.find((s) => s.domain === "NETWORK" && s.type === "NETWORK_RESPONSE_COMPLETE" && s.payload.url === request.payload.url && s.timestamp >= request.timestamp) || null;
+      const before = engine.range(request.timestamp - windowMs, request.timestamp).filter((s) => s.domain === "DOM").pop() || null;
+      const after = engine.range(mutation.timestamp, mutation.timestamp + windowMs).filter((s) => s.domain === "DOM" && s.eventId !== mutation.eventId)[0] || null;
+      const ev = new EvidenceBuilder(
+        `${request.summary} → ${mutation.summary}`,
+        "Temporal correlation: mutation anchored, request/response chain reconstructed (CAP 01)"
+      ).add("MUTATION_RECORD", mutation.summary, mutation.eventId, mutation.timestamp).add("NETWORK_CORRELATION", request.summary, request.eventId, request.timestamp);
+      if (response) ev.add("NETWORK_CORRELATION", response.summary, response.eventId, response.timestamp);
+      if (before) ev.add("DOM_OBSERVATION", `Prior DOM state: ${before.summary}`, before.eventId, before.timestamp);
+      const finding = ev.build();
+      candidates.push({
+        rank: 0,
+        chain: [before?.summary || "(prior DOM)", request.summary, response?.summary || "…", mutation.summary, after?.summary || "(next DOM)"],
+        request,
+        response,
+        beforeMutation: before,
+        afterMutation: after,
+        temporalGapMs: mutation.timestamp - (response?.timestamp ?? request.timestamp),
+        confidence: finding.confidence,
+        evidenceCount: finding.evidenceCount,
+        band: confidenceBand(finding.confidence)
+      });
+    }
+  }
+  candidates.sort((a, b) => b.confidence - a.confidence || a.temporalGapMs - b.temporalGapMs);
+  candidates.forEach((c, i) => {
+    c.rank = i + 1;
+  });
+  return {
+    anchor: { kind: isRequestFocal ? "request" : "mutation", eventId: focal.eventId, timestamp: focal.timestamp },
+    candidates: candidates.slice(0, limit),
+    timelineSlice: engine.around(focal.timestamp, windowMs * 2).slice(0, 60)
+  };
+}
+function analyzeLayoutShift(engine, options) {
+  const windowMs = options.windowMs ?? 600;
+  let shift = null;
+  if (options.eventId) shift = engine.signal(options.eventId) || null;
+  if (!shift && options.timestamp !== void 0) shift = engine.nearest(options.timestamp, "DOM");
+  if (!shift) {
+    const attrMutations = engine.byDomain("DOM").filter((s) => s.type === "DOM_MUTATION_ATTR" && ["style", "class", "width", "height", "hidden"].includes(String(s.payload.attributeName)));
+    shift = attrMutations[0] || engine.byDomain("DOM").find((s) => s.type === "DOM_MUTATION_REMOVE") || null;
+  }
+  if (!shift) {
+    return { shiftEvent: null, affectedElement: null, previousPosition: null, newPosition: null, triggerMutations: [], networkActivity: [], styleChanges: [], confidence: 0, band: "NO_DATA", evidenceCount: 0 };
+  }
+  const affected = {
+    selector: String(shift.targetSelector || shift.payload.selectorHint || `node=${shift.targetNodeId ?? shift.payload.nodeId ?? "?"}`),
+    nodeId: shift.targetNodeId ?? shift.payload.nodeId,
+    tagName: String(shift.payload.tagName || "element")
+  };
+  const nearby = engine.around(shift.timestamp, windowMs);
+  const triggerMutations = nearby.filter((s) => s.domain === "DOM" && s.eventId !== shift.eventId).map((s) => ({ summary: s.summary, eventId: s.eventId, timestamp: s.timestamp, deltaMs: s.timestamp - shift.timestamp }));
+  const networkActivity = nearby.filter((s) => s.domain === "NETWORK").map((s) => ({ summary: s.summary, eventId: s.eventId, timestamp: s.timestamp }));
+  const styleChanges = nearby.filter((s) => s.domain === "STYLE" || s.domain === "DOM" && s.type === "DOM_MUTATION_ATTR" && String(s.payload.attributeName) === "style").map((s) => ({ summary: s.summary, eventId: s.eventId, timestamp: s.timestamp }));
+  const beforeSnapshotEvent = engine.byDomain("SCREENSHOT").filter((s) => s.timestamp <= shift.timestamp).pop();
+  const afterSnapshotEvent = engine.byDomain("SCREENSHOT").filter((s) => s.timestamp >= shift.timestamp)[0];
+  const ev = new EvidenceBuilder(
+    `Layout instability around ${affected.selector} at t=${shift.timestamp}ms`,
+    "Layout-shift evidence chain reconstruction (CAP 04)"
+  ).add("MUTATION_RECORD", shift.summary, shift.eventId, shift.timestamp).add("DOM_OBSERVATION", `Affected element: ${affected.selector}`);
+  for (const m of triggerMutations.slice(0, 4)) ev.add("MUTATION_RECORD", m.summary, m.eventId, m.timestamp);
+  for (const n of networkActivity.slice(0, 4)) ev.add("NETWORK_CORRELATION", `Concurrent request: ${n.summary}`, n.eventId, n.timestamp);
+  for (const st of styleChanges.slice(0, 3)) ev.add("STYLE_EVIDENCE", st.summary, st.eventId, st.timestamp);
+  if (beforeSnapshotEvent) ev.add("SCREENSHOT_EVIDENCE", `Visual state before shift: ${beforeSnapshotEvent.summary}`, beforeSnapshotEvent.eventId, beforeSnapshotEvent.timestamp);
+  if (afterSnapshotEvent) ev.add("SCREENSHOT_EVIDENCE", `Visual state after shift: ${afterSnapshotEvent.summary}`, afterSnapshotEvent.eventId, afterSnapshotEvent.timestamp);
+  if (networkActivity.length === 0 && triggerMutations.length === 0) {
+    ev.contradict("INFERRED", "No concurrent network or mutation activity found — the shift may originate from unrecorded causes (e.g. CSS animation)");
+  }
+  const finding = ev.build();
+  return {
+    shiftEvent: { type: shift.type, eventId: shift.eventId, timestamp: shift.timestamp },
+    affectedElement: affected,
+    previousPosition: beforeSnapshotEvent ? { source: "screenshot checkpoint before shift", described: beforeSnapshotEvent.summary } : null,
+    newPosition: afterSnapshotEvent ? { source: "screenshot checkpoint after shift", described: afterSnapshotEvent.summary } : null,
+    triggerMutations,
+    networkActivity,
+    styleChanges,
+    confidence: finding.confidence,
+    band: finding.band,
+    evidenceCount: finding.evidenceCount
+  };
+}
+function buildErrorRootCauseGraph(engine, options) {
+  let error = null;
+  const errorSignals = engine.signals.filter((s) => s.domain === "ERROR" || s.domain === "CONSOLE" && s.type.includes("ERROR"));
+  if (options.eventId) error = errorSignals.find((s) => s.eventId === options.eventId) || engine.signal(options.eventId) || null;
+  if (!error && options.timestamp !== void 0) {
+    error = errorSignals.reduce((best, s) => {
+      if (!best) return s;
+      return Math.abs(s.timestamp - options.timestamp) < Math.abs(best.timestamp - options.timestamp) ? s : best;
+    }, null);
+  }
+  if (!error) error = errorSignals[0] || null;
+  if (!error) {
+    return { error: { eventId: "", type: "NONE", message: "No runtime errors recorded in this session.", timestamp: 0 }, nodes: [], edges: [], rankedRootCauses: [] };
+  }
+  const nodes = [{ id: "error", kind: "runtime-error", label: String(error.payload.message || error.summary), timestamp: error.timestamp }];
+  const edges = [];
+  const stack = String(error.payload.stack || error.payload.stackTrace || "");
+  if (stack) {
+    nodes.push({ id: "stack", kind: "stack-trace", label: stack.split("\n").slice(0, 4).join(" | ") });
+    edges.push({ from: "error", to: "stack", relation: "stackTrace" });
+    const sourceLine = /at\s+.+?\((.*?):(\d+):(\d+)\)/.exec(stack);
+    if (sourceLine) {
+      nodes.push({ id: "source", kind: "source-location", label: `${sourceLine[1]}:${sourceLine[2]}` });
+      edges.push({ from: "stack", to: "source", relation: "sourceLocation" });
+    }
+  }
+  const failedRequest = engine.range(error.timestamp - 3e3, error.timestamp).filter((s) => s.domain === "NETWORK" && (s.type === "NETWORK_REQUEST_FAILED" || Number(s.payload.status) >= 400)).pop();
+  if (failedRequest) {
+    nodes.push({ id: "request", kind: "network-request", label: failedRequest.summary, timestamp: failedRequest.timestamp });
+    edges.push({ from: "request", to: "error", relation: "preceded" });
+  }
+  const mutations = engine.range(error.timestamp - 800, error.timestamp + 800).filter((s) => s.domain === "DOM");
+  for (const m of mutations.slice(0, 5)) {
+    const id = `mut_${m.eventId}`;
+    nodes.push({ id, kind: "dom-mutation", label: m.summary, timestamp: m.timestamp });
+    edges.push({ from: id, to: "error", relation: m.timestamp <= error.timestamp ? "preceded" : "followed" });
+  }
+  const removals = engine.range(error.timestamp, error.timestamp + 2e3).filter((s) => s.domain === "DOM" && s.type === "DOM_MUTATION_REMOVE");
+  for (const r of removals.slice(0, 3)) {
+    const id = `sym_${r.eventId}`;
+    nodes.push({ id, kind: "visible-symptom", label: `Element disappeared: ${r.summary}`, timestamp: r.timestamp });
+    edges.push({ from: "error", to: id, relation: "likelyCaused" });
+  }
+  const ranked = [];
+  if (failedRequest) {
+    const f = new EvidenceBuilder(`Failed request ${failedRequest.summary} is the root cause of ${String(error.payload.message || "the runtime error")}`, "Root-cause ranking (CAP 14)").add("NETWORK_CORRELATION", failedRequest.summary, failedRequest.eventId, failedRequest.timestamp).add("CONSOLE_EVIDENCE", String(error.payload.message || error.summary), error.eventId, error.timestamp).add("INFERRED", "Failed request occurred before the error within 3s").build();
+    ranked.push({ label: failedRequest.summary, confidence: f.confidence, band: f.band, evidenceCount: f.evidenceCount, evidenceTypes: f.evidenceTypes });
+  }
+  for (const m of mutations.slice(0, 3)) {
+    if (m.timestamp > error.timestamp) continue;
+    const f = new EvidenceBuilder(`Mutation ${m.summary} is the root cause of the error`, "Root-cause ranking (CAP 14)").add("MUTATION_RECORD", m.summary, m.eventId, m.timestamp).add("CONSOLE_EVIDENCE", String(error.payload.message || error.summary), error.eventId, error.timestamp).build();
+    ranked.push({ label: m.summary, confidence: f.confidence, band: f.band, evidenceCount: f.evidenceCount, evidenceTypes: f.evidenceTypes });
+  }
+  if (ranked.length === 0) {
+    const f = new EvidenceBuilder("No correlated pre-failure activity — error is likely script-internal", "Root-cause ranking (CAP 14)").add("CONSOLE_EVIDENCE", String(error.payload.message || error.summary), error.eventId, error.timestamp).add("INFERRED", "No network failures or mutations within the causality window").build();
+    ranked.push({ label: "script-internal failure (no external trigger found)", confidence: f.confidence, band: f.band, evidenceCount: f.evidenceCount, evidenceTypes: f.evidenceTypes });
+  }
+  ranked.sort((a, b) => b.confidence - a.confidence);
+  return {
+    error: { eventId: error.eventId, type: error.type, message: String(error.payload.message || error.summary), timestamp: error.timestamp, stack: stack || void 0 },
+    nodes,
+    edges,
+    rankedRootCauses: ranked.slice(0, 5)
+  };
+}
+function analyzeNetworkDomBindings(engine, options) {
+  const windowMs = options.windowMs ?? 1e3;
+  const minConfidence = options.minConfidence ?? 0.3;
+  const limit = options.limit ?? 10;
+  const responses = engine.byDomain("NETWORK").filter((s) => s.type === "NETWORK_RESPONSE_COMPLETE");
+  const bindings = [];
+  const unbound = [];
+  for (const response of responses.slice(0, 60)) {
+    const url = String(response.payload.url || "?");
+    const status = Number(response.payload.status ?? 0);
+    const contentType = String(response.payload.mimeType || response.payload.contentType || (/\.(json)$/i.test(url) ? "application/json" : ""));
+    const effects = engine.range(response.timestamp, response.timestamp + windowMs).filter((s) => s.domain === "DOM" && s.type.startsWith("DOM_MUTATION"));
+    if (effects.length === 0) {
+      unbound.push({ url, eventId: response.eventId, reason: "No DOM mutations within the binding window after this response." });
+      continue;
+    }
+    const regionMap = /* @__PURE__ */ new Map();
+    for (const eff of effects) {
+      const selector = String(eff.targetSelector || eff.payload.selectorHint || `node=${eff.targetNodeId ?? eff.payload.nodeId ?? "?"}`);
+      const region = selector.replace(/[>:]\s*[^>]+$/, "").trim() || selector;
+      const arr = regionMap.get(region) || [];
+      arr.push({
+        selector,
+        nodeId: eff.targetNodeId ?? eff.payload.nodeId,
+        mutationType: eff.type,
+        summary: eff.summary,
+        delayMs: eff.timestamp - response.timestamp
+      });
+      regionMap.set(region, arr);
+    }
+    const ev = new EvidenceBuilder(`Response ${url} drives ${regionMap.size} DOM region(s)`, "Network→DOM binding (CAP 15)").add("NETWORK_CORRELATION", `Response: ${response.summary}`, response.eventId, response.timestamp);
+    for (const [region, muts] of regionMap) {
+      ev.add("MUTATION_RECORD", `${muts.length} mutation(s) in ${region} after response`, muts[0]?.summary ? void 0 : void 0, muts[0]?.delayMs);
+    }
+    if (/json|javascript/i.test(contentType)) ev.add("INFERRED", "JSON/JS content type is a strong prior for state-driven rendering");
+    if (status >= 400) ev.contradict("NETWORK_CORRELATION", `Error status ${status} — response unlikely to produce render mutations`, response.eventId);
+    const finding = ev.build();
+    if (finding.confidence >= minConfidence) {
+      bindings.push({
+        requestUrl: url,
+        requestEventId: response.eventId,
+        responseEventId: response.eventId,
+        responseStatus: status || void 0,
+        contentType: contentType || void 0,
+        boundRegions: Array.from(regionMap.entries()).flatMap(([, muts]) => muts).slice(0, 12),
+        confidence: finding.confidence,
+        band: finding.band
+      });
+    } else {
+      unbound.push({ url, eventId: response.eventId, reason: `Binding confidence ${finding.confidence} below threshold ${minConfidence}.` });
+    }
+  }
+  bindings.sort((a, b) => b.confidence - a.confidence);
+  return { bindings: bindings.slice(0, limit), unboundRequests: unbound.slice(0, 20) };
+}
+function buildResourceWaterfall(engine, options) {
+  const net = engine.byDomain("NETWORK").filter((s) => (options.from !== void 0 ? s.timestamp >= options.from : true) && (options.to !== void 0 ? s.timestamp <= options.to : true));
+  const requests = /* @__PURE__ */ new Map();
+  const completions = /* @__PURE__ */ new Map();
+  const failures = /* @__PURE__ */ new Map();
+  for (const s of net) {
+    const url = String(s.payload.url || "?");
+    if (s.type === "NETWORK_REQUEST_START") requests.set(url, s);
+    else if (s.type === "NETWORK_RESPONSE_COMPLETE") completions.set(url, s);
+    else if (s.type === "NETWORK_REQUEST_FAILED") failures.set(url, s);
+  }
+  const classify = (url, rt) => {
+    if (rt) return rt;
+    if (/\.css(\?|$)/i.test(url)) return "stylesheet";
+    if (/\.m?js(\?|$)/i.test(url)) return "script";
+    if (/\.(png|jpe?g|gif|webp|svg|ico|avif)(\?|$)/i.test(url)) return "image";
+    if (/\.(woff2?|ttf|otf|eot)(\?|$)/i.test(url)) return "font";
+    if (/data:|api\/|\/graphql|\.json(\?|$)/i.test(url)) return "fetch";
+    return "other";
+  };
+  const firstStart = requests.size > 0 ? Math.min(...Array.from(requests.values()).map((s) => s.timestamp)) : 0;
+  const waterfall = [];
+  for (const [url, req] of requests) {
+    const complete = completions.get(url);
+    const failed = failures.get(url);
+    const end = complete?.timestamp ?? failed?.timestamp ?? req.timestamp;
+    waterfall.push({
+      url,
+      resourceType: classify(url, String(req.payload.resourceType || "")),
+      startMs: req.timestamp - firstStart,
+      durationMs: end - req.timestamp,
+      status: Number(complete?.payload.status ?? failed?.payload.status ?? 0) || void 0,
+      size: Number(complete?.payload.size ?? complete?.payload.responseSize ?? 0) || void 0,
+      phase: complete ? "complete" : failed ? "failed" : "request"
+    });
+  }
+  for (const [url, complete] of completions) {
+    if (!requests.has(url)) {
+      waterfall.push({ url, resourceType: classify(url), startMs: complete.timestamp - firstStart, durationMs: 0, status: Number(complete.payload.status ?? 0) || void 0, size: Number(complete.payload.size ?? 0) || void 0, phase: "complete" });
+    }
+  }
+  waterfall.sort((a, b) => a.startMs - b.startMs);
+  const milestones = [];
+  for (const s of engine.signals) {
+    if (s.type === "NAV_DOM_LOADED") milestones.push({ milestone: "domContentLoaded", timestamp: s.timestamp, source: s.eventId });
+    if (s.type === "NAV_LOAD") milestones.push({ milestone: "load", timestamp: s.timestamp, source: s.eventId });
+    if (s.domain === "SCREENSHOT") milestones.push({ milestone: `visual checkpoint (${s.summary.slice(0, 40)})`, timestamp: s.timestamp, source: s.eventId });
+  }
+  milestones.sort((a, b) => a.timestamp - b.timestamp);
+  const byType = {};
+  let totalBytes = 0;
+  for (const w of waterfall) {
+    byType[w.resourceType] = (byType[w.resourceType] || 0) + 1;
+    totalBytes += w.size ?? 0;
+  }
+  const slowest = waterfall.length ? waterfall.reduce((a, b) => b.durationMs > a.durationMs ? b : a) : null;
+  return {
+    waterfall: waterfall.slice(0, 80),
+    milestones: milestones.slice(0, 20),
+    summary: {
+      totalRequests: waterfall.length,
+      failed: waterfall.filter((w) => w.phase === "failed").length,
+      totalBytes,
+      slowest,
+      byType
+    }
+  };
+}
+const LAYOUT_ATTRS = /* @__PURE__ */ new Set(["width", "height", "style", "class", "hidden", "align", "valign", "size", "src", "width", "cols", "rows"]);
+const A11Y_ATTRS = /^(aria-|role$|alt$|title$|tabindex$|lang$|dir$)/i;
+function keyOf(el) {
+  if (el.attributes.id) return `#${el.attributes.id}`;
+  const cls = el.attributes.class ? "." + el.attributes.class.split(/\s+/).filter(Boolean).slice(0, 2).join(".") : "";
+  const text = el.textContent.trim().slice(0, 30);
+  return `${el.tagName}${cls}|${text}`;
+}
+function regressionDiff(before, after, opts = {}) {
+  const maxPer = opts.maxPerDimension ?? 40;
+  const A = flattenSnapshot$1(before);
+  const B = flattenSnapshot$1(after);
+  const beforeKeys = /* @__PURE__ */ new Map();
+  for (const el of A.elements) {
+    const k = keyOf(el);
+    const arr = beforeKeys.get(k) || [];
+    arr.push(el);
+    beforeKeys.set(k, arr);
+  }
+  const afterKeys = /* @__PURE__ */ new Map();
+  for (const el of B.elements) {
+    const k = keyOf(el);
+    const arr = afterKeys.get(k) || [];
+    arr.push(el);
+    afterKeys.set(k, arr);
+  }
+  const dims = [];
+  const totals = {};
+  const push = (dimension, change) => {
+    let dim = dims.find((d) => d.dimension === dimension);
+    if (!dim) {
+      dim = { dimension, count: 0, changes: [] };
+      dims.push(dim);
+    }
+    if (dim.changes.length < maxPer) dim.changes.push(change);
+    dim.count++;
+    totals[dimension] = (totals[dimension] || 0) + 1;
+  };
+  for (const el of B.elements) {
+    if (!beforeKeys.has(keyOf(el))) {
+      push("added", { selector: selectorOfFlat(el, B.byId), nodeId: el.id, detail: `<${el.tagName}> appeared${el.textContent.trim() ? ` with text "${el.textContent.trim().slice(0, 40)}"` : ""}` });
+    }
+  }
+  for (const el of A.elements) {
+    if (!afterKeys.has(keyOf(el))) {
+      push("removed", { selector: selectorOfFlat(el, A.byId), nodeId: el.id, detail: `<${el.tagName}> removed${el.textContent.trim() ? ` (had text "${el.textContent.trim().slice(0, 40)}")` : ""}` });
+    }
+  }
+  for (const elB of B.elements) {
+    const k = keyOf(elB);
+    const pool = beforeKeys.get(k);
+    if (!pool || pool.length === 0) continue;
+    const elA = pool.shift();
+    if ((elA.parentId ?? null) !== (elB.parentId ?? null)) {
+      const parentA = elA.parentId != null ? A.byId.get(elA.parentId)?.tagName ?? `#${elA.parentId}` : "root";
+      const parentB = elB.parentId != null ? B.byId.get(elB.parentId)?.tagName ?? `#${elB.parentId}` : "root";
+      push("moved", { selector: selectorOfFlat(elB, B.byId), nodeId: elB.id, detail: `parent <${parentA}> → <${parentB}>` });
+    }
+    const attrNames = /* @__PURE__ */ new Set([...Object.keys(elA.attributes), ...Object.keys(elB.attributes)]);
+    for (const name of attrNames) {
+      const a = elA.attributes[name];
+      const b = elB.attributes[name];
+      if (a === b) continue;
+      const change = { selector: selectorOfFlat(elB, B.byId), nodeId: elB.id, detail: `attribute ${name}`, before: a === void 0 ? "(absent)" : String(a).slice(0, 60), after: b === void 0 ? "(absent)" : String(b).slice(0, 60) };
+      if (name === "style" || /--|^s(tyle)?$/i.test(name)) {
+        push("styles", change);
+      } else if (name === "class") {
+        push("styles", { ...change, detail: `class list: "${a ?? ""}" → "${b ?? ""}"` });
+      } else if (LAYOUT_ATTRS.has(name)) {
+        push("layout", change);
+      } else if (A11Y_ATTRS.test(name)) {
+        push("accessibility", change);
+      } else {
+        push("attributes", change);
+      }
+    }
+    if (elA.textContent !== elB.textContent) {
+      push("text", {
+        selector: selectorOfFlat(elB, B.byId),
+        nodeId: elB.id,
+        detail: "text content changed",
+        before: elA.textContent.trim().slice(0, 50) || "(empty)",
+        after: elB.textContent.trim().slice(0, 50) || "(empty)"
+      });
+    }
+    if (elA.childCount !== elB.childCount) {
+      push("layout", {
+        selector: selectorOfFlat(elB, B.byId),
+        nodeId: elB.id,
+        detail: `child count ${elA.childCount} → ${elB.childCount} (layout impact)`
+      });
+    }
+    const interactiveA = /^(a|button|input|select|textarea|img)$/i.test(elA.tagName);
+    const interactiveB = /^(a|button|input|select|textarea|img)$/i.test(elB.tagName);
+    if (interactiveA !== interactiveB) {
+      push("accessibility", {
+        selector: selectorOfFlat(elB, B.byId),
+        nodeId: elB.id,
+        detail: `semantic role change: <${elA.tagName}> → <${elB.tagName}>`
+      });
+    }
+    const nameA = elA.attributes["aria-label"] || elA.attributes.alt || "";
+    const nameB = elB.attributes["aria-label"] || elB.attributes.alt || "";
+    if (interactiveB && !nameA && !nameB && !elB.textContent.trim()) {
+      push("accessibility", { selector: selectorOfFlat(elB, B.byId), nodeId: elB.id, detail: "interactive element without accessible name" });
+    }
+  }
+  const lines = [];
+  lines.push("# DOM Regression Diff");
+  lines.push("");
+  lines.push(`Elements: ${A.elements.length} → ${B.elements.length}`);
+  lines.push("");
+  for (const dim of dims) {
+    lines.push(`## ${dim.dimension} (${dim.count})`);
+    for (const c of dim.changes.slice(0, 10)) {
+      lines.push(`- \`${c.selector}\` — ${c.detail}${c.before !== void 0 ? ` [${c.before} → ${c.after}]` : ""}`);
+    }
+    if (dim.count > dim.changes.length) lines.push(`- … ${dim.count - dim.changes.length} more`);
+    lines.push("");
+  }
+  if (dims.length === 0) lines.push("No differences detected across any dimension.");
+  return { machine: { dimensions: dims, totals }, human: lines.join("\n") };
+}
+function decodePng(buffer) {
+  if (buffer.length < 8 || buffer.readUInt32BE(0) !== 2303741511) {
+    throw new Error("INVALID_INPUT: not a PNG file (bad signature).");
+  }
+  let offset = 8;
+  let width = 0, height = 0, bitDepth = 8, colorType = 6;
+  const idat = [];
+  let palette = null;
+  let trns = null;
+  while (offset + 8 <= buffer.length) {
+    const length = buffer.readUInt32BE(offset);
+    const type = buffer.toString("ascii", offset + 4, offset + 8);
+    const data = buffer.subarray(offset + 8, offset + 8 + length);
+    if (type === "IHDR") {
+      width = data.readUInt32BE(0);
+      height = data.readUInt32BE(4);
+      bitDepth = data[8];
+      colorType = data[9];
+      const compression = data[10];
+      const filterMethod = data[11];
+      const interlace = data[12];
+      if (compression !== 0 || filterMethod !== 0) throw new Error("INVALID_INPUT: unsupported PNG compression/filter method.");
+      if (interlace !== 0) throw new Error("INVALID_INPUT: interlaced PNGs are not supported by this decoder.");
+      if (bitDepth !== 8 && bitDepth !== 16) throw new Error(`INVALID_INPUT: unsupported PNG bit depth ${bitDepth}.`);
+    } else if (type === "PLTE") {
+      palette = Buffer.from(data);
+    } else if (type === "tRNS") {
+      trns = Buffer.from(data);
+    } else if (type === "IDAT") {
+      idat.push(Buffer.from(data));
+    } else if (type === "IEND") {
+      break;
+    }
+    offset += 12 + length;
+  }
+  if (width === 0 || height === 0) throw new Error("INVALID_INPUT: PNG has no IHDR dimensions.");
+  const channels = colorType === 6 ? 4 : colorType === 2 ? 3 : colorType === 0 ? 1 : colorType === 4 ? 2 : colorType === 3 ? 1 : 3;
+  const bytesPerSample = bitDepth / 8;
+  const bytesPerPixel = channels * bytesPerSample;
+  const raw = zlib.inflateSync(Buffer.concat(idat));
+  const stride = width * bytesPerPixel;
+  const out = new Uint8Array(width * height * 4);
+  let prevRow = new Uint8Array(stride);
+  for (let y = 0; y < height; y++) {
+    const filter = raw[y * (stride + 1)];
+    const rowStart = y * (stride + 1) + 1;
+    const row = new Uint8Array(raw.subarray(rowStart, rowStart + stride));
+    for (let x = 0; x < stride; x++) {
+      const left = x >= bytesPerPixel ? row[x - bytesPerPixel] : 0;
+      const up = prevRow[x];
+      const upLeft = x >= bytesPerPixel ? prevRow[x - bytesPerPixel] : 0;
+      switch (filter) {
+        case 0:
+          break;
+        case 1:
+          row[x] = row[x] + left & 255;
+          break;
+        case 2:
+          row[x] = row[x] + up & 255;
+          break;
+        case 3:
+          row[x] = row[x] + (left + up >> 1) & 255;
+          break;
+        case 4: {
+          const p = left + up - upLeft;
+          const pa = Math.abs(p - left), pb = Math.abs(p - up), pc = Math.abs(p - upLeft);
+          const pred = pa <= pb && pa <= pc ? left : pb <= pc ? up : upLeft;
+          row[x] = row[x] + pred & 255;
+          break;
+        }
+        default:
+          throw new Error(`INVALID_INPUT: unknown PNG filter ${filter}.`);
+      }
+    }
+    for (let x = 0; x < width; x++) {
+      const di = (y * width + x) * 4;
+      const si = x * bytesPerPixel;
+      if (colorType === 3 && palette) {
+        const idx = row[si] * 3;
+        out[di] = palette[idx] || 0;
+        out[di + 1] = palette[idx + 1] || 0;
+        out[di + 2] = palette[idx + 2] || 0;
+        out[di + 3] = trns && trns[row[si]] !== void 0 ? trns[row[si]] : 255;
+      } else {
+        const sample = (i) => bytesPerSample === 2 ? row[si + i * 2] : row[si + i];
+        if (channels === 1 || channels === 2) {
+          const g = sample(0);
+          out[di] = g;
+          out[di + 1] = g;
+          out[di + 2] = g;
+          out[di + 3] = channels === 2 ? sample(1) : 255;
+        } else {
+          out[di] = sample(0);
+          out[di + 1] = sample(1);
+          out[di + 2] = sample(2);
+          out[di + 3] = channels === 4 ? sample(3) : 255;
+        }
+      }
+    }
+    prevRow = row;
+  }
+  return { width, height, channels: 4, data: out };
+}
+function diffRegions(a, b, grid = 16, threshold = 12) {
+  if (a.width !== b.width || a.height !== b.height) {
+    return { identical: false, changedRegions: [{ x: 0, y: 0, width: Math.max(a.width, b.width), height: Math.max(a.height, b.height), changedPixels: a.width * a.height, changeRatio: 1 }], changedRegionCount: 1, totalChangedPixels: a.width * a.height, changeRatio: 1, dimensionMismatch: true };
+  }
+  const cellW = Math.max(1, Math.floor(a.width / grid));
+  const cellH = Math.max(1, Math.floor(a.height / grid));
+  const changedRegions = [];
+  let totalChanged = 0;
+  for (let gy = 0; gy * cellH < a.height; gy++) {
+    for (let gx = 0; gx * cellW < a.width; gx++) {
+      let changed = 0;
+      let sampled = 0;
+      const x0 = gx * cellW, y0 = gy * cellH;
+      const x1 = Math.min(x0 + cellW, a.width), y1 = Math.min(y0 + cellH, a.height);
+      for (let y = y0; y < y1; y += 2) {
+        for (let x = x0; x < x1; x += 2) {
+          const i = (y * a.width + x) * 4;
+          sampled++;
+          const dr = Math.abs(a.data[i] - b.data[i]);
+          const dg = Math.abs(a.data[i + 1] - b.data[i + 1]);
+          const db = Math.abs(a.data[i + 2] - b.data[i + 2]);
+          if (dr > threshold || dg > threshold || db > threshold) changed++;
+        }
+      }
+      if (sampled > 0 && changed / sampled > 0.08) {
+        changedRegions.push({ x: x0, y: y0, width: x1 - x0, height: y1 - y0, changedPixels: changed, changeRatio: Number((changed / sampled).toFixed(3)) });
+        totalChanged += changed;
+      }
+    }
+  }
+  const totalPixels = Math.floor(a.width * a.height / 4);
+  return {
+    identical: changedRegions.length === 0,
+    changedRegionCount: changedRegions.length,
+    changedRegions: changedRegions.slice(0, 60),
+    totalChangedPixels: totalChanged,
+    changeRatio: totalPixels ? Number((totalChanged / totalPixels).toFixed(4)) : 0
+  };
+}
+function correlateVisualWithDom(input) {
+  const { pixel, domDiff, screenshots } = input;
+  const structural = domDiff.topChanges.filter((c) => ["added", "removed", "moved", "layout"].includes(c.dimension));
+  const style = domDiff.topChanges.filter((c) => ["styles", "attributes"].includes(c.dimension));
+  const rootCauses = [];
+  for (const change of structural.slice(0, 5)) {
+    rootCauses.push({
+      cause: `Structural change: ${change.summary}`,
+      confidence: pixel.changedRegionCount > 0 ? 0.78 : 0.4,
+      band: pixel.changedRegionCount > 0 ? "HIGH" : "LOW",
+      evidenceCount: 2
+    });
+  }
+  for (const change of style.slice(0, 3)) {
+    rootCauses.push({
+      cause: `Style change: ${change.summary}`,
+      confidence: pixel.changedRegionCount > 0 ? 0.62 : 0.3,
+      band: pixel.changedRegionCount > 0 ? "MEDIUM" : "LOW",
+      evidenceCount: 2
+    });
+  }
+  rootCauses.sort((a, b) => b.confidence - a.confidence);
+  let conclusion;
+  if (pixel.identical && domDiff.totals && Object.keys(domDiff.totals).length === 0) {
+    conclusion = "No visual and no DOM differences detected between the two states.";
+  } else if (pixel.identical && Object.keys(domDiff.totals).length > 0) {
+    conclusion = "DOM changed without a measurable visual change (non-visible changes: hidden elements, attributes without rendering impact).";
+  } else if (!pixel.identical && Object.keys(domDiff.totals).length === 0) {
+    conclusion = "Visual change WITHOUT recorded DOM changes — probable causes: animations, canvas/WebGL rendering, or image content changes (untracked by DOM mutations).";
+  } else {
+    conclusion = `Visual changes correlate with ${structural.length} structural and ${style.length} style DOM changes; top candidates ranked in likelyRootCauses.`;
+  }
+  const confidence = pixel.changedRegionCount > 0 && structural.length + style.length > 0 ? 0.82 : pixel.changedRegionCount > 0 ? 0.45 : 0.6;
+  return {
+    screenshots,
+    pixelDiff: { identical: pixel.identical, changedRegionCount: pixel.changedRegions.length, changedRegions: pixel.changedRegions, changeRatio: pixel.changeRatio },
+    domCorrelation: {
+      structuralChanges: structural.slice(0, 10).map((c) => ({ summary: c.summary })),
+      styleChanges: style.slice(0, 6).map((c) => ({ summary: c.summary })),
+      likelyRootCauses: rootCauses.slice(0, 5)
+    },
+    conclusion,
+    confidence,
+    band: confidence >= 0.65 ? "HIGH" : confidence >= 0.4 ? "MEDIUM" : "LOW"
+  };
+}
+async function analyzeVisualRegressionSession(access, sessionId, args) {
+  const events = await access.events(sessionId);
+  const shots = events.filter((e) => e.category === "SCREENSHOT");
+  if (shots.length === 0) {
+    const t12 = args.t1 ?? 0;
+    const t22 = args.t2 ?? Math.max(...events.map((e) => e.timestamp), 1);
+    const before2 = await access.domStateAt(sessionId, t12);
+    const after2 = await access.domStateAt(sessionId, t22);
+    if (before2 && after2) {
+      const diff = regressionDiff(before2, after2);
+      const totals2 = diff.machine.totals;
+      const topChanges2 = diff.machine.dimensions.flatMap((d) => d.changes.slice(0, 3).map((c) => ({ dimension: d.dimension, summary: `${c.selector}: ${c.detail}` })));
+      const report2 = correlateVisualWithDom({
+        pixel: { identical: false, changedRegions: [], changedRegionCount: 0, totalChangedPixels: 0, changeRatio: 0 },
+        domDiff: { totals: totals2, topChanges: topChanges2 },
+        screenshots: { before: { label: "no screenshot recorded" }, after: { label: "no screenshot recorded" } }
+      });
+      report2.conclusion = `No screenshots recorded in this session — DOM-only analysis. ${report2.conclusion}`;
+      return { sessionId, visualEvidenceAvailable: false, ...report2 };
+    }
+    throw new Error("RESOURCE_EXHAUSTED: neither screenshots nor reconstructable DOM states available for this session.");
+  }
+  const pick = (id, ts, after2) => {
+    if (id) return shots.find((s) => s.id === id);
+    if (ts !== void 0) {
+      return shots.reduce((best, s) => {
+        if (!best) return s;
+        return Math.abs(s.timestamp - ts) < Math.abs(best.timestamp - ts) ? s : best;
+      }, null);
+    }
+    return after2 ? shots[shots.length - 1] : shots[0];
+  };
+  const before = pick(args.shot1, args.t1, false);
+  const after = pick(args.shot2, args.t2, true);
+  if (!before || !after || before.id === after.id) throw new Error("INVALID_INPUT: two DIFFERENT screenshots are required (shot1/shot2 or t1/t2).");
+  const extractDataUrl = (payload) => {
+    const candidates = [payload?.dataUrl, payload?.screenshot, payload?.data, payload?.imageData, payload?.base64];
+    for (const c of candidates) {
+      if (typeof c === "string" && c.startsWith("data:image/png;base64,")) return c;
+      if (typeof c === "string" && /^[A-Za-z0-9+/=]{40,}$/.test(c.slice(0, 60)) && !c.startsWith("{")) return `data:image/png;base64,${c}`;
+    }
+    return null;
+  };
+  const dataA = extractDataUrl(before.payload);
+  const dataB = extractDataUrl(after.payload);
+  let pixelResult;
+  if (!dataA || !dataB) {
+    pixelResult = { identical: false, changedRegions: [], changedRegionCount: 0, totalChangedPixels: 0, changeRatio: 0, note: "Screenshot payloads are not raw PNG data (recorder may store references/metadata) — pixel diff unavailable; DOM correlation below." };
+  } else {
+    const imgA = decodePng(Buffer.from(dataA.split(",")[1], "base64"));
+    const imgB = decodePng(Buffer.from(dataB.split(",")[1], "base64"));
+    pixelResult = diffRegions(imgA, imgB);
+  }
+  const domEvents = events.filter((e) => e.timestamp >= before.timestamp && e.timestamp <= after.timestamp);
+  const t1 = await access.domStateAt(sessionId, before.timestamp);
+  const t2 = await access.domStateAt(sessionId, after.timestamp);
+  let totals = {};
+  let topChanges = [];
+  if (t1 && t2) {
+    const diff = regressionDiff(t1, t2);
+    totals = diff.machine.totals;
+    topChanges = diff.machine.dimensions.flatMap((d) => d.changes.slice(0, 3).map((c) => ({ dimension: d.dimension, summary: `${c.selector}: ${c.detail}` })));
+  } else {
+    topChanges = domEvents.filter((e) => e.category === "DOM").slice(0, 10).map((e) => ({ dimension: "DOM", summary: `${e.type} ${e.targetSelector || ""}`.trim() }));
+    totals = { recordedDomEvents: domEvents.filter((e) => e.category === "DOM").length };
+  }
+  const report = correlateVisualWithDom({
+    pixel: pixelResult,
+    domDiff: { totals, topChanges },
+    screenshots: {
+      before: { eventId: before.id, timestamp: before.timestamp, label: `screenshot t=${before.timestamp}ms` },
+      after: { eventId: after.id, timestamp: after.timestamp, label: `screenshot t=${after.timestamp}ms` }
+    }
+  });
+  return { sessionId, ...report };
+}
+const FRAMEWORK_ATTR_PATTERNS = [
+  /data-v-[0-9a-f]/,
+  /__react|\$react/i,
+  /_ngcontent|_nghost/,
+  /css-[a-z0-9]{5}/,
+  /sc-[A-Za-z]/,
+  /jsx-\d+/,
+  /ember\d+/,
+  /data-styled/,
+  /data-v\b/
+];
+function scoreSelectorSurvivability(input) {
+  const results = [];
+  const mutations = input.mutationHistory || [];
+  const analyze = (selector, matches) => {
+    const notes = [];
+    let uniqueness = 0.5;
+    if (matches !== void 0) {
+      uniqueness = matches === 1 ? 0.95 : matches === 0 ? 0.1 : Math.max(0.15, 1 - (matches - 1) * 0.2);
+      if (matches === 0) notes.push("Selector currently matches 0 elements — INVALID target.");
+      if (matches > 1) notes.push(`Selector matches ${matches} elements — ambiguous.`);
+    } else if (/^#[A-Za-z][\w-]*$/.test(selector)) {
+      uniqueness = 0.92;
+      notes.push("ID-based selector: high uniqueness.");
+    } else if (selector.includes("nth-child") || selector.includes("nth-of-type")) {
+      uniqueness = 0.5;
+      notes.push("Positional pseudo-class reduces structural resilience.");
+    }
+    const targetMutations = mutations.filter((m) => m.targetSelector === selector || m.payload?.selectorHint === selector);
+    const churn = targetMutations.length;
+    const domStability = Math.max(0.1, 1 - churn * 0.12);
+    if (churn > 0) notes.push(`${churn} recorded mutation(s) touched this element.`);
+    const frameworkHits = FRAMEWORK_ATTR_PATTERNS.filter((p) => p.test(selector)).length;
+    const frameworkRisk = Math.max(0.05, 1 - frameworkHits * 0.5);
+    if (frameworkHits > 0) notes.push("Selector relies on framework-generated attributes (hashed/regenerated at build time).");
+    const textDependent = /:contains\(|=\s*"/.test(selector);
+    const textVolatility = textDependent ? 0.35 : 0.9;
+    if (textDependent) notes.push("Selector depends on text content — volatile under copy changes.");
+    const positionDependent = /nth-|first-child|last-child|only-child|\+\s|~\s/.test(selector);
+    const positionScore = positionDependent ? 0.4 : 0.9;
+    if (positionDependent) notes.push("Selector depends on sibling ordering.");
+    const depth = (selector.match(/>/g) || []).length;
+    const ancestryStability = depth === 0 ? 0.85 : Math.max(0.3, 0.9 - depth * 0.18);
+    if (depth >= 3) notes.push(`Deep chain (${depth + 1} levels) — fragile under refactors.`);
+    const semantic = /data-testid|aria-label|role=|\[name=|\[type=/.test(selector);
+    const semanticStability = semantic ? 0.9 : 0.55;
+    if (semantic) notes.push("Semantic attributes present — resilient to layout changes.");
+    const breakdown = {
+      domStability: Number(domStability.toFixed(2)),
+      semanticStability,
+      uniqueness: Number(uniqueness.toFixed(2)),
+      ancestryStability: Number(ancestryStability.toFixed(2)),
+      frameworkAttributeRisk: Number(frameworkRisk.toFixed(2)),
+      textVolatility,
+      positionDependence: positionScore
+    };
+    const survivability = Number((breakdown.domStability * 0.25 + breakdown.semanticStability * 0.15 + breakdown.uniqueness * 0.2 + breakdown.ancestryStability * 0.14 + breakdown.frameworkAttributeRisk * 0.12 + breakdown.textVolatility * 0.07 + breakdown.positionDependence * 0.07).toFixed(3));
+    return {
+      selector,
+      survivability,
+      band: survivability >= 0.75 ? "ROBUST" : survivability >= 0.5 ? "MODERATE" : survivability >= 0.3 ? "FRAGILE" : "CRITICAL",
+      breakdown,
+      evidenceCount: churn + notes.length,
+      notes
+    };
+  };
+  if (input.selector) results.push(analyze(input.selector));
+  for (const cand of input.candidateSelectors || []) {
+    results.push(analyze(cand.selector, cand.matches));
+  }
+  results.sort((a, b) => b.survivability - a.survivability);
+  return results;
+}
+function detectComponentBoundaries(input) {
+  const components = [];
+  const frameworkEvidence = [];
+  let detectedFramework = "generic";
+  const events = input.events || [];
+  const flat = input.snapshot ? flattenSnapshot$1(input.snapshot) : null;
+  const elements = flat ? flat.elements : [];
+  const attrPresence = (pred) => elements.reduce((count, el) => count + Object.keys(el.attributes).filter(pred).length, 0);
+  const reactAttrs = attrPresence((n) => /^__react|\$react|^data-reactroot|^aria-/i.test(n) && /react/i.test(n));
+  const reactKeys = elements.filter((el) => Object.keys(el.attributes).some((n) => /^data-reactid|^\$/.test(n))).length;
+  const vueAttrs = attrPresence((n) => /^data-v-/.test(n));
+  const angularAttrs = attrPresence((n) => /^_ngcontent|^_nghost|^ng-/.test(n));
+  const customElements = elements.filter((el) => el.tagName.includes("-")).length;
+  if (reactAttrs + reactKeys > 0) {
+    detectedFramework = "react";
+    frameworkEvidence.push(`React markers on ${reactAttrs + reactKeys} elements (data-reactid / $ fiber attributes).`);
+  } else if (vueAttrs > 0) {
+    detectedFramework = "vue";
+    frameworkEvidence.push(`Vue scoped attributes (data-v-*) on ${vueAttrs} attributes.`);
+  } else if (angularAttrs > 0) {
+    detectedFramework = "angular";
+    frameworkEvidence.push(`Angular emulation attributes (_ngcontent/_nghost) on ${angularAttrs} attributes.`);
+  } else if (customElements > 0) {
+    detectedFramework = "web-components";
+    frameworkEvidence.push(`${customElements} custom elements (tag names with hyphens).`);
+  }
+  const subtreeReplacements = events.filter((e) => e.type === "DOM_MUTATION_REMOVE" && Number(e.payload?.removedSubtreeNodeCount ?? 0) > 5);
+  if (subtreeReplacements.length > 0) {
+    frameworkEvidence.push(`${subtreeReplacements.length} whole-subtree replacements recorded — consistent with virtual-DOM component re-renders.`);
+  }
+  const byId = flat ? flat.byId : /* @__PURE__ */ new Map();
+  for (const el of elements) {
+    const evidence = [];
+    let framework = "generic";
+    const attrs = Object.keys(el.attributes);
+    if (attrs.some((a) => /^data-v-/.test(a))) {
+      framework = "vue";
+      evidence.push("data-v-* scoped attribute on this element.");
+    } else if (attrs.some((a) => /^_ngcontent|^_nghost/.test(a))) {
+      framework = "angular";
+      evidence.push("Angular content projection attributes.");
+    } else if (attrs.some((a) => /^data-reactid|^\$|__react/.test(a))) {
+      framework = "react";
+      evidence.push("React hydration markers.");
+    } else if (el.tagName.includes("-")) {
+      framework = "web-components";
+      evidence.push("Custom element tag.");
+    }
+    el.attributes.id ? [] : [];
+    let childMarkerCount = 0;
+    for (const childId of Object.values(el)) void childId;
+    const childElements = elements.filter((c) => c.parentId === el.id);
+    for (const child of childElements) {
+      const childAttrs = Object.keys(child.attributes);
+      if (childAttrs.some((a) => /^data-v-/.test(a)) || child.tagName.includes("-") || childAttrs.some((a) => /^_ngcontent/.test(a)) || childAttrs.some((a) => /^data-reactid/.test(a))) {
+        childMarkerCount++;
+      }
+    }
+    if (childMarkerCount >= 2) evidence.push(`${childMarkerCount} children carry framework markers → likely component root boundary.`);
+    const replacedHere = subtreeReplacements.some((e) => {
+      const sel = e.targetSelector || e.payload?.selectorHint || "";
+      return sel && sel.includes(el.attributes.id ? `#${el.attributes.id}` : el.tagName);
+    });
+    if (replacedHere) evidence.push("Element subtree was replaced wholesale in recorded mutations (component re-render signature).");
+    if (evidence.length > 0) {
+      const ev = new EvidenceBuilder(`Element ${selectorOfFlat(el, byId)} is a component boundary (${framework})`, "Component boundary inference (CAP 08)");
+      for (const e of evidence.slice(0, 4)) ev.add("DOM_OBSERVATION", e);
+      if (replacedHere) ev.add("MUTATION_RECORD", "Subtree replacement pattern observed");
+      const finding = ev.build();
+      components.push({
+        selector: selectorOfFlat(el, byId),
+        nodeId: el.id,
+        tagName: el.tagName,
+        framework,
+        evidence,
+        childComponentCount: childMarkerCount,
+        depth: el.depth,
+        confidence: finding.confidence,
+        band: finding.band
+      });
+    }
+  }
+  components.sort((a, b) => b.confidence - a.confidence);
+  const byFramework = {};
+  for (const c of components.slice(0, 30)) byFramework[c.framework] = (byFramework[c.framework] || 0) + 1;
+  return {
+    components: components.slice(0, 30),
+    framework: { detected: detectedFramework, evidence: frameworkEvidence },
+    summary: { totalComponents: components.length, byFramework }
+  };
+}
+function analyzeFrames(input) {
+  const events = input.events || [];
+  const notes = [];
+  const flat = input.snapshot ? flattenSnapshot$1(input.snapshot) : null;
+  const elements = flat ? flat.elements : [];
+  const byId = flat ? flat.byId : /* @__PURE__ */ new Map();
+  const iframes = elements.filter((el) => el.tagName === "iframe" || el.tagName === "frame");
+  const frameInfos = [];
+  const networkEvents = events.filter((e) => e.category === "NETWORK");
+  const consoleEvents = events.filter((e) => e.category === "CONSOLE" || e.category === "ERROR");
+  const domMutations = events.filter((e) => e.category === "DOM");
+  for (const iframe of iframes) {
+    const src = iframe.attributes.src || "";
+    let crossOrigin = null;
+    if (src && /^https?:/i.test(src)) {
+      try {
+        crossOrigin = new URL(src).origin !== (input.snapshot?.origin || "null");
+      } catch {
+        crossOrigin = null;
+      }
+    }
+    const frameSelector = selectorOfFlat(iframe, byId);
+    const matchFrame = (selector) => !!selector && (selector === frameSelector || selector.startsWith(frameSelector) || !!iframe.attributes.id && selector.includes(`#${iframe.attributes.id}`));
+    const srcKey = src ? src.replace(/[?#].*$/, "") : "";
+    const frameNet = networkEvents.filter((e) => {
+      const url = String(e.payload.url || "");
+      return matchFrame(e.targetSelector) || srcKey && url.startsWith(srcKey) || url.includes(new URL(src || "http://invalid", "https://x.invalid").pathname.slice(1));
+    }).map((e) => ({ summary: String(e.payload.url || e.type), eventId: e.id, timestamp: e.timestamp }));
+    const frameConsole = consoleEvents.filter((e) => matchFrame(e.targetSelector)).map((e) => ({ summary: String(e.payload.message || e.payload.text || e.type).slice(0, 120), eventId: e.id, timestamp: e.timestamp }));
+    const frameDom = domMutations.filter((e) => matchFrame(e.targetSelector)).map((e) => ({ summary: `${e.type} ${e.targetSelector || ""}`.trim(), eventId: e.id, timestamp: e.timestamp }));
+    frameInfos.push({
+      frameSelector,
+      nodeId: iframe.id,
+      src,
+      title: iframe.attributes.title,
+      crossOrigin,
+      childFrames: [],
+      networkEvents: frameNet.slice(0, 20),
+      consoleEvents: frameConsole.slice(0, 15),
+      domMutations: frameDom.slice(0, 20)
+    });
+  }
+  for (const frame of frameInfos) {
+    const el = elements.find((e) => selectorOfFlat(e, byId) === frame.frameSelector);
+    if (!el) continue;
+    let cursor = el.parentId != null ? byId.get(el.parentId) : void 0;
+    while (cursor) {
+      if (cursor.tagName === "iframe" || cursor.tagName === "frame") {
+        const parentFrame = frameInfos.find((f) => f.nodeId === cursor.id);
+        if (parentFrame) {
+          parentFrame.childFrames.push(frame);
+        }
+      }
+      cursor = cursor.parentId != null ? byId.get(cursor.parentId) : void 0;
+    }
+  }
+  const attributed = new Set(frameInfos.flatMap((f) => [...f.networkEvents.map((n) => n.eventId), ...f.consoleEvents.map((c) => c.eventId)]));
+  const networkUnattributed = networkEvents.filter((e) => !attributed.has(e.id)).length;
+  if (iframes.length === 0) notes.push("No frames detected in this state.");
+  if (networkUnattributed > 0) notes.push(`${networkUnattributed} network events could not be attributed to a specific frame (main frame or cross-origin restrictions).`);
+  if (frameInfos.some((f) => f.crossOrigin)) notes.push("Cross-origin frames present: deep inspection requires live instrumentation; recorded data is limited to the frame element and its src.");
+  return { frames: frameInfos, totalFrames: frameInfos.length, crossOriginCount: frameInfos.filter((f) => f.crossOrigin).length, networkUnattributed, notes };
+}
+function analyzeShadowDom(input) {
+  const events = input.events || [];
+  const notes = [];
+  const flat = input.snapshot ? flattenSnapshot$1(input.snapshot) : null;
+  const elements = flat ? flat.elements : [];
+  const byId = flat ? flat.byId : /* @__PURE__ */ new Map();
+  const rawNodes = input.snapshot ? Object.values(input.snapshot.nodes || {}) : [];
+  const hosts = rawNodes.filter((n) => n.isShadowHost);
+  const shadowRoots = rawNodes.filter((n) => n.isShadowRoot);
+  const hostElements = elements.filter((el) => hosts.some((h) => h.id === el.id) || Object.keys(el.attributes).some((a) => /^shadow-|^data-shadow/.test(a)));
+  const roots = [];
+  for (const host of hostElements) {
+    const hostNode = rawNodes.find((n) => n.id === host.id) || {};
+    const mode = hostNode.shadowMode || host.attributes["shadow-mode"] || "unknown";
+    const subtreeIds = /* @__PURE__ */ new Set();
+    const collect = (id) => {
+      const node = input.snapshot.nodes[id];
+      if (!node) return;
+      subtreeIds.add(id);
+      for (const c of node.children || []) collect(c);
+    };
+    collect(host.id);
+    const slotElements = elements.filter((el) => subtreeIds.has(el.id) && el.attributes.slot !== void 0);
+    const slotMap = /* @__PURE__ */ new Map();
+    for (const slot of slotElements) {
+      const name = slot.attributes.slot || "default";
+      slotMap.set(name, (slotMap.get(name) || 0) + 1);
+    }
+    const hostSelector = selectorOfFlat(host, byId);
+    const mutations = events.filter((e) => e.category === "DOM" && (e.targetSelector || "").startsWith(hostSelector)).map((e) => ({ summary: `${e.type} ${e.targetSelector}`, eventId: e.id, timestamp: e.timestamp }));
+    roots.push({
+      hostSelector,
+      hostNodeId: host.id,
+      mode,
+      slotDistribution: Array.from(slotMap.entries()).map(([slotName, assignedCount]) => ({ slotName, assignedCount })),
+      childCount: host.childCount,
+      depth: 1,
+      mutationsObserved: mutations.slice(0, 15),
+      styleBoundary: { scopedStylesheets: 0, inheritedProperties: [] }
+    });
+  }
+  let nestedDepth = 0;
+  for (const root of shadowRoots) {
+    let depth = 0;
+    let cursor = root;
+    const seen = /* @__PURE__ */ new Set();
+    while (cursor?.parentId && !seen.has(cursor.parentId)) {
+      seen.add(cursor.parentId);
+      const parent = input.snapshot?.nodes?.[cursor.parentId];
+      if (parent?.isShadowHost || parent?.isShadowRoot) depth++;
+      cursor = parent;
+    }
+    nestedDepth = Math.max(nestedDepth, depth);
+  }
+  if (roots.length === 0) notes.push("No shadow DOM hosts detected in the recorded state. Live shadow roots (open mode) can be probed via fx_shadow_dom_forensics on a live page.");
+  if (shadowRoots.length > 0) notes.push(`${shadowRoots.length} shadow roots recorded with mode flags by the DOM instrumentation.`);
+  return { roots, totalHosts: roots.length, nestedDepth, notes };
+}
+const PROPERTY_GROUPS = {
+  visibility: ["display", "visibility", "opacity"],
+  dimensions: ["width", "height", "min-width", "max-width", "min-height", "max-height", "aspect-ratio"],
+  position: ["position", "top", "left", "right", "bottom", "inset", "float", "margin", "transform"],
+  stacking: ["z-index", "position", "transform", "filter", "isolation", "mix-blend-mode"],
+  typography: ["font-family", "font-size", "font-weight", "line-height", "letter-spacing", "text-transform", "color"],
+  overflow: ["overflow", "overflow-x", "overflow-y", "text-overflow", "white-space"],
+  clipping: ["clip", "clip-path", "overflow", "mask", "contain"]
+};
+async function analyzeCssInfluence(input) {
+  const group = input.group && PROPERTY_GROUPS[input.group] ? input.group : "all";
+  const properties = group === "all" ? Object.values(PROPERTY_GROUPS).flat() : PROPERTY_GROUPS[group];
+  const probe = `(function(){
+    const el = document.querySelector(${JSON.stringify(input.selector)});
+    if (!el) return { found: false };
+    const matches = [];
+    const ancestors = [];
+    let cursor = el;
+    while (cursor && cursor instanceof Element) { ancestors.push(cursor); cursor = cursor.parentElement; }
+    const sheets = Array.from(document.styleSheets || []);
+    for (const sheet of sheets) {
+      let rules = [];
+      try { rules = Array.from(sheet.cssRules || []); } catch (e) { continue; }
+      const walkRules = (ruleList) => {
+        for (const rule of ruleList) {
+          if (rule.type === 1 /* CSSStyleRule */) {
+            for (const target of ancestors) {
+              let matched = false;
+              try { matched = target.matches(rule.selectorText); } catch (e) { matched = false; }
+              if (matched) {
+                matches.push({
+                  selector: rule.selectorText,
+                  href: (sheet.href || 'inline<style>'),
+                  declarations: rule.style.cssText.split(';').map(s => s.trim()).filter(Boolean),
+                  targetTag: target.tagName.toLowerCase(),
+                  targetId: target.id || null,
+                  inherited: target !== el,
+                });
+                break; // one match per rule (first ancestor it matches)
+              }
+            }
+          } else if (rule.cssRules && rule.type === 4 /* CSSMediaRule */) {
+            walkRules(Array.from(rule.cssRules));
+          }
+        }
+      };
+      walkRules(rules);
+    }
+    const computed = {};
+    for (const prop of ${JSON.stringify(properties)}) {
+      try { computed[prop] = getComputedStyle(el).getPropertyValue(prop); } catch (e) { computed[prop] = null; }
+    }
+    return { found: true, matches: matches.slice(0, 200), computed, inlineStyle: el.getAttribute('style') || null };
+  })()`;
+  const raw = await runInPage(probe, input.tabId);
+  if (!raw?.found) {
+    throw new Error(`TARGET_STALE: element '${input.selector}' not found in the live page.`);
+  }
+  const specificityOf = (selectorText) => {
+    const ids = (selectorText.match(/#[A-Za-z][\w-]+/g) || []).length;
+    const classes = (selectorText.match(/\.[A-Za-z][\w-]+/g) || []).length + (selectorText.match(/\[[^\]]+\]/g) || []).length;
+    const pseudoClasses = (selectorText.match(/(?<!:):(?!:)[a-z-]+/g) || []).length;
+    const elements = (selectorText.match(/(^|[\\s>+~])[a-z][a-z0-9-]*/gi) || []).length;
+    const types = (selectorText.match(/::[a-z-]+/g) || []).length;
+    return [ids, classes + pseudoClasses, elements + types];
+  };
+  const ranked = [];
+  for (const m of raw.matches || []) {
+    const matchedProps = [];
+    for (const decl of m.declarations) {
+      const prop = decl.split(":")[0].trim().toLowerCase();
+      if (properties.includes(prop)) matchedProps.push(prop);
+    }
+    if (group !== "all" && matchedProps.length === 0 && !m.inherited) continue;
+    const spec = specificityOf(m.selector);
+    const specValue = spec[0] * 1e3 + spec[1] * 100 + spec[2];
+    const relevance = matchedProps.length * 1e3 + specValue - (m.inherited ? 400 : 0);
+    ranked.push({
+      rank: 0,
+      selector: m.selector,
+      stylesheet: m.href,
+      specificity: spec,
+      specificityValue: specValue,
+      declarations: m.declarations.slice(0, 12),
+      inherited: m.inherited,
+      matchedProperties: matchedProps,
+      ...{ relevance }
+    });
+  }
+  ranked.sort((a, b) => b.relevance - a.relevance);
+  ranked.forEach((r, i) => {
+    r.rank = i + 1;
+    delete r.relevance;
+  });
+  return {
+    selector: input.selector,
+    group,
+    computedStyles: raw.computed,
+    inlineStyle: raw.inlineStyle,
+    influencingRules: ranked.slice(0, 25),
+    ruleCount: ranked.length,
+    notes: [
+      "Specificity computed as (ids, classes+attributes+pseudo-classes, elements).",
+      "Inherited rules are ranked below direct matches for the queried property group.",
+      raw.matches?.length > 200 ? `Truncated at 200 matched rules of ${raw.matches.length}.` : void 0
+    ].filter(Boolean)
+  };
+}
+async function analyzeZIndexOcclusion(input) {
+  const probe = `(function(){
+    const el = document.querySelector(${JSON.stringify(input.selector)});
+    if (!el) return { found: false };
+    const chain = [];
+    let cursor = el;
+    while (cursor && cursor instanceof Element) {
+      const style = getComputedStyle(cursor);
+      chain.push({
+        tag: cursor.tagName.toLowerCase(),
+        id: cursor.id || null,
+        className: String(cursor.className || '').slice(0, 60),
+        position: style.position,
+        zIndex: style.zIndex,
+        opacity: style.opacity,
+        display: style.display,
+        overflow: style.overflow,
+        transform: style.transform !== 'none' ? style.transform : null,
+        filter: style.filter !== 'none' ? style.filter : null,
+        isolation: style.isolation,
+        clipPath: style.clipPath !== 'none' ? style.clipPath : null,
+        pointerEvents: style.pointerEvents,
+      });
+      cursor = cursor.parentElement;
+    }
+    const rect = el.getBoundingClientRect();
+    const canHitTest = typeof document.elementFromPoint === 'function';
+    const cx = rect.x + rect.width / 2, cy = rect.y + rect.height / 2;
+    const centerHit = canHitTest ? (() => {
+      const h = document.elementFromPoint(cx, cy);
+      if (!h) return null;
+      return { tag: h.tagName.toLowerCase(), id: h.id || null, isTarget: h === el, containsTarget: h !== el && el.contains(h), targetContains: h !== el && h.contains(el) };
+    })() : 'UNAVAILABLE';
+    let clipped = null;
+    let clipper = el.parentElement;
+    while (clipper) {
+      const s = getComputedStyle(clipper);
+      if (s.overflow !== 'visible' || s.clipPath !== 'none') { clipped = { tag: clipper.tagName.toLowerCase(), id: clipper.id || null, overflow: s.overflow, clipPath: s.clipPath }; break; }
+      clipper = clipper.parentElement;
+    }
+    return { found: true, rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height }, chain, centerHit: centerHit, hitTesting: canHitTest, clippedBy: clipped,
+      zCount: document.querySelectorAll('*').length };
+  })()`;
+  const raw = await runInPage(probe, input.tabId);
+  if (!raw?.found) throw new Error(`TARGET_STALE: element '${input.selector}' not found.`);
+  const createsStacking = (node) => node.position !== "static" && node.zIndex !== "auto" || node.position === "fixed" || node.position === "sticky" || node.transform !== null && node.transform !== void 0 || node.filter !== null && node.filter !== void 0 || node.isolation === "isolate" || Number(node.opacity) < 1;
+  const chain = raw.chain || [];
+  const stackingContexts = chain.map((node, i) => ({ ...node, isStackingContext: createsStacking(node), depth: i }));
+  const nearestContext = [...stackingContexts].reverse().find((n) => n.isStackingContext);
+  chain.length > 0;
+  const effectiveZ = nearestContext ? nearestContext.zIndex === "auto" ? "auto (DOM order)" : nearestContext.zIndex : "auto (DOM order)";
+  const hitUnavailable = raw.centerHit === "UNAVAILABLE" || raw.hitTesting === false;
+  const occluder = hitUnavailable ? "Geometric hit-test UNAVAILABLE in this context (no layout engine): structural stacking analysis above remains valid; occlusion requires a live browser page." : raw.centerHit ? raw.centerHit.isTarget ? null : raw.centerHit.containsTarget ? `Child element on top (part of the target subtree — not an occluder).` : raw.centerHit.targetContains ? `An ancestor of the target receives the hit — target may be hidden behind/below it.` : `Element at center point: <${raw.centerHit.tag}>${raw.centerHit.id ? "#" + raw.centerHit.id : ""} intercepts pointer events.` : "No element at center point — target may be outside the viewport or fully transparent.";
+  const pointerEventsBlocked = chain.some((n) => n.pointerEvents === "none" && n.depth > 0);
+  const isDimZero = Number(raw.rect?.width) === 0 || Number(raw.rect?.height) === 0;
+  return {
+    selector: input.selector,
+    rect: raw.rect,
+    hitTestingAvailable: !hitUnavailable,
+    stackingContexts,
+    nearestStackingContext: nearestContext ? { element: nearestContext.tag + (nearestContext.id ? "#" + nearestContext.id : ""), zIndex: nearestContext.zIndex, position: nearestContext.position } : null,
+    effectiveZOrder: effectiveZ,
+    hitTestAtCenter: raw.centerHit,
+    occlusionAssessment: {
+      occluder,
+      pointerEventsIntercepted: pointerEventsBlocked,
+      clippingParent: raw.clippedBy,
+      zeroSized: isDimZero,
+      zeroSizeNote: isDimZero ? "Element has zero width/height — invisible regardless of z-index (layout collapse, not occlusion)." : void 0
+    },
+    hitTestConflicts: !hitUnavailable && raw.centerHit && !raw.centerHit.isTarget && !raw.centerHit.containsTarget && !raw.centerHit.targetContains ? [{ conflict: "Clicks will land on a different element than the visual target", resolution: "Raise z-index, adjust geometry, or act on the hit-test receiver directly." }] : [],
+    notes: [
+      "Stacking contexts detected from position/z-index/transform/filter/opacity/isolation per CSS spec.",
+      "Geometry hit-test uses elementFromPoint at the element center — in JSDOM (no layout engine) rect is 0×0 and the geometric result is explicitly marked as not available.",
+      isDimZero ? "JSDOM mode: geometry unavailable; structural stacking analysis above remains valid." : void 0
+    ].filter(Boolean)
+  };
+}
+async function analyzeEventListeners(input) {
+  const scopeSelector = input.selector;
+  const probe = `(function(){
+    const results = [];
+    const collect = (el) => {
+      if (!(el instanceof Element)) return;
+      const attrs = Array.from(el.attributes || []);
+      for (const attr of attrs) {
+        if (/^on[a-z]+$/i.test(attr.name)) {
+          results.push({
+            element: el.tagName.toLowerCase() + (el.id ? '#' + el.id : ''),
+            type: attr.name.slice(2).toLowerCase(),
+            source: 'inline-attribute',
+            capture: false,
+            passive: null,
+            handlerPreview: String(attr.value).slice(0, 100),
+            frameworkHint: /\\bReact\\b|__react/i.test(String(attr.value)) ? 'react' : /\\bVue\\b|__v/i.test(String(attr.value)) ? 'vue' : null,
+          });
+        }
+      }
+      // instrumentation channel (injected page script records registrations)
+      const registrations = (window.__mcpdom_listeners__ || []);
+      for (const reg of registrations) {
+        if (reg && reg.elementRef === el) {
+          results.push({
+            element: el.tagName.toLowerCase() + (el.id ? '#' + el.id : ''),
+            type: reg.type,
+            source: 'addEventListener-instrumentation',
+            capture: !!reg.capture,
+            passive: !!reg.passive,
+            handlerPreview: reg.handlerPreview || null,
+            frameworkHint: reg.frameworkHint || null,
+            registeredAt: reg.registeredAt || null,
+          });
+        }
+      }
+    };
+    let root = document;
+    if (${scopeSelector ? JSON.stringify(scopeSelector) : "null"}) {
+      root = document.querySelector(${scopeSelector ? JSON.stringify(scopeSelector) : "null"});
+      if (!root) return { found: false };
+      collect(root);
+      for (const el of root.querySelectorAll('*')) collect(el);
+    } else {
+      for (const el of document.querySelectorAll('*')) collect(el);
+    }
+    return { found: true, listeners: results.slice(0, 300), instrumentationActive: !!(window.__mcpdom_listeners__), scannedElements: document.querySelectorAll('*').length };
+  })()`;
+  const raw = await runInPage(probe, input.tabId);
+  if (raw && raw.found === false) throw new Error(`TARGET_STALE: element '${input.selector}' not found.`);
+  const listeners = raw?.listeners || [];
+  const byType = {};
+  const byElement = {};
+  let frameworkOwned = 0;
+  for (const l of listeners) {
+    byType[l.type] = (byType[l.type] || 0) + 1;
+    byElement[l.element] = (byElement[l.element] || 0) + 1;
+    if (l.frameworkHint) frameworkOwned++;
+  }
+  const topElements = Object.entries(byElement).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([element, count]) => ({ element, listenerCount: count }));
+  return {
+    scope: scopeSelector || "document",
+    scannedElements: raw?.scannedElements ?? 0,
+    listenerCount: listeners.length,
+    byType,
+    topElements,
+    frameworkOwnedCount: frameworkOwned,
+    instrumentationActive: !!raw?.instrumentationActive,
+    listeners: listeners.slice(0, 80),
+    coverage: {
+      inlineAttributes: listeners.filter((l) => l.source === "inline-attribute").length,
+      addEventListener: listeners.filter((l) => l.source === "addEventListener-instrumentation").length
+    },
+    notes: [
+      raw?.instrumentationActive ? "Live instrumentation (window.__mcpdom_listeners__) is active — addEventListener registrations are captured with capture/passive flags and stack previews." : "Instrumentation is NOT active in this context: only inline on* attributes are directly observable. To capture addEventListener registrations, load the page with the MCPDOM injected page script (instrumentation patches addEventListener at document_start).",
+      "Framework ownership is inferred from handler source markers — heuristics, never claimed as authoritative."
+    ]
+  };
+}
+async function analyzeFontRendering(input) {
+  const probe = `(function(){
+    const faces = [];
+    for (const sheet of Array.from(document.styleSheets || [])) {
+      let rules = [];
+      try { rules = Array.from(sheet.cssRules || []); } catch (e) { continue; }
+      for (const rule of rules) {
+        if (rule.type === 5 /* CSSFontFaceRule */) {
+          const style = rule.style;
+          faces.push({
+            family: style.getPropertyValue('font-family') || null,
+            src: (style.getPropertyValue('src') || '').slice(0, 120),
+            weight: style.getPropertyValue('font-weight') || null,
+            style: style.getPropertyValue('font-style') || null,
+            display: style.getPropertyValue('font-display') || null,
+          });
+        }
+      }
+    }
+    const fontUsages = [];
+    for (const el of Array.from(document.querySelectorAll('body *, body')).slice(0, 400)) {
+      if (!(el instanceof Element)) continue;
+      const cs = getComputedStyle(el);
+      const family = cs.getPropertyValue('font-family');
+      if (family) {
+        fontUsages.push({ element: el.tagName.toLowerCase() + (el.id ? '#' + el.id : ''), family, size: cs.getPropertyValue('font-size'), weight: cs.getPropertyValue('font-weight') });
+      }
+    }
+    const loaded = [];
+    try {
+      if (document.fonts) {
+        for (const face of Array.from(document.fonts.values ? document.fonts.values() : [])) {
+          loaded.push({ family: face.family, status: face.status, weight: face.weight || null });
+        }
+      }
+    } catch (e) {}
+    return { fontFaces: faces, fontUsages: fontUsages.slice(0, 60), documentFonts: loaded, fontsApi: !!document.fonts };
+  })()`;
+  const raw = await runInPage(probe, input.tabId);
+  const faces = raw?.fontFaces || [];
+  const usages = raw?.fontUsages || [];
+  const documentFonts = raw?.documentFonts || [];
+  const declaredFamilies = new Set(faces.map((f) => String(f.family || "").replace(/['"]/g, "").trim()).filter(Boolean));
+  const usedFamilies = /* @__PURE__ */ new Map();
+  for (const u of usages) {
+    const primary = String(u.family || "").split(",")[0].replace(/['"]/g, "").trim();
+    if (primary) usedFamilies.set(primary, (usedFamilies.get(primary) || 0) + 1);
+  }
+  const issues = [];
+  for (const [family, count] of usedFamilies) {
+    const isGeneric = /^(serif|sans-serif|monospace|cursive|fantasy|system-ui)$/i.test(family);
+    if (isGeneric) continue;
+    if (!declaredFamilies.has(family)) {
+      issues.push({ issue: "undeclared-family-in-use", detail: `"${family}" is used by ${count} element(s) but no @font-face declares it — the browser falls back if it is not a system font.`, severity: "warn" });
+    }
+  }
+  for (const f of faces) {
+    if (f.display === null || f.display === "auto") {
+      issues.push({ issue: "font-display-unset", detail: `@font-face ${f.family} has no explicit font-display — swap behavior defaults to "auto" (potential invisible text / FOUT).`, severity: "info" });
+    }
+  }
+  const notLoaded = documentFonts.filter((d) => d.status && String(d.status) !== "loaded");
+  for (const d of notLoaded.slice(0, 10)) {
+    issues.push({ issue: "font-not-loaded", detail: `Font "${d.family}" (weight ${d.weight || "normal"}) status is ${d.status} — not loaded at analysis time.`, severity: "warn" });
+  }
+  const fallbackChains = usages.filter((u) => String(u.family || "").split(",").length <= 1);
+  if (fallbackChains.length > 0) {
+    issues.push({ issue: "no-fallback-stack", detail: `${fallbackChains.length} element(s) declare a single font-family with no fallback — layout shift risk if the font fails/metrics differ.`, severity: "warn" });
+  }
+  return {
+    declaredFontFaces: faces,
+    declaredFamilyCount: declaredFamilies.size,
+    usedFamilies: Array.from(usedFamilies.entries()).map(([family, count]) => ({ family, usageCount: count })),
+    documentFontsStatus: documentFonts.slice(0, 30),
+    fontsApiAvailable: !!raw?.fontsApi,
+    issues,
+    issueCount: issues.length,
+    notes: [
+      "Font metrics analysis: @font-face declarations cross-referenced with computed font-family usage and document.fonts load status.",
+      "In JSDOM, document.fonts and layout metrics are limited — @font-face CSSOM analysis remains real; load-status is reported only when the API exists."
+    ]
+  };
+}
+const INTERACTIVE_TAGS = /^(a|button|input|select|textarea|summary|details|menuitem|option|tab)$/i;
+const LANDMARK_ROLES = { header: "banner", main: "main", nav: "navigation", footer: "contentinfo", aside: "complementary", form: "form", section: "region" };
+function computeRole(el) {
+  const explicit = el.attributes["role"];
+  if (explicit) return explicit;
+  const tag = el.tagName;
+  if (LANDMARK_ROLES[tag]) return LANDMARK_ROLES[tag];
+  if (tag === "a") return el.attributes.href ? "link" : "generic";
+  if (tag === "button") return "button";
+  if (tag === "input") {
+    const type = (el.attributes.type || "text").toLowerCase();
+    if (type === "checkbox") return "checkbox";
+    if (type === "radio") return "radio";
+    if (type === "submit" || type === "button" || type === "reset") return "button";
+    if (type === "hidden") return "presentation";
+    return "textbox";
+  }
+  if (tag === "select") return "combobox";
+  if (tag === "textarea") return "textbox";
+  if (tag === "img") return "img";
+  if (tag === "ul" || tag === "ol") return "list";
+  if (tag === "li") return "listitem";
+  if (tag === "h1") return "heading";
+  if (tag === "h2") return "heading";
+  if (tag === "h3") return "heading";
+  if (tag === "table") return "table";
+  return "generic";
+}
+function computeName(el) {
+  const aria = el.attributes["aria-label"] || "";
+  if (aria) return aria;
+  const labelledBy = el.attributes["aria-labelledby"];
+  if (labelledBy) return `(labelledby: ${labelledBy})`;
+  const alt = el.attributes.alt;
+  if (alt !== void 0) return alt;
+  if (el.tagName === "input" && ["submit", "button", "reset"].includes((el.attributes.type || "").toLowerCase())) {
+    return el.attributes.value || "";
+  }
+  return el.textContent.trim().slice(0, 60);
+}
+function analyzeA11yDivergence(input) {
+  const flat = input.snapshot ? flattenSnapshot$1(input.snapshot) : null;
+  const elements = flat ? flat.elements : [];
+  const byId = flat ? flat.byId : /* @__PURE__ */ new Map();
+  const a11yTree = [];
+  const divergence = [];
+  for (const el of elements) {
+    const selector = selectorOfFlat(el, byId);
+    const role = computeRole(el);
+    const name = computeName(el);
+    const hiddenAttr = el.attributes.hidden !== void 0 || el.attributes["aria-hidden"] === "true";
+    const visuallyHidden = /display:\s*none|visibility:\s*hidden/i.test(el.attributes.style || "");
+    const interactive = INTERACTIVE_TAGS.test(el.tagName) || ["button", "link", "checkbox", "radio", "textbox", "combobox", "menuitem", "option", "tab"].includes(role);
+    const issues = [];
+    if (hiddenAttr) {
+      const hasText = !!el.textContent.trim();
+      if (hasText || interactive) {
+        divergence.push({ kind: "hidden-but-relevant", selector, detail: `Element is hidden (hidden/aria-hidden) but contains ${hasText ? "text content" : "an interactive role"} — verify the hiding is intentional.`, severity: "warn" });
+        issues.push("hidden-but-relevant");
+      }
+    }
+    if (interactive && !name) {
+      divergence.push({ kind: "missing-name", selector, detail: `Interactive <${el.tagName}> role=${role} has NO accessible name (no aria-label, alt, label or text).`, severity: "error" });
+      issues.push("missing-name");
+    }
+    if (/^div|span$/i.test(el.tagName) && el.attributes.onclick && !el.attributes.role) {
+      divergence.push({ kind: "semantic-mismatch", selector, detail: `Clickable <${el.tagName}> without role="button" — not exposed as interactive to assistive tech.`, severity: "warn" });
+      issues.push("semantic-mismatch");
+    }
+    if (el.tagName === "img" && el.attributes.alt === void 0) {
+      divergence.push({ kind: "img-missing-alt", selector, detail: "<img> without alt attribute — name is undefined for screen readers.", severity: "error" });
+      issues.push("img-missing-alt");
+    }
+    if (el.attributes.role && !el.textContent.trim() && !interactive) {
+      divergence.push({ kind: "unexpected-accessible-node", selector, detail: `role="${role}" on an empty element — an accessible node with no name/content.`, severity: "info" });
+      issues.push("unexpected-accessible-node");
+    }
+    if (el.tagName === "a" && !el.attributes.href && !el.attributes.role) {
+      divergence.push({ kind: "dead-anchor", selector, detail: "<a> without href — exposes generic role, not focusable link.", severity: "info" });
+      issues.push("dead-anchor");
+    }
+    a11yTree.push({
+      selector,
+      role,
+      name,
+      accessible: !hiddenAttr && !visuallyHidden && role !== "presentation",
+      hiddenFromA11y: hiddenAttr || visuallyHidden || role === "presentation",
+      interactive,
+      issues
+    });
+  }
+  const interactiveWithoutName = a11yTree.filter((n) => n.interactive && !n.name).length;
+  const hiddenButRelevant = divergence.filter((d) => d.kind === "hidden-but-relevant").length;
+  return {
+    a11yTree: a11yTree.filter((n) => n.interactive || n.issues.length > 0).slice(0, 120),
+    divergence: divergence.slice(0, 60),
+    summary: {
+      domElements: elements.length,
+      accessibleNodes: a11yTree.filter((n) => n.accessible).length,
+      interactiveWithoutName,
+      hiddenButRelevant,
+      divergenceCount: divergence.length
+    }
+  };
+}
+function computePageHealth(input) {
+  const events = input.events || [];
+  const subscores = [];
+  const consoleErrors = events.filter((e) => e.type === "RUNTIME_CONSOLE_ERROR" || e.type.startsWith("RUNTIME_CONSOLE") && e.type.includes("ERROR"));
+  const consoleWarns = events.filter((e) => e.type === "RUNTIME_CONSOLE_WARN");
+  const consoleScore = consoleErrors.length === 0 && consoleWarns.length === 0 ? 100 : Math.max(0, 100 - consoleErrors.length * 18 - consoleWarns.length * 4);
+  subscores.push({
+    key: "console",
+    score: consoleScore,
+    status: consoleScore >= 85 ? "HEALTHY" : consoleScore >= 50 ? "DEGRADED" : "CRITICAL",
+    detail: `${consoleErrors.length} error(s), ${consoleWarns.length} warning(s) recorded.`,
+    metrics: { errors: consoleErrors.length, warnings: consoleWarns.length }
+  });
+  const netEvents = events.filter((e) => e.category === "NETWORK");
+  const failedRequests = netEvents.filter((e) => e.type === "NETWORK_REQUEST_FAILED" || Number(e.payload.status) >= 400);
+  const netScore = netEvents.length === 0 ? 100 : Math.max(0, 100 - failedRequests.length / netEvents.length * 100);
+  subscores.push({
+    key: "network",
+    score: Math.round(netScore),
+    status: netScore >= 90 ? "HEALTHY" : netScore >= 60 ? "DEGRADED" : "CRITICAL",
+    detail: `${failedRequests.length} failed of ${netEvents.length} requests (${(failedRequests.length / Math.max(1, netEvents.length) * 100).toFixed(1)}%).`,
+    metrics: { total: netEvents.length, failed: failedRequests.length }
+  });
+  const a11y = analyzeA11yDivergence({ snapshot: input.snapshot });
+  const a11yErrors = a11y.divergence.filter((d) => d.severity === "error").length;
+  const a11yWarns = a11y.divergence.filter((d) => d.severity === "warn").length;
+  const a11yScore = Math.max(0, 100 - a11yErrors * 15 - a11yWarns * 5);
+  subscores.push({
+    key: "accessibility",
+    score: a11yScore,
+    status: a11yScore >= 85 ? "HEALTHY" : a11yScore >= 50 ? "DEGRADED" : "CRITICAL",
+    detail: `${a11yErrors} critical + ${a11yWarns} moderate a11y divergences (missing names, alt, semantics).`,
+    metrics: { errors: a11yErrors, warnings: a11yWarns, interactiveWithoutName: a11y.summary.interactiveWithoutName }
+  });
+  const vitals = input.traceVitals || {};
+  let perfScore = 100;
+  const perfMetrics = {};
+  if (vitals.lcp !== void 0) {
+    perfMetrics.lcpMs = vitals.lcp;
+    perfScore -= Math.max(0, (vitals.lcp - 2500) / 40);
+  }
+  if (vitals.inp !== void 0) {
+    perfMetrics.inpMs = vitals.inp;
+    perfScore -= Math.max(0, (vitals.inp - 200) / 4);
+  }
+  if (vitals.cls !== void 0) {
+    perfMetrics.cls = vitals.cls;
+    perfScore -= Math.max(0, (vitals.cls - 0.1) * 200);
+  }
+  const mutationChurn = events.filter((e) => e.category === "DOM").length;
+  perfMetrics.domMutations = mutationChurn;
+  if (mutationChurn > 200) perfScore -= Math.min(15, (mutationChurn - 200) / 20);
+  perfScore = Math.max(0, Math.round(Math.min(100, perfScore)));
+  subscores.push({
+    key: "performance",
+    score: perfScore,
+    status: perfScore >= 85 ? "HEALTHY" : perfScore >= 60 ? "DEGRADED" : "CRITICAL",
+    detail: Object.keys(perfMetrics).length ? `LCP=${perfMetrics.lcpMs ?? "n/a"}ms INP=${perfMetrics.inpMs ?? "n/a"}ms CLS=${perfMetrics.cls ?? "n/a"} mutations=${mutationChurn}.` : "No trace vitals available; mutation churn only.",
+    metrics: perfMetrics
+  });
+  const memoryWarnings = events.filter((e) => String(e.payload.type || "").includes("memory") || String(e.payload.kind || "").includes("memory"));
+  const memScore = memoryWarnings.length === 0 ? 100 : Math.max(0, 100 - memoryWarnings.length * 20);
+  subscores.push({ key: "memory", score: memScore, status: memScore >= 80 ? "HEALTHY" : "DEGRADED", detail: `${memoryWarnings.length} memory warning(s) recorded.`, metrics: { warnings: memoryWarnings.length } });
+  const styleEvents = events.filter((e) => e.category === "STYLE" || e.type === "DOM_MUTATION_ATTR" && String(e.payload.attributeName) === "style");
+  const layoutMutations = events.filter((e) => e.type === "DOM_MUTATION_MOVE" || e.type === "DOM_MUTATION_ATTR" && ["width", "height", "class"].includes(String(e.payload.attributeName)));
+  const instability = styleEvents.length + layoutMutations.length * 0.6;
+  const layoutScore = Math.max(0, Math.round(100 - instability * 3));
+  subscores.push({
+    key: "layout-stability",
+    score: layoutScore,
+    status: layoutScore >= 80 ? "HEALTHY" : layoutScore >= 50 ? "DEGRADED" : "CRITICAL",
+    detail: `${layoutMutations.length} layout-affecting mutations + ${styleEvents.length} style changes.`,
+    metrics: { styleChanges: styleEvents.length, layoutMutations: layoutMutations.length }
+  });
+  const failed = input.failedInteractions ?? 0;
+  const userEvents = events.filter((e) => e.category === "USER");
+  const interactionScore = failed === 0 ? 100 : Math.max(0, 100 - failed * 25);
+  subscores.push({
+    key: "interactions",
+    score: interactionScore,
+    status: interactionScore >= 80 ? "HEALTHY" : interactionScore >= 50 ? "DEGRADED" : "CRITICAL",
+    detail: `${failed} failed interaction(s) of ${userEvents.length} user events.`,
+    metrics: { failed, userEvents: userEvents.length }
+  });
+  const removes = events.filter((e) => e.type === "DOM_MUTATION_REMOVE");
+  const suspiciousRemoves = removes.filter((e) => Number(e.payload.removedSubtreeNodeCount ?? 0) > 20);
+  const domScore = Math.max(0, 100 - suspiciousRemoves.length * 12);
+  subscores.push({ key: "dom-anomalies", score: domScore, status: domScore >= 80 ? "HEALTHY" : "DEGRADED", detail: `${suspiciousRemoves.length} large subtree removal(s) (possible re-render churn).`, metrics: { subtreeRemovals: suspiciousRemoves.length, totalRemovals: removes.length } });
+  const WEIGHTS = { console: 0.2, network: 0.2, accessibility: 0.15, performance: 0.2, memory: 0.05, "layout-stability": 0.1, interactions: 0.05, "dom-anomalies": 0.05 };
+  let weighted = 0, weightSum = 0;
+  for (const s of subscores) {
+    const w = WEIGHTS[s.key] ?? 0.1;
+    weighted += s.score * w;
+    weightSum += w;
+  }
+  const overall = Math.round(weighted / (weightSum || 1));
+  const grade = overall >= 90 ? "A" : overall >= 75 ? "B" : overall >= 60 ? "C" : overall >= 40 ? "D" : "F";
+  const topIssues = [];
+  for (const e of consoleErrors.slice(0, 3)) topIssues.push({ area: "console", issue: String(e.payload.message || e.payload.text || e.type).slice(0, 120), severity: "error" });
+  for (const r of failedRequests.slice(0, 3)) topIssues.push({ area: "network", issue: `${String(r.payload.url || "?")} ${r.type === "NETWORK_REQUEST_FAILED" ? "failed" : `status ${String(r.payload.status)}`}`, severity: "error" });
+  for (const d of a11y.divergence.filter((x) => x.severity === "error").slice(0, 3)) topIssues.push({ area: "a11y", issue: `${d.kind}: ${d.selector}`, severity: "error" });
+  return {
+    overall,
+    grade,
+    subscores,
+    topIssues,
+    methodology: "Weighted composite: console 20%, network 20%, performance 20%, a11y 15%, layout stability 10%, memory/interactions/DOM anomalies 5% each. Every subscore is independently inspectable above."
+  };
+}
+function planNextActions(input) {
+  const events = input.events || [];
+  const symptom = (input.symptom || "").toLowerCase();
+  const has = (frag) => symptom.includes(frag);
+  const planned = [];
+  const gaps = [];
+  const domCount = events.filter((e) => e.category === "DOM").length;
+  const netCount = events.filter((e) => e.category === "NETWORK").length;
+  const consoleCount = events.filter((e) => e.category === "CONSOLE" || e.category === "ERROR").length;
+  const userCount = events.filter((e) => e.category === "USER").length;
+  const shotCount = events.filter((e) => e.category === "SCREENSHOT").length;
+  if (has("disappear") || has("removed") || has("unmount") || has("vanish") || symptom === "") {
+    planned.push({ order: 1, action: "Inspect parent mutation history for the disappeared element", tool: "get_mutation_history + trace_element", rationale: "Removal is usually a parent-subtree replacement; the parent chain tells whether the element was unmounted, replaced or hidden.", expectedOutcome: "Removal mechanism + responsible mutation event id." });
+    if (netCount > 0) planned.push({ order: 2, action: "Correlate DOM removal with nearby network responses", tool: "fx_correlate_dom_network", rationale: `${netCount} network events recorded — response-driven re-renders are the top cause of element disappearance.`, expectedOutcome: "Ranked request→mutation causal candidates with confidence." });
+    if (consoleCount > 0) planned.push({ order: 3, action: "Check console errors around the removal time", tool: "fx_error_root_cause", rationale: `${consoleCount} console events — a runtime error can abort a render and unmount the subtree.`, expectedOutcome: "Error → mutation root-cause graph." });
+    planned.push({ order: 4, action: "Diff the DOM state before/after the disappearance", tool: "fx_dom_regression_diff", rationale: "Full-dimension diff reveals whether the element was replaced, moved, or restyled into invisibility.", expectedOutcome: "Machine+human diff across 8 dimensions." });
+  } else if (has("slow") || has("performance") || has("lag") || has("cls") || has("shift")) {
+    planned.push({ order: 1, action: "Analyze layout shift evidence chain", tool: "fx_layout_shift_forensics", rationale: "Layout instability requires mutation+network+style attribution.", expectedOutcome: "Shift element, trigger mutation, concurrent requests." });
+    planned.push({ order: 2, action: "Build the resource waterfall", tool: "fx_resource_waterfall", rationale: "Loading order explains most perceived slowness and CLS.", expectedOutcome: "Waterfall with milestones and slowest resources." });
+    planned.push({ order: 3, action: "Score page health", tool: "fx_page_health", rationale: "Composite view prevents single-metric tunnel vision.", expectedOutcome: "Weighted health score with subscores." });
+  } else if (has("error") || has("exception") || has("crash") || has("fail")) {
+    planned.push({ order: 1, action: "Build the error root-cause graph", tool: "fx_error_root_cause", rationale: "Connects console error → stack → failed request → mutation → symptom.", expectedOutcome: "Ranked root causes with evidence." });
+    planned.push({ order: 2, action: "Check failed network requests preceding the error", tool: "get_network_events / fx_resource_waterfall", rationale: "Failed fetches are the most common external trigger.", expectedOutcome: "Failed request list with timing." });
+    planned.push({ order: 3, action: "Replay the failure scenario", tool: "fx_failure_replay", rationale: "Deterministic reproduction material for verification.", expectedOutcome: "Structured replay bundle." });
+  } else if (has("click") || has("interact") || has("button") || has("input")) {
+    planned.push({ order: 1, action: "Inspect event listeners on the failing element", tool: "fx_event_listeners", rationale: "Interaction failures are usually handler-level (no listener, capture interception).", expectedOutcome: "Listener inventory with framework ownership hints." });
+    planned.push({ order: 2, action: "Check occlusion / hit-test conflicts", tool: "fx_zindex_occlusion", rationale: "Clicks landing on overlays/occluders are the second most common cause.", expectedOutcome: "Stacking contexts + hit-test result at element center." });
+    planned.push({ order: 3, action: "Verify the selector survives re-renders", tool: "fx_selector_survivability", rationale: "Stale selectors produce silent no-op clicks.", expectedOutcome: "Survivability score with ranked alternatives." });
+  } else {
+    planned.push({ order: 1, action: "Run cross-signal search for the symptom keywords", tool: "fx_cross_signal_search", rationale: "Unknown symptoms need broad evidence gathering first.", expectedOutcome: "Cross-domain evidence bundle." });
+    planned.push({ order: 2, action: "Score overall page health", tool: "fx_page_health", rationale: "Subscores point to the weakest area to investigate.", expectedOutcome: "Health composite with inspectable subscores." });
+  }
+  if (domCount === 0) gaps.push("No DOM mutations recorded — time-travel analysis unavailable (was recording active?).");
+  if (netCount === 0) gaps.push("No network events recorded — response causality cannot be established.");
+  if (consoleCount === 0) gaps.push("No console messages recorded — error attribution limited.");
+  if (shotCount === 0) gaps.push("No screenshots recorded — visual regression analysis unavailable for this session.");
+  if (userCount === 0) gaps.push("No user interactions recorded — interaction replay cannot be reconstructed.");
+  return {
+    currentUnderstanding: `${events.length} events recorded (DOM ${domCount}, network ${netCount}, console ${consoleCount}, user ${userCount}, screenshots ${shotCount}). Symptom: ${input.symptom ? `"${input.symptom}"` : "unspecified (generic investigation plan)"}.`,
+    plannedActions: planned.slice(0, 6),
+    dataGaps: gaps
+  };
+}
+function crossSignalSearch(input) {
+  const query = String(input.query || "").toLowerCase().trim();
+  const limit = input.limit ?? 40;
+  if (!query) return { query: "", hits: [], byDomain: {}, relatedEvidence: [], suggestions: ["Provide a search query — keywords, selectors (#id, .class), URLs, error text or element text."] };
+  const events = input.events || [];
+  const hits = [];
+  const tokens = query.split(/\s+/).filter(Boolean);
+  for (const e of events) {
+    const haystack = JSON.stringify({ t: e.type, s: e.targetSelector, p: e.payload }).toLowerCase();
+    let score = 0;
+    for (const token of tokens) {
+      if (haystack.includes(token)) score += token.startsWith("#") || token.startsWith(".") ? 5 : 2;
+      if (e.targetSelector && e.targetSelector.toLowerCase().includes(token)) score += 3;
+    }
+    if (score > 0) {
+      hits.push({
+        domain: e.category,
+        eventId: e.id,
+        timestamp: e.timestamp,
+        selector: e.targetSelector,
+        excerpt: `${e.type} ${e.targetSelector || ""} ${JSON.stringify(e.payload).slice(0, 140)}`.trim(),
+        score
+      });
+    }
+  }
+  const byId = /* @__PURE__ */ new Map();
+  for (const h of hits) {
+    const prev = byId.get(h.eventId);
+    if (!prev || h.score > prev.score) byId.set(h.eventId, h);
+  }
+  const unique = Array.from(byId.values()).sort((a, b) => b.score - a.score || a.timestamp - b.timestamp).slice(0, limit);
+  const related = [];
+  const topTimes = unique.slice(0, 3).map((h) => h.timestamp);
+  for (const e of events) {
+    for (const t of topTimes) {
+      const delta = e.timestamp - t;
+      if (delta !== 0 && Math.abs(delta) <= 250 && !byId.has(e.id)) {
+        related.push({ domain: e.category, eventId: e.id, relation: delta < 0 ? `${-delta}ms before top hit` : `${delta}ms after top hit`, excerpt: `${e.type} ${e.targetSelector || ""} ${JSON.stringify(e.payload).slice(0, 100)}`.trim() });
+        break;
+      }
+    }
+  }
+  const byDomain = {};
+  for (const h of unique) byDomain[h.domain] = (byDomain[h.domain] || 0) + 1;
+  const suggestions = [];
+  if (Object.keys(byDomain).length === 1) suggestions.push(`All matches are in the "${Object.keys(byDomain)[0]}" domain — broaden the query or check adjacent domains with get_events.`);
+  if (unique.length === 0) suggestions.push("No matches. Try: shorter keywords, a selector fragment (#id without tag), a URL substring, or the element text.");
+  if (unique.length >= limit) suggestions.push(`Results truncated at ${limit} — refine the query for precision.`);
+  return { query: input.query, hits: unique, byDomain, relatedEvidence: related.slice(0, 25), suggestions };
+}
+function buildSessionGraph(input) {
+  const nodes = [];
+  const edges = [];
+  const rootId = `session:${input.session.id}`;
+  nodes.push({ id: rootId, kind: "page", label: `Session ${input.session.id} (${input.session.url})`, meta: { url: input.session.url, title: input.session.title } });
+  const recordedPageId = "page:recorded";
+  nodes.push({ id: recordedPageId, kind: "page", label: input.session.url, meta: { url: input.session.url, title: input.session.title, recorded: true } });
+  edges.push({ from: rootId, to: recordedPageId, relation: "recorded" });
+  for (const p of input.livePages || []) {
+    const pid = `page:${p.pageId}`;
+    nodes.push({ id: pid, kind: "page", label: p.url, meta: { tabId: p.tabId, title: p.title, frames: p.frames, navigations: p.navigations } });
+    edges.push({ from: rootId, to: pid, relation: "open-tab" });
+    for (let f = 0; f < (p.frames || 1) - 1; f++) {
+      const fid = `frame:${p.pageId}:${f}`;
+      nodes.push({ id: fid, kind: "frame", label: `frame ${f + 1} of ${p.url}` });
+      edges.push({ from: pid, to: fid, relation: "contains-frame" });
+    }
+  }
+  for (const e of input.events.filter((e2) => e2.category === "NAVIGATION").slice(0, 30)) {
+    const nid = `nav:${e.id}`;
+    nodes.push({ id: nid, kind: "navigation", label: `${e.type} ${String(e.payload.url || "")}`, timestamp: e.timestamp });
+    edges.push({ from: recordedPageId, to: nid, relation: "navigation" });
+  }
+  let requests = 0, interactions = 0, screenshots = 0, domStates = 0;
+  for (const e of input.events) {
+    if (e.category === "NETWORK") {
+      requests++;
+      if (nodes.length < 400) {
+        const nid = `req:${e.id}`;
+        nodes.push({ id: nid, kind: "request", label: String(e.payload.url || e.type), timestamp: e.timestamp, meta: { type: e.type, status: e.payload.status } });
+        edges.push({ from: recordedPageId, to: nid, relation: "request" });
+      }
+    } else if (e.category === "USER") {
+      interactions++;
+      if (nodes.length < 400) {
+        const nid = `act:${e.id}`;
+        nodes.push({ id: nid, kind: "interaction", label: `${e.type} ${e.targetSelector || ""}`.trim(), timestamp: e.timestamp });
+        edges.push({ from: recordedPageId, to: nid, relation: "interaction" });
+      }
+    } else if (e.category === "SCREENSHOT") {
+      screenshots++;
+      const nid = `shot:${e.id}`;
+      nodes.push({ id: nid, kind: "screenshot", label: `screenshot t=${e.timestamp}ms`, timestamp: e.timestamp });
+      edges.push({ from: recordedPageId, to: nid, relation: "visual-evidence" });
+    } else if (e.type === "DOM_SNAPSHOT") {
+      domStates++;
+      const nid = `dom:${e.id}`;
+      nodes.push({ id: nid, kind: "dom-state", label: `DOM state t=${e.timestamp}ms`, timestamp: e.timestamp });
+      edges.push({ from: recordedPageId, to: nid, relation: "dom-state" });
+    }
+  }
+  const interactionsList = input.events.filter((e) => e.category === "USER");
+  const requestsList = input.events.filter((e) => e.category === "NETWORK");
+  for (const act of interactionsList) {
+    for (const req of requestsList) {
+      if (req.timestamp >= act.timestamp && req.timestamp - act.timestamp <= 1e3) {
+        edges.push({ from: `act:${act.id}`, to: `req:${req.id}`, relation: "triggered-request" });
+        break;
+      }
+    }
+  }
+  return {
+    nodes: nodes.slice(0, 500),
+    edges: edges.slice(0, 800),
+    summary: { pages: 1 + (input.livePages?.length || 0), navigations: input.events.filter((e) => e.category === "NAVIGATION").length, requests, interactions, screenshots, domStates }
+  };
+}
+function generateIncidentReport(input) {
+  const events = input.events;
+  const health = input.health;
+  const detectedIssue = input.detectedIssue || input.rootCause?.conclusion || "Unspecified incident (derived from session evidence)";
+  const significant = events.filter((e) => e.category === "ERROR" || e.type === "NETWORK_REQUEST_FAILED" || Number(e.payload.status ?? 0) >= 400 || e.type === "DOM_MUTATION_REMOVE" && Number(e.payload.removedSubtreeNodeCount ?? 0) > 0 || e.category === "NAVIGATION");
+  const timeline = significant.slice(0, 40).map((e) => ({ timestamp: e.timestamp, domain: e.category, summary: `${e.type} ${e.targetSelector || ""} ${JSON.stringify(e.payload).slice(0, 90)}`.trim() }));
+  const failedRequests = events.filter((e) => e.type === "NETWORK_REQUEST_FAILED" || Number(e.payload.status ?? 0) >= 400);
+  const removals = events.filter((e) => e.type === "DOM_MUTATION_REMOVE");
+  const affectedDom = removals.slice(0, 12).map((e) => ({
+    selector: String(e.targetSelector || e.payload.selectorHint || `node=${e.payload.nodeId}`),
+    nodeId: e.payload.nodeId,
+    detail: `Removed at t=${e.timestamp}ms with ${Number(e.payload.removedSubtreeNodeCount ?? 0)} descendant nodes.`
+  }));
+  const affectedRequests = failedRequests.slice(0, 12).map((e) => ({
+    url: String(e.payload.url || "?"),
+    status: e.payload.status !== void 0 ? Number(e.payload.status) : void 0,
+    detail: e.type === "NETWORK_REQUEST_FAILED" ? `Request failed at t=${e.timestamp}ms: ${String(e.payload.error || "network error")}` : `HTTP ${String(e.payload.status)} at t=${e.timestamp}ms`
+  }));
+  const affectedComponents = Array.from(new Set(removals.map((e) => String(e.targetSelector || e.payload.selectorHint || "")).filter(Boolean))).slice(0, 10);
+  const evidence = [];
+  let rootFinding = null;
+  if (input.findings && input.findings.length > 0) {
+    rootFinding = input.findings.reduce((best, f) => f.confidence > best.confidence ? f : best);
+    for (const f of input.findings) {
+      for (const item of f.evidence.slice(0, 4)) evidence.push({ source: item.source, description: item.description, ref: item.ref });
+    }
+  } else {
+    for (const e of significant.slice(0, 10)) {
+      evidence.push({ source: e.category === "DOM" ? "MUTATION_RECORD" : e.category === "NETWORK" ? "NETWORK_CORRELATION" : e.category === "ERROR" || e.category === "CONSOLE" ? "CONSOLE_EVIDENCE" : "DOM_OBSERVATION", description: `${e.type}: ${JSON.stringify(e.payload).slice(0, 90)}`, ref: e.id });
+    }
+    const builder = new EvidenceBuilder(input.rootCause?.conclusion || detectedIssue, "Incident report aggregation (CAP 30)");
+    for (const ev of evidence.slice(0, 6)) {
+      builder.add(ev.source, ev.description, ev.ref);
+    }
+    rootFinding = builder.build();
+  }
+  const remediation = [];
+  if (affectedRequests.length > 0) remediation.push(`Fix the failing endpoint(s): ${affectedRequests.slice(0, 3).map((r) => r.url).join(", ")} — check status codes, payloads and error handling in the calling code.`);
+  if (affectedDom.length > 0) remediation.push(`Stabilize the unmounting component(s): ${affectedComponents.slice(0, 3).join(", ") || affectedDom[0].selector} — guard the render path against the triggering condition.`);
+  if (health) {
+    for (const s of health.subscores) {
+      if (s.status === "CRITICAL") remediation.push(`Address the ${s.key} deficit (score ${s.score}/100): ${s.detail}`);
+    }
+  }
+  if (remediation.length === 0) remediation.push("No actionable deficit found — add more evidence via fx_cross_signal_search or record a longer session.");
+  const validationSteps = [
+    "Re-run the scenario with recording active (verify the trigger reproduces).",
+    "Apply the remediation; then use fx_dom_regression_diff to confirm the UI state is stable across the same interaction.",
+    "Confirm no regressions: fx_page_health subscores should return to HEALTHY."
+  ];
+  const confidence = rootFinding ? rootFinding.confidence : 0.2;
+  const overall = rootFinding ?? new EvidenceBuilder("Insufficient evidence", "fallback").build();
+  const report = {
+    formatVersion: "1.0.0",
+    generatedAt: Date.now(),
+    sessionId: input.session.id,
+    incidentSummary: `${detectedIssue} — investigated over ${events.length} recorded events on ${input.session.url}.`,
+    detectedIssue: {
+      issue: detectedIssue,
+      severity: affectedRequests.length > 0 || affectedDom.length > 0 ? "HIGH" : "MEDIUM",
+      firstObservedAt: significant[0]?.timestamp ?? null
+    },
+    timeline,
+    rootCause: input.rootCause || (rootFinding ? { conclusion: rootFinding.conclusion, confidence: rootFinding.confidence, band: rootFinding.band } : null),
+    supportingEvidence: evidence.slice(0, 20),
+    affectedDom,
+    affectedRequests,
+    affectedComponents,
+    performanceImpact: health ? `Performance subscore ${health.subscores.find((s) => s.key === "performance")?.score ?? "n/a"}/100; layout stability ${health.subscores.find((s) => s.key === "layout-stability")?.score ?? "n/a"}/100.` : "Performance analysis not run (pass health data for quantified impact).",
+    accessibilityImpact: health ? `Accessibility subscore ${health.subscores.find((s) => s.key === "accessibility")?.score ?? "n/a"}/100 (${health.subscores.find((s) => s.key === "accessibility")?.detail ?? "n/a"}).` : "Accessibility analysis not run.",
+    recommendedRemediation: remediation.slice(0, 6),
+    validationSteps,
+    confidence: {
+      overall: Number(confidence.toFixed(3)),
+      band: confidenceBand(confidence),
+      evidenceCount: overall.evidenceCount,
+      evidenceTypes: overall.evidenceTypes
+    },
+    markdown: ""
+  };
+  report.markdown = renderMarkdown(report);
+  return report;
+}
+function renderMarkdown(report) {
+  const lines = [];
+  lines.push(`# Incident Report — ${report.sessionId}`);
+  lines.push("");
+  lines.push(`**Generated**: ${new Date(report.generatedAt).toISOString()}`);
+  lines.push(`**Issue**: ${report.detectedIssue.issue} (severity: ${report.detectedIssue.severity})`);
+  lines.push("");
+  lines.push("## Summary");
+  lines.push(report.incidentSummary);
+  lines.push("");
+  if (report.rootCause) {
+    lines.push("## Root Cause");
+    lines.push(`${report.rootCause.conclusion} (confidence: ${report.rootCause.confidence} — ${report.rootCause.band})`);
+    lines.push("");
+  }
+  lines.push("## Timeline");
+  for (const t of report.timeline.slice(0, 15)) lines.push(`- t=${t.timestamp}ms [${t.domain}] ${t.summary}`);
+  lines.push("");
+  lines.push("## Affected DOM");
+  for (const d of report.affectedDom.slice(0, 8)) lines.push(`- \`${d.selector}\` — ${d.detail}`);
+  if (report.affectedDom.length === 0) lines.push("- None recorded");
+  lines.push("");
+  lines.push("## Affected Requests");
+  for (const r of report.affectedRequests.slice(0, 8)) lines.push(`- \`${r.url}\` — ${r.detail}`);
+  if (report.affectedRequests.length === 0) lines.push("- None recorded");
+  lines.push("");
+  lines.push("## Recommended Remediation");
+  for (const r of report.recommendedRemediation) lines.push(`1. ${r}`);
+  lines.push("");
+  lines.push("## Validation Steps");
+  for (const v of report.validationSteps) lines.push(`1. ${v}`);
+  lines.push("");
+  lines.push(`**Overall confidence**: ${report.confidence.overall} (${report.confidence.band}) from ${report.confidence.evidenceCount} evidence items across ${report.confidence.evidenceTypes.length} source types.`);
+  return lines.join("\n");
+}
+function buildForensicExport(input) {
+  const timeline = input.events.map((e) => ({ timestamp: e.timestamp, domain: e.category, type: e.type, summary: `${e.type} ${e.targetSelector || ""} ${JSON.stringify(e.payload).slice(0, 80)}`.trim() })).sort((a, b) => a.timestamp - b.timestamp || a.type.localeCompare(b.type));
+  const evidence = input.findings.flatMap((f) => f.evidence.map((item) => ({ source: item.source, description: item.description, ref: item.ref }))).sort((a, b) => (a.ref || "").localeCompare(b.ref || ""));
+  const findings = input.findings.map((f) => ({ ...f, evidence: f.evidence.slice().sort((a, b) => (a.ref || "").localeCompare(b.ref || "")) }));
+  const bundle = {
+    format: "mcpdom-forensic-investigation",
+    formatVersion: "1.0.0",
+    exportedAt: Date.now(),
+    session: input.session,
+    timeline: timeline.slice(0, 2e3),
+    evidence,
+    findings,
+    health: input.health,
+    incidentReport: input.incidentReport,
+    contentHash: ""
+  };
+  bundle.contentHash = createHash("sha256").update(JSON.stringify({ timeline: bundle.timeline, evidence: bundle.evidence, findings: bundle.findings, sessionId: input.session.id })).digest("hex");
+  return bundle;
+}
+function verifyForensicImport(bundle) {
+  const errors = [];
+  const b = bundle;
+  if (!b || typeof b !== "object") errors.push("Bundle is not an object.");
+  else {
+    if (b.format !== "mcpdom-forensic-investigation") errors.push(`format must be 'mcpdom-forensic-investigation' (got '${b.format}').`);
+    if (b.formatVersion !== "1.0.0") errors.push(`formatVersion 1.0.0 expected (got '${b.formatVersion}').`);
+    if (!b.session?.id) errors.push("session.id is missing.");
+    if (!Array.isArray(b.timeline)) errors.push("timeline array is missing.");
+    if (!Array.isArray(b.findings)) errors.push("findings array is missing.");
+    if (b.contentHash) {
+      const recomputed = createHash("sha256").update(JSON.stringify({ timeline: b.timeline, evidence: b.evidence, findings: b.findings, sessionId: b.session?.id })).digest("hex");
+      if (recomputed !== b.contentHash) errors.push("contentHash mismatch — bundle was modified after export.");
+    } else {
+      errors.push("contentHash is missing.");
+    }
+  }
+  return { valid: errors.length === 0, errors, bundle: errors.length === 0 ? b : null };
+}
+const recordings = /* @__PURE__ */ new Map();
+let recordingCounter = 0;
+function startInteractionRecording(pageId) {
+  const recordingId = `irep_${++recordingCounter}_${Date.now().toString(36)}`;
+  const rec = { recordingId, pageId, startedAt: Date.now(), steps: [] };
+  recordings.set(recordingId, rec);
+  return rec;
+}
+function stopInteractionRecording(recordingId) {
+  const rec = recordings.get(recordingId);
+  if (!rec) throw new Error(`INVALID_INPUT: interaction recording '${recordingId}' not found.`);
+  rec.stoppedAt = Date.now();
+  return rec;
+}
+async function recordInteractionStep(recordingId, input) {
+  const rec = recordings.get(recordingId);
+  if (!rec) throw new Error(`INVALID_INPUT: interaction recording '${recordingId}' is not active.`);
+  if (rec.stoppedAt) throw new Error(`UNSUPPORTED_OPERATION: recording '${recordingId}' already stopped.`);
+  const fingerprint = await runInPage(`(function(){
+    const el = document.querySelector(${JSON.stringify(input.selector)});
+    if (!el) return { matched: 0, fingerprint: null };
+    const attrs = {};
+    for (const a of Array.from(el.attributes)) {
+      if (/^(id|name|type|data-testid|aria-label|role|placeholder|href|for|alt|title)$/i.test(a.name)) attrs[a.name] = a.value;
+    }
+    return { matched: 1, fingerprint: {
+      tag: el.tagName.toLowerCase(),
+      text: (el.textContent || '').trim().slice(0, 60),
+      classes: String(el.className || '').split(/\\s+/).filter(Boolean).slice(0, 5),
+      stableAttributes: attrs,
+    }};
+  })()`, input.tabId).catch(() => ({ matched: 0, fingerprint: null }));
+  const step = {
+    stepId: `step_${rec.steps.length + 1}`,
+    action: input.action,
+    target: {
+      selector: input.selector,
+      tagName: fingerprint?.fingerprint?.tag,
+      text: fingerprint?.fingerprint?.text,
+      attributes: fingerprint?.fingerprint?.stableAttributes
+    },
+    params: input.params || {},
+    pageUrl: unifiedRuntime.identity.resolve({ pageId: rec.pageId })?.url,
+    domContext: {
+      matchedElements: fingerprint?.matched ?? 0,
+      targetFingerprint: fingerprint?.fingerprint || { tag: "", text: "", classes: [], stableAttributes: {} },
+      mutationCountBefore: unifiedRuntime.bus.snapshot({ domains: ["DOM"], pageId: rec.pageId }).length
+    },
+    recordedAt: Date.now()
+  };
+  rec.steps.push(step);
+  return step;
+}
+async function resolveReplayTarget(target, fingerprint, tabId) {
+  const exact = await runInPage(`(function(){
+    const list = document.querySelectorAll(${JSON.stringify(target.selector)});
+    return { count: list.length };
+  })()`, tabId).catch(() => null);
+  if (exact && exact.count === 1) {
+    return { selector: target.selector, resolution: "EXACT", detail: "Selector uniquely matched." };
+  }
+  if (exact && exact.count > 1) {
+    return { selector: target.selector, resolution: "EXACT", detail: `Selector matched ${exact.count} elements — replay targets the first (record ambiguity warning).` };
+  }
+  const fp = fingerprint || { tag: "", text: "", classes: [], stableAttributes: {} };
+  const candidates = await runInPage(`(function(){
+    const out = [];
+    const pool = document.querySelectorAll(${JSON.stringify(fp.tag || "*")});
+    for (const el of Array.from(pool).slice(0, 500)) {
+      let score = 0;
+      ${fp.text ? `if ((el.textContent || '').trim().includes(${JSON.stringify(fp.text.slice(0, 30))})) score += 2;` : ""}
+      ${(fp.classes || []).map((c) => `if (el.classList.contains(${JSON.stringify(c)})) score += 1;`).join("\n      ")}
+      ${Object.entries(fp.stableAttributes || {}).map(([k, v]) => `if (el.getAttribute(${JSON.stringify(k)}) === ${JSON.stringify(v)}) score += 2;`).join("\n      ")}
+      if (el.id && ${JSON.stringify(target.selector)}.includes('#' + el.id)) score += 3;
+      if (score >= 3) out.push({ selector: el.id ? '#' + el.id : el.tagName.toLowerCase() + (el.className ? '.' + String(el.className).split(/\\s+/)[0] : ''), score, tag: el.tagName.toLowerCase() });
+    }
+    out.sort((a, b) => b.score - a.score);
+    return out.slice(0, 3);
+  })()`, tabId).catch(() => []);
+  if (Array.isArray(candidates) && candidates.length > 0 && candidates[0].score >= 3) {
+    return { selector: String(candidates[0].selector), resolution: "RECOVERED", detail: `Original selector no longer matches; recovered via fingerprint match (score ${candidates[0].score}).` };
+  }
+  return { selector: target.selector, resolution: "FAILED", detail: "Neither the original selector nor fingerprint recovery found the element — the DOM diverged beyond safe replay." };
+}
+async function replayInteractions(recordingId, options) {
+  const rec = recordings.get(recordingId);
+  if (!rec) throw new Error(`INVALID_INPUT: interaction recording '${recordingId}' not found (recorded with fx_record_interactions).`);
+  const steps = [];
+  let executed = 0;
+  for (const step of rec.steps) {
+    const resolution = await resolveReplayTarget(step.target, step.domContext.targetFingerprint, options.tabId);
+    let replayResult = null;
+    let error;
+    let didExecute = false;
+    if (resolution.resolution === "FAILED") {
+      error = resolution.detail;
+    } else if (!options.verifySelectorsOnly) {
+      try {
+        const payload = {
+          action: step.action,
+          target: options.tabId !== void 0 ? { tabId: options.tabId, selector: resolution.selector } : { selector: resolution.selector },
+          ...step.params
+        };
+        replayResult = await unifiedRuntime.bridgeCommand("LIVE_ELEMENT_INTERACT", payload);
+        didExecute = true;
+        executed++;
+      } catch (err) {
+        error = err.message;
+      }
+    } else {
+      didExecute = true;
+      executed++;
+    }
+    steps.push({
+      stepId: step.stepId,
+      action: step.action,
+      selectorUsed: resolution.selector,
+      resolution: resolution.resolution,
+      resolutionDetail: resolution.detail,
+      executed: didExecute,
+      detail: replayResult,
+      error
+    });
+    if (error && options.stopOnFailure !== false) break;
+  }
+  return {
+    recordingId,
+    replayedAt: Date.now(),
+    steps,
+    successRate: rec.steps.length ? Number((executed / rec.steps.length).toFixed(2)) : 1,
+    allExecuted: executed === rec.steps.length,
+    determinismNote: "Replay preserves action order, parameters and timing-free semantics; resilient resolution re-targets via fingerprint when the DOM changed between record and replay."
+  };
+}
+function listInteractionRecordings() {
+  return Array.from(recordings.values()).map((r) => ({
+    recordingId: r.recordingId,
+    pageId: r.pageId,
+    steps: r.steps.length,
+    startedAt: r.startedAt,
+    stoppedAt: r.stoppedAt,
+    active: !r.stoppedAt
+  }));
+}
+const failureStore = /* @__PURE__ */ new Map();
+let failureCounter = 0;
+async function captureFailure(input) {
+  const pageContext = await runInPage(`(function(){
+    const sel = ${JSON.stringify(input.failedSelector || "")};
+    let subtree = null;
+    if (sel) {
+      const el = document.querySelector(sel) || (document.querySelector(sel.split(/[ >]/)[0]) || null);
+      if (el) subtree = { selector: sel, htmlPreview: el.outerHTML.slice(0, 800) };
+    }
+    return { title: document.title, readyState: document.readyState, url: location.href, subtree };
+  })()`, input.tabId).catch(() => null);
+  const events = input.events || [];
+  const consoleState = events.filter((e) => e.category === "CONSOLE").slice(-10).map((e) => ({ level: String(e.payload.level || e.type), text: String(e.payload.text || e.payload.message || "").slice(0, 120) }));
+  const networkContext = events.filter((e) => e.category === "NETWORK").slice(-15).map((e) => ({ url: String(e.payload.url || "?"), status: e.payload.status !== void 0 ? Number(e.payload.status) : void 0, failed: e.type === "NETWORK_REQUEST_FAILED" }));
+  const selectorCandidates = [];
+  if (input.failedSelector) {
+    selectorCandidates.push({ selector: input.failedSelector, survivability: 0.5, note: "Original selector (failed — verify existence with diagnose_selector_failure)." });
+    const idMatch = /^#([\w-]+)/.exec(input.failedSelector);
+    if (idMatch) selectorCandidates.push({ selector: `[id="${idMatch[1]}"]`, survivability: 0.6, note: "Attribute-selector form (robust to CSS escaping issues)." });
+    const classMatch = /\.([\w-]+)/.exec(input.failedSelector);
+    if (classMatch) selectorCandidates.push({ selector: `[class~="${classMatch[1]}"]`, survivability: 0.45, note: "Class attribute form (survives minor selector syntax issues)." });
+  }
+  const mutationContext = events.filter((e) => e.category === "DOM").slice(-20);
+  const scenario = {
+    failureId: `fail_${++failureCounter}_${Date.now().toString(36)}`,
+    capturedAt: Date.now(),
+    context: {
+      url: input.url || pageContext?.url || (typeof document !== "undefined" ? document.location?.href : "unknown"),
+      pageState: { title: pageContext?.title, readyState: pageContext?.readyState },
+      actionHistory: (input.actionHistory || []).slice(-15),
+      consoleState,
+      networkContext,
+      timing: {
+        sessionAgeMs: input.sessionStart ? Date.now() - input.sessionStart : 0,
+        failedAtOffsetMs: 0
+      }
+    },
+    selectorCandidates,
+    domSubtree: pageContext?.subtree || null,
+    screenshot: {
+      available: false,
+      note: "Capture a visual state with capture_page_screenshot/capture_page_state immediately after a failure to attach visual evidence; historical screenshots remain queryable via get_screenshots."
+    },
+    mutationContext,
+    replay: {
+      url: input.url || pageContext?.url || "about:blank",
+      steps: [{ action: input.failedAction, selector: input.failedSelector || "", params: input.params || {} }]
+    }
+  };
+  failureStore.set(scenario.failureId, scenario);
+  return scenario;
+}
+function getFailureScenario(failureId) {
+  const scenario = failureStore.get(failureId);
+  if (!scenario) throw new Error(`INVALID_INPUT: failure scenario '${failureId}' not found.`);
+  return scenario;
+}
+function listFailureScenarios() {
+  return Array.from(failureStore.values()).map((f) => ({ failureId: f.failureId, capturedAt: f.capturedAt, url: f.context.url, action: f.replay.steps[0]?.action, selector: f.replay.steps[0]?.selector }));
+}
+async function replayFailureScenario(failureId, options) {
+  const scenario = getFailureScenario(failureId);
+  const results = [];
+  for (const step of scenario.replay.steps) {
+    if (!step.selector) {
+      results.push({ step: step.action, executed: false, reason: "No selector recorded for this step." });
+      continue;
+    }
+    const resolution = await resolveReplayTarget({ selector: step.selector }, { tag: "", text: "", classes: [], stableAttributes: {} }, options.tabId);
+    let executed = false;
+    let detail = null;
+    if (resolution.resolution !== "FAILED" && !options.verifyOnly) {
+      try {
+        detail = await unifiedRuntime.bridgeCommand("LIVE_ELEMENT_INTERACT", {
+          action: step.action,
+          target: options.tabId !== void 0 ? { tabId: options.tabId, selector: resolution.selector } : { selector: resolution.selector },
+          ...step.params
+        });
+        executed = true;
+      } catch (err) {
+        detail = err.message;
+      }
+    } else if (options.verifyOnly) {
+      executed = resolution.resolution !== "FAILED";
+    }
+    results.push({ step: step.action, selector: step.selector, resolution: resolution.resolution, resolutionDetail: resolution.detail, executed, detail });
+  }
+  return {
+    failureId,
+    scenarioUrl: scenario.replay.url,
+    steps: results,
+    consoleAfterReplayHint: "Call get_tab_console_logs (or dt_list_console_messages with ingestTabId) after replay to compare error recurrence.",
+    contextPreserved: { selectorCandidates: scenario.selectorCandidates, domSubtree: scenario.domSubtree ? scenario.domSubtree.htmlPreview.slice(0, 200) : null, networkContext: scenario.context.networkContext.slice(0, 5) }
+  };
+}
+class ForensicsToolsHandler {
+  constructor(storage) {
+    this.storage = storage;
+    this.access = new SessionAccess(storage);
+  }
+  access;
+  knows(toolName) {
+    return FORENSICS_TOOL_NAMES.has(toolName);
+  }
+  async handleToolCall(name, args) {
+    const started = Date.now();
+    try {
+      const result = await this.route(name, args || {});
+      unifiedRuntime.bus.publish("RUNTIME", "tool_invocation", { tool: name, ok: true, durationMs: Date.now() - started });
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err) {
+      unifiedRuntime.bus.publish("RUNTIME", "tool_invocation", { tool: name, ok: false, durationMs: Date.now() - started });
+      const envelope = toErrorEnvelope(err);
+      return { isError: true, content: [{ type: "text", text: JSON.stringify(envelope, null, 2) }] };
+    }
+  }
+  async route(name, args) {
+    switch (name) {
+      // ---------------- CAP 01 / 04 / 14 / 15 / 16 (correlators) ----------------
+      case "fx_correlate_dom_network": {
+        const sessionId = await this.requireSession(args);
+        const engine = await this.access.correlation(sessionId);
+        const result = correlateDomNetwork(engine, {
+          anchor: args.anchor,
+          eventId: args.eventId,
+          timestamp: args.timestamp,
+          windowMs: args.windowMs,
+          limit: args.limit
+        });
+        return { sessionId, ...result };
+      }
+      case "fx_layout_shift_forensics": {
+        const sessionId = await this.requireSession(args);
+        const engine = await this.access.correlation(sessionId);
+        return { sessionId, ...analyzeLayoutShift(engine, { eventId: args.eventId, timestamp: args.timestamp, selector: args.selector, windowMs: args.windowMs }) };
+      }
+      case "fx_error_root_cause": {
+        const sessionId = await this.requireSession(args);
+        const engine = await this.access.correlation(sessionId);
+        return { sessionId, ...buildErrorRootCauseGraph(engine, { eventId: args.eventId, timestamp: args.timestamp }) };
+      }
+      case "fx_network_dom_binding": {
+        const sessionId = await this.requireSession(args);
+        const engine = await this.access.correlation(sessionId);
+        return { sessionId, ...analyzeNetworkDomBindings(engine, { windowMs: args.windowMs, minConfidence: args.minConfidence, limit: args.limit }) };
+      }
+      case "fx_resource_waterfall": {
+        const sessionId = await this.requireSession(args);
+        const engine = await this.access.correlation(sessionId);
+        return { sessionId, ...buildResourceWaterfall(engine, { from: args.from, to: args.to }) };
+      }
+      // ---------------- CAP 02 (regression diff) ----------------
+      case "fx_dom_regression_diff": {
+        const sessionId = await this.requireSession(args);
+        const t1 = Number(args.t1);
+        const t2 = Number(args.t2);
+        if (!Number.isFinite(t1) || !Number.isFinite(t2)) throw new Error("INVALID_INPUT: t1 and t2 must be numeric timestamps.");
+        if (t2 <= t1) throw new Error("INVALID_INPUT: t2 must be AFTER t1.");
+        const before = await this.access.domStateAt(sessionId, t1);
+        const after = await this.access.domStateAt(sessionId, t2);
+        if (!before || !after) {
+          throw new Error(`RESOURCE_EXHAUSTED: could not reconstruct DOM state at t=${!before ? t1 : t2} (no initial snapshot or events for this session).`);
+        }
+        const result = regressionDiff(before, after, { maxPerDimension: args.maxPerDimension });
+        return { sessionId, t1, t2, machine: result.machine, humanReadableReport: result.human };
+      }
+      // ---------------- CAP 03 (visual regression) ----------------
+      case "fx_visual_regression_forensics": {
+        const sessionId = await this.requireSession(args);
+        return await analyzeVisualRegressionSession(this.access, sessionId, args);
+      }
+      // ---------------- CAP 05 / 06 (replay) ----------------
+      case "fx_record_interactions": {
+        const mode = String(args.mode || "");
+        if (mode === "start") {
+          const rec = startInteractionRecording(args.pageId || "page_active");
+          return { recordingId: rec.recordingId, started: true, pageId: rec.pageId, steps: 0, usage: "Call with mode=record-step + action + selector for each interaction; mode=stop to finalize; fx_replay_interactions to replay." };
+        }
+        if (mode === "stop") {
+          const rec = stopInteractionRecording(String(args.recordingId));
+          return { recordingId: rec.recordingId, stopped: true, steps: rec.steps.length, durationMs: (rec.stoppedAt || 0) - rec.startedAt };
+        }
+        if (mode === "record-step") {
+          if (!args.action || !args.selector) throw new Error("INVALID_INPUT: record-step requires action and selector.");
+          const step = await recordInteractionStep(String(args.recordingId), { action: String(args.action), selector: String(args.selector), params: args.params, tabId: args.tabId });
+          return { recorded: true, stepId: step.stepId, action: step.action, targetMatched: step.domContext.matchedElements };
+        }
+        if (mode === "list") {
+          return { recordings: listInteractionRecordings() };
+        }
+        throw new Error("INVALID_INPUT: mode must be start | stop | record-step | list.");
+      }
+      case "fx_replay_interactions": {
+        const outcome = await replayInteractions(String(args.recordingId), { tabId: args.tabId, stopOnFailure: args.stopOnFailure, verifySelectorsOnly: args.verifySelectorsOnly });
+        return outcome;
+      }
+      case "fx_failure_replay": {
+        const mode = String(args.mode || "");
+        if (mode === "capture") {
+          if (!args.failedAction) throw new Error("INVALID_INPUT: capture requires failedAction.");
+          const events = args.sessionId ? await this.access.events(String(args.sessionId)).catch(() => []) : [];
+          const scenario = await captureFailure({
+            url: args.url,
+            failedAction: String(args.failedAction),
+            failedSelector: args.failedSelector,
+            params: args.params,
+            tabId: args.tabId,
+            events
+          });
+          return { failureId: scenario.failureId, captured: true, url: scenario.context.url, selectorCandidates: scenario.selectorCandidates.length, domSubtree: !!scenario.domSubtree, replaySteps: scenario.replay.steps.length };
+        }
+        if (mode === "replay") {
+          return await replayFailureScenario(String(args.failureId), { tabId: args.tabId, verifyOnly: args.verifyOnly });
+        }
+        if (mode === "list") return { failures: listFailureScenarios() };
+        if (mode === "get") return { scenario: getFailureScenario(String(args.failureId)) };
+        throw new Error("INVALID_INPUT: mode must be capture | replay | list | get.");
+      }
+      // ---------------- CAP 07 / 08 / 09 / 10 (structure) ----------------
+      case "fx_selector_survivability": {
+        if (!args.selector && !Array.isArray(args.candidateSelectors)) {
+          throw new Error("INVALID_INPUT: provide selector or candidateSelectors.");
+        }
+        const mutationHistory = args.sessionId ? await this.access.events(String(args.sessionId)).catch(() => []) : [];
+        const scores = scoreSelectorSurvivability({
+          selector: args.selector,
+          mutationHistory,
+          candidateSelectors: args.candidateSelectors
+        });
+        return { ranked: scores, method: "Weighted: DOM stability 25%, uniqueness 20%, semantics 15%, ancestry 15%, framework risk 10%, text 7.5%, position 7.5%." };
+      }
+      case "fx_component_boundaries": {
+        const sessionId = await this.requireSession(args);
+        const { snapshot, events } = await this.loadStateAndEvents(sessionId, args.timestamp);
+        return { sessionId, ...detectComponentBoundaries({ snapshot, events }) };
+      }
+      case "fx_frame_forensics": {
+        const sessionId = await this.requireSession(args);
+        const { snapshot, events } = await this.loadStateAndEvents(sessionId, args.timestamp);
+        return { sessionId, ...analyzeFrames({ snapshot, events }) };
+      }
+      case "fx_shadow_dom_forensics": {
+        if (args.sessionId) {
+          const { snapshot, events } = await this.loadStateAndEvents(String(args.sessionId), args.timestamp);
+          const recorded = analyzeShadowDom({ snapshot, events });
+          let liveProbe = null;
+          if (args.selector || typeof document !== "undefined") {
+            const probeCode2 = `(function(){
+              const hosts = [];
+              const root = ${args.selector ? JSON.stringify(args.selector) : "document"};
+              const scope = typeof root === 'string' ? document.querySelector(root) : root;
+              if (!scope) return { hosts };
+              for (const el of (scope.querySelectorAll ? scope.querySelectorAll('*') : [])) {
+                if (el.shadowRoot) {
+                  hosts.push({
+                    host: el.tagName.toLowerCase() + (el.id ? '#' + el.id : ''),
+                    mode: 'open',
+                    childCount: el.shadowRoot.childElementCount,
+                    slots: Array.from(el.shadowRoot.querySelectorAll('slot')).map(s => s.name || 'default'),
+                    stylesheets: el.shadowRoot.querySelectorAll('style, link[rel=stylesheet]').length,
+                  });
+                }
+              }
+              return { hosts: hosts.slice(0, 50) };
+            })()`;
+            liveProbe = await runInPageSafe(probeCode2, args.tabId);
+          }
+          return { sessionId: String(args.sessionId), ...recorded, liveOpenRoots: liveProbe };
+        }
+        const probeCode = `(function(){
+          const hosts = [];
+          for (const el of document.querySelectorAll('*')) {
+            if (el.shadowRoot) hosts.push({ host: el.tagName.toLowerCase() + (el.id ? '#' + el.id : ''), mode: 'open', childCount: el.shadowRoot.childElementCount, slots: Array.from(el.shadowRoot.querySelectorAll('slot')).map(s => s.name || 'default') });
+          }
+          return { hosts: hosts.slice(0, 50) };
+        })()`;
+        const live = await runInPageSafe(probeCode, args.tabId);
+        return { liveOpenRoots: live, note: "Live shadow-root probe. Closed shadow roots are not accessible by design (browser security boundary) — recorded flags only, never claimed as inspectable." };
+      }
+      // ---------------- CAP 11 / 12 / 13 / 17 (live DOM) ----------------
+      case "fx_css_influence": {
+        if (!args.selector) throw new Error("INVALID_INPUT: selector is required.");
+        return await analyzeCssInfluence({ selector: String(args.selector), group: args.group, tabId: args.tabId });
+      }
+      case "fx_zindex_occlusion": {
+        if (!args.selector) throw new Error("INVALID_INPUT: selector is required.");
+        return await analyzeZIndexOcclusion({ selector: String(args.selector), tabId: args.tabId });
+      }
+      case "fx_event_listeners": {
+        return await analyzeEventListeners({ selector: args.selector, tabId: args.tabId });
+      }
+      case "fx_font_forensics": {
+        return await analyzeFontRendering({ tabId: args.tabId });
+      }
+      // ---------------- CAP 18 (a11y) ----------------
+      case "fx_a11y_divergence": {
+        const sessionId = await this.requireSession(args);
+        const { snapshot } = await this.loadStateAndEvents(sessionId, args.timestamp);
+        return { sessionId, ...analyzeA11yDivergence({ snapshot }) };
+      }
+      // ---------------- CAP 19 / 20 / 22 (engine) ----------------
+      case "fx_page_health": {
+        const sessionId = await this.requireSession(args);
+        const events = await this.access.events(sessionId);
+        const { snapshot } = await this.loadStateAndEvents(sessionId);
+        return { sessionId, ...computePageHealth({ events, snapshot, failedInteractions: args.failedInteractions }) };
+      }
+      case "fx_exploration_planner": {
+        const sessionId = await this.requireSession(args);
+        const events = await this.access.events(sessionId);
+        return { sessionId, ...planNextActions({ symptom: args.symptom, events }) };
+      }
+      case "fx_cross_signal_search": {
+        const sessionId = await this.requireSession(args);
+        const events = await this.access.events(sessionId);
+        return { sessionId, ...crossSignalSearch({ query: String(args.query || ""), events, limit: args.limit }) };
+      }
+      // ---------------- CAP 21 / 25 / 26 / 27 (engine) ----------------
+      case "fx_smart_snapshot": {
+        const sessionId = await this.requireSession(args);
+        const mode = args.mode || (args.question ? recommendSnapshotMode(String(args.question)) : "SEMANTIC");
+        const { snapshot } = await this.loadStateAndEvents(sessionId, args.timestamp);
+        if (!snapshot) throw new Error("RESOURCE_EXHAUSTED: no DOM state reconstructable for this session.");
+        const recommended = args.question ? recommendSnapshotMode(String(args.question)) : mode;
+        return { sessionId, recommendedMode: recommended, ...smartSnapshot({ snapshot, mode }) };
+      }
+      case "fx_impact_prediction": {
+        if (!args.operation || !args.selector) throw new Error("INVALID_INPUT: operation and selector are required.");
+        let snapshot = null;
+        let storedSelectors = [];
+        if (args.sessionId) {
+          const state = await this.loadStateAndEvents(String(args.sessionId));
+          snapshot = state.snapshot;
+          const annotations = await this.storage.getAnnotations(String(args.sessionId)).catch(() => []);
+          storedSelectors = annotations.map((a) => a.target?.selector || a.selector).filter(Boolean);
+        } else if (typeof document !== "undefined") {
+          const { snapshot: live } = await this.captureLiveSnapshot();
+          snapshot = live;
+        }
+        const prediction = predictChangeImpact({ operation: String(args.operation), selector: String(args.selector), snapshot, storedSelectors });
+        return { prediction, previewIntegration: "Call preview_dom_mutation for the engine-level preview; this prediction adds selector/listener/a11y/form dimensions (CAP 25)." };
+      }
+      case "fx_safe_mutation_guard": {
+        if (!args.operation || !args.selector) throw new Error("INVALID_INPUT: operation and selector are required.");
+        let snapshot = null;
+        let storedSelectors = [];
+        if (args.sessionId) {
+          const state = await this.loadStateAndEvents(String(args.sessionId));
+          snapshot = state.snapshot;
+          const annotations = await this.storage.getAnnotations(String(args.sessionId)).catch(() => []);
+          storedSelectors = annotations.map((a) => a.target?.selector || a.selector).filter(Boolean);
+        } else if (typeof document !== "undefined") {
+          const { snapshot: live } = await this.captureLiveSnapshot();
+          snapshot = live;
+        }
+        const prediction = predictChangeImpact({ operation: String(args.operation), selector: String(args.selector), snapshot, storedSelectors });
+        const guard = evaluateMutationGuard({ operation: String(args.operation), selector: String(args.selector), prediction });
+        return { guard, prediction };
+      }
+      case "fx_transaction_journal": {
+        const query = transactionJournal.query({ transactionId: args.transactionId, operation: args.operation, since: args.since, limit: args.limit });
+        return { ...query, stats: transactionJournal.stats() };
+      }
+      // ---------------- CAP 23 / 24 / 28 / 29 / 30 ----------------
+      case "fx_forensic_export": {
+        const sessionId = await this.requireSession(args);
+        const session = await this.storage.getSession(sessionId);
+        const events = await this.access.events(sessionId);
+        const { snapshot } = await this.loadStateAndEvents(sessionId);
+        const findings = [];
+        const engine = await this.access.correlation(sessionId);
+        try {
+          const causality = correlateDomNetwork(engine, {});
+          for (const c of causality.candidates.slice(0, 3)) {
+            findings.push(new EvidenceBuilder(c.chain.join(" → "), "CAP 01 correlation during export").add("MUTATION_RECORD", c.afterMutation?.summary || "mutation").add("NETWORK_CORRELATION", c.request?.summary || "request").build());
+          }
+        } catch {
+        }
+        let health;
+        if (args.includeHealth !== false) {
+          health = computePageHealth({ events, snapshot });
+        }
+        let incidentReport;
+        if (args.includeIncidentReport) {
+          incidentReport = generateIncidentReport({ session, events, health, findings });
+        }
+        const bundle = buildForensicExport({ session, events, findings, health, incidentReport });
+        return { bundle, bundleJson: JSON.stringify(bundle), sizeBytes: JSON.stringify(bundle).length };
+      }
+      case "fx_forensic_import": {
+        if (!args.bundleJson) throw new Error("INVALID_INPUT: bundleJson is required.");
+        let parsed;
+        try {
+          parsed = JSON.parse(String(args.bundleJson));
+        } catch (err) {
+          throw new Error(`INVALID_INPUT: bundleJson is not valid JSON (${err.message}).`);
+        }
+        const verification = verifyForensicImport(parsed);
+        if (!verification.valid) {
+          return { imported: false, valid: false, errors: verification.errors, note: "Bundle rejected — see errors. Historical evidence integrity is enforced." };
+        }
+        const bundle = verification.bundle;
+        if (args.importAsSession !== false) {
+          const historicalSession = {
+            ...bundle.session,
+            id: `${bundle.session.id}_historical_${Date.now().toString(36)}`,
+            name: `${bundle.session.name || bundle.session.id} (IMPORTED INVESTIGATION)`,
+            status: "stopped",
+            importedInvestigation: true,
+            importSource: "fx_forensic_import",
+            importedAt: Date.now()
+          };
+          await this.storage.saveSession(historicalSession);
+          const importableEvents = bundle.timeline.map((t, i) => ({
+            id: `imp_${i + 1}`,
+            sessionId: historicalSession.id,
+            timestamp: t.timestamp,
+            sequence: i + 2,
+            wallClockTime: (bundle.session.startTime || 0) + t.timestamp,
+            type: t.type,
+            category: t.domain,
+            source: "DEVTOOLS",
+            targetSelector: void 0,
+            payload: { summary: t.summary, historical: true }
+          }));
+          if (importableEvents.length > 0) await this.storage.appendEvents(historicalSession.id, importableEvents);
+          return { imported: true, valid: true, historicalSessionId: historicalSession.id, timelineEvents: importableEvents.length, findings: bundle.findings.length, note: "Installed as HISTORICAL evidence (importedInvestigation: true). Imported data is never live browser state (CAP 24)." };
+        }
+        return { imported: true, valid: true, historicalSessionId: null, note: "Bundle verified only (importAsSession=false)." };
+      }
+      case "fx_session_graph": {
+        const sessionId = await this.requireSession(args);
+        const session = await this.storage.getSession(sessionId);
+        const events = await this.access.events(sessionId);
+        const livePages = unifiedRuntime.identity.list().map((p) => ({ pageId: p.pageId, url: p.url, tabId: p.extensionTabId, title: p.title, frames: p.frames.length, navigations: p.navigations.length }));
+        return { sessionId, ...buildSessionGraph({ session, events, livePages }) };
+      }
+      case "fx_evidence_scoring": {
+        if (!args.conclusion || !Array.isArray(args.supporting)) {
+          throw new Error("INVALID_INPUT: conclusion and supporting[] are required.");
+        }
+        const finding = scoreFinding(String(args.conclusion), args.supporting, args.contradicting || []);
+        return { finding, methodology: "Noisy-OR over evidence weights + source diversity bonus − contradiction penalty. Capped [0.05, 0.98]; single-evidence findings cap at 0.75." };
+      }
+      case "fx_incident_report": {
+        const sessionId = await this.requireSession(args);
+        const session = await this.storage.getSession(sessionId);
+        const events = await this.access.events(sessionId);
+        const { snapshot } = await this.loadStateAndEvents(sessionId);
+        const health = computePageHealth({ events, snapshot });
+        const engine = await this.access.correlation(sessionId);
+        const rootCauseGraph = buildErrorRootCauseGraph(engine, {});
+        const rootCause = args.rootCauseHint ? { conclusion: String(args.rootCauseHint), confidence: 0.5, band: "MEDIUM" } : rootCauseGraph.rankedRootCauses[0] ? { conclusion: rootCauseGraph.rankedRootCauses[0].label, confidence: rootCauseGraph.rankedRootCauses[0].confidence, band: rootCauseGraph.rankedRootCauses[0].band } : null;
+        const findings = rootCauseGraph.rankedRootCauses.map((rc) => scoreFinding(rc.label, [
+          { source: "CONSOLE_EVIDENCE", description: rootCauseGraph.error.message },
+          { source: "INFERRED", description: `Ranked root cause from CAP 14 graph (${rc.evidenceCount} evidence items)` }
+        ]));
+        const report = generateIncidentReport({ session, events, health, rootCause: rootCause || void 0, findings, detectedIssue: args.detectedIssue });
+        return { report, json: report, markdown: report.markdown };
+      }
+      default:
+        throw new Error(`UNSUPPORTED_OPERATION: unknown forensics tool '${name}'.`);
+    }
+  }
+  // ---------------- helpers ----------------
+  async requireSession(args) {
+    if (!args.sessionId) throw new Error("INVALID_INPUT: sessionId is required (discover with list_sessions).");
+    await this.access.requireSession(String(args.sessionId));
+    return String(args.sessionId);
+  }
+  /** Load the DOM state at a timestamp (or the latest available) + events. */
+  async loadStateAndEvents(sessionId, timestamp) {
+    const events = await this.access.events(sessionId);
+    let snapshot = null;
+    if (timestamp !== void 0) {
+      snapshot = await this.access.domStateAt(sessionId, Number(timestamp));
+    }
+    if (!snapshot) {
+      const latest = await this.access.latestSnapshotBefore(sessionId, Infinity);
+      snapshot = latest?.snapshot || null;
+    }
+    if (!snapshot && events.length > 0) {
+      const lastTs = Math.max(...events.map((e) => e.timestamp));
+      snapshot = await this.access.domStateAt(sessionId, lastTs).catch(() => null);
+    }
+    return { snapshot, events };
+  }
+  async captureLiveSnapshot() {
+    try {
+      const res = await unifiedRuntime.bridgeCommand("LIVE_DOM_SNAPSHOT", { format: "json" });
+      return { snapshot: res };
+    } catch {
+      return { snapshot: null };
+    }
+  }
+}
+async function runInPageSafe(code, tabId) {
+  try {
+    const { runInPage: runInPage2 } = await Promise.resolve().then(() => interactionCore);
+    return await runInPage2(code, tabId);
+  } catch {
+    return null;
+  }
+}
 class MCPToolsHandler {
   storage;
   liveToolsHandler;
   extendedToolsHandler;
+  devtoolsHandler;
+  forensicsHandler;
   constructor(storage, liveToolsHandler, extendedToolsHandler) {
     this.storage = storage;
     this.liveToolsHandler = liveToolsHandler || new LiveToolsHandler();
     this.extendedToolsHandler = extendedToolsHandler || new ExtendedToolsHandler(this.liveToolsHandler.getLocalController());
     this.extendedToolsHandler.setToolsPipeline(this);
+    this.devtoolsHandler = new DevToolsToolsHandler();
+    this.forensicsHandler = new ForensicsToolsHandler(storage);
+    this.syncRuntimeBridge();
+  }
+  /** Keep the unified runtime + CDP gateway pointed at the current bridge. */
+  syncRuntimeBridge() {
+    const bridge = this.liveToolsHandler.bridgeClient;
+    if (this.runtimeBridgeCommand && this.runtimeBridgeSource === bridge) return;
+    this.runtimeBridgeSource = bridge;
+    const localController = this.liveToolsHandler.getLocalController();
+    globalThis.__MCPDOM_LOCAL_CONTROLLER__ = localController;
+    const runtimeBridge = {
+      sendCommand: async (command, payload) => {
+        const runLocal = async () => {
+          const doc = typeof document !== "undefined" ? document : void 0;
+          const res = await localController.handleCommand({
+            id: `rt_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            command,
+            timestamp: Date.now(),
+            payload
+          }, doc);
+          if (res.success) return res.data;
+          throw new Error(`[LOCAL_FAILED:${res.error?.code || "COMMAND_FAILED"}] ${res.error?.message || "unknown local error"}`);
+        };
+        if (bridge) {
+          try {
+            return await bridge.sendCommand(command, payload);
+          } catch (bridgeErr) {
+            if (typeof document !== "undefined") {
+              try {
+                return await runLocal();
+              } catch (localErr) {
+                throw new Error(`${bridgeErr.message} | local fallback also failed: ${localErr.message}`);
+              }
+            }
+            throw bridgeErr;
+          }
+        }
+        return runLocal();
+      }
+    };
+    this.runtimeBridgeCommand = runtimeBridge;
+    unifiedRuntime.setBridge(runtimeBridge);
+    cdpGateway.setBridge(runtimeBridge);
+  }
+  runtimeBridgeCommand = null;
+  runtimeBridgeSource;
+  /** Also route bridge mutations through the transaction journal (CAP 27). */
+  journalMutation(result, actor) {
+    journalMutationResult(result, actor);
   }
   getLiveToolsHandler() {
     return this.liveToolsHandler;
@@ -11944,8 +18644,21 @@ class MCPToolsHandler {
   getExtendedToolsHandler() {
     return this.extendedToolsHandler;
   }
+  getDevToolsHandler() {
+    return this.devtoolsHandler;
+  }
+  getForensicsHandler() {
+    return this.forensicsHandler;
+  }
   async handleToolCall(name, args) {
     try {
+      this.syncRuntimeBridge();
+      if (this.devtoolsHandler.knows(name)) {
+        return await this.devtoolsHandler.handleToolCall(name, args);
+      }
+      if (this.forensicsHandler.knows(name)) {
+        return await this.forensicsHandler.handleToolCall(name, args);
+      }
       if (name === "list_tabs" || name === "focus_tab" || name === "reload_tab" || name === "close_tab" || name === "open_tab" || name === "list_extensions" || name === "reload_extension" || name === "set_extension_enabled" || name === "toggle_extension" || name === "execute_pipeline" || name === "compare_extension_states" || name === "get_tab_console_logs" || name === "get_tab_network_requests" || name === "inspect_live_page" || name === "inspect_live_element" || name === "get_selected_element" || name === "start_element_picker" || name === "stop_element_picker" || name === "capture_page_screenshot" || name === "capture_element_screenshot" || name === "interact_with_element" || name === "start_element_observation" || name === "stop_element_observation" || name === "get_live_dom_snapshot" || name === "get_live_dom_subtree" || name === "get_element_visual_state") {
         return await this.liveToolsHandler.handleToolCall(name, args);
       }
@@ -12798,6 +19511,14 @@ class MCPBridgeServer {
                 }
                 return;
               }
+              if (message.type === "CDP_EVENT" && message.sessionId) {
+                try {
+                  const { cdpGateway: cdpGateway2 } = await Promise.resolve().then(() => cdpGateway$1);
+                  cdpGateway2.dispatchRemoteEvent(String(message.sessionId), message.method, message.params);
+                } catch {
+                }
+                return;
+              }
               if (message.type === "ELEMENT_SELECTED" && message.elementInfo) {
                 this.toolsHandler.getLiveToolsHandler().getLocalController().getPicker().setSelectedElement(message.elementInfo);
                 return;
@@ -12854,8 +19575,10 @@ class MCPBridgeServer {
   }
 }
 export {
-  FileStorageProvider as F,
+  DEVTOOLS_TOOLS as D,
+  FORENSICS_TOOLS as F,
   MCPDOM_V3_TOOLS as M,
   MCPBridgeServer,
-  MCPToolsHandler as a
+  FileStorageProvider as a,
+  MCPToolsHandler as b
 };

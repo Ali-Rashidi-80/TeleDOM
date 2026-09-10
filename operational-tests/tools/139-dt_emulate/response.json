@@ -1,0 +1,17 @@
+{
+  "emulated": true,
+  "pageId": "page_1",
+  "applied": [
+    "viewport",
+    "cpuThrottlingRate"
+  ],
+  "current": {
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "cpuThrottlingRate": 4
+  },
+  "reversible": true,
+  "note": "CPU throttling, network conditions, UA, geolocation and headers require a live CDP session; recorded here as emulation state and applied when CDP attaches."
+}

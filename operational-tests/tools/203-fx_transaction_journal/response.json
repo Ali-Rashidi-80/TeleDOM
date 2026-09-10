@@ -1,0 +1,107 @@
+{
+  "entries": [
+    {
+      "transactionId": "tx_2",
+      "actor": "mcp-agent",
+      "intent": "clone_dom_subtree",
+      "operation": "clone_subtree",
+      "target": "#removable-card",
+      "before": {
+        "selector": "#removable-card",
+        "htmlPreview": "",
+        "attributes": {
+          "id": "removable-card",
+          "class": "card",
+          "style": "background: #334155;"
+        }
+      },
+      "after": {
+        "selector": "#removable-card",
+        "htmlPreview": "",
+        "attributes": {
+          "id": "removable-card",
+          "class": "card",
+          "style": "background: #334155;"
+        }
+      },
+      "diff": "no property-level diff detected",
+      "evidence": [
+        "no undo record (transaction-internal rollback only)",
+        "mutation id mut_mtulky5x_3"
+      ],
+      "timestamp": 1788988532481,
+      "rollbackInfo": {
+        "reversible": false,
+        "undoRecordAvailable": false,
+        "rollbackCommand": "mutate_dom_transaction {mode:\"rollback\"}"
+      },
+      "outcome": "COMMITTED"
+    },
+    {
+      "transactionId": "tx_mtulky5r_2",
+      "actor": "mcp-agent",
+      "intent": "transaction:begin",
+      "operation": "unknown",
+      "target": "unknown",
+      "before": {
+        "selector": "?",
+        "htmlPreview": "",
+        "attributes": null
+      },
+      "after": null,
+      "diff": "operation failed",
+      "evidence": [
+        "no undo record (transaction-internal rollback only)",
+        "mutation id unavailable"
+      ],
+      "timestamp": 1788988532463,
+      "rollbackInfo": {
+        "reversible": false,
+        "undoRecordAvailable": false,
+        "rollbackCommand": "mutate_dom_transaction {mode:\"rollback\"}"
+      },
+      "outcome": "ROLLED_BACK"
+    },
+    {
+      "transactionId": "tx_1",
+      "actor": "mcp-agent",
+      "intent": "mutate_dom",
+      "operation": "add_class",
+      "target": "#dynamic-text",
+      "before": {
+        "selector": "#dynamic-text",
+        "htmlPreview": "",
+        "attributes": {
+          "id": "dynamic-text"
+        }
+      },
+      "after": {
+        "selector": "#dynamic-text",
+        "htmlPreview": "",
+        "attributes": {
+          "id": "dynamic-text",
+          "class": "op-test"
+        }
+      },
+      "diff": "class: ∅ → op-test",
+      "evidence": [
+        "no undo record (transaction-internal rollback only)",
+        "mutation id mut_mtulky5g_1"
+      ],
+      "timestamp": 1788988532461,
+      "rollbackInfo": {
+        "reversible": false,
+        "undoRecordAvailable": false,
+        "rollbackCommand": "mutate_dom_transaction {mode:\"rollback\"}"
+      },
+      "outcome": "COMMITTED"
+    }
+  ],
+  "total": 3,
+  "stats": {
+    "total": 3,
+    "committed": 2,
+    "rolledBack": 1,
+    "open": 0
+  }
+}

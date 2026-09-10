@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_139_dt_emulate",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"emulated\": true,\n  \"pageId\": \"page_1\",\n  \"applied\": [\n    \"viewport\",\n    \"cpuThrottlingRate\"\n  ],\n  \"current\": {\n    \"viewport\": {\n      \"width\": 1280,\n      \"height\": 720\n    },\n    \"cpuThrottlingRate\": 4\n  },\n  \"reversible\": true,\n  \"note\": \"CPU throttling, network conditions, UA, geolocation and headers require a live CDP session; recorded here as emulation state and applied when CDP attaches.\"\n}"
+      }
+    ]
+  }
+}

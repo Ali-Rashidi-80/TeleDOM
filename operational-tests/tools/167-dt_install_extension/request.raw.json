@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_167_dt_install_extension",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_install_extension",
+    "arguments": {
+      "extensionId": "mcpdom-test-extension"
+    }
+  }
+}

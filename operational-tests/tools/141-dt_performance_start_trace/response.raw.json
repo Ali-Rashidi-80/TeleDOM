@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_141_dt_performance_start_trace",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"traceId\": \"trace_1\",\n  \"pageId\": \"page_1\",\n  \"started\": true,\n  \"categories\": [\n    \"devtools.timeline\",\n    \"loading\",\n    \"netlog\"\n  ],\n  \"mode\": \"SIMULATED\",\n  \"simulated\": true,\n  \"note\": \"Deterministic simulated trace buffer — NOT real Chrome trace data. Analysis algorithms are identical to live traces; the DATA here is a deterministic fixture, not real Chrome measurements.\",\n  \"source\": \"simulation\"\n}"
+      }
+    ]
+  }
+}

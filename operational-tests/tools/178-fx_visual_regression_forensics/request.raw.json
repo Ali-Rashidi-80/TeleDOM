@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_178_fx_visual_regression_forensics",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_visual_regression_forensics",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "t1": 0,
+      "t2": 400
+    }
+  }
+}

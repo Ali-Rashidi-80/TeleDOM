@@ -1,0 +1,48 @@
+{
+  "tool": "fx_evidence_scoring",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "conclusion": {
+        "type": "string",
+        "description": "The conclusion to score"
+      },
+      "supporting": {
+        "type": "array",
+        "description": "Supporting evidence [{source, description, ref?, weight?}]",
+        "items": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "description": "One of DOM_OBSERVATION, MUTATION_RECORD, NETWORK_CORRELATION, CONSOLE_EVIDENCE, SCREENSHOT_EVIDENCE, PERFORMANCE_TRACE, MEMORY_EVIDENCE, NAVIGATION_RECORD, USER_INTERACTION, STYLE_EVIDENCE, INFERRED"
+            },
+            "description": {
+              "type": "string"
+            },
+            "ref": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "contradicting": {
+        "type": "array",
+        "description": "Contradicting evidence [{source, description, weight?}]",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "required": [
+      "conclusion",
+      "supporting"
+    ]
+  },
+  "expectedBehavior": "Scores the finding with confidence, band and evidence"
+}

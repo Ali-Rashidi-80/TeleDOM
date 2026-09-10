@@ -1,29 +1,29 @@
 {
-  "sessionId": "sess_mtuudrux",
-  "startedAt": 1789003314249,
+  "sessionId": "sess_mtulksxq",
+  "startedAt": 1788988525694,
   "url": "https://app.internal/dashboard",
   "title": "MCP Operational Acceptance DOM Fixture",
   "tabs": [
     {
-      "sessionTabId": "stab_1_mtuuds6c",
+      "sessionTabId": "stab_1_mtulkt5p",
       "browserTabId": 1,
       "url": "https://app.internal/dashboard",
       "title": "MCP Operational Acceptance DOM Fixture",
-      "createdAt": 1789003314660,
-      "lastSeenAt": 1789003314660,
+      "createdAt": 1788988525981,
+      "lastSeenAt": 1788988525981,
       "status": "OPEN"
     },
     {
-      "sessionTabId": "stab_2_mtuuds6y",
+      "sessionTabId": "stab_2_mtulkt5v",
       "browserTabId": 2,
       "url": "about:blank",
       "title": "Simulated Tab 2",
-      "createdAt": 1789003314682,
-      "lastSeenAt": 1789003314682,
+      "createdAt": 1788988525987,
+      "lastSeenAt": 1788988525987,
       "status": "OPEN"
     }
   ],
-  "activeTabId": "stab_2_mtuuds6y",
+  "activeTabId": "stab_2_mtulkt5v",
   "viewport": {
     "width": 412,
     "height": 915,

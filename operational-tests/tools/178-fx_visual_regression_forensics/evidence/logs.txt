@@ -1,0 +1,1 @@
+[EXEC] fx_visual_regression_forensics executed via stdio JSON-RPC at 2026-09-09T21:15:37.608Z in 15ms

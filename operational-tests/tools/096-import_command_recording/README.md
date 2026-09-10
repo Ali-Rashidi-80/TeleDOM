@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 4ms
+**Duration**: 1ms
 
 ## Test Objective
 Imports command recording from JSON
@@ -32,7 +32,7 @@ Imports command recording from JSON
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"imported\": true,\n  \"recordingId\": \"imp_test_imported_mtuudxh1\",\n  \"name\": \"imported (imported)\",\n  \"commandCount\": 0\n}"
+        "text": "{\n  \"imported\": true,\n  \"recordingId\": \"imp_test_imported_mtulky6n\",\n  \"name\": \"imported (imported)\",\n  \"commandCount\": 0\n}"
       }
     ]
   }

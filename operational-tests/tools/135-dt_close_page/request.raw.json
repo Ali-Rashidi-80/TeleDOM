@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_135_dt_close_page",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_close_page",
+    "arguments": {}
+  }
+}

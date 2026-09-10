@@ -13,6 +13,7 @@ if (typeof document === 'undefined') {
     <section id="interactive-section">
       <button id="primary-action-btn" class="btn">⚡ Run Analysis</button>
       <input id="search-input" class="input-field" type="text" value="initial query"/>
+      <input id="report-file-input" class="upload-field" type="file" accept=".pdf,.png"/>
       <div id="removable-card"><span id="removable-label">Card</span></div>
     </section>
   </main>

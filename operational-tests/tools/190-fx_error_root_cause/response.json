@@ -1,0 +1,86 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "error": {
+    "eventId": "evt_op_006",
+    "type": "RUNTIME_ERROR",
+    "message": "Uncaught TypeError: Cannot read properties of undefined",
+    "timestamp": 320,
+    "stack": "TypeError at dashboard.js:42:12"
+  },
+  "nodes": [
+    {
+      "id": "error",
+      "kind": "runtime-error",
+      "label": "Uncaught TypeError: Cannot read properties of undefined",
+      "timestamp": 320
+    },
+    {
+      "id": "stack",
+      "kind": "stack-trace",
+      "label": "TypeError at dashboard.js:42:12"
+    },
+    {
+      "id": "mut_evt_op_001",
+      "kind": "dom-mutation",
+      "label": "+ <button> into 4 (#injected-action-btn)",
+      "timestamp": 50
+    },
+    {
+      "id": "mut_evt_op_007",
+      "kind": "dom-mutation",
+      "label": "- <?> node=4 subtree=2",
+      "timestamp": 380
+    },
+    {
+      "id": "mut_evt_op_008",
+      "kind": "dom-mutation",
+      "label": "SCREENSHOT_CHECKPOINT {\"screenshotId\":\"scr_op_chk_1\",\"dataUrl\":\"data:image/png;base64,iVBORw0KGgoAAAAN",
+      "timestamp": 450
+    },
+    {
+      "id": "sym_evt_op_007",
+      "kind": "visible-symptom",
+      "label": "Element disappeared: - <?> node=4 subtree=2",
+      "timestamp": 380
+    }
+  ],
+  "edges": [
+    {
+      "from": "error",
+      "to": "stack",
+      "relation": "stackTrace"
+    },
+    {
+      "from": "mut_evt_op_001",
+      "to": "error",
+      "relation": "preceded"
+    },
+    {
+      "from": "mut_evt_op_007",
+      "to": "error",
+      "relation": "followed"
+    },
+    {
+      "from": "mut_evt_op_008",
+      "to": "error",
+      "relation": "followed"
+    },
+    {
+      "from": "error",
+      "to": "sym_evt_op_007",
+      "relation": "likelyCaused"
+    }
+  ],
+  "rankedRootCauses": [
+    {
+      "label": "+ <button> into 4 (#injected-action-btn)",
+      "confidence": 0.956,
+      "band": "VERY_HIGH",
+      "evidenceCount": 2,
+      "evidenceTypes": [
+        "MUTATION_RECORD",
+        "CONSOLE_EVIDENCE"
+      ]
+    }
+  ]
+}

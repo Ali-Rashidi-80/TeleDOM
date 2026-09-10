@@ -1,0 +1,5 @@
+{
+  "installed": false,
+  "mode": "UNAVAILABLE",
+  "note": "chrome.management can only uninstall/enable/disable. To install an unpacked extension, load it once via chrome://extensions (Load unpacked), then manage it here. Provide the extensionId after loading."
+}

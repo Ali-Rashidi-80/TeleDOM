@@ -1,0 +1,40 @@
+{
+  "tool": "dt_drag",
+  "category": "devtools_capability",
+  "executionMode": "live",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "fromUid": {
+        "type": "string",
+        "description": "Uid of the element to drag"
+      },
+      "fromSelector": {
+        "type": "string",
+        "description": "CSS selector of the element to drag"
+      },
+      "toUid": {
+        "type": "string",
+        "description": "Uid of the drop target"
+      },
+      "toSelector": {
+        "type": "string",
+        "description": "CSS selector of the drop target"
+      },
+      "toX": {
+        "type": "number"
+      },
+      "toY": {
+        "type": "number"
+      },
+      "pageId": {
+        "type": "string"
+      },
+      "tabId": {
+        "type": "number"
+      }
+    },
+    "required": []
+  },
+  "expectedBehavior": "Drags the element to coordinates"
+}

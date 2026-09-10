@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_126_dt_fill_form",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"filled\": 1,\n  \"total\": 1,\n  \"pageId\": \"page_1\",\n  \"fields\": [\n    {\n      \"selector\": \"#search-input\",\n      \"value\": \"form value\",\n      \"success\": true\n    }\n  ]\n}"
+      }
+    ]
+  }
+}

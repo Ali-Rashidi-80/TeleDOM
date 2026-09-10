@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_202_fx_safe_mutation_guard",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_safe_mutation_guard",
+    "arguments": {
+      "operation": "set_outer_html",
+      "selector": "#removable-card"
+    }
+  }
+}

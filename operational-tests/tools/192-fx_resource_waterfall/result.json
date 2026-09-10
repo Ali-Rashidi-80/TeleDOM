@@ -1,0 +1,9 @@
+{
+  "tool": "fx_resource_waterfall",
+  "index": 192,
+  "status": "PASS",
+  "executionTimeMs": 12,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-09T21:15:37.711Z"
+}

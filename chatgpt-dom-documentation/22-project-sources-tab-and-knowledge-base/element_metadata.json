@@ -1,0 +1,95 @@
+{
+  "tag": "main",
+  "id": "main",
+  "classes": [
+    "not-keyboard-focused:outline-none",
+    "min-h-0",
+    "flex-1"
+  ],
+  "role": "main",
+  "text": "پرامت نویس حرفه ای  Share(function que(e,t){e?.addEventListener(`input`,()=>{performance.mark(t)},{once:!0})})(document.currentScript?.parentElement,\"composer.first-prompt-input\");window.__oai_logHTML",
+  "normalizedText": "پرامت نویس حرفه ای Share(function que(e,t){e?.addEventListener(`input`,()=>{performance.mark(t)},{once:!0})})(document.currentScript?.parentElement,\"composer.first-prompt-input\");window.__oai_logHTML?",
+  "selector": "#main",
+  "bestSelector": "#main",
+  "selectorCandidates": [
+    "#main",
+    "main.min-h-0.flex-1",
+    "main.min-h-0"
+  ],
+  "bounds": {
+    "x": 273.81817626953125,
+    "y": 52,
+    "width": 1108.727294921875,
+    "height": 611.2727661132812,
+    "top": 52,
+    "right": 1382.5454711914062,
+    "bottom": 663.2727661132812,
+    "left": 273.81817626953125
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "block",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "block",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "static",
+    "zIndex": "auto",
+    "pointerEvents": "auto",
+    "overflow": "visible",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "class": "not-keyboard-focused:outline-none min-h-0 flex-1",
+    "id": "main",
+    "tabindex": "-1",
+    "z-index": "-1"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative > div:nth-of-type(2) > div:nth-of-type(1)",
+      "div.relative > div:nth-of-type(2)",
+      "div.relative",
+      "div.relative.z-0.flex",
+      "div.stage-layout.flex.h-svh",
+      "body > div:nth-of-type(2)",
+      "body"
+    ],
+    "parentSelector": "div.relative > div:nth-of-type(2)",
+    "childrenSummary": {
+      "count": 1,
+      "tags": [
+        "div"
+      ]
+    },
+    "containingBlock": "div.relative > div:nth-of-type(2)",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

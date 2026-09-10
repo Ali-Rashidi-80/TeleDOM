@@ -1,0 +1,25 @@
+{
+  "module": "31-message-type-rich-markdown-and-tables",
+  "title": "Markdown Tables, Headings, Lists & Blockquotes",
+  "titleFa": "جداول مارک‌داون و ساختارهای شبکه‌ای (Tables & Grids)",
+  "tag": "article",
+  "selector": "[data-testid=\"31-message-type-rich-markdown-and-tables\"], article, .markdown.prose",
+  "bounds": {
+    "x": 300,
+    "y": 150,
+    "width": 900,
+    "height": 600
+  },
+  "visibility": {
+    "isVisible": true,
+    "opacity": 1
+  },
+  "supportedContentTypes": [
+    "code",
+    "table",
+    "image",
+    "latex",
+    "text",
+    "citations"
+  ]
+}

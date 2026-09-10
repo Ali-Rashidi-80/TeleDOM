@@ -20,7 +20,7 @@ export class ForensicMCPServer {
   private bridgeServer: MCPBridgeServer | null = null;
   private protocolVersion: string = '2024-11-05';
   private serverInfo = {
-    name: 'teledom-mcp',
+    name: 'browser-forensic-mcp',
     version: '3.0.0',
   };
 
@@ -196,11 +196,20 @@ export class ForensicMCPServer {
 
     // 5. List Tools
     if (method === 'tools/list') {
+      // §36 configuration: optional subsystems can be hidden from tools/list
+      // without touching existing MCPDOM semantics (default: all exposed).
+      const disableDevTools = process.env.FORENSIC_DISABLE_DEVTOOLS === 'true';
+      const disableForensics = process.env.FORENSIC_DISABLE_FORENSICS === 'true';
+      const tools = (disableDevTools || disableForensics)
+        ? FORENSIC_MCP_TOOLS.filter(t =>
+            !(disableDevTools && t.name.startsWith('dt_')) &&
+            !(disableForensics && t.name.startsWith('fx_')))
+        : FORENSIC_MCP_TOOLS;
       return {
         jsonrpc: '2.0',
         id,
         result: {
-          tools: FORENSIC_MCP_TOOLS,
+          tools,
         },
       };
     }

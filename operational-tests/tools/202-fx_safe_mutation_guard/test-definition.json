@@ -1,0 +1,25 @@
+{
+  "tool": "fx_safe_mutation_guard",
+  "category": "forensics_capability",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "operation": {
+        "type": "string"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Recorded forensic session id (list_sessions)"
+      }
+    },
+    "required": [
+      "operation",
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Guards the mutation with a verdict and reasons"
+}

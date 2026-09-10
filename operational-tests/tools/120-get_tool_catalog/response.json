@@ -1,5 +1,5 @@
 {
-  "total": 121,
+  "total": 206,
   "catalog": [
     {
       "tool": "list_sessions",
@@ -1965,6 +1965,1451 @@
       "failureConditions": [
         "SESSION_NOT_FOUND",
         "invalid arguments"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_click",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_click_at",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_drag",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_fill",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_fill_form",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_handle_dialog",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_hover",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_press_key",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_type_text",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_upload_file",
+      "group": "devtools-input",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_list_pages",
+      "group": "devtools-navigation",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_select_page",
+      "group": "devtools-navigation",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_new_page",
+      "group": "devtools-navigation",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_close_page",
+      "group": "devtools-navigation",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_navigate_page",
+      "group": "devtools-navigation",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_history_navigation",
+      "group": "devtools-navigation",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_wait_for",
+      "group": "devtools-navigation",
+      "purpose": "See tool description (tools/list) — group: Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_emulate",
+      "group": "devtools-emulation",
+      "purpose": "See tool description (tools/list) — group: Device/page emulation: viewport, DPR, UA, CPU throttling, network conditions, geolocation, color scheme, headers, resize.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_resize_page",
+      "group": "devtools-emulation",
+      "purpose": "See tool description (tools/list) — group: Device/page emulation: viewport, DPR, UA, CPU throttling, network conditions, geolocation, color scheme, headers, resize.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_performance_start_trace",
+      "group": "devtools-performance",
+      "purpose": "See tool description (tools/list) — group: Performance tracing via the CDP gateway (chrome.debugger): trace lifecycle, Web Vitals (LCP/INP/CLS/FCP), long tasks, layout shifts, phase analysis.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_performance_stop_trace",
+      "group": "devtools-performance",
+      "purpose": "See tool description (tools/list) — group: Performance tracing via the CDP gateway (chrome.debugger): trace lifecycle, Web Vitals (LCP/INP/CLS/FCP), long tasks, layout shifts, phase analysis.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_performance_analyze_insight",
+      "group": "devtools-performance",
+      "purpose": "See tool description (tools/list) — group: Performance tracing via the CDP gateway (chrome.debugger): trace lifecycle, Web Vitals (LCP/INP/CLS/FCP), long tasks, layout shifts, phase analysis.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_list_network_requests",
+      "group": "devtools-network",
+      "purpose": "See tool description (tools/list) — group: Unified network log: request listing with filters/pagination and full request inspection (shares capture with MCPDOM network monitoring).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_get_network_request",
+      "group": "devtools-network",
+      "purpose": "See tool description (tools/list) — group: Unified network log: request listing with filters/pagination and full request inspection (shares capture with MCPDOM network monitoring).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_evaluate_script",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_list_console_messages",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_get_console_message",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_take_screenshot",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_take_snapshot",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_screencast_start",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_screencast_stop",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_lighthouse_audit",
+      "group": "devtools-debugging",
+      "purpose": "See tool description (tools/list) — group: Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_take_heapsnapshot",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_close_heapsnapshot",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_summary",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_details",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_class_nodes",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_edges",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_retainers",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_retaining_paths",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_dominators",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_duplicate_strings",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_heapsnapshot_object_details",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_query_heapsnapshot_objects",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_compare_heapsnapshots",
+      "group": "devtools-memory",
+      "purpose": "See tool description (tools/list) — group: V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_install_extension",
+      "group": "devtools-extensions",
+      "purpose": "See tool description (tools/list) — group: Browser extension management (chrome.management): install detection, listing, reload, action trigger, uninstall (soft).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_list_extensions",
+      "group": "devtools-extensions",
+      "purpose": "See tool description (tools/list) — group: Browser extension management (chrome.management): install detection, listing, reload, action trigger, uninstall (soft).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_reload_extension",
+      "group": "devtools-extensions",
+      "purpose": "See tool description (tools/list) — group: Browser extension management (chrome.management): install detection, listing, reload, action trigger, uninstall (soft).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_trigger_extension_action",
+      "group": "devtools-extensions",
+      "purpose": "See tool description (tools/list) — group: Browser extension management (chrome.management): install detection, listing, reload, action trigger, uninstall (soft).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_uninstall_extension",
+      "group": "devtools-extensions",
+      "purpose": "See tool description (tools/list) — group: Browser extension management (chrome.management): install detection, listing, reload, action trigger, uninstall (soft).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_list_3p_developer_tools",
+      "group": "devtools-third-party",
+      "purpose": "See tool description (tools/list) — group: Third-party developer tools exposed by the page (window.__devtools_3p_tools): discovery and validated execution (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_execute_3p_developer_tool",
+      "group": "devtools-third-party",
+      "purpose": "See tool description (tools/list) — group: Third-party developer tools exposed by the page (window.__devtools_3p_tools): discovery and validated execution (experimental).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_list_webmcp_tools",
+      "group": "devtools-webmcp",
+      "purpose": "See tool description (tools/list) — group: WebMCP tools exposed by the page (navigator.webMCP draft): discovery and validated remote execution.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "dt_execute_webmcp_tool",
+      "group": "devtools-webmcp",
+      "purpose": "See tool description (tools/list) — group: WebMCP tools exposed by the page (navigator.webMCP draft): discovery and validated remote execution.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_correlate_dom_network",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_dom_regression_diff",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_visual_regression_forensics",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_layout_shift_forensics",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_record_interactions",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_replay_interactions",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_failure_replay",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_selector_survivability",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_component_boundaries",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_frame_forensics",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_shadow_dom_forensics",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_css_influence",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_zindex_occlusion",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_event_listeners",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_error_root_cause",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_network_dom_binding",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_resource_waterfall",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_font_forensics",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_a11y_divergence",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_page_health",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_exploration_planner",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_smart_snapshot",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_cross_signal_search",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_forensic_export",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_forensic_import",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_impact_prediction",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_safe_mutation_guard",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_transaction_journal",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_session_graph",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_evidence_scoring",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "fx_incident_report",
+      "group": "advanced-forensics",
+      "purpose": "See tool description (tools/list) — group: The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
       ],
       "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
     }

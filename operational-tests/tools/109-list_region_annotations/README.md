@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 5ms
+**Duration**: 1ms
 
 ## Test Objective
 Lists region annotations with quality grades
@@ -32,7 +32,7 @@ Lists region annotations with quality grades
     "content": [
       {
         "type": "text",
-        "text": "[\n  {\n    \"regionId\": \"region_mtuudxj1_1\",\n    \"name\": \"header_operational_dom_test_card\",\n    \"autoName\": \"header_operational_dom_test_card\",\n    \"tag\": \"#fixture-header\",\n    \"selector\": \"#fixture-header\",\n    \"quality\": {\n      \"grade\": \"A\",\n      \"overall\": 0.88\n    },\n    \"intendedChange\": \"test change\",\n    \"capturedAt\": 1789003321598\n  },\n  {\n    \"regionId\": \"region_mtuudxje_2\",\n    \"name\": \"section_interactive_form_controls\",\n    \"autoName\": \"section_interactive_form_controls\",\n    \"tag\": \"#interactive-section\",\n    \"selector\": \"#interactive-section\",\n    \"quality\": {\n      \"grade\": \"B\",\n      \"overall\": 0.78\n    },\n    \"intendedChange\": null,\n    \"capturedAt\": 1789003321610\n  }\n]"
+        "text": "[\n  {\n    \"regionId\": \"region_mtulky7b_1\",\n    \"name\": \"header_operational_dom_test_card\",\n    \"autoName\": \"header_operational_dom_test_card\",\n    \"tag\": \"#fixture-header\",\n    \"selector\": \"#fixture-header\",\n    \"quality\": {\n      \"grade\": \"A\",\n      \"overall\": 0.88\n    },\n    \"intendedChange\": \"test change\",\n    \"capturedAt\": 1788988532519\n  },\n  {\n    \"regionId\": \"region_mtulky7g_2\",\n    \"name\": \"section_interactive_form_controls\",\n    \"autoName\": \"section_interactive_form_controls\",\n    \"tag\": \"#interactive-section\",\n    \"selector\": \"#interactive-section\",\n    \"quality\": {\n      \"grade\": \"B\",\n      \"overall\": 0.78\n    },\n    \"intendedChange\": null,\n    \"capturedAt\": 1788988532524\n  }\n]"
       }
     ]
   }

@@ -1,0 +1,11 @@
+{
+  "snapshotId": "heap_6",
+  "node": {
+    "id": 7,
+    "className": "retained-blob",
+    "selfSize": 131072
+  },
+  "edgeCount": 0,
+  "edges": [],
+  "simulated": true
+}

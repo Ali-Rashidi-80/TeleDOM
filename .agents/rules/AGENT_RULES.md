@@ -1,20 +1,21 @@
 # MCP-DOM & Browser Forensic Engineering Rules for AI Agents
 
-## 1. Core Architecture (Dual-Environment Clean Architecture)
-This project is divided into two distinct environments:
+## 1. Core Architecture (Unified Dual-Environment Platform)
+This project is divided into two distinct environments, now with THREE tool namespaces (206 tools):
 - **Chrome Extension Environment (`src/extension/`)**:
   - Runs in Chrome Browser sandbox (Manifest V3).
   - Background Service Worker (`src/extension/background/service-worker.ts`), Content Script (`src/extension/content/`), and Injected Page Scripts.
   - Zero external Node.js dependencies allowed inside browser extension scripts. All extension scripts MUST compile to self-contained bundles via `scripts/build-extension.js`.
-- **Server / Bridge Environment (`src/mcp/` & `bin/`)**:
+- **Server / Bridge Environment (`src/mcp/`, `src/devtools/`, `src/forensics/` & `bin/`)**:
   - Runs in Node.js (v18+).
-  - MCP Stdio Server (`bin/mcp-server.js` / `src/mcp/server.ts`): Implements JSON-RPC 2.0 stdio protocol with **121 MCP tools** (47 legacy + 74 platform-evolution tools).
+  - MCP Stdio Server (`bin/mcp-server.js` / `src/mcp/server.ts`): Implements JSON-RPC 2.0 stdio protocol with **206 MCP tools** (121 MCPDOM + 54 `dt_` Chrome DevTools capability tools via `src/devtools/` + 31 `fx_` advanced forensic capability tools via `src/forensics/`).
+  - Unified Browser Runtime (`src/devtools/runtime/`): page identity registry, unified event bus, CDP gateway (chrome.debugger via the extension), trace store + V8 heap snapshot parser. dt_/fx_ handlers share the SAME bridge client and local controller as the legacy handlers (one runtime, §9).
   - WebSocket & HTTP Bridge Server (`bin/bridge-server.js` / `src/mcp/bridge-server.ts` on port 3847): Connects the Chrome Extension with MCP tool handlers in real-time. Includes liveness sweeper + unique client ids.
   - Node Simulation Context: when `bin/mcp-server.js` runs without Chrome, a JSDOM fixture DOM is installed (`__FORENSIC_SIMULATION__` marker) and background commands (tabs/extensions) return deterministic simulated state, clearly labeled `simulated: true`.
 
 ## 2. Coding & Tool Conventions
 - **Adding New MCP Tools**:
-  1. Define tool schema & description in `src/mcp/v3-tools-definition.ts` (new tools) or `src/mcp/tools-definition.ts` (legacy).
+  1. Define tool schema & description in `src/mcp/v3-tools-definition.ts` (new v3 tools), `src/mcp/tools-definition.ts` (legacy), `src/devtools/definitions.ts` (dt_ DevTools family) or `src/forensics/definitions.ts` (fx_ capabilities).
   2. Implement tool handler in `src/mcp/tools-handler.ts` (storage), `src/mcp/live-tools-handler.ts` (legacy live browser ops), or `src/mcp/extended-tools-handler.ts` (v3 platform tools).
   3. Register in the `ALL_TOOLS` array in `bin/cli.js` and update `.agents/mcp_config.json` (+ plugin config).
   4. Add the tool to the relevant group in `src/mcp/tool-groups.ts` (tool discovery contract).
@@ -64,7 +65,10 @@ This project is divided into two distinct environments:
 - When a workflow fails, the matching skill's FAILURE MODES section usually contains the diagnosis.
 
 ## 10. Tool Selection
-- Call `get_tool_groups` / `get_tool_catalog` when unsure which tool applies. Tools are grouped: session-forensics, inspection, targeting, interaction, tabs-browser, selection-capture, viewport-responsive, javascript, dom-mutation, command-sequences, page-state, projects-knowledge, screenshots, security-privacy, discovery.
+- Call `get_tool_groups` / `get_tool_catalog` when unsure which tool applies. Tools are grouped: session-forensics, inspection, targeting, interaction, tabs-browser, selection-capture, viewport-responsive, javascript, dom-mutation, command-sequences, page-state, projects-knowledge, screenshots, security-privacy, discovery, PLUS the v3.1 groups: devtools-input, devtools-navigation, devtools-emulation, devtools-performance, devtools-network, devtools-debugging, devtools-memory, devtools-extensions, devtools-third-party, devtools-webmcp, advanced-forensics.
+- **Namespace guidance**: use the original MCPDOM names for established workflows; use `dt_` tools when you need DevTools-shaped contracts (uid addressing via dt_take_snapshot, heap snapshots, performance traces, WebMCP); use `fx_` tools for cross-signal forensic investigations (causal correlation, regression diffs, health scoring, incident reports).
+- **dt_ input tools address elements by uid** from `dt_take_snapshot` OR by CSS selector — snapshots reset after navigation.
+- **Every fx_ conclusion carries confidence + evidence** (CAP 29 model) — never report a finding without checking its confidence band; prefer tools over manual timeline walking (§39).
 - Legacy `interact_with_element` remains fully supported; prefer the granular tools (`click_element`, `type_text`, …) for new work.
 
 ## 11. No-Fabrication Policy

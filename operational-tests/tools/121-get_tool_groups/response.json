@@ -209,5 +209,156 @@
       "get_tool_catalog",
       "get_tool_groups"
     ]
+  },
+  {
+    "group": "devtools-input",
+    "description": "Chrome DevTools MCP input automation: uid/selector-addressed clicks, drags, fills, form batching, dialogs, keys, uploads (CAP §8 input family).",
+    "tools": [
+      "dt_click",
+      "dt_click_at",
+      "dt_drag",
+      "dt_fill",
+      "dt_fill_form",
+      "dt_handle_dialog",
+      "dt_hover",
+      "dt_press_key",
+      "dt_type_text",
+      "dt_upload_file"
+    ]
+  },
+  {
+    "group": "devtools-navigation",
+    "description": "Chrome DevTools MCP page management: list/select/new/close pages, navigation, history, condition waits.",
+    "tools": [
+      "dt_list_pages",
+      "dt_select_page",
+      "dt_new_page",
+      "dt_close_page",
+      "dt_navigate_page",
+      "dt_history_navigation",
+      "dt_wait_for"
+    ]
+  },
+  {
+    "group": "devtools-emulation",
+    "description": "Device/page emulation: viewport, DPR, UA, CPU throttling, network conditions, geolocation, color scheme, headers, resize.",
+    "tools": [
+      "dt_emulate",
+      "dt_resize_page"
+    ]
+  },
+  {
+    "group": "devtools-performance",
+    "description": "Performance tracing via the CDP gateway (chrome.debugger): trace lifecycle, Web Vitals (LCP/INP/CLS/FCP), long tasks, layout shifts, phase analysis.",
+    "tools": [
+      "dt_performance_start_trace",
+      "dt_performance_stop_trace",
+      "dt_performance_analyze_insight"
+    ]
+  },
+  {
+    "group": "devtools-network",
+    "description": "Unified network log: request listing with filters/pagination and full request inspection (shares capture with MCPDOM network monitoring).",
+    "tools": [
+      "dt_list_network_requests",
+      "dt_get_network_request"
+    ]
+  },
+  {
+    "group": "devtools-debugging",
+    "description": "Debugging: script evaluation, console messages/history, screenshots, semantic page snapshots (uid-addressable), screencast (experimental), Lighthouse (experimental).",
+    "tools": [
+      "dt_evaluate_script",
+      "dt_list_console_messages",
+      "dt_get_console_message",
+      "dt_take_screenshot",
+      "dt_take_snapshot",
+      "dt_screencast_start",
+      "dt_screencast_stop",
+      "dt_lighthouse_audit"
+    ]
+  },
+  {
+    "group": "devtools-memory",
+    "description": "V8 heap snapshot lifecycle and analysis: capture, summary, class nodes, edges, retainers, retaining paths, dominators, duplicate strings, object details, queries, snapshot diffing.",
+    "tools": [
+      "dt_take_heapsnapshot",
+      "dt_close_heapsnapshot",
+      "dt_heapsnapshot_summary",
+      "dt_heapsnapshot_details",
+      "dt_heapsnapshot_class_nodes",
+      "dt_heapsnapshot_edges",
+      "dt_heapsnapshot_retainers",
+      "dt_heapsnapshot_retaining_paths",
+      "dt_heapsnapshot_dominators",
+      "dt_heapsnapshot_duplicate_strings",
+      "dt_heapsnapshot_object_details",
+      "dt_query_heapsnapshot_objects",
+      "dt_compare_heapsnapshots"
+    ]
+  },
+  {
+    "group": "devtools-extensions",
+    "description": "Browser extension management (chrome.management): install detection, listing, reload, action trigger, uninstall (soft).",
+    "tools": [
+      "dt_install_extension",
+      "dt_list_extensions",
+      "dt_reload_extension",
+      "dt_trigger_extension_action",
+      "dt_uninstall_extension"
+    ]
+  },
+  {
+    "group": "devtools-third-party",
+    "description": "Third-party developer tools exposed by the page (window.__devtools_3p_tools): discovery and validated execution (experimental).",
+    "tools": [
+      "dt_list_3p_developer_tools",
+      "dt_execute_3p_developer_tool"
+    ]
+  },
+  {
+    "group": "devtools-webmcp",
+    "description": "WebMCP tools exposed by the page (navigator.webMCP draft): discovery and validated remote execution.",
+    "tools": [
+      "dt_list_webmcp_tools",
+      "dt_execute_webmcp_tool"
+    ]
+  },
+  {
+    "group": "advanced-forensics",
+    "description": "The 30 MCPDOM-native advanced forensic capabilities: cross-signal causal correlation, regression/visual diffs, layout shift evidence, replay, selector survivability, component boundaries, frame/shadow DOM, CSS/z-index/listener/font analysis, a11y divergence, health scoring, planning, smart snapshots, cross-signal search, session portability, impact prediction, mutation guard, transaction journal, session graph, evidence scoring and incident reporting.",
+    "tools": [
+      "fx_correlate_dom_network",
+      "fx_dom_regression_diff",
+      "fx_visual_regression_forensics",
+      "fx_layout_shift_forensics",
+      "fx_record_interactions",
+      "fx_replay_interactions",
+      "fx_failure_replay",
+      "fx_selector_survivability",
+      "fx_component_boundaries",
+      "fx_frame_forensics",
+      "fx_shadow_dom_forensics",
+      "fx_css_influence",
+      "fx_zindex_occlusion",
+      "fx_event_listeners",
+      "fx_error_root_cause",
+      "fx_network_dom_binding",
+      "fx_resource_waterfall",
+      "fx_font_forensics",
+      "fx_a11y_divergence",
+      "fx_page_health",
+      "fx_exploration_planner",
+      "fx_smart_snapshot",
+      "fx_cross_signal_search",
+      "fx_forensic_export",
+      "fx_forensic_import",
+      "fx_impact_prediction",
+      "fx_safe_mutation_guard",
+      "fx_transaction_journal",
+      "fx_session_graph",
+      "fx_evidence_scoring",
+      "fx_incident_report"
+    ]
   }
 ]

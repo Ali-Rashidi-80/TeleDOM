@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_196_fx_exploration_planner",
+  "method": "tools/call",
+  "params": {
+    "name": "fx_exploration_planner",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "symptom": "injected button disappeared"
+    }
+  }
+}

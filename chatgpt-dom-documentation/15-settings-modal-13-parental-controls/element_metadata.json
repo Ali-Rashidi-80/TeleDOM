@@ -1,0 +1,117 @@
+{
+  "tag": "div",
+  "id": "radix-_r_1vl_",
+  "classes": [
+    "popover",
+    "bg-token-bg-primary",
+    "relative",
+    "col-auto",
+    "col-start-2",
+    "row-auto",
+    "row-start-2",
+    "h-full",
+    "w-full",
+    "text-start",
+    "start-1/2",
+    "ltr:-translate-x-1/2",
+    "rtl:translate-x-1/2",
+    "rounded-2xl",
+    "shadow-long",
+    "flex",
+    "flex-col",
+    "focus:outline-hidden",
+    "overflow-hidden",
+    "max-h-[85vh]",
+    "max-md:min-h-[60vh]",
+    "md:h-[600px]",
+    "md:max-w-[680px]"
+  ],
+  "role": "dialog",
+  "ariaAttributes": {
+    "aria-labelledby": "radix-_r_1vm_"
+  },
+  "text": "SettingsGeneralNotificationsPersonalizationPluginsVoiceBillingUsageAnalyticsData controlsStorageSafetySecurity and loginParental controlsTrusted contactAccountKeyboardParental controlsParents and teen",
+  "normalizedText": "SettingsGeneralNotificationsPersonalizationPluginsVoiceBillingUsageAnalyticsData controlsStorageSafetySecurity and loginParental controlsTrusted contactAccountKeyboardParental controlsParents and teen",
+  "selector": "#radix-_r_1vl_",
+  "bestSelector": "#radix-_r_1vl_",
+  "selectorCandidates": [
+    "#radix-_r_1vl_",
+    "div.popover.bg-token-bg-primary.relative",
+    "div.popover"
+  ],
+  "bounds": {
+    "x": 513.3333129882812,
+    "y": 76.6388931274414,
+    "width": 680,
+    "height": 600,
+    "top": 76.6388931274414,
+    "right": 1193.3333129882812,
+    "bottom": 676.6388931274414,
+    "left": 513.3333129882812
+  },
+  "visibility": {
+    "isVisible": true,
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": 1,
+    "pointerEvents": "auto",
+    "isClipped": false,
+    "isInViewport": true,
+    "zIndex": "auto"
+  },
+  "computedStyle": {
+    "display": "flex",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "relative",
+    "zIndex": "auto",
+    "pointerEvents": "auto",
+    "overflow": "hidden",
+    "boxSizing": "border-box",
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgb(33, 33, 33)",
+    "fontSize": "16px"
+  },
+  "attributes": {
+    "role": "dialog",
+    "id": "radix-_r_1vl_",
+    "aria-labelledby": "radix-_r_1vm_",
+    "data-state": "open",
+    "class": "popover bg-token-bg-primary relative col-auto col-start-2 row-auto row-start-2 h-full w-full text-start start-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2 rounded-2xl shadow-long flex flex-col focus:outline-hidden overflow-hidden max-h-[85vh] max-md:min-h-[60vh] md:h-[600px] md:max-w-[680px]",
+    "tabindex": "-1",
+    "style": "pointer-events: auto;"
+  },
+  "state": {
+    "disabled": false,
+    "readOnly": false,
+    "focused": false,
+    "isShadowHost": false,
+    "hasShadowRoot": false
+  },
+  "context": {
+    "parentChain": [
+      "div.z-50.h-full.w-full",
+      "div.fixed.inset-0.z-50",
+      "#modal-settings",
+      "body"
+    ],
+    "parentSelector": "div.z-50.h-full.w-full",
+    "childrenSummary": {
+      "count": 2,
+      "tags": [
+        "span",
+        "div"
+      ]
+    },
+    "containingBlock": "div.z-50.h-full.w-full",
+    "iframe": null,
+    "shadowRoot": null
+  },
+  "forensics": {
+    "logicalNodeId": null,
+    "creationSequence": null,
+    "lastMutationSequence": null,
+    "eventCount": 0,
+    "isRecorded": false
+  }
+}

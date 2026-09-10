@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 6ms
+**Duration**: 5ms
 
 ## Test Objective
 Attempts safe recovery with fingerprint scoring and diagnostics
@@ -42,7 +42,7 @@ Attempts safe recovery with fingerprint scoring and diagnostics
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"recovered\": false,\n  \"confidence\": 0.58,\n  \"strategy\": \"recovery-refused\",\n  \"resolvedSelector\": \"#search-input\",\n  \"alternatives\": [\n    {\n      \"selector\": \"#search-input\",\n      \"confidence\": 0.58,\n      \"strategy\": \"recovery-match\"\n    },\n    {\n      \"selector\": \"#username-input\",\n      \"confidence\": 0.38,\n      \"strategy\": \"recovery-match\"\n    }\n  ],\n  \"diagnostics\": [\n    \"selector no longer matches any element\",\n    \"collected 7 candidate elements for scoring\",\n    \"best candidate score: 0.575 (margin 0.200)\",\n    \"  - tag: 100%\",\n    \"  - classes: 100%\",\n    \"  - attributes: 100%\",\n    \"  - childCount: 50%\"\n  ],\n  \"recommendation\": \"Recovery refused: best match is not confident enough or too close to a competing element. Inspect alternatives manually before acting — refusing to avoid acting on a wrong element.\"\n}"
+        "text": "{\n  \"recovered\": false,\n  \"confidence\": 0.58,\n  \"strategy\": \"recovery-refused\",\n  \"resolvedSelector\": \"#search-input\",\n  \"alternatives\": [\n    {\n      \"selector\": \"#search-input\",\n      \"confidence\": 0.58,\n      \"strategy\": \"recovery-match\"\n    },\n    {\n      \"selector\": \"#report-file-input\",\n      \"confidence\": 0.38,\n      \"strategy\": \"recovery-match\"\n    },\n    {\n      \"selector\": \"#username-input\",\n      \"confidence\": 0.38,\n      \"strategy\": \"recovery-match\"\n    }\n  ],\n  \"diagnostics\": [\n    \"selector no longer matches any element\",\n    \"collected 8 candidate elements for scoring\",\n    \"best candidate score: 0.575 (margin 0.200)\",\n    \"  - tag: 100%\",\n    \"  - classes: 100%\",\n    \"  - attributes: 100%\",\n    \"  - childCount: 50%\"\n  ],\n  \"recommendation\": \"Recovery refused: best match is not confident enough or too close to a competing element. Inspect alternatives manually before acting — refusing to avoid acting on a wrong element.\"\n}"
       }
     ]
   }

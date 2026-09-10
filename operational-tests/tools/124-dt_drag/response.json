@@ -1,0 +1,27 @@
+{
+  "dragged": true,
+  "from": "#removable-card",
+  "to": {
+    "x": 200,
+    "y": 200
+  },
+  "pageId": "page_1",
+  "detail": {
+    "success": true,
+    "sourceSelector": "#removable-card",
+    "targetSelector": "(offset drop)",
+    "eventsFired": [
+      "pointerdown",
+      "mousedown",
+      "dragstart",
+      "dragend",
+      "pointerup",
+      "mouseup"
+    ],
+    "finalPosition": {
+      "x": 200,
+      "y": 200
+    },
+    "html5DndUsed": true
+  }
+}

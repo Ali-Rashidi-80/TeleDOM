@@ -1,0 +1,23 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "bindings": [
+    {
+      "requestUrl": "https://api.internal/v1/analyze",
+      "requestEventId": "evt_op_005",
+      "responseEventId": "evt_op_005",
+      "responseStatus": 200,
+      "boundRegions": [
+        {
+          "selector": "#host-sidebar",
+          "nodeId": 4,
+          "mutationType": "DOM_MUTATION_REMOVE",
+          "summary": "- <?> node=4 subtree=2",
+          "delayMs": 100
+        }
+      ],
+      "confidence": 0.93,
+      "band": "VERY_HIGH"
+    }
+  ],
+  "unboundRequests": []
+}

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_179_fx_layout_shift_forensics",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"shiftEvent\": {\n    \"type\": \"DOM_MUTATION_ADD\",\n    \"eventId\": \"evt_op_001\",\n    \"timestamp\": 50\n  },\n  \"affectedElement\": {\n    \"selector\": \"#injected-action-btn\",\n    \"nodeId\": 10,\n    \"tagName\": \"element\"\n  },\n  \"previousPosition\": null,\n  \"newPosition\": null,\n  \"triggerMutations\": [\n    {\n      \"summary\": \"- <?> node=4 subtree=2\",\n      \"eventId\": \"evt_op_007\",\n      \"timestamp\": 380,\n      \"deltaMs\": 330\n    },\n    {\n      \"summary\": \"SCREENSHOT_CHECKPOINT {\\\"screenshotId\\\":\\\"scr_op_chk_1\\\",\\\"dataUrl\\\":\\\"data:image/png;base64,iVBORw0KGgoAAAAN\",\n      \"eventId\": \"evt_op_008\",\n      \"timestamp\": 450,\n      \"deltaMs\": 400\n    }\n  ],\n  \"networkActivity\": [\n    {\n      \"summary\": \"→ POST https://api.internal/v1/analyze\",\n      \"eventId\": \"evt_op_004\",\n      \"timestamp\": 200\n    },\n    {\n      \"summary\": \"← 200 https://api.internal/v1/analyze (0B)\",\n      \"eventId\": \"evt_op_005\",\n      \"timestamp\": 280\n    }\n  ],\n  \"styleChanges\": [],\n  \"confidence\": 0.98,\n  \"band\": \"VERY_HIGH\",\n  \"evidenceCount\": 6\n}"
+      }
+    ]
+  }
+}

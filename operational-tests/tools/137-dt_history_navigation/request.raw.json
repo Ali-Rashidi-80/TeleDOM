@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_137_dt_history_navigation",
+  "method": "tools/call",
+  "params": {
+    "name": "dt_history_navigation",
+    "arguments": {
+      "direction": "back"
+    }
+  }
+}

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 4ms
+**Duration**: 1ms
 
 ## Test Objective
 Replays recording or reports NOT_FOUND honestly
@@ -32,7 +32,7 @@ Replays recording or reports NOT_FOUND honestly
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"replayed\": \"rec_mtuudxg5_1\",\n  \"sequenceId\": \"seq_mtuudxgs_2\",\n  \"success\": true,\n  \"totalSteps\": 1,\n  \"executedSteps\": 1,\n  \"skippedSteps\": 0,\n  \"durationMs\": 0,\n  \"stopOnError\": true,\n  \"steps\": [\n    {\n      \"stepIndex\": 0,\n      \"commandId\": \"rcmd_1_mtuudxg6\",\n      \"tool\": \"record_commands_start\",\n      \"args\": {\n        \"name\": \"op-recording\"\n      },\n      \"status\": \"SUCCESS\",\n      \"durationMs\": 0,\n      \"resultSummary\": \"OK: object with keys [recordingId, name, active, note]\",\n      \"result\": {\n        \"recordingId\": \"rec_mtuudxgs_2\",\n        \"name\": \"op-recording\",\n        \"active\": true,\n        \"note\": \"All subsequent tool calls (in this server process) are recorded until record_commands_stop.\"\n      }\n    }\n  ]\n}"
+        "text": "{\n  \"replayed\": \"rec_mtulky6h_1\",\n  \"sequenceId\": \"seq_mtulky6m_2\",\n  \"success\": true,\n  \"totalSteps\": 1,\n  \"executedSteps\": 1,\n  \"skippedSteps\": 0,\n  \"durationMs\": 0,\n  \"stopOnError\": true,\n  \"steps\": [\n    {\n      \"stepIndex\": 0,\n      \"commandId\": \"rcmd_1_mtulky6h\",\n      \"tool\": \"record_commands_start\",\n      \"args\": {\n        \"name\": \"op-recording\"\n      },\n      \"status\": \"SUCCESS\",\n      \"durationMs\": 0,\n      \"resultSummary\": \"OK: object with keys [recordingId, name, active, note]\",\n      \"result\": {\n        \"recordingId\": \"rec_mtulky6m_2\",\n        \"name\": \"op-recording\",\n        \"active\": true,\n        \"note\": \"All subsequent tool calls (in this server process) are recorded until record_commands_stop.\"\n      }\n    }\n  ]\n}"
       }
     ]
   }
