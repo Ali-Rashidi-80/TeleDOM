@@ -43,7 +43,7 @@ export interface VersionInfo {
 }
 
 export const TELEDOM_VERSION: VersionInfo = {
-  version: '12.0.0',
+  version: '4.0.0',
   productName: 'TeleDOM — Temporal Browser Intelligence Engine',
   layers: [
     'kernel', 'temporal', 'evidence', 'causality', 'semantics', 'targeting',

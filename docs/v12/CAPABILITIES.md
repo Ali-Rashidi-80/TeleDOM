@@ -1,6 +1,6 @@
 # TeleDOM v12 — Capability Surface (generated)
 
-Version: 12.0.0 · td_* capabilities: 100 · categories: 10 × 10 · experimental: 1
+Version: 4.0.0 · td_* capabilities: 100 · categories: 10 × 10 · experimental: 1
 
 ## temporal-intelligence
 

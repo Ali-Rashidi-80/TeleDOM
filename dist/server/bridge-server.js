@@ -18586,6 +18586,12 @@ async function runInPageSafe(code, tabId) {
     return null;
   }
 }
+const TELEDOM_VERSION = {
+  version: "4.0.0",
+  build: {
+    generatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  }
+};
 const TD_TOOLS_SPEC = [
   // ================= A. Temporal Intelligence (10) =================
   { id: "td_temporal_query", cat: "temporal-intelligence", desc: "Query any state/entity across a time range (State(T), State(T1..T2)).", props: { sessionId: { type: "string", description: "Session to query", required: true }, fromLogical: { type: "number", description: "Range start (logical ms)" }, toLogical: { type: "number", description: "Range end (logical ms)" }, entityIds: { type: "array", description: "Restrict to entities" }, dimensions: { type: "array", description: "State dimensions to include" } }, required: ["sessionId"], tests: ["tests/v12/temporal.test.ts"] },
@@ -18698,7 +18704,7 @@ const TD_TOOLS_SPEC = [
   { id: "td_context_optimize", cat: "investigation-orchestration", desc: "Select the smallest sufficient evidence/state set for the agent (L0–L4).", props: { intent: { type: "string", description: "The decision the agent must make next", required: true }, requestedLevel: { type: "string", description: "L0|L1|L2|L3|L4" } }, required: ["intent"] },
   { id: "td_incident_close", cat: "investigation-orchestration", desc: "Close an incident ONLY after reproduction, remediation and verification criteria pass.", props: { incidentId: { type: "string", description: "Incident to close", required: true } }, security: "policy-gated", required: ["incidentId"] }
 ];
-const CAPABILITY_VERSION = "12.0.0";
+const CAPABILITY_VERSION = TELEDOM_VERSION.version;
 const CAPABILITY_REGISTRY = TD_TOOLS_SPEC.map((spec) => ({
   id: spec.id,
   version: CAPABILITY_VERSION,
@@ -18719,7 +18725,7 @@ const CAPABILITY_REGISTRY = TD_TOOLS_SPEC.map((spec) => ({
   dependencies: internalDependencies(spec.id),
   tests: spec.tests ?? [testFor(spec.id)],
   docs: `docs/v12/capabilities/${spec.id}.md`,
-  compatibility: { minKernelVersion: "12.0.0" },
+  compatibility: { minKernelVersion: "4.0.0" },
   experimental: spec.experimental ?? false
 }));
 function internalDependencies(toolId) {
@@ -20465,12 +20471,6 @@ class IncidentManager {
     return [...this.incidents.values()];
   }
 }
-const TELEDOM_VERSION = {
-  version: "12.0.0",
-  build: {
-    generatedAt: (/* @__PURE__ */ new Date()).toISOString()
-  }
-};
 const TDOM_FORMAT_VERSION = "1.0.0";
 class TdomFormat {
   /**

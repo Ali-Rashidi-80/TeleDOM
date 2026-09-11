@@ -1,31 +1,33 @@
 <div align="center">
 
-# ⚡ TeleDOM (تله‌دام)
-### 🌐 موتور جامع ثبت وقایع قانونی مرورگر &bull; هوش لحظه‌ای DOM &bull; سرور همگانی MCP با ۲۰۶ ابزار برای هوش مصنوعی
+# ⚡ TeleDOM v4 (تله‌دام)
+### 🧠 موتور هوش زمانی و بازرسی شناختی مرورگر &bull; هوش لحظه‌ای DOM &bull; سرور همگانی MCP با ۳۰۶ ابزار برای هوش مصنوعی
+
+> 📖 **[کاتالوگ جامع و تفصیلی ۳۰۶ ابزار به زبان فارسی](./docs/TOOLS_CATALOG_306_FA.md)** | **[English 306 Tools Catalog](./docs/TOOLS_CATALOG_306_EN.md)**
 
 <p align="center">
   <a href="https://github.com/IrMaho/TeleDOM">
-    <img src="https://readme-typing-svg.demolab.com?font=Vazirmatn&weight=600&size=20&duration=3000&pause=1000&color=00F2FE&center=true&vCenter=true&multiline=false&width=750&height=45&lines=%D8%AE%D8%B7%D8%A7%DB%8C%D8%A7%D8%A8%DB%8C+%D8%B3%D9%81%D8%B1+%D8%AF%D8%B1+%D8%B2%D9%85%D8%A7%D9%86+%D8%B1%D9%88%DB%8C+DOM+%D8%A8%D8%A7+%D8%AF%D9%82%D8%AA+%D9%85%DB%8C%D9%84%DB%8C%E2%80%8C%D8%AB%D8%A7%D9%86%DB%8C%D9%87;%DB%B2%DB%B0%DB%B6+%D8%A7%D8%A8%D8%B2%D8%A7%D8%B1+%D8%AA%D8%A7%DB%8C%DB%8C%D8%AF%D8%B4%D8%AF%D9%87+MCP+%D8%A8%D8%B1%D8%A7%DB%8C+%D8%B9%D8%A7%D9%85%D9%84%E2%80%8C%D9%87%D8%A7%DB%8C+%D9%87%D9%88%D8%B4+%D9%85%D8%B5%D9%86%D9%88%D8%B9%DB%8C;%D9%85%D9%88%D8%AA%D9%88%D8%B1+%D8%AE%D9%88%D8%AF%DA%A9%D8%A7%D8%B1+%D9%BE%D9%84+%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7%DB%8C+%D8%B1%D9%88%DB%8C+%D9%BE%D9%88%D8%B1%D8%AA+%DB%B3%DB%B8%DB%B4%DB%B7;%D8%A7%D9%86%D8%AA%D8%AE%D8%A7%D8%A8+%D8%AA%D8%B9%D8%A7%D9%85%D9%84%DB%8C+%D8%A7%D9%84%D9%85%D8%A7%D9%86%E2%80%8C%D9%87%D8%A7+%D8%A8%D8%A7+Ctrl%2BShift%2BClick" alt="TeleDOM Persian Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Vazirmatn&weight=600&size=20&duration=3000&pause=1000&color=00F2FE&center=true&vCenter=true&multiline=false&width=750&height=45&lines=%D9%85%D9%88%D8%AA%D9%88%D8%B1+%D9%87%D9%88%D8%B4+%D8%B2%D9%85%D8%A7%D9%86%DB%8C+%D9%88+%D8%A7%D8%B3%D8%AA%D8%AF%D9%84%D8%A7%D9%84+%D8%B9%D9%84%D9%91%DB%8C+%D9%85%D8%B1%D9%88%D8%B1%DA%AF%D8%B1;%DB%B3%DB%B0%DB%B6+%D8%A7%D8%A8%D8%B2%D8%A7%D8%B1+%D8%AA%D8%A7%DB%8C%DB%8C%D8%AF%D8%B4%D8%AF%D9%87+MCP+%D8%A8%D8%B1%D8%A7%DB%8C+%D8%B9%D8%A7%D9%85%D9%84%E2%80%8C%D9%87%D8%A7%DB%8C+%D9%87%D9%88%D8%B4+%D9%85%D8%B5%D9%86%D9%88%D8%B9%DB%8C;%D8%B4%D8%A8%DB%8C%D9%87%E2%80%8C%D8%B3%D8%A7%D8%B2%DB%8C+%D8%AE%D9%84%D8%A7%D9%81%E2%80%8C%D9%88%D8%A7%D9%82%D8%B9+%D9%88+%D8%A7%D8%AB%D8%A8%D8%A7%D8%AA+%D8%B1%DB%8C%D8%A7%D8%B6%DB%8C+%D8%B1%DB%8C%D8%B4%D9%87+%D8%AE%D8%B7%D8%A7;%D8%AA%D8%A7%D8%A8%E2%80%8C%D8%A2%D9%88%D8%B1%DB%8C+%D8%AE%D9%88%D8%AF%D8%AA%D8%B1%D9%85%DB%8C%D9%85+%D9%88+%D8%AD%D8%A7%D9%81%D8%B8%D9%87+%D8%A7%D9%BE%DB%8C%D8%B2%D9%88%D8%AF%DB%8C%DA%A9" alt="TeleDOM Persian Typing SVG" />
   </a>
 </p>
 
 <p align="center">
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.8%2B-blue.svg?style=for-the-badge&logo=typescript&logoColor=white" /></a>
   <a href="https://developer.chrome.com/docs/extensions/mv3/"><img src="https://img.shields.io/badge/Chrome_Extension-Manifest_V3-red.svg?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
-  <a href="https://modelcontextprotocol.io/"><img src="https://img.shields.io/badge/Model_Context_Protocol-206_Tools-purple.svg?style=for-the-badge&logo=probot&logoColor=white" /></a>
-  <a href="./operational-tests/"><img src="https://img.shields.io/badge/Certification-206%2F206_Stdio-brightgreen.svg?style=for-the-badge&logo=checkmarx&logoColor=white" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Tests-178%2F178_Passed-success.svg?style=for-the-badge&logo=vitest&logoColor=white" /></a>
+  <a href="https://modelcontextprotocol.io/"><img src="https://img.shields.io/badge/Model_Context_Protocol-306_Tools-purple.svg?style=for-the-badge&logo=probot&logoColor=white" /></a>
+  <a href="./docs/TOOLS_CATALOG_306_FA.md"><img src="https://img.shields.io/badge/Certification-306%2F306_Stdio-brightgreen.svg?style=for-the-badge&logo=checkmarx&logoColor=white" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Tests-300%2F300_Passed-success.svg?style=for-the-badge&logo=vitest&logoColor=white" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge&logo=apache" /></a>
 </p>
 
 <p align="center">
   <a href="./README.md"><img src="https://img.shields.io/badge/Language-English-blue?style=flat-square&logo=googletranslate&logoColor=white" /></a>
   <a href="./README_FA.md"><img src="https://img.shields.io/badge/🇮🇷_راهنمای_فارسی-(جامع_و_کامل)-brightgreen?style=flat-square" /></a>
-  <a href="./EXAMPLES_FA.md"><img src="https://img.shields.io/badge/🇮🇷_۲۵۰_مثال_کاربردی-orange?style=flat-square&logo=bookstack" /></a>
-  <a href="./EXAMPLES.md"><img src="https://img.shields.io/badge/⚡_250_Production_Recipes-blueviolet?style=flat-square" /></a>
+  <a href="./docs/TOOLS_CATALOG_306_FA.md"><img src="https://img.shields.io/badge/🇮🇷_کاتالوگ_۳۰۶_ابزار-orange?style=flat-square&logo=bookstack" /></a>
+  <a href="./docs/TOOLS_CATALOG_306_EN.md"><img src="https://img.shields.io/badge/⚡_306_Tools_Catalog_EN-blueviolet?style=flat-square" /></a>
 </p>
 
-**یک ضبط‌کننده وقایع قانونی فوق‌العاده دقیق برای مرورگر، موتور بازسازی وضعیت صفحه وب و سفر در زمان (Time-Travel) با دقت زیر یک میلی‌ثانیه، ردیاب چرخه حیات المان‌ها، کنترل‌کننده هوشمند DOM زنده، پل ارتباطی خودکار بدون نیاز به تنظیمات (Zero-Config Auto-Bridge) و سرور پروتکل کانتکست مدل (MCP) با ۲۰۶ ابزار کاربردی برای عامل‌های هوش مصنوعی کدنویس (Claude, Antigravity, Cursor) و مهندسان فرانت‌اند.**
+**موتور هوش زمانی مرورگر، استدلال علّی، شبیه‌سازی خلاف‌واقع (Counterfactual)، بازرسی خودکار و سرور پروتکل کانتکست مدل (MCP) با ۳۰۶ ابزار کاربردی برای عامل‌های هوش مصنوعی (Claude, Antigravity, Cursor, OpenAI Agents).**
 
 <br />
 

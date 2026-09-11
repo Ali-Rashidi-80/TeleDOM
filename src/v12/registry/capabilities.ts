@@ -175,7 +175,9 @@ const TD_TOOLS_SPEC: {
   { id: 'td_incident_close', cat: 'investigation-orchestration', desc: 'Close an incident ONLY after reproduction, remediation and verification criteria pass.', props: { incidentId: { type: 'string', description: 'Incident to close', required: true } }, security: 'policy-gated', required: ['incidentId'] },
 ];
 
-const CAPABILITY_VERSION = '12.0.0';
+import { TELEDOM_VERSION } from '../version';
+
+const CAPABILITY_VERSION = TELEDOM_VERSION.version;
 
 /** The canonical registry — everything else is GENERATED from this. */
 export const CAPABILITY_REGISTRY: Capability[] = TD_TOOLS_SPEC.map((spec) => ({
@@ -198,7 +200,7 @@ export const CAPABILITY_REGISTRY: Capability[] = TD_TOOLS_SPEC.map((spec) => ({
   dependencies: internalDependencies(spec.id),
   tests: spec.tests ?? [testFor(spec.id)],
   docs: `docs/v12/capabilities/${spec.id}.md`,
-  compatibility: { minKernelVersion: '12.0.0' },
+  compatibility: { minKernelVersion: '4.0.0' },
   experimental: spec.experimental ?? false,
 }));
 

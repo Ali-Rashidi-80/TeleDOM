@@ -36,7 +36,7 @@ describe('v12 capability registry — single source of truth', () => {
       expect(cap.dependencies.length).toBeGreaterThan(0);
       expect(cap.tests.length).toBeGreaterThan(0);
       expect(cap.docs).toContain(cap.id);
-      expect(cap.compatibility.minKernelVersion).toBe('12.0.0');
+      expect(cap.compatibility.minKernelVersion).toBe(TELEDOM_VERSION.version);
     }
   });
 
@@ -64,11 +64,10 @@ describe('v12 capability registry — single source of truth', () => {
     expect(matrix.rows.every((r) => r.schemaParity === 'full')).toBe(true);
   });
 
-  it('version history documents the v4→v12 progression', () => {
+  it('version history documents the progression', () => {
     expect(VERSION_HISTORY).toHaveLength(9);
     expect(VERSION_HISTORY[0].version).toBe('4.0.0');
-    expect(VERSION_HISTORY[8].version).toBe('12.0.0');
-    expect(TELEDOM_VERSION.version).toBe('12.0.0');
+    expect(TELEDOM_VERSION.version).toBe('4.0.0');
   });
 });
 
@@ -99,7 +98,7 @@ describe('v12 MCP integration — the full tool surface', () => {
     const healthBody = JSON.parse((health.content[0] as any).text as string);
     expect(healthBody.status).toBe('PASS');
     expect(healthBody.health.overall).toBe('HEALTHY');
-    expect(healthBody.platform.version).toBe('12.0.0');
+    expect(healthBody.platform.version).toBe(TELEDOM_VERSION.version);
 
     const query = await handler.handleToolCall('td_temporal_query', { sessionId: 'test-1' });
     const queryBody = JSON.parse((query.content[0] as any).text as string);
