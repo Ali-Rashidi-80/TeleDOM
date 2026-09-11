@@ -59,9 +59,9 @@ async function sendBridgeToolCommand(port: number, toolName: string, args: any =
 
 function printHeader() {
   console.log('====================================================================');
-  // Version + tool count derive from the authoritative v12 registry
-  // (src/v12/version.ts + capability registry) — never hardcoded drift.
-  const { TELEDOM_VERSION } = require('./v12/version') as typeof import('./v12/version');
+  // Version + tool count derive from the authoritative v4 registry
+  // (src/intelligence/version.ts + capability registry) — never hardcoded drift.
+  const { TELEDOM_VERSION } = require('./intelligence/version') as typeof import('./intelligence/version');
   const toolCount = process.env.TELEDOM_TOOL_COUNT ? parseInt(process.env.TELEDOM_TOOL_COUNT, 10) : 306;
   console.log(`  🚀 ${TELEDOM_VERSION.productName} (v${TELEDOM_VERSION.version})`);
   console.log(`  ⚡ ${toolCount} Agent Tools · Temporal Browser Intelligence · Live Control`);

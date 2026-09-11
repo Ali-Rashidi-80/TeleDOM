@@ -31,7 +31,7 @@ export class SequenceCounter {
   /**
    * Generate an event id embedding an EXPLICIT sequence.
    *
-   * v12 P0 event-integrity fix: when `seq` is provided (the normal path),
+   * v4 P0 event-integrity fix: when `seq` is provided (the normal path),
    * it is embedded WITHOUT advancing the counter, so the invariant
    * `event.sequence === sequence embedded in event.id` always holds.
    * The legacy zero-arg form (self-allocating) is kept only for backward

@@ -37,9 +37,9 @@
     "cli": "node ./bin/cli.js",
     "setup:global": "node ./bin/cli.js install-global",
     "setup:project": "node ./bin/cli.js install",
-    "bench:v12": "vitest run tests/v12/suite-reports.test.ts",
-    "golden:v12": "vitest run tests/v12/suite-reports.test.ts",
-    "chaos:v12": "vitest run tests/v12/suite-reports.test.ts"
+    "bench": "vitest run tests/intelligence/suite-reports.test.ts",
+    "golden": "vitest run tests/intelligence/suite-reports.test.ts",
+    "chaos": "vitest run tests/intelligence/suite-reports.test.ts"
   },
   "keywords": [
     "browser",

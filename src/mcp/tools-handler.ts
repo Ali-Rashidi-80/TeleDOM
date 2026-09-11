@@ -14,7 +14,7 @@ import { DevToolsToolsHandler } from '../devtools/handler';
 import { ForensicsToolsHandler, journalMutationResult } from '../forensics/handler';
 import { unifiedRuntime } from '../devtools/runtime/unified-browser-runtime';
 import { cdpGateway } from '../devtools/runtime/cdp-gateway';
-import { IntelligenceToolsHandler } from '../v12/mcp/intelligence-handler';
+import { IntelligenceToolsHandler } from '../intelligence/mcp/intelligence-handler';
 
 export class MCPToolsHandler {
   private storage: ForensicStorageProvider;
@@ -22,7 +22,7 @@ export class MCPToolsHandler {
   private extendedToolsHandler: ExtendedToolsHandler;
   private devtoolsHandler: DevToolsToolsHandler;
   private forensicsHandler: ForensicsToolsHandler;
-  /** TeleDOM v12+ intelligence layer (td_* tools). */
+  /** TeleDOM v4 intelligence layer (td_* tools). */
   private intelligenceHandler: IntelligenceToolsHandler;
 
   constructor(storage: ForensicStorageProvider, liveToolsHandler?: LiveToolsHandler, extendedToolsHandler?: ExtendedToolsHandler) {
@@ -39,14 +39,14 @@ export class MCPToolsHandler {
     // bridge client as the existing live/extended handlers (single source).
     this.devtoolsHandler = new DevToolsToolsHandler();
     this.forensicsHandler = new ForensicsToolsHandler(storage);
-    // v12: the intelligence layer orchestrates kernel/temporal/evidence/
+    // v4: the intelligence layer orchestrates kernel/temporal/evidence/
     // causality primitives — dispatch takes it FIRST so td_* never falls
     // through to legacy surfaces.
     this.intelligenceHandler = new IntelligenceToolsHandler();
     this.syncRuntimeBridge();
   }
 
-  /** v12 intelligence handler accessor (health/incident introspection). */
+  /** v4 intelligence handler accessor (health/incident introspection). */
   getIntelligenceHandler(): IntelligenceToolsHandler {
     return this.intelligenceHandler;
   }
@@ -127,8 +127,8 @@ export class MCPToolsHandler {
       // bridge client may be set/changed after construction).
       this.syncRuntimeBridge();
 
-      // TeleDOM v12+ intelligence layer (td_* namespace) — FIRST so the
-      // 100 intent-level tools dispatch through the v12 kernel.
+      // TeleDOM v4 intelligence layer (td_* namespace) — FIRST so the
+      // 100 intent-level tools dispatch through the v4 kernel.
       if (this.intelligenceHandler.knows(name)) {
         return await this.intelligenceHandler.handleToolCall(name, args);
       }

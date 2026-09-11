@@ -17,7 +17,7 @@ describe('ForensicMCPServer', () => {
     expect(res).not.toBeNull();
     expect(res?.result).toHaveProperty('protocolVersion');
     expect(res?.result).toHaveProperty('capabilities');
-    expect((res?.result as any).serverInfo.name).toBe('teledom-v12');
+    expect((res?.result as any).serverInfo.name).toBe('teledom-v4');
     expect((res?.result as any).serverInfo.version).toBe('12.0.0');
   });
 

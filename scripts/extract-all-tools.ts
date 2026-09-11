@@ -3,8 +3,8 @@ import path from 'path';
 
 const projectRoot = 'c:\\Users\\ASUS\\Downloads\\TeleDOM-v12\\teledom';
 
-// Let's inspect tools-definition.ts, v3-tools-definition.ts, devtools/definitions.ts, forensics/definitions.ts, and v12/registry/capabilities.ts
-import { CAPABILITY_REGISTRY } from './src/v12/registry/capabilities.js';
+// Let's inspect tools-definition.ts, v3-tools-definition.ts, devtools/definitions.ts, forensics/definitions.ts, and v4/registry/capabilities.ts
+import { CAPABILITY_REGISTRY } from './src/intelligence/registry/capabilities.js';
 import { DEVTOOLS_TOOL_DEFINITIONS } from './src/devtools/definitions.js';
 import { FORENSICS_TOOL_DEFINITIONS } from './src/forensics/definitions.js';
 import { TOOL_DEFINITIONS as BASE_TOOLS } from './src/mcp/tools-definition.js';

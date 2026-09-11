@@ -20,7 +20,7 @@ export class ForensicMCPServer {
   private bridgeServer: MCPBridgeServer | null = null;
   private protocolVersion: string = '2024-11-05';
   private serverInfo = {
-    name: 'teledom-v12',
+    name: 'teledom-v4',
     version: '12.0.0',
   };
 
@@ -198,7 +198,7 @@ export class ForensicMCPServer {
     if (method === 'tools/list') {
       // §36 configuration: optional subsystems can be hidden from tools/list
       // without touching existing MCPDOM semantics (default: all exposed).
-      // v12 adds FORENSIC_DISABLE_INTELLIGENCE for the td_* layer.
+      // v4 adds FORENSIC_DISABLE_INTELLIGENCE for the td_* layer.
       const disableDevTools = process.env.FORENSIC_DISABLE_DEVTOOLS === 'true';
       const disableForensics = process.env.FORENSIC_DISABLE_FORENSICS === 'true';
       const disableIntelligence = process.env.FORENSIC_DISABLE_INTELLIGENCE === 'true';

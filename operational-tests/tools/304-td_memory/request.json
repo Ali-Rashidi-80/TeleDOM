@@ -1,7 +1,7 @@
 {
   "action": "store",
   "kind": "known-environment",
-  "statement": "operational acceptance session exercises the v12 kernel",
+  "statement": "operational acceptance session exercises the v4 kernel",
   "confidence": 0.8,
   "evidenceRefs": [
     "evt_op_001"

@@ -19,7 +19,7 @@ This release elevates TeleDOM into a production-grade **Temporal Browser Intelli
   - **54 `dt_*` DevTools Compatibility Tools** (Click, Fill, Drag, Screenshots, Network, Console, Lighthouse, Heapsnapshot, WebMCP).
   - **31 `fx_*` Advanced Forensic Primitives** (DOM-Network Causality, 8-dimensional Regression Diffs, Layout Shifts, Interaction Replay, Root-Cause Analysis).
   - **121 Base & v3 Session & DOM Tools** (Live inspection, DOM mutations, undo/redo transactions, project reconstruction, tab management).
-- **18 Specialized Domain Modules (`src/v12/`)**:
+- **18 Specialized Domain Modules (`src/intelligence/`)**:
   - `kernel/`: EventMesh with Hybrid Logical Clock (0.01ms resolution), SHA-256 integrity hash chains, and lifecycle diagnostics.
   - `temporal/`: 3-tier indexed event store (`Hot`/`Warm`/`Cold`), temporal query engine (`StateAt`, `Diff`, `Trace`, `Join`), and timeline branching.
   - `causality/`: Causal Engine with direct/indirect/correlated/coincidental classification and hypothesis ranking.

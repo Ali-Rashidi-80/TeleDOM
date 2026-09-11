@@ -38,7 +38,7 @@ describe('Unified tool registry', () => {
 
   it('preserves every one of the original 121 tool names', () => {
     // The 121 original names are the non-prefixed ones; v3-tool-names is the
-    // authoritative 74-name set + the 47 legacy names. (v12 adds td_* only.)
+    // authoritative 74-name set + the 47 legacy names. (v4 adds td_* only.)
     const original = FORENSIC_MCP_TOOLS.filter(t => !t.name.startsWith('dt_') && !t.name.startsWith('fx_') && !t.name.startsWith('td_')).map(t => t.name);
     expect(original.length).toBe(121);
   });

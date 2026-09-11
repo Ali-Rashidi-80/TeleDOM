@@ -1415,14 +1415,14 @@ for (let i = 0; i < toolMatrix.length; i++) {
       break;
   }
 
-  // TeleDOM v12+ intelligence tools (td_*): exercise with the seeded
+  // TeleDOM v4 intelligence tools (td_*): exercise with the seeded
   // historical session. Expected behavior: an honest structured status
   // (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED) with evidence-aware payloads —
   // INCONCLUSIVE is an acceptable outcome when the referenced artifact does
   // not exist (lookup miss), never a fake success.
   if (toolName.startsWith('td_')) {
     toolArgs = { sessionId };
-    expectedAssertionDesc = 'Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)';
+    expectedAssertionDesc = 'Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)';
     if (toolName === 'td_temporal_diff') toolArgs = { sessionId, t1: 0, t2: 400 };
     if (toolName === 'td_temporal_window') toolArgs = { sessionId, aroundLogical: 400 };
     if (toolName === 'td_temporal_join') toolArgs = { sessionId, sources: ['dom', 'network'] };
@@ -1438,7 +1438,7 @@ for (let i = 0; i < toolMatrix.length; i++) {
       toolArgs = { provenance: [{ origin: 'operational-suite', quality: 'direct-observation', evidenceRefs: ['evt_op_007'] }], corroboration: 1 };
     }
     if (toolName === 'td_evidence_chain') toolArgs = { claim: 'injected button was removed by subtree replacement', evidenceRefs: ['evt_op_007', 'evt_op_008'] };
-    if (toolName === 'td_memory') toolArgs = { action: 'store', kind: 'known-environment', statement: 'operational acceptance session exercises the v12 kernel', confidence: 0.8, evidenceRefs: ['evt_op_001'] };
+    if (toolName === 'td_memory') toolArgs = { action: 'store', kind: 'known-environment', statement: 'operational acceptance session exercises the v4 kernel', confidence: 0.8, evidenceRefs: ['evt_op_001'] };
     if (toolName === 'td_context_optimize') toolArgs = { intent: 'why did the injected button disappear' };
     if (toolName === 'td_state_summary') toolArgs = { intent: 'page state summary', sessionId };
     if (toolName === 'td_resource_guard') toolArgs = { usage: { events: 100 } };

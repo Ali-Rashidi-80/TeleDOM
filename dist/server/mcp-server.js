@@ -1,6 +1,6 @@
 import * as readline from "readline";
 import * as fs from "fs";
-import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, T as TELEDOM_V12_TOOLS, a as FileStorageProvider, b as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
+import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, T as TELEDOM_INTELLIGENCE_TOOLS, a as FileStorageProvider, b as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
 import "http";
 import "ws";
 import "path";
@@ -630,10 +630,10 @@ const FORENSIC_MCP_TOOLS = [
   ...DEVTOOLS_TOOLS,
   // §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace)
   ...FORENSICS_TOOLS,
-  // TeleDOM v12+ — the 100 td_* intelligence surface (temporal, evidence,
+  // TeleDOM v4 — the 100 td_* intelligence surface (temporal, evidence,
   // causal, semantic, targeting, simulation, reliability, security,
   // performance, investigation) generated from the capability registry.
-  ...TELEDOM_V12_TOOLS
+  ...TELEDOM_INTELLIGENCE_TOOLS
 ];
 class MCPResourcesHandler {
   storage;
@@ -704,7 +704,7 @@ class ForensicMCPServer {
   bridgeServer = null;
   protocolVersion = "2024-11-05";
   serverInfo = {
-    name: "teledom-v12",
+    name: "teledom-v4",
     version: "12.0.0"
   };
   constructor(storage, liveToolsHandler) {

@@ -6,7 +6,7 @@
 **Duration**: 0ms
 
 ## Test Objective
-Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
+Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
 
 ## Raw Transmitted JSON-RPC Request
 ```json
@@ -19,7 +19,7 @@ Returns a structured v12 intelligence result with honest status taxonomy (PASS/I
     "arguments": {
       "action": "store",
       "kind": "known-environment",
-      "statement": "operational acceptance session exercises the v12 kernel",
+      "statement": "operational acceptance session exercises the v4 kernel",
       "confidence": 0.8,
       "evidenceRefs": [
         "evt_op_001"
@@ -48,4 +48,4 @@ Returns a structured v12 intelligence result with honest status taxonomy (PASS/I
 
 ## Assertions
 - [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
-- [x] **Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)**: status, stored, tool, capability
+- [x] **Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)**: status, stored, tool, capability

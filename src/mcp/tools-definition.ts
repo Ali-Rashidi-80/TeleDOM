@@ -2,7 +2,7 @@ import { MCPToolDefinition } from '../types/mcp-types';
 import { MCPDOM_V3_TOOLS } from './v3-tools-definition';
 import { DEVTOOLS_TOOLS } from '../devtools/definitions';
 import { FORENSICS_TOOLS } from '../forensics/definitions';
-import { TELEDOM_V12_TOOLS } from '../v12/registry/td-tools';
+import { TELEDOM_INTELLIGENCE_TOOLS } from '../intelligence/registry/td-tools';
 
 export const FORENSIC_MCP_TOOLS: MCPToolDefinition[] = [
   {
@@ -628,8 +628,8 @@ export const FORENSIC_MCP_TOOLS: MCPToolDefinition[] = [
   ...DEVTOOLS_TOOLS,
   // §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace)
   ...FORENSICS_TOOLS,
-  // TeleDOM v12+ — the 100 td_* intelligence surface (temporal, evidence,
+  // TeleDOM v4 — the 100 td_* intelligence surface (temporal, evidence,
   // causal, semantic, targeting, simulation, reliability, security,
   // performance, investigation) generated from the capability registry.
-  ...TELEDOM_V12_TOOLS,
+  ...TELEDOM_INTELLIGENCE_TOOLS,
 ];

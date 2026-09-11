@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { FORENSIC_MCP_TOOLS } from '../src/mcp/tools-definition';
-import { CAPABILITY_REGISTRY } from '../src/v12/registry/capabilities';
+import { CAPABILITY_REGISTRY } from '../src/intelligence/registry/capabilities';
 
 const projectRoot = process.cwd();
 

@@ -2395,7 +2395,7 @@ class SequenceCounter {
   /**
    * Generate an event id embedding an EXPLICIT sequence.
    *
-   * v12 P0 event-integrity fix: when `seq` is provided (the normal path),
+   * v4 P0 event-integrity fix: when `seq` is provided (the normal path),
    * it is embedded WITHOUT advancing the counter, so the invariant
    * `event.sequence === sequence embedded in event.id` always holds.
    * The legacy zero-arg form (self-allocating) is kept only for backward
@@ -18594,7 +18594,7 @@ const TELEDOM_VERSION = {
 };
 const TD_TOOLS_SPEC = [
   // ================= A. Temporal Intelligence (10) =================
-  { id: "td_temporal_query", cat: "temporal-intelligence", desc: "Query any state/entity across a time range (State(T), State(T1..T2)).", props: { sessionId: { type: "string", description: "Session to query", required: true }, fromLogical: { type: "number", description: "Range start (logical ms)" }, toLogical: { type: "number", description: "Range end (logical ms)" }, entityIds: { type: "array", description: "Restrict to entities" }, dimensions: { type: "array", description: "State dimensions to include" } }, required: ["sessionId"], tests: ["tests/v12/temporal.test.ts"] },
+  { id: "td_temporal_query", cat: "temporal-intelligence", desc: "Query any state/entity across a time range (State(T), State(T1..T2)).", props: { sessionId: { type: "string", description: "Session to query", required: true }, fromLogical: { type: "number", description: "Range start (logical ms)" }, toLogical: { type: "number", description: "Range end (logical ms)" }, entityIds: { type: "array", description: "Restrict to entities" }, dimensions: { type: "array", description: "State dimensions to include" } }, required: ["sessionId"], tests: ["tests/intelligence/temporal.test.ts"] },
   { id: "td_temporal_seek", cat: "temporal-intelligence", desc: "Seek to the nearest valid state for an event/time.", props: { sessionId: { type: "string", description: "Session id", required: true }, logicalTime: { type: "number", description: "Target logical time", required: true } }, required: ["sessionId", "logicalTime"] },
   { id: "td_temporal_window", cat: "temporal-intelligence", desc: "Return a compact before/target/after state window around an event.", props: { sessionId: { type: "string", description: "Session id", required: true }, aroundLogical: { type: "number", description: "Center logical time", required: true }, radiusMs: { type: "number", description: "Window radius in ms (default 250)" } }, required: ["sessionId", "aroundLogical"] },
   { id: "td_temporal_diff", cat: "temporal-intelligence", desc: "Diff(T1,T2): compare two arbitrary points in time across all state dimensions.", props: { sessionId: { type: "string", description: "Session id", required: true }, t1: { type: "number", description: "First logical time", required: true }, t2: { type: "number", description: "Second logical time", required: true } }, required: ["sessionId", "t1", "t2"] },
@@ -18724,7 +18724,7 @@ const CAPABILITY_REGISTRY = TD_TOOLS_SPEC.map((spec) => ({
   supportedModes: spec.modes ?? ["live", "recorded", "simulation"],
   dependencies: internalDependencies(spec.id),
   tests: spec.tests ?? [testFor(spec.id)],
-  docs: `docs/v12/capabilities/${spec.id}.md`,
+  docs: `docs/intelligence/capabilities/${spec.id}.md`,
   compatibility: { minKernelVersion: "4.0.0" },
   experimental: spec.experimental ?? false
 }));
@@ -18747,12 +18747,12 @@ function internalDependencies(toolId) {
   return ["kernel:events"];
 }
 function testFor(toolId) {
-  return `tests/v12/registry.test.ts (${toolId})`;
+  return `tests/intelligence/registry.test.ts (${toolId})`;
 }
 function capabilityById(id) {
   return CAPABILITY_REGISTRY.find((c) => c.id === id);
 }
-const TELEDOM_V12_TOOLS = CAPABILITY_REGISTRY.map((cap) => ({
+const TELEDOM_INTELLIGENCE_TOOLS = CAPABILITY_REGISTRY.map((cap) => ({
   name: cap.id,
   description: cap.description + ` [security: ${cap.securityClass}; cost: ${cap.resourceCost}; modes: ${cap.supportedModes.join("/")}${cap.experimental ? "; EXPERIMENTAL" : ""}]`,
   inputSchema: {
@@ -18766,7 +18766,7 @@ const TELEDOM_V12_TOOLS = CAPABILITY_REGISTRY.map((cap) => ({
     ...cap.inputSchema.required ? { required: cap.inputSchema.required } : {}
   }
 }));
-const TD_TOOL_NAMES = new Set(TELEDOM_V12_TOOLS.map((t) => t.name));
+const TD_TOOL_NAMES = new Set(TELEDOM_INTELLIGENCE_TOOLS.map((t) => t.name));
 class HybridClock {
   logical = 0;
   sessionStartWall;
@@ -23227,7 +23227,7 @@ class MCPToolsHandler {
   extendedToolsHandler;
   devtoolsHandler;
   forensicsHandler;
-  /** TeleDOM v12+ intelligence layer (td_* tools). */
+  /** TeleDOM v4 intelligence layer (td_* tools). */
   intelligenceHandler;
   constructor(storage, liveToolsHandler, extendedToolsHandler) {
     this.storage = storage;
@@ -23239,7 +23239,7 @@ class MCPToolsHandler {
     this.intelligenceHandler = new IntelligenceToolsHandler();
     this.syncRuntimeBridge();
   }
-  /** v12 intelligence handler accessor (health/incident introspection). */
+  /** v4 intelligence handler accessor (health/incident introspection). */
   getIntelligenceHandler() {
     return this.intelligenceHandler;
   }
@@ -24234,7 +24234,7 @@ export {
   FORENSICS_TOOLS as F,
   MCPDOM_V3_TOOLS as M,
   MCPBridgeServer,
-  TELEDOM_V12_TOOLS as T,
+  TELEDOM_INTELLIGENCE_TOOLS as T,
   FileStorageProvider as a,
   MCPToolsHandler as b
 };

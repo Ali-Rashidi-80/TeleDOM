@@ -1,11 +1,11 @@
 /**
- * TeleDOM v12 — Observatory UI (investigation-centric panel).
+ * TeleDOM v4 — Observatory UI (investigation-centric panel).
  *
  * Browser-safe, data-driven view: renders an investigation result (the
  * JSON payload of a td_investigate result or an imported .tdom incident)
  * as Incident/Objective · Temporal Timeline · Causal Graph · Evidence &
  * Confidence · Live/Replay/Branch · Verification/Proof. It never imports
- * the server-side v12 kernel (node:crypto) — the browser bundle receives
+ * the server-side v4 kernel (node:crypto) — the browser bundle receives
  * portable JSON only, preserving the zero-trust boundary.
  */
 
