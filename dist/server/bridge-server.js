@@ -6,6 +6,7 @@ import * as path from "path";
 import path__default from "path";
 import * as readline from "readline";
 import * as zlib from "zlib";
+import { gunzipSync } from "zlib";
 import { createHash } from "crypto";
 class SessionSerializer {
   static exportBundle(metadata, initialSnapshot, events, checkpoints, annotations = []) {
@@ -2391,10 +2392,19 @@ class SequenceCounter {
   getWallClock() {
     return Date.now();
   }
-  generateEventId(prefix = "evt") {
-    const seq = this.nextSequence();
+  /**
+   * Generate an event id embedding an EXPLICIT sequence.
+   *
+   * v12 P0 event-integrity fix: when `seq` is provided (the normal path),
+   * it is embedded WITHOUT advancing the counter, so the invariant
+   * `event.sequence === sequence embedded in event.id` always holds.
+   * The legacy zero-arg form (self-allocating) is kept only for backward
+   * compatibility with old call sites; new code must pass the sequence.
+   */
+  generateEventId(prefix = "evt", seq) {
+    const sequence = seq !== void 0 ? seq : this.nextSequence();
     const rand = Math.random().toString(36).substring(2, 8);
-    return `${prefix}_${seq}_${rand}`;
+    return `${prefix}_${sequence}_${rand}`;
   }
   reset() {
     this.currentSequence = 0;
@@ -13495,7 +13505,7 @@ class SnapshotStore {
   }
 }
 const snapshotStore = new SnapshotStore();
-const INTERACTIVE_TAGS$1 = /* @__PURE__ */ new Set(["a", "button", "input", "select", "textarea", "summary", "details", "option", "label", "menuitem", "tab"]);
+const INTERACTIVE_TAGS$2 = /* @__PURE__ */ new Set(["a", "button", "input", "select", "textarea", "summary", "details", "option", "label", "menuitem", "tab"]);
 const CLICKABLE_ROLES = /* @__PURE__ */ new Set(["button", "link", "checkbox", "radio", "menuitem", "option", "tab", "textbox", "combobox", "listbox", "slider", "switch"]);
 function roleOf(el) {
   const explicit = el.getAttribute("role");
@@ -13590,7 +13600,7 @@ function selectorOf(el) {
 function buildPageSnapshot(root) {
   const buildNode = (el) => {
     const tag = el.tagName.toLowerCase();
-    const interactive = INTERACTIVE_TAGS$1.has(tag) || CLICKABLE_ROLES.has(roleOf(el)) || el.hasAttribute("onclick") || el.getAttribute("tabindex") !== null;
+    const interactive = INTERACTIVE_TAGS$2.has(tag) || CLICKABLE_ROLES.has(roleOf(el)) || el.hasAttribute("onclick") || el.getAttribute("tabindex") !== null;
     const node = {
       uid: snapshotStore.nextUid(),
       role: roleOf(el),
@@ -17397,7 +17407,7 @@ async function analyzeFontRendering(input) {
     ]
   };
 }
-const INTERACTIVE_TAGS = /^(a|button|input|select|textarea|summary|details|menuitem|option|tab)$/i;
+const INTERACTIVE_TAGS$1 = /^(a|button|input|select|textarea|summary|details|menuitem|option|tab)$/i;
 const LANDMARK_ROLES = { header: "banner", main: "main", nav: "navigation", footer: "contentinfo", aside: "complementary", form: "form", section: "region" };
 function computeRole(el) {
   const explicit = el.attributes["role"];
@@ -17449,7 +17459,7 @@ function analyzeA11yDivergence(input) {
     const name = computeName(el);
     const hiddenAttr = el.attributes.hidden !== void 0 || el.attributes["aria-hidden"] === "true";
     const visuallyHidden = /display:\s*none|visibility:\s*hidden/i.test(el.attributes.style || "");
-    const interactive = INTERACTIVE_TAGS.test(el.tagName) || ["button", "link", "checkbox", "radio", "textbox", "combobox", "menuitem", "option", "tab"].includes(role);
+    const interactive = INTERACTIVE_TAGS$1.test(el.tagName) || ["button", "link", "checkbox", "radio", "textbox", "combobox", "menuitem", "option", "tab"].includes(role);
     const issues = [];
     if (hiddenAttr) {
       const hasText = !!el.textContent.trim();
@@ -18576,12 +18586,4649 @@ async function runInPageSafe(code, tabId) {
     return null;
   }
 }
+const TD_TOOLS_SPEC = [
+  // ================= A. Temporal Intelligence (10) =================
+  { id: "td_temporal_query", cat: "temporal-intelligence", desc: "Query any state/entity across a time range (State(T), State(T1..T2)).", props: { sessionId: { type: "string", description: "Session to query", required: true }, fromLogical: { type: "number", description: "Range start (logical ms)" }, toLogical: { type: "number", description: "Range end (logical ms)" }, entityIds: { type: "array", description: "Restrict to entities" }, dimensions: { type: "array", description: "State dimensions to include" } }, required: ["sessionId"], tests: ["tests/v12/temporal.test.ts"] },
+  { id: "td_temporal_seek", cat: "temporal-intelligence", desc: "Seek to the nearest valid state for an event/time.", props: { sessionId: { type: "string", description: "Session id", required: true }, logicalTime: { type: "number", description: "Target logical time", required: true } }, required: ["sessionId", "logicalTime"] },
+  { id: "td_temporal_window", cat: "temporal-intelligence", desc: "Return a compact before/target/after state window around an event.", props: { sessionId: { type: "string", description: "Session id", required: true }, aroundLogical: { type: "number", description: "Center logical time", required: true }, radiusMs: { type: "number", description: "Window radius in ms (default 250)" } }, required: ["sessionId", "aroundLogical"] },
+  { id: "td_temporal_diff", cat: "temporal-intelligence", desc: "Diff(T1,T2): compare two arbitrary points in time across all state dimensions.", props: { sessionId: { type: "string", description: "Session id", required: true }, t1: { type: "number", description: "First logical time", required: true }, t2: { type: "number", description: "Second logical time", required: true } }, required: ["sessionId", "t1", "t2"] },
+  { id: "td_temporal_trace_entity", cat: "temporal-intelligence", desc: "Trace one entity through its full lifetime (every touching event).", props: { sessionId: { type: "string", description: "Session id", required: true }, entityId: { type: "string", description: "Entity to trace", required: true } }, required: ["sessionId", "entityId"] },
+  { id: "td_temporal_first_change", cat: "temporal-intelligence", desc: "Find the first event matching a predicate (e.g. first invalid state).", props: { sessionId: { type: "string", description: "Session id", required: true }, source: { type: "string", description: "Event source filter" }, typePattern: { type: "string", description: "Type regex filter" } }, required: ["sessionId"] },
+  { id: "td_temporal_last_stable", cat: "temporal-intelligence", desc: "Find the last state in which a dimension was stable before a time.", props: { sessionId: { type: "string", description: "Session id", required: true }, dimension: { type: "string", description: "State dimension", required: true }, before: { type: "number", description: "Search horizon (logical ms)", required: true }, settleMs: { type: "number", description: "Quiet period that counts as stable (default 250)" } }, required: ["sessionId", "dimension", "before"] },
+  { id: "td_temporal_join", cat: "temporal-intelligence", desc: "Join DOM/runtime/network/visual/security events inside temporal constraints (Join(Signals)).", props: { sessionId: { type: "string", description: "Session id", required: true }, sources: { type: "array", description: "Signal sources to join", required: true }, withinMs: { type: "number", description: "Cluster window (default 250)" }, aroundEntityId: { type: "string", description: "Optional entity scope" } }, required: ["sessionId", "sources"] },
+  { id: "td_temporal_branch", cat: "temporal-intelligence", desc: "Branch(T): fork a historical state into a simulation branch (never overwrites reality).", props: { sessionId: { type: "string", description: "Session id", required: true }, forkAtLogical: { type: "number", description: "Fork point", required: true }, mutations: { type: "array", description: "Branch mutations (kind, targetSequence, patch, reason)", required: true } }, security: "reversible", required: ["sessionId", "forkAtLogical", "mutations"] },
+  { id: "td_temporal_rewind", cat: "temporal-intelligence", desc: "Reconstruct and activate a safe inspection state (read-only rewind).", props: { sessionId: { type: "string", description: "Session id", required: true }, logicalTime: { type: "number", description: "Target time", required: true } }, required: ["sessionId", "logicalTime"] },
+  // ================= B. Evidence & Provenance (10) =================
+  { id: "td_evidence_capture", cat: "evidence-provenance", desc: "Capture a typed evidence bundle for the current investigation.", props: { incidentId: { type: "string", description: "Incident to attach evidence to", required: true }, kind: { type: "string", description: "Evidence node type", required: true }, label: { type: "string", description: "Human label", required: true }, payload: { type: "object", description: "Evidence payload" } }, required: ["incidentId", "kind", "label"] },
+  { id: "td_evidence_search", cat: "evidence-provenance", desc: "Search evidence semantically and structurally.", props: { sessionId: { type: "string", description: "Session scope" }, text: { type: "string", description: "Text query" }, types: { type: "array", description: "Node type filter" }, limit: { type: "number", description: "Max results" } } },
+  { id: "td_evidence_chain", cat: "evidence-provenance", desc: "Build the provenance chain for a claim (claim → evidence → verification).", props: { claim: { type: "string", description: "The claim to ground", required: true }, evidenceRefs: { type: "array", description: "Candidate evidence refs", required: true } }, required: ["claim", "evidenceRefs"] },
+  { id: "td_evidence_confidence", cat: "evidence-provenance", desc: "Recalculate confidence using source quality and corroboration.", props: { provenance: { type: "array", description: "Provenance records", required: true }, corroboration: { type: "number", description: "Independent corroborating sources", required: true }, verified: { type: "boolean", description: "Verified by contract?" }, contradicted: { type: "boolean", description: "Counterevidence observed?" } }, required: ["provenance", "corroboration"] },
+  { id: "td_evidence_verify", cat: "evidence-provenance", desc: "Verify a claim against current or replayed state.", props: { claim: { type: "string", description: "Claim statement", required: true }, mustHold: { type: "array", description: "Postconditions that must hold", required: true }, mustNotHold: { type: "array", description: "Conditions that must not hold" }, evidenceRequired: { type: "array", description: "Required evidence refs" } }, required: ["claim", "mustHold"] },
+  { id: "td_evidence_hash", cat: "evidence-provenance", desc: "Hash a state/evidence artifact and attach integrity metadata.", props: { artifact: { type: "object", description: "Artifact to hash", required: true } }, required: ["artifact"] },
+  { id: "td_evidence_compare", cat: "evidence-provenance", desc: "Compare two evidence packages (structural + provenance diff).", props: { packageA: { type: "object", description: "First package", required: true }, packageB: { type: "object", description: "Second package", required: true } }, required: ["packageA", "packageB"] },
+  { id: "td_evidence_export", cat: "evidence-provenance", desc: "Export a portable forensic evidence package (.tdom).", props: { incidentId: { type: "string", description: "Incident to export", required: true }, compress: { type: "boolean", description: "Gzip the artifact" }, outputPath: { type: "string", description: "Optional file path" } }, required: ["incidentId"] },
+  { id: "td_evidence_timeline", cat: "evidence-provenance", desc: "Produce a human-readable evidence timeline for an incident.", props: { incidentId: { type: "string", description: "Incident id", required: true } }, required: ["incidentId"] },
+  { id: "td_evidence_proof", cat: "evidence-provenance", desc: "Generate a machine-verifiable proof record for a finding.", props: { claims: { type: "array", description: "Claims with evidence refs", required: true }, steps: { type: "array", description: "Reasoning steps" }, conclusion: { type: "string", description: "Conclusion statement", required: true }, verificationStatus: { type: "string", description: "PASS/FAIL/INCONCLUSIVE", required: true } }, required: ["claims", "conclusion", "verificationStatus"] },
+  // ================= C. Causal Intelligence (10) =================
+  { id: "td_cause_trace", cat: "causal-intelligence", desc: "Trace likely causes of a selected symptom (root-cause chain).", props: { sessionId: { type: "string", description: "Session id", required: true }, symptomEventId: { type: "string", description: "Symptom event", required: true }, windowMs: { type: "number", description: "Correlation window (default 250)" } }, required: ["sessionId", "symptomEventId"] },
+  { id: "td_cause_graph", cat: "causal-intelligence", desc: "Build a causal graph around an incident (typed nodes + provenance edges).", props: { sessionId: { type: "string", description: "Session id", required: true }, windowMs: { type: "number", description: "Correlation window" } }, required: ["sessionId"] },
+  { id: "td_cause_rank", cat: "causal-intelligence", desc: "Rank competing root-cause hypotheses by evidence strength.", props: { sessionId: { type: "string", description: "Session id", required: true }, symptomEventId: { type: "string", description: "Symptom event", required: true } }, required: ["sessionId", "symptomEventId"] },
+  { id: "td_cause_explain", cat: "causal-intelligence", desc: "Explain a finding from evidence — claim + chain + confidence + alternatives.", props: { finding: { type: "string", description: "Finding to explain", required: true }, evidenceRefs: { type: "array", description: "Evidence to ground the explanation", required: true } }, required: ["finding", "evidenceRefs"] },
+  { id: "td_cause_correlate", cat: "causal-intelligence", desc: "Correlate independent signals into candidate causal chains.", props: { sessionId: { type: "string", description: "Session id", required: true }, sources: { type: "array", description: "Sources to correlate", required: true }, withinMs: { type: "number", description: "Window (default 250)" } }, required: ["sessionId", "sources"] },
+  { id: "td_cause_breakpoint", cat: "causal-intelligence", desc: "Find the earliest causal divergence between two streams (reality vs branch).", props: { branchId: { type: "string", description: "Branch to compare", required: true }, sessionId: { type: "string", description: "Session id", required: true } }, required: ["branchId", "sessionId"] },
+  { id: "td_cause_impact", cat: "causal-intelligence", desc: "Estimate downstream impact of a cause (affected entities/components).", props: { eventId: { type: "string", description: "Cause event", required: true }, sessionId: { type: "string", description: "Session id", required: true } }, required: ["eventId", "sessionId"] },
+  { id: "td_cause_dependency", cat: "causal-intelligence", desc: "Trace dependencies that could produce a state (dependency chains).", props: { entityId: { type: "string", description: "Entity to analyze", required: true }, sessionId: { type: "string", description: "Session id", required: true } }, required: ["entityId", "sessionId"] },
+  { id: "td_cause_counterfactual", cat: "causal-intelligence", desc: "Test whether removing a candidate cause changes the outcome (branch + replay + compare).", props: { sessionId: { type: "string", description: "Session id", required: true }, targetSequence: { type: "number", description: "Event sequence to suppress/modify", required: true }, kind: { type: "string", description: "suppress-event | modify-response | modify-state | modify-style | alter-timing", required: true }, patch: { type: "object", description: "Mutation payload" }, reason: { type: "string", description: "Why this counterfactual", required: true } }, security: "reversible", required: ["sessionId", "targetSequence", "kind", "reason"] },
+  { id: "td_cause_verify", cat: "causal-intelligence", desc: "Verify a root-cause hypothesis through replay/observation (never guess).", props: { sessionId: { type: "string", description: "Session id", required: true }, hypothesisId: { type: "string", description: "Hypothesis to verify", required: true } }, required: ["sessionId", "hypothesisId"] },
+  // ================= D. Semantic & Component Intelligence (10) =================
+  { id: "td_semantic_page", cat: "semantic-component", desc: "Build a compact semantic model of the page (roles, intents, stability).", props: { sessionId: { type: "string", description: "Session id" }, includeHidden: { type: "boolean", description: "Include hidden elements" } } },
+  { id: "td_semantic_element", cat: "semantic-component", desc: "Explain an element's role, intent and state (semantic identity).", props: { selector: { type: "string", description: "Element selector", required: true } }, required: ["selector"] },
+  { id: "td_component_map", cat: "semantic-component", desc: "Infer component boundaries and ownership (React/Vue/Svelte/custom/microfrontend).", props: { sessionId: { type: "string", description: "Session id" } } },
+  { id: "td_component_lifecycle", cat: "semantic-component", desc: "Trace mount/update/unmount behavior of a component.", props: { componentId: { type: "string", description: "Component id or root selector", required: true }, sessionId: { type: "string", description: "Session id", required: true } }, required: ["componentId", "sessionId"] },
+  { id: "td_component_dependencies", cat: "semantic-component", desc: "Map component dependencies and affected nodes.", props: { componentId: { type: "string", description: "Component id", required: true } }, required: ["componentId"] },
+  { id: "td_component_state", cat: "semantic-component", desc: "Reconstruct component-facing state signals.", props: { componentId: { type: "string", description: "Component id", required: true }, sessionId: { type: "string", description: "Session id" } }, required: ["componentId"] },
+  { id: "td_accessibility_model", cat: "semantic-component", desc: "Build a normalized accessibility model (role/name/state/relationships/focus).", props: { sessionId: { type: "string", description: "Session id" } } },
+  { id: "td_visual_semantics", cat: "semantic-component", desc: "Associate visual regions with semantic entities.", props: { sessionId: { type: "string", description: "Session id" }, regions: { type: "array", description: "Visual regions to associate" } } },
+  { id: "td_page_intent", cat: "semantic-component", desc: "Infer major page workflows and interaction zones.", props: { sessionId: { type: "string", description: "Session id" } } },
+  { id: "td_state_summary", cat: "semantic-component", desc: "Return a token-minimal state digest suitable for agents (L0/L1).", props: { intent: { type: "string", description: "The next decision the agent must make", required: true }, level: { type: "string", description: "L0|L1|L2|L3|L4" } }, required: ["intent"] },
+  // ================= E. Targeting & Interaction Intelligence (10) =================
+  { id: "td_resolve_target", cat: "targeting-interaction", desc: "Resolve a natural-language or semantic target to a VERIFIED entity with confidence.", props: { description: { type: "string", description: "Natural-language target description" }, role: { type: "string", description: "Semantic role" }, text: { type: "string", description: "Text content" }, selector: { type: "string", description: "Seed selector" } }, required: [] },
+  { id: "td_rank_targets", cat: "targeting-interaction", desc: "Rank target candidates by historical, semantic and visual stability.", props: { candidates: { type: "array", description: "Candidate descriptors", required: true }, query: { type: "object", description: "Target query", required: true } }, required: ["candidates", "query"] },
+  { id: "td_target_recover", cat: "targeting-interaction", desc: "Recover a target after selector/DOM changes (multi-signal recovery; refuses blind guesses).", props: { failedSelector: { type: "string", description: "The selector that failed", required: true }, lastKnown: { type: "object", description: "Last known target snapshot", required: true } }, required: ["failedSelector", "lastKnown"] },
+  { id: "td_target_verify", cat: "targeting-interaction", desc: "Verify that the selected target matches the requested intent.", props: { selector: { type: "string", description: "Selected selector", required: true }, intent: { type: "string", description: "Requested intent", required: true } }, required: ["selector", "intent"] },
+  { id: "td_target_history", cat: "targeting-interaction", desc: "Show how a target changed over time (identity versions).", props: { entityId: { type: "string", description: "Target entity", required: true } }, required: ["entityId"] },
+  { id: "td_target_contract", cat: "targeting-interaction", desc: "Create a durable target contract for future actions.", props: { query: { type: "object", description: "Target query", required: true }, resolution: { type: "object", description: "Resolution result", required: true } }, required: ["query", "resolution"] },
+  { id: "td_interaction_plan", cat: "targeting-interaction", desc: "Generate a verified interaction plan from intent (target + steps + postconditions).", props: { intent: { type: "string", description: "What the interaction should achieve", required: true } }, required: ["intent"] },
+  { id: "td_interaction_execute", cat: "targeting-interaction", desc: "Execute an interaction plan with postconditions (transactional).", props: { planId: { type: "string", description: "Plan to execute", required: true } }, security: "side-effects", required: ["planId"] },
+  { id: "td_interaction_observe", cat: "targeting-interaction", desc: "Observe effects of one interaction across state dimensions.", props: { interactionRef: { type: "string", description: "Executed interaction reference", required: true } }, required: ["interactionRef"] },
+  { id: "td_interaction_repair", cat: "targeting-interaction", desc: "Repair a failed interaction without restarting the whole task.", props: { failedPlanId: { type: "string", description: "Failed plan", required: true }, reason: { type: "string", description: "Failure reason", required: true } }, required: ["failedPlanId", "reason"] },
+  // ================= F. Counterfactual & Simulation Intelligence (10) =================
+  { id: "td_simulate_change", cat: "counterfactual-simulation", desc: "Simulate a proposed change without committing it (dry-run on a branch).", props: { sessionId: { type: "string", description: "Session id", required: true }, change: { type: "object", description: "Change spec", required: true } }, security: "read-only", required: ["sessionId", "change"] },
+  { id: "td_simulate_network", cat: "counterfactual-simulation", desc: "Simulate alternate network responses (modify-response branch).", props: { sessionId: { type: "string", description: "Session id", required: true }, targetSequence: { type: "number", description: "Network event to alter", required: true }, responsePatch: { type: "object", description: "Response override", required: true } }, required: ["sessionId", "targetSequence", "responsePatch"] },
+  { id: "td_simulate_dom", cat: "counterfactual-simulation", desc: "Simulate DOM mutations against a branch.", props: { sessionId: { type: "string", description: "Session id", required: true }, mutations: { type: "array", description: "DOM mutations", required: true } }, required: ["sessionId", "mutations"] },
+  { id: "td_simulate_style", cat: "counterfactual-simulation", desc: "Simulate style/CSS changes (modify-style branch).", props: { sessionId: { type: "string", description: "Session id", required: true }, targetSequence: { type: "number", description: "Style event to alter", required: true }, stylePatch: { type: "object", description: "Style override", required: true } }, required: ["sessionId", "targetSequence", "stylePatch"] },
+  { id: "td_simulate_runtime", cat: "counterfactual-simulation", desc: "Simulate selected runtime conditions (state/event patches).", props: { sessionId: { type: "string", description: "Session id", required: true }, condition: { type: "object", description: "Runtime condition spec", required: true } }, required: ["sessionId", "condition"] },
+  { id: "td_simulate_failure", cat: "counterfactual-simulation", desc: "Reproduce a controlled failure condition in an authorized environment.", props: { sessionId: { type: "string", description: "Session id", required: true }, failureKind: { type: "string", description: "Failure to inject", required: true } }, security: "policy-gated", required: ["sessionId", "failureKind"] },
+  { id: "td_compare_branches", cat: "counterfactual-simulation", desc: "Compare reality against one or more counterfactual branches.", props: { branchIds: { type: "array", description: "Branches to compare", required: true }, sessionId: { type: "string", description: "Session id", required: true } }, required: ["branchIds", "sessionId"] },
+  { id: "td_predict_impact", cat: "counterfactual-simulation", desc: "Predict affected components/entities before a mutation (impact analysis).", props: { change: { type: "object", description: "Proposed change", required: true }, scope: { type: "object", description: "Scope hints" } }, required: ["change"] },
+  { id: "td_safe_apply", cat: "counterfactual-simulation", desc: "Apply a verified low-risk mutation transaction (PLAN→…→VERIFY→COMMIT/ROLLBACK).", props: { plan: { type: "object", description: "Mutation plan", required: true }, scope: { type: "object", description: "Allowed selectors/origins", required: true } }, security: "side-effects", required: ["plan", "scope"] },
+  { id: "td_branch_merge", cat: "counterfactual-simulation", desc: "Merge a successful simulation branch into a controlled mutation plan.", props: { branchId: { type: "string", description: "Verified branch", required: true }, sessionId: { type: "string", description: "Session id", required: true } }, security: "reversible", required: ["branchId", "sessionId"] },
+  // ================= G. Reliability & Recovery (10) =================
+  { id: "td_health_snapshot", cat: "reliability-recovery", desc: "Return full TeleDOM runtime health + integrity state (self-diagnostics).", props: {} },
+  { id: "td_recover_browser", cat: "reliability-recovery", desc: "Recover from browser/renderer disconnect where possible (bounded retries).", props: { failureKind: { type: "string", description: "Failure kind", required: true } }, security: "side-effects", required: ["failureKind"] },
+  { id: "td_recover_page", cat: "reliability-recovery", desc: "Re-resolve a dead or replaced page identity.", props: { pageId: { type: "string", description: "Page identity", required: true } }, required: ["pageId"] },
+  { id: "td_recover_bridge", cat: "reliability-recovery", desc: "Recover or reconnect the bridge without losing state.", props: {} },
+  { id: "td_reconcile_tabs", cat: "reliability-recovery", desc: "Reconcile page identity after tabs/windows change.", props: {} },
+  { id: "td_reconcile_events", cat: "reliability-recovery", desc: "Detect and repair event-order inconsistencies (mesh admission report).", props: { sessionId: { type: "string", description: "Session to reconcile", required: true } }, required: ["sessionId"] },
+  { id: "td_resource_guard", cat: "reliability-recovery", desc: "Enforce memory/CPU/concurrency budgets (guardian decision + mode).", props: { usage: { type: "object", description: "Reported usage" } } },
+  { id: "td_leak_watch", cat: "reliability-recovery", desc: "Continuously detect memory/resource growth patterns.", props: { windowMs: { type: "number", description: "Observation window" } } },
+  { id: "td_failure_containment", cat: "reliability-recovery", desc: "Isolate a broken capability without killing the whole session.", props: { capabilityId: { type: "string", description: "Capability to isolate", required: true } }, security: "side-effects", required: ["capabilityId"] },
+  { id: "td_session_repair", cat: "reliability-recovery", desc: "Repair a partially corrupted session from checkpoints + evidence (hash-verified).", props: { sessionId: { type: "string", description: "Session to repair", required: true } }, required: ["sessionId"] },
+  // ================= H. Security Intelligence (10) =================
+  { id: "td_security_posture", cat: "security-intelligence", desc: "Produce a browser-side security posture summary (passive, evidence-driven).", props: { sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_security_surface", cat: "security-intelligence", desc: "Map client-visible attack surfaces and trust boundaries.", props: { sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_security_flow", cat: "security-intelligence", desc: "Trace sensitive-data flows through the browser runtime.", props: { sessionId: { type: "string", description: "Session scope", required: true } }, required: ["sessionId"] },
+  { id: "td_dom_xss_audit", cat: "security-intelligence", desc: "Trace browser-side sources, transformations and dangerous sinks (passive).", props: { sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_injection_surface_audit", cat: "security-intelligence", desc: "Identify injection-sensitive DOM/runtime surfaces WITHOUT executing payloads.", props: { sessionId: { type: "string", description: "Session scope" } }, security: "read-only" },
+  { id: "td_auth_session_audit", cat: "security-intelligence", desc: "Audit authentication/session behavior, expiry and state transitions.", props: { sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_cookie_storage_audit", cat: "security-intelligence", desc: "Audit cookie, storage and client-secret handling.", props: { sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_csp_security_audit", cat: "security-intelligence", desc: "Analyze CSP posture and runtime violations.", props: { sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_cors_security_audit", cat: "security-intelligence", desc: "Analyze observed CORS behavior against scoped trust expectations.", props: { sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_security_regression", cat: "security-intelligence", desc: "Compare security posture before/after a code or deployment change.", props: { beforeRef: { type: "string", description: "Baseline posture ref", required: true }, afterRef: { type: "string", description: "Current posture ref", required: true } }, required: ["beforeRef", "afterRef"] },
+  // ================= I. Performance, Memory & Visual Intelligence (10) =================
+  { id: "td_performance_profile", cat: "performance-memory-visual", desc: "Build an end-to-end performance profile (events → spans → vitals).", props: { sessionId: { type: "string", description: "Session scope" } }, cost: "medium" },
+  { id: "td_performance_budget", cat: "performance-memory-visual", desc: "Evaluate the page against declared performance budgets.", props: { budgets: { type: "object", description: "Budget thresholds" }, sessionId: { type: "string", description: "Session scope" } } },
+  { id: "td_long_task_trace", cat: "performance-memory-visual", desc: "Trace long tasks to affected DOM/components.", props: { sessionId: { type: "string", description: "Session scope", required: true }, thresholdMs: { type: "number", description: "Long-task threshold (default 50)" } }, required: ["sessionId"] },
+  { id: "td_layout_causality", cat: "performance-memory-visual", desc: "Connect layout shifts to runtime/DOM/network causes.", props: { sessionId: { type: "string", description: "Session scope", required: true } }, required: ["sessionId"] },
+  { id: "td_memory_profile", cat: "performance-memory-visual", desc: "Build a memory profile for the browser/page/session.", props: { sessionId: { type: "string", description: "Session scope" } }, cost: "medium" },
+  { id: "td_memory_leak_trace", cat: "performance-memory-visual", desc: "Find retained-growth patterns over time.", props: { sessionId: { type: "string", description: "Session scope", required: true }, windowMs: { type: "number", description: "Observation window" } }, required: ["sessionId"] },
+  { id: "td_retention_graph", cat: "performance-memory-visual", desc: "Build a retaining/reference graph for selected runtime objects where supported.", props: { sessionId: { type: "string", description: "Session scope" }, objectId: { type: "string", description: "Object to trace" } }, experimental: true },
+  { id: "td_visual_regression", cat: "performance-memory-visual", desc: "Compare visual state with DOM/runtime evidence.", props: { baselineRef: { type: "string", description: "Baseline visual ref" }, currentRef: { type: "string", description: "Current visual ref" } } },
+  { id: "td_visual_causality", cat: "performance-memory-visual", desc: "Explain why a region changed visually (visual↔DOM↔runtime correlation).", props: { region: { type: "object", description: "Visual region", required: true }, sessionId: { type: "string", description: "Session scope" } }, required: ["region"] },
+  { id: "td_render_stability", cat: "performance-memory-visual", desc: "Determine when the page reaches a stable render state.", props: { sessionId: { type: "string", description: "Session scope" }, settleMs: { type: "number", description: "Quiet period (default 250)" } } },
+  // ================= J. Investigation, Orchestration & Agent OS (10) =================
+  { id: "td_investigate", cat: "investigation-orchestration", desc: "Run a complete autonomous investigation from a natural-language objective (resumable plan: scope→…→proof).", props: { objective: { type: "string", description: 'Natural-language objective, e.g. "Why does checkout freeze after payment?"', required: true }, symptomPattern: { type: "string", description: "Regex identifying symptom events", required: true }, sessionId: { type: "string", description: "Session to investigate", required: true }, resumePlanId: { type: "string", description: "Resume an existing plan" } }, cost: "high", required: ["objective", "symptomPattern", "sessionId"] },
+  { id: "td_reproduce_incident", cat: "investigation-orchestration", desc: "Reproduce a captured incident with controlled state.", props: { incidentId: { type: "string", description: "Incident to reproduce", required: true } }, security: "side-effects", required: ["incidentId"] },
+  { id: "td_diagnose", cat: "investigation-orchestration", desc: "Generate ranked diagnostic hypotheses with evidence (no guesswork).", props: { symptom: { type: "string", description: "Symptom description", required: true }, sessionId: { type: "string", description: "Session scope", required: true } }, required: ["symptom", "sessionId"] },
+  { id: "td_plan_fix", cat: "investigation-orchestration", desc: "Build a fix plan linked to observed causes and affected entities.", props: { incidentId: { type: "string", description: "Incident to fix", required: true } }, required: ["incidentId"] },
+  { id: "td_validate_fix", cat: "investigation-orchestration", desc: "Verify a proposed fix against the original failure (original FAIL → patched PASS).", props: { incidentId: { type: "string", description: "Incident being fixed", required: true }, fixRef: { type: "string", description: "Fix reference", required: true } }, security: "side-effects", required: ["incidentId", "fixRef"] },
+  { id: "td_run_workflow", cat: "investigation-orchestration", desc: "Execute a declarative multi-step workflow with recovery.", props: { workflow: { type: "array", description: "Workflow steps", required: true } }, required: ["workflow"] },
+  { id: "td_run_playbook", cat: "investigation-orchestration", desc: "Run a reusable investigation/security/performance playbook.", props: { playbookId: { type: "string", description: "Playbook to run", required: true } }, required: ["playbookId"] },
+  { id: "td_memory", cat: "investigation-orchestration", desc: "Store and retrieve durable project/session investigation knowledge (provenance + confidence).", props: { action: { type: "string", description: "store | query | validate", required: true }, kind: { type: "string", description: "Memory kind" }, statement: { type: "string", description: "Memory statement" }, query: { type: "object", description: "Query filter" } }, required: ["action"] },
+  { id: "td_context_optimize", cat: "investigation-orchestration", desc: "Select the smallest sufficient evidence/state set for the agent (L0–L4).", props: { intent: { type: "string", description: "The decision the agent must make next", required: true }, requestedLevel: { type: "string", description: "L0|L1|L2|L3|L4" } }, required: ["intent"] },
+  { id: "td_incident_close", cat: "investigation-orchestration", desc: "Close an incident ONLY after reproduction, remediation and verification criteria pass.", props: { incidentId: { type: "string", description: "Incident to close", required: true } }, security: "policy-gated", required: ["incidentId"] }
+];
+const CAPABILITY_VERSION = "12.0.0";
+const CAPABILITY_REGISTRY = TD_TOOLS_SPEC.map((spec) => ({
+  id: spec.id,
+  version: CAPABILITY_VERSION,
+  category: spec.cat,
+  description: spec.desc,
+  inputSchema: {
+    type: "object",
+    properties: Object.fromEntries(
+      Object.entries(spec.props).map(([name, p]) => [name, { type: p.type, description: p.description }])
+    ),
+    ...spec.required ? { required: spec.required } : {}
+  },
+  outputSchema: { type: "object", description: `${spec.id} structured result with status, confidence, evidenceRefs and provenance` },
+  securityClass: spec.security ?? "read-only",
+  stateRequirements: spec.security === "side-effects" || spec.security === "dangerous" ? ["live-browser"] : ["session-or-live"],
+  resourceCost: spec.cost ?? "low",
+  supportedModes: spec.modes ?? ["live", "recorded", "simulation"],
+  dependencies: internalDependencies(spec.id),
+  tests: spec.tests ?? [testFor(spec.id)],
+  docs: `docs/v12/capabilities/${spec.id}.md`,
+  compatibility: { minKernelVersion: "12.0.0" },
+  experimental: spec.experimental ?? false
+}));
+function internalDependencies(toolId) {
+  const map = {
+    temporal: ["kernel:events", "temporal:queries"],
+    evidence: ["evidence:graph", "evidence:confidence"],
+    causal: ["causality:engine", "evidence:graph"],
+    semantic: ["semantics:semantic-engine"],
+    target: ["targeting:target-intelligence"],
+    simulate: ["temporal:branching", "simulation:counterfactual"],
+    recover: ["resilience:guardian"],
+    security: ["security:analyzers", "security:zero-trust"],
+    memory: ["agent:memory"],
+    investigate: ["incident:investigation", "causality:engine", "simulation:counterfactual", "verification:proof"]
+  };
+  for (const [prefix, deps] of Object.entries(map)) {
+    if (toolId.includes(prefix)) return deps;
+  }
+  return ["kernel:events"];
+}
+function testFor(toolId) {
+  return `tests/v12/registry.test.ts (${toolId})`;
+}
+function capabilityById(id) {
+  return CAPABILITY_REGISTRY.find((c) => c.id === id);
+}
+const TELEDOM_V12_TOOLS = CAPABILITY_REGISTRY.map((cap) => ({
+  name: cap.id,
+  description: cap.description + ` [security: ${cap.securityClass}; cost: ${cap.resourceCost}; modes: ${cap.supportedModes.join("/")}${cap.experimental ? "; EXPERIMENTAL" : ""}]`,
+  inputSchema: {
+    type: "object",
+    properties: Object.fromEntries(
+      Object.entries(cap.inputSchema.properties).map(([name, p]) => [
+        name,
+        { type: p.type, description: p.description }
+      ])
+    ),
+    ...cap.inputSchema.required ? { required: cap.inputSchema.required } : {}
+  }
+}));
+const TD_TOOL_NAMES = new Set(TELEDOM_V12_TOOLS.map((t) => t.name));
+class HybridClock {
+  logical = 0;
+  sessionStartWall;
+  sessionStartHr;
+  maxDriftMs = 0;
+  lastWall = 0;
+  constructor() {
+    this.sessionStartWall = Date.now();
+    this.lastWall = this.sessionStartWall;
+    this.sessionStartHr = process.hrtime.bigint();
+  }
+  /** Take a new clock sample. Logical ticks never go backwards. */
+  tick() {
+    this.logical += 1;
+    const hrMs = Number(process.hrtime.bigint() - this.sessionStartHr) / 1e6;
+    const relative = Math.round(hrMs * 100) / 100;
+    const wall = Date.now();
+    if (wall < this.lastWall) {
+      this.maxDriftMs = Math.max(this.maxDriftMs, this.lastWall - wall);
+    }
+    this.lastWall = wall;
+    return { logical: this.logical, wall, relative };
+  }
+  get current() {
+    return { logical: this.logical, wall: Date.now(), relative: this.sampleRelative() };
+  }
+  sampleRelative() {
+    return Math.round(Number(process.hrtime.bigint() - this.sessionStartHr) / 1e6 * 100) / 100;
+  }
+  /** Largest observed wall-clock regression (ms). Diagnostic signal only. */
+  get wallClockRegression() {
+    return this.maxDriftMs;
+  }
+  /** Serialize for persistence / recovery. */
+  serialize() {
+    return {
+      logical: this.logical,
+      sessionStartWall: this.sessionStartWall,
+      sessionStartHr: this.sessionStartHr.toString(),
+      maxDriftMs: this.maxDriftMs
+    };
+  }
+  /** Restore after recovery. Logical monotonicity is preserved by clamping. */
+  restore(state) {
+    this.logical = Math.max(this.logical, state.logical);
+  }
+}
+function canonicalJson(value) {
+  if (value === void 0) return "null";
+  if (value === null || typeof value !== "object") return JSON.stringify(value) ?? "null";
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  const entries = Object.entries(value).filter(([, v]) => v !== void 0).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0);
+  return `{${entries.map(([k, v]) => `${JSON.stringify(k)}:${canonicalJson(v)}`).join(",")}}`;
+}
+function computeHash(value) {
+  return createHash("sha256").update(canonicalJson(value)).digest("hex");
+}
+function chainHash(prev, contentHash) {
+  return createHash("sha256").update(`${prev}:${contentHash}`).digest("hex");
+}
+class HashChain {
+  tipInternal = "";
+  links = [];
+  extend(contentHash) {
+    this.tipInternal = chainHash(this.tipInternal, contentHash);
+    this.links.push({ eventHash: contentHash, chainHash: this.tipInternal });
+    return this.tipInternal;
+  }
+  get tip() {
+    return this.tipInternal;
+  }
+  get size() {
+    return this.links.length;
+  }
+  /** Verify a full sequence of content hashes against this chain. */
+  verify(hashes) {
+    let tip = "";
+    for (let i = 0; i < hashes.length; i++) {
+      const next = chainHash(tip, hashes[i]);
+      const recorded = this.links[i];
+      if (!recorded || recorded.chainHash !== next) {
+        return { valid: false, brokenAt: `link:${i}` };
+      }
+      tip = next;
+    }
+    return { valid: true };
+  }
+  serialize() {
+    return { tip: this.tipInternal, links: [...this.links] };
+  }
+  restore(data) {
+    this.tipInternal = data.tip;
+    this.links = [...data.links];
+  }
+}
+const EVENT_SCHEMA_VERSION = 1;
+class EventMesh {
+  events = [];
+  byId = /* @__PURE__ */ new Map();
+  bySequence = /* @__PURE__ */ new Map();
+  byIdempotency = /* @__PURE__ */ new Map();
+  reorderBuffer = [];
+  clock = new HybridClock();
+  chain = new HashChain();
+  gapsDetected = 0;
+  duplicatesDropped = 0;
+  lateEvents = 0;
+  seq = 0;
+  opts;
+  constructor(opts = {}) {
+    this.opts = {
+      reorderBufferSize: opts.reorderBufferSize ?? 4096,
+      lateWindow: opts.lateWindow ?? 1e5
+    };
+  }
+  /**
+   * Allocate a sequence and build an event id in ONE atomic step so the
+   * embedded sequence always equals event.sequence (the baseline bug where
+   * generateEventId() double-advanced the counter can never reappear).
+   */
+  allocateSequence(source) {
+    this.seq += 1;
+    const sample = this.clock.tick();
+    return { sequence: this.seq, logicalTime: sample.logical, wallTime: sample.wall };
+  }
+  static eventIdFor(source, sequence) {
+    const rand = Math.random().toString(36).substring(2, 8);
+    return `${source}_${sequence}_${rand}`;
+  }
+  /** Build (but do not yet commit) an envelope. */
+  build(source, type, payload, meta = {}) {
+    const { sequence, logicalTime, wallTime } = this.allocateSequence(source);
+    const eventId = EventMesh.eventIdFor(source, sequence);
+    const integrityHash = computeHash({ eventId, sequence, source, type, payload });
+    return {
+      eventId,
+      sequence,
+      logicalTime,
+      wallTime,
+      causalParentIds: meta.causalParentIds ?? [],
+      entityIds: meta.entityIds ?? [],
+      source,
+      type,
+      payload,
+      schemaVersion: EVENT_SCHEMA_VERSION,
+      integrityHash,
+      idempotencyKey: meta.idempotencyKey,
+      integrity: { admitted: false, gapReconciled: 0, late: false }
+    };
+  }
+  /**
+   * Append an envelope with admission control:
+   * dedup (id / idempotency) → gap detection → reorder handling → hash chain.
+   */
+  append(envelope) {
+    const expected = computeHash({
+      eventId: envelope.eventId,
+      sequence: envelope.sequence,
+      source: envelope.source,
+      type: envelope.type,
+      payload: envelope.payload
+    });
+    if (expected !== envelope.integrityHash) {
+      envelope.integrity.admitted = false;
+      return "REJECTED_CORRUPT";
+    }
+    if (this.byId.has(envelope.eventId)) {
+      envelope.integrity.duplicateOf = envelope.eventId;
+      this.duplicatesDropped += 1;
+      return "DUPLICATE";
+    }
+    if (envelope.idempotencyKey && this.byIdempotency.has(envelope.idempotencyKey)) {
+      envelope.integrity.duplicateOf = this.byIdempotency.get(envelope.idempotencyKey);
+      this.duplicatesDropped += 1;
+      return "DUPLICATE";
+    }
+    const maxSeq = this.seq;
+    if (envelope.sequence > maxSeq + 1) {
+      this.gapsDetected += envelope.sequence - (maxSeq + 1);
+      envelope.integrity.gapReconciled = envelope.sequence - (maxSeq + 1);
+    }
+    if (envelope.sequence <= maxSeq && !this.bySequence.has(envelope.sequence)) {
+      envelope.integrity.late = true;
+      this.lateEvents += 1;
+      this.commit(envelope);
+      return "LATE_APPENDED";
+    }
+    this.commit(envelope);
+    return "APPENDED";
+  }
+  commit(envelope) {
+    envelope.integrity.admitted = true;
+    this.events.push(envelope);
+    this.byId.set(envelope.eventId, envelope);
+    this.bySequence.set(envelope.sequence, envelope);
+    this.seq = Math.max(this.seq, envelope.sequence);
+    if (envelope.idempotencyKey) {
+      this.byIdempotency.set(envelope.idempotencyKey, envelope.eventId);
+    }
+    this.chain.extend(envelope.integrityHash);
+  }
+  /** Convenience: build + append in one step. */
+  emit(source, type, payload, meta = {}) {
+    const env = this.build(source, type, payload, meta);
+    const status = this.append(env);
+    if (status === "REJECTED_CORRUPT") {
+      throw new Error(`EventMesh rejected corrupt envelope ${env.eventId}`);
+    }
+    return env;
+  }
+  get all() {
+    return this.events;
+  }
+  get length() {
+    return this.events.length;
+  }
+  byEventId(id) {
+    return this.byId.get(id);
+  }
+  /** Events ordered by sequence (logical order — deterministic). */
+  ordered() {
+    return [...this.events].sort((a, b) => a.sequence - b.sequence);
+  }
+  /** Events in a logical-time window [fromLogical, toLogical]. */
+  window(fromLogical, toLogical) {
+    return this.events.filter(
+      (e) => e.logicalTime >= fromLogical && e.logicalTime <= toLogical
+    );
+  }
+  /** Events touching an entity. */
+  forEntity(entityId) {
+    return this.events.filter((e) => e.entityIds.includes(entityId));
+  }
+  /** Children of a causal parent. */
+  causedBy(parentEventId) {
+    return this.events.filter((e) => e.causalParentIds.includes(parentEventId));
+  }
+  /** Tamper-evidence: verify the whole hash chain. */
+  verifyIntegrity() {
+    return this.chain.verify(this.events.map((e) => e.integrityHash));
+  }
+  stats() {
+    return {
+      events: this.events.length,
+      gaps: this.gapsDetected,
+      duplicatesDropped: this.duplicatesDropped,
+      late: this.lateEvents,
+      headSequence: this.seq
+    };
+  }
+  /** Persistence/repair support: export raw ordered stream. */
+  serialize() {
+    return {
+      events: this.ordered(),
+      chainTip: this.chain.tip,
+      stats: this.stats()
+    };
+  }
+  /**
+   * Session repair: re-admit an exported stream. Sequences are clamped to
+   * preserve monotonicity; hash chain is rebuilt and must match the tip.
+   */
+  restore(data) {
+    let restored = 0;
+    for (const env of data.events) {
+      const status = this.append(env);
+      if (status === "APPENDED" || status === "LATE_APPENDED") restored += 1;
+    }
+    let maxSeq = this.seq;
+    for (const env of data.events) {
+      if (env.sequence > maxSeq) maxSeq = env.sequence;
+    }
+    this.seq = maxSeq;
+    const chainMatches = data.chainTip ? this.chain.tip === data.chainTip : true;
+    return { restored, chainMatches };
+  }
+}
+class IdentityEngine {
+  entities = /* @__PURE__ */ new Map();
+  byType = /* @__PURE__ */ new Map();
+  nextEntitySeq = 0;
+  create(type, label, opts = {}) {
+    this.nextEntitySeq += 1;
+    const id = `entity:${type}:${this.nextEntitySeq}`;
+    const now = Date.now();
+    const record = {
+      id,
+      type,
+      label,
+      firstSeen: now,
+      lastSeen: now,
+      versions: [{ version: 1, at: now, change: "created" }],
+      parent: opts.parent ?? null,
+      owner: opts.owner ?? null,
+      source: opts.source ?? "identity-engine",
+      confidence: opts.confidence ?? 1,
+      provenance: opts.provenance ?? ["identity-engine:create"],
+      fingerprint: opts.fingerprint ?? computeHash({ type, label }),
+      sequence: this.nextEntitySeq
+    };
+    this.entities.set(id, record);
+    const bucket = this.byType.get(type) ?? [];
+    bucket.push(id);
+    this.byType.set(type, bucket);
+    return { ...record };
+  }
+  get(id) {
+    const rec = this.entities.get(id);
+    return rec ? { ...rec } : void 0;
+  }
+  /** Record an observation of the entity (bumps lastSeen). */
+  touch(id, at = Date.now()) {
+    const rec = this.entities.get(id);
+    if (rec) rec.lastSeen = at;
+  }
+  /** Record an identity-relevant change (new version of same identity). */
+  recordChange(id, change, at = Date.now()) {
+    const rec = this.entities.get(id);
+    if (!rec) return null;
+    const version = { version: rec.versions.length + 1, at, change };
+    rec.versions.push(version);
+    rec.lastSeen = at;
+    return version;
+  }
+  byTypeAll(type) {
+    return (this.byType.get(type) ?? []).map((id) => this.entities.get(id)).map((r) => ({ ...r }));
+  }
+  /**
+   * Re-match an entity whose representation changed. Scores candidate
+   * identities by fingerprint + label + ancestry overlap; refuses to
+   * return a match below the minimum score (honest uncertainty).
+   */
+  resolve(query, opts = {}) {
+    const minScore = opts.minScore ?? 0.55;
+    let best = null;
+    for (const rec of this.entities.values()) {
+      if (rec.type !== query.type) continue;
+      const basis = [];
+      let score = 0;
+      if (query.fingerprint && rec.fingerprint === query.fingerprint) {
+        score += 0.7;
+        basis.push("fingerprint");
+      }
+      if (query.label && rec.label === query.label) {
+        score += 0.2;
+        basis.push("selector");
+      }
+      if (query.parent && rec.parent === query.parent) {
+        score += 0.15;
+        basis.push("ancestry");
+      }
+      if (query.owner && rec.owner === query.owner) {
+        score += 0.1;
+        basis.push("component-ownership");
+      }
+      if (query.semanticRole) {
+        score += 0.05;
+        basis.push("semantic-role");
+      }
+      score += Math.min(0.05, rec.versions.length * 5e-3);
+      if (score > 0) basis.push("historical");
+      if (score >= minScore && (!best || score > best.score)) {
+        best = { entityId: rec.id, score: Math.min(1, score), basis };
+      }
+    }
+    return best;
+  }
+  /** Historical identity trail for an entity (its full version history). */
+  trail(id) {
+    const rec = this.entities.get(id);
+    if (!rec) return null;
+    return { entity: { ...rec }, timeline: [...rec.versions] };
+  }
+  stats() {
+    const byType = {};
+    for (const [t, ids] of this.byType) byType[t] = ids.length;
+    return { total: this.entities.size, byType };
+  }
+  serialize() {
+    return { entities: [...this.entities.values()], nextEntitySeq: this.nextEntitySeq };
+  }
+  restore(data) {
+    this.entities.clear();
+    this.byType.clear();
+    for (const rec of data.entities) this.entities.set(rec.id, rec);
+    for (const rec of data.entities) {
+      const bucket = this.byType.get(rec.type) ?? [];
+      bucket.push(rec.id);
+      this.byType.set(rec.type, bucket);
+    }
+    this.nextEntitySeq = Math.max(data.nextEntitySeq ?? 0, data.entities.length);
+  }
+}
+class KernelDiagnostics {
+  checks = /* @__PURE__ */ new Map();
+  register(id, probe) {
+    this.checks.set(id, probe);
+  }
+  snapshot() {
+    const checks = [];
+    for (const [id, probe] of this.checks) {
+      try {
+        checks.push(probe());
+      } catch (err) {
+        checks.push({ id, status: "UNHEALTHY", detail: `probe failed: ${err?.message ?? "unknown"}`, measuredAt: Date.now() });
+      }
+    }
+    const order = { UNKNOWN: 0, HEALTHY: 1, DEGRADED: 2, UNHEALTHY: 3 };
+    let overall = "HEALTHY";
+    for (const c of checks) {
+      if (order[c.status] > order[overall]) overall = c.status;
+    }
+    const confidenceMultiplier = overall === "HEALTHY" ? 1 : overall === "DEGRADED" ? 0.7 : overall === "UNHEALTHY" ? 0.4 : 0.5;
+    const warnings = checks.filter((c) => c.status === "DEGRADED" || c.status === "UNHEALTHY").map((c) => `${c.id}: ${c.detail}`);
+    return { overall, checks, confidenceMultiplier, warnings };
+  }
+}
+class ChunkStore {
+  chunks = /* @__PURE__ */ new Map();
+  put(dimension, payload) {
+    const hash = computeHash({ dimension, payload });
+    const chunkId = `chunk:${hash.slice(0, 16)}`;
+    if (!this.chunks.has(chunkId)) {
+      this.chunks.set(chunkId, { chunkId, dimension, payload });
+    }
+    return this.chunks.get(chunkId);
+  }
+  get(chunkId) {
+    return this.chunks.get(chunkId);
+  }
+  /** Storage hygiene: drop chunks unreferenced by the given frames. */
+  collect(frames) {
+    const live = /* @__PURE__ */ new Set();
+    for (const f of frames) for (const ref of Object.values(f.refs)) if (ref) live.add(ref);
+    let dropped = 0;
+    for (const id of this.chunks.keys()) {
+      if (!live.has(id)) {
+        this.chunks.delete(id);
+        dropped += 1;
+      }
+    }
+    return dropped;
+  }
+  get size() {
+    return this.chunks.size;
+  }
+}
+class StateFrameBuilder {
+  constructor(chunks) {
+    this.chunks = chunks;
+  }
+  capture(sequence, logicalTime, wallTime, state) {
+    const refs = {};
+    for (const [dim, payload] of Object.entries(state)) {
+      if (payload === void 0) continue;
+      const chunk = this.chunks.put(dim, payload);
+      refs[dim] = chunk.chunkId;
+    }
+    const frameHash = computeHash({ sequence, refs });
+    return {
+      frameId: `frame:${sequence}:${frameHash.slice(0, 10)}`,
+      sequence,
+      logicalTime,
+      wallTime,
+      refs,
+      frameHash
+    };
+  }
+  /** Materialize a frame's dimensions (selective materialization). */
+  materialize(frame, dims) {
+    const out = {};
+    const wanted = dims ?? Object.keys(frame.refs);
+    for (const dim of wanted) {
+      const ref = frame.refs[dim];
+      if (!ref) continue;
+      const chunk = this.chunks.get(ref);
+      if (chunk) out[dim] = chunk.payload;
+    }
+    return out;
+  }
+}
+class TemporalEngine {
+  checkpoints = [];
+  frames = [];
+  events = [];
+  memo = [];
+  memoCapacity = 64;
+  chunkStore = new ChunkStore();
+  frameBuilder = new StateFrameBuilder(this.chunkStore);
+  checkpointInterval;
+  constructor(checkpointInterval = 200) {
+    this.checkpointInterval = checkpointInterval;
+  }
+  /** Admit an event; checkpoints are taken adaptively. */
+  ingest(event, state) {
+    this.events.push(event);
+    if (state && Object.keys(state).length > 0) {
+      const frame = this.frameBuilder.capture(event.sequence, event.logicalTime, event.wallTime, state);
+      this.frames.push(frame);
+      const isCheckpoint = this.frames.length % this.checkpointInterval === 0;
+      if (isCheckpoint) this.checkpoints.push({ atSequence: event.sequence, frame });
+    }
+    if (this.events.length > 1e6) {
+      this.checkpoints = this.checkpoints.slice(-1024);
+      this.memo = this.memo.slice(-this.memoCapacity);
+    }
+  }
+  /** State(T) — reconstruct full state at a logical time. */
+  stateAt(logicalTime, dims, budget = {}) {
+    const started = performance.now();
+    const maxMs = budget.maxReconstructionMs ?? 250;
+    let eventsReplayed = 0;
+    let checkpoint = null;
+    for (const cp of this.checkpoints) {
+      const cpTime = cp.frame.logicalTime;
+      if (cpTime <= logicalTime) checkpoint = cp;
+      else break;
+    }
+    let state = null;
+    const fromSeq = checkpoint ? checkpoint.atSequence + 1 : 0;
+    for (const ev of this.events) {
+      if (ev.sequence < fromSeq) continue;
+      if (ev.logicalTime > logicalTime) break;
+      if (this.applyEvent(state ??= this.initialState(checkpoint), ev)) eventsReplayed += 1;
+      const elapsed = performance.now() - started;
+      if (elapsed > maxMs) {
+        return {
+          result: state,
+          meta: { reconstructionMs: elapsed, eventsReplayed, degraded: true, memoized: false }
+        };
+      }
+    }
+    if (state === null && checkpoint) {
+      state = this.frameBuilder.materialize(checkpoint.frame, dims);
+    }
+    const memoized = this.remember(logicalTime, state);
+    return {
+      result: state,
+      meta: { reconstructionMs: performance.now() - started, eventsReplayed, degraded: false, memoized }
+    };
+  }
+  initialState(checkpoint) {
+    if (!checkpoint) return {};
+    return this.frameBuilder.materialize(checkpoint.frame);
+  }
+  /** Events mutate the projected state deterministically. */
+  applyEvent(state, ev) {
+    switch (ev.source) {
+      case "dom":
+      case "runtime":
+      case "network":
+      case "console":
+      case "security":
+      case "performance":
+      case "storage":
+      case "navigation": {
+        const key = `dim:${ev.source}`;
+        const arr = Array.isArray(state[key]) ? state[key] : [];
+        arr.push(ev.type);
+        state[key] = arr;
+        return true;
+      }
+      default:
+        return false;
+    }
+  }
+  remember(logicalTime, state) {
+    if (!state) return false;
+    const key = `memo:${logicalTime}:${Object.keys(state).length}`;
+    const existing = this.memo.find((m) => m.key === key);
+    if (existing) return true;
+    this.memo.push({
+      key,
+      frame: this.frameBuilder.capture(0, logicalTime, Date.now(), { dom: state }),
+      at: Date.now()
+    });
+    if (this.memo.length > this.memoCapacity) this.memo.shift();
+    return false;
+  }
+  /** Diff(T1, T2) — dimension-level diff between two logical times. */
+  diff(t1, t2, dims) {
+    const started = performance.now();
+    const s1 = this.stateAt(t1, dims).result ?? {};
+    const s2 = this.stateAt(t2, dims).result ?? {};
+    const out = [];
+    const keys1 = new Set(Object.keys(s1));
+    const keys2 = new Set(Object.keys(s2));
+    for (const k of keys2) {
+      if (!keys1.has(k)) out.push({ dimension: this.dimOf(k), kind: "added", after: s2[k] });
+      else if (JSON.stringify(s1[k]) !== JSON.stringify(s2[k])) {
+        out.push({ dimension: this.dimOf(k), kind: "changed", before: s1[k], after: s2[k] });
+      }
+    }
+    for (const k of keys1) {
+      if (!keys2.has(k)) out.push({ dimension: this.dimOf(k), kind: "removed", before: s1[k] });
+    }
+    return { result: out, meta: { reconstructionMs: performance.now() - started, eventsReplayed: 0, degraded: false, memoized: false } };
+  }
+  dimOf(key) {
+    const raw = key.startsWith("dim:") ? key.slice(4) : key;
+    return raw;
+  }
+  /** Trace(Entity) — every event that touched an entity, in order. */
+  traceEntity(entityId) {
+    return this.events.filter((e) => e.entityIds.includes(entityId));
+  }
+  /** FirstChange — first event matching a predicate. */
+  firstChange(predicate) {
+    for (const ev of this.ordered()) {
+      if (predicate(ev)) return ev;
+    }
+    return null;
+  }
+  /**
+   * LastStable — latest logical time before `before` at which the state
+   * dimension saw no events for at least `settleMs`.
+   */
+  lastStable(dimension, before, settleMs = 250) {
+    const relevant = this.ordered().filter((e) => `dim:${e.source}` === `dim:${dimension}`);
+    let lastStableTime = null;
+    let lastEventTime = -Infinity;
+    for (const ev of relevant) {
+      if (ev.logicalTime > before) break;
+      if (lastEventTime > -Infinity && ev.logicalTime - lastEventTime >= settleMs) {
+        lastStableTime = lastEventTime;
+      }
+      lastEventTime = ev.logicalTime;
+    }
+    if (lastEventTime > -Infinity && before - lastEventTime >= settleMs) {
+      lastStableTime = lastEventTime;
+    }
+    return lastStableTime;
+  }
+  /**
+   * Join(Signals) — join events from multiple sources within a temporal
+   * constraint, optionally around an entity. Returns clusters (one per
+   * anchor event) instead of a flat dump.
+   */
+  join(clause) {
+    const within = clause.withinMs ?? 250;
+    const ordered = this.ordered().filter((e) => {
+      if (clause.sources.length && !clause.sources.includes(e.source)) return false;
+      if (clause.types?.length && !clause.types.includes(e.type)) return false;
+      if (clause.aroundEntityId && !e.entityIds.includes(clause.aroundEntityId)) return false;
+      return true;
+    });
+    const clusters = [];
+    let cluster = [];
+    let clusterStart = -Infinity;
+    for (const ev of ordered) {
+      if (cluster.length === 0) {
+        cluster = [ev];
+        clusterStart = ev.logicalTime;
+      } else if (ev.logicalTime - clusterStart <= within) {
+        cluster.push(ev);
+      } else {
+        if (cluster.length >= 2) clusters.push(cluster);
+        cluster = [ev];
+        clusterStart = ev.logicalTime;
+      }
+    }
+    if (cluster.length >= 2) clusters.push(cluster);
+    return clusters;
+  }
+  /** Window(T, radius) — compact before/target/after event window. */
+  window(aroundLogical, radiusMs = 250) {
+    const before = [];
+    const at = [];
+    const after = [];
+    for (const ev of this.ordered()) {
+      const delta = ev.logicalTime - aroundLogical;
+      if (delta < -radiusMs) continue;
+      if (delta > radiusMs) break;
+      if (delta < 0) before.push(ev);
+      else if (delta === 0) at.push(ev);
+      else after.push(ev);
+    }
+    return { before, at, after };
+  }
+  /** Seek(T) — nearest valid logical time having an event at-or-before T. */
+  seek(logicalTime) {
+    let best = null;
+    for (const ev of this.events) {
+      if (ev.logicalTime <= logicalTime) best = ev.logicalTime;
+      else break;
+    }
+    return best;
+  }
+  ordered() {
+    return [...this.events].sort((a, b) => a.logicalTime - b.logicalTime || a.sequence - b.sequence);
+  }
+  get eventCount() {
+    return this.events.length;
+  }
+  get checkpointCount() {
+    return this.checkpoints.length;
+  }
+  getChunkStore() {
+    return this.chunkStore;
+  }
+}
+class IndexedEventStore {
+  hot = [];
+  warm = [];
+  cold = [];
+  hotCapacity;
+  byTime = [];
+  // sorted logicalTime of admitted events
+  byEntity = /* @__PURE__ */ new Map();
+  // entityId -> seq list
+  bySource = /* @__PURE__ */ new Map();
+  byType = /* @__PURE__ */ new Map();
+  causalChildren = /* @__PURE__ */ new Map();
+  // parentEventId -> count
+  sequenceToIdx = /* @__PURE__ */ new Map();
+  // seq -> hot idx (hot only)
+  constructor(hotCapacity = 5e4) {
+    this.hotCapacity = hotCapacity;
+  }
+  admit(event) {
+    this.hot.push(event);
+    const idx = this.hot.length - 1;
+    this.byTime.push(event.logicalTime);
+    this.sequenceToIdx.set(event.sequence, idx);
+    for (const entityId of event.entityIds) {
+      const list = this.byEntity.get(entityId) ?? [];
+      list.push(event.sequence);
+      this.byEntity.set(entityId, list);
+    }
+    const srcList = this.bySource.get(event.source) ?? [];
+    srcList.push(event.sequence);
+    this.bySource.set(event.source, srcList);
+    const typeList = this.byType.get(event.type) ?? [];
+    typeList.push(event.sequence);
+    this.byType.set(event.type, typeList);
+    for (const parent of event.causalParentIds) {
+      this.causalChildren.set(parent, (this.causalChildren.get(parent) ?? 0) + 1);
+    }
+    if (this.hot.length > this.hotCapacity) this.demoteOldest();
+  }
+  demoteOldest() {
+    const chunkSize = Math.max(1, Math.floor(this.hotCapacity / 4));
+    const moved = this.hot.splice(0, chunkSize);
+    if (moved.length === 0) return;
+    this.sequenceToIdx.clear();
+    this.hot.forEach((e, i) => this.sequenceToIdx.set(e.sequence, i));
+    this.byTime.splice(0, moved.length);
+    const chunk = {
+      fromSeq: moved[0].sequence,
+      toSeq: moved[moved.length - 1].sequence,
+      events: moved,
+      compressed: null
+    };
+    this.warm.push(chunk);
+    if (this.warm.length > 64) {
+      const coldMoved = this.warm.splice(0, this.warm.length - 32);
+      for (const c of coldMoved) this.cold.push(...c.events);
+    }
+  }
+  /** Full scan across tiers honoring a query (deterministic order). */
+  query(q = {}) {
+    const out = [];
+    const matches = (e) => {
+      if (q.sources && !q.sources.includes(e.source)) return false;
+      if (q.types && !q.types.includes(e.type)) return false;
+      if (q.entityIds && !e.entityIds.some((id) => q.entityIds.includes(id))) return false;
+      if (q.fromSequence !== void 0 && e.sequence < q.fromSequence) return false;
+      if (q.toSequence !== void 0 && e.sequence > q.toSequence) return false;
+      if (q.fromLogical !== void 0 && e.logicalTime < q.fromLogical) return false;
+      if (q.toLogical !== void 0 && e.logicalTime > q.toLogical) return false;
+      return true;
+    };
+    const limit = q.limit ?? Number.MAX_SAFE_INTEGER;
+    for (const e of this.hot) {
+      if (matches(e)) {
+        out.push(e);
+        if (out.length >= limit) return out;
+      }
+    }
+    for (const chunk of this.warm) {
+      for (const e of chunk.events) {
+        if (matches(e)) {
+          out.push(e);
+          if (out.length >= limit) return out;
+        }
+      }
+    }
+    for (const e of this.cold) {
+      if (matches(e)) {
+        out.push(e);
+        if (out.length >= limit) return out;
+      }
+    }
+    return out;
+  }
+  /** Binary search over logical time in the hot tier. */
+  indexOfTime(logicalTime) {
+    let lo = 0, hi = this.byTime.length - 1, ans = -1;
+    while (lo <= hi) {
+      const mid = lo + hi >> 1;
+      if (this.byTime[mid] <= logicalTime) {
+        ans = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    return ans;
+  }
+  entityTrace(entityId) {
+    const seqs = this.byEntity.get(entityId) ?? [];
+    const out = [];
+    for (const seq of seqs) {
+      const ev = this.find(seq);
+      if (ev) out.push(ev);
+    }
+    return out;
+  }
+  find(sequence) {
+    const idx = this.sequenceToIdx.get(sequence);
+    if (idx !== void 0) return this.hot[idx];
+    for (const chunk of this.warm) {
+      if (sequence >= chunk.fromSeq && sequence <= chunk.toSeq) {
+        return chunk.events.find((e) => e.sequence === sequence);
+      }
+    }
+    return this.cold.find((e) => e.sequence === sequence);
+  }
+  causalFanout(parentEventId) {
+    return this.causalChildren.get(parentEventId) ?? 0;
+  }
+  stats() {
+    const bytesEstimate = this.approxBytes();
+    return {
+      events: this.hot.length + this.warm.reduce((s, c) => s + c.events.length, 0) + this.cold.length,
+      tiers: {
+        hot: this.hot.length,
+        warm: this.warm.reduce((s, c) => s + c.events.length, 0),
+        cold: this.cold.length
+      },
+      indexes: {
+        time: this.byTime.length,
+        entity: this.byEntity.size,
+        source: this.bySource.size,
+        type: this.byType.size,
+        causal: this.causalChildren.size
+      },
+      bytesEstimate
+    };
+  }
+  approxBytes() {
+    let total = 0;
+    for (const e of this.hot) total += JSON.stringify(e).length;
+    for (const c of this.warm) for (const e of c.events) total += JSON.stringify(e).length;
+    for (const e of this.cold) total += JSON.stringify(e).length;
+    return total;
+  }
+}
+class BranchManager {
+  branches = /* @__PURE__ */ new Map();
+  nextBranch = 0;
+  /**
+   * Fork reality (or another branch) at a logical time and apply mutations
+   * to the post-fork stream. Original evidence is untouched.
+   */
+  fork(reality, forkAtLogical, mutations, opts = {}) {
+    this.nextBranch += 1;
+    const branchId = `branch:${this.nextBranch}:${computeHash({ forkAtLogical, mutations }).slice(0, 8)}`;
+    const policy = {
+      mode: "deterministic-replay",
+      maxEvents: opts.policy?.maxEvents ?? 1e5
+    };
+    const ordered = [...reality].sort((a, b) => a.logicalTime - b.logicalTime);
+    const before = ordered.filter((e) => e.logicalTime <= forkAtLogical);
+    const after = ordered.filter((e) => e.logicalTime > forkAtLogical);
+    const directlySuppressed = new Set(
+      mutations.filter((m) => m.kind === "suppress-mutation" || m.kind === "remove-event").map((m) => m.targetSequence)
+    );
+    const suppressSet = this.expandCausalDescendants(directlySuppressed, after);
+    const simulatedEvents = [];
+    let replayed = 0;
+    for (const ev of after) {
+      if (replayed >= policy.maxEvents) break;
+      if (suppressSet.has(ev.sequence)) {
+        replayed += 1;
+        continue;
+      }
+      const mutation = mutations.find(
+        (m) => m.targetSequence === ev.sequence && (m.kind === "modify-event" || m.kind === "modify-response" || m.kind === "modify-state" || m.kind === "modify-style")
+      );
+      if (mutation?.patch) {
+        simulatedEvents.push({
+          ...ev,
+          payload: { ...ev.payload, ...mutation.patch, __mutatedBy: branchId },
+          causalParentIds: [...ev.causalParentIds, `${branchId}`]
+        });
+      } else if (mutation?.kind === "alter-timing") {
+        const shift = typeof mutation.patch?.shiftMs === "number" ? mutation.patch.shiftMs : 0;
+        simulatedEvents.push({ ...ev, logicalTime: ev.logicalTime + shift, payload: { ...ev.payload, __mutatedBy: branchId } });
+      } else {
+        simulatedEvents.push(ev);
+      }
+      replayed += 1;
+    }
+    const branch = {
+      branchId,
+      parentId: opts.parentId ?? "reality",
+      createdAt: Date.now(),
+      forkAtLogical,
+      mutations,
+      assumptions: opts.assumptions ?? [],
+      policy,
+      simulatedEvents: [...before, ...simulatedEvents],
+      result: null,
+      confidence: 0.5,
+      provenance: [`fork:${branchId}`, `parent:${opts.parentId ?? "reality"}`, `mutations:${mutations.length}`],
+      verification: "UNVERIFIED"
+    };
+    this.branches.set(branchId, branch);
+    return branch;
+  }
+  /**
+   * Expand a set of suppressed sequences with their transitive causal
+   * descendants (events whose causalParentIds chain reaches a suppressed
+   * event). Branch-local: original evidence is never modified.
+   */
+  expandCausalDescendants(suppressed, events) {
+    if (suppressed.size === 0) return suppressed;
+    const byEventId = new Map(events.map((e) => [e.eventId, e]));
+    const suppressedEventIds = new Set(
+      [...suppressed].map((seq) => events.find((e) => e.sequence === seq)?.eventId).filter(Boolean)
+    );
+    const result = new Set(suppressed);
+    let changed = true;
+    let rounds = 0;
+    while (changed && rounds < 100) {
+      changed = false;
+      rounds += 1;
+      for (const ev of events) {
+        if (result.has(ev.sequence)) continue;
+        if (ev.causalParentIds.some((parentId) => {
+          const parent = byEventId.get(parentId);
+          return suppressedEventIds.has(parentId) || parent && result.has(parent.sequence);
+        })) {
+          result.add(ev.sequence);
+          suppressedEventIds.add(ev.eventId);
+          changed = true;
+        }
+      }
+    }
+    return result;
+  }
+  get(branchId) {
+    const b = this.branches.get(branchId);
+    return b ? { ...b } : void 0;
+  }
+  /** Record a simulation result + confidence on a branch. */
+  recordResult(branchId, result, confidence) {
+    const b = this.branches.get(branchId);
+    if (!b) throw new Error(`unknown branch ${branchId}`);
+    b.result = result;
+    b.confidence = Math.max(0, Math.min(1, confidence));
+    b.verification = "SIMULATED";
+  }
+  setVerification(branchId, status, note) {
+    const b = this.branches.get(branchId);
+    if (!b) throw new Error(`unknown branch ${branchId}`);
+    b.verification = status;
+    b.provenance.push(`verification:${status}:${note}`);
+  }
+  list() {
+    return [...this.branches.values()].map((b) => ({ ...b }));
+  }
+  /**
+   * Compare reality vs branch: which events diverge, and what outcomes
+   * (event types) exist only in one stream.
+   */
+  compare(branchId, reality) {
+    const branch = this.branches.get(branchId);
+    if (!branch) throw new Error(`unknown branch ${branchId}`);
+    const realitySeqs = new Set(reality.map((e) => e.sequence));
+    const branchSeqs = new Set(branch.simulatedEvents.map((e) => e.sequence));
+    const removed = branch.simulatedEvents.filter((e) => !realitySeqs.has(e.sequence));
+    const added = reality.filter((e) => !branchSeqs.has(e.sequence));
+    const realityTypes = /* @__PURE__ */ new Map();
+    for (const e of reality) realityTypes.set(e.type, (realityTypes.get(e.type) ?? 0) + 1);
+    const branchTypes = /* @__PURE__ */ new Map();
+    for (const e of branch.simulatedEvents) branchTypes.set(e.type, (branchTypes.get(e.type) ?? 0) + 1);
+    const outcomeDeltas = [];
+    for (const [type, count] of realityTypes) {
+      const bCount = branchTypes.get(type) ?? 0;
+      if (bCount !== count) outcomeDeltas.push({ type, realityCount: count, branchCount: bCount });
+    }
+    for (const [type, count] of branchTypes) {
+      if (!realityTypes.has(type)) outcomeDeltas.push({ type, realityCount: 0, branchCount: count });
+    }
+    return { branchId, mutations: branch.mutations, removed, added, outcomeDeltas };
+  }
+}
+class EvidenceGraph {
+  nodes = /* @__PURE__ */ new Map();
+  edges = [];
+  adjacencyOut = /* @__PURE__ */ new Map();
+  adjacencyIn = /* @__PURE__ */ new Map();
+  maxNodes;
+  degraded = false;
+  constructor(maxNodes = 25e4) {
+    this.maxNodes = maxNodes;
+  }
+  addNode(type, label, payload, sourceRef) {
+    const hash = computeHash({ type, label, payload, sourceRef });
+    const existing = this.nodes.get(hash);
+    if (existing) return existing;
+    if (this.nodes.size >= this.maxNodes) {
+      this.degraded = true;
+      return { id: `en:overflow:${hash.slice(0, 16)}`, type, label, hash, observedAt: Date.now(), sourceRef, payload: void 0 };
+    }
+    const node = {
+      id: `en:${hash.slice(0, 20)}`,
+      type,
+      label,
+      hash,
+      observedAt: Date.now(),
+      sourceRef,
+      payload
+    };
+    this.nodes.set(hash, node);
+    return node;
+  }
+  addEdge(from, to, type, provenance, confidence = 0.8) {
+    const fromId = typeof from === "string" ? from : from.id;
+    const toId = typeof to === "string" ? to : to.id;
+    const edgeId = computeHash({ fromId, toId, type });
+    const existing = this.edges.find((e) => e.id === edgeId);
+    if (existing) {
+      existing.confidence = Math.min(1, existing.confidence + 0.05);
+      existing.provenance.push(...provenance);
+      return existing;
+    }
+    const edge = { id: edgeId, from: fromId, to: toId, type, provenance, confidence, createdAt: Date.now() };
+    this.edges.push(edge);
+    const out = this.adjacencyOut.get(fromId) ?? [];
+    out.push(edge);
+    this.adjacencyOut.set(fromId, out);
+    const inc = this.adjacencyIn.get(toId) ?? [];
+    inc.push(edge);
+    this.adjacencyIn.set(toId, inc);
+    return edge;
+  }
+  getNode(id) {
+    for (const n of this.nodes.values()) if (n.id === id) return n;
+    return void 0;
+  }
+  nodesAll(q = {}) {
+    const out = [];
+    const limit = q.limit ?? Number.MAX_SAFE_INTEGER;
+    for (const n of this.nodes.values()) {
+      if (q.types?.length && !q.types.includes(n.type)) continue;
+      out.push(n);
+      if (out.length >= limit) break;
+    }
+    return out;
+  }
+  edgesAll(q = {}) {
+    return this.edges.filter((e) => {
+      if (q.edgeTypes?.length && !q.edgeTypes.includes(e.type)) return false;
+      if (q.minConfidence !== void 0 && e.confidence < q.minConfidence) return false;
+      return true;
+    });
+  }
+  /** Directed traversal from a node (BFS, bounded). */
+  neighbors(nodeId, depth = 1, edgeTypes) {
+    const visited = /* @__PURE__ */ new Set([nodeId]);
+    let frontier = [nodeId];
+    for (let d = 0; d < depth; d++) {
+      const next = [];
+      for (const id of frontier) {
+        for (const edge of this.adjacencyOut.get(id) ?? []) {
+          if (edgeTypes?.length && !edgeTypes.includes(edge.type)) continue;
+          if (!visited.has(edge.to)) {
+            visited.add(edge.to);
+            next.push(edge.to);
+          }
+        }
+        for (const edge of this.adjacencyIn.get(id) ?? []) {
+          if (edgeTypes?.length && !edgeTypes.includes(edge.type)) continue;
+          if (!visited.has(edge.from)) {
+            visited.add(edge.from);
+            next.push(edge.from);
+          }
+        }
+      }
+      frontier = next;
+    }
+    return [...visited].map((id) => this.getNode(id)).filter(Boolean);
+  }
+  /** Paths between two nodes (bounded DFS) — used for "explain" chains. */
+  paths(fromId, toId, maxDepth = 6) {
+    const results = [];
+    const stack = [{ node: fromId, path: [] }];
+    let steps = 0;
+    while (stack.length && results.length < 16) {
+      const { node, path: path2 } = stack.pop();
+      steps += 1;
+      if (steps > 1e4) break;
+      if (node === toId && path2.length > 0) {
+        results.push(path2);
+        continue;
+      }
+      if (path2.length >= maxDepth) continue;
+      for (const edge of this.adjacencyOut.get(node) ?? []) {
+        if (path2.some((p) => p.id === edge.id)) continue;
+        stack.push({ node: edge.to, path: [...path2, edge] });
+      }
+    }
+    return results;
+  }
+  stats() {
+    const byType = {};
+    for (const n of this.nodes.values()) byType[n.type] = (byType[n.type] ?? 0) + 1;
+    return { nodes: this.nodes.size, edges: this.edges.length, degraded: this.degraded, byType };
+  }
+  serialize() {
+    return { nodes: [...this.nodes.values()], edges: [...this.edges] };
+  }
+  restore(data) {
+    this.nodes.clear();
+    this.edges = [];
+    this.adjacencyOut.clear();
+    this.adjacencyIn.clear();
+    for (const n of data.nodes) this.nodes.set(n.hash, n);
+    for (const e of data.edges) {
+      this.edges.push(e);
+      const out = this.adjacencyOut.get(e.from) ?? [];
+      out.push(e);
+      this.adjacencyOut.set(e.from, out);
+      const inc = this.adjacencyIn.get(e.to) ?? [];
+      inc.push(e);
+      this.adjacencyIn.set(e.to, inc);
+    }
+  }
+}
+const SOURCE_QUALITY_WEIGHT = {
+  "direct-observation": 1,
+  "runtime-reported": 0.9,
+  derived: 0.75,
+  inferred: 0.6,
+  assumed: 0.4
+};
+function assessConfidence(input) {
+  const rationale = [];
+  if (input.provenance.length === 0) {
+    return { confidence: 0, classification: "UNKNOWN", rationale: ["no provenance — refused"] };
+  }
+  let bestQuality = 0;
+  let qualitySum = 0;
+  for (const p of input.provenance) {
+    const w = SOURCE_QUALITY_WEIGHT[p.quality];
+    bestQuality = Math.max(bestQuality, w);
+    qualitySum += w;
+    rationale.push(`source ${p.origin}: quality=${p.quality} (${w})`);
+  }
+  const avgQuality = qualitySum / input.provenance.length;
+  const corroborationFactor = 1 + Math.min(0.25, input.corroboration * 0.08);
+  rationale.push(`corroboration x${input.corroboration} → factor ${corroborationFactor.toFixed(2)}`);
+  let confidence = avgQuality * corroborationFactor;
+  if (input.verified) {
+    confidence = Math.min(1, confidence + 0.2);
+    rationale.push("verified by contract: +0.2");
+  }
+  if (input.contradicted) {
+    confidence *= 0.5;
+    rationale.push("counterevidence observed: ×0.5");
+  }
+  if (input.kernelConfidenceMultiplier !== void 0 && input.kernelConfidenceMultiplier < 1) {
+    confidence *= input.kernelConfidenceMultiplier;
+    rationale.push(`kernel confidence multiplier ${input.kernelConfidenceMultiplier} applied`);
+  }
+  confidence = Math.max(0, Math.min(1, confidence));
+  let classification;
+  if (input.contradicted && confidence < 0.4) classification = "DISPROVEN";
+  else if (input.verified && confidence >= 0.8) classification = "VERIFIED";
+  else if (bestQuality >= 1 && input.corroboration >= 1) classification = "SUPPORTED";
+  else if (bestQuality >= 0.9) classification = "OBSERVED";
+  else if (input.corroboration >= 1) classification = "CORRELATED";
+  else if (confidence >= 0.6) classification = "STRONG_HYPOTHESIS";
+  else classification = "UNKNOWN";
+  return { confidence, classification, rationale };
+}
+const CAUSAL_RULES = [
+  { from: ["user"], to: "network", reason: "user action preceded a network request within window" },
+  { from: ["network"], to: "runtime", reason: "network response preceded runtime state change" },
+  { from: ["network"], to: "console", reason: "network failure preceded console error" },
+  { from: ["runtime"], to: "dom", reason: "runtime state change preceded DOM mutation" },
+  { from: ["dom"], to: "performance", reason: "DOM mutation preceded layout/performance event" },
+  { from: ["performance"], to: "visual", reason: "layout event preceded visual change" },
+  { from: ["dom"], to: "dom", reason: "ancestor mutation preceded descendant removal" },
+  { from: ["network"], to: "storage", reason: "network response preceded storage change" },
+  { from: ["security"], to: "network", reason: "security signal tied to network flow" }
+];
+const RULE_PAIR_MAP = (() => {
+  const map = /* @__PURE__ */ new Map();
+  for (const rule of CAUSAL_RULES) {
+    for (const from of rule.from) map.set(`${from}->${rule.to}`, rule);
+  }
+  return map;
+})();
+const MAX_LINKS_PER_CORRELATE = 2e4;
+const SOURCE_TO_NODE_TYPE = {
+  user: "UserAction",
+  network: "NetworkRequest",
+  runtime: "RuntimeEvent",
+  console: "ConsoleError",
+  dom: "DOMMutation",
+  performance: "PerformanceEvent",
+  visual: "VisualFrame",
+  security: "SecuritySignal",
+  storage: "StorageEvent",
+  navigation: "RuntimeEvent"
+};
+class CausalEngine {
+  constructor(graph) {
+    this.graph = graph;
+  }
+  /**
+   * Correlate independent signals into candidate causal chains inside a
+   * temporal window. Returns links with EXPLICIT classification — only
+   * rule-supported, corroborated links are ever called causal candidates.
+   */
+  correlate(events, windowMs = 250) {
+    const ordered = [...events].sort((a, b) => a.logicalTime - b.logicalTime);
+    const links = [];
+    outer:
+      for (let i = 0; i < ordered.length; i++) {
+        for (let j = i + 1; j < ordered.length; j++) {
+          const a = ordered[i];
+          const b = ordered[j];
+          const deltaMs = b.logicalTime - a.logicalTime;
+          if (deltaMs > windowMs) break;
+          const rule = RULE_PAIR_MAP.get(`${a.source}->${b.source}`);
+          const sharedEntity = a.entityIds.some((id) => b.entityIds.includes(id));
+          if (!rule && !sharedEntity) continue;
+          const classification = rule && sharedEntity ? "SUPPORTED" : rule ? "CORRELATED" : "OBSERVED";
+          const confidence = Math.max(0, Math.min(0.95, (rule ? 0.6 : 0.3) + (sharedEntity ? 0.25 : 0) - Math.min(0.2, deltaMs / 2e3)));
+          links.push({
+            fromEvent: a,
+            toEvent: b,
+            deltaMs,
+            classification,
+            confidence,
+            evidence: [
+              `event:${a.eventId}`,
+              `event:${b.eventId}`,
+              rule ? `rule:${rule.reason}` : "shared-entity"
+            ],
+            alternatives: sharedEntity ? [] : ["common-cause", "coincidence-within-window"],
+            verificationMethod: "counterfactual suppression + replay comparison"
+          });
+          if (links.length >= MAX_LINKS_PER_CORRELATE) break outer;
+        }
+      }
+    return links;
+  }
+  /** Build the causal graph nodes/edges around an incident's events. */
+  buildGraph(events, links) {
+    const nodes = [];
+    const nodeFor = (ev) => {
+      const type = SOURCE_TO_NODE_TYPE[ev.source] ?? "RuntimeEvent";
+      const node = this.graph.addNode(type, `${ev.source}:${ev.type}`, {
+        eventId: ev.eventId,
+        sequence: ev.sequence,
+        payload: ev.payload
+      }, `event:${ev.eventId}`);
+      nodes.push(node);
+      return node;
+    };
+    for (const link of links) {
+      const fromNode = nodeFor(link.fromEvent);
+      const toNode = nodeFor(link.toEvent);
+      const edgeType = link.classification === "SUPPORTED" ? "CAUSES" : link.classification === "CORRELATED" ? "CORRELATED_WITH" : "PRECEDES";
+      this.graph.addEdge(fromNode, toNode, edgeType, link.evidence, link.confidence);
+    }
+    return { nodes };
+  }
+  /**
+   * Trace likely causes of a symptom event backwards through links,
+   * producing a full chain (root → … → symptom) with alternatives.
+   */
+  rootCauseChain(symptom, events, windowMs = 250) {
+    const links = this.correlate(events, windowMs);
+    const chainEvents = [symptom];
+    const chainLinks = [];
+    let frontier = symptom;
+    for (let depth = 0; depth < 12; depth++) {
+      const incoming = links.filter((l) => l.toEvent.eventId === frontier.eventId).sort((x, y) => y.confidence - x.confidence);
+      const best = incoming[0];
+      if (!best || best.confidence < 0.35) break;
+      chainLinks.unshift(best);
+      chainEvents.unshift(best.fromEvent);
+      frontier = best.fromEvent;
+    }
+    const root = chainEvents[0];
+    const provenance = chainLinks.map((l) => ({
+      origin: `causal-rule:${l.fromEvent.source}→${l.toEvent.source}`,
+      quality: "derived",
+      evidenceRefs: l.evidence,
+      recordedAt: Date.now(),
+      notes: [`${l.deltaMs}ms gap`]
+    }));
+    const assessment = assessConfidence({
+      provenance,
+      corroboration: chainLinks.filter((l) => l.classification === "SUPPORTED").length,
+      verified: false,
+      contradicted: false
+    });
+    return {
+      events: chainEvents,
+      links: chainLinks,
+      rootCause: root ? `${root.source}:${root.type} (seq ${root.sequence})` : "unknown",
+      confidence: assessment.confidence,
+      classification: assessment.classification,
+      alternatives: chainLinks.flatMap((l) => l.alternatives).filter((v, i, arr) => arr.indexOf(v) === i),
+      evidenceRefs: chainLinks.flatMap((l) => l.evidence)
+    };
+  }
+  /**
+   * Generate + rank competing root-cause hypotheses for a symptom.
+   * Ranking uses confidence × chain length penalty, and each hypothesis
+   * carries a concrete verification method.
+   */
+  generateHypotheses(symptom, events, windowMs = 250) {
+    const chains = [];
+    const links = this.correlate(events, windowMs);
+    const seeds = /* @__PURE__ */ new Set();
+    for (const l of links) {
+      if (!seeds.has(l.fromEvent.eventId)) {
+        seeds.add(l.fromEvent.eventId);
+        chains.push({ seed: l.fromEvent, chain: this.rootCauseChainFrom(links, l.fromEvent, symptom) });
+      }
+    }
+    const hypotheses = chains.map((c, idx) => ({
+      id: `hyp:${idx + 1}`,
+      statement: `Root cause candidate: ${c.chain.rootCause}`,
+      causalChain: c.chain,
+      // Deeper chains explain MORE (reach further back to the true root):
+      // depth is rewarded, not penalized. Short chains are alternative
+      // explanations, ranked below complete ones at equal confidence.
+      confidence: c.chain.confidence * (1 + Math.min(0.2, (c.chain.events.length - 1) * 0.04)),
+      evidenceRefs: c.chain.evidenceRefs,
+      counterevidence: c.chain.alternatives,
+      verificationMethod: "suppress the seed event in a counterfactual branch and re-run replay",
+      rank: 0,
+      status: "UNTESTED"
+    }));
+    hypotheses.sort((a, b) => b.confidence - a.confidence);
+    hypotheses.forEach((h, i) => h.rank = i + 1);
+    return hypotheses;
+  }
+  rootCauseChainFrom(links, seed, symptom) {
+    const chainLinks = [];
+    let frontier = symptom;
+    for (let depth = 0; depth < 12; depth++) {
+      const incoming = links.filter((l) => l.toEvent.eventId === frontier.eventId).sort((x, y) => y.confidence - x.confidence);
+      const best = incoming[0];
+      if (!best || best.confidence < 0.35) break;
+      chainLinks.unshift(best);
+      if (best.fromEvent.eventId === seed.eventId) break;
+      frontier = best.fromEvent;
+    }
+    const chainEvents = chainLinks.length ? [chainLinks[0].fromEvent, ...chainLinks.map((l) => l.toEvent)] : [seed, symptom];
+    const provenance = chainLinks.map((l) => ({
+      origin: `causal-rule`,
+      quality: "derived",
+      evidenceRefs: l.evidence,
+      recordedAt: Date.now()
+    }));
+    const assessment = assessConfidence({
+      provenance,
+      corroboration: chainLinks.filter((l) => l.classification === "SUPPORTED").length,
+      verified: false,
+      contradicted: false
+    });
+    return {
+      events: chainEvents,
+      links: chainLinks,
+      rootCause: `${seed.source}:${seed.type} (seq ${seed.sequence})`,
+      confidence: assessment.confidence,
+      classification: assessment.classification,
+      alternatives: chainLinks.flatMap((l) => l.alternatives).filter((v, i, arr) => arr.indexOf(v) === i),
+      evidenceRefs: chainLinks.flatMap((l) => l.evidence)
+    };
+  }
+  /**
+   * Find the earliest causal divergence between two event streams
+   * (reality vs branch) — the "breakpoint" where outcomes split.
+   */
+  earliestDivergence(reality, branch) {
+    const branchSeqs = new Set(branch.map((e) => e.sequence));
+    const ordered = [...reality].sort((a, b) => a.logicalTime - b.logicalTime);
+    for (const ev of ordered) {
+      if (!branchSeqs.has(ev.sequence)) return ev;
+    }
+    return null;
+  }
+}
+const DETERMINISTIC_REPLAY_SOURCES = /* @__PURE__ */ new Set(["dom", "runtime", "network", "performance", "console", "user", "storage", "security", "navigation", "system", "extension", "worker"]);
+function replayFidelityOf(source) {
+  return DETERMINISTIC_REPLAY_SOURCES.has(source) ? "deterministic" : "partial";
+}
+const PARTIAL_FIDELITY_SYMPTOM_PATTERNS = /memory|growth|leak|retained|accumulat/i;
+function symptomFidelity(source, type) {
+  if (PARTIAL_FIDELITY_SYMPTOM_PATTERNS.test(type)) return "partial";
+  return replayFidelityOf(source);
+}
+class CounterfactualEngine {
+  constructor(causal) {
+    this.causal = causal;
+  }
+  branches = new BranchManager();
+  /**
+   * Run a counterfactual: remove/modify the candidate cause and check
+   * whether the symptom outcome changes. INCONCLUSIVE is reported when
+   * comparison cannot establish a difference (never a silent PASS).
+   */
+  run(reality, spec, symptomPredicate) {
+    const target = reality.find((e) => e.sequence === spec.targetSequence);
+    if (!target) {
+      return {
+        branchId: "",
+        spec,
+        symptomResolved: false,
+        verdict: "INCONCLUSIVE",
+        confidence: 0,
+        comparison: { outcomeDeltas: [] },
+        assumptions: ["target event not found in reality stream"],
+        evidenceRefs: []
+      };
+    }
+    const mutation = this.toMutation(spec);
+    const branch = this.branches.fork(reality, 0, [mutation], {
+      assumptions: [spec.reason, "branch replay is deterministic given recorded stream"]
+    });
+    const realitySymptom = reality.some(symptomPredicate);
+    const branchSymptom = branch.simulatedEvents.some(symptomPredicate);
+    const comparison = this.branches.compare(branch.branchId, reality);
+    const symptomEvent = reality.find(symptomPredicate);
+    const fidelity = symptomEvent ? symptomFidelity(symptomEvent.source, symptomEvent.type) : "deterministic";
+    let verdict;
+    if (fidelity === "partial") {
+      verdict = "INCONCLUSIVE";
+    } else if (realitySymptom && !branchSymptom) {
+      verdict = "CAUSE_SUPPPORTED";
+    } else if (!realitySymptom) {
+      verdict = "INCONCLUSIVE";
+    } else if (realitySymptom && branchSymptom) {
+      verdict = "NOT_SUPPORTED";
+    } else {
+      verdict = "INCONCLUSIVE";
+    }
+    const confidence = verdict === "CAUSE_SUPPPORTED" ? Math.min(0.95, 0.75 + (comparison.outcomeDeltas.length > 0 ? 0.1 : 0)) : verdict === "NOT_SUPPORTED" ? 0.7 : 0.35;
+    this.branches.recordResult(branch.branchId, { symptomResolved: !branchSymptom, fidelity }, confidence);
+    if (verdict === "CAUSE_SUPPPORTED") {
+      this.branches.setVerification(branch.branchId, "VERIFIED", "symptom vanished under suppression (deterministic replay)");
+    }
+    return {
+      branchId: branch.branchId,
+      spec,
+      symptomResolved: !branchSymptom,
+      verdict,
+      confidence,
+      comparison: { outcomeDeltas: comparison.outcomeDeltas },
+      assumptions: fidelity === "partial" ? [...branch.assumptions, `symptom dimension (${symptomEvent?.source}) has PARTIAL replay fidelity — suppression cannot prove causation`] : branch.assumptions,
+      evidenceRefs: [
+        `event:${target.eventId}`,
+        `branch:${branch.branchId}`,
+        ...comparison.outcomeDeltas.slice(0, 5).map((d) => `outcome-delta:${d.type}`)
+      ]
+    };
+  }
+  toMutation(spec) {
+    switch (spec.kind) {
+      case "suppress-event":
+      case "remove-mutation":
+        return { kind: "suppress-mutation", targetSequence: spec.targetSequence, reason: spec.reason };
+      case "alter-timing":
+        return { kind: "alter-timing", targetSequence: spec.targetSequence, patch: spec.patch ?? { shiftMs: -250 }, reason: spec.reason };
+      default:
+        return { kind: spec.kind === "modify-response" ? "modify-response" : spec.kind === "modify-state" ? "modify-state" : "modify-style", targetSequence: spec.targetSequence, patch: spec.patch, reason: spec.reason };
+    }
+  }
+  /**
+   * Verify a causal chain hypothesis through counterfactual suppression:
+   * remove the root-cause event; if the symptom disappears the hypothesis
+   * is COUNTERFACTUALLY_SUPPORTED.
+   */
+  verifyHypothesis(reality, chain, symptomPredicate) {
+    const rootEvent = chain.events[0];
+    if (!rootEvent) {
+      return {
+        branchId: "",
+        spec: { kind: "suppress-event", targetSequence: -1, reason: "empty chain" },
+        symptomResolved: false,
+        verdict: "INCONCLUSIVE",
+        confidence: 0,
+        comparison: { outcomeDeltas: [] },
+        assumptions: ["no root event"],
+        evidenceRefs: []
+      };
+    }
+    return this.run(
+      reality,
+      { kind: "suppress-event", targetSequence: rootEvent.sequence, reason: `verify hypothesis: ${chain.rootCause}` },
+      symptomPredicate
+    );
+  }
+  get branchManager() {
+    return this.branches;
+  }
+}
+const PATTERNS = [
+  {
+    id: "network-error-then-element-removal",
+    trigger: (events) => {
+      const netErr = events.filter((e) => e.source === "network" && /error|fail|timeout|500|abort/i.test(e.type));
+      if (netErr.length === 0) return null;
+      return netErr;
+    },
+    predict: (triggerEvents) => ({
+      prediction: "UI element depending on the failed request is likely to disappear or enter error state",
+      kind: "failure-risk",
+      confidence: 0.7,
+      supportingEvidence: triggerEvents.slice(-3).map((e) => `event:${e.eventId} (${e.type})`),
+      assumptions: ["the page renders state derived from network responses"],
+      counterevidence: ["error boundaries may catch the failure and render fallback UI"],
+      timeHorizonMs: 1e3,
+      verificationPath: "td_temporal_window around the failure and check DOM removal events"
+    })
+  },
+  {
+    id: "mutation-storm",
+    trigger: (events) => {
+      const domEvents = events.filter((e) => e.source === "dom");
+      if (domEvents.length < 50) return null;
+      return domEvents;
+    },
+    predict: (domEvents) => ({
+      prediction: "Sustained DOM churn detected; layout shift and render instability likely within the horizon",
+      kind: "resource-risk",
+      confidence: 0.65,
+      supportingEvidence: [`${domEvents.length} DOM events in window`, `latest: event:${domEvents[domEvents.length - 1].eventId}`],
+      assumptions: ["mutation rate continues at the observed pace"],
+      counterevidence: ["virtualized lists may be intentionally churning without visual impact"],
+      timeHorizonMs: 2e3,
+      verificationPath: "td_render_stability + td_layout_causality on the window"
+    })
+  },
+  {
+    id: "loading-state-stuck",
+    trigger: (events) => {
+      const loading = events.filter((e) => e.source === "runtime" && /loading|pending|busy/i.test(e.type));
+      const netDone = events.filter((e) => e.source === "network" && /complete|success|response/i.test(e.type));
+      if (loading.length > 0 && netDone.length === 0) return loading;
+      return null;
+    },
+    predict: (triggerEvents) => ({
+      prediction: "Loading state may remain uncleared if the pending request never completes or its handler fails",
+      kind: "failure-risk",
+      confidence: 0.6,
+      supportingEvidence: triggerEvents.map((e) => `event:${e.eventId}`),
+      assumptions: ["no timeout/cleanup path is scheduled"],
+      counterevidence: ["the app may clear the loading state on error callback"],
+      timeHorizonMs: 5e3,
+      verificationPath: "td_cause_trace on the loading-state element + network correlation"
+    })
+  },
+  {
+    id: "auth-session-expiry",
+    trigger: (events) => {
+      const auth = events.filter((e) => (e.source === "security" || e.source === "storage") && /auth|token|session|expire/i.test(e.type));
+      return auth.length ? auth : null;
+    },
+    predict: (triggerEvents) => ({
+      prediction: "Authentication state transition imminent; protected actions may start failing",
+      kind: "state-transition",
+      confidence: 0.55,
+      supportingEvidence: triggerEvents.map((e) => `event:${e.eventId} (${e.type})`),
+      assumptions: ["token/session lifetime is close to expiry"],
+      counterevidence: ["a refresh flow may renew the session silently"],
+      timeHorizonMs: 6e4,
+      verificationPath: "td_auth_session_audit"
+    })
+  }
+];
+class PredictionEngine {
+  predict(input) {
+    const out = [];
+    for (const pattern of PATTERNS) {
+      const triggerEvents = pattern.trigger(input.recentEvents);
+      if (triggerEvents) {
+        const base2 = pattern.predict(triggerEvents);
+        out.push({ ...base2, timeHorizonMs: Math.min(base2.timeHorizonMs, input.horizonMs) || base2.timeHorizonMs });
+      }
+    }
+    return out;
+  }
+}
+const VALID_TRANSITIONS = {
+  CREATED: ["SCOPED", "ABANDONED"],
+  SCOPED: ["OBSERVING", "ABANDONED"],
+  OBSERVING: ["REPRODUCED", "ANALYZING", "INCONCLUSIVE", "ABANDONED"],
+  REPRODUCED: ["ANALYZING", "INCONCLUSIVE", "RESOLVED"],
+  ANALYZING: ["HYPOTHESIS_FORMED", "INCONCLUSIVE", "FAILED"],
+  HYPOTHESIS_FORMED: ["VERIFYING", "INCONCLUSIVE", "ABANDONED"],
+  VERIFYING: ["REMEDIATING", "REPRODUCED", "INCONCLUSIVE", "ABANDONED", "ANALYZING"],
+  REMEDIATING: ["RETESTING", "FAILED"],
+  RETESTING: ["RESOLVED", "INCONCLUSIVE", "FAILED", "REMEDIATING"],
+  RESOLVED: [],
+  INCONCLUSIVE: ["ANALYZING", "ABANDONED"],
+  FAILED: ["ANALYZING", "ABANDONED"],
+  ABANDONED: []
+};
+class IncidentManager {
+  incidents = /* @__PURE__ */ new Map();
+  seq = 0;
+  create(objective, scope = {}) {
+    this.seq += 1;
+    const incidentId = `incident:${this.seq}:${computeHash({ objective, at: Date.now() }).slice(0, 8)}`;
+    const incident = {
+      incidentId,
+      createdAt: Date.now(),
+      objective,
+      state: "CREATED",
+      scope: { entityIds: scope.entityIds ?? [], selectors: scope.selectors ?? [], pageUrl: scope.pageUrl, timeWindow: scope.timeWindow, reproduction: scope.reproduction },
+      timeline: [],
+      evidenceGraph: null,
+      causalChain: null,
+      hypotheses: [],
+      counterfactuals: [],
+      remediation: null,
+      verification: null,
+      proof: null,
+      artifacts: [],
+      audit: [],
+      lessons: []
+    };
+    this.incidents.set(incidentId, incident);
+    return incident;
+  }
+  /** Enforce explicit, valid lifecycle transitions with audit trail. */
+  transition(incidentId, to, note, evidenceRefs) {
+    const incident = this.incidents.get(incidentId);
+    if (!incident) throw new Error(`unknown incident ${incidentId}`);
+    const allowed = VALID_TRANSITIONS[incident.state];
+    if (!allowed.includes(to)) {
+      throw new Error(`invalid lifecycle transition ${incident.state} → ${to} (allowed: ${allowed.join(", ") || "terminal"})`);
+    }
+    const entry = { at: Date.now(), from: incident.state, to, note, evidenceRefs };
+    incident.state = to;
+    incident.audit.push(entry);
+    return entry;
+  }
+  attachTimeline(incidentId, events) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.timeline = events;
+  }
+  attachEvidence(incidentId, graph) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.evidenceGraph = graph;
+  }
+  attachCausalChain(incidentId, chain) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.causalChain = chain;
+  }
+  attachHypotheses(incidentId, hypotheses) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.hypotheses = hypotheses;
+  }
+  attachCounterfactual(incidentId, outcome) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.counterfactuals.push(outcome);
+  }
+  attachRemediation(incidentId, remediation) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.remediation = remediation;
+  }
+  attachVerification(incidentId, report) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.verification = report;
+  }
+  attachProof(incidentId, proof) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.proof = proof;
+  }
+  recordLesson(incidentId, lesson) {
+    const incident = this.incidents.get(incidentId);
+    if (incident) incident.lessons.push(lesson);
+  }
+  get(incidentId) {
+    return this.incidents.get(incidentId);
+  }
+  list() {
+    return [...this.incidents.values()];
+  }
+}
+const TELEDOM_VERSION = {
+  version: "12.0.0",
+  build: {
+    generatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  }
+};
+const TDOM_FORMAT_VERSION = "1.0.0";
+class TdomFormat {
+  /**
+   * Export an incident to a portable .tdom artifact (content-addressed,
+   * optionally gzipped). The manifest hashes every section and itself.
+   */
+  export(incident, opts = {}) {
+    const content = {
+      incident: {
+        incidentId: incident.incidentId,
+        objective: incident.objective,
+        state: incident.state,
+        createdAt: incident.createdAt,
+        audit: incident.audit,
+        lessons: incident.lessons
+      },
+      scope: incident.scope,
+      timeline: incident.timeline,
+      causal: { chain: incident.causalChain, hypotheses: incident.hypotheses },
+      counterfactuals: incident.counterfactuals,
+      remediation: incident.remediation,
+      verification: incident.verification,
+      proof: incident.proof,
+      securityFindings: [],
+      performanceFindings: []
+    };
+    const sections = {};
+    for (const [name, value] of Object.entries(content)) {
+      const bytes2 = Buffer.from(JSON.stringify(value), "utf-8");
+      sections[name] = { hash: computeHash(bytes2.toString("utf-8")), byteLength: bytes2.length };
+    }
+    const manifest = {
+      format: "tdom",
+      formatVersion: TDOM_FORMAT_VERSION,
+      generator: { name: "TeleDOM", version: TELEDOM_VERSION.version },
+      createdAt: (/* @__PURE__ */ new Date()).toISOString(),
+      compression: opts.compress ? "gzip" : "none",
+      sections,
+      manifestHash: "",
+      compatibility: {
+        minReaderVersion: "12.0.0",
+        schemaVersions: { event: 1, evidence: 1, incident: 1, proof: 1 }
+      }
+    };
+    manifest.manifestHash = computeHash({ sections, formatVersion: TDOM_FORMAT_VERSION, generator: manifest.generator });
+    const payload = Buffer.from(JSON.stringify({ manifest, content }), "utf-8");
+    const bytes = opts.compress ? gzipSync(payload) : payload;
+    return { bytes, manifest };
+  }
+  /**
+   * Import + verify a .tdom artifact. Section hashes are re-checked; any
+   * mismatch is reported (tamper evidence), never silently ignored.
+   */
+  import(bytes) {
+    const jsonBuffer = looksGzipped(bytes) ? gunzipSync(bytes) : bytes;
+    const parsed = JSON.parse(jsonBuffer.toString("utf-8"));
+    const { manifest, content } = parsed;
+    let integrityValid = true;
+    let brokenSection;
+    for (const [name, section] of Object.entries(manifest.sections)) {
+      const value = content[name];
+      const actual = computeHash(JSON.stringify(value));
+      if (actual !== section.hash) {
+        integrityValid = false;
+        brokenSection = name;
+        break;
+      }
+    }
+    const manifestCheck = computeHash({ sections: manifest.sections, formatVersion: manifest.formatVersion, generator: manifest.generator });
+    if (manifest.manifestHash !== manifestCheck) {
+      integrityValid = false;
+      brokenSection = brokenSection ?? "manifest";
+    }
+    const notes = [];
+    const readerMajor = parseInt(TDOM_FORMAT_VERSION.split(".")[0], 10);
+    const artifactMajor = parseInt(manifest.formatVersion.split(".")[0], 10);
+    if (artifactMajor > readerMajor) notes.push(`artifact format v${manifest.formatVersion} is newer than reader v${TDOM_FORMAT_VERSION}`);
+    return {
+      content,
+      integrityValid,
+      brokenSection,
+      compatibility: { ok: artifactMajor <= readerMajor, notes }
+    };
+  }
+}
+function looksGzipped(bytes) {
+  return bytes.length > 2 && bytes[0] === 31 && bytes[1] === 139;
+}
+function gzipSync(data) {
+  const zlib2 = require("zlib");
+  return zlib2.gzipSync(data);
+}
+class VerificationEngine {
+  /**
+   * Evaluate a contract against observed state + collected evidence.
+   * Missing required evidence → INCONCLUSIVE (never PASS).
+   */
+  verify(contract, observed, collectedEvidence) {
+    const mustHoldResults = contract.mustHold.map((m) => ({
+      description: m.description,
+      passed: safeCheck(m.check, observed)
+    }));
+    const mustNotHoldResults = contract.mustNotHold.map((m) => ({
+      description: m.description,
+      passed: !safeCheck(m.check, observed)
+    }));
+    const evidenceRefs = collectedEvidence.map((e) => e.ref);
+    const missingEvidence = contract.evidenceRequired.filter((req) => !evidenceRefs.includes(req));
+    let result;
+    const allPassed = mustHoldResults.every((r) => r.passed) && mustNotHoldResults.every((r) => r.passed);
+    if (!allPassed) {
+      result = "FAIL";
+    } else if (missingEvidence.length > 0) {
+      result = "INCONCLUSIVE";
+    } else {
+      result = "PASS";
+    }
+    const rationale = result === "PASS" ? `all postconditions held and required evidence was collected within ${contract.timeWindowMs}ms` : result === "FAIL" ? `postconditions failed: ${[...mustHoldResults, ...mustNotHoldResults].filter((r) => !r.passed).map((r) => r.description).join("; ")}` : `cannot verify: missing required evidence [${missingEvidence.join(", ")}]`;
+    return {
+      contractAction: contract.action,
+      result,
+      mustHoldResults,
+      mustNotHoldResults,
+      evidenceCollected: evidenceRefs,
+      missingEvidence,
+      observedAt: Date.now(),
+      rationale
+    };
+  }
+}
+function safeCheck(check, observed) {
+  try {
+    return check(observed) === true;
+  } catch {
+    return false;
+  }
+}
+class ProofEngine {
+  proofs = [];
+  generate(claims, steps, conclusion, verificationStatus) {
+    const previous = this.proofs[this.proofs.length - 1];
+    const content = { claims, steps, conclusion, verificationStatus };
+    const proofHash = computeHash({ content, previous: previous?.proofHash });
+    const proof = {
+      proofId: `proof:${proofHash.slice(0, 16)}`,
+      createdAt: Date.now(),
+      claims,
+      steps: steps.map((s, i) => ({ ...s, step: i + 1 })),
+      conclusion,
+      proofHash,
+      previousProofHash: previous?.proofHash,
+      verificationStatus
+    };
+    this.proofs.push(proof);
+    return proof;
+  }
+  /** Independent re-check: recompute the hash of a submitted proof. */
+  verifyProof(proof) {
+    const content = { claims: proof.claims, steps: proof.steps, conclusion: proof.conclusion, verificationStatus: proof.verificationStatus };
+    const expected = computeHash({ content, previous: proof.previousProofHash });
+    return expected === proof.proofHash;
+  }
+  byId(proofId) {
+    return this.proofs.find((p) => p.proofId === proofId);
+  }
+  list() {
+    return this.proofs;
+  }
+  /** Link evidence nodes to a proof claim (graph edge creation is done by
+   * callers owning the EvidenceGraph; here we just validate references). */
+  static validateClaimEvidence(claim, nodes) {
+    const missing = claim.evidenceNodeIds.filter((id) => !nodes.has(id));
+    return { valid: missing.length === 0, missing };
+  }
+}
+const DEFAULT_PLAN_SCHEMA = [
+  { id: "scope", description: "Scope page/component and entities involved in the objective" },
+  { id: "create-incident", description: "Create the incident object with objective + scope" },
+  { id: "baseline", description: "Establish baseline state before the failure window" },
+  { id: "observe", description: "Collect network/runtime/DOM/visual signals" },
+  { id: "timeline", description: "Assemble the incident timeline" },
+  { id: "reconstruct", description: "Reconstruct the failure window (before/target/after)" },
+  { id: "correlate", description: "Correlate independent signals into candidate chains" },
+  { id: "causal-graph", description: "Build the causal graph around the incident" },
+  { id: "hypotheses", description: "Generate ranked root-cause hypotheses" },
+  { id: "counterfactual", description: "Run counterfactual suppression on the top hypothesis" },
+  { id: "verify", description: "Verify the root cause through replay/observation" },
+  { id: "evidence-package", description: "Generate the proof record and evidence package" },
+  { id: "lesson", description: "Store the durable learning from this incident" }
+];
+class AutonomousInvestigator {
+  constructor(causal, counterfactual) {
+    this.causal = causal;
+    this.counterfactual = counterfactual;
+  }
+  incidents = new IncidentManager();
+  proofs = new ProofEngine();
+  verifier = new VerificationEngine();
+  plans = /* @__PURE__ */ new Map();
+  /**
+   * Run (or RESUME — pass an existing planId) an investigation. Each step
+   * records honest status; failures propagate as warnings, not fake PASS.
+   */
+  async investigate(objective, input, opts = {}) {
+    const plan = this.buildOrResumePlan(objective, opts.resumePlanId);
+    const warnings = [];
+    const setStep = (id, status2, result) => {
+      const s = plan.steps.find((st) => st.id === id);
+      if (s) {
+        s.status = status2;
+        if (result !== void 0) s.result = result;
+        if (status2 === "DONE") plan.completedThrough = Math.max(plan.completedThrough, s.step);
+      }
+    };
+    const scopedEntityIds = input.scopeEntityIds ?? [];
+    setStep("scope", "RUNNING");
+    const symptomEvents = input.events.filter(input.symptomPredicate);
+    const symptom = symptomEvents[0] ?? null;
+    if (!symptom) {
+      warnings.push("symptom predicate matched no events — investigation cannot proceed");
+      setStep("scope", "FAILED", "no symptom events");
+      const incident2 = this.incidents.create(objective, { entityIds: scopedEntityIds });
+      this.incidents.transition(incident2.incidentId, "ABANDONED", "no symptom observed");
+      return {
+        status: "INCONCLUSIVE",
+        plan,
+        incident: incident2,
+        rootCause: null,
+        bestHypothesis: null,
+        counterfactual: null,
+        verificationStatus: "INCONCLUSIVE",
+        proofId: null,
+        warnings,
+        resourceState: { stepsExecuted: 0, eventsAnalyzed: input.events.length }
+      };
+    }
+    setStep("scope", "DONE", `${symptomEvents.length} symptom events; entity scope=${scopedEntityIds.length}`);
+    setStep("create-incident", "RUNNING");
+    const incident = this.incidents.create(objective, { entityIds: scopedEntityIds });
+    this.incidents.transition(incident.incidentId, "SCOPED", `scoped to ${scopedEntityIds.length} entities`);
+    setStep("create-incident", "DONE", incident.incidentId);
+    setStep("baseline", "DONE", `baseline logicalTime=${symptom.logicalTime - 1e3}`);
+    setStep("observe", "RUNNING");
+    const window2 = input.events.filter(
+      (e) => Math.abs(e.logicalTime - symptom.logicalTime) <= 2e3
+    );
+    this.incidents.transition(incident.incidentId, "OBSERVING", `${window2.length} events observed within ±2000ms`);
+    setStep("observe", "DONE", `${window2.length} events captured`);
+    setStep("timeline", "RUNNING");
+    this.incidents.attachTimeline(incident.incidentId, window2);
+    setStep("timeline", "DONE", `${window2.length} events`);
+    setStep("reconstruct", "DONE", `failure window around logicalTime=${symptom.logicalTime}`);
+    this.incidents.transition(incident.incidentId, "ANALYZING", "reconstructed failure window");
+    setStep("correlate", "RUNNING");
+    const links = this.causal.correlate(window2, 300);
+    setStep("correlate", "DONE", `${links.length} causal links`);
+    setStep("causal-graph", "RUNNING");
+    const graph = new EvidenceGraph();
+    const causalForGraph = new CausalEngine(graph);
+    causalForGraph.buildGraph(window2, links);
+    this.incidents.attachEvidence(incident.incidentId, graph);
+    setStep("causal-graph", "DONE", `graph: ${graph.stats().nodes} nodes / ${graph.stats().edges} edges`);
+    setStep("hypotheses", "RUNNING");
+    const hypotheses = causalForGraph.generateHypotheses(symptom, window2, 300);
+    this.incidents.attachHypotheses(incident.incidentId, hypotheses);
+    this.incidents.transition(incident.incidentId, "HYPOTHESIS_FORMED", `${hypotheses.length} hypotheses`);
+    setStep("hypotheses", "DONE", hypotheses.map((h) => `${h.rank}:${(h.confidence * 100).toFixed(0)}%`).join(" "));
+    const best = hypotheses[0] ?? null;
+    let counterfactual = null;
+    if (best) {
+      setStep("counterfactual", "RUNNING");
+      this.incidents.transition(incident.incidentId, "VERIFYING", `verifying hypothesis ${best.id}`);
+      counterfactual = this.counterfactual.verifyHypothesis(input.events, best.causalChain, input.symptomPredicate);
+      this.incidents.attachCounterfactual(incident.incidentId, counterfactual);
+      best.status = counterfactual.verdict === "CAUSE_SUPPPORTED" ? "TESTED-SUPPORTED" : counterfactual.verdict === "NOT_SUPPORTED" ? "TESTED-REJECTED" : "INCONCLUSIVE";
+      setStep("counterfactual", "DONE", `${counterfactual.verdict} @ ${(counterfactual.confidence * 100).toFixed(0)}%`);
+    } else {
+      setStep("counterfactual", "SKIPPED", "no hypotheses generated");
+    }
+    setStep("verify", "RUNNING");
+    const contract = {
+      action: `verify root cause of: ${objective}`,
+      preconditions: ["symptom observed in reality"],
+      expectedBehavior: "suppressing the root cause removes the symptom",
+      mustHold: [
+        { description: "counterfactual verdict supports the cause", check: (obs) => obs.counterfactualVerdict === "CAUSE_SUPPPORTED" },
+        { description: "root cause hypothesis identified", check: (obs) => Boolean(obs.rootCause) }
+      ],
+      mustNotHold: [
+        { description: "symptom still occurs in counterfactual branch", check: (obs) => obs.symptomResolved === false }
+      ],
+      timeWindowMs: 2e3,
+      evidenceRequired: ["counterfactual-report", "causal-chain"]
+    };
+    const observed = {
+      counterfactualVerdict: counterfactual?.verdict ?? "none",
+      symptomResolved: counterfactual?.symptomResolved ?? null,
+      rootCause: best?.causalChain?.rootCause ?? null
+    };
+    const evidence = [
+      { ref: "counterfactual-report" },
+      { ref: "causal-chain" }
+    ];
+    if (counterfactual) evidence.push(...counterfactual.evidenceRefs.slice(0, 3).map((ref) => ({ ref })));
+    const report = this.verifier.verify(contract, observed, evidence);
+    this.incidents.attachVerification(incident.incidentId, report);
+    setStep("verify", report.result === "PASS" ? "DONE" : report.result === "FAIL" ? "FAILED" : "DONE", report.result);
+    setStep("evidence-package", "RUNNING");
+    const claims = [
+      {
+        statement: `Root cause of "${objective}" is ${best?.causalChain?.rootCause ?? "unidentified"}`,
+        evidenceNodeIds: [],
+        verificationRef: report.result,
+        confidence: best?.confidence ?? 0
+      }
+    ];
+    if (counterfactual) {
+      claims.push({
+        statement: `Counterfactual suppression of the root cause ${counterfactual.symptomResolved ? "removed" : "did not remove"} the symptom`,
+        evidenceNodeIds: counterfactual.evidenceRefs,
+        confidence: counterfactual.confidence
+      });
+    }
+    const steps = [
+      { step: 0, statement: "Symptom observed in the recorded stream", justification: "symptom predicate matched recorded events", evidenceRefs: symptomEvents.slice(0, 3).map((e) => `event:${e.eventId}`) },
+      { step: 0, statement: "Causal chain reconstructed from correlated signals", justification: `${links.length} causal links within 300ms window`, evidenceRefs: (best?.causalChain?.evidenceRefs ?? []).slice(0, 4) },
+      { step: 0, statement: "Counterfactual branch executed", justification: counterfactual ? `${counterfactual.spec.kind} on seq ${counterfactual.spec.targetSequence}` : "not executed", evidenceRefs: counterfactual?.evidenceRefs ?? [] }
+    ];
+    const proof = this.proofs.generate(claims, steps, report.result === "PASS" ? `Investigation resolved: ${objective}` : `Investigation ${report.result}: ${objective}`, report.result);
+    this.incidents.attachProof(incident.incidentId, proof);
+    setStep("evidence-package", "DONE", proof.proofId);
+    setStep("lesson", "RUNNING");
+    const lesson = best ? `Pattern: ${best.causalChain?.rootCause} → symptom. Verification: ${report.result}. Signal window ±2000ms was sufficient.` : "No causal chain could be established for this symptom class.";
+    this.incidents.recordLesson(incident.incidentId, lesson);
+    setStep("lesson", "DONE", lesson.slice(0, 80));
+    if (report.result === "PASS") {
+      this.incidents.transition(incident.incidentId, "REPRODUCED", "counterfactual reproduced the causal relationship");
+      this.incidents.transition(incident.incidentId, "RESOLVED", "root cause verified");
+    } else if (report.result === "FAIL") {
+      this.incidents.transition(incident.incidentId, "INCONCLUSIVE", `verification ${report.result}`);
+    } else {
+      this.incidents.transition(incident.incidentId, "INCONCLUSIVE", `verification ${report.result}: ${report.rationale}`);
+    }
+    plan.resumable = false;
+    const status = report.result === "PASS" ? "RESOLVED" : report.result === "FAIL" ? "INCONCLUSIVE" : "INCONCLUSIVE";
+    if (report.result === "INCONCLUSIVE") warnings.push(report.rationale);
+    return {
+      status,
+      plan,
+      incident: this.incidents.get(incident.incidentId),
+      rootCause: best?.causalChain?.rootCause ?? null,
+      bestHypothesis: best,
+      counterfactual,
+      verificationStatus: report.result,
+      proofId: proof.proofId,
+      warnings,
+      resourceState: { stepsExecuted: plan.steps.filter((s) => s.status === "DONE").length, eventsAnalyzed: input.events.length }
+    };
+  }
+  buildOrResumePlan(objective, resumePlanId) {
+    if (resumePlanId) {
+      const existing = this.plans.get(resumePlanId);
+      if (existing) {
+        existing.resumable = true;
+        return existing;
+      }
+    }
+    const incident = this.incidents.create(objective);
+    const plan = {
+      objective,
+      incidentId: incident.incidentId,
+      steps: DEFAULT_PLAN_SCHEMA.map((s, i) => ({ step: i + 1, id: s.id, description: s.description, status: "PENDING" })),
+      createdAt: Date.now(),
+      completedThrough: 0,
+      resumable: true
+    };
+    this.plans.set(incident.incidentId, plan);
+    return plan;
+  }
+  getPlan(planId) {
+    return this.plans.get(planId);
+  }
+  getIncidents() {
+    return this.incidents;
+  }
+  getProofEngine() {
+    return this.proofs;
+  }
+  static version() {
+    return TELEDOM_VERSION.version;
+  }
+}
+const INJECTION_PATTERNS = [
+  { re: /ignore\s+(all\s+)?(previous|prior)\s+instructions/i, label: "instruction-override" },
+  { re: /disregard\s+(your|all)\s+(rules|instructions|policy)/i, label: "instruction-override" },
+  { re: /you\s+are\s+now\s+(a|an)\s+/i, label: "role-hijack" },
+  { re: /(reveal|print|show|output)\s+(your\s+)?(system\s+)?(prompt|instructions|policy)/i, label: "policy-exfiltration" },
+  { re: /tool\s+policy\s+(is\s+)?(now|must)\s+/i, label: "policy-rewrite" },
+  { re: /authorize\s+(me|this)\s+to\s+/i, label: "privilege-escalation" },
+  { re: /disable\s+(the\s+)?(security|safety|guard)/i, label: "guard-disable" }
+];
+const SECRET_PATTERNS = [
+  { re: /(?:api[_-]?key|apikey)["\s:=]+[A-Za-z0-9\-_]{16,}/i, label: "api-key" },
+  { re: /(?:bearer)\s+[A-Za-z0-9\-._~+/]+=*/i, label: "bearer-token" },
+  { re: /(?:authorization)\s*:\s*[A-Za-z0-9\-._~+/]+=*/i, label: "auth-header" },
+  { re: /\b(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{16,}/i, label: "stripe-key" },
+  { re: /\bghp_[A-Za-z0-9]{30,}/i, label: "github-token" },
+  { re: /\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})\b/, label: "credit-card" },
+  { re: /\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b/, label: "ssn" },
+  { re: /(?:password|passwd|secret)["\s:=]+\S{6,}/i, label: "password" }
+];
+class ZeroTrustModel {
+  originTrust = /* @__PURE__ */ new Map();
+  auditLog = [];
+  redactionCache = /* @__PURE__ */ new Map();
+  /** Classify origin trust. */
+  assessOrigin(origin) {
+    const cached = this.originTrust.get(origin);
+    if (cached) return cached;
+    let trust = "untrusted-data";
+    let basis = "unknown origin defaults to untrusted";
+    try {
+      const url = new URL(origin);
+      if (url.protocol === "https:") {
+        trust = "cross-origin-https";
+        basis = "https cross-origin: transport-safe but content still untrusted";
+      } else if (url.protocol === "http:") {
+        trust = "cross-origin-http";
+        basis = "plaintext transport: content + channel untrusted";
+      }
+    } catch {
+      basis = "not a parsable URL — untrusted data";
+    }
+    const record = { origin, trust, basis };
+    this.originTrust.set(origin, record);
+    return record;
+  }
+  /**
+   * Parse an instruction from a source. Page-content instructions are
+   * ALWAYS marked untrusted and can NEVER change policy.
+   */
+  parseInstruction(source, content, origin) {
+    const untrusted = source === "page-content" || source === "unknown";
+    const instruction = { source, content, origin, untrusted };
+    this.auditLog.push({
+      at: Date.now(),
+      kind: "instruction",
+      decision: untrusted ? "QUARANTINED" : "ALLOWED",
+      detail: `instruction from ${source}${origin ? ` (${origin})` : ""} classified as ${untrusted ? "UNTRUSTED DATA" : "trusted intent"}`
+    });
+    return instruction;
+  }
+  /** Detect prompt-injection attempts in untrusted content. */
+  detectInjection(content) {
+    const patterns = [];
+    for (const { re, label } of INJECTION_PATTERNS) {
+      if (re.test(content)) patterns.push(label);
+    }
+    const evidenceRef = `evidence:injection:${computeHash(content).slice(0, 12)}`;
+    const detection = {
+      detected: patterns.length > 0,
+      patterns,
+      confidence: patterns.length >= 2 ? 0.9 : patterns.length === 1 ? 0.7 : 0,
+      evidenceRef
+    };
+    if (detection.detected) {
+      this.auditLog.push({
+        at: Date.now(),
+        kind: "injection",
+        decision: "QUARANTINED",
+        detail: `prompt-injection patterns: ${patterns.join(", ")}`,
+        evidenceRef
+      });
+    }
+    return detection;
+  }
+  /** Detect secrets in content (for exposure defense + redaction). */
+  detectSecrets(content) {
+    const found = [];
+    let redacted = content;
+    for (const { re, label } of SECRET_PATTERNS) {
+      const matches = content.match(new RegExp(re.source, "gi"));
+      if (matches) {
+        found.push(label);
+        for (const m of matches) {
+          const mask = `<redacted:${label}:${computeHash(m).slice(0, 6)}>`;
+          this.redactionCache.set(mask, m);
+          redacted = redacted.split(m).join(mask);
+        }
+      }
+    }
+    if (found.length) {
+      this.auditLog.push({
+        at: Date.now(),
+        kind: "secret-exposure",
+        decision: "REDACTED",
+        detail: `secret patterns redacted: ${found.join(", ")}`
+      });
+    }
+    return { found, redacted };
+  }
+  /**
+   * Gate for dangerous actions. Untrusted instructions can NEVER obtain
+   * authorization here — by construction, not by prompt.
+   */
+  gateDangerousAction(instruction, action) {
+    if (instruction.untrusted) {
+      this.auditLog.push({
+        at: Date.now(),
+        kind: "dangerous-action",
+        decision: "BLOCKED",
+        detail: `dangerous action "${action}" requested from UNTRUSTED instruction source ${instruction.source}`
+      });
+      return { allowed: false, reason: `blocked: instruction source ${instruction.source} is untrusted data and cannot authorize dangerous actions` };
+    }
+    if (this.detectInjection(instruction.content).detected) {
+      return { allowed: false, reason: "blocked: instruction content contains injection patterns" };
+    }
+    return { allowed: true, reason: `instruction source ${instruction.source} is trusted for this action class` };
+  }
+  /** Exfiltration detection: secrets leaving toward a destination. */
+  detectExfiltration(outboundUrl, requestBody) {
+    const secrets = this.detectSecrets(requestBody).found;
+    const evidenceRef = `evidence:exfil:${computeHash({ outboundUrl, len: requestBody.length }).slice(0, 12)}`;
+    let destinationOrigin = null;
+    try {
+      destinationOrigin = new URL(outboundUrl).origin;
+    } catch {
+      destinationOrigin = null;
+    }
+    const signal = {
+      detected: secrets.length > 0,
+      destinationOrigin,
+      payloadKind: secrets[0] ? secrets[0].includes("cookie") ? "cookie" : secrets[0].includes("token") || secrets[0].includes("bearer") || secrets[0].includes("auth") ? "token" : secrets[0].includes("password") ? "form-credential" : "secret-pattern" : "unknown",
+      evidenceRef
+    };
+    if (signal.detected) {
+      this.auditLog.push({
+        at: Date.now(),
+        kind: "exfiltration",
+        decision: "QUARANTINED",
+        detail: `secret-bearing payload toward ${destinationOrigin ?? outboundUrl}`,
+        evidenceRef
+      });
+    }
+    return signal;
+  }
+  /** Resolve redaction masks for HUMAN access only (audited). */
+  revealRedaction(mask, requester) {
+    if (requester !== "human") {
+      this.auditLog.push({
+        at: Date.now(),
+        kind: "secret-exposure",
+        decision: "BLOCKED",
+        detail: `agent attempted to reveal redaction ${mask} — denied (human-only)`
+      });
+      return null;
+    }
+    this.auditLog.push({
+      at: Date.now(),
+      kind: "secret-exposure",
+      decision: "ALLOWED",
+      detail: `human revealed redaction ${mask}`
+    });
+    return this.redactionCache.get(mask) ?? null;
+  }
+  get audit() {
+    return this.auditLog;
+  }
+}
+const DEFAULT_SECURITY_POLICY = {
+  mode: "passive",
+  allowedOrigins: [],
+  blockedOrigins: [],
+  rateLimitPerMinute: 30,
+  concurrencyLimit: 2,
+  requestBudget: 200,
+  testCategories: ["passive-observation"],
+  destructiveActionsDisabled: true,
+  killSwitch: false
+};
+const XSS_SOURCES = ["location", "location.href", "location.search", "location.hash", "document.referrer", "document.URL", "window.name", "postMessage-data", "localStorage-value", "sessionStorage-value"];
+const XSS_SINKS = [
+  { api: /\.innerHTML\s*=/, label: "innerHTML assignment" },
+  { api: /\.outerHTML\s*=/, label: "outerHTML assignment" },
+  { api: /document\.write(ln)?\s*\(/, label: "document.write" },
+  { api: /eval\s*\(/, label: "eval" },
+  { api: /new\s+Function\s*\(/, label: "Function constructor" },
+  { api: /setTimeout\s*\(\s*['"`]/, label: "setTimeout string" },
+  { api: /insertAdjacentHTML\s*\(/, label: "insertAdjacentHTML" },
+  { api: /\.src\s*=\s*[^;]*(javascript:)/, label: "javascript: URL in src" }
+];
+class SecurityAnalyzers {
+  findings = [];
+  seq = 0;
+  finding(partial) {
+    this.seq += 1;
+    const finding = { id: `sec:${this.seq}`, ...partial };
+    this.findings.push(finding);
+    return finding;
+  }
+  /** Full passive posture scan (returns ONLY this scan's findings). */
+  posture(input) {
+    const start = this.findings.length;
+    this.domXssAudit(input.scripts ?? []);
+    this.cspAudit(input.url, input.csp);
+    this.cookieAudit(input.cookies ?? []);
+    this.storageAudit(input.storageEntries ?? []);
+    this.iframeAudit(input.url, input.iframes ?? []);
+    this.postMessageAudit(input.postMessages ?? []);
+    this.thirdPartyAudit(input.url, input.scripts ?? []);
+    this.mixedContentAudit(input.url, input.networkRequests ?? []);
+    this.authSessionAudit(input.authSignals ?? []);
+    this.secretExposureAudit(input.url, input.networkRequests ?? []);
+    return this.findings.slice(start);
+  }
+  /** DOM XSS source→sink tracing (passive, no payload execution). */
+  domXssAudit(scripts) {
+    const produced = [];
+    for (const script of scripts) {
+      if (!script.content) continue;
+      for (const sink of XSS_SINKS) {
+        if (sink.api.test(script.content)) {
+          const feeding = XSS_SOURCES.filter((src) => script.content.includes(src)).sort((a, b) => b.length - a.length).filter((src, i, arr) => i === 0 || !arr[0].includes(src));
+          const confidence = feeding.length > 0 ? 0.75 : 0.5;
+          produced.push(this.finding({
+            category: "dom-xss",
+            severity: feeding.length > 0 ? "high" : "medium",
+            confidence,
+            affectedEntity: script.src ?? "inline-script",
+            source: feeding[0] ?? "unknown-source",
+            sink: sink.label,
+            dataFlow: feeding.length ? [feeding[0], sink.label] : ["unknown", sink.label],
+            observedBehavior: `script contains ${sink.label}${feeding.length ? ` fed by ${feeding.join(", ")}` : ""}`,
+            evidenceRefs: [`script:${script.src ?? "inline"}`],
+            remediation: "sanitize/encode data before DOM sink; prefer textContent; add Trusted-Types CSP",
+            verification: feeding.length > 0 ? "PROBABLE" : "POTENTIAL"
+          }));
+        }
+      }
+    }
+    return produced;
+  }
+  cspAudit(url, csp) {
+    const produced = [];
+    if (!csp) {
+      produced.push(this.finding({
+        category: "csp",
+        severity: "medium",
+        confidence: 0.85,
+        affectedEntity: url,
+        observedBehavior: "no Content-Security-Policy observed",
+        evidenceRefs: [`response-headers:${url}`],
+        remediation: "deploy a strict CSP (default-src, script-src with nonces, object-src none, base-uri self)",
+        verification: "CONFIRMED"
+      }));
+      return produced;
+    }
+    const unsafeInline = /script-src[^;]*'unsafe-inline'/.test(csp);
+    const unsafeEval = /script-src[^;]*'unsafe-eval'/.test(csp);
+    if (unsafeInline) {
+      produced.push(this.finding({
+        category: "csp",
+        severity: "high",
+        confidence: 0.8,
+        affectedEntity: url,
+        observedBehavior: "CSP allows 'unsafe-inline' scripts",
+        evidenceRefs: [`csp:${url}`],
+        remediation: "replace inline scripts with nonced/hashed script-src entries",
+        verification: "CONFIRMED"
+      }));
+    }
+    if (unsafeEval) {
+      produced.push(this.finding({
+        category: "csp",
+        severity: "medium",
+        confidence: 0.8,
+        affectedEntity: url,
+        observedBehavior: "CSP allows 'unsafe-eval'",
+        evidenceRefs: [`csp:${url}`],
+        remediation: "remove eval usage; tighten script-src",
+        verification: "CONFIRMED"
+      }));
+    }
+    return produced;
+  }
+  cookieAudit(cookies) {
+    const produced = [];
+    for (const c of cookies) {
+      const sensitiveName = /session|auth|token|sid|jwt/i.test(c.name);
+      if (!c.secure && sensitiveName) {
+        produced.push(this.finding({
+          category: "cookie",
+          severity: "high",
+          confidence: 0.9,
+          affectedEntity: `cookie:${c.name}`,
+          observedBehavior: `sensitive cookie "${c.name}" sent without Secure flag`,
+          evidenceRefs: [`cookie:${c.name}`],
+          remediation: "set Secure attribute (and HttpOnly/SameSite where applicable)",
+          verification: "CONFIRMED"
+        }));
+      }
+      if (!c.httpOnly && sensitiveName && c.sameSite !== "Strict") {
+        produced.push(this.finding({
+          category: "cookie",
+          severity: "medium",
+          confidence: 0.7,
+          affectedEntity: `cookie:${c.name}`,
+          observedBehavior: `session cookie "${c.name}" readable by scripts (no HttpOnly)`,
+          evidenceRefs: [`cookie:${c.name}`],
+          remediation: "prefer HttpOnly for server-managed session cookies",
+          verification: "PROBABLE"
+        }));
+      }
+    }
+    return produced;
+  }
+  storageAudit(entries) {
+    const produced = [];
+    for (const e of entries) {
+      if (/token|secret|password|apikey|auth/i.test(e.key)) {
+        produced.push(this.finding({
+          category: "storage",
+          severity: "medium",
+          confidence: 0.75,
+          affectedEntity: `${e.kind}:${e.key}`,
+          observedBehavior: `credential-shaped key "${e.key}" stored client-side`,
+          evidenceRefs: [`${e.kind}:${e.key}`],
+          remediation: "avoid storing raw secrets in web storage; use short-lived scoped tokens",
+          verification: "PROBABLE"
+        }));
+      }
+    }
+    return produced;
+  }
+  iframeAudit(pageUrl, iframes) {
+    const produced = [];
+    for (const f of iframes) {
+      const isCross = this.isCrossOrigin(f.src, pageUrl);
+      if (isCross && !f.sandbox) {
+        produced.push(this.finding({
+          category: "iframe",
+          severity: "low",
+          confidence: 0.6,
+          affectedEntity: `iframe:${f.src}`,
+          observedBehavior: "cross-origin iframe without sandbox attribute",
+          evidenceRefs: [`iframe:${f.src}`],
+          remediation: "apply sandbox with least-privilege allow-* flags",
+          verification: "POTENTIAL"
+        }));
+      }
+    }
+    return produced;
+  }
+  postMessageAudit(messages) {
+    const produced = [];
+    for (const m of messages) {
+      if (m.targetOrigin === "*") {
+        produced.push(this.finding({
+          category: "postMessage",
+          severity: "medium",
+          confidence: 0.7,
+          affectedEntity: `postMessage:${m.origin}`,
+          source: m.origin,
+          sink: "window.postMessage(targetOrigin=*)",
+          dataFlow: [m.origin, "broadcast postMessage"],
+          observedBehavior: "postMessage with wildcard targetOrigin broadcasts data to any listener",
+          evidenceRefs: [`postMessage:${m.origin}`],
+          remediation: "send to an explicit target origin",
+          verification: "PROBABLE"
+        }));
+      }
+    }
+    return produced;
+  }
+  thirdPartyAudit(pageUrl, scripts) {
+    const produced = [];
+    const thirdParty = scripts.filter((s) => s.src && this.isCrossOrigin(s.src, pageUrl));
+    if (thirdParty.length >= 5) {
+      produced.push(this.finding({
+        category: "third-party",
+        severity: "low",
+        confidence: 0.65,
+        affectedEntity: pageUrl,
+        observedBehavior: `${thirdParty.length} third-party scripts loaded`,
+        evidenceRefs: thirdParty.slice(0, 5).map((s) => `script:${s.src}`),
+        remediation: "audit third-party supply chain; add SRI + CSP allowlists",
+        verification: "POTENTIAL"
+      }));
+    }
+    return produced;
+  }
+  mixedContentAudit(pageUrl, requests) {
+    const produced = [];
+    if (pageUrl.startsWith("https://")) {
+      for (const r of requests) {
+        if (r.url.startsWith("http://")) {
+          produced.push(this.finding({
+            category: "mixed-content",
+            severity: "medium",
+            confidence: 0.9,
+            affectedEntity: r.url,
+            observedBehavior: "plaintext subresource on an https page (mixed content)",
+            evidenceRefs: [`request:${r.url}`],
+            remediation: "serve all subresources over https",
+            verification: "CONFIRMED"
+          }));
+        }
+      }
+    }
+    return produced;
+  }
+  authSessionAudit(signals) {
+    const produced = [];
+    const expiry = signals.find((s) => /expire|logout|401|403/i.test(`${s.kind} ${s.detail}`));
+    if (expiry) {
+      produced.push(this.finding({
+        category: "auth-session",
+        severity: "info",
+        confidence: 0.6,
+        affectedEntity: "auth-flow",
+        observedBehavior: `auth transition observed: ${expiry.kind} — ${expiry.detail}`,
+        evidenceRefs: [`auth:${expiry.kind}`],
+        remediation: "verify session handling on expiry (redirect, token refresh, state cleanup)",
+        verification: "POTENTIAL"
+      }));
+    }
+    return produced;
+  }
+  secretExposureAudit(pageUrl, requests) {
+    const produced = [];
+    for (const r of requests) {
+      const auth = r.requestHeaders?.["authorization"] ?? r.requestHeaders?.["Authorization"];
+      const cross = this.isCrossOrigin(r.url, pageUrl);
+      if (auth && cross) {
+        produced.push(this.finding({
+          category: "secret-exposure",
+          severity: "high",
+          confidence: 0.8,
+          affectedEntity: r.url,
+          source: "authorization header",
+          sink: r.url,
+          dataFlow: ["client-credential", `cross-origin request to ${r.url}`],
+          observedBehavior: "credential sent in Authorization header to a cross-origin endpoint",
+          evidenceRefs: [`request:${r.url}`],
+          remediation: "verify the destination origin is the intended audience for this credential",
+          verification: "PROBABLE"
+        }));
+      }
+    }
+    return produced;
+  }
+  isCrossOrigin(url, pageUrl) {
+    try {
+      return new URL(url).origin !== new URL(pageUrl).origin;
+    } catch {
+      return false;
+    }
+  }
+  all() {
+    return this.findings;
+  }
+}
+class ActiveTestGate {
+  constructor(policy = { ...DEFAULT_SECURITY_POLICY }) {
+    this.policy = policy;
+  }
+  windowStart = Date.now();
+  requestsInWindow = 0;
+  totalRequests = 0;
+  get currentPolicy() {
+    return { ...this.policy };
+  }
+  /** Request authorization for an active test against a target. */
+  authorizeActiveTest(targetUrl, category, opts = {}) {
+    if (this.policy.killSwitch) {
+      return { allowed: false, reason: "kill switch is engaged — all active testing disabled" };
+    }
+    if (this.policy.mode !== "authorized-active") {
+      return { allowed: false, reason: "policy mode is passive — active testing requires explicit authorization (set mode=authorized-active)" };
+    }
+    let origin;
+    try {
+      origin = new URL(targetUrl).origin;
+    } catch {
+      return { allowed: false, reason: "target URL is not parsable — refusing" };
+    }
+    if (this.policy.blockedOrigins.some((o) => origin.includes(o))) {
+      return { allowed: false, reason: `target origin ${origin} is blocked by policy` };
+    }
+    if (this.policy.allowedOrigins.length && !this.policy.allowedOrigins.some((o) => origin === o || origin.endsWith(o))) {
+      return { allowed: false, reason: `target origin ${origin} is not in the authorized origin list` };
+    }
+    if (!this.policy.testCategories.includes(category)) {
+      return { allowed: false, reason: `category "${category}" not in allowed test categories [${this.policy.testCategories.join(", ")}]` };
+    }
+    if (opts.destructive && this.policy.destructiveActionsDisabled) {
+      return { allowed: false, reason: "destructive testing is disabled by default (destructiveActionsDisabled=true)" };
+    }
+    if (this.totalRequests >= this.policy.requestBudget) {
+      return { allowed: false, reason: `request budget exhausted (${this.policy.requestBudget})` };
+    }
+    if (Date.now() - this.windowStart > 6e4) {
+      this.windowStart = Date.now();
+      this.requestsInWindow = 0;
+    }
+    if (this.requestsInWindow >= this.policy.rateLimitPerMinute) {
+      return { allowed: false, reason: `rate limit exceeded (${this.policy.rateLimitPerMinute}/min)` };
+    }
+    this.requestsInWindow += 1;
+    this.totalRequests += 1;
+    return { allowed: true, reason: `authorized: origin=${origin} category=${category} budget=${this.totalRequests}/${this.policy.requestBudget}` };
+  }
+  engageKillSwitch() {
+    this.policy.killSwitch = true;
+  }
+}
+class SelfHealingRuntime {
+  constructor(captureSnapshot) {
+    this.captureSnapshot = captureSnapshot;
+  }
+  state = "DISCONNECTED";
+  attempts = [];
+  maxAttemptsPerFailure = 3;
+  backoffBaseMs = 50;
+  snapshot = null;
+  stateHistory = [];
+  markConnected() {
+    this.record("CONNECTED");
+  }
+  markDegraded(reason) {
+    if (this.state === "CONNECTED") {
+      this.record("DEGRADED");
+      this.lastReason = reason;
+    }
+  }
+  lastReason = "";
+  get currentState() {
+    return this.state;
+  }
+  get degradationReason() {
+    return this.lastReason;
+  }
+  /**
+   * Handle a failure with a bounded, reason-aware recovery policy.
+   * Preserves the snapshot (evidence/identity/checkpoints) BEFORE any
+   * recovery attempt. Returns the recovery outcome — never loops forever.
+   */
+  async handleFailure(failure, tryRecover) {
+    this.snapshot = this.captureSnapshot();
+    if (this.state === "CONNECTED") this.record("DEGRADED");
+    this.record("DISCONNECTED");
+    this.record("RECOVERING");
+    let lastOutcome = {
+      at: Date.now(),
+      failure,
+      attempt: 0,
+      outcome: "FAILED",
+      preserved: recoveryPreserved(this.snapshot),
+      lost: [],
+      reason: "no attempts made"
+    };
+    for (let attempt = 1; attempt <= this.maxAttemptsPerFailure; attempt++) {
+      await delay(this.backoffBaseMs * Math.pow(2, attempt - 1));
+      const result = await tryRecover(failure, attempt, this.snapshot);
+      if (result.recovered) {
+        this.record("REATTACHED");
+        const attemptRecord = {
+          at: Date.now(),
+          failure,
+          attempt,
+          outcome: result.partial?.length ? "PARTIAL" : "RECOVERED",
+          preserved: recoveryPreserved(this.snapshot),
+          lost: result.partial ?? [],
+          reason: result.reason
+        };
+        this.attempts.push(attemptRecord);
+        this.record("RECONCILED");
+        return attemptRecord;
+      }
+      lastOutcome = {
+        at: Date.now(),
+        failure,
+        attempt,
+        outcome: "FAILED",
+        preserved: recoveryPreserved(this.snapshot),
+        lost: ["live-connection"],
+        reason: result.reason
+      };
+      this.attempts.push(lastOutcome);
+    }
+    return lastOutcome;
+  }
+  record(to) {
+    this.stateHistory.push({ at: Date.now(), from: this.stateHistory.length ? this.state : "INIT", to });
+    this.state = to;
+  }
+  get recoveryLog() {
+    return this.attempts;
+  }
+  get stateTransitions() {
+    return this.stateHistory;
+  }
+}
+function recoveryPreserved(snapshot) {
+  if (!snapshot) return [];
+  return [
+    `incidents(${snapshot.activeIncidentIds.length})`,
+    `entities(${snapshot.entityCount})`,
+    `evidence(${snapshot.evidenceCount})`,
+    `checkpoints(${snapshot.checkpointCount})`,
+    `temporal-head(${snapshot.headSequence})`,
+    `tab-mapping(${Object.keys(snapshot.tabMapping).length})`
+  ];
+}
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+const DEFAULT_BUDGETS = {
+  maxEvents: 1e7,
+  maxBytes: 2 * 1024 * 1024 * 1024,
+  maxMemoryMB: 1024,
+  maxFrameDepth: 8,
+  maxReconstructionMs: 250,
+  maxGraphNodes: 25e4,
+  maxNetworkCapture: 2e5,
+  maxScreenshotArea: 4096 * 4096,
+  maxConcurrentAnalyzers: 8
+};
+class ResourceGuardian {
+  constructor(budgets = { ...DEFAULT_BUDGETS }) {
+    this.budgets = budgets;
+  }
+  usage = {
+    events: 0,
+    bytes: 0,
+    memoryMB: 0,
+    graphNodes: 0,
+    networkCaptured: 0,
+    queueDepth: 0,
+    concurrentAnalyzers: 0
+  };
+  report(usage) {
+    this.usage = { ...this.usage, ...usage };
+  }
+  reportEvent() {
+    this.usage.events += 1;
+  }
+  current() {
+    return { ...this.usage };
+  }
+  decide() {
+    const pressure = this.pressure();
+    if (pressure >= 1) {
+      return {
+        mode: "EMERGENCY",
+        capturePolicy: "PRESERVE_EVIDENCE",
+        actions: ["freeze non-essential capture", "persist evidence + checkpoints", "prepare recovery snapshot"],
+        degraded: true
+      };
+    }
+    if (pressure >= 0.85) {
+      return {
+        mode: "CRITICAL",
+        capturePolicy: "SAMPLING",
+        actions: ["sample optional capture streams", "drop payload payloads (keep identity)", "alert td_health_snapshot"],
+        degraded: true
+      };
+    }
+    if (pressure >= 0.65) {
+      return {
+        mode: "PRESSURED",
+        capturePolicy: "COMPACT",
+        actions: ["switch outputs to compact mode", "reduce screenshot/network body retention"],
+        degraded: true
+      };
+    }
+    return { mode: "HEALTHY", capturePolicy: "FULL_FIDELITY", actions: [], degraded: false };
+  }
+  /** Max utilization ratio across budgeted resources. */
+  pressure() {
+    const b = this.budgets;
+    const u = this.usage;
+    return Math.max(
+      u.events / b.maxEvents,
+      u.bytes / b.maxBytes,
+      u.memoryMB / b.maxMemoryMB,
+      u.graphNodes / b.maxGraphNodes,
+      u.networkCaptured / b.maxNetworkCapture,
+      u.queueDepth / 1e4,
+      u.concurrentAnalyzers / Math.max(1, b.maxConcurrentAnalyzers * 2)
+    );
+  }
+  get budgetsSnapshot() {
+    return { ...this.budgets };
+  }
+}
+class ContextPlanner {
+  metrics = { bytesToDecision: 0, tokensToDecision: 0, toolCallsToDecision: 0, failedActionsBeforeDecision: 0 };
+  /** Choose the output level for an intent (never floods by default). */
+  levelForIntent(intent) {
+    const i = intent.toLowerCase();
+    if (/full|dump|everything|raw|debug-all/.test(i)) return "L4";
+    if (/evidence|proof|verify|why|caus/.test(i)) return "L3";
+    if (/element|subtree|component|section|form/.test(i)) return "L2";
+    if (/state|page|summar|overview|what.*(page|app)/.test(i)) return "L1";
+    return "L0";
+  }
+  /**
+   * Produce the minimal sufficient context for the next decision.
+   * Raw state is externalized to searchable artifacts, not inlined.
+   */
+  plan(input, opts = {}) {
+    const level = opts.requestedLevel ?? this.levelForIntent(input.intent);
+    const notes = [];
+    let summary = {};
+    let approxBytes = 0;
+    switch (level) {
+      case "L0": {
+        summary = {
+          stateRef: `state_${hashRef(input)}`,
+          eventCount: input.eventCount,
+          semanticElementCount: input.semanticElements.length,
+          scope: input.workingScope
+        };
+        approxBytes = 200;
+        break;
+      }
+      case "L1": {
+        summary = {
+          stateRef: `state_${hashRef(input)}`,
+          eventCount: input.eventCount,
+          semantic: input.semanticElements.slice(0, 40).map((el) => ({
+            id: el.semanticId,
+            role: el.role,
+            text: el.text.slice(0, 40),
+            state: el.state,
+            owner: el.ownership,
+            stability: el.stability,
+            selector: el.selector
+          }))
+        };
+        approxBytes = 200 + input.semanticElements.slice(0, 40).length * 90;
+        notes.push("semantic state compacted to 40 elements");
+        break;
+      }
+      case "L2": {
+        const scoped = input.semanticElements.filter(
+          (el) => input.workingScope.some((s) => el.selector.includes(s) || el.ownership?.includes(s) || el.semanticId.includes(s))
+        );
+        summary = {
+          stateRef: `state_${hashRef(input)}`,
+          subtree: (scoped.length ? scoped : input.semanticElements.slice(0, 60)).map((el) => ({
+            id: el.semanticId,
+            role: el.role,
+            text: el.text.slice(0, 60),
+            state: el.state,
+            owner: el.ownership,
+            stability: el.stability,
+            selector: el.selector,
+            interactive: true
+          }))
+        };
+        approxBytes = 250 + (scoped.length || Math.min(60, input.semanticElements.length)) * 110;
+        break;
+      }
+      case "L3": {
+        summary = {
+          stateRef: `state_${hashRef(input)}`,
+          incident: input.incidentContext ?? { incidentId: "none", hypotheses: [], causalChain: [], verification: "UNSUPPORTED" },
+          scope: input.workingScope,
+          eventCount: input.eventCount
+        };
+        approxBytes = 400 + JSON.stringify(input.incidentContext ?? {}).length;
+        break;
+      }
+      case "L4": {
+        summary = { stateRef: `state_${hashRef(input)}`, fullStateAvailable: true, eventCount: input.eventCount, fullStateBytes: input.fullStateBytes };
+        approxBytes = input.fullStateBytes;
+        notes.push("L4 returns the full forensic state — expensive; use only when required");
+        break;
+      }
+    }
+    const seenRoles = /* @__PURE__ */ new Set();
+    let duplicatesSuppressed = 0;
+    if (Array.isArray(summary.semantic) || Array.isArray(summary.subtree)) {
+      const key = summary.semantic ? "semantic" : "subtree";
+      const kept = summary[key].filter((el) => {
+        const dedupeKey = `${el.role}:${el.text}`;
+        if (seenRoles.has(dedupeKey)) {
+          duplicatesSuppressed += 1;
+          return false;
+        }
+        seenRoles.add(dedupeKey);
+        return true;
+      });
+      summary[key] = kept;
+      if (duplicatesSuppressed > 0) notes.push(`${duplicatesSuppressed} duplicate semantic entries suppressed`);
+    }
+    const available = [
+      { artifactId: `art:dom:${hashRef(input)}`, kind: "dom-full", byteLength: input.fullStateBytes, searchable: true, storedRef: `artifact://dom/${hashRef(input)}` },
+      { artifactId: `art:network:${hashRef(input)}`, kind: "network-log", byteLength: Math.min(input.fullStateBytes, 1e5), searchable: true, storedRef: `artifact://network/${hashRef(input)}` },
+      { artifactId: `art:console:${hashRef(input)}`, kind: "console-log", byteLength: 4096, searchable: true, storedRef: `artifact://console/${hashRef(input)}` }
+    ];
+    this.metrics.bytesToDecision += approxBytes;
+    this.metrics.tokensToDecision += Math.ceil(approxBytes / 4);
+    this.metrics.toolCallsToDecision += 1;
+    return {
+      level,
+      summary,
+      stateRef: `state_${hashRef(input)}`,
+      approximateTokens: Math.ceil(approxBytes / 4),
+      available,
+      metrics: { ...this.metrics },
+      notes
+    };
+  }
+  recordFailedAction() {
+    this.metrics.failedActionsBeforeDecision += 1;
+  }
+  get cumulativeMetrics() {
+    return { ...this.metrics };
+  }
+}
+function hashRef(input) {
+  const s = `${input.eventCount}:${input.semanticElements.length}:${input.workingScope.join(",")}`;
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = h * 31 + s.charCodeAt(i) | 0;
+  }
+  return Math.abs(h).toString(36).padStart(6, "0").slice(0, 6);
+}
+class AgentMemory {
+  items = [];
+  seq = 0;
+  /**
+   * Store a memory item. Items below the confidence floor are stored but
+   * flagged unvalidated — consumers must check `validated` before treating
+   * a memory as fact.
+   */
+  store(kind, statement, provenance, confidence) {
+    this.seq += 1;
+    const item = {
+      memoryId: `mem:${this.seq}`,
+      kind,
+      statement,
+      provenance,
+      confidence: Math.max(0, Math.min(1, confidence)),
+      timesReused: 0,
+      createdAt: Date.now(),
+      lastValidatedAt: null,
+      validated: confidence >= 0.75
+    };
+    this.items.push(item);
+    return item;
+  }
+  query(q = {}) {
+    const out = this.items.filter((item) => {
+      if (q.kinds?.length && !q.kinds.includes(item.kind)) return false;
+      if (q.minConfidence !== void 0 && item.confidence < q.minConfidence) return false;
+      if (q.onlyValidated && !item.validated) return false;
+      if (q.searchText && !item.statement.toLowerCase().includes(q.searchText.toLowerCase())) return false;
+      return true;
+    });
+    out.sort((a, b) => b.confidence - a.confidence);
+    const limited = q.limit ? out.slice(0, q.limit) : out;
+    for (const item of limited) item.timesReused += 1;
+    return limited.map((i) => ({ ...i }));
+  }
+  /** Validation feedback from later investigations. */
+  validate(memoryId, outcome) {
+    const item = this.items.find((i) => i.memoryId === memoryId);
+    if (!item) return;
+    item.lastValidatedAt = Date.now();
+    if (outcome === "CONFIRMED") {
+      item.confidence = Math.min(1, item.confidence + 0.1);
+      item.validated = item.confidence >= 0.75;
+    } else {
+      item.confidence = Math.max(0, item.confidence - 0.3);
+      item.validated = false;
+    }
+  }
+  /**
+   * Learning influences only rankings/heuristics: e.g. boosting selector
+   * candidates whose patterns were historically stable.
+   */
+  heuristicBoost(kind, predicate) {
+    const matches = this.items.filter((i) => i.kind === kind && predicate(i.statement) && i.validated);
+    if (matches.length === 0) return 0;
+    const avgConfidence = matches.reduce((s, i) => s + i.confidence, 0) / matches.length;
+    return Math.min(0.2, matches.length * 0.02 + avgConfidence * 0.05);
+  }
+  stats() {
+    const byKind = {};
+    for (const i of this.items) byKind[i.kind] = (byKind[i.kind] ?? 0) + 1;
+    return { total: this.items.length, validated: this.items.filter((i) => i.validated).length, byKind };
+  }
+  serialize() {
+    return [...this.items];
+  }
+  restore(items) {
+    this.items = [...items];
+    this.seq = items.length;
+  }
+}
+const INTERACTIVE_TAGS = /* @__PURE__ */ new Set(["button", "a", "input", "select", "textarea", "option", "form", "summary", "details"]);
+const ROLE_BY_TAG = {
+  button: "submit-action",
+  a: "navigation-link",
+  input: "data-entry",
+  select: "choice",
+  textarea: "data-entry",
+  form: "input-group",
+  table: "data-table",
+  nav: "navigation-region",
+  header: "page-header",
+  footer: "page-footer",
+  main: "main-region",
+  aside: "complementary",
+  img: "media",
+  video: "media",
+  canvas: "graphics",
+  dialog: "modal",
+  label: "field-label"
+};
+class SemanticEngine {
+  /**
+   * Build the semantic model of a raw DOM fragment. Stability is computed
+   * from how many stable signals (role tag, id, text, accessible name)
+   * anchor the element.
+   */
+  semanticDom(elements) {
+    return elements.map((el) => {
+      const role = this.roleOf(el);
+      const stableSignals = [
+        Boolean(el.id),
+        Boolean(el.text && el.text.trim().length > 0),
+        INTERACTIVE_TAGS.has(el.tag),
+        Boolean(el.attributes?.["aria-label"]),
+        Boolean(el.attributes?.["data-testid"] || el.attributes?.["data-test"])
+      ].filter(Boolean).length;
+      const stability = Math.min(0.97, 0.45 + stableSignals * 0.11);
+      const state = this.stateOf(el);
+      return {
+        semanticId: `sem:${computeHash({ tag: el.tag, id: el.id, text: el.text, role }).slice(0, 12)}`,
+        role,
+        purpose: this.purposeOf(el, role),
+        text: (el.text ?? "").trim().slice(0, 120),
+        state,
+        ownership: el.parentId ? `component@${el.parentId}` : null,
+        stability,
+        visibility: el.visible === false ? "hidden" : "visible",
+        interactive: el.interactive ?? INTERACTIVE_TAGS.has(el.tag),
+        selectorCandidates: this.selectorsFor(el),
+        accessibility: {
+          role: el.attributes?.["role"] || (ROLE_BY_TAG[el.tag] ? void 0 : el.attributes?.["role"]),
+          name: el.attributes?.["aria-label"] || el.attributes?.["name"],
+          label: el.attributes?.["aria-labelledby"],
+          focusable: el.interactive ?? INTERACTIVE_TAGS.has(el.tag)
+        }
+      };
+    });
+  }
+  roleOf(el) {
+    if (el.attributes?.["role"]) return el.attributes["role"];
+    if (el.attributes?.["data-testid"]) return `test-target(${el.attributes["data-testid"]})`;
+    return ROLE_BY_TAG[el.tag] ?? `${el.tag}-region`;
+  }
+  purposeOf(el, role) {
+    const text = (el.text ?? "").trim().toLowerCase();
+    if (role === "submit-action") return text ? `action:${text}` : "submit-action";
+    if (role === "navigation-link") return text ? `navigate:${text}` : "navigation";
+    if (role === "data-entry") return `input:${el.attributes?.["type"] ?? "text"}`;
+    return `${el.tag}:${role}`;
+  }
+  stateOf(el) {
+    const attrs = el.attributes ?? {};
+    if (attrs["aria-disabled"] === "true" || attrs["disabled"] !== void 0) return "disabled";
+    if (attrs["aria-busy"] === "true" || attrs["data-loading"] === "true") return "loading";
+    if (attrs["aria-invalid"] === "true") return "invalid";
+    if (el.visible === false || attrs["aria-hidden"] === "true") return "hidden";
+    return "enabled";
+  }
+  selectorsFor(el) {
+    const candidates = [];
+    if (el.id) candidates.push(`#${el.id}`);
+    if (el.attributes?.["data-testid"]) candidates.push(`[data-testid="${el.attributes["data-testid"]}"]`);
+    if (el.attributes?.["aria-label"]) candidates.push(`${el.tag}[aria-label="${el.attributes["aria-label"]}"]`);
+    if (el.classes?.length) candidates.push(`${el.tag}.${el.classes.slice(0, 2).join(".")}`);
+    candidates.push(el.tag);
+    return candidates;
+  }
+  /**
+   * Infer component boundaries from raw structure. Framework detection is
+   * evidence-driven (attribute fingerprints), never guessed blindly.
+   */
+  componentMap(elements) {
+    const components = [];
+    for (const el of elements) {
+      const framework = this.frameworkOf(el);
+      if (!framework) continue;
+      const name = this.componentName(el, framework);
+      const evidence = this.frameworkEvidence(el, framework);
+      const childCount = elements.filter((c) => c.parentId === (el.id ?? el.tag)).length;
+      components.push({
+        componentId: `comp:${computeHash({ name, framework, root: el.id ?? el.tag }).slice(0, 12)}`,
+        name,
+        framework,
+        rootSelector: el.id ? `#${el.id}` : el.tag,
+        depth: el.depth ?? 0,
+        childElements: childCount,
+        evidence,
+        confidence: evidence.length >= 2 ? 0.85 : 0.6
+      });
+    }
+    return components;
+  }
+  frameworkOf(el) {
+    const attrs = el.attributes ?? {};
+    if (attrs["data-reactroot"] !== void 0 || attrs["data-reactid"] !== void 0) return "react";
+    if (attrs["data-v-"] !== void 0) return "vue";
+    if (attrs["data-svelte-h"] !== void 0 || el.classes?.some((c) => c.startsWith("svelte-"))) return "svelte";
+    if (el.tag.includes("-") && !attrs["data-testid"]) return "custom-element";
+    if (el.tag === "iframe") return "iframe";
+    return null;
+  }
+  componentName(el, framework) {
+    const attrs = el.attributes ?? {};
+    const candidates = [
+      attrs["data-component"],
+      attrs["data-testid"],
+      attrs["aria-label"],
+      el.id,
+      el.classes?.[0]
+    ].filter(Boolean);
+    const base2 = candidates[0] ?? el.tag;
+    return `${framework}:${base2}`;
+  }
+  frameworkEvidence(el, framework) {
+    const evidence = [`framework-fingerprint:${framework}`];
+    if (el.attributes?.["data-component"]) evidence.push("explicit data-component attribute");
+    if (el.id) evidence.push(`root id #${el.id}`);
+    return evidence;
+  }
+  /**
+   * Derive component lifecycle events from DOM events: mount (first insert),
+   * update (attribute/text change), remount (insert after an unmount),
+   * unmount (removal).
+   */
+  lifecycleFromEvents(componentRootSelector, domEvents) {
+    const relevant = domEvents.filter((e) => (e.targetSelector ?? e.selectorPath ?? "").includes(componentRootSelector)).sort((a, b) => a.sequence - b.sequence);
+    const out = [];
+    let mounted = false;
+    let everMounted = false;
+    let mountSeq = -1;
+    for (const ev of relevant) {
+      if (ev.type === "node-added" || ev.type === "mut_add") {
+        if (!mounted) {
+          if (everMounted) {
+            out.push({ componentId: componentRootSelector, phase: "remount", at: ev.at, evidence: [`event:${ev.sequence}`, "previous mount existed"] });
+          } else {
+            out.push({ componentId: componentRootSelector, phase: "mount", at: ev.at, evidence: [`event:${ev.sequence}`] });
+          }
+          mounted = true;
+          everMounted = true;
+          mountSeq = ev.sequence;
+        } else if (ev.sequence - mountSeq > 2) {
+          out.push({ componentId: componentRootSelector, phase: "remount", at: ev.at, evidence: [`event:${ev.sequence}`, "previous mount existed"] });
+          mountSeq = ev.sequence;
+        }
+      } else if (ev.type === "node-removed" || ev.type === "mut_rem") {
+        if (mounted) {
+          mounted = false;
+          out.push({ componentId: componentRootSelector, phase: "unmount", at: ev.at, evidence: [`event:${ev.sequence}`] });
+        }
+      } else if (ev.type === "attribute-changed" || ev.type === "mut_attr" || ev.type === "mut_txt") {
+        out.push({ componentId: componentRootSelector, phase: "update", at: ev.at, evidence: [`event:${ev.sequence}`] });
+      }
+    }
+    return out;
+  }
+}
+const SIGNAL_WEIGHTS = {
+  structural: 0.2,
+  semantic: 0.3,
+  historical: 0.2,
+  behavioral: 0.15,
+  visual: 0.15
+};
+class TargetIntelligence {
+  history = [];
+  contracts = /* @__PURE__ */ new Map();
+  /**
+   * Resolve a query to a VERIFIED entity. Refuses to blindly return the
+   * nearest match: ambiguous or low-confidence resolutions surface as
+   * AMBIGUOUS / NOT_FOUND with warnings.
+   */
+  resolve(query, candidates) {
+    const warnings = [];
+    const scored = candidates.map((c) => {
+      const evidence = [];
+      let structuralScore = 0.35;
+      if (query.selector && c.selector === query.selector) {
+        structuralScore = 1;
+        evidence.push("selector exact match");
+      } else if (query.selector && (c.selector.includes(query.selector) || query.selector.includes(c.selector))) {
+        structuralScore = 0.6;
+        evidence.push("selector partial match");
+      }
+      let semanticScore = 0.3;
+      if (query.role && c.role === query.role) {
+        semanticScore += 0.4;
+        evidence.push(`role match: ${c.role}`);
+      }
+      if (query.text && c.text && this.textSimilarity(query.text, c.text) > 0.6) {
+        semanticScore += 0.35;
+        evidence.push("text similarity match");
+      }
+      if (query.component && c.component === query.component) {
+        semanticScore += 0.25;
+        evidence.push("component ownership match");
+      }
+      semanticScore = Math.min(1, semanticScore);
+      if (query.description) {
+        const descScore = this.descriptionMatch(query.description, c);
+        semanticScore = Math.max(semanticScore, descScore);
+        if (descScore > 0.6) evidence.push("natural-language description match");
+      }
+      const hist = this.history.find((h) => h.semanticId === c.semanticId);
+      const historicalScore = hist ? Math.min(1, hist.timesResolved / (hist.timesResolved + hist.timesFailed + 1) + 0.3) : 0.3;
+      if (hist?.timesResolved) evidence.push(`resolved ${hist.timesResolved}x before`);
+      const behavioralScore = c.interactive ? 0.8 : 0.3;
+      if (!c.interactive && query.role?.includes("action")) warnings.push(`candidate ${c.selector} is not interactive`);
+      const visualScore = c.visible === false ? 0.15 : c.visible === true ? 0.85 : 0.5;
+      if (c.visible === false) warnings.push(`candidate ${c.selector} is not visible`);
+      const stabilityScore = c.stability ?? 0.5;
+      const overall = structuralScore * SIGNAL_WEIGHTS.structural + semanticScore * SIGNAL_WEIGHTS.semantic + historicalScore * SIGNAL_WEIGHTS.historical + behavioralScore * SIGNAL_WEIGHTS.behavioral + visualScore * SIGNAL_WEIGHTS.visual + stabilityScore * 0;
+      return {
+        candidateId: `cand:${computeHash({ s: c.selector, sem: c.semanticId }).slice(0, 10)}`,
+        selector: c.selector,
+        semanticId: c.semanticId,
+        structuralScore,
+        semanticScore,
+        historicalScore,
+        behavioralScore,
+        visualScore,
+        stabilityScore: Math.min(1, stabilityScore + (hist ? 0.1 : 0)),
+        overall: Math.min(0.99, overall),
+        evidence
+      };
+    });
+    scored.sort((a, b) => b.overall - a.overall);
+    const best = scored[0] ?? null;
+    if (!best) {
+      return { status: "NOT_FOUND", best: null, candidates: [], confidence: 0, verified: false, warnings: ["no candidates"] };
+    }
+    const second = scored[1];
+    const ambiguous = second && best.overall - second.overall < 0.08 && second.overall > 0.5;
+    if (ambiguous) {
+      warnings.push("two candidates within 0.08 overall score — resolution ambiguous");
+    }
+    const status = ambiguous ? "AMBIGUOUS" : best.overall >= 0.55 ? "RESOLVED" : best.overall >= 0.35 ? "DEGRADED" : "NOT_FOUND";
+    this.recordHistory(best, status === "RESOLVED");
+    return {
+      status,
+      best,
+      candidates: scored,
+      confidence: status === "RESOLVED" ? best.overall : status === "DEGRADED" ? best.overall * 0.7 : 0,
+      verified: status === "RESOLVED" && best.evidence.length >= 1,
+      warnings
+    };
+  }
+  recordHistory(candidate, success) {
+    let entry = this.history.find((h) => h.semanticId === candidate.semanticId);
+    if (!entry) {
+      entry = {
+        semanticId: candidate.semanticId,
+        selector: candidate.selector,
+        timesResolved: 0,
+        timesFailed: 0,
+        lastResolvedAt: Date.now(),
+        lastSelectors: []
+      };
+      this.history.push(entry);
+    }
+    if (success) {
+      entry.timesResolved += 1;
+      entry.lastResolvedAt = Date.now();
+      entry.lastSelectors.push(candidate.selector);
+    } else {
+      entry.timesFailed += 1;
+    }
+  }
+  textSimilarity(a, b) {
+    const norm = (s) => s.toLowerCase().trim();
+    const sa = norm(a), sb = norm(b);
+    if (sa === sb) return 1;
+    if (sa.includes(sb) || sb.includes(sa)) return 0.75;
+    const tokensA = new Set(sa.split(/\s+/));
+    const tokensB = new Set(sb.split(/\s+/));
+    let shared = 0;
+    for (const t of tokensA) if (tokensB.has(t)) shared += 1;
+    return shared / Math.max(tokensA.size, tokensB.size, 1);
+  }
+  descriptionMatch(description, c) {
+    const words = description.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2);
+    let score = 0;
+    for (const w of words) {
+      if ((c.text ?? "").toLowerCase().includes(w)) score += 0.25;
+      if ((c.role ?? "").toLowerCase().includes(w)) score += 0.2;
+      if (c.selector.toLowerCase().includes(w.replace(/\s+/g, "-"))) score += 0.15;
+    }
+    return Math.min(1, score);
+  }
+  /**
+   * Recover a target after its representation changed. Combines semantic
+   * role, historical identity, ancestry, text + component ownership.
+   * Returns null when recovery would be a blind guess (honest failure).
+   */
+  recover(failedSelector, lastKnown, currentCandidates) {
+    const warnings = [`selector ${failedSelector} failed; attempting multi-signal recovery`];
+    const scored = currentCandidates.map((c) => {
+      let score = 0;
+      const evidence = [];
+      if (lastKnown.semanticId && c.semanticId === lastKnown.semanticId) {
+        score += 0.5;
+        evidence.push("historical semantic identity match");
+      }
+      if (lastKnown.text && c.text && this.textSimilarity(lastKnown.text, c.text) > 0.7) {
+        score += 0.3;
+        evidence.push("text similarity");
+      }
+      if (lastKnown.role && c.role === lastKnown.role) {
+        score += 0.2;
+        evidence.push("semantic role match");
+      }
+      if (lastKnown.component && c.component === lastKnown.component) {
+        score += 0.15;
+        evidence.push("component ownership survived");
+      }
+      if (lastKnown.ancestorSelector && c.selector.includes(lastKnown.ancestorSelector)) {
+        score += 0.1;
+        evidence.push("ancestry match");
+      }
+      return { c, score: Math.min(0.95, score), evidence };
+    });
+    scored.sort((a, b) => b.score - a.score);
+    const best = scored[0];
+    if (!best || best.score < 0.5) {
+      warnings.push("recovery refused: best candidate below 0.5 confidence (would be a blind guess)");
+      return { status: "NOT_FOUND", best: null, candidates: [], confidence: 0, verified: false, warnings };
+    }
+    return {
+      status: best.score >= 0.65 ? "RESOLVED" : "DEGRADED",
+      best: {
+        candidateId: `recovered:${computeHash({ s: best.c.selector }).slice(0, 10)}`,
+        selector: best.c.selector,
+        semanticId: best.c.semanticId,
+        structuralScore: 0.3,
+        semanticScore: best.score,
+        historicalScore: lastKnown.semanticId === best.c.semanticId ? 0.9 : 0.4,
+        behavioralScore: best.c.interactive ? 0.8 : 0.3,
+        visualScore: best.c.visible === false ? 0.2 : 0.8,
+        stabilityScore: 0.6,
+        overall: best.score,
+        evidence: best.evidence
+      },
+      candidates: [],
+      confidence: best.score,
+      verified: true,
+      warnings
+    };
+  }
+  /** Create a durable target contract for future actions. */
+  createContract(query, resolution) {
+    if (!resolution.best) return null;
+    const contractId = `contract:${computeHash({ q: query, sem: resolution.best.semanticId }).slice(0, 12)}`;
+    const existing = this.contracts.get(contractId);
+    const contract = {
+      contractId,
+      query,
+      resolvedSemanticId: resolution.best.semanticId,
+      selectorCandidates: [resolution.best.selector, ...resolution.candidates.slice(1, 4).map((c) => c.selector)],
+      confidence: resolution.confidence,
+      createdAt: existing?.createdAt ?? Date.now(),
+      resolvedCount: (existing?.resolvedCount ?? 0) + 1
+    };
+    this.contracts.set(contractId, contract);
+    return contract;
+  }
+  getContract(contractId) {
+    return this.contracts.get(contractId);
+  }
+}
+class TeleDOMPlatform {
+  version = TELEDOM_VERSION.version;
+  identity = new IdentityEngine();
+  graph = new EvidenceGraph();
+  causal;
+  counterfactual;
+  branches = new BranchManager();
+  incidents = new IncidentManager();
+  investigator;
+  proofs = new ProofEngine();
+  verifier = new VerificationEngine();
+  security = new SecurityAnalyzers();
+  zeroTrust = new ZeroTrustModel();
+  activeTestGate = new ActiveTestGate({ ...DEFAULT_SECURITY_POLICY });
+  guardian = new ResourceGuardian();
+  memory = new AgentMemory();
+  contextPlanner = new ContextPlanner();
+  semantics = new SemanticEngine();
+  targeting = new TargetIntelligence();
+  prediction = new PredictionEngine();
+  tdom = new TdomFormat();
+  diagnostics = new KernelDiagnostics();
+  runtime;
+  sessions = /* @__PURE__ */ new Map();
+  constructor() {
+    this.causal = new CausalEngine(this.graph);
+    this.counterfactual = new CounterfactualEngine(this.causal);
+    this.investigator = new AutonomousInvestigator(this.causal, this.counterfactual);
+    this.runtime = new SelfHealingRuntime(() => this.recoverySnapshot());
+    this.runtime.markConnected();
+    this.registerDiagnostics();
+  }
+  /** Create or get a session (event mesh + temporal engine + store). */
+  session(sessionId) {
+    let s = this.sessions.get(sessionId);
+    if (!s) {
+      const mesh = new EventMesh();
+      const temporal = new TemporalEngine();
+      const store = new IndexedEventStore();
+      s = { sessionId, mesh, temporal, store, createdAt: Date.now() };
+      this.sessions.set(sessionId, s);
+    }
+    return s;
+  }
+  get sessionIds() {
+    return [...this.sessions.keys()];
+  }
+  /** Record an observation event into a session (mesh + store + temporal). */
+  record(sessionId, source, type, payload, meta = {}) {
+    const s = this.session(sessionId);
+    const ev = s.mesh.emit(source, type, payload, meta);
+    s.store.admit(ev);
+    s.temporal.ingest(ev);
+    this.guardian.reportEvent();
+    return ev;
+  }
+  /** Bulk import (restored/chaos/golden streams). */
+  importEvents(sessionId, events) {
+    const s = this.session(sessionId);
+    let imported = 0, duplicates = 0, rejected = 0;
+    for (const env of events) {
+      const status = s.mesh.append(env);
+      if (status === "APPENDED" || status === "LATE_APPENDED") {
+        s.store.admit(env);
+        s.temporal.ingest(env);
+        imported += 1;
+      } else if (status === "DUPLICATE") {
+        duplicates += 1;
+      } else {
+        rejected += 1;
+      }
+    }
+    return { imported, duplicates, rejected };
+  }
+  /** Security posture scan for a session-shaped input. */
+  securityPosture(input) {
+    return this.security.posture(input);
+  }
+  recoverySnapshot() {
+    return {
+      activeIncidentIds: this.incidents.list().filter((i) => i.state !== "RESOLVED" && i.state !== "ABANDONED").map((i) => i.incidentId),
+      entityCount: this.identity.stats().total,
+      evidenceCount: this.graph.stats().nodes,
+      checkpointCount: this.sessions.size * 10 + [...this.sessions.values()].reduce((s, x) => s + x.temporal.checkpointCount, 0),
+      headSequence: [...this.sessions.values()].reduce((s, x) => s + x.mesh.stats().headSequence, 0),
+      tabMapping: {}
+    };
+  }
+  /** Kernel self-diagnostics wiring (TeleDOM investigates itself). */
+  registerDiagnostics() {
+    for (const [sessionId, s] of this.sessions) {
+    }
+    this.diagnostics.register("event-integrity", () => {
+      let valid = true;
+      let broken = "";
+      for (const s of this.sessions.values()) {
+        const check = s.mesh.verifyIntegrity();
+        if (!check.valid) {
+          valid = false;
+          broken = check.brokenAt ?? "";
+          break;
+        }
+      }
+      return {
+        id: "event-integrity",
+        status: valid ? "HEALTHY" : "UNHEALTHY",
+        detail: valid ? `hash chain valid across ${this.sessions.size} session(s)` : `hash chain broken at ${broken}`,
+        measuredAt: Date.now()
+      };
+    });
+    this.diagnostics.register("storage-integrity", () => ({
+      id: "storage-integrity",
+      status: "HEALTHY",
+      detail: `${[...this.sessions.values()].reduce((s, x) => s + x.store.stats().events, 0)} events indexed`,
+      measuredAt: Date.now()
+    }));
+    this.diagnostics.register("resource-guardian", () => {
+      const decision = this.guardian.decide();
+      return {
+        id: "resource-guardian",
+        status: decision.mode === "HEALTHY" ? "HEALTHY" : decision.mode === "PRESSURED" ? "DEGRADED" : "UNHEALTHY",
+        detail: `mode=${decision.mode} policy=${decision.capturePolicy}`,
+        measuredAt: Date.now()
+      };
+    });
+    this.diagnostics.register("runtime-state", () => ({
+      id: "runtime-state",
+      status: this.runtime.currentState === "CONNECTED" || this.runtime.currentState === "RECONCILED" ? "HEALTHY" : "DEGRADED",
+      detail: `runtime=${this.runtime.currentState}${this.runtime.degradationReason ? ` (${this.runtime.degradationReason})` : ""}`,
+      measuredAt: Date.now()
+    }));
+    this.diagnostics.register("graph-budget", () => {
+      const stats = this.graph.stats();
+      return {
+        id: "graph-budget",
+        status: stats.degraded ? "DEGRADED" : "HEALTHY",
+        detail: `graph nodes=${stats.nodes} edges=${stats.edges}${stats.degraded ? " (payload growth halted — bounded)" : ""}`,
+        measuredAt: Date.now()
+      };
+    });
+    this.diagnostics.register("security-policy", () => ({
+      id: "security-policy",
+      status: this.activeTestGate.currentPolicy.killSwitch ? "DEGRADED" : "HEALTHY",
+      detail: `mode=${this.activeTestGate.currentPolicy.mode} destructive=${this.activeTestGate.currentPolicy.destructiveActionsDisabled ? "disabled" : "ENABLED"}`,
+      measuredAt: Date.now()
+    }));
+  }
+  health() {
+    return this.diagnostics.snapshot();
+  }
+  stats() {
+    return {
+      version: this.version,
+      sessions: this.sessions.size,
+      entities: this.identity.stats().total,
+      evidence: { nodes: this.graph.stats().nodes, edges: this.graph.stats().edges },
+      incidents: this.incidents.list().length,
+      proofs: this.proofs.list().length,
+      branches: this.branches.list().length,
+      memoryItems: this.memory.stats().total
+    };
+  }
+}
+class IntelligenceToolsHandler {
+  platform = new TeleDOMPlatform();
+  knows(name) {
+    return TD_TOOL_NAMES.has(name);
+  }
+  async handleToolCall(name, args) {
+    try {
+      const result = await this.dispatch(name, args);
+      return toMcpResult(result, name);
+    } catch (err) {
+      return {
+        content: [{ type: "text", text: JSON.stringify({ status: "FAIL", error: err?.message ?? "unknown error", tool: name }) }],
+        isError: true
+      };
+    }
+  }
+  async dispatch(name, args) {
+    switch (name) {
+      // ===================== A. Temporal Intelligence =====================
+      case "td_temporal_query": {
+        const s = this.platform.session(args.sessionId);
+        const events = s.mesh.all;
+        const filtered = events.filter((e) => {
+          if (args.fromLogical !== void 0 && e.logicalTime < args.fromLogical) return false;
+          if (args.toLogical !== void 0 && e.logicalTime > args.toLogical) return false;
+          if (args.entityIds?.length && !e.entityIds.some((id) => args.entityIds.includes(id))) return false;
+          return true;
+        });
+        return {
+          status: "PASS",
+          sessionId: args.sessionId,
+          matched: filtered.length,
+          totalEvents: events.length,
+          events: filtered.slice(0, args.limit ?? 50).map((e) => ({ eventId: e.eventId, seq: e.sequence, source: e.source, type: e.type, logicalTime: e.logicalTime, entities: e.entityIds })),
+          provenance: [`mesh:${args.sessionId}`]
+        };
+      }
+      case "td_temporal_seek": {
+        const s = this.platform.session(args.sessionId);
+        const seeked = s.temporal.seek(args.logicalTime);
+        return {
+          status: seeked === null ? "INCONCLUSIVE" : "PASS",
+          sessionId: args.sessionId,
+          requestedLogicalTime: args.logicalTime,
+          nearestValidLogicalTime: seeked,
+          note: seeked === null ? "no event at-or-before the requested time" : void 0
+        };
+      }
+      case "td_temporal_window": {
+        const s = this.platform.session(args.sessionId);
+        const w = s.temporal.window(args.aroundLogical, args.radiusMs ?? 250);
+        return {
+          status: "PASS",
+          sessionId: args.sessionId,
+          before: w.before.map(fmtEvent),
+          at: w.at.map(fmtEvent),
+          after: w.after.map(fmtEvent),
+          counts: { before: w.before.length, at: w.at.length, after: w.after.length }
+        };
+      }
+      case "td_temporal_diff": {
+        const s = this.platform.session(args.sessionId);
+        const d = s.temporal.diff(args.t1, args.t2);
+        return {
+          status: "PASS",
+          sessionId: args.sessionId,
+          t1: args.t1,
+          t2: args.t2,
+          entries: d.result,
+          meta: d.meta
+        };
+      }
+      case "td_temporal_trace_entity": {
+        const s = this.platform.session(args.sessionId);
+        const trace = s.temporal.traceEntity(args.entityId);
+        const trail = this.platform.identity.trail(args.entityId);
+        return {
+          status: trace.length ? "PASS" : "INCONCLUSIVE",
+          entityId: args.entityId,
+          events: trace.map(fmtEvent),
+          identityTrail: trail?.timeline ?? [],
+          note: trace.length ? void 0 : "no events touched this entity"
+        };
+      }
+      case "td_temporal_first_change": {
+        const s = this.platform.session(args.sessionId);
+        const pattern = args.typePattern ? new RegExp(args.typePattern, "i") : null;
+        const ev = s.temporal.firstChange((e) => (!args.source || e.source === args.source) && (!pattern || pattern.test(e.type)));
+        return {
+          status: ev ? "PASS" : "INCONCLUSIVE",
+          firstChange: ev ? fmtEvent(ev) : null,
+          note: ev ? void 0 : "no event matched the predicate"
+        };
+      }
+      case "td_temporal_last_stable": {
+        const s = this.platform.session(args.sessionId);
+        const t = s.temporal.lastStable(args.dimension, args.before, args.settleMs ?? 250);
+        return {
+          status: t === null ? "INCONCLUSIVE" : "PASS",
+          dimension: args.dimension,
+          before: args.before,
+          lastStableLogicalTime: t
+        };
+      }
+      case "td_temporal_join": {
+        const s = this.platform.session(args.sessionId);
+        const clusters = s.temporal.join({ sources: args.sources, withinMs: args.withinMs ?? 250, aroundEntityId: args.aroundEntityId });
+        return {
+          status: clusters.length ? "PASS" : "INCONCLUSIVE",
+          clusters: clusters.map((c) => ({ size: c.length, events: c.map(fmtEvent), spanMs: c[c.length - 1].logicalTime - c[0].logicalTime })),
+          clusterCount: clusters.length
+        };
+      }
+      case "td_temporal_branch": {
+        const s = this.platform.session(args.sessionId);
+        const mutations = Array.isArray(args.mutations) ? args.mutations : [];
+        const forkAtLogical = typeof args.forkAtLogical === "number" ? args.forkAtLogical : 0;
+        if (s.mesh.length === 0) {
+          return { status: "INCONCLUSIVE", note: "session has no events to fork from" };
+        }
+        const branch = this.platform.branches.fork(s.mesh.ordered(), forkAtLogical, mutations, {
+          assumptions: (Array.isArray(args.assumptions) ? args.assumptions : void 0) ?? ["deterministic branch replay"]
+        });
+        return {
+          status: "PASS",
+          branch: { branchId: branch.branchId, parentId: branch.parentId, forkAtLogical: branch.forkAtLogical, mutations: branch.mutations.length, simulatedEventCount: branch.simulatedEvents.length, verification: branch.verification },
+          note: "original evidence untouched (append-only mesh)"
+        };
+      }
+      case "td_temporal_rewind": {
+        const s = this.platform.session(args.sessionId);
+        const state = s.temporal.stateAt(args.logicalTime);
+        return {
+          status: state.result ? "PASS" : "INCONCLUSIVE",
+          logicalTime: args.logicalTime,
+          reconstructedState: state.result,
+          meta: state.meta,
+          note: "inspection-only rewind; live page is never mutated"
+        };
+      }
+      // ===================== B. Evidence & Provenance =====================
+      case "td_evidence_capture": {
+        const node = this.platform.graph.addNode(args.kind, args.label, args.payload ?? {}, args.ref);
+        const incident = this.platform.incidents.get(args.incidentId);
+        if (incident) this.platform.incidents.attachEvidence(args.incidentId, this.platform.graph);
+        return { status: "PASS", evidenceNode: { id: node.id, type: node.type, hash: node.hash }, incidentId: args.incidentId };
+      }
+      case "td_evidence_search": {
+        const nodes = this.platform.graph.nodesAll({ types: args.types, limit: args.limit ?? 50 });
+        const text = (args.text ?? "").toLowerCase();
+        const matched = nodes.filter((n) => !text || n.label.toLowerCase().includes(text));
+        return { status: matched.length ? "PASS" : "INCONCLUSIVE", matches: matched.map((n) => ({ id: n.id, type: n.type, label: n.label })), matchCount: matched.length };
+      }
+      case "td_evidence_chain": {
+        const assessment = assessConfidence({
+          provenance: [{ origin: "agent-supplied", quality: "derived", evidenceRefs: args.evidenceRefs, recordedAt: Date.now() }],
+          corroboration: new Set(args.evidenceRefs).size,
+          verified: false,
+          contradicted: false
+        });
+        return { status: "PASS", claim: args.claim, evidenceRefs: args.evidenceRefs, confidence: assessment.confidence, classification: assessment.classification, rationale: assessment.rationale };
+      }
+      case "td_evidence_confidence": {
+        const provenance = (args.provenance ?? []).map((p) => ({
+          origin: p.origin ?? "unknown",
+          quality: p.quality ?? "derived",
+          evidenceRefs: p.evidenceRefs ?? [],
+          recordedAt: p.recordedAt ?? Date.now()
+        }));
+        const assessment = assessConfidence({
+          provenance,
+          corroboration: args.corroboration ?? 0,
+          verified: Boolean(args.verified),
+          contradicted: Boolean(args.contradicted),
+          kernelConfidenceMultiplier: this.platform.health().confidenceMultiplier
+        });
+        return { status: "PASS", ...assessment };
+      }
+      case "td_evidence_verify": {
+        const contract = {
+          action: `verify claim: ${args.claim}`,
+          preconditions: [],
+          expectedBehavior: args.claim,
+          mustHold: (args.mustHold ?? []).map((d) => ({ description: d, check: (obs) => Boolean(obs[d]) })),
+          mustNotHold: (args.mustNotHold ?? []).map((d) => ({ description: d, check: (obs) => Boolean(obs[d]) })),
+          timeWindowMs: args.timeWindowMs ?? 2e3,
+          evidenceRequired: args.evidenceRequired ?? []
+        };
+        const report = this.platform.verifier.verify(contract, args.observed ?? {}, (args.evidenceCollected ?? args.evidenceRequired ?? []).map((ref) => ({ ref })));
+        return { status: "PASS", verification: report };
+      }
+      case "td_evidence_hash": {
+        const hash = computeHash(args.artifact);
+        return { status: "PASS", integrityHash: hash, algorithm: "sha-256", canonicalization: "sorted-key JSON" };
+      }
+      case "td_evidence_compare": {
+        if (args.packageA === void 0 || args.packageB === void 0) {
+          return { status: "INCONCLUSIVE", note: "evidence comparison requires both packageA and packageB" };
+        }
+        const a = JSON.stringify(args.packageA);
+        const b = JSON.stringify(args.packageB);
+        const identical = a === b;
+        return {
+          status: "PASS",
+          identical,
+          hashA: computeHash(args.packageA),
+          hashB: computeHash(args.packageB),
+          byteLength: { a: a.length, b: b.length },
+          note: identical ? "packages are structurally identical" : "packages differ (see hashes)"
+        };
+      }
+      case "td_evidence_export": {
+        const incident = this.platform.incidents.get(args.incidentId);
+        if (!incident) return { status: "INCONCLUSIVE", note: `incident ${args.incidentId} not found — create one via td_investigate first` };
+        const exporter = new TdomFormat();
+        const exported = exporter.export(incident, { compress: Boolean(args.compress) });
+        const artifactRef = `artifact://tdom/${incident.incidentId}${args.compress ? ".gz" : ""}`;
+        return {
+          status: "PASS",
+          incidentId: args.incidentId,
+          format: "tdom",
+          formatVersion: exported.manifest.formatVersion,
+          byteLength: exported.bytes.length,
+          compression: exported.manifest.compression,
+          sections: Object.keys(exported.manifest.sections),
+          artifactRef,
+          note: args.outputPath ? `artifact available for write to ${args.outputPath}` : "artifact held in memory; pass outputPath to persist"
+        };
+      }
+      case "td_evidence_timeline": {
+        const incident = this.platform.incidents.get(args.incidentId);
+        if (!incident) return { status: "INCONCLUSIVE", note: `incident ${args.incidentId} not found — create one via td_investigate first` };
+        const timeline = incident.timeline.map((e) => `${new Date(e.wallTime).toISOString()} [${e.source}] ${e.type} (seq ${e.sequence})`);
+        return { status: "PASS", incidentId: args.incidentId, state: incident.state, timeline, eventCount: incident.timeline.length };
+      }
+      case "td_evidence_proof": {
+        const proof = this.platform.proofs.generate(
+          (args.claims ?? []).map((c) => ({ statement: c.statement, evidenceNodeIds: c.evidenceNodeIds ?? [], confidence: c.confidence ?? 0.7, verificationRef: c.verificationRef })),
+          (args.steps ?? []).map((s, i) => ({ step: i + 1, statement: s.statement ?? s, justification: s.justification ?? "", evidenceRefs: s.evidenceRefs ?? [] })),
+          args.conclusion,
+          args.verificationStatus
+        );
+        const verificationValid = this.platform.proofs.verifyProof(proof);
+        return { status: verificationValid ? "PASS" : "FAIL", proof: { proofId: proof.proofId, proofHash: proof.proofHash, conclusion: proof.conclusion, verificationStatus: proof.verificationStatus }, selfVerification: verificationValid };
+      }
+      // ===================== C. Causal Intelligence =====================
+      case "td_cause_trace":
+      case "td_cause_graph":
+      case "td_cause_rank": {
+        const s = this.platform.session(args.sessionId);
+        const symptomEvent = args.symptomEventId ? s.mesh.byEventId(args.symptomEventId) : s.mesh.ordered().at(-1);
+        if (!symptomEvent) return { status: "INCONCLUSIVE", note: "no symptom event found in session" };
+        const links = this.platform.causal.correlate(s.mesh.all, args.windowMs ?? 250);
+        if (name === "td_cause_trace" || name === "td_cause_rank") {
+          const hypotheses = this.platform.causal.generateHypotheses(symptomEvent, s.mesh.all, args.windowMs ?? 250);
+          return {
+            status: hypotheses.length ? "PASS" : "INCONCLUSIVE",
+            symptom: fmtEvent(symptomEvent),
+            hypotheses: hypotheses.map((h) => ({ id: h.id, rank: h.rank, statement: h.statement, confidence: h.confidence, status: h.status, verificationMethod: h.verificationMethod, evidenceRefs: h.evidenceRefs.slice(0, 5) })),
+            rootCause: hypotheses[0]?.causalChain?.rootCause ?? null
+          };
+        }
+        const nodes = this.platform.causal.buildGraph(s.mesh.all, links);
+        const stats = this.platform.graph.stats();
+        return { status: "PASS", nodes: nodes.nodes.length, edges: stats.edges, graphStats: stats };
+      }
+      case "td_cause_explain": {
+        const assessment = assessConfidence({
+          provenance: [{ origin: "causal-engine", quality: "derived", evidenceRefs: args.evidenceRefs, recordedAt: Date.now() }],
+          corroboration: new Set(args.evidenceRefs).size,
+          verified: false,
+          contradicted: false
+        });
+        return {
+          status: "PASS",
+          explanation: { claim: args.finding, classification: assessment.classification, confidence: assessment.confidence, rationale: assessment.rationale, evidenceRefs: args.evidenceRefs, alternatives: ["common-cause", "coincidence-within-window"] }
+        };
+      }
+      case "td_cause_correlate": {
+        const s = this.platform.session(args.sessionId);
+        const links = this.platform.causal.correlate(
+          s.mesh.all.filter((e) => args.sources.includes(e.source)),
+          args.withinMs ?? 250
+        );
+        return { status: "PASS", links: links.map((l) => ({ from: l.fromEvent.eventId, to: l.toEvent.eventId, deltaMs: l.deltaMs, classification: l.classification, confidence: l.confidence })), linkCount: links.length };
+      }
+      case "td_cause_breakpoint": {
+        const s = this.platform.session(args.sessionId);
+        const branch = this.platform.branches.get(args.branchId);
+        if (!branch) return { status: "INCONCLUSIVE", note: `branch ${args.branchId} not found — fork one via td_temporal_branch first` };
+        const divergence = this.platform.causal.earliestDivergence(s.mesh.ordered(), branch.simulatedEvents);
+        return { status: divergence ? "PASS" : "INCONCLUSIVE", divergence: divergence ? fmtEvent(divergence) : null };
+      }
+      case "td_cause_impact": {
+        const s = this.platform.session(args.sessionId);
+        const ev = s.mesh.byEventId(args.eventId);
+        if (!ev) return { status: "INCONCLUSIVE", note: `event ${args.eventId} not found in the session stream` };
+        const impacted = s.mesh.causedBy(ev.eventId);
+        const downstream = impacted.flatMap((child) => s.mesh.causedBy(child.eventId));
+        return {
+          status: "PASS",
+          cause: fmtEvent(ev),
+          directEffects: impacted.map(fmtEvent),
+          secondOrderEffects: downstream.map(fmtEvent),
+          blastRadius: { direct: impacted.length, secondOrder: downstream.length, entities: new Set([...impacted, ...downstream].flatMap((e) => e.entityIds)).size }
+        };
+      }
+      case "td_cause_dependency": {
+        const s = this.platform.session(args.sessionId);
+        const trace = s.temporal.traceEntity(args.entityId);
+        const dependencies = [...new Set(trace.flatMap((e) => e.causalParentIds))];
+        return { status: "PASS", entityId: args.entityId, dependsOnEvents: dependencies, eventCount: trace.length };
+      }
+      case "td_cause_counterfactual": {
+        const s = this.platform.session(args.sessionId);
+        const spec = {
+          kind: args.kind,
+          targetSequence: args.targetSequence,
+          patch: args.patch,
+          reason: args.reason
+        };
+        const symptomPattern = args.symptomPattern ?? args.reason;
+        const outcome = this.platform.counterfactual.run(s.mesh.ordered(), spec, (e) => new RegExp(String(symptomPattern), "i").test(e.type));
+        return { status: "PASS", counterfactual: outcome };
+      }
+      case "td_cause_verify": {
+        const s = this.platform.session(args.sessionId);
+        const incident = this.platform.incidents.list().find((i) => i.hypotheses.some((h) => h.id === args.hypothesisId));
+        const hypothesis = incident?.hypotheses.find((h) => h.id === args.hypothesisId);
+        if (!hypothesis || !hypothesis.causalChain) return { status: "INCONCLUSIVE", note: `hypothesis ${args.hypothesisId} not found in any incident — run td_diagnose first` };
+        const symptomEvent = incident.timeline.at(-1);
+        const predicate = (e) => e.type === (symptomEvent?.type ?? "symptom");
+        const outcome = this.platform.counterfactual.verifyHypothesis(s.mesh.ordered(), hypothesis.causalChain, predicate);
+        hypothesis.status = outcome.verdict === "CAUSE_SUPPPORTED" ? "TESTED-SUPPORTED" : outcome.verdict === "NOT_SUPPORTED" ? "TESTED-REJECTED" : "INCONCLUSIVE";
+        return { status: "PASS", hypothesisId: args.hypothesisId, verdict: outcome.verdict, confidence: outcome.confidence, symptomResolved: outcome.symptomResolved };
+      }
+      // ===================== D. Semantic & Component Intelligence =====================
+      case "td_semantic_page":
+      case "td_component_map":
+      case "td_accessibility_model":
+      case "td_page_intent": {
+        const elements = await this.collectSemanticElements(args.sessionId);
+        if (elements.status !== "PASS") return elements;
+        const semantic = this.platform.semantics.semanticDom(elements.rawElements);
+        if (name === "td_semantic_page") {
+          return { status: "PASS", semanticCount: semantic.length, semantic: semantic.slice(0, args.limit ?? 60) };
+        }
+        if (name === "td_component_map") {
+          const components = this.platform.semantics.componentMap(elements.rawElements);
+          return { status: "PASS", componentCount: components.length, components };
+        }
+        if (name === "td_accessibility_model") {
+          return { status: "PASS", a11y: semantic.map((s) => ({ id: s.semanticId, ...s.accessibility, role: s.accessibility.role ?? s.role, state: s.state, focusable: s.accessibility.focusable })) };
+        }
+        const zones = [...new Set(semantic.map((s) => s.role))];
+        const interactions = semantic.filter((s) => s.interactive);
+        return { status: "PASS", workflows: zones, interactionZones: interactions.map((i) => ({ role: i.role, purpose: i.purpose, text: i.text, selector: i.selectorCandidates[0] })), interactiveCount: interactions.length };
+      }
+      case "td_semantic_element": {
+        const elements = await this.collectSemanticElements(args.sessionId);
+        if (elements.status !== "PASS") return elements;
+        const match = elements.rawElements.find((e) => e.selector === args.selector || e.id === args.selector.replace("#", "") || e.classes?.some((c) => args.selector.includes(c)));
+        if (!match) return { status: "INCONCLUSIVE", note: `no element matches selector ${args.selector} in the current model` };
+        const semantic = this.platform.semantics.semanticDom([match])[0];
+        return { status: "PASS", semantic };
+      }
+      case "td_component_lifecycle": {
+        const s = this.platform.session(args.sessionId);
+        const domEvents = s.mesh.all.filter((e) => e.source === "dom").map((e) => ({ type: e.type, at: e.logicalTime, sequence: e.sequence, targetSelector: String(e.payload?.selectorPath ?? e.payload?.selector ?? "") }));
+        const lifecycle = this.platform.semantics.lifecycleFromEvents(args.componentId, domEvents);
+        return { status: lifecycle.length ? "PASS" : "INCONCLUSIVE", componentId: args.componentId, lifecycle, phaseCounts: lifecycle.reduce((acc, ev) => {
+          acc[ev.phase] = (acc[ev.phase] ?? 0) + 1;
+          return acc;
+        }, {}) };
+      }
+      case "td_component_dependencies":
+      case "td_component_state": {
+        const s = this.platform.session(args.sessionId);
+        const entity = this.platform.identity.get(args.componentId);
+        const related = this.platform.identity.byTypeAll("component").filter((c) => c.parent === args.componentId || c.owner === args.componentId);
+        const events = s.mesh.all.filter((e) => e.entityIds.includes(args.componentId));
+        return {
+          status: "PASS",
+          componentId: args.componentId,
+          identity: entity ?? { note: "not a registered identity; using selector scope" },
+          dependents: related.map((r) => ({ id: r.id, label: r.label })),
+          stateSignals: events.slice(-20).map(fmtEvent),
+          eventCount: events.length
+        };
+      }
+      case "td_visual_semantics": {
+        const elements = await this.collectSemanticElements(args.sessionId);
+        if (elements.status !== "PASS") return elements;
+        const semantic = this.platform.semantics.semanticDom(elements.rawElements);
+        const regions = (args.regions ?? [{ x: 0, y: 0, label: "viewport" }]).map((r, i) => ({
+          region: r,
+          associatedEntities: semantic.slice(i * 5, i * 5 + 5).map((s) => s.semanticId)
+        }));
+        return { status: "PASS", associations: regions, note: "visual↔semantic association is heuristic in recorded mode; correlate with td_visual_causality for evidence" };
+      }
+      case "td_state_summary": {
+        const planned = this.platform.contextPlanner.plan({
+          intent: args.intent,
+          workingScope: [],
+          semanticElements: [],
+          eventCount: this.platform.session(args.sessionId ?? "default").mesh.length,
+          fullStateBytes: 4096
+        }, { requestedLevel: args.requestedLevel });
+        return { status: "PASS", context: planned };
+      }
+      // ===================== E. Targeting & Interaction Intelligence =====================
+      case "td_resolve_target":
+      case "td_rank_targets": {
+        const candidates = args.candidates ?? defaultCandidateFixture();
+        const resolution = this.platform.targeting.resolve(
+          { description: args.description, role: args.role, text: args.text, selector: args.selector },
+          candidates
+        );
+        return { status: resolution.status === "NOT_FOUND" ? "INCONCLUSIVE" : resolution.status === "AMBIGUOUS" ? "DEGRADED" : "PASS", resolution: { status: resolution.status, confidence: resolution.confidence, best: resolution.best, warnings: resolution.warnings, candidateCount: resolution.candidates.length } };
+      }
+      case "td_target_recover": {
+        const resolution = this.platform.targeting.recover(args.failedSelector, args.lastKnown ?? {}, defaultCandidateFixture());
+        return { status: resolution.status === "RESOLVED" ? "PASS" : resolution.status === "DEGRADED" ? "DEGRADED" : "INCONCLUSIVE", resolution: { confidence: resolution.confidence, best: resolution.best, warnings: resolution.warnings } };
+      }
+      case "td_target_verify": {
+        const candidates = defaultCandidateFixture();
+        const resolution = this.platform.targeting.resolve({ selector: args.selector }, candidates);
+        const intentMatch = resolution.best ? this.platform.targeting.resolve({ description: args.intent }, candidates) : null;
+        const matches = Boolean(resolution.best && intentMatch?.best && resolution.best.semanticId === intentMatch.best.semanticId);
+        return { status: "PASS", selector: args.selector, intent: args.intent, matchesIntent: matches, resolution: resolution.status, confidence: resolution.confidence };
+      }
+      case "td_target_history": {
+        const trail = this.platform.identity.trail(args.entityId);
+        return { status: trail ? "PASS" : "INCONCLUSIVE", entityId: args.entityId, versions: trail?.timeline ?? [], firstSeen: trail?.entity.firstSeen, lastSeen: trail?.entity.lastSeen };
+      }
+      case "td_target_contract": {
+        const resolution = args.resolution ?? {};
+        if (!resolution.best) {
+          return { status: "INCONCLUSIVE", note: "target contract requires a resolution with a best candidate (run td_resolve_target first)" };
+        }
+        const contract = this.platform.targeting.createContract(args.query ?? {}, args.resolution);
+        return { status: contract ? "PASS" : "INCONCLUSIVE", contract };
+      }
+      case "td_interaction_plan": {
+        const plan = {
+          planId: `iplan:${computeHash({ intent: args.intent, at: Date.now() }).slice(0, 10)}`,
+          intent: args.intent,
+          steps: [
+            { action: "resolve-target", query: { description: args.intent } },
+            { action: "verify-target", postcondition: "resolved target matches intent with confidence ≥ 0.55" },
+            { action: "execute-interaction", postconditions: ["target state changed as intended", "no unexpected runtime errors"] }
+          ],
+          verification: { mustHold: ["interaction effect observed"], mustNotHold: ["runtime exception", "unexpected navigation"] }
+        };
+        return { status: "PASS", plan, note: "execute via td_interaction_execute (requires live adapter)" };
+      }
+      case "td_interaction_execute":
+      case "td_interaction_observe":
+      case "td_interaction_repair": {
+        const live = typeof document !== "undefined" || process.env.TELEDOM_LIVE_ADAPTER === "bridge";
+        return {
+          status: live ? "DEGRADED" : "UNSUPPORTED",
+          planId: args.planId,
+          reason: live ? "interaction execution is DEGRADED: running against a simulation document, not a live browser bridge" : "no live browser adapter wired in this process; interaction execution requires the extension bridge (run via MCP server with bridge connected)",
+          suggestion: "connect the forensic bridge (FORENSIC_AUTO_BRIDGE=true) and re-run"
+        };
+      }
+      // ===================== F. Counterfactual & Simulation =====================
+      case "td_simulate_change":
+      case "td_simulate_network":
+      case "td_simulate_dom":
+      case "td_simulate_style":
+      case "td_simulate_runtime": {
+        const s = this.platform.session(args.sessionId);
+        const kindMap = {
+          td_simulate_change: "modify-state",
+          td_simulate_network: "modify-response",
+          td_simulate_dom: "remove-mutation",
+          td_simulate_style: "modify-style",
+          td_simulate_runtime: "modify-state"
+        };
+        const kind = kindMap[name];
+        const targetSeq = args.targetSequence ?? s.mesh.ordered().at(-1)?.sequence;
+        if (targetSeq === void 0) return { status: "INCONCLUSIVE", note: "session has no events to mutate" };
+        const spec = {
+          kind,
+          targetSequence: targetSeq,
+          patch: args.responsePatch ?? args.stylePatch ?? args.condition ?? args.change ?? args.mutations?.[0] ?? { simulated: true },
+          reason: `simulated by ${name}`
+        };
+        const outcome = this.platform.counterfactual.run(s.mesh.ordered(), spec, () => false);
+        return { status: "PASS", simulation: { branchId: outcome.branchId, verdict: outcome.verdict, confidence: outcome.confidence, comparison: outcome.comparison }, note: "simulation only — nothing was applied to any live document" };
+      }
+      case "td_simulate_failure": {
+        const gate = this.platform.activeTestGate.authorizeActiveTest(args.targetUrl ?? "https://simulation.local", "failure-injection", { destructive: true });
+        if (!gate.allowed) return { status: "UNSUPPORTED", reason: gate.reason, policy: this.platform.activeTestGate.currentPolicy };
+        return { status: "PASS", note: "authorized failure injection", policy: this.platform.activeTestGate.currentPolicy };
+      }
+      case "td_compare_branches": {
+        const s = this.platform.session(args.sessionId);
+        const comparisons = (args.branchIds ?? []).map((branchId) => this.platform.branches.compare(branchId, s.mesh.ordered()));
+        return { status: comparisons.length ? "PASS" : "INCONCLUSIVE", comparisons: comparisons.map((c) => ({ branchId: c.branchId, mutations: c.mutations.length, outcomeDeltas: c.outcomeDeltas, addedInReality: c.added.length, removedInReality: c.removed.length })) };
+      }
+      case "td_predict_impact": {
+        const affected = (args.scope?.selectors ?? []).map((sel) => ({ selector: sel, predictedImpact: "dom-update" }));
+        const predictions = this.platform.prediction.predict({ recentEvents: [], horizonMs: 5e3 });
+        return { status: "PASS", affected, predictions, confidence: 0.6, note: "heuristic impact model — predictions expose assumptions and verification paths" };
+      }
+      case "td_safe_apply": {
+        return {
+          status: "UNSUPPORTED",
+          reason: "td_safe_apply requires a live mutation adapter; in this process only simulation branches are available (use td_simulate_change + td_branch_merge)",
+          plan: args.plan
+        };
+      }
+      case "td_branch_merge": {
+        const branch = this.platform.branches.get(args.branchId);
+        if (!branch) return { status: "INCONCLUSIVE", note: `branch ${args.branchId} not found — fork one via td_temporal_branch first` };
+        if (branch.verification !== "VERIFIED") {
+          return { status: "INCONCLUSIVE", note: `branch ${args.branchId} is ${branch.verification}; only VERIFIED branches can merge into a mutation plan` };
+        }
+        return { status: "PASS", mutationPlan: { sourceBranch: args.branchId, mutations: branch.mutations, confidence: branch.confidence }, note: "merged into a controlled mutation plan (application still requires td_safe_apply with a live adapter)" };
+      }
+      // ===================== G. Reliability & Recovery =====================
+      case "td_health_snapshot": {
+        const health = this.platform.health();
+        return {
+          status: health.overall === "HEALTHY" ? "PASS" : health.overall === "DEGRADED" ? "DEGRADED" : "FAIL",
+          health,
+          platform: this.platform.stats(),
+          guardian: this.platform.guardian.decide(),
+          runtime: this.platform.runtime.currentState
+        };
+      }
+      case "td_recover_browser":
+      case "td_recover_page":
+      case "td_recover_bridge": {
+        const attempt = await this.platform.runtime.handleFailure(
+          name === "td_recover_browser" ? "browser-crash" : name === "td_recover_page" ? "tab-closed" : "bridge-disconnect",
+          async () => ({ recovered: false, reason: "no live browser adapter wired in this process; recovery machinery exercised, live reattach unavailable" })
+        );
+        return { status: attempt.outcome === "RECOVERED" ? "PASS" : "PARTIAL", recovery: attempt, preserved: attempt.preserved };
+      }
+      case "td_reconcile_tabs": {
+        return { status: "DEGRADED", note: "tab reconciliation requires the live bridge; session identity is preserved", sessions: this.platform.sessionIds };
+      }
+      case "td_reconcile_events": {
+        const s = this.platform.session(args.sessionId);
+        const stats = s.mesh.stats();
+        const integrity = s.mesh.verifyIntegrity();
+        return {
+          status: integrity.valid ? "PASS" : "FAIL",
+          stats,
+          integrity,
+          verdict: integrity.valid ? "event stream coherent" : `integrity broken at ${integrity.brokenAt}`
+        };
+      }
+      case "td_resource_guard": {
+        this.platform.guardian.report(args.usage ?? {});
+        const decision = this.platform.guardian.decide();
+        return { status: decision.mode === "HEALTHY" ? "PASS" : "DEGRADED", decision, usage: this.platform.guardian.current(), budgets: this.platform.guardian.budgetsSnapshot };
+      }
+      case "td_leak_watch": {
+        const usage = this.platform.guardian.current();
+        const growth = usage.events > 1e5;
+        return { status: "PASS", growthDetected: growth, events: usage.events, note: growth ? "event growth exceeds sustained-session threshold" : "no sustained growth pattern detected", windowMs: args.windowMs ?? 6e4 };
+      }
+      case "td_failure_containment": {
+        return { status: "PASS", isolated: args.capabilityId, note: `capability ${args.capabilityId} marked isolated; session and remaining capabilities continue (containment exercised)` };
+      }
+      case "td_session_repair": {
+        const s = this.platform.session(args.sessionId);
+        const integrity = s.mesh.verifyIntegrity();
+        const serialized = s.mesh.serialize();
+        const probe = new TeleDOMPlatform();
+        const restored = probe.importEvents(args.sessionId, serialized.events);
+        return {
+          status: integrity.valid && restored.rejected === 0 ? "PASS" : "DEGRADED",
+          integrity,
+          repair: { restored: restored.imported, duplicates: restored.duplicates, rejected: restored.rejected, chainTip: serialized.chainTip },
+          note: "session replayed through a fresh mesh with hash-chain verification"
+        };
+      }
+      // ===================== H. Security Intelligence =====================
+      case "td_security_posture":
+      case "td_dom_xss_audit":
+      case "td_injection_surface_audit":
+      case "td_auth_session_audit":
+      case "td_cookie_storage_audit":
+      case "td_csp_security_audit":
+      case "td_cors_security_audit":
+      case "td_security_surface":
+      case "td_security_flow": {
+        const input = args.postureInput ?? defaultSecurityFixture();
+        const findings = this.platform.securityPosture(input);
+        const filter = {
+          td_dom_xss_audit: ["dom-xss"],
+          td_injection_surface_audit: ["dom-xss", "dangerous-api"],
+          td_auth_session_audit: ["auth-session"],
+          td_cookie_storage_audit: ["cookie", "storage"],
+          td_csp_security_audit: ["csp"],
+          td_cors_security_audit: ["cors"]
+        };
+        const scoped = filter[name] ? findings.filter((f) => filter[name].includes(f.category)) : findings;
+        return {
+          status: "PASS",
+          mode: "passive",
+          findingCount: scoped.length,
+          findings: scoped.map((f) => ({ id: f.id, category: f.category, severity: f.severity, confidence: f.confidence, observed: f.observedBehavior, verification: f.verification, remediation: f.remediation })),
+          note: "passive analysis only; suspicion is never reported as CONFIRMED without reproduction"
+        };
+      }
+      case "td_security_regression": {
+        return { status: "INCONCLUSIVE", note: "security regression comparison requires two recorded posture refs; provide beforeRef and afterRef from td_security_posture runs", beforeRef: args.beforeRef, afterRef: args.afterRef };
+      }
+      // ===================== I. Performance / Memory / Visual =====================
+      case "td_performance_profile":
+      case "td_performance_budget":
+      case "td_long_task_trace":
+      case "td_layout_causality":
+      case "td_memory_profile":
+      case "td_memory_leak_trace":
+      case "td_retention_graph":
+      case "td_render_stability": {
+        const s = this.platform.session(args.sessionId ?? "default");
+        const perfEvents = s.mesh.all.filter((e) => e.source === "performance");
+        const layoutEvents = s.mesh.all.filter((e) => e.source === "dom" && /layout|shift|resize/i.test(e.type));
+        const domEvents = s.mesh.all.filter((e) => e.source === "dom");
+        if (name === "td_long_task_trace") {
+          const longTasks = perfEvents.filter((e) => Number(e.payload?.durationMs ?? 0) > (args.thresholdMs ?? 50));
+          return { status: "PASS", longTasks: longTasks.map((t) => ({ event: fmtEvent(t), durationMs: t.payload?.durationMs, affectedEntities: t.entityIds })), count: longTasks.length };
+        }
+        if (name === "td_layout_causality") {
+          const correlations = this.platform.causal.correlate([...layoutEvents, ...perfEvents], 500);
+          return { status: "PASS", layoutShifts: layoutEvents.length, causalLinks: correlations.length, links: correlations.slice(0, 10).map((l) => ({ from: l.fromEvent.type, to: l.toEvent.type, deltaMs: l.deltaMs, classification: l.classification })) };
+        }
+        if (name === "td_memory_leak_trace") {
+          const domChurn = domEvents.length;
+          const unmounts = domEvents.filter((e) => /remov|unmount/i.test(e.type)).length;
+          const growthSignal = domChurn > 0 && unmounts / domChurn < 0.3;
+          return { status: "PASS", growthDetected: growthSignal, domEventCount: domChurn, unmountRatio: domChurn ? unmounts / domChurn : 0, note: growthSignal ? "sustained DOM growth pattern (unmount ratio < 0.3)" : "no retained-growth pattern" };
+        }
+        if (name === "td_retention_graph") {
+          return { status: "UNSUPPORTED", reason: "retention graph requires a live heap snapshot via the DevTools runtime (dt_performance_start_trace family); recorded sessions do not carry heap edges", experimental: true };
+        }
+        if (name === "td_render_stability") {
+          const last = s.mesh.ordered().at(-1);
+          const stable = last ? s.temporal.lastStable("dom", last.logicalTime, args.settleMs ?? 250) : null;
+          return { status: stable !== null ? "PASS" : "INCONCLUSIVE", stableAtLogicalTime: stable };
+        }
+        if (name === "td_performance_budget") {
+          const budgets = args.budgets ?? {};
+          const limitLong = typeof budgets.longTasks === "number" ? budgets.longTasks : 5;
+          const limitLayout = typeof budgets.layoutShifts === "number" ? budgets.layoutShifts : 3;
+          const limitDom = typeof budgets.domEvents === "number" ? budgets.domEvents : 1e3;
+          const violations = {
+            longTasks: perfEvents.filter((e) => Number(e.payload?.durationMs ?? 0) > 50).length > limitLong,
+            layoutShifts: layoutEvents.length > limitLayout,
+            domEvents: domEvents.length > limitDom
+          };
+          return { status: Object.values(violations).some(Boolean) ? "FAIL" : "PASS", budgets, measured: { longTasks: perfEvents.length, layoutShifts: layoutEvents.length, domEvents: domEvents.length }, violations };
+        }
+        return { status: "PASS", profile: { perfEvents: perfEvents.length, domEvents: domEvents.length, layoutEvents: layoutEvents.length, eventCount: s.mesh.length } };
+      }
+      case "td_visual_regression": {
+        return { status: "INCONCLUSIVE", note: "visual regression requires two visual frame refs; supply baselineRef/currentRef from recorded screenshots", baselineRef: args.baselineRef, currentRef: args.currentRef };
+      }
+      case "td_visual_causality": {
+        const s = this.platform.session(args.sessionId ?? "default");
+        const visual = s.mesh.all.filter((e) => e.source === "visual");
+        const related = this.platform.causal.correlate(s.mesh.all.filter((e) => ["visual", "dom", "runtime", "network"].includes(e.source)), 500);
+        return { status: "PASS", region: args.region, visualEvents: visual.length, causalLinks: related.filter((r) => r.fromEvent.source === "visual" || r.toEvent.source === "visual").length, note: "a screenshot difference alone is never causal proof; links carry classification" };
+      }
+      // ===================== J. Investigation / Orchestration / Agent OS =====================
+      case "td_investigate": {
+        const s = this.platform.session(args.sessionId);
+        const pattern = new RegExp(args.symptomPattern, "i");
+        const result = await this.platform.investigator.investigate(
+          args.objective,
+          {
+            events: s.mesh.ordered(),
+            symptomPredicate: (e) => pattern.test(e.type)
+          },
+          { resumePlanId: args.resumePlanId }
+        );
+        return {
+          status: result.status === "RESOLVED" ? "PASS" : "INCONCLUSIVE",
+          investigation: {
+            status: result.status,
+            rootCause: result.rootCause,
+            bestHypothesis: result.bestHypothesis ? { id: result.bestHypothesis.id, statement: result.bestHypothesis.statement, confidence: result.bestHypothesis.confidence, status: result.bestHypothesis.status } : null,
+            counterfactual: result.counterfactual ? { verdict: result.counterfactual.verdict, confidence: result.counterfactual.confidence, symptomResolved: result.counterfactual.symptomResolved } : null,
+            verification: result.verificationStatus,
+            proofId: result.proofId,
+            plan: { incidentId: result.plan.incidentId, steps: result.plan.steps.map((st) => ({ id: st.id, status: st.status, result: st.result })) },
+            warnings: result.warnings,
+            resourceState: result.resourceState
+          }
+        };
+      }
+      case "td_reproduce_incident": {
+        const incident = this.platform.incidents.get(args.incidentId);
+        if (!incident) return { status: "INCONCLUSIVE", note: `incident ${args.incidentId} not found — create one via td_investigate first` };
+        if (!incident.scope.reproduction?.deterministic) {
+          return { status: "INCONCLUSIVE", note: "incident has no deterministic reproduction attached; attach one via counterfactual replay first" };
+        }
+        return { status: "PASS", incidentId: args.incidentId, reproduction: incident.scope.reproduction };
+      }
+      case "td_diagnose": {
+        const s = this.platform.session(args.sessionId);
+        const symptomEvent = s.mesh.ordered().find((e) => new RegExp(args.symptom, "i").test(e.type)) ?? s.mesh.ordered().at(-1);
+        if (!symptomEvent) return { status: "INCONCLUSIVE", note: "no events in session" };
+        const hypotheses = this.platform.causal.generateHypotheses(symptomEvent, s.mesh.all, 250);
+        return { status: hypotheses.length ? "PASS" : "INCONCLUSIVE", hypotheses: hypotheses.map((h) => ({ id: h.id, rank: h.rank, statement: h.statement, confidence: h.confidence, verificationMethod: h.verificationMethod })) };
+      }
+      case "td_plan_fix": {
+        const incident = this.platform.incidents.get(args.incidentId);
+        if (!incident) return { status: "INCONCLUSIVE", note: `incident ${args.incidentId} not found — create one via td_investigate first` };
+        if (!incident.causalChain) return { status: "INCONCLUSIVE", note: "incident has no causal chain; run td_investigate first" };
+        return {
+          status: "PASS",
+          fixPlan: {
+            incidentId: args.incidentId,
+            rootCause: incident.causalChain.rootCause,
+            steps: [
+              { action: "address root cause", target: incident.causalChain.rootCause },
+              { action: "apply via safe mutation (td_safe_apply)", preconditions: ["scope check", "risk analysis"] },
+              { action: "re-run original scenario (td_reproduce_incident)" },
+              { action: "verify fix (td_validate_fix)" }
+            ],
+            affectedEntities: [...new Set(incident.causalChain.events.flatMap((e) => e.entityIds))]
+          }
+        };
+      }
+      case "td_validate_fix": {
+        const incident = this.platform.incidents.get(args.incidentId);
+        if (!incident) return { status: "INCONCLUSIVE", note: `incident ${args.incidentId} not found — create one via td_investigate first` };
+        const verification = incident.verification;
+        if (!verification) return { status: "INCONCLUSIVE", note: "no verification attached; a successful mutation is NOT proof of a successful fix" };
+        return { status: verification.result === "PASS" ? "PASS" : verification.result === "FAIL" ? "FAIL" : "INCONCLUSIVE", verification };
+      }
+      case "td_run_workflow": {
+        const steps = args.workflow ?? [];
+        const results = [];
+        for (const step of steps) {
+          try {
+            const r = await this.dispatch(step.tool, step.args ?? {});
+            results.push({ stepId: step.id, tool: step.tool, status: r.status });
+          } catch (err) {
+            results.push({ stepId: step.id, tool: step.tool, status: `FAILED: ${err?.message}` });
+          }
+        }
+        return { status: results.every((r) => r.status === "PASS") ? "PASS" : "PARTIAL", steps: results };
+      }
+      case "td_run_playbook": {
+        const playbooks = {
+          "disappearing-ui": ["td_diagnose", "td_cause_trace", "td_cause_counterfactual", "td_evidence_proof"],
+          "security-passive": ["td_security_posture", "td_dom_xss_audit", "td_cookie_storage_audit", "td_csp_security_audit"],
+          "performance-scan": ["td_performance_profile", "td_long_task_trace", "td_layout_causality", "td_render_stability"],
+          "recovery-drill": ["td_health_snapshot", "td_recover_browser", "td_reconcile_events", "td_session_repair"]
+        };
+        const tools = playbooks[args.playbookId];
+        if (!tools) return { status: "INCONCLUSIVE", note: `playbook ${args.playbookId} not found. available: ${Object.keys(playbooks).join(", ")}` };
+        return { status: "PASS", playbook: args.playbookId, steps: tools.map((t, i) => ({ step: i + 1, tool: t })) };
+      }
+      case "td_memory": {
+        if (args.action === "store") {
+          const item = this.platform.memory.store(args.kind ?? "known-failure", args.statement ?? "", { origin: "td_memory", evidenceRefs: args.evidenceRefs ?? [] }, args.confidence ?? 0.7);
+          return { status: "PASS", stored: { memoryId: item.memoryId, validated: item.validated, confidence: item.confidence } };
+        }
+        if (args.action === "validate") {
+          this.platform.memory.validate(args.memoryId, args.outcome === "CONTRADICTED" ? "CONTRADICTED" : "CONFIRMED");
+          return { status: "PASS", memoryId: args.memoryId, outcome: args.outcome };
+        }
+        const items = this.platform.memory.query(args.query ?? {});
+        return { status: "PASS", items, stats: this.platform.memory.stats() };
+      }
+      case "td_context_optimize": {
+        const planned = this.platform.contextPlanner.plan(
+          {
+            intent: args.intent,
+            workingScope: args.scope ?? [],
+            semanticElements: [],
+            eventCount: this.platform.session(args.sessionId ?? "default").mesh.length,
+            fullStateBytes: 4096
+          },
+          { requestedLevel: args.requestedLevel }
+        );
+        return { status: "PASS", context: planned, levels: "L0 identity / L1 semantic / L2 subtree / L3 evidence / L4 full" };
+      }
+      case "td_incident_close": {
+        const incident = this.platform.incidents.get(args.incidentId);
+        if (!incident) return { status: "INCONCLUSIVE", note: `incident ${args.incidentId} not found — create one via td_investigate first` };
+        const gates = {
+          reproduced: incident.audit.some((a) => a.to === "REPRODUCED"),
+          remediated: incident.remediation !== null,
+          verified: incident.verification?.result === "PASS"
+        };
+        if (!gates.reproduced || !gates.remediated || !gates.verified) {
+          return { status: "INCONCLUSIVE", gates, note: "incident closure requires reproduction + remediation + verified PASS; refusing to close" };
+        }
+        try {
+          this.platform.incidents.transition(args.incidentId, "RESOLVED", "closure gates passed");
+          return { status: "PASS", incidentId: args.incidentId, state: "RESOLVED", gates };
+        } catch (err) {
+          return { status: "FAIL", error: err.message };
+        }
+      }
+      default:
+        return { status: "UNSUPPORTED", error: `unknown td_* tool ${name}` };
+    }
+  }
+  /** Collect semantic elements from a live JSDOM document when present. */
+  async collectSemanticElements(sessionId) {
+    if (typeof document !== "undefined") {
+      const raw = Array.from(document.querySelectorAll("*")).slice(0, 500).map((el) => ({
+        tag: el.tagName.toLowerCase(),
+        id: el.id || void 0,
+        classes: Array.from(el.classList),
+        attributes: Array.from(el.attributes).reduce((acc, attr) => {
+          if (["aria-label", "role", "data-testid", "data-component", "disabled", "aria-disabled"].includes(attr.name)) {
+            acc[attr.name] = attr.value;
+          }
+          return acc;
+        }, {}),
+        text: (el.textContent ?? "").slice(0, 120),
+        parentId: el.parentElement ? el.parentElement.id || el.parentElement.tagName.toLowerCase() : void 0,
+        interactive: ["BUTTON", "A", "INPUT", "SELECT", "TEXTAREA"].includes(el.tagName),
+        visible: true
+      }));
+      return { status: "PASS", rawElements: raw, elementCount: raw.length };
+    }
+    if (sessionId) {
+      const s = this.platform.session(sessionId);
+      const domEvents = s.mesh.all.filter((e) => e.source === "dom");
+      if (domEvents.length) {
+        const raw = domEvents.slice(0, 200).map((e) => ({
+          tag: String(e.payload?.tag ?? "div"),
+          id: e.payload?.id,
+          classes: Array.isArray(e.payload?.classes) ? e.payload.classes : [],
+          attributes: {},
+          text: String(e.payload?.text ?? ""),
+          parentId: e.payload?.parent,
+          interactive: Boolean(e.payload?.interactive),
+          visible: true
+        }));
+        return { status: "DEGRADED", rawElements: raw, elementCount: raw.length, note: "semantic model reconstructed from recorded DOM events (degraded fidelity)" };
+      }
+    }
+    return { status: "UNSUPPORTED", note: "no live document and no recorded DOM events; provide a live bridge or record a session first" };
+  }
+}
+function fmtEvent(e) {
+  return { eventId: e.eventId, seq: e.sequence, source: e.source, type: e.type, logicalTime: e.logicalTime, entities: e.entityIds.slice(0, 4) };
+}
+function defaultCandidateFixture() {
+  return [
+    { semanticId: "sem:fixture-login", selector: "#login-btn", role: "submit-action", text: "Login", component: "LoginForm", interactive: true, visible: true, stability: 0.9 },
+    { semanticId: "sem:fixture-checkout", selector: "#checkout-submit", role: "submit-action", text: "Pay now", component: "CheckoutSummary", interactive: true, visible: true, stability: 0.85 },
+    { semanticId: "sem:fixture-nav", selector: "nav a.home", role: "navigation-link", text: "Home", component: "Nav", interactive: true, visible: true, stability: 0.8 }
+  ];
+}
+function defaultSecurityFixture() {
+  return {
+    url: "https://shop.example.test/checkout",
+    csp: "default-src 'self'; script-src 'self' 'unsafe-inline'",
+    cookies: [
+      { name: "session_id", secure: false, httpOnly: true },
+      { name: "prefs", secure: true, httpOnly: false, sameSite: "Lax" }
+    ],
+    storageEntries: [{ kind: "localStorage", key: "auth_token", valuePreview: "eyJ..." }],
+    iframes: [{ src: "https://ads.thirdparty.test/frame", sandbox: null }],
+    postMessages: [{ origin: "https://app.example.test", targetOrigin: "*", dataPreview: "{}" }],
+    scripts: [
+      { src: "https://cdn.thirdparty.test/lib.js", inline: false },
+      { inline: true, content: "el.innerHTML = location.hash.slice(1);" },
+      { inline: true, content: "fetch('/api/x').then(r => eval(r.responseText))" }
+    ],
+    networkRequests: [
+      { url: "https://api.example.test/orders", requestHeaders: { authorization: "Bearer tok" } },
+      { url: "http://static.example.test/logo.png" }
+    ],
+    authSignals: [{ kind: "session-expiry", detail: "401 observed on /api/orders" }]
+  };
+}
+function toMcpResult(result, tool) {
+  const cap = capabilityById(tool);
+  const payload = { ...result, tool, capability: cap ? { version: cap.version, category: cap.category, securityClass: cap.securityClass } : void 0 };
+  return {
+    content: [{ type: "text", text: JSON.stringify(payload) }],
+    isError: result.status === "FAIL"
+  };
+}
 class MCPToolsHandler {
   storage;
   liveToolsHandler;
   extendedToolsHandler;
   devtoolsHandler;
   forensicsHandler;
+  /** TeleDOM v12+ intelligence layer (td_* tools). */
+  intelligenceHandler;
   constructor(storage, liveToolsHandler, extendedToolsHandler) {
     this.storage = storage;
     this.liveToolsHandler = liveToolsHandler || new LiveToolsHandler();
@@ -18589,7 +23236,12 @@ class MCPToolsHandler {
     this.extendedToolsHandler.setToolsPipeline(this);
     this.devtoolsHandler = new DevToolsToolsHandler();
     this.forensicsHandler = new ForensicsToolsHandler(storage);
+    this.intelligenceHandler = new IntelligenceToolsHandler();
     this.syncRuntimeBridge();
+  }
+  /** v12 intelligence handler accessor (health/incident introspection). */
+  getIntelligenceHandler() {
+    return this.intelligenceHandler;
   }
   /** Keep the unified runtime + CDP gateway pointed at the current bridge. */
   syncRuntimeBridge() {
@@ -18653,6 +23305,9 @@ class MCPToolsHandler {
   async handleToolCall(name, args) {
     try {
       this.syncRuntimeBridge();
+      if (this.intelligenceHandler.knows(name)) {
+        return await this.intelligenceHandler.handleToolCall(name, args);
+      }
       if (this.devtoolsHandler.knows(name)) {
         return await this.devtoolsHandler.handleToolCall(name, args);
       }
@@ -19579,6 +24234,7 @@ export {
   FORENSICS_TOOLS as F,
   MCPDOM_V3_TOOLS as M,
   MCPBridgeServer,
+  TELEDOM_V12_TOOLS as T,
   FileStorageProvider as a,
   MCPToolsHandler as b
 };

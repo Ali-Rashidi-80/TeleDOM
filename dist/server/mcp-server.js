@@ -1,6 +1,6 @@
 import * as readline from "readline";
 import * as fs from "fs";
-import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, a as FileStorageProvider, b as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
+import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, T as TELEDOM_V12_TOOLS, a as FileStorageProvider, b as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
 import "http";
 import "ws";
 import "path";
@@ -629,7 +629,11 @@ const FORENSIC_MCP_TOOLS = [
   // §8 Chrome DevTools MCP capability families (dt_ namespace, no collisions)
   ...DEVTOOLS_TOOLS,
   // §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace)
-  ...FORENSICS_TOOLS
+  ...FORENSICS_TOOLS,
+  // TeleDOM v12+ — the 100 td_* intelligence surface (temporal, evidence,
+  // causal, semantic, targeting, simulation, reliability, security,
+  // performance, investigation) generated from the capability registry.
+  ...TELEDOM_V12_TOOLS
 ];
 class MCPResourcesHandler {
   storage;
@@ -700,8 +704,8 @@ class ForensicMCPServer {
   bridgeServer = null;
   protocolVersion = "2024-11-05";
   serverInfo = {
-    name: "browser-forensic-mcp",
-    version: "3.0.0"
+    name: "teledom-v12",
+    version: "12.0.0"
   };
   constructor(storage, liveToolsHandler) {
     const storageDir = process.env.FORENSIC_STORAGE_DIR || "./.forensic_sessions";
@@ -862,7 +866,10 @@ class ForensicMCPServer {
     if (method === "tools/list") {
       const disableDevTools = process.env.FORENSIC_DISABLE_DEVTOOLS === "true";
       const disableForensics = process.env.FORENSIC_DISABLE_FORENSICS === "true";
-      const tools = disableDevTools || disableForensics ? FORENSIC_MCP_TOOLS.filter((t) => !(disableDevTools && t.name.startsWith("dt_")) && !(disableForensics && t.name.startsWith("fx_"))) : FORENSIC_MCP_TOOLS;
+      const disableIntelligence = process.env.FORENSIC_DISABLE_INTELLIGENCE === "true";
+      const tools = FORENSIC_MCP_TOOLS.filter(
+        (t) => !(disableDevTools && t.name.startsWith("dt_")) && !(disableForensics && t.name.startsWith("fx_")) && !(disableIntelligence && t.name.startsWith("td_"))
+      );
       return {
         jsonrpc: "2.0",
         id,
