@@ -1,0 +1,9 @@
+# Smithery configuration for TeleDOM / MCPDOM
+# https://smithery.ai/docs/config
+
+startCommand:
+  type: stdio
+  config:
+    command: node
+    args:
+      - ./dist/server/mcp-server.js
