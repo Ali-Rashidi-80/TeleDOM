@@ -69,18 +69,23 @@ async function buildExtension() {
 
   console.log('✔ Standalone Chrome Extension scripts compiled successfully with ZERO external imports!');
 
-  // 4. Sync built extension to unpacked distribution folder
+  // 4. Sync built extension to unpacked distribution folders
   try {
     const fs = await import('fs');
     const path = await import('path');
-    const targetExtDir = resolve(process.cwd(), '../../chrome-extension');
-    if (fs.existsSync(targetExtDir)) {
-      fs.cpSync(resolve(process.cwd(), 'dist'), resolve(targetExtDir, 'dist'), { recursive: true, force: true });
-      fs.copyFileSync(resolve(process.cwd(), 'manifest.json'), resolve(targetExtDir, 'manifest.json'));
-      console.log('✔ Synced built extension assets to ../../chrome-extension directory');
+    const targetDirs = [
+      resolve(process.cwd(), 'chrome-extension'),
+      resolve(process.cwd(), '../../chrome-extension')
+    ];
+    for (const targetExtDir of targetDirs) {
+      if (fs.existsSync(targetExtDir)) {
+        fs.cpSync(resolve(process.cwd(), 'dist'), resolve(targetExtDir, 'dist'), { recursive: true, force: true });
+        fs.copyFileSync(resolve(process.cwd(), 'manifest.json'), resolve(targetExtDir, 'manifest.json'));
+        console.log(`✔ Synced built extension assets to ${targetExtDir}`);
+      }
     }
   } catch (syncErr) {
-    console.warn('[Warning] Could not sync to ../../chrome-extension:', syncErr.message);
+    console.warn('[Warning] Could not sync to extension folder:', syncErr.message);
   }
 }
 
