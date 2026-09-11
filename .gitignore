@@ -17,6 +17,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
 # OS Files
 Thumbs.db
 .DS_Store
