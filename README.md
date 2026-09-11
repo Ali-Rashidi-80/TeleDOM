@@ -23,10 +23,10 @@
 <br />
 
 <p align="center">
-  <video src="https://github.com/IrMaho/TeleDOM/raw/master/assets/teledom_live_agent_demo.mp4" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);" controls autoplay loop muted></video>
+  <img src="https://raw.githubusercontent.com/IrMaho/TeleDOM/master/assets/teledom_live_agent_demo.gif" alt="TeleDOM Autonomous AI Agent Live Demo" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);" />
 </p>
 
-> 🎬 **Watch TeleDOM in Live Action:** Autonomous AI Coding Agent driving real-time browser forensic recording, DOM inspection, time-travel debugging, and live multi-turn web automation!
+> 🎬 **Live Automation Demo:** Autonomous AI Coding Agent driving real-time browser forensic recording, DOM inspection, and multi-turn web publishing! ([Watch Full 1080p Video](./assets/teledom_live_agent_demo.mp4))
 
 <br />
 
