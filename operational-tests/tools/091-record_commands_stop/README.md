@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 0ms
 
 ## Test Objective
 Stops active recording or reports none active
@@ -30,7 +30,7 @@ Stops active recording or reports none active
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"stopped\": true,\n  \"recording\": {\n    \"recordingId\": \"rec_mtwg5ro3_1\",\n    \"name\": \"op-recording\",\n    \"createdAt\": 1789100358483,\n    \"updatedAt\": 1789100358483,\n    \"commandCount\": 1,\n    \"commands\": [\n      {\n        \"index\": 1,\n        \"commandId\": \"rcmd_1_mtwg5ro3\",\n        \"tool\": \"record_commands_start\",\n        \"args\": {\n          \"name\": \"op-recording\"\n        },\n        \"recordedAt\": 1789100358483,\n        \"outcome\": \"SUCCESS\",\n        \"resultSummary\": \"object with keys [recordingId, name, active, note]\"\n      }\n    ],\n    \"tags\": []\n  },\n  \"savedTo\": \".mcpdom_recordings/rec_mtwg5ro3_1.json\"\n}"
+        "text": "{\n  \"stopped\": true,\n  \"recording\": {\n    \"recordingId\": \"rec_mtwhcqv9_1\",\n    \"name\": \"op-recording\",\n    \"createdAt\": 1789102363653,\n    \"updatedAt\": 1789102363653,\n    \"commandCount\": 1,\n    \"commands\": [\n      {\n        \"index\": 1,\n        \"commandId\": \"rcmd_1_mtwhcqv9\",\n        \"tool\": \"record_commands_start\",\n        \"args\": {\n          \"name\": \"op-recording\"\n        },\n        \"recordedAt\": 1789102363653,\n        \"outcome\": \"SUCCESS\",\n        \"resultSummary\": \"object with keys [recordingId, name, active, note]\"\n      }\n    ],\n    \"tags\": []\n  },\n  \"savedTo\": \".mcpdom_recordings/rec_mtwhcqv9_1.json\"\n}"
       }
     ]
   }

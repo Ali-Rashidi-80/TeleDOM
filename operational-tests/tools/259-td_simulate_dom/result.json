@@ -2,8 +2,8 @@
   "tool": "td_simulate_dom",
   "index": 259,
   "status": "PASS",
-  "executionTimeMs": 1,
+  "executionTimeMs": 0,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:19:24.007Z"
+  "timestamp": "2026-09-11T04:52:49.161Z"
 }

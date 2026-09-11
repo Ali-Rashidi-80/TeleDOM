@@ -30,7 +30,7 @@ Returns mutation history with undo/redo depths
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"entries\": [\n    {\n      \"mutationId\": \"mut_mtwg5rmq_1\",\n      \"timestamp\": 1789100358446,\n      \"operation\": \"add_class\",\n      \"targetSelector\": \"#dynamic-text\",\n      \"success\": true,\n      \"summary\": \"add_class on #dynamic-text (+1/-0/~0)\",\n      \"undoApplied\": false,\n      \"redoApplied\": false\n    }\n  ],\n  \"undoDepth\": 0,\n  \"redoDepth\": 0,\n  \"openTransactionId\": \"tx_mtwg5rn6_2\"\n}"
+        "text": "{\n  \"entries\": [\n    {\n      \"mutationId\": \"mut_mtwhcqu2_1\",\n      \"timestamp\": 1789102363621,\n      \"operation\": \"add_class\",\n      \"targetSelector\": \"#dynamic-text\",\n      \"success\": true,\n      \"summary\": \"add_class on #dynamic-text (+1/-0/~0)\",\n      \"undoApplied\": false,\n      \"redoApplied\": false\n    }\n  ],\n  \"undoDepth\": 0,\n  \"redoDepth\": 0,\n  \"openTransactionId\": \"tx_mtwhcque_2\"\n}"
       }
     ]
   }

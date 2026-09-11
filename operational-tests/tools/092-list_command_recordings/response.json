@@ -1,5 +1,14 @@
 [
   {
+    "recordingId": "rec_mtwhcqv9_1",
+    "name": "op-recording",
+    "commandCount": 1,
+    "createdAt": 1789102363653,
+    "updatedAt": 1789102363653,
+    "tags": [],
+    "file": ".mcpdom_recordings/rec_mtwhcqv9_1.json"
+  },
+  {
     "recordingId": "rec_mtwg5ro3_1",
     "name": "op-recording",
     "commandCount": 1,

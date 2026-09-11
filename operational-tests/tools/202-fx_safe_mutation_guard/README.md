@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 16ms
+**Duration**: 15ms
 
 ## Test Objective
 Guards the mutation with a verdict and reasons

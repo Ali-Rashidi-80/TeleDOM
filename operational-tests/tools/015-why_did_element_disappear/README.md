@@ -3,7 +3,7 @@
 **Status**: **PASS** (3/3 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 30ms
+**Duration**: 38ms
 
 ## Test Objective
 Diagnoses PARENT_SUBTREE_REPLACED root cause with high confidence

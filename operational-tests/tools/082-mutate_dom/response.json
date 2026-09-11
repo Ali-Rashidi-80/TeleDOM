@@ -1,5 +1,5 @@
 {
-  "mutationId": "mut_mtwg5rmq_1",
+  "mutationId": "mut_mtwhcqu2_1",
   "operation": "add_class",
   "success": true,
   "before": {
@@ -24,6 +24,6 @@
     "summary": "attributes +1/-0/~0; subtree nodes: 0"
   },
   "affectedSelector": "#dynamic-text",
-  "durationMs": 12,
+  "durationMs": 11,
   "undoable": true
 }

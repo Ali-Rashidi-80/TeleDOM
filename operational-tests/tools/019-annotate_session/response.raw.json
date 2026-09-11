@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"success\": true,\n  \"annotation\": {\n    \"id\": \"ann_1789100351924_rw8q\",\n    \"sessionId\": \"operational_acceptance_session_001\",\n    \"timestamp\": 0,\n    \"author\": \"AGENT\",\n    \"label\": \"Root Cause Confirmed\",\n    \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n    \"category\": \"ROOT_CAUSE\",\n    \"createdAt\": 1789100351924\n  }\n}"
+        "text": "{\n  \"success\": true,\n  \"annotation\": {\n    \"id\": \"ann_1789102357149_w7w0\",\n    \"sessionId\": \"operational_acceptance_session_001\",\n    \"timestamp\": 0,\n    \"author\": \"AGENT\",\n    \"label\": \"Root Cause Confirmed\",\n    \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n    \"category\": \"ROOT_CAUSE\",\n    \"createdAt\": 1789102357149\n  }\n}"
       }
     ]
   }

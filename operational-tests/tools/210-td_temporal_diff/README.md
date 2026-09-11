@@ -34,7 +34,7 @@ Returns a structured v12 intelligence result with honest status taxonomy (PASS/I
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"sessionId\":\"operational_acceptance_session_001\",\"t1\":0,\"t2\":400,\"entries\":[],\"meta\":{\"reconstructionMs\":0.15552999999999884,\"eventsReplayed\":0,\"degraded\":false,\"memoized\":false},\"tool\":\"td_temporal_diff\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"sessionId\":\"operational_acceptance_session_001\",\"t1\":0,\"t2\":400,\"entries\":[],\"meta\":{\"reconstructionMs\":0.1691899999987072,\"eventsReplayed\":0,\"degraded\":false,\"memoized\":false},\"tool\":\"td_temporal_diff\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

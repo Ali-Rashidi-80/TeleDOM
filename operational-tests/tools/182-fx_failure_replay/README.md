@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 2ms
 
 ## Test Objective
 Captures a structured failure scenario
@@ -34,7 +34,7 @@ Captures a structured failure scenario
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"failureId\": \"fail_1_mtwg5vnd\",\n  \"captured\": true,\n  \"url\": \"https://app.internal/dashboard\",\n  \"selectorCandidates\": 2,\n  \"domSubtree\": false,\n  \"replaySteps\": 1\n}"
+        "text": "{\n  \"failureId\": \"fail_1_mtwhcuup\",\n  \"captured\": true,\n  \"url\": \"https://app.internal/dashboard\",\n  \"selectorCandidates\": 2,\n  \"domSubtree\": false,\n  \"replaySteps\": 1\n}"
       }
     ]
   }

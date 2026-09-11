@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 8ms
+**Duration**: 7ms
 
 ## Test Objective
 Returns temporal slice of events surrounding T=200ms

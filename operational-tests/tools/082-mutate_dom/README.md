@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 16ms
+**Duration**: 12ms
 
 ## Test Objective
 Applies mutation with BEFORE/AFTER/DIFF and undo record
@@ -38,7 +38,7 @@ Applies mutation with BEFORE/AFTER/DIFF and undo record
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"mutationId\": \"mut_mtwg5rmq_1\",\n  \"operation\": \"add_class\",\n  \"success\": true,\n  \"before\": {\n    \"selector\": \"#dynamic-text\",\n    \"outerHtml\": \"<p id=\\\"dynamic-text\\\">Original Static Text Content</p>\",\n    \"attributes\": {\n      \"id\": \"dynamic-text\"\n    }\n  },\n  \"after\": {\n    \"selector\": \"#dynamic-text\",\n    \"outerHtml\": \"<p id=\\\"dynamic-text\\\" class=\\\"op-test\\\">Original Static Text Content</p>\",\n    \"attributes\": {\n      \"id\": \"dynamic-text\",\n      \"class\": \"op-test\"\n    }\n  },\n  \"diff\": {\n    \"added\": 1,\n    \"removed\": 0,\n    \"changed\": 0,\n    \"summary\": \"attributes +1/-0/~0; subtree nodes: 0\"\n  },\n  \"affectedSelector\": \"#dynamic-text\",\n  \"durationMs\": 12,\n  \"undoable\": true\n}"
+        "text": "{\n  \"mutationId\": \"mut_mtwhcqu2_1\",\n  \"operation\": \"add_class\",\n  \"success\": true,\n  \"before\": {\n    \"selector\": \"#dynamic-text\",\n    \"outerHtml\": \"<p id=\\\"dynamic-text\\\">Original Static Text Content</p>\",\n    \"attributes\": {\n      \"id\": \"dynamic-text\"\n    }\n  },\n  \"after\": {\n    \"selector\": \"#dynamic-text\",\n    \"outerHtml\": \"<p id=\\\"dynamic-text\\\" class=\\\"op-test\\\">Original Static Text Content</p>\",\n    \"attributes\": {\n      \"id\": \"dynamic-text\",\n      \"class\": \"op-test\"\n    }\n  },\n  \"diff\": {\n    \"added\": 1,\n    \"removed\": 0,\n    \"changed\": 0,\n    \"summary\": \"attributes +1/-0/~0; subtree nodes: 0\"\n  },\n  \"affectedSelector\": \"#dynamic-text\",\n  \"durationMs\": 11,\n  \"undoable\": true\n}"
       }
     ]
   }

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 4ms
+**Duration**: 3ms
 
 ## Test Objective
 Sets the file input files and dispatches input/change

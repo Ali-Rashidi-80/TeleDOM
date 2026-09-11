@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 18ms
+**Duration**: 20ms
 
 ## Test Objective
 Visual regression forensics with explicit evidence availability

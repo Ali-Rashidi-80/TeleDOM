@@ -1,10 +1,10 @@
 {
-  "sequenceId": "seq_mtwg5rnv_1",
+  "sequenceId": "seq_mtwhcqv2_1",
   "success": true,
   "totalSteps": 2,
   "executedSteps": 2,
   "skippedSteps": 0,
-  "durationMs": 6,
+  "durationMs": 5,
   "stopOnError": true,
   "steps": [
     {
@@ -51,7 +51,7 @@
       "durationMs": 5,
       "resultSummary": "OK: object with keys [targetId, tag, role, selector, selectorCandidates, xpath]",
       "result": {
-        "targetId": "tgt_mtwg5ro1_2",
+        "targetId": "tgt_mtwhcqv7_2",
         "tag": "input",
         "role": "textbox",
         "selector": "#search-input",

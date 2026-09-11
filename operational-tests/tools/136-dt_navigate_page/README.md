@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 3ms
+**Duration**: 2ms
 
 ## Test Objective
 Records navigation on the page identity
@@ -32,7 +32,7 @@ Records navigation on the page identity
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"navigated\": true,\n  \"pageId\": \"page_1\",\n  \"url\": \"https://app.internal/navigated\",\n  \"detail\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"executionId\": \"js_mtwg5v7z_6\",\n    \"durationMs\": 1,\n    \"result\": \"{\\n \\\"navigating\\\": true,\\n \\\"url\\\": \\\"https://app.internal/dashboard\\\"\\n}\",\n    \"consoleOutput\": [],\n    \"domChanged\": false,\n    \"domLengthBefore\": 4594,\n    \"domLengthAfter\": 4594,\n    \"world\": \"ISOLATED\",\n    \"timeoutMs\": 5000,\n    \"codePreview\": \"location.href = \\\"https://app.internal/navigated\\\"; return ({ navigating: true, url: location.href });\"\n  }\n}"
+        "text": "{\n  \"navigated\": true,\n  \"pageId\": \"page_1\",\n  \"url\": \"https://app.internal/navigated\",\n  \"detail\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"executionId\": \"js_mtwhcuef_6\",\n    \"durationMs\": 1,\n    \"result\": \"{\\n \\\"navigating\\\": true,\\n \\\"url\\\": \\\"https://app.internal/dashboard\\\"\\n}\",\n    \"consoleOutput\": [],\n    \"domChanged\": false,\n    \"domLengthBefore\": 4594,\n    \"domLengthAfter\": 4594,\n    \"world\": \"ISOLATED\",\n    \"timeoutMs\": 5000,\n    \"codePreview\": \"location.href = \\\"https://app.internal/navigated\\\"; return ({ navigating: true, url: location.href });\"\n  }\n}"
       }
     ]
   }

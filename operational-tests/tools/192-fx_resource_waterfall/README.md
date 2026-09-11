@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 13ms
+**Duration**: 8ms
 
 ## Test Objective
 Builds the resource waterfall with milestones

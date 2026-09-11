@@ -1,6 +1,6 @@
 # TeleDOM v12 — Compatibility Matrix (generated)
 
-Generated: 2026-09-11T04:49:32.829Z · TeleDOM version: 12.0.0
+Generated: 2026-09-11T04:52:18.547Z · TeleDOM version: 12.0.0
 
 **Surfaces**: td_=100 · dt_=54 · fx_=31 · base=47 · v3=74 · **total=306**
 

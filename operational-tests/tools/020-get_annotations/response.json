@@ -10,17 +10,17 @@
       "comment": "User click triggered POST /v1/analyze",
       "category": "NOTE",
       "author": "TEST_HARNESS",
-      "createdAt": 1789100350850
+      "createdAt": 1789102356115
     },
     {
-      "id": "ann_1789100351924_rw8q",
+      "id": "ann_1789102357149_w7w0",
       "sessionId": "operational_acceptance_session_001",
       "timestamp": 0,
       "author": "AGENT",
       "label": "Root Cause Confirmed",
       "comment": "Host framework unmounted #host-sidebar after network update",
       "category": "ROOT_CAUSE",
-      "createdAt": 1789100351924
+      "createdAt": 1789102357149
     }
   ]
 }

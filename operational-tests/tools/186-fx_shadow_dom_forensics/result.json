@@ -2,8 +2,8 @@
   "tool": "fx_shadow_dom_forensics",
   "index": 186,
   "status": "PASS",
-  "executionTimeMs": 8,
+  "executionTimeMs": 17,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:19:23.671Z"
+  "timestamp": "2026-09-11T04:52:48.853Z"
 }

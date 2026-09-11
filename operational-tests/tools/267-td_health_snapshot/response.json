@@ -7,37 +7,37 @@
         "id": "event-integrity",
         "status": "HEALTHY",
         "detail": "hash chain valid across 1 session(s)",
-        "measuredAt": 1789100364012
+        "measuredAt": 1789102369167
       },
       {
         "id": "storage-integrity",
         "status": "HEALTHY",
         "detail": "0 events indexed",
-        "measuredAt": 1789100364012
+        "measuredAt": 1789102369167
       },
       {
         "id": "resource-guardian",
         "status": "HEALTHY",
         "detail": "mode=HEALTHY policy=FULL_FIDELITY",
-        "measuredAt": 1789100364012
+        "measuredAt": 1789102369167
       },
       {
         "id": "runtime-state",
         "status": "HEALTHY",
         "detail": "runtime=CONNECTED",
-        "measuredAt": 1789100364012
+        "measuredAt": 1789102369167
       },
       {
         "id": "graph-budget",
         "status": "HEALTHY",
         "detail": "graph nodes=1 edges=0",
-        "measuredAt": 1789100364012
+        "measuredAt": 1789102369167
       },
       {
         "id": "security-policy",
         "status": "HEALTHY",
         "detail": "mode=passive destructive=disabled",
-        "measuredAt": 1789100364012
+        "measuredAt": 1789102369167
       }
     ],
     "confidenceMultiplier": 1,

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 0ms
 
 ## Test Objective
 Loads project manifest, page and regions
@@ -32,7 +32,7 @@ Loads project manifest, page and regions
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"manifest\": {\n    \"schemaVersion\": \"1.0.0\",\n    \"projectId\": \"proj_mtwg5ror\",\n    \"name\": \"op-project\",\n    \"description\": \"Operational project\",\n    \"createdAt\": 1789100358507,\n    \"updatedAt\": 1789100358507,\n    \"pages\": [\n      \"page_mtwg5ror\"\n    ],\n    \"regionCount\": 0,\n    \"commandRecordingCount\": 0,\n    \"tags\": [],\n    \"toolVersion\": \"3.0.0\"\n  },\n  \"page\": {\n    \"schemaVersion\": \"1.0.0\",\n    \"pageId\": \"page_mtwg5ror\",\n    \"projectId\": \"proj_mtwg5ror\",\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"capturedAt\": 1789100358507,\n    \"viewport\": {\n      \"width\": 412,\n      \"height\": 915,\n      \"devicePixelRatio\": 2.625\n    },\n    \"domSnapshotFile\": \"dom/page_page_mtwg5ror.html\",\n    \"regions\": [],\n    \"browserState\": {\n      \"extensionEnabled\": true,\n      \"readyState\": \"complete\",\n      \"visibilityState\": \"visible\"\n    }\n  },\n  \"regions\": [],\n  \"projectDir\": \".mcpdom_projects/op-project\"\n}"
+        "text": "{\n  \"manifest\": {\n    \"schemaVersion\": \"1.0.0\",\n    \"projectId\": \"proj_mtwhcqvt\",\n    \"name\": \"op-project\",\n    \"description\": \"Operational project\",\n    \"createdAt\": 1789102363673,\n    \"updatedAt\": 1789102363673,\n    \"pages\": [\n      \"page_mtwhcqvt\"\n    ],\n    \"regionCount\": 0,\n    \"commandRecordingCount\": 0,\n    \"tags\": [],\n    \"toolVersion\": \"3.0.0\"\n  },\n  \"page\": {\n    \"schemaVersion\": \"1.0.0\",\n    \"pageId\": \"page_mtwhcqvt\",\n    \"projectId\": \"proj_mtwhcqvt\",\n    \"url\": \"https://app.internal/dashboard\",\n    \"title\": \"MCP Operational Acceptance DOM Fixture\",\n    \"capturedAt\": 1789102363673,\n    \"viewport\": {\n      \"width\": 412,\n      \"height\": 915,\n      \"devicePixelRatio\": 2.625\n    },\n    \"domSnapshotFile\": \"dom/page_page_mtwhcqvt.html\",\n    \"regions\": [],\n    \"browserState\": {\n      \"extensionEnabled\": true,\n      \"readyState\": \"complete\",\n      \"visibilityState\": \"visible\"\n    }\n  },\n  \"regions\": [],\n  \"projectDir\": \".mcpdom_projects/op-project\"\n}"
       }
     ]
   }

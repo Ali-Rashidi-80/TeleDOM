@@ -1,1 +1,1 @@
-[EXEC] td_evidence_capture executed via stdio JSON-RPC at 2026-09-11T04:19:23.951Z in 1ms
+[EXEC] td_evidence_capture executed via stdio JSON-RPC at 2026-09-11T04:52:49.109Z in 0ms

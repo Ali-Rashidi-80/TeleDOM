@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 0ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v12 intelligence result with honest status taxonomy (PASS/I
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"reconstructedState\":null,\"meta\":{\"reconstructionMs\":0.01669899999978952,\"eventsReplayed\":0,\"degraded\":false,\"memoized\":false},\"note\":\"inspection-only rewind; live page is never mutated\",\"tool\":\"td_temporal_rewind\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"reconstructedState\":null,\"meta\":{\"reconstructionMs\":0.007338999999774387,\"eventsReplayed\":0,\"degraded\":false,\"memoized\":false},\"note\":\"inspection-only rewind; live page is never mutated\",\"tool\":\"td_temporal_rewind\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 28ms
+**Duration**: 6ms
 
 ## Test Objective
 Takes a uid-addressable semantic snapshot

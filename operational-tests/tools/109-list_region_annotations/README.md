@@ -32,7 +32,7 @@ Lists region annotations with quality grades
     "content": [
       {
         "type": "text",
-        "text": "[\n  {\n    \"regionId\": \"region_mtwg5rp4_1\",\n    \"name\": \"header_operational_dom_test_card\",\n    \"autoName\": \"header_operational_dom_test_card\",\n    \"tag\": \"#fixture-header\",\n    \"selector\": \"#fixture-header\",\n    \"quality\": {\n      \"grade\": \"A\",\n      \"overall\": 0.88\n    },\n    \"intendedChange\": \"test change\",\n    \"capturedAt\": 1789100358520\n  },\n  {\n    \"regionId\": \"region_mtwg5rpa_2\",\n    \"name\": \"section_interactive_form_controls\",\n    \"autoName\": \"section_interactive_form_controls\",\n    \"tag\": \"#interactive-section\",\n    \"selector\": \"#interactive-section\",\n    \"quality\": {\n      \"grade\": \"B\",\n      \"overall\": 0.78\n    },\n    \"intendedChange\": null,\n    \"capturedAt\": 1789100358526\n  }\n]"
+        "text": "[\n  {\n    \"regionId\": \"region_mtwhcqw4_1\",\n    \"name\": \"header_operational_dom_test_card\",\n    \"autoName\": \"header_operational_dom_test_card\",\n    \"tag\": \"#fixture-header\",\n    \"selector\": \"#fixture-header\",\n    \"quality\": {\n      \"grade\": \"A\",\n      \"overall\": 0.88\n    },\n    \"intendedChange\": \"test change\",\n    \"capturedAt\": 1789102363685\n  },\n  {\n    \"regionId\": \"region_mtwhcqw9_2\",\n    \"name\": \"section_interactive_form_controls\",\n    \"autoName\": \"section_interactive_form_controls\",\n    \"tag\": \"#interactive-section\",\n    \"selector\": \"#interactive-section\",\n    \"quality\": {\n      \"grade\": \"B\",\n      \"overall\": 0.78\n    },\n    \"intendedChange\": null,\n    \"capturedAt\": 1789102363690\n  }\n]"
       }
     ]
   }

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 0ms
+**Duration**: 1ms
 
 ## Test Objective
 Inspects a captured network request in full
@@ -32,7 +32,7 @@ Inspects a captured network request in full
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"requestId\": \"req_1\",\n  \"url\": \"https://app.internal/api/seeded-request\",\n  \"method\": \"GET\",\n  \"status\": 200,\n  \"failed\": false,\n  \"startTime\": 1789100363104\n}"
+        "text": "{\n  \"requestId\": \"req_1\",\n  \"url\": \"https://app.internal/api/seeded-request\",\n  \"method\": \"GET\",\n  \"status\": 200,\n  \"failed\": false,\n  \"startTime\": 1789102368246\n}"
       }
     ]
   }

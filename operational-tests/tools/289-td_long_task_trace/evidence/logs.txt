@@ -1,1 +1,1 @@
-[EXEC] td_long_task_trace executed via stdio JSON-RPC at 2026-09-11T04:19:25.100Z in 1ms
+[EXEC] td_long_task_trace executed via stdio JSON-RPC at 2026-09-11T04:52:50.244Z in 1ms

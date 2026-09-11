@@ -2,7 +2,7 @@
   "status": "INCONCLUSIVE",
   "reconstructedState": null,
   "meta": {
-    "reconstructionMs": 0.01669899999978952,
+    "reconstructionMs": 0.007338999999774387,
     "eventsReplayed": 0,
     "degraded": false,
     "memoized": false
