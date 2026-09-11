@@ -1,26 +1,32 @@
-# ⚡ Browser Forensic Recorder, Live DOM Intelligence & Universal MCP Server
-
 <div align="center">
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8%2B-blue.svg?logo=typescript)](https://www.typescriptlang.org/)
-[![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-Manifest_V3-red.svg?logo=googlechrome)](https://developer.chrome.com/docs/extensions/mv3/)
-[![MCP](https://img.shields.io/badge/Model_Context_Protocol-206_Tools_(JSON--RPC_2.0)-purple.svg)](https://modelcontextprotocol.io/)
-[![Operational Certification](https://img.shields.io/badge/MCP_Certification-206%2F206_Certified_(Stdio_JSON--RPC)-brightgreen.svg)](./operational-tests/)
-[![Tests](https://img.shields.io/badge/Unit_%26_E2E_Tests-178%2F178_Passed_(20_Suites)-brightgreen.svg)]()
-[![CLI](https://img.shields.io/badge/CLI-dom--antigravity-orange.svg)](#-dedicated-universal-cli-dom-antigravity)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+# ⚡ TeleDOM
+### 🌐 Unified Browser Forensic Recorder &bull; Live DOM Intelligence &bull; 206-Tool Universal MCP Server
 
-**A high-fidelity browser forensic recorder, sub-millisecond DOM time-travel state reconstruction engine, element lifecycle tracer, live DOM intelligence controller, zero-config on-demand auto-bridge, and 206-tool Model Context Protocol (MCP) server for autonomous AI coding agents and frontend engineers — now evolved into the MCPDOM v3.1 UNIFIED PLATFORM: the original 121 MCPDOM tools, the Chrome DevTools MCP capability families integrated natively (`dt_`), and 30 MCPDOM-native advanced forensic capabilities (`fx_`) over one unified browser runtime.**
+<p align="center">
+  <a href="https://github.com/IrMaho/TeleDOM">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3000&pause=1000&color=00F2FE&center=true&vCenter=true&multiline=false&width=750&height=45&lines=Sub-Millisecond+DOM+Time-Travel+Debugging;206+Certified+JSON-RPC+2.0+MCP+Tools+for+AI+Agents;Zero-Config+Auto-Bridge+Engine+on+Port+3847;Interactive+Ctrl%2BShift%2BClick+Live+Element+Picking" alt="TeleDOM Typing SVG" />
+  </a>
+</p>
 
-[Overview](#-overview--why-this-project-exists) •
-[Key Features](#-key-features) •
-[Universal CLI](#-dedicated-universal-cli-dom-antigravity) •
-[Architecture](#-system-architecture) •
-[MCP Tools (206)](#-model-context-protocol-mcp-tools-reference) •
-[Auto-Bridge Engine](#-zero-config-on-demand-auto-bridge) •
-[Visual Forensics & Screenshots](#-clean-screenshot--visual-forensics-pipeline) •
-[Installation & Quick Start](#-installation--quick-start) •
-[Testing & Certification](#-testing--quality-verification)
+<p align="center">
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.8%2B-blue.svg?style=for-the-badge&logo=typescript&logoColor=white" /></a>
+  <a href="https://developer.chrome.com/docs/extensions/mv3/"><img src="https://img.shields.io/badge/Chrome_Extension-Manifest_V3-red.svg?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+  <a href="https://modelcontextprotocol.io/"><img src="https://img.shields.io/badge/Model_Context_Protocol-206_Tools-purple.svg?style=for-the-badge&logo=probot&logoColor=white" /></a>
+  <a href="./operational-tests/"><img src="https://img.shields.io/badge/Certification-206%2F206_Stdio-brightgreen.svg?style=for-the-badge&logo=checkmarx&logoColor=white" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Tests-178%2F178_Passed-success.svg?style=for-the-badge&logo=vitest&logoColor=white" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge&logo=apache" /></a>
+</p>
+
+**A high-fidelity browser forensic recorder, sub-millisecond DOM time-travel state reconstruction engine, element lifecycle tracer, live DOM intelligence controller, zero-config on-demand auto-bridge, and 206-tool Model Context Protocol (MCP) server for autonomous AI coding agents (Claude, Antigravity, Cursor) and frontend engineers.**
+
+[⚡ Overview](#-overview--why-this-project-exists) •
+[✨ Key Features](#-key-features) •
+[💻 Universal CLI](#-dedicated-universal-cli-dom-antigravity) •
+[🏗️ Architecture](#-system-architecture) •
+[🤖 MCP Tools (206)](#-model-context-protocol-mcp-tools-reference) •
+[🚀 Installation](#-installation--quick-start) •
+[🧪 Testing](#-testing--quality-verification)
 
 </div>
 

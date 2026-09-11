@@ -1,7 +1,7 @@
 {
   "name": "browser-forensic-recorder",
   "version": "3.1.0",
-  "description": "McpDOM Unified Browser Intelligence Platform: forensic recorder, DOM time-travel debugger, Chrome DevTools capability fusion (dt_ tools), 30 advanced forensic capabilities (fx_ tools), and 206-Tool Agent MCP interface",
+  "description": "Unified Browser Intelligence Platform: forensic recorder, DOM time-travel debugger, Chrome DevTools capability fusion (dt_ tools), 30 advanced forensic capabilities (fx_ tools), and 206-Tool Agent MCP interface",
   "type": "module",
   "main": "dist/server/mcp-server.js",
   "bin": {
@@ -11,6 +11,14 @@
     "browser-forensics": "./bin/cli.js",
     "forensic-mcp": "./bin/mcp-server.js",
     "forensic-bridge": "./bin/bridge-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IrMaho/TeleDOM.git"
+  },
+  "homepage": "https://github.com/IrMaho/TeleDOM#readme",
+  "bugs": {
+    "url": "https://github.com/IrMaho/TeleDOM/issues"
   },
   "scripts": {
     "dev": "vite",
@@ -38,9 +46,11 @@
     "forensics",
     "mcp",
     "modelcontextprotocol",
-    "chrome-extension"
+    "chrome-extension",
+    "devtools",
+    "ai-agent"
   ],
-  "author": "Antigravity Engineering Pair",
+  "author": "Mohammad Javad (IrMaho)",
   "license": "Apache-2.0",
   "dependencies": {
     "ws": "^8.18.0",
