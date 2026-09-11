@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_258_td_simulate_network",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"session has no events to mutate\",\"tool\":\"td_simulate_network\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"counterfactual-simulation\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

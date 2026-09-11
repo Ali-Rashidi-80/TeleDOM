@@ -1,0 +1,18 @@
+{
+  "tool": "td_incident_close",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "incidentId": {
+        "type": "string",
+        "description": "Incident to close"
+      }
+    },
+    "required": [
+      "incidentId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

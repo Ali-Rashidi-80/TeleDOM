@@ -1,0 +1,23 @@
+{
+  "tool": "td_cause_impact",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "eventId": {
+        "type": "string",
+        "description": "Cause event"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      }
+    },
+    "required": [
+      "eventId",
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

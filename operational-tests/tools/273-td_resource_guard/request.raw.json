@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_273_td_resource_guard",
+  "method": "tools/call",
+  "params": {
+    "name": "td_resource_guard",
+    "arguments": {
+      "usage": {
+        "events": 100
+      }
+    }
+  }
+}

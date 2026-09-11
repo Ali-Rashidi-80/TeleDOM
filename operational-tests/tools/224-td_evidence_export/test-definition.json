@@ -1,0 +1,26 @@
+{
+  "tool": "td_evidence_export",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "incidentId": {
+        "type": "string",
+        "description": "Incident to export"
+      },
+      "compress": {
+        "type": "boolean",
+        "description": "Gzip the artifact"
+      },
+      "outputPath": {
+        "type": "string",
+        "description": "Optional file path"
+      }
+    },
+    "required": [
+      "incidentId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

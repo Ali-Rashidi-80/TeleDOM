@@ -1,0 +1,18 @@
+{
+  "tool": "td_target_history",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "entityId": {
+        "type": "string",
+        "description": "Target entity"
+      }
+    },
+    "required": [
+      "entityId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

@@ -1,6 +1,6 @@
 [
   {
-    "regionId": "region_mtulky7b_1",
+    "regionId": "region_mtwg5rp4_1",
     "name": "header_operational_dom_test_card",
     "autoName": "header_operational_dom_test_card",
     "tag": "#fixture-header",
@@ -10,10 +10,10 @@
       "overall": 0.88
     },
     "intendedChange": "test change",
-    "capturedAt": 1788988532519
+    "capturedAt": 1789100358520
   },
   {
-    "regionId": "region_mtulky7g_2",
+    "regionId": "region_mtwg5rpa_2",
     "name": "section_interactive_form_controls",
     "autoName": "section_interactive_form_controls",
     "tag": "#interactive-section",
@@ -23,6 +23,6 @@
       "overall": 0.78
     },
     "intendedChange": null,
-    "capturedAt": 1788988532524
+    "capturedAt": 1789100358526
   }
 ]

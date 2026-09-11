@@ -1,0 +1,27 @@
+{
+  "tool": "td_cause_correlate",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "sources": {
+        "type": "array",
+        "description": "Sources to correlate"
+      },
+      "withinMs": {
+        "type": "number",
+        "description": "Window (default 250)"
+      }
+    },
+    "required": [
+      "sessionId",
+      "sources"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

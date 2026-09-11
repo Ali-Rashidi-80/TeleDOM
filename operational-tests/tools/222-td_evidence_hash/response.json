@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "integrityHash": "5c45d1a27448767fae71317e0cd6ec4198f067df5c38e4bda933d8aaa0937faf",
+  "algorithm": "sha-256",
+  "canonicalization": "sorted-key JSON",
+  "tool": "td_evidence_hash",
+  "capability": {
+    "version": "12.0.0",
+    "category": "evidence-provenance",
+    "securityClass": "read-only"
+  }
+}

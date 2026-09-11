@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_294_td_visual_regression",
+  "method": "tools/call",
+  "params": {
+    "name": "td_visual_regression",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "tool": "td_diagnose",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "symptom": {
+        "type": "string",
+        "description": "Symptom description"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Session scope"
+      }
+    },
+    "required": [
+      "symptom",
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

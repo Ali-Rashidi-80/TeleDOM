@@ -1,0 +1,32 @@
+{
+  "tool": "td_temporal_last_stable",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "dimension": {
+        "type": "string",
+        "description": "State dimension"
+      },
+      "before": {
+        "type": "number",
+        "description": "Search horizon (logical ms)"
+      },
+      "settleMs": {
+        "type": "number",
+        "description": "Quiet period that counts as stable (default 250)"
+      }
+    },
+    "required": [
+      "sessionId",
+      "dimension",
+      "before"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

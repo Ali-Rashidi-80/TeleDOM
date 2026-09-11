@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "note": "branch undefined not found — fork one via td_temporal_branch first",
+  "tool": "td_branch_merge",
+  "capability": {
+    "version": "12.0.0",
+    "category": "counterfactual-simulation",
+    "securityClass": "reversible"
+  }
+}

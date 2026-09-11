@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_272_td_reconcile_events",
+  "method": "tools/call",
+  "params": {
+    "name": "td_reconcile_events",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

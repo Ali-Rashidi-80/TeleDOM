@@ -1,0 +1,18 @@
+{
+  "tool": "td_run_playbook",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "playbookId": {
+        "type": "string",
+        "description": "Playbook to run"
+      }
+    },
+    "required": [
+      "playbookId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

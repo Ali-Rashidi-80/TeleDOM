@@ -1,0 +1,23 @@
+{
+  "tool": "td_evidence_chain",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "claim": {
+        "type": "string",
+        "description": "The claim to ground"
+      },
+      "evidenceRefs": {
+        "type": "array",
+        "description": "Candidate evidence refs"
+      }
+    },
+    "required": [
+      "claim",
+      "evidenceRefs"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

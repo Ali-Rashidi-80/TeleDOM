@@ -1,0 +1,37 @@
+{
+  "tool": "td_cause_counterfactual",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "targetSequence": {
+        "type": "number",
+        "description": "Event sequence to suppress/modify"
+      },
+      "kind": {
+        "type": "string",
+        "description": "suppress-event | modify-response | modify-state | modify-style | alter-timing"
+      },
+      "patch": {
+        "type": "object",
+        "description": "Mutation payload"
+      },
+      "reason": {
+        "type": "string",
+        "description": "Why this counterfactual"
+      }
+    },
+    "required": [
+      "sessionId",
+      "targetSequence",
+      "kind",
+      "reason"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

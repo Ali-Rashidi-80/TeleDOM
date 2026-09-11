@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_274_td_leak_watch",
+  "method": "tools/call",
+  "params": {
+    "name": "td_leak_watch",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

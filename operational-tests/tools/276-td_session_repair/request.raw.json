@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_276_td_session_repair",
+  "method": "tools/call",
+  "params": {
+    "name": "td_session_repair",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

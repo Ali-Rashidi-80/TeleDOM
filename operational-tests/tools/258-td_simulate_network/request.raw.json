@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_258_td_simulate_network",
+  "method": "tools/call",
+  "params": {
+    "name": "td_simulate_network",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

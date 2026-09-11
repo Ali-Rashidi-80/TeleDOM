@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 20ms
+**Duration**: 7ms
 
 ## Test Objective
 Returns full tool catalog with discovery metadata

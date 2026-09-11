@@ -1,0 +1,11 @@
+{
+  "status": "DEGRADED",
+  "reason": "interaction execution is DEGRADED: running against a simulation document, not a live browser bridge",
+  "suggestion": "connect the forensic bridge (FORENSIC_AUTO_BRIDGE=true) and re-run",
+  "tool": "td_interaction_execute",
+  "capability": {
+    "version": "12.0.0",
+    "category": "targeting-interaction",
+    "securityClass": "side-effects"
+  }
+}

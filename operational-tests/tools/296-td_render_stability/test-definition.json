@@ -1,0 +1,19 @@
+{
+  "tool": "td_render_stability",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session scope"
+      },
+      "settleMs": {
+        "type": "number",
+        "description": "Quiet period (default 250)"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

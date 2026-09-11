@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_300_td_plan_fix",
+  "method": "tools/call",
+  "params": {
+    "name": "td_plan_fix",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

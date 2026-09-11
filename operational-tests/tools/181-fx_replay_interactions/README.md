@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 2ms
+**Duration**: 1ms
 
 ## Test Objective
 Replays the recorded interaction set with resilient resolution
@@ -17,7 +17,7 @@ Replays the recorded interaction set with resilient resolution
   "params": {
     "name": "fx_replay_interactions",
     "arguments": {
-      "recordingId": "irep_1_mtull24x",
+      "recordingId": "irep_1_mtwg5vn8",
       "verifySelectorsOnly": true
     }
   }
@@ -33,7 +33,7 @@ Replays the recorded interaction set with resilient resolution
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"recordingId\": \"irep_1_mtull24x\",\n  \"replayedAt\": 1788988537620,\n  \"steps\": [\n    {\n      \"stepId\": \"step_1\",\n      \"action\": \"type\",\n      \"selectorUsed\": \"#search-input\",\n      \"resolution\": \"EXACT\",\n      \"resolutionDetail\": \"Selector uniquely matched.\",\n      \"executed\": true,\n      \"detail\": null\n    }\n  ],\n  \"successRate\": 1,\n  \"allExecuted\": true,\n  \"determinismNote\": \"Replay preserves action order, parameters and timing-free semantics; resilient resolution re-targets via fingerprint when the DOM changed between record and replay.\"\n}"
+        "text": "{\n  \"recordingId\": \"irep_1_mtwg5vn8\",\n  \"replayedAt\": 1789100363639,\n  \"steps\": [\n    {\n      \"stepId\": \"step_1\",\n      \"action\": \"type\",\n      \"selectorUsed\": \"#search-input\",\n      \"resolution\": \"EXACT\",\n      \"resolutionDetail\": \"Selector uniquely matched.\",\n      \"executed\": true,\n      \"detail\": null\n    }\n  ],\n  \"successRate\": 1,\n  \"allExecuted\": true,\n  \"determinismNote\": \"Replay preserves action order, parameters and timing-free semantics; resilient resolution re-targets via fingerprint when the DOM changed between record and replay.\"\n}"
       }
     ]
   }

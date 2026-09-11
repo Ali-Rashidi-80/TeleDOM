@@ -4862,5 +4862,1953 @@
         }
       }
     }
+  },
+  {
+    "name": "td_temporal_query",
+    "description": "Query any state/entity across a time range (State(T), State(T1..T2)). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session to query"
+        },
+        "fromLogical": {
+          "type": "number",
+          "description": "Range start (logical ms)"
+        },
+        "toLogical": {
+          "type": "number",
+          "description": "Range end (logical ms)"
+        },
+        "entityIds": {
+          "type": "array",
+          "description": "Restrict to entities"
+        },
+        "dimensions": {
+          "type": "array",
+          "description": "State dimensions to include"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_seek",
+    "description": "Seek to the nearest valid state for an event/time. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "logicalTime": {
+          "type": "number",
+          "description": "Target logical time"
+        }
+      },
+      "required": [
+        "sessionId",
+        "logicalTime"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_window",
+    "description": "Return a compact before/target/after state window around an event. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "aroundLogical": {
+          "type": "number",
+          "description": "Center logical time"
+        },
+        "radiusMs": {
+          "type": "number",
+          "description": "Window radius in ms (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "aroundLogical"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_diff",
+    "description": "Diff(T1,T2): compare two arbitrary points in time across all state dimensions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "t1": {
+          "type": "number",
+          "description": "First logical time"
+        },
+        "t2": {
+          "type": "number",
+          "description": "Second logical time"
+        }
+      },
+      "required": [
+        "sessionId",
+        "t1",
+        "t2"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_trace_entity",
+    "description": "Trace one entity through its full lifetime (every touching event). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "entityId": {
+          "type": "string",
+          "description": "Entity to trace"
+        }
+      },
+      "required": [
+        "sessionId",
+        "entityId"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_first_change",
+    "description": "Find the first event matching a predicate (e.g. first invalid state). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "source": {
+          "type": "string",
+          "description": "Event source filter"
+        },
+        "typePattern": {
+          "type": "string",
+          "description": "Type regex filter"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_last_stable",
+    "description": "Find the last state in which a dimension was stable before a time. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "dimension": {
+          "type": "string",
+          "description": "State dimension"
+        },
+        "before": {
+          "type": "number",
+          "description": "Search horizon (logical ms)"
+        },
+        "settleMs": {
+          "type": "number",
+          "description": "Quiet period that counts as stable (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "dimension",
+        "before"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_join",
+    "description": "Join DOM/runtime/network/visual/security events inside temporal constraints (Join(Signals)). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Signal sources to join"
+        },
+        "withinMs": {
+          "type": "number",
+          "description": "Cluster window (default 250)"
+        },
+        "aroundEntityId": {
+          "type": "string",
+          "description": "Optional entity scope"
+        }
+      },
+      "required": [
+        "sessionId",
+        "sources"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_branch",
+    "description": "Branch(T): fork a historical state into a simulation branch (never overwrites reality). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "forkAtLogical": {
+          "type": "number",
+          "description": "Fork point"
+        },
+        "mutations": {
+          "type": "array",
+          "description": "Branch mutations (kind, targetSequence, patch, reason)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "forkAtLogical",
+        "mutations"
+      ]
+    }
+  },
+  {
+    "name": "td_temporal_rewind",
+    "description": "Reconstruct and activate a safe inspection state (read-only rewind). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "logicalTime": {
+          "type": "number",
+          "description": "Target time"
+        }
+      },
+      "required": [
+        "sessionId",
+        "logicalTime"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_capture",
+    "description": "Capture a typed evidence bundle for the current investigation. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to attach evidence to"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Evidence node type"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human label"
+        },
+        "payload": {
+          "type": "object",
+          "description": "Evidence payload"
+        }
+      },
+      "required": [
+        "incidentId",
+        "kind",
+        "label"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_search",
+    "description": "Search evidence semantically and structurally. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text query"
+        },
+        "types": {
+          "type": "array",
+          "description": "Node type filter"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max results"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_evidence_chain",
+    "description": "Build the provenance chain for a claim (claim → evidence → verification). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "description": "The claim to ground"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "description": "Candidate evidence refs"
+        }
+      },
+      "required": [
+        "claim",
+        "evidenceRefs"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_confidence",
+    "description": "Recalculate confidence using source quality and corroboration. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "provenance": {
+          "type": "array",
+          "description": "Provenance records"
+        },
+        "corroboration": {
+          "type": "number",
+          "description": "Independent corroborating sources"
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "Verified by contract?"
+        },
+        "contradicted": {
+          "type": "boolean",
+          "description": "Counterevidence observed?"
+        }
+      },
+      "required": [
+        "provenance",
+        "corroboration"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_verify",
+    "description": "Verify a claim against current or replayed state. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "description": "Claim statement"
+        },
+        "mustHold": {
+          "type": "array",
+          "description": "Postconditions that must hold"
+        },
+        "mustNotHold": {
+          "type": "array",
+          "description": "Conditions that must not hold"
+        },
+        "evidenceRequired": {
+          "type": "array",
+          "description": "Required evidence refs"
+        }
+      },
+      "required": [
+        "claim",
+        "mustHold"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_hash",
+    "description": "Hash a state/evidence artifact and attach integrity metadata. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "artifact": {
+          "type": "object",
+          "description": "Artifact to hash"
+        }
+      },
+      "required": [
+        "artifact"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_compare",
+    "description": "Compare two evidence packages (structural + provenance diff). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "packageA": {
+          "type": "object",
+          "description": "First package"
+        },
+        "packageB": {
+          "type": "object",
+          "description": "Second package"
+        }
+      },
+      "required": [
+        "packageA",
+        "packageB"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_export",
+    "description": "Export a portable forensic evidence package (.tdom). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to export"
+        },
+        "compress": {
+          "type": "boolean",
+          "description": "Gzip the artifact"
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Optional file path"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_timeline",
+    "description": "Produce a human-readable evidence timeline for an incident. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident id"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    }
+  },
+  {
+    "name": "td_evidence_proof",
+    "description": "Generate a machine-verifiable proof record for a finding. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "claims": {
+          "type": "array",
+          "description": "Claims with evidence refs"
+        },
+        "steps": {
+          "type": "array",
+          "description": "Reasoning steps"
+        },
+        "conclusion": {
+          "type": "string",
+          "description": "Conclusion statement"
+        },
+        "verificationStatus": {
+          "type": "string",
+          "description": "PASS/FAIL/INCONCLUSIVE"
+        }
+      },
+      "required": [
+        "claims",
+        "conclusion",
+        "verificationStatus"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_trace",
+    "description": "Trace likely causes of a selected symptom (root-cause chain). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "symptomEventId": {
+          "type": "string",
+          "description": "Symptom event"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Correlation window (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "symptomEventId"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_graph",
+    "description": "Build a causal graph around an incident (typed nodes + provenance edges). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Correlation window"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_rank",
+    "description": "Rank competing root-cause hypotheses by evidence strength. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "symptomEventId": {
+          "type": "string",
+          "description": "Symptom event"
+        }
+      },
+      "required": [
+        "sessionId",
+        "symptomEventId"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_explain",
+    "description": "Explain a finding from evidence — claim + chain + confidence + alternatives. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "finding": {
+          "type": "string",
+          "description": "Finding to explain"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "description": "Evidence to ground the explanation"
+        }
+      },
+      "required": [
+        "finding",
+        "evidenceRefs"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_correlate",
+    "description": "Correlate independent signals into candidate causal chains. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Sources to correlate"
+        },
+        "withinMs": {
+          "type": "number",
+          "description": "Window (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "sources"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_breakpoint",
+    "description": "Find the earliest causal divergence between two streams (reality vs branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "branchId": {
+          "type": "string",
+          "description": "Branch to compare"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "branchId",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_impact",
+    "description": "Estimate downstream impact of a cause (affected entities/components). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "description": "Cause event"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "eventId",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_dependency",
+    "description": "Trace dependencies that could produce a state (dependency chains). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entityId": {
+          "type": "string",
+          "description": "Entity to analyze"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "entityId",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_counterfactual",
+    "description": "Test whether removing a candidate cause changes the outcome (branch + replay + compare). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "targetSequence": {
+          "type": "number",
+          "description": "Event sequence to suppress/modify"
+        },
+        "kind": {
+          "type": "string",
+          "description": "suppress-event | modify-response | modify-state | modify-style | alter-timing"
+        },
+        "patch": {
+          "type": "object",
+          "description": "Mutation payload"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why this counterfactual"
+        }
+      },
+      "required": [
+        "sessionId",
+        "targetSequence",
+        "kind",
+        "reason"
+      ]
+    }
+  },
+  {
+    "name": "td_cause_verify",
+    "description": "Verify a root-cause hypothesis through replay/observation (never guess). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "hypothesisId": {
+          "type": "string",
+          "description": "Hypothesis to verify"
+        }
+      },
+      "required": [
+        "sessionId",
+        "hypothesisId"
+      ]
+    }
+  },
+  {
+    "name": "td_semantic_page",
+    "description": "Build a compact semantic model of the page (roles, intents, stability). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "includeHidden": {
+          "type": "boolean",
+          "description": "Include hidden elements"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_semantic_element",
+    "description": "Explain an element's role, intent and state (semantic identity). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "Element selector"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    }
+  },
+  {
+    "name": "td_component_map",
+    "description": "Infer component boundaries and ownership (React/Vue/Svelte/custom/microfrontend). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_component_lifecycle",
+    "description": "Trace mount/update/unmount behavior of a component. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Component id or root selector"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "componentId",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_component_dependencies",
+    "description": "Map component dependencies and affected nodes. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Component id"
+        }
+      },
+      "required": [
+        "componentId"
+      ]
+    }
+  },
+  {
+    "name": "td_component_state",
+    "description": "Reconstruct component-facing state signals. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Component id"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "componentId"
+      ]
+    }
+  },
+  {
+    "name": "td_accessibility_model",
+    "description": "Build a normalized accessibility model (role/name/state/relationships/focus). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_visual_semantics",
+    "description": "Associate visual regions with semantic entities. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "regions": {
+          "type": "array",
+          "description": "Visual regions to associate"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_page_intent",
+    "description": "Infer major page workflows and interaction zones. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_state_summary",
+    "description": "Return a token-minimal state digest suitable for agents (L0/L1). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "The next decision the agent must make"
+        },
+        "level": {
+          "type": "string",
+          "description": "L0|L1|L2|L3|L4"
+        }
+      },
+      "required": [
+        "intent"
+      ]
+    }
+  },
+  {
+    "name": "td_resolve_target",
+    "description": "Resolve a natural-language or semantic target to a VERIFIED entity with confidence. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Natural-language target description"
+        },
+        "role": {
+          "type": "string",
+          "description": "Semantic role"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text content"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Seed selector"
+        }
+      },
+      "required": []
+    }
+  },
+  {
+    "name": "td_rank_targets",
+    "description": "Rank target candidates by historical, semantic and visual stability. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "candidates": {
+          "type": "array",
+          "description": "Candidate descriptors"
+        },
+        "query": {
+          "type": "object",
+          "description": "Target query"
+        }
+      },
+      "required": [
+        "candidates",
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "td_target_recover",
+    "description": "Recover a target after selector/DOM changes (multi-signal recovery; refuses blind guesses). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "failedSelector": {
+          "type": "string",
+          "description": "The selector that failed"
+        },
+        "lastKnown": {
+          "type": "object",
+          "description": "Last known target snapshot"
+        }
+      },
+      "required": [
+        "failedSelector",
+        "lastKnown"
+      ]
+    }
+  },
+  {
+    "name": "td_target_verify",
+    "description": "Verify that the selected target matches the requested intent. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "Selected selector"
+        },
+        "intent": {
+          "type": "string",
+          "description": "Requested intent"
+        }
+      },
+      "required": [
+        "selector",
+        "intent"
+      ]
+    }
+  },
+  {
+    "name": "td_target_history",
+    "description": "Show how a target changed over time (identity versions). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entityId": {
+          "type": "string",
+          "description": "Target entity"
+        }
+      },
+      "required": [
+        "entityId"
+      ]
+    }
+  },
+  {
+    "name": "td_target_contract",
+    "description": "Create a durable target contract for future actions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object",
+          "description": "Target query"
+        },
+        "resolution": {
+          "type": "object",
+          "description": "Resolution result"
+        }
+      },
+      "required": [
+        "query",
+        "resolution"
+      ]
+    }
+  },
+  {
+    "name": "td_interaction_plan",
+    "description": "Generate a verified interaction plan from intent (target + steps + postconditions). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "What the interaction should achieve"
+        }
+      },
+      "required": [
+        "intent"
+      ]
+    }
+  },
+  {
+    "name": "td_interaction_execute",
+    "description": "Execute an interaction plan with postconditions (transactional). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "planId": {
+          "type": "string",
+          "description": "Plan to execute"
+        }
+      },
+      "required": [
+        "planId"
+      ]
+    }
+  },
+  {
+    "name": "td_interaction_observe",
+    "description": "Observe effects of one interaction across state dimensions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "interactionRef": {
+          "type": "string",
+          "description": "Executed interaction reference"
+        }
+      },
+      "required": [
+        "interactionRef"
+      ]
+    }
+  },
+  {
+    "name": "td_interaction_repair",
+    "description": "Repair a failed interaction without restarting the whole task. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "failedPlanId": {
+          "type": "string",
+          "description": "Failed plan"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Failure reason"
+        }
+      },
+      "required": [
+        "failedPlanId",
+        "reason"
+      ]
+    }
+  },
+  {
+    "name": "td_simulate_change",
+    "description": "Simulate a proposed change without committing it (dry-run on a branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "change": {
+          "type": "object",
+          "description": "Change spec"
+        }
+      },
+      "required": [
+        "sessionId",
+        "change"
+      ]
+    }
+  },
+  {
+    "name": "td_simulate_network",
+    "description": "Simulate alternate network responses (modify-response branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "targetSequence": {
+          "type": "number",
+          "description": "Network event to alter"
+        },
+        "responsePatch": {
+          "type": "object",
+          "description": "Response override"
+        }
+      },
+      "required": [
+        "sessionId",
+        "targetSequence",
+        "responsePatch"
+      ]
+    }
+  },
+  {
+    "name": "td_simulate_dom",
+    "description": "Simulate DOM mutations against a branch. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "mutations": {
+          "type": "array",
+          "description": "DOM mutations"
+        }
+      },
+      "required": [
+        "sessionId",
+        "mutations"
+      ]
+    }
+  },
+  {
+    "name": "td_simulate_style",
+    "description": "Simulate style/CSS changes (modify-style branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "targetSequence": {
+          "type": "number",
+          "description": "Style event to alter"
+        },
+        "stylePatch": {
+          "type": "object",
+          "description": "Style override"
+        }
+      },
+      "required": [
+        "sessionId",
+        "targetSequence",
+        "stylePatch"
+      ]
+    }
+  },
+  {
+    "name": "td_simulate_runtime",
+    "description": "Simulate selected runtime conditions (state/event patches). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "condition": {
+          "type": "object",
+          "description": "Runtime condition spec"
+        }
+      },
+      "required": [
+        "sessionId",
+        "condition"
+      ]
+    }
+  },
+  {
+    "name": "td_simulate_failure",
+    "description": "Reproduce a controlled failure condition in an authorized environment. [security: policy-gated; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "failureKind": {
+          "type": "string",
+          "description": "Failure to inject"
+        }
+      },
+      "required": [
+        "sessionId",
+        "failureKind"
+      ]
+    }
+  },
+  {
+    "name": "td_compare_branches",
+    "description": "Compare reality against one or more counterfactual branches. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "branchIds": {
+          "type": "array",
+          "description": "Branches to compare"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "branchIds",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_predict_impact",
+    "description": "Predict affected components/entities before a mutation (impact analysis). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "change": {
+          "type": "object",
+          "description": "Proposed change"
+        },
+        "scope": {
+          "type": "object",
+          "description": "Scope hints"
+        }
+      },
+      "required": [
+        "change"
+      ]
+    }
+  },
+  {
+    "name": "td_safe_apply",
+    "description": "Apply a verified low-risk mutation transaction (PLAN→…→VERIFY→COMMIT/ROLLBACK). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "plan": {
+          "type": "object",
+          "description": "Mutation plan"
+        },
+        "scope": {
+          "type": "object",
+          "description": "Allowed selectors/origins"
+        }
+      },
+      "required": [
+        "plan",
+        "scope"
+      ]
+    }
+  },
+  {
+    "name": "td_branch_merge",
+    "description": "Merge a successful simulation branch into a controlled mutation plan. [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "branchId": {
+          "type": "string",
+          "description": "Verified branch"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "branchId",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_health_snapshot",
+    "description": "Return full TeleDOM runtime health + integrity state (self-diagnostics). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "td_recover_browser",
+    "description": "Recover from browser/renderer disconnect where possible (bounded retries). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "failureKind": {
+          "type": "string",
+          "description": "Failure kind"
+        }
+      },
+      "required": [
+        "failureKind"
+      ]
+    }
+  },
+  {
+    "name": "td_recover_page",
+    "description": "Re-resolve a dead or replaced page identity. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string",
+          "description": "Page identity"
+        }
+      },
+      "required": [
+        "pageId"
+      ]
+    }
+  },
+  {
+    "name": "td_recover_bridge",
+    "description": "Recover or reconnect the bridge without losing state. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "td_reconcile_tabs",
+    "description": "Reconcile page identity after tabs/windows change. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "td_reconcile_events",
+    "description": "Detect and repair event-order inconsistencies (mesh admission report). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session to reconcile"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_resource_guard",
+    "description": "Enforce memory/CPU/concurrency budgets (guardian decision + mode). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "usage": {
+          "type": "object",
+          "description": "Reported usage"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_leak_watch",
+    "description": "Continuously detect memory/resource growth patterns. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "windowMs": {
+          "type": "number",
+          "description": "Observation window"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_failure_containment",
+    "description": "Isolate a broken capability without killing the whole session. [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "capabilityId": {
+          "type": "string",
+          "description": "Capability to isolate"
+        }
+      },
+      "required": [
+        "capabilityId"
+      ]
+    }
+  },
+  {
+    "name": "td_session_repair",
+    "description": "Repair a partially corrupted session from checkpoints + evidence (hash-verified). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session to repair"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_security_posture",
+    "description": "Produce a browser-side security posture summary (passive, evidence-driven). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_security_surface",
+    "description": "Map client-visible attack surfaces and trust boundaries. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_security_flow",
+    "description": "Trace sensitive-data flows through the browser runtime. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_dom_xss_audit",
+    "description": "Trace browser-side sources, transformations and dangerous sinks (passive). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_injection_surface_audit",
+    "description": "Identify injection-sensitive DOM/runtime surfaces WITHOUT executing payloads. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_auth_session_audit",
+    "description": "Audit authentication/session behavior, expiry and state transitions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_cookie_storage_audit",
+    "description": "Audit cookie, storage and client-secret handling. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_csp_security_audit",
+    "description": "Analyze CSP posture and runtime violations. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_cors_security_audit",
+    "description": "Analyze observed CORS behavior against scoped trust expectations. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_security_regression",
+    "description": "Compare security posture before/after a code or deployment change. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "beforeRef": {
+          "type": "string",
+          "description": "Baseline posture ref"
+        },
+        "afterRef": {
+          "type": "string",
+          "description": "Current posture ref"
+        }
+      },
+      "required": [
+        "beforeRef",
+        "afterRef"
+      ]
+    }
+  },
+  {
+    "name": "td_performance_profile",
+    "description": "Build an end-to-end performance profile (events → spans → vitals). [security: read-only; cost: medium; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_performance_budget",
+    "description": "Evaluate the page against declared performance budgets. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "budgets": {
+          "type": "object",
+          "description": "Budget thresholds"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_long_task_trace",
+    "description": "Trace long tasks to affected DOM/components. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "thresholdMs": {
+          "type": "number",
+          "description": "Long-task threshold (default 50)"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_layout_causality",
+    "description": "Connect layout shifts to runtime/DOM/network causes. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_memory_profile",
+    "description": "Build a memory profile for the browser/page/session. [security: read-only; cost: medium; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_memory_leak_trace",
+    "description": "Find retained-growth patterns over time. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Observation window"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_retention_graph",
+    "description": "Build a retaining/reference graph for selected runtime objects where supported. [security: read-only; cost: low; modes: live/recorded/simulation; EXPERIMENTAL]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "objectId": {
+          "type": "string",
+          "description": "Object to trace"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_visual_regression",
+    "description": "Compare visual state with DOM/runtime evidence. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "baselineRef": {
+          "type": "string",
+          "description": "Baseline visual ref"
+        },
+        "currentRef": {
+          "type": "string",
+          "description": "Current visual ref"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_visual_causality",
+    "description": "Explain why a region changed visually (visual↔DOM↔runtime correlation). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "object",
+          "description": "Visual region"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "region"
+      ]
+    }
+  },
+  {
+    "name": "td_render_stability",
+    "description": "Determine when the page reaches a stable render state. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "settleMs": {
+          "type": "number",
+          "description": "Quiet period (default 250)"
+        }
+      }
+    }
+  },
+  {
+    "name": "td_investigate",
+    "description": "Run a complete autonomous investigation from a natural-language objective (resumable plan: scope→…→proof). [security: read-only; cost: high; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "objective": {
+          "type": "string",
+          "description": "Natural-language objective, e.g. \"Why does checkout freeze after payment?\""
+        },
+        "symptomPattern": {
+          "type": "string",
+          "description": "Regex identifying symptom events"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session to investigate"
+        },
+        "resumePlanId": {
+          "type": "string",
+          "description": "Resume an existing plan"
+        }
+      },
+      "required": [
+        "objective",
+        "symptomPattern",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_reproduce_incident",
+    "description": "Reproduce a captured incident with controlled state. [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to reproduce"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    }
+  },
+  {
+    "name": "td_diagnose",
+    "description": "Generate ranked diagnostic hypotheses with evidence (no guesswork). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "symptom": {
+          "type": "string",
+          "description": "Symptom description"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "symptom",
+        "sessionId"
+      ]
+    }
+  },
+  {
+    "name": "td_plan_fix",
+    "description": "Build a fix plan linked to observed causes and affected entities. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to fix"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    }
+  },
+  {
+    "name": "td_validate_fix",
+    "description": "Verify a proposed fix against the original failure (original FAIL → patched PASS). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident being fixed"
+        },
+        "fixRef": {
+          "type": "string",
+          "description": "Fix reference"
+        }
+      },
+      "required": [
+        "incidentId",
+        "fixRef"
+      ]
+    }
+  },
+  {
+    "name": "td_run_workflow",
+    "description": "Execute a declarative multi-step workflow with recovery. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "workflow": {
+          "type": "array",
+          "description": "Workflow steps"
+        }
+      },
+      "required": [
+        "workflow"
+      ]
+    }
+  },
+  {
+    "name": "td_run_playbook",
+    "description": "Run a reusable investigation/security/performance playbook. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "playbookId": {
+          "type": "string",
+          "description": "Playbook to run"
+        }
+      },
+      "required": [
+        "playbookId"
+      ]
+    }
+  },
+  {
+    "name": "td_memory",
+    "description": "Store and retrieve durable project/session investigation knowledge (provenance + confidence). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "store | query | validate"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Memory kind"
+        },
+        "statement": {
+          "type": "string",
+          "description": "Memory statement"
+        },
+        "query": {
+          "type": "object",
+          "description": "Query filter"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "td_context_optimize",
+    "description": "Select the smallest sufficient evidence/state set for the agent (L0–L4). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "The decision the agent must make next"
+        },
+        "requestedLevel": {
+          "type": "string",
+          "description": "L0|L1|L2|L3|L4"
+        }
+      },
+      "required": [
+        "intent"
+      ]
+    }
+  },
+  {
+    "name": "td_incident_close",
+    "description": "Close an incident ONLY after reproduction, remediation and verification criteria pass. [security: policy-gated; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to close"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    }
   }
 ]

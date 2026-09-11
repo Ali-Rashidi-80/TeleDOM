@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_223_td_evidence_compare",
+  "method": "tools/call",
+  "params": {
+    "name": "td_evidence_compare",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

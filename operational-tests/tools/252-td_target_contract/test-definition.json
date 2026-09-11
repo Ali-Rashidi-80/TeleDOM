@@ -1,0 +1,23 @@
+{
+  "tool": "td_target_contract",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "object",
+        "description": "Target query"
+      },
+      "resolution": {
+        "type": "object",
+        "description": "Resolution result"
+      }
+    },
+    "required": [
+      "query",
+      "resolution"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

@@ -1,0 +1,28 @@
+{
+  "tool": "td_resolve_target",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "description": {
+        "type": "string",
+        "description": "Natural-language target description"
+      },
+      "role": {
+        "type": "string",
+        "description": "Semantic role"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text content"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Seed selector"
+      }
+    },
+    "required": []
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

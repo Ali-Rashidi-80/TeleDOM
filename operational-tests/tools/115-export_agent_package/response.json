@@ -1,13 +1,13 @@
 {
-  "packageDir": "/home/z/my-project/mcpdom-work/mcpdom-unified/operational-test-scratch/agent-package-op",
+  "packageDir": "/home/z/my-project/teledom/operational-test-scratch/agent-package-op",
   "fileCount": 12,
   "files": [
     "project.json",
     "pages/page.json",
     "pages/page-snapshot.html",
-    "regions/region_mtulky7b_1.json",
-    "regions/region_region_mtulky7b_1.html",
-    "regions/region_region_mtulky7b_1_context.html",
+    "regions/region_mtwg5rp4_1.json",
+    "regions/region_region_mtwg5rp4_1.html",
+    "regions/region_region_mtwg5rp4_1_context.html",
     "schemas/region-annotation.schema.json",
     "verification/verification-matrix.json",
     "snapshots/capture-context.json",

@@ -1,0 +1,18 @@
+{
+  "tool": "td_component_dependencies",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "componentId": {
+        "type": "string",
+        "description": "Component id"
+      }
+    },
+    "required": [
+      "componentId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

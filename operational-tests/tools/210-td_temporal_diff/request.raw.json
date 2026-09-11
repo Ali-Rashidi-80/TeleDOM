@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_210_td_temporal_diff",
+  "method": "tools/call",
+  "params": {
+    "name": "td_temporal_diff",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "t1": 0,
+      "t2": 400
+    }
+  }
+}

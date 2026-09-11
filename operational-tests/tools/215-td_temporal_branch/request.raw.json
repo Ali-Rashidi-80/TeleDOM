@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_215_td_temporal_branch",
+  "method": "tools/call",
+  "params": {
+    "name": "td_temporal_branch",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "tool": "td_failure_containment",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "capabilityId": {
+        "type": "string",
+        "description": "Capability to isolate"
+      }
+    },
+    "required": [
+      "capabilityId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

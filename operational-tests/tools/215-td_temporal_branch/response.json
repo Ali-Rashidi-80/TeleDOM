@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "note": "session has no events to fork from",
+  "tool": "td_temporal_branch",
+  "capability": {
+    "version": "12.0.0",
+    "category": "temporal-intelligence",
+    "securityClass": "reversible"
+  }
+}

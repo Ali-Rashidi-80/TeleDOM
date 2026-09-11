@@ -1,0 +1,47 @@
+# Operational Test: `td_investigate`
+
+**Status**: **PASS** (2/2 Assertions Passed)
+**Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
+**Execution Mode**: `historical`
+**Duration**: 2ms
+
+## Test Objective
+Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
+
+## Raw Transmitted JSON-RPC Request
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_297_td_investigate",
+  "method": "tools/call",
+  "params": {
+    "name": "td_investigate",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "objective": "Operational acceptance: trace DOM mutation causal chain",
+      "symptomPattern": "node|mutation|remove"
+    }
+  }
+}
+```
+
+## Raw Received JSON-RPC Response
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_297_td_investigate",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"INCONCLUSIVE\",\"investigation\":{\"status\":\"INCONCLUSIVE\",\"rootCause\":null,\"bestHypothesis\":null,\"counterfactual\":null,\"verification\":\"INCONCLUSIVE\",\"proofId\":null,\"plan\":{\"incidentId\":\"incident:1:c825e575\",\"steps\":[{\"id\":\"scope\",\"status\":\"FAILED\",\"result\":\"no symptom events\"},{\"id\":\"create-incident\",\"status\":\"PENDING\"},{\"id\":\"baseline\",\"status\":\"PENDING\"},{\"id\":\"observe\",\"status\":\"PENDING\"},{\"id\":\"timeline\",\"status\":\"PENDING\"},{\"id\":\"reconstruct\",\"status\":\"PENDING\"},{\"id\":\"correlate\",\"status\":\"PENDING\"},{\"id\":\"causal-graph\",\"status\":\"PENDING\"},{\"id\":\"hypotheses\",\"status\":\"PENDING\"},{\"id\":\"counterfactual\",\"status\":\"PENDING\"},{\"id\":\"verify\",\"status\":\"PENDING\"},{\"id\":\"evidence-package\",\"status\":\"PENDING\"},{\"id\":\"lesson\",\"status\":\"PENDING\"}]},\"warnings\":[\"symptom predicate matched no events — investigation cannot proceed\"],\"resourceState\":{\"stepsExecuted\":0,\"eventsAnalyzed\":0}},\"tool\":\"td_investigate\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}
+```
+
+## Assertions
+- [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
+- [x] **Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)**: status, investigation, tool, capability

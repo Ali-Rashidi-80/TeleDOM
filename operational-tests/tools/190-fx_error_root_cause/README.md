@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 7ms
+**Duration**: 12ms
 
 ## Test Objective
 Builds the error root-cause graph with ranked causes

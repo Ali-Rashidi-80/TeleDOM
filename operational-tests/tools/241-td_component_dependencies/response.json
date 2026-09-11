@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "identity": {
+    "note": "not a registered identity; using selector scope"
+  },
+  "dependents": [],
+  "stateSignals": [],
+  "eventCount": 0,
+  "tool": "td_component_dependencies",
+  "capability": {
+    "version": "12.0.0",
+    "category": "semantic-component",
+    "securityClass": "read-only"
+  }
+}

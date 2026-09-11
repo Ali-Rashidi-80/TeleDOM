@@ -1,0 +1,31 @@
+{
+  "tool": "td_evidence_verify",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "claim": {
+        "type": "string",
+        "description": "Claim statement"
+      },
+      "mustHold": {
+        "type": "array",
+        "description": "Postconditions that must hold"
+      },
+      "mustNotHold": {
+        "type": "array",
+        "description": "Conditions that must not hold"
+      },
+      "evidenceRequired": {
+        "type": "array",
+        "description": "Required evidence refs"
+      }
+    },
+    "required": [
+      "claim",
+      "mustHold"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

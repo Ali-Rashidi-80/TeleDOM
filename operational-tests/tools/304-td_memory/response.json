@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "stored": {
+    "memoryId": "mem:1",
+    "validated": true,
+    "confidence": 0.8
+  },
+  "tool": "td_memory",
+  "capability": {
+    "version": "12.0.0",
+    "category": "investigation-orchestration",
+    "securityClass": "read-only"
+  }
+}

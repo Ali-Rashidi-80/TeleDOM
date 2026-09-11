@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_301_td_validate_fix",
+  "method": "tools/call",
+  "params": {
+    "name": "td_validate_fix",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

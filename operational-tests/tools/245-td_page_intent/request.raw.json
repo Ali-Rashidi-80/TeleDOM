@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_245_td_page_intent",
+  "method": "tools/call",
+  "params": {
+    "name": "td_page_intent",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "evidenceNode": {
+    "id": "en:f41c00b7fbccb500a1bd",
+    "hash": "f41c00b7fbccb500a1bd30754ee4150563441ae6c2900f5d917c80962428b48a"
+  },
+  "tool": "td_evidence_capture",
+  "capability": {
+    "version": "12.0.0",
+    "category": "evidence-provenance",
+    "securityClass": "read-only"
+  }
+}

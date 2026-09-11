@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "plan": {
+    "planId": "iplan:3935aa3b04",
+    "steps": [
+      {
+        "action": "resolve-target",
+        "query": {}
+      },
+      {
+        "action": "verify-target",
+        "postcondition": "resolved target matches intent with confidence ≥ 0.55"
+      },
+      {
+        "action": "execute-interaction",
+        "postconditions": [
+          "target state changed as intended",
+          "no unexpected runtime errors"
+        ]
+      }
+    ],
+    "verification": {
+      "mustHold": [
+        "interaction effect observed"
+      ],
+      "mustNotHold": [
+        "runtime exception",
+        "unexpected navigation"
+      ]
+    }
+  },
+  "note": "execute via td_interaction_execute (requires live adapter)",
+  "tool": "td_interaction_plan",
+  "capability": {
+    "version": "12.0.0",
+    "category": "targeting-interaction",
+    "securityClass": "read-only"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_290_td_layout_causality",
+  "method": "tools/call",
+  "params": {
+    "name": "td_layout_causality",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

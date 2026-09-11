@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_293_td_retention_graph",
+  "method": "tools/call",
+  "params": {
+    "name": "td_retention_graph",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

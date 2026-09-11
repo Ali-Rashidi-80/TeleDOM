@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "note": "playbook undefined not found. available: disappearing-ui, security-passive, performance-scan, recovery-drill",
+  "tool": "td_run_playbook",
+  "capability": {
+    "version": "12.0.0",
+    "category": "investigation-orchestration",
+    "securityClass": "read-only"
+  }
+}

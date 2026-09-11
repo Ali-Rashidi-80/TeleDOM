@@ -12,7 +12,7 @@
   {
     "assertion": "Valid Image DataUrl Generated",
     "passed": true,
-    "details": "Format: png, ID: scr_1788988531114_77jc"
+    "details": "Format: png, ID: scr_1789100357078_muqr"
   },
   {
     "assertion": "Verified 100% Valid Viewable PNG Binary Output",

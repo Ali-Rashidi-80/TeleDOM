@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "componentCount": 0,
+  "components": [],
+  "tool": "td_component_map",
+  "capability": {
+    "version": "12.0.0",
+    "category": "semantic-component",
+    "securityClass": "read-only"
+  }
+}

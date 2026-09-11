@@ -1,0 +1,23 @@
+{
+  "tool": "td_evidence_compare",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "packageA": {
+        "type": "object",
+        "description": "First package"
+      },
+      "packageB": {
+        "type": "object",
+        "description": "Second package"
+      }
+    },
+    "required": [
+      "packageA",
+      "packageB"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

@@ -1,0 +1,31 @@
+{
+  "tool": "td_temporal_join",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "sources": {
+        "type": "array",
+        "description": "Signal sources to join"
+      },
+      "withinMs": {
+        "type": "number",
+        "description": "Cluster window (default 250)"
+      },
+      "aroundEntityId": {
+        "type": "string",
+        "description": "Optional entity scope"
+      }
+    },
+    "required": [
+      "sessionId",
+      "sources"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

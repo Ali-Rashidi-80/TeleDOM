@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_254_td_interaction_execute",
+  "method": "tools/call",
+  "params": {
+    "name": "td_interaction_execute",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

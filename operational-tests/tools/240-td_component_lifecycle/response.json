@@ -1,0 +1,11 @@
+{
+  "status": "INCONCLUSIVE",
+  "lifecycle": [],
+  "phaseCounts": {},
+  "tool": "td_component_lifecycle",
+  "capability": {
+    "version": "12.0.0",
+    "category": "semantic-component",
+    "securityClass": "read-only"
+  }
+}

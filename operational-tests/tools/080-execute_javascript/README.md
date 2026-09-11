@@ -32,7 +32,7 @@ Executes JS with EXECUTED_SUCCESSFULLY state and result serialization
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"status\": \"EXECUTED_SUCCESSFULLY\",\n  \"executionId\": \"js_mtulky5c_1\",\n  \"durationMs\": 0,\n  \"result\": \"2\",\n  \"consoleOutput\": [],\n  \"domChanged\": false,\n  \"domLengthBefore\": 4430,\n  \"domLengthAfter\": 4430,\n  \"world\": \"ISOLATED\",\n  \"timeoutMs\": 5000,\n  \"codePreview\": \"return 1 + 1;\"\n}"
+        "text": "{\n  \"status\": \"EXECUTED_SUCCESSFULLY\",\n  \"executionId\": \"js_mtwg5rml_1\",\n  \"durationMs\": 0,\n  \"result\": \"2\",\n  \"consoleOutput\": [],\n  \"domChanged\": false,\n  \"domLengthBefore\": 4430,\n  \"domLengthAfter\": 4430,\n  \"world\": \"ISOLATED\",\n  \"timeoutMs\": 5000,\n  \"codePreview\": \"return 1 + 1;\"\n}"
       }
     ]
   }

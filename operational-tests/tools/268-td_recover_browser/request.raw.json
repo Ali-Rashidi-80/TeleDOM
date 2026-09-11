@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_268_td_recover_browser",
+  "method": "tools/call",
+  "params": {
+    "name": "td_recover_browser",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

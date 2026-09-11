@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_229_td_cause_rank",
+  "method": "tools/call",
+  "params": {
+    "name": "td_cause_rank",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "symptom": "node-removed"
+    }
+  }
+}

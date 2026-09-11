@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "note": "session has no events to mutate",
+  "tool": "td_simulate_runtime",
+  "capability": {
+    "version": "12.0.0",
+    "category": "counterfactual-simulation",
+    "securityClass": "read-only"
+  }
+}

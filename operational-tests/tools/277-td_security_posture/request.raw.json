@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_277_td_security_posture",
+  "method": "tools/call",
+  "params": {
+    "name": "td_security_posture",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

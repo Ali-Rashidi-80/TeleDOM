@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_305_td_context_optimize",
+  "method": "tools/call",
+  "params": {
+    "name": "td_context_optimize",
+    "arguments": {
+      "intent": "why did the injected button disappear"
+    }
+  }
+}

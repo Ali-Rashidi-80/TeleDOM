@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_227_td_cause_trace",
+  "method": "tools/call",
+  "params": {
+    "name": "td_cause_trace",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "symptom": "node-removed"
+    }
+  }
+}

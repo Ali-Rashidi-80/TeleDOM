@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_240_td_component_lifecycle",
+  "method": "tools/call",
+  "params": {
+    "name": "td_component_lifecycle",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

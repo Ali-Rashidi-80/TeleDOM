@@ -1,1 +1,1 @@
-[EXEC] dt_query_heapsnapshot_objects executed via stdio JSON-RPC at 2026-09-09T21:15:37.511Z in 1ms
+[EXEC] dt_query_heapsnapshot_objects executed via stdio JSON-RPC at 2026-09-11T04:19:23.519Z in 1ms

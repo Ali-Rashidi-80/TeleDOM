@@ -1,0 +1,23 @@
+{
+  "tool": "td_target_recover",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "failedSelector": {
+        "type": "string",
+        "description": "The selector that failed"
+      },
+      "lastKnown": {
+        "type": "object",
+        "description": "Last known target snapshot"
+      }
+    },
+    "required": [
+      "failedSelector",
+      "lastKnown"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

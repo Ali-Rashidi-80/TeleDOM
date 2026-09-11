@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "semantic": {
+    "semanticId": "sem:c3e87a801165",
+    "role": "html-region",
+    "purpose": "html:html-region",
+    "text": "MCP Operational Acceptance DOM Fixture\n  \n    body { font-family: sans-serif; padding: 20px; background: #0f172a;",
+    "state": "enabled",
+    "ownership": null,
+    "stability": 0.56,
+    "visibility": "visible",
+    "interactive": false,
+    "selectorCandidates": [
+      "html"
+    ],
+    "accessibility": {
+      "focusable": false
+    }
+  },
+  "tool": "td_semantic_element",
+  "capability": {
+    "version": "12.0.0",
+    "category": "semantic-component",
+    "securityClass": "read-only"
+  }
+}

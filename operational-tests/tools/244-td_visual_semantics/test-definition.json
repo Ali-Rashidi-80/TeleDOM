@@ -1,0 +1,19 @@
+{
+  "tool": "td_visual_semantics",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "regions": {
+        "type": "array",
+        "description": "Visual regions to associate"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

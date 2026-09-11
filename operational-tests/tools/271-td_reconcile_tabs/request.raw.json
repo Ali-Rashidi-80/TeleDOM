@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_271_td_reconcile_tabs",
+  "method": "tools/call",
+  "params": {
+    "name": "td_reconcile_tabs",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

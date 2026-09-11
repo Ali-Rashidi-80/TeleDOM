@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2.0.0",
-  "exportedAt": 1789003314285,
+  "exportedAt": 1789100351607,
   "metadata": {
     "id": "operational_acceptance_session_001",
     "name": "Operational Acceptance Test Session",
@@ -359,7 +359,7 @@
       "comment": "User click triggered POST /v1/analyze",
       "category": "NOTE",
       "author": "TEST_HARNESS",
-      "createdAt": 1789003313250
+      "createdAt": 1789100350850
     }
   ]
 }

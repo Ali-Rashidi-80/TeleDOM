@@ -1,0 +1,12 @@
+{
+  "provenance": [
+    {
+      "origin": "operational-suite",
+      "quality": "direct-observation",
+      "evidenceRefs": [
+        "evt_op_007"
+      ]
+    }
+  ],
+  "corroboration": 1
+}

@@ -1,0 +1,28 @@
+{
+  "tool": "td_simulate_network",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "targetSequence": {
+        "type": "number",
+        "description": "Network event to alter"
+      },
+      "responsePatch": {
+        "type": "object",
+        "description": "Response override"
+      }
+    },
+    "required": [
+      "sessionId",
+      "targetSequence",
+      "responsePatch"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

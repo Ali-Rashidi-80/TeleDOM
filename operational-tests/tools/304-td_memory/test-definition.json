@@ -1,0 +1,30 @@
+{
+  "tool": "td_memory",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "description": "store | query | validate"
+      },
+      "kind": {
+        "type": "string",
+        "description": "Memory kind"
+      },
+      "statement": {
+        "type": "string",
+        "description": "Memory statement"
+      },
+      "query": {
+        "type": "object",
+        "description": "Query filter"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

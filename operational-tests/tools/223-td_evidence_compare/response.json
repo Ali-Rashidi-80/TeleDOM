@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "note": "evidence comparison requires both packageA and packageB",
+  "tool": "td_evidence_compare",
+  "capability": {
+    "version": "12.0.0",
+    "category": "evidence-provenance",
+    "securityClass": "read-only"
+  }
+}

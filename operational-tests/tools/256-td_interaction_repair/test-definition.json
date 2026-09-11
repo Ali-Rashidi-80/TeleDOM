@@ -1,0 +1,23 @@
+{
+  "tool": "td_interaction_repair",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "failedPlanId": {
+        "type": "string",
+        "description": "Failed plan"
+      },
+      "reason": {
+        "type": "string",
+        "description": "Failure reason"
+      }
+    },
+    "required": [
+      "failedPlanId",
+      "reason"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

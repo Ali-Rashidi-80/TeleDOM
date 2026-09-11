@@ -1,0 +1,18 @@
+{
+  "tool": "td_recover_page",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "pageId": {
+        "type": "string",
+        "description": "Page identity"
+      }
+    },
+    "required": [
+      "pageId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

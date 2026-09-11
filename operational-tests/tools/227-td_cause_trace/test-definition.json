@@ -1,0 +1,27 @@
+{
+  "tool": "td_cause_trace",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "symptomEventId": {
+        "type": "string",
+        "description": "Symptom event"
+      },
+      "windowMs": {
+        "type": "number",
+        "description": "Correlation window (default 250)"
+      }
+    },
+    "required": [
+      "sessionId",
+      "symptomEventId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

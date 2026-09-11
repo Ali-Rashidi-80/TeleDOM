@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "note": "incident undefined not found — create one via td_investigate first",
+  "tool": "td_incident_close",
+  "capability": {
+    "version": "12.0.0",
+    "category": "investigation-orchestration",
+    "securityClass": "policy-gated"
+  }
+}

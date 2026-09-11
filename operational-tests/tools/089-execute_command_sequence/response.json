@@ -1,10 +1,10 @@
 {
-  "sequenceId": "seq_mtulky6b_1",
+  "sequenceId": "seq_mtwg5rnv_1",
   "success": true,
   "totalSteps": 2,
   "executedSteps": 2,
   "skippedSteps": 0,
-  "durationMs": 4,
+  "durationMs": 6,
   "stopOnError": true,
   "steps": [
     {
@@ -48,10 +48,10 @@
         "selector": "#search-input"
       },
       "status": "SUCCESS",
-      "durationMs": 4,
+      "durationMs": 5,
       "resultSummary": "OK: object with keys [targetId, tag, role, selector, selectorCandidates, xpath]",
       "result": {
-        "targetId": "tgt_mtulky6f_2",
+        "targetId": "tgt_mtwg5ro1_2",
         "tag": "input",
         "role": "textbox",
         "selector": "#search-input",

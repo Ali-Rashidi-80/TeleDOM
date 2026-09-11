@@ -1,0 +1,27 @@
+{
+  "tool": "td_evidence_search",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session scope"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text query"
+      },
+      "types": {
+        "type": "array",
+        "description": "Node type filter"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max results"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

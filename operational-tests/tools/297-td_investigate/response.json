@@ -1,0 +1,82 @@
+{
+  "status": "INCONCLUSIVE",
+  "investigation": {
+    "status": "INCONCLUSIVE",
+    "rootCause": null,
+    "bestHypothesis": null,
+    "counterfactual": null,
+    "verification": "INCONCLUSIVE",
+    "proofId": null,
+    "plan": {
+      "incidentId": "incident:1:c825e575",
+      "steps": [
+        {
+          "id": "scope",
+          "status": "FAILED",
+          "result": "no symptom events"
+        },
+        {
+          "id": "create-incident",
+          "status": "PENDING"
+        },
+        {
+          "id": "baseline",
+          "status": "PENDING"
+        },
+        {
+          "id": "observe",
+          "status": "PENDING"
+        },
+        {
+          "id": "timeline",
+          "status": "PENDING"
+        },
+        {
+          "id": "reconstruct",
+          "status": "PENDING"
+        },
+        {
+          "id": "correlate",
+          "status": "PENDING"
+        },
+        {
+          "id": "causal-graph",
+          "status": "PENDING"
+        },
+        {
+          "id": "hypotheses",
+          "status": "PENDING"
+        },
+        {
+          "id": "counterfactual",
+          "status": "PENDING"
+        },
+        {
+          "id": "verify",
+          "status": "PENDING"
+        },
+        {
+          "id": "evidence-package",
+          "status": "PENDING"
+        },
+        {
+          "id": "lesson",
+          "status": "PENDING"
+        }
+      ]
+    },
+    "warnings": [
+      "symptom predicate matched no events — investigation cannot proceed"
+    ],
+    "resourceState": {
+      "stepsExecuted": 0,
+      "eventsAnalyzed": 0
+    }
+  },
+  "tool": "td_investigate",
+  "capability": {
+    "version": "12.0.0",
+    "category": "investigation-orchestration",
+    "securityClass": "read-only"
+  }
+}

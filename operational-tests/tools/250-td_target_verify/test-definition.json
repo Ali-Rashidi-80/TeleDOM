@@ -1,0 +1,23 @@
+{
+  "tool": "td_target_verify",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "Selected selector"
+      },
+      "intent": {
+        "type": "string",
+        "description": "Requested intent"
+      }
+    },
+    "required": [
+      "selector",
+      "intent"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

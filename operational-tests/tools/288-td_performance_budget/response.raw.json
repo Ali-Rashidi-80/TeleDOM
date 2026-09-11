@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_288_td_performance_budget",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"budgets\":{},\"measured\":{\"longTasks\":0,\"layoutShifts\":0,\"domEvents\":0},\"violations\":{\"longTasks\":false,\"layoutShifts\":false,\"domEvents\":false},\"tool\":\"td_performance_budget\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"performance-memory-visual\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

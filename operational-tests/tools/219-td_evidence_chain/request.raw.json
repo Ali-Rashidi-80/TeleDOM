@@ -1,0 +1,15 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_219_td_evidence_chain",
+  "method": "tools/call",
+  "params": {
+    "name": "td_evidence_chain",
+    "arguments": {
+      "claim": "injected button was removed by subtree replacement",
+      "evidenceRefs": [
+        "evt_op_007",
+        "evt_op_008"
+      ]
+    }
+  }
+}

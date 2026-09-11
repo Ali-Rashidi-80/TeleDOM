@@ -1,0 +1,32 @@
+{
+  "tool": "td_investigate",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "objective": {
+        "type": "string",
+        "description": "Natural-language objective, e.g. \"Why does checkout freeze after payment?\""
+      },
+      "symptomPattern": {
+        "type": "string",
+        "description": "Regex identifying symptom events"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Session to investigate"
+      },
+      "resumePlanId": {
+        "type": "string",
+        "description": "Resume an existing plan"
+      }
+    },
+    "required": [
+      "objective",
+      "symptomPattern",
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

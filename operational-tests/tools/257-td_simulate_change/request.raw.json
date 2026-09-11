@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_257_td_simulate_change",
+  "method": "tools/call",
+  "params": {
+    "name": "td_simulate_change",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

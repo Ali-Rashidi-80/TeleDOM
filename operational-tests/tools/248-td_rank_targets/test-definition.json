@@ -1,0 +1,23 @@
+{
+  "tool": "td_rank_targets",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "candidates": {
+        "type": "array",
+        "description": "Candidate descriptors"
+      },
+      "query": {
+        "type": "object",
+        "description": "Target query"
+      }
+    },
+    "required": [
+      "candidates",
+      "query"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

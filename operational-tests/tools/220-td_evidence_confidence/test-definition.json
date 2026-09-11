@@ -1,0 +1,31 @@
+{
+  "tool": "td_evidence_confidence",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "provenance": {
+        "type": "array",
+        "description": "Provenance records"
+      },
+      "corroboration": {
+        "type": "number",
+        "description": "Independent corroborating sources"
+      },
+      "verified": {
+        "type": "boolean",
+        "description": "Verified by contract?"
+      },
+      "contradicted": {
+        "type": "boolean",
+        "description": "Counterevidence observed?"
+      }
+    },
+    "required": [
+      "provenance",
+      "corroboration"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

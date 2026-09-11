@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_214_td_temporal_join",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"INCONCLUSIVE\",\"clusters\":[],\"clusterCount\":0,\"tool\":\"td_temporal_join\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "comparisons": [],
+  "tool": "td_compare_branches",
+  "capability": {
+    "version": "12.0.0",
+    "category": "counterfactual-simulation",
+    "securityClass": "read-only"
+  }
+}

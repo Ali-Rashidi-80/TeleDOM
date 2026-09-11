@@ -1,0 +1,28 @@
+{
+  "tool": "td_temporal_branch",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "forkAtLogical": {
+        "type": "number",
+        "description": "Fork point"
+      },
+      "mutations": {
+        "type": "array",
+        "description": "Branch mutations (kind, targetSequence, patch, reason)"
+      }
+    },
+    "required": [
+      "sessionId",
+      "forkAtLogical",
+      "mutations"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

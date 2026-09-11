@@ -1,0 +1,19 @@
+{
+  "tool": "td_performance_budget",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "budgets": {
+        "type": "object",
+        "description": "Budget thresholds"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Session scope"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

@@ -1,0 +1,26 @@
+{
+  "tool": "td_temporal_first_change",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "source": {
+        "type": "string",
+        "description": "Event source filter"
+      },
+      "typePattern": {
+        "type": "string",
+        "description": "Type regex filter"
+      }
+    },
+    "required": [
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

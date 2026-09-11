@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_261_td_simulate_runtime",
+  "method": "tools/call",
+  "params": {
+    "name": "td_simulate_runtime",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

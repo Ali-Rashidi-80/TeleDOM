@@ -1,0 +1,18 @@
+{
+  "tool": "td_recover_browser",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "failureKind": {
+        "type": "string",
+        "description": "Failure kind"
+      }
+    },
+    "required": [
+      "failureKind"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

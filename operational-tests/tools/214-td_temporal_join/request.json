@@ -1,0 +1,7 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "sources": [
+    "dom",
+    "network"
+  ]
+}

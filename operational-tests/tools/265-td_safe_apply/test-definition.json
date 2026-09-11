@@ -1,0 +1,23 @@
+{
+  "tool": "td_safe_apply",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "plan": {
+        "type": "object",
+        "description": "Mutation plan"
+      },
+      "scope": {
+        "type": "object",
+        "description": "Allowed selectors/origins"
+      }
+    },
+    "required": [
+      "plan",
+      "scope"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

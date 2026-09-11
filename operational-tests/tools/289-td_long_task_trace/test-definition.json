@@ -1,0 +1,22 @@
+{
+  "tool": "td_long_task_trace",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session scope"
+      },
+      "thresholdMs": {
+        "type": "number",
+        "description": "Long-task threshold (default 50)"
+      }
+    },
+    "required": [
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_291_td_memory_profile",
+  "method": "tools/call",
+  "params": {
+    "name": "td_memory_profile",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

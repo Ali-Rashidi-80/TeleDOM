@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_251_td_target_history",
+  "method": "tools/call",
+  "params": {
+    "name": "td_target_history",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

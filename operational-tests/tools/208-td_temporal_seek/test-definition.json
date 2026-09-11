@@ -1,0 +1,23 @@
+{
+  "tool": "td_temporal_seek",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "logicalTime": {
+        "type": "number",
+        "description": "Target logical time"
+      }
+    },
+    "required": [
+      "sessionId",
+      "logicalTime"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

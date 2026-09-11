@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_292_td_memory_leak_trace",
+  "method": "tools/call",
+  "params": {
+    "name": "td_memory_leak_trace",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

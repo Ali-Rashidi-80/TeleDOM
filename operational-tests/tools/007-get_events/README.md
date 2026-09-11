@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 38ms
+**Duration**: 62ms
 
 ## Test Objective
 Returns filtered historical events with sequence numbers

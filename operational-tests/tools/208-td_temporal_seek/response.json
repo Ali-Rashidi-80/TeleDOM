@@ -1,0 +1,12 @@
+{
+  "status": "INCONCLUSIVE",
+  "sessionId": "operational_acceptance_session_001",
+  "nearestValidLogicalTime": null,
+  "note": "no event at-or-before the requested time",
+  "tool": "td_temporal_seek",
+  "capability": {
+    "version": "12.0.0",
+    "category": "temporal-intelligence",
+    "securityClass": "read-only"
+  }
+}

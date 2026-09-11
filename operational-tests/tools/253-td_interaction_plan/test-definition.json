@@ -1,0 +1,18 @@
+{
+  "tool": "td_interaction_plan",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "intent": {
+        "type": "string",
+        "description": "What the interaction should achieve"
+      }
+    },
+    "required": [
+      "intent"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

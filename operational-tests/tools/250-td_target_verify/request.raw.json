@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_250_td_target_verify",
+  "method": "tools/call",
+  "params": {
+    "name": "td_target_verify",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

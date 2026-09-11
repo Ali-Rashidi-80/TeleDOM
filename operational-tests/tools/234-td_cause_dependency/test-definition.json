@@ -1,0 +1,23 @@
+{
+  "tool": "td_cause_dependency",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "entityId": {
+        "type": "string",
+        "description": "Entity to analyze"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      }
+    },
+    "required": [
+      "entityId",
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

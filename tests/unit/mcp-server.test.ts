@@ -17,7 +17,8 @@ describe('ForensicMCPServer', () => {
     expect(res).not.toBeNull();
     expect(res?.result).toHaveProperty('protocolVersion');
     expect(res?.result).toHaveProperty('capabilities');
-    expect((res?.result as any).serverInfo.name).toBe('browser-forensic-mcp');
+    expect((res?.result as any).serverInfo.name).toBe('teledom-v12');
+    expect((res?.result as any).serverInfo.version).toBe('12.0.0');
   });
 
   it('should list all available MCP debugging tools', async () => {

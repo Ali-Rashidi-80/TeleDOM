@@ -1,0 +1,22 @@
+{
+  "tool": "td_visual_causality",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "region": {
+        "type": "object",
+        "description": "Visual region"
+      },
+      "sessionId": {
+        "type": "string",
+        "description": "Session scope"
+      }
+    },
+    "required": [
+      "region"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

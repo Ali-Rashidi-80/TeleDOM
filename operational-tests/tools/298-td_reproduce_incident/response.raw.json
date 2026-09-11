@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_298_td_reproduce_incident",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"incident undefined not found — create one via td_investigate first\",\"tool\":\"td_reproduce_incident\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"side-effects\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

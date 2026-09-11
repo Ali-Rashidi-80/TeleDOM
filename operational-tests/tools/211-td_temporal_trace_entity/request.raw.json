@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_211_td_temporal_trace_entity",
+  "method": "tools/call",
+  "params": {
+    "name": "td_temporal_trace_entity",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001",
+      "entityId": "node:10"
+    }
+  }
+}

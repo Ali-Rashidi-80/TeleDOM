@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_239_td_component_map",
+  "method": "tools/call",
+  "params": {
+    "name": "td_component_map",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

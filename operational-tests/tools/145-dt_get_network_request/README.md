@@ -32,7 +32,7 @@ Inspects a captured network request in full
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"requestId\": \"req_1\",\n  \"url\": \"https://app.internal/api/seeded-request\",\n  \"method\": \"GET\",\n  \"status\": 200,\n  \"failed\": false,\n  \"startTime\": 1788988537091\n}"
+        "text": "{\n  \"requestId\": \"req_1\",\n  \"url\": \"https://app.internal/api/seeded-request\",\n  \"method\": \"GET\",\n  \"status\": 200,\n  \"failed\": false,\n  \"startTime\": 1789100363104\n}"
       }
     ]
   }

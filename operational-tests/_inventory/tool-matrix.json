@@ -7157,5 +7157,3153 @@
     "requiresSession": true,
     "visualEvidenceExpected": false,
     "status": "PENDING"
+  },
+  {
+    "index": 207,
+    "name": "td_temporal_query",
+    "category": "historical",
+    "description": "Query any state/entity across a time range (State(T), State(T1..T2)). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session to query"
+        },
+        "fromLogical": {
+          "type": "number",
+          "description": "Range start (logical ms)"
+        },
+        "toLogical": {
+          "type": "number",
+          "description": "Range end (logical ms)"
+        },
+        "entityIds": {
+          "type": "array",
+          "description": "Restrict to entities"
+        },
+        "dimensions": {
+          "type": "array",
+          "description": "State dimensions to include"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 208,
+    "name": "td_temporal_seek",
+    "category": "historical",
+    "description": "Seek to the nearest valid state for an event/time. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "logicalTime": {
+          "type": "number",
+          "description": "Target logical time"
+        }
+      },
+      "required": [
+        "sessionId",
+        "logicalTime"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "logicalTime"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 209,
+    "name": "td_temporal_window",
+    "category": "historical",
+    "description": "Return a compact before/target/after state window around an event. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "aroundLogical": {
+          "type": "number",
+          "description": "Center logical time"
+        },
+        "radiusMs": {
+          "type": "number",
+          "description": "Window radius in ms (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "aroundLogical"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "aroundLogical"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 210,
+    "name": "td_temporal_diff",
+    "category": "historical",
+    "description": "Diff(T1,T2): compare two arbitrary points in time across all state dimensions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "t1": {
+          "type": "number",
+          "description": "First logical time"
+        },
+        "t2": {
+          "type": "number",
+          "description": "Second logical time"
+        }
+      },
+      "required": [
+        "sessionId",
+        "t1",
+        "t2"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "t1",
+      "t2"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 211,
+    "name": "td_temporal_trace_entity",
+    "category": "historical",
+    "description": "Trace one entity through its full lifetime (every touching event). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "entityId": {
+          "type": "string",
+          "description": "Entity to trace"
+        }
+      },
+      "required": [
+        "sessionId",
+        "entityId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "entityId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 212,
+    "name": "td_temporal_first_change",
+    "category": "historical",
+    "description": "Find the first event matching a predicate (e.g. first invalid state). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "source": {
+          "type": "string",
+          "description": "Event source filter"
+        },
+        "typePattern": {
+          "type": "string",
+          "description": "Type regex filter"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 213,
+    "name": "td_temporal_last_stable",
+    "category": "historical",
+    "description": "Find the last state in which a dimension was stable before a time. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "dimension": {
+          "type": "string",
+          "description": "State dimension"
+        },
+        "before": {
+          "type": "number",
+          "description": "Search horizon (logical ms)"
+        },
+        "settleMs": {
+          "type": "number",
+          "description": "Quiet period that counts as stable (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "dimension",
+        "before"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "dimension",
+      "before"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 214,
+    "name": "td_temporal_join",
+    "category": "historical",
+    "description": "Join DOM/runtime/network/visual/security events inside temporal constraints (Join(Signals)). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Signal sources to join"
+        },
+        "withinMs": {
+          "type": "number",
+          "description": "Cluster window (default 250)"
+        },
+        "aroundEntityId": {
+          "type": "string",
+          "description": "Optional entity scope"
+        }
+      },
+      "required": [
+        "sessionId",
+        "sources"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "sources"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 215,
+    "name": "td_temporal_branch",
+    "category": "historical",
+    "description": "Branch(T): fork a historical state into a simulation branch (never overwrites reality). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "forkAtLogical": {
+          "type": "number",
+          "description": "Fork point"
+        },
+        "mutations": {
+          "type": "array",
+          "description": "Branch mutations (kind, targetSequence, patch, reason)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "forkAtLogical",
+        "mutations"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "forkAtLogical",
+      "mutations"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 216,
+    "name": "td_temporal_rewind",
+    "category": "historical",
+    "description": "Reconstruct and activate a safe inspection state (read-only rewind). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "logicalTime": {
+          "type": "number",
+          "description": "Target time"
+        }
+      },
+      "required": [
+        "sessionId",
+        "logicalTime"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "logicalTime"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 217,
+    "name": "td_evidence_capture",
+    "category": "historical",
+    "description": "Capture a typed evidence bundle for the current investigation. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to attach evidence to"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Evidence node type"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human label"
+        },
+        "payload": {
+          "type": "object",
+          "description": "Evidence payload"
+        }
+      },
+      "required": [
+        "incidentId",
+        "kind",
+        "label"
+      ]
+    },
+    "requiredArguments": [
+      "incidentId",
+      "kind",
+      "label"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 218,
+    "name": "td_evidence_search",
+    "category": "historical",
+    "description": "Search evidence semantically and structurally. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text query"
+        },
+        "types": {
+          "type": "array",
+          "description": "Node type filter"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max results"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 219,
+    "name": "td_evidence_chain",
+    "category": "historical",
+    "description": "Build the provenance chain for a claim (claim → evidence → verification). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "description": "The claim to ground"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "description": "Candidate evidence refs"
+        }
+      },
+      "required": [
+        "claim",
+        "evidenceRefs"
+      ]
+    },
+    "requiredArguments": [
+      "claim",
+      "evidenceRefs"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 220,
+    "name": "td_evidence_confidence",
+    "category": "historical",
+    "description": "Recalculate confidence using source quality and corroboration. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "provenance": {
+          "type": "array",
+          "description": "Provenance records"
+        },
+        "corroboration": {
+          "type": "number",
+          "description": "Independent corroborating sources"
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "Verified by contract?"
+        },
+        "contradicted": {
+          "type": "boolean",
+          "description": "Counterevidence observed?"
+        }
+      },
+      "required": [
+        "provenance",
+        "corroboration"
+      ]
+    },
+    "requiredArguments": [
+      "provenance",
+      "corroboration"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 221,
+    "name": "td_evidence_verify",
+    "category": "historical",
+    "description": "Verify a claim against current or replayed state. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "description": "Claim statement"
+        },
+        "mustHold": {
+          "type": "array",
+          "description": "Postconditions that must hold"
+        },
+        "mustNotHold": {
+          "type": "array",
+          "description": "Conditions that must not hold"
+        },
+        "evidenceRequired": {
+          "type": "array",
+          "description": "Required evidence refs"
+        }
+      },
+      "required": [
+        "claim",
+        "mustHold"
+      ]
+    },
+    "requiredArguments": [
+      "claim",
+      "mustHold"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 222,
+    "name": "td_evidence_hash",
+    "category": "historical",
+    "description": "Hash a state/evidence artifact and attach integrity metadata. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "artifact": {
+          "type": "object",
+          "description": "Artifact to hash"
+        }
+      },
+      "required": [
+        "artifact"
+      ]
+    },
+    "requiredArguments": [
+      "artifact"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 223,
+    "name": "td_evidence_compare",
+    "category": "historical",
+    "description": "Compare two evidence packages (structural + provenance diff). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "packageA": {
+          "type": "object",
+          "description": "First package"
+        },
+        "packageB": {
+          "type": "object",
+          "description": "Second package"
+        }
+      },
+      "required": [
+        "packageA",
+        "packageB"
+      ]
+    },
+    "requiredArguments": [
+      "packageA",
+      "packageB"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 224,
+    "name": "td_evidence_export",
+    "category": "historical",
+    "description": "Export a portable forensic evidence package (.tdom). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to export"
+        },
+        "compress": {
+          "type": "boolean",
+          "description": "Gzip the artifact"
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Optional file path"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    },
+    "requiredArguments": [
+      "incidentId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 225,
+    "name": "td_evidence_timeline",
+    "category": "historical",
+    "description": "Produce a human-readable evidence timeline for an incident. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident id"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    },
+    "requiredArguments": [
+      "incidentId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 226,
+    "name": "td_evidence_proof",
+    "category": "historical",
+    "description": "Generate a machine-verifiable proof record for a finding. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "claims": {
+          "type": "array",
+          "description": "Claims with evidence refs"
+        },
+        "steps": {
+          "type": "array",
+          "description": "Reasoning steps"
+        },
+        "conclusion": {
+          "type": "string",
+          "description": "Conclusion statement"
+        },
+        "verificationStatus": {
+          "type": "string",
+          "description": "PASS/FAIL/INCONCLUSIVE"
+        }
+      },
+      "required": [
+        "claims",
+        "conclusion",
+        "verificationStatus"
+      ]
+    },
+    "requiredArguments": [
+      "claims",
+      "conclusion",
+      "verificationStatus"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 227,
+    "name": "td_cause_trace",
+    "category": "historical",
+    "description": "Trace likely causes of a selected symptom (root-cause chain). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "symptomEventId": {
+          "type": "string",
+          "description": "Symptom event"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Correlation window (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "symptomEventId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "symptomEventId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 228,
+    "name": "td_cause_graph",
+    "category": "historical",
+    "description": "Build a causal graph around an incident (typed nodes + provenance edges). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Correlation window"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 229,
+    "name": "td_cause_rank",
+    "category": "historical",
+    "description": "Rank competing root-cause hypotheses by evidence strength. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "symptomEventId": {
+          "type": "string",
+          "description": "Symptom event"
+        }
+      },
+      "required": [
+        "sessionId",
+        "symptomEventId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "symptomEventId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 230,
+    "name": "td_cause_explain",
+    "category": "historical",
+    "description": "Explain a finding from evidence — claim + chain + confidence + alternatives. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "finding": {
+          "type": "string",
+          "description": "Finding to explain"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "description": "Evidence to ground the explanation"
+        }
+      },
+      "required": [
+        "finding",
+        "evidenceRefs"
+      ]
+    },
+    "requiredArguments": [
+      "finding",
+      "evidenceRefs"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 231,
+    "name": "td_cause_correlate",
+    "category": "historical",
+    "description": "Correlate independent signals into candidate causal chains. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Sources to correlate"
+        },
+        "withinMs": {
+          "type": "number",
+          "description": "Window (default 250)"
+        }
+      },
+      "required": [
+        "sessionId",
+        "sources"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "sources"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 232,
+    "name": "td_cause_breakpoint",
+    "category": "historical",
+    "description": "Find the earliest causal divergence between two streams (reality vs branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "branchId": {
+          "type": "string",
+          "description": "Branch to compare"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "branchId",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "branchId",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 233,
+    "name": "td_cause_impact",
+    "category": "historical",
+    "description": "Estimate downstream impact of a cause (affected entities/components). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "description": "Cause event"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "eventId",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "eventId",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 234,
+    "name": "td_cause_dependency",
+    "category": "historical",
+    "description": "Trace dependencies that could produce a state (dependency chains). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entityId": {
+          "type": "string",
+          "description": "Entity to analyze"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "entityId",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "entityId",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 235,
+    "name": "td_cause_counterfactual",
+    "category": "historical",
+    "description": "Test whether removing a candidate cause changes the outcome (branch + replay + compare). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "targetSequence": {
+          "type": "number",
+          "description": "Event sequence to suppress/modify"
+        },
+        "kind": {
+          "type": "string",
+          "description": "suppress-event | modify-response | modify-state | modify-style | alter-timing"
+        },
+        "patch": {
+          "type": "object",
+          "description": "Mutation payload"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why this counterfactual"
+        }
+      },
+      "required": [
+        "sessionId",
+        "targetSequence",
+        "kind",
+        "reason"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "targetSequence",
+      "kind",
+      "reason"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 236,
+    "name": "td_cause_verify",
+    "category": "historical",
+    "description": "Verify a root-cause hypothesis through replay/observation (never guess). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "hypothesisId": {
+          "type": "string",
+          "description": "Hypothesis to verify"
+        }
+      },
+      "required": [
+        "sessionId",
+        "hypothesisId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "hypothesisId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 237,
+    "name": "td_semantic_page",
+    "category": "historical",
+    "description": "Build a compact semantic model of the page (roles, intents, stability). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "includeHidden": {
+          "type": "boolean",
+          "description": "Include hidden elements"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 238,
+    "name": "td_semantic_element",
+    "category": "historical",
+    "description": "Explain an element's role, intent and state (semantic identity). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "Element selector"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 239,
+    "name": "td_component_map",
+    "category": "historical",
+    "description": "Infer component boundaries and ownership (React/Vue/Svelte/custom/microfrontend). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 240,
+    "name": "td_component_lifecycle",
+    "category": "historical",
+    "description": "Trace mount/update/unmount behavior of a component. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Component id or root selector"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "componentId",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "componentId",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 241,
+    "name": "td_component_dependencies",
+    "category": "historical",
+    "description": "Map component dependencies and affected nodes. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Component id"
+        }
+      },
+      "required": [
+        "componentId"
+      ]
+    },
+    "requiredArguments": [
+      "componentId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 242,
+    "name": "td_component_state",
+    "category": "historical",
+    "description": "Reconstruct component-facing state signals. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Component id"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "componentId"
+      ]
+    },
+    "requiredArguments": [
+      "componentId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 243,
+    "name": "td_accessibility_model",
+    "category": "historical",
+    "description": "Build a normalized accessibility model (role/name/state/relationships/focus). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 244,
+    "name": "td_visual_semantics",
+    "category": "historical",
+    "description": "Associate visual regions with semantic entities. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "regions": {
+          "type": "array",
+          "description": "Visual regions to associate"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 245,
+    "name": "td_page_intent",
+    "category": "historical",
+    "description": "Infer major page workflows and interaction zones. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 246,
+    "name": "td_state_summary",
+    "category": "historical",
+    "description": "Return a token-minimal state digest suitable for agents (L0/L1). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "The next decision the agent must make"
+        },
+        "level": {
+          "type": "string",
+          "description": "L0|L1|L2|L3|L4"
+        }
+      },
+      "required": [
+        "intent"
+      ]
+    },
+    "requiredArguments": [
+      "intent"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 247,
+    "name": "td_resolve_target",
+    "category": "historical",
+    "description": "Resolve a natural-language or semantic target to a VERIFIED entity with confidence. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Natural-language target description"
+        },
+        "role": {
+          "type": "string",
+          "description": "Semantic role"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text content"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Seed selector"
+        }
+      },
+      "required": []
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 248,
+    "name": "td_rank_targets",
+    "category": "historical",
+    "description": "Rank target candidates by historical, semantic and visual stability. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "candidates": {
+          "type": "array",
+          "description": "Candidate descriptors"
+        },
+        "query": {
+          "type": "object",
+          "description": "Target query"
+        }
+      },
+      "required": [
+        "candidates",
+        "query"
+      ]
+    },
+    "requiredArguments": [
+      "candidates",
+      "query"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 249,
+    "name": "td_target_recover",
+    "category": "historical",
+    "description": "Recover a target after selector/DOM changes (multi-signal recovery; refuses blind guesses). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "failedSelector": {
+          "type": "string",
+          "description": "The selector that failed"
+        },
+        "lastKnown": {
+          "type": "object",
+          "description": "Last known target snapshot"
+        }
+      },
+      "required": [
+        "failedSelector",
+        "lastKnown"
+      ]
+    },
+    "requiredArguments": [
+      "failedSelector",
+      "lastKnown"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 250,
+    "name": "td_target_verify",
+    "category": "historical",
+    "description": "Verify that the selected target matches the requested intent. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "Selected selector"
+        },
+        "intent": {
+          "type": "string",
+          "description": "Requested intent"
+        }
+      },
+      "required": [
+        "selector",
+        "intent"
+      ]
+    },
+    "requiredArguments": [
+      "selector",
+      "intent"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 251,
+    "name": "td_target_history",
+    "category": "historical",
+    "description": "Show how a target changed over time (identity versions). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entityId": {
+          "type": "string",
+          "description": "Target entity"
+        }
+      },
+      "required": [
+        "entityId"
+      ]
+    },
+    "requiredArguments": [
+      "entityId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 252,
+    "name": "td_target_contract",
+    "category": "historical",
+    "description": "Create a durable target contract for future actions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object",
+          "description": "Target query"
+        },
+        "resolution": {
+          "type": "object",
+          "description": "Resolution result"
+        }
+      },
+      "required": [
+        "query",
+        "resolution"
+      ]
+    },
+    "requiredArguments": [
+      "query",
+      "resolution"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 253,
+    "name": "td_interaction_plan",
+    "category": "historical",
+    "description": "Generate a verified interaction plan from intent (target + steps + postconditions). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "What the interaction should achieve"
+        }
+      },
+      "required": [
+        "intent"
+      ]
+    },
+    "requiredArguments": [
+      "intent"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 254,
+    "name": "td_interaction_execute",
+    "category": "historical",
+    "description": "Execute an interaction plan with postconditions (transactional). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "planId": {
+          "type": "string",
+          "description": "Plan to execute"
+        }
+      },
+      "required": [
+        "planId"
+      ]
+    },
+    "requiredArguments": [
+      "planId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 255,
+    "name": "td_interaction_observe",
+    "category": "historical",
+    "description": "Observe effects of one interaction across state dimensions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "interactionRef": {
+          "type": "string",
+          "description": "Executed interaction reference"
+        }
+      },
+      "required": [
+        "interactionRef"
+      ]
+    },
+    "requiredArguments": [
+      "interactionRef"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 256,
+    "name": "td_interaction_repair",
+    "category": "historical",
+    "description": "Repair a failed interaction without restarting the whole task. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "failedPlanId": {
+          "type": "string",
+          "description": "Failed plan"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Failure reason"
+        }
+      },
+      "required": [
+        "failedPlanId",
+        "reason"
+      ]
+    },
+    "requiredArguments": [
+      "failedPlanId",
+      "reason"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 257,
+    "name": "td_simulate_change",
+    "category": "historical",
+    "description": "Simulate a proposed change without committing it (dry-run on a branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "change": {
+          "type": "object",
+          "description": "Change spec"
+        }
+      },
+      "required": [
+        "sessionId",
+        "change"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "change"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 258,
+    "name": "td_simulate_network",
+    "category": "historical",
+    "description": "Simulate alternate network responses (modify-response branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "targetSequence": {
+          "type": "number",
+          "description": "Network event to alter"
+        },
+        "responsePatch": {
+          "type": "object",
+          "description": "Response override"
+        }
+      },
+      "required": [
+        "sessionId",
+        "targetSequence",
+        "responsePatch"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "targetSequence",
+      "responsePatch"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 259,
+    "name": "td_simulate_dom",
+    "category": "historical",
+    "description": "Simulate DOM mutations against a branch. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "mutations": {
+          "type": "array",
+          "description": "DOM mutations"
+        }
+      },
+      "required": [
+        "sessionId",
+        "mutations"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "mutations"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 260,
+    "name": "td_simulate_style",
+    "category": "historical",
+    "description": "Simulate style/CSS changes (modify-style branch). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "targetSequence": {
+          "type": "number",
+          "description": "Style event to alter"
+        },
+        "stylePatch": {
+          "type": "object",
+          "description": "Style override"
+        }
+      },
+      "required": [
+        "sessionId",
+        "targetSequence",
+        "stylePatch"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "targetSequence",
+      "stylePatch"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 261,
+    "name": "td_simulate_runtime",
+    "category": "historical",
+    "description": "Simulate selected runtime conditions (state/event patches). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "condition": {
+          "type": "object",
+          "description": "Runtime condition spec"
+        }
+      },
+      "required": [
+        "sessionId",
+        "condition"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "condition"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 262,
+    "name": "td_simulate_failure",
+    "category": "historical",
+    "description": "Reproduce a controlled failure condition in an authorized environment. [security: policy-gated; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        },
+        "failureKind": {
+          "type": "string",
+          "description": "Failure to inject"
+        }
+      },
+      "required": [
+        "sessionId",
+        "failureKind"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId",
+      "failureKind"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 263,
+    "name": "td_compare_branches",
+    "category": "historical",
+    "description": "Compare reality against one or more counterfactual branches. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "branchIds": {
+          "type": "array",
+          "description": "Branches to compare"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "branchIds",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "branchIds",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 264,
+    "name": "td_predict_impact",
+    "category": "historical",
+    "description": "Predict affected components/entities before a mutation (impact analysis). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "change": {
+          "type": "object",
+          "description": "Proposed change"
+        },
+        "scope": {
+          "type": "object",
+          "description": "Scope hints"
+        }
+      },
+      "required": [
+        "change"
+      ]
+    },
+    "requiredArguments": [
+      "change"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 265,
+    "name": "td_safe_apply",
+    "category": "historical",
+    "description": "Apply a verified low-risk mutation transaction (PLAN→…→VERIFY→COMMIT/ROLLBACK). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "plan": {
+          "type": "object",
+          "description": "Mutation plan"
+        },
+        "scope": {
+          "type": "object",
+          "description": "Allowed selectors/origins"
+        }
+      },
+      "required": [
+        "plan",
+        "scope"
+      ]
+    },
+    "requiredArguments": [
+      "plan",
+      "scope"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 266,
+    "name": "td_branch_merge",
+    "category": "historical",
+    "description": "Merge a successful simulation branch into a controlled mutation plan. [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "branchId": {
+          "type": "string",
+          "description": "Verified branch"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id"
+        }
+      },
+      "required": [
+        "branchId",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "branchId",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 267,
+    "name": "td_health_snapshot",
+    "category": "historical",
+    "description": "Return full TeleDOM runtime health + integrity state (self-diagnostics). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 268,
+    "name": "td_recover_browser",
+    "category": "historical",
+    "description": "Recover from browser/renderer disconnect where possible (bounded retries). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "failureKind": {
+          "type": "string",
+          "description": "Failure kind"
+        }
+      },
+      "required": [
+        "failureKind"
+      ]
+    },
+    "requiredArguments": [
+      "failureKind"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 269,
+    "name": "td_recover_page",
+    "category": "historical",
+    "description": "Re-resolve a dead or replaced page identity. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pageId": {
+          "type": "string",
+          "description": "Page identity"
+        }
+      },
+      "required": [
+        "pageId"
+      ]
+    },
+    "requiredArguments": [
+      "pageId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 270,
+    "name": "td_recover_bridge",
+    "category": "historical",
+    "description": "Recover or reconnect the bridge without losing state. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 271,
+    "name": "td_reconcile_tabs",
+    "category": "historical",
+    "description": "Reconcile page identity after tabs/windows change. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 272,
+    "name": "td_reconcile_events",
+    "category": "historical",
+    "description": "Detect and repair event-order inconsistencies (mesh admission report). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session to reconcile"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 273,
+    "name": "td_resource_guard",
+    "category": "historical",
+    "description": "Enforce memory/CPU/concurrency budgets (guardian decision + mode). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "usage": {
+          "type": "object",
+          "description": "Reported usage"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 274,
+    "name": "td_leak_watch",
+    "category": "historical",
+    "description": "Continuously detect memory/resource growth patterns. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "windowMs": {
+          "type": "number",
+          "description": "Observation window"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 275,
+    "name": "td_failure_containment",
+    "category": "historical",
+    "description": "Isolate a broken capability without killing the whole session. [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "capabilityId": {
+          "type": "string",
+          "description": "Capability to isolate"
+        }
+      },
+      "required": [
+        "capabilityId"
+      ]
+    },
+    "requiredArguments": [
+      "capabilityId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 276,
+    "name": "td_session_repair",
+    "category": "historical",
+    "description": "Repair a partially corrupted session from checkpoints + evidence (hash-verified). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session to repair"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 277,
+    "name": "td_security_posture",
+    "category": "historical",
+    "description": "Produce a browser-side security posture summary (passive, evidence-driven). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 278,
+    "name": "td_security_surface",
+    "category": "historical",
+    "description": "Map client-visible attack surfaces and trust boundaries. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 279,
+    "name": "td_security_flow",
+    "category": "historical",
+    "description": "Trace sensitive-data flows through the browser runtime. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 280,
+    "name": "td_dom_xss_audit",
+    "category": "historical",
+    "description": "Trace browser-side sources, transformations and dangerous sinks (passive). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 281,
+    "name": "td_injection_surface_audit",
+    "category": "historical",
+    "description": "Identify injection-sensitive DOM/runtime surfaces WITHOUT executing payloads. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 282,
+    "name": "td_auth_session_audit",
+    "category": "historical",
+    "description": "Audit authentication/session behavior, expiry and state transitions. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 283,
+    "name": "td_cookie_storage_audit",
+    "category": "historical",
+    "description": "Audit cookie, storage and client-secret handling. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 284,
+    "name": "td_csp_security_audit",
+    "category": "historical",
+    "description": "Analyze CSP posture and runtime violations. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 285,
+    "name": "td_cors_security_audit",
+    "category": "historical",
+    "description": "Analyze observed CORS behavior against scoped trust expectations. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 286,
+    "name": "td_security_regression",
+    "category": "historical",
+    "description": "Compare security posture before/after a code or deployment change. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "beforeRef": {
+          "type": "string",
+          "description": "Baseline posture ref"
+        },
+        "afterRef": {
+          "type": "string",
+          "description": "Current posture ref"
+        }
+      },
+      "required": [
+        "beforeRef",
+        "afterRef"
+      ]
+    },
+    "requiredArguments": [
+      "beforeRef",
+      "afterRef"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 287,
+    "name": "td_performance_profile",
+    "category": "historical",
+    "description": "Build an end-to-end performance profile (events → spans → vitals). [security: read-only; cost: medium; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 288,
+    "name": "td_performance_budget",
+    "category": "historical",
+    "description": "Evaluate the page against declared performance budgets. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "budgets": {
+          "type": "object",
+          "description": "Budget thresholds"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 289,
+    "name": "td_long_task_trace",
+    "category": "historical",
+    "description": "Trace long tasks to affected DOM/components. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "thresholdMs": {
+          "type": "number",
+          "description": "Long-task threshold (default 50)"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 290,
+    "name": "td_layout_causality",
+    "category": "historical",
+    "description": "Connect layout shifts to runtime/DOM/network causes. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 291,
+    "name": "td_memory_profile",
+    "category": "historical",
+    "description": "Build a memory profile for the browser/page/session. [security: read-only; cost: medium; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 292,
+    "name": "td_memory_leak_trace",
+    "category": "historical",
+    "description": "Find retained-growth patterns over time. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "windowMs": {
+          "type": "number",
+          "description": "Observation window"
+        }
+      },
+      "required": [
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 293,
+    "name": "td_retention_graph",
+    "category": "historical",
+    "description": "Build a retaining/reference graph for selected runtime objects where supported. [security: read-only; cost: low; modes: live/recorded/simulation; EXPERIMENTAL]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "objectId": {
+          "type": "string",
+          "description": "Object to trace"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 294,
+    "name": "td_visual_regression",
+    "category": "historical",
+    "description": "Compare visual state with DOM/runtime evidence. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "baselineRef": {
+          "type": "string",
+          "description": "Baseline visual ref"
+        },
+        "currentRef": {
+          "type": "string",
+          "description": "Current visual ref"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 295,
+    "name": "td_visual_causality",
+    "category": "historical",
+    "description": "Explain why a region changed visually (visual↔DOM↔runtime correlation). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "object",
+          "description": "Visual region"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "region"
+      ]
+    },
+    "requiredArguments": [
+      "region"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 296,
+    "name": "td_render_stability",
+    "category": "historical",
+    "description": "Determine when the page reaches a stable render state. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        },
+        "settleMs": {
+          "type": "number",
+          "description": "Quiet period (default 250)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 297,
+    "name": "td_investigate",
+    "category": "historical",
+    "description": "Run a complete autonomous investigation from a natural-language objective (resumable plan: scope→…→proof). [security: read-only; cost: high; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "objective": {
+          "type": "string",
+          "description": "Natural-language objective, e.g. \"Why does checkout freeze after payment?\""
+        },
+        "symptomPattern": {
+          "type": "string",
+          "description": "Regex identifying symptom events"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session to investigate"
+        },
+        "resumePlanId": {
+          "type": "string",
+          "description": "Resume an existing plan"
+        }
+      },
+      "required": [
+        "objective",
+        "symptomPattern",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "objective",
+      "symptomPattern",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 298,
+    "name": "td_reproduce_incident",
+    "category": "historical",
+    "description": "Reproduce a captured incident with controlled state. [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to reproduce"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    },
+    "requiredArguments": [
+      "incidentId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 299,
+    "name": "td_diagnose",
+    "category": "historical",
+    "description": "Generate ranked diagnostic hypotheses with evidence (no guesswork). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "symptom": {
+          "type": "string",
+          "description": "Symptom description"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session scope"
+        }
+      },
+      "required": [
+        "symptom",
+        "sessionId"
+      ]
+    },
+    "requiredArguments": [
+      "symptom",
+      "sessionId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 300,
+    "name": "td_plan_fix",
+    "category": "historical",
+    "description": "Build a fix plan linked to observed causes and affected entities. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to fix"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    },
+    "requiredArguments": [
+      "incidentId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 301,
+    "name": "td_validate_fix",
+    "category": "historical",
+    "description": "Verify a proposed fix against the original failure (original FAIL → patched PASS). [security: side-effects; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident being fixed"
+        },
+        "fixRef": {
+          "type": "string",
+          "description": "Fix reference"
+        }
+      },
+      "required": [
+        "incidentId",
+        "fixRef"
+      ]
+    },
+    "requiredArguments": [
+      "incidentId",
+      "fixRef"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 302,
+    "name": "td_run_workflow",
+    "category": "historical",
+    "description": "Execute a declarative multi-step workflow with recovery. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "workflow": {
+          "type": "array",
+          "description": "Workflow steps"
+        }
+      },
+      "required": [
+        "workflow"
+      ]
+    },
+    "requiredArguments": [
+      "workflow"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 303,
+    "name": "td_run_playbook",
+    "category": "historical",
+    "description": "Run a reusable investigation/security/performance playbook. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "playbookId": {
+          "type": "string",
+          "description": "Playbook to run"
+        }
+      },
+      "required": [
+        "playbookId"
+      ]
+    },
+    "requiredArguments": [
+      "playbookId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 304,
+    "name": "td_memory",
+    "category": "historical",
+    "description": "Store and retrieve durable project/session investigation knowledge (provenance + confidence). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "store | query | validate"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Memory kind"
+        },
+        "statement": {
+          "type": "string",
+          "description": "Memory statement"
+        },
+        "query": {
+          "type": "object",
+          "description": "Query filter"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "requiredArguments": [
+      "action"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 305,
+    "name": "td_context_optimize",
+    "category": "historical",
+    "description": "Select the smallest sufficient evidence/state set for the agent (L0–L4). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "The decision the agent must make next"
+        },
+        "requestedLevel": {
+          "type": "string",
+          "description": "L0|L1|L2|L3|L4"
+        }
+      },
+      "required": [
+        "intent"
+      ]
+    },
+    "requiredArguments": [
+      "intent"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 306,
+    "name": "td_incident_close",
+    "category": "historical",
+    "description": "Close an incident ONLY after reproduction, remediation and verification criteria pass. [security: policy-gated; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incidentId": {
+          "type": "string",
+          "description": "Incident to close"
+        }
+      },
+      "required": [
+        "incidentId"
+      ]
+    },
+    "requiredArguments": [
+      "incidentId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
   }
 ]

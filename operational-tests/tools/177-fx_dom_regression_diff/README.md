@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 11ms
+**Duration**: 13ms
 
 ## Test Objective
 Diffs states across 8 dimensions with machine+human output

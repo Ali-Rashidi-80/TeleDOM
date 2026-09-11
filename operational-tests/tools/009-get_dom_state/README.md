@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 13ms
+**Duration**: 27ms
 
 ## Test Objective
 Reconstructs virtual DOM state at T=100ms containing injected button

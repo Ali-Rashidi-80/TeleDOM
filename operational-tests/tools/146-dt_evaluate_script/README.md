@@ -32,7 +32,7 @@ Evaluates a script in the page context
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"evaluated\": true,\n  \"pageId\": \"page_1\",\n  \"result\": \"{\\n \\\"ok\\\": true,\\n \\\"fixture\\\": \\\"MCP Operational Acceptance DOM Fixture\\\"\\n}\",\n  \"execution\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"durationMs\": 0,\n    \"executionId\": \"js_mtull1qe_10\",\n    \"consoleOutput\": [],\n    \"domChanged\": false\n  }\n}"
+        "text": "{\n  \"evaluated\": true,\n  \"pageId\": \"page_1\",\n  \"result\": \"{\\n \\\"ok\\\": true,\\n \\\"fixture\\\": \\\"MCP Operational Acceptance DOM Fixture\\\"\\n}\",\n  \"execution\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"durationMs\": 0,\n    \"executionId\": \"js_mtwg5v8j_10\",\n    \"consoleOutput\": [],\n    \"domChanged\": false\n  }\n}"
       }
     ]
   }

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_224_td_evidence_export",
+  "method": "tools/call",
+  "params": {
+    "name": "td_evidence_export",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

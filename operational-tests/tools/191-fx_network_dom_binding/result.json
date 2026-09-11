@@ -2,8 +2,8 @@
   "tool": "fx_network_dom_binding",
   "index": 191,
   "status": "PASS",
-  "executionTimeMs": 8,
+  "executionTimeMs": 12,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-09T21:15:37.699Z"
+  "timestamp": "2026-09-11T04:19:23.736Z"
 }

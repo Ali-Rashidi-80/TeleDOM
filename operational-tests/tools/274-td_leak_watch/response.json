@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "growthDetected": false,
+  "events": 100,
+  "note": "no sustained growth pattern detected",
+  "windowMs": 60000,
+  "tool": "td_leak_watch",
+  "capability": {
+    "version": "12.0.0",
+    "category": "reliability-recovery",
+    "securityClass": "read-only"
+  }
+}

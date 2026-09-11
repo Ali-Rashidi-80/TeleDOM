@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "profile": {
+    "perfEvents": 0,
+    "domEvents": 0,
+    "layoutEvents": 0,
+    "eventCount": 0
+  },
+  "tool": "td_performance_profile",
+  "capability": {
+    "version": "12.0.0",
+    "category": "performance-memory-visual",
+    "securityClass": "read-only"
+  }
+}

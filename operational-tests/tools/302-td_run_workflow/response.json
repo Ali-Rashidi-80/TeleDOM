@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "steps": [],
+  "tool": "td_run_workflow",
+  "capability": {
+    "version": "12.0.0",
+    "category": "investigation-orchestration",
+    "securityClass": "read-only"
+  }
+}

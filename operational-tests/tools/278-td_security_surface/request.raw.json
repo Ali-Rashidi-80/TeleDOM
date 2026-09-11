@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_278_td_security_surface",
+  "method": "tools/call",
+  "params": {
+    "name": "td_security_surface",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

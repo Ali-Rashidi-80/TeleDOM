@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0.0",
-  "pageId": "page_mtulky71",
-  "projectId": "proj_mtulky71",
-  "generatedAt": 1788988532532,
+  "pageId": "page_mtwg5ror",
+  "projectId": "proj_mtwg5ror",
+  "generatedAt": 1789100358536,
   "metadata": {
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
-    "capturedAt": 1788988532509,
+    "capturedAt": 1789100358507,
     "tool": "MCPDOM Browser"
   },
   "viewport": {
@@ -15,13 +15,13 @@
     "devicePixelRatio": 2.625
   },
   "structure": {
-    "domSnapshotFile": "dom/page_page_mtulky71.html",
+    "domSnapshotFile": "dom/page_page_mtwg5ror.html",
     "domHash": "38685763",
     "nodeCount": 4594
   },
   "regions": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "name": "header_operational_dom_test_card",
       "selector": "#fixture-header",
       "selectorCandidates": [
@@ -56,15 +56,15 @@
           ]
         }
       ],
-      "domFile": "dom/region_region_mtulky7b_1.html",
+      "domFile": "dom/region_region_mtwg5rp4_1.html",
       "reconstructionRole": "#fixture-header"
     }
   ],
   "hierarchy": {
-    "pageId": "page_mtulky71",
+    "pageId": "page_mtwg5ror",
     "nodes": [
       {
-        "id": "page:page_mtulky71",
+        "id": "page:page_mtwg5ror",
         "name": "page",
         "tag": "document",
         "selector": "document",
@@ -72,7 +72,7 @@
         "relationship": "page"
       },
       {
-        "id": "region_mtulky7b_1",
+        "id": "region_mtwg5rp4_1",
         "name": "header_operational_dom_test_card",
         "tag": "#fixture-header",
         "selector": "#fixture-header",
@@ -82,55 +82,55 @@
     ],
     "edges": [
       {
-        "from": "page:page_mtulky71",
-        "to": "region_mtulky7b_1",
+        "from": "page:page_mtwg5ror",
+        "to": "region_mtwg5rp4_1",
         "relation": "contains"
       }
     ]
   },
   "semanticRoles": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "role": "#fixture-header"
     }
   ],
   "visualConstraints": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "constraint": "display",
       "value": "block"
     },
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "constraint": "position",
       "value": "static"
     },
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "constraint": "flex-direction",
       "value": "row"
     },
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "constraint": "background-color",
       "value": "rgb(30, 41, 59)"
     },
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "constraint": "color",
       "value": "rgb(248, 250, 252)"
     }
   ],
   "interactions": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "interactive": false,
       "action": "none"
     }
   ],
   "selectors": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "primary": "#fixture-header",
       "fallbacks": [
         "header.card",
@@ -140,13 +140,13 @@
   ],
   "content": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "text": "header_operational_dom_test_card"
     }
   ],
   "styles": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "relevantStyles": {
         "display": "block",
         "position": "static",
@@ -160,20 +160,20 @@
   ],
   "annotations": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "userComment": "capture region",
       "intendedChange": "test change"
     }
   ],
   "expectedModifications": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "statement": "test change"
     }
   ],
   "verificationRules": [
     {
-      "regionId": "region_mtulky7b_1",
+      "regionId": "region_mtwg5rp4_1",
       "conditions": [
         "v1"
       ]

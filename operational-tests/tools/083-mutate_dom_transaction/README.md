@@ -32,7 +32,7 @@ Opens a DOM mutation transaction (commit/rollback lifecycle safe)
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"transactionId\": \"tx_mtulky5r_2\",\n  \"mode\": \"begin\",\n  \"open\": true\n}"
+        "text": "{\n  \"transactionId\": \"tx_mtwg5rn6_2\",\n  \"mode\": \"begin\",\n  \"open\": true\n}"
       }
     ]
   }

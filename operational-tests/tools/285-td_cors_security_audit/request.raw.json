@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_285_td_cors_security_audit",
+  "method": "tools/call",
+  "params": {
+    "name": "td_cors_security_audit",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

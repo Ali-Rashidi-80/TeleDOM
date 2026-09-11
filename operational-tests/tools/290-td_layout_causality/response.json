@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "layoutShifts": 0,
+  "causalLinks": 0,
+  "links": [],
+  "tool": "td_layout_causality",
+  "capability": {
+    "version": "12.0.0",
+    "category": "performance-memory-visual",
+    "securityClass": "read-only"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "tool": "td_cause_explain",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "finding": {
+        "type": "string",
+        "description": "Finding to explain"
+      },
+      "evidenceRefs": {
+        "type": "array",
+        "description": "Evidence to ground the explanation"
+      }
+    },
+    "required": [
+      "finding",
+      "evidenceRefs"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

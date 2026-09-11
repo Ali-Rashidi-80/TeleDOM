@@ -1,0 +1,28 @@
+{
+  "tool": "td_simulate_style",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "targetSequence": {
+        "type": "number",
+        "description": "Style event to alter"
+      },
+      "stylePatch": {
+        "type": "object",
+        "description": "Style override"
+      }
+    },
+    "required": [
+      "sessionId",
+      "targetSequence",
+      "stylePatch"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

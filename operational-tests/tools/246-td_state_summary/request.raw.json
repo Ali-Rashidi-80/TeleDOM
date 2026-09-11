@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_246_td_state_summary",
+  "method": "tools/call",
+  "params": {
+    "name": "td_state_summary",
+    "arguments": {
+      "intent": "page state summary",
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

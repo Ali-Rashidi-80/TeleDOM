@@ -1,23 +1,23 @@
 [
   {
-    "snapshotId": "snap_mtulky5d_1",
-    "timestamp": 1788988532449,
+    "snapshotId": "snap_mtwg5rmn_1",
+    "timestamp": 1789100358431,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
     "domLength": 4430,
     "domHash": "b5a14eea"
   },
   {
-    "snapshotId": "snap_mtulky5e_2",
-    "timestamp": 1788988532450,
+    "snapshotId": "snap_mtwg5rmo_2",
+    "timestamp": 1789100358432,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
     "domLength": 4430,
     "domHash": "b5a14eea"
   },
   {
-    "snapshotId": "snap_mtulky6t_3",
-    "timestamp": 1788988532501,
+    "snapshotId": "snap_mtwg5roi_3",
+    "timestamp": 1789100358498,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
     "domLength": 4594,

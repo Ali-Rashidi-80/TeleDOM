@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "counterfactual": {
+    "branchId": "",
+    "spec": {},
+    "symptomResolved": false,
+    "verdict": "INCONCLUSIVE",
+    "confidence": 0,
+    "comparison": {
+      "outcomeDeltas": []
+    },
+    "assumptions": [
+      "target event not found in reality stream"
+    ],
+    "evidenceRefs": []
+  },
+  "tool": "td_cause_counterfactual",
+  "capability": {
+    "version": "12.0.0",
+    "category": "causal-intelligence",
+    "securityClass": "reversible"
+  }
+}

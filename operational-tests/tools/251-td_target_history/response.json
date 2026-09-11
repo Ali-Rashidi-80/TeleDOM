@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "versions": [],
+  "tool": "td_target_history",
+  "capability": {
+    "version": "12.0.0",
+    "category": "targeting-interaction",
+    "securityClass": "read-only"
+  }
+}

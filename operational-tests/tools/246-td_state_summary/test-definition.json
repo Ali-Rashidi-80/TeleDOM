@@ -1,0 +1,22 @@
+{
+  "tool": "td_state_summary",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "intent": {
+        "type": "string",
+        "description": "The next decision the agent must make"
+      },
+      "level": {
+        "type": "string",
+        "description": "L0|L1|L2|L3|L4"
+      }
+    },
+    "required": [
+      "intent"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

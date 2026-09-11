@@ -1,0 +1,19 @@
+{
+  "tool": "td_visual_regression",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "baselineRef": {
+        "type": "string",
+        "description": "Baseline visual ref"
+      },
+      "currentRef": {
+        "type": "string",
+        "description": "Current visual ref"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

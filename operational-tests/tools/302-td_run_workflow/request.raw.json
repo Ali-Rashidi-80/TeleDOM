@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_302_td_run_workflow",
+  "method": "tools/call",
+  "params": {
+    "name": "td_run_workflow",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

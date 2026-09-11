@@ -1,0 +1,23 @@
+{
+  "tool": "td_cause_verify",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "hypothesisId": {
+        "type": "string",
+        "description": "Hypothesis to verify"
+      }
+    },
+    "required": [
+      "sessionId",
+      "hypothesisId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

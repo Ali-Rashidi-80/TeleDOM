@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "longTasks": [],
+  "count": 0,
+  "tool": "td_long_task_trace",
+  "capability": {
+    "version": "12.0.0",
+    "category": "performance-memory-visual",
+    "securityClass": "read-only"
+  }
+}

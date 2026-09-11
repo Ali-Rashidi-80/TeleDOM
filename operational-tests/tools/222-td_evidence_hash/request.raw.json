@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_222_td_evidence_hash",
+  "method": "tools/call",
+  "params": {
+    "name": "td_evidence_hash",
+    "arguments": {
+      "artifact": {
+        "operational": true
+      }
+    }
+  }
+}

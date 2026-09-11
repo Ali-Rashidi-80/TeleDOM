@@ -32,7 +32,7 @@ Reports history availability honestly
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"performed\": \"back\",\n  \"pageId\": \"page_1\",\n  \"detail\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"executionId\": \"js_mtull1pz_7\",\n    \"durationMs\": 0,\n    \"result\": \"{\\n \\\"performed\\\": \\\"back\\\"\\n}\",\n    \"consoleOutput\": [],\n    \"domChanged\": false,\n    \"domLengthBefore\": 4594,\n    \"domLengthAfter\": 4594,\n    \"world\": \"ISOLATED\",\n    \"timeoutMs\": 5000,\n    \"codePreview\": \"history.back(); return ({ performed: \\\"back\\\" });\"\n  }\n}"
+        "text": "{\n  \"performed\": \"back\",\n  \"pageId\": \"page_1\",\n  \"detail\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"executionId\": \"js_mtwg5v83_7\",\n    \"durationMs\": 0,\n    \"result\": \"{\\n \\\"performed\\\": \\\"back\\\"\\n}\",\n    \"consoleOutput\": [],\n    \"domChanged\": false,\n    \"domLengthBefore\": 4594,\n    \"domLengthAfter\": 4594,\n    \"world\": \"ISOLATED\",\n    \"timeoutMs\": 5000,\n    \"codePreview\": \"history.back(); return ({ performed: \\\"back\\\" });\"\n  }\n}"
       }
     ]
   }

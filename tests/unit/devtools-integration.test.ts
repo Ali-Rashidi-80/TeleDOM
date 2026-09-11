@@ -22,23 +22,24 @@ import { normalizeForExecution } from '../../src/devtools/capabilities/interacti
 // ---------------------------------------------------------------------------
 
 describe('Unified tool registry', () => {
-  it('exposes exactly 206 tools: 121 preserved + 54 dt_ + 31 fx_', () => {
-    expect(FORENSIC_MCP_TOOLS.length).toBe(206);
+  it('exposes exactly 306 tools: 121 preserved + 54 dt_ + 31 fx_ + 100 td_ (v12)', () => {
+    expect(FORENSIC_MCP_TOOLS.length).toBe(306);
     expect(FORENSIC_MCP_TOOLS.filter(t => t.name.startsWith('dt_')).length).toBe(54);
     expect(FORENSIC_MCP_TOOLS.filter(t => t.name.startsWith('fx_')).length).toBe(31);
+    expect(FORENSIC_MCP_TOOLS.filter(t => t.name.startsWith('td_')).length).toBe(100);
     expect(DEVTOOLS_TOOLS.length).toBe(54);
     expect(FORENSICS_TOOLS.length).toBe(31);
   });
 
-  it('has ZERO naming collisions across all 206 tools (§14)', () => {
+  it('has ZERO naming collisions across all 306 tools (§14)', () => {
     const names = FORENSIC_MCP_TOOLS.map(t => t.name);
     expect(new Set(names).size).toBe(names.length);
   });
 
   it('preserves every one of the original 121 tool names', () => {
     // The 121 original names are the non-prefixed ones; v3-tool-names is the
-    // authoritative 74-name set + the 47 legacy names.
-    const original = FORENSIC_MCP_TOOLS.filter(t => !t.name.startsWith('dt_') && !t.name.startsWith('fx_')).map(t => t.name);
+    // authoritative 74-name set + the 47 legacy names. (v12 adds td_* only.)
+    const original = FORENSIC_MCP_TOOLS.filter(t => !t.name.startsWith('dt_') && !t.name.startsWith('fx_') && !t.name.startsWith('td_')).map(t => t.name);
     expect(original.length).toBe(121);
   });
 

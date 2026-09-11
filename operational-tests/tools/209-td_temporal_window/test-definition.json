@@ -1,0 +1,27 @@
+{
+  "tool": "td_temporal_window",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "aroundLogical": {
+        "type": "number",
+        "description": "Center logical time"
+      },
+      "radiusMs": {
+        "type": "number",
+        "description": "Window radius in ms (default 250)"
+      }
+    },
+    "required": [
+      "sessionId",
+      "aroundLogical"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

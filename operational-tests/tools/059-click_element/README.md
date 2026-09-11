@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 307ms
+**Duration**: 308ms
 
 ## Test Objective
 Clicks element in explicit normal mode with measured effects

@@ -1,0 +1,23 @@
+{
+  "tool": "td_simulate_failure",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "failureKind": {
+        "type": "string",
+        "description": "Failure to inject"
+      }
+    },
+    "required": [
+      "sessionId",
+      "failureKind"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

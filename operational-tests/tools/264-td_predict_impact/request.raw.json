@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_264_td_predict_impact",
+  "method": "tools/call",
+  "params": {
+    "name": "td_predict_impact",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

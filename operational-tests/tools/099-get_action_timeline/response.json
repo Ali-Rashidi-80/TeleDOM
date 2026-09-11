@@ -1,198 +1,198 @@
 [
   {
-    "eventId": "evt_mtulky5p_56",
-    "timestamp": 1788988532461,
+    "eventId": "evt_mtwg5rn3_56",
+    "timestamp": 1789100358447,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "mutate_dom → SUCCESS",
     "data": {
-      "commandId": "cmd_35_mtulky5p"
+      "commandId": "cmd_35_mtwg5rn3"
     }
   },
   {
-    "eventId": "evt_mtulky5r_57",
-    "timestamp": 1788988532463,
+    "eventId": "evt_mtwg5rn6_57",
+    "timestamp": 1789100358450,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "mutate_dom_transaction → SUCCESS",
     "data": {
-      "commandId": "cmd_36_mtulky5r"
+      "commandId": "cmd_36_mtwg5rn6"
     }
   },
   {
-    "eventId": "evt_mtulky5t_58",
-    "timestamp": 1788988532465,
+    "eventId": "evt_mtwg5rn7_58",
+    "timestamp": 1789100358451,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "undo_dom_mutation → SUCCESS",
     "data": {
-      "commandId": "cmd_37_mtulky5t"
+      "commandId": "cmd_37_mtwg5rn7"
     }
   },
   {
-    "eventId": "evt_mtulky5u_59",
-    "timestamp": 1788988532466,
+    "eventId": "evt_mtwg5rn9_59",
+    "timestamp": 1789100358453,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "redo_dom_mutation → SUCCESS",
     "data": {
-      "commandId": "cmd_38_mtulky5u"
+      "commandId": "cmd_38_mtwg5rn9"
     }
   },
   {
-    "eventId": "evt_mtulky5v_60",
-    "timestamp": 1788988532467,
+    "eventId": "evt_mtwg5rna_60",
+    "timestamp": 1789100358454,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "get_mutation_history → SUCCESS",
     "data": {
-      "commandId": "cmd_39_mtulky5v"
+      "commandId": "cmd_39_mtwg5rna"
     }
   },
   {
-    "eventId": "evt_mtulky5w_61",
-    "timestamp": 1788988532468,
+    "eventId": "evt_mtwg5rnc_61",
+    "timestamp": 1789100358456,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "preview_dom_mutation → SUCCESS",
     "data": {
-      "commandId": "cmd_40_mtulky5w"
+      "commandId": "cmd_40_mtwg5rnc"
     }
   },
   {
-    "eventId": "evt_mtulky69_62",
-    "timestamp": 1788988532481,
+    "eventId": "evt_mtwg5rns_62",
+    "timestamp": 1789100358472,
     "kind": "DOM_MUTATED",
     "detail": "clone_subtree on #removable-card → OK"
   },
   {
-    "eventId": "evt_mtulky69_63",
-    "timestamp": 1788988532481,
+    "eventId": "evt_mtwg5rns_63",
+    "timestamp": 1789100358472,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "clone_dom_subtree → SUCCESS",
     "data": {
-      "commandId": "cmd_41_mtulky69"
+      "commandId": "cmd_41_mtwg5rns"
     }
   },
   {
-    "eventId": "evt_mtulky6f_64",
-    "timestamp": 1788988532487,
+    "eventId": "evt_mtwg5ro1_64",
+    "timestamp": 1789100358481,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "generate_element_target → SUCCESS",
     "data": {
-      "commandId": "cmd_42_mtulky6f"
+      "commandId": "cmd_42_mtwg5ro1"
     }
   },
   {
-    "eventId": "evt_mtulky6f_65",
-    "timestamp": 1788988532487,
+    "eventId": "evt_mtwg5ro1_65",
+    "timestamp": 1789100358481,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "execute_command_sequence → SUCCESS",
     "data": {
-      "commandId": "cmd_43_mtulky6f"
+      "commandId": "cmd_43_mtwg5ro1"
     }
   },
   {
-    "eventId": "evt_mtulky6h_66",
-    "timestamp": 1788988532489,
+    "eventId": "evt_mtwg5ro3_66",
+    "timestamp": 1789100358483,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "record_commands_start → SUCCESS",
     "data": {
-      "commandId": "cmd_44_mtulky6h"
+      "commandId": "cmd_44_mtwg5ro3"
     }
   },
   {
-    "eventId": "evt_mtulky6i_67",
-    "timestamp": 1788988532490,
+    "eventId": "evt_mtwg5ro5_67",
+    "timestamp": 1789100358485,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "record_commands_stop → SUCCESS",
     "data": {
-      "commandId": "cmd_45_mtulky6i"
+      "commandId": "cmd_45_mtwg5ro5"
     }
   },
   {
-    "eventId": "evt_mtulky6j_68",
-    "timestamp": 1788988532491,
+    "eventId": "evt_mtwg5ro6_68",
+    "timestamp": 1789100358486,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "list_command_recordings → SUCCESS",
     "data": {
-      "commandId": "cmd_46_mtulky6j"
+      "commandId": "cmd_46_mtwg5ro6"
     }
   },
   {
-    "eventId": "evt_mtulky6l_69",
-    "timestamp": 1788988532493,
+    "eventId": "evt_mtwg5ro7_69",
+    "timestamp": 1789100358487,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "get_command_recording → SUCCESS",
     "data": {
-      "commandId": "cmd_47_mtulky6l"
+      "commandId": "cmd_47_mtwg5ro7"
     }
   },
   {
-    "eventId": "evt_mtulky6m_70",
-    "timestamp": 1788988532494,
+    "eventId": "evt_mtwg5ro8_70",
+    "timestamp": 1789100358488,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "record_commands_start → SUCCESS",
     "data": {
-      "commandId": "cmd_48_mtulky6m"
+      "commandId": "cmd_48_mtwg5ro8"
     }
   },
   {
-    "eventId": "evt_mtulky6m_71",
-    "timestamp": 1788988532494,
+    "eventId": "evt_mtwg5ro8_71",
+    "timestamp": 1789100358488,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "replay_command_recording → SUCCESS",
     "data": {
-      "commandId": "cmd_49_mtulky6m"
+      "commandId": "cmd_49_mtwg5ro8"
     }
   },
   {
-    "eventId": "evt_mtulky6n_72",
-    "timestamp": 1788988532495,
+    "eventId": "evt_mtwg5roa_72",
+    "timestamp": 1789100358490,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "export_command_recording → SUCCESS",
     "data": {
-      "commandId": "cmd_50_mtulky6n"
+      "commandId": "cmd_50_mtwg5roa"
     }
   },
   {
-    "eventId": "evt_mtulky6o_73",
-    "timestamp": 1788988532496,
+    "eventId": "evt_mtwg5rob_73",
+    "timestamp": 1789100358491,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "import_command_recording → SUCCESS",
     "data": {
-      "commandId": "cmd_51_mtulky6o"
+      "commandId": "cmd_51_mtwg5rob"
     }
   },
   {
-    "eventId": "evt_mtulky6p_74",
-    "timestamp": 1788988532497,
+    "eventId": "evt_mtwg5roc_74",
+    "timestamp": 1789100358492,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "delete_command_recording → SUCCESS",
     "data": {
-      "commandId": "cmd_52_mtulky6p"
+      "commandId": "cmd_52_mtwg5roc"
     }
   },
   {
-    "eventId": "evt_mtulky6q_75",
-    "timestamp": 1788988532498,
+    "eventId": "evt_mtwg5roe_75",
+    "timestamp": 1789100358494,
     "kind": "COMMAND_EXECUTED",
-    "sessionId": "sess_mtulksxq",
+    "sessionId": "sess_mtwg5mcg",
     "detail": "get_browser_session → SUCCESS",
     "data": {
-      "commandId": "cmd_53_mtulky6q"
+      "commandId": "cmd_53_mtwg5roe"
     }
   }
 ]

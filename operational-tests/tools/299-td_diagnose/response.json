@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "note": "no events in session",
+  "tool": "td_diagnose",
+  "capability": {
+    "version": "12.0.0",
+    "category": "investigation-orchestration",
+    "securityClass": "read-only"
+  }
+}

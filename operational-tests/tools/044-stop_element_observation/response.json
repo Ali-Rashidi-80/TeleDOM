@@ -1,9 +1,9 @@
 {
-  "observationId": "obs_1788988531785_qfcb",
+  "observationId": "obs_1789100357734_h437",
   "targetSelector": "#removable-card",
-  "startTime": 1788988531785,
-  "endTime": 1788988531794,
-  "durationMs": 9,
+  "startTime": 1789100357734,
+  "endTime": 1789100357744,
+  "durationMs": 10,
   "initialState": {
     "tag": "div",
     "id": "removable-card",
@@ -179,11 +179,11 @@
   "disappeared": false,
   "mutations": [
     {
-      "id": "evt_init_obs_1788988531785_qfcb",
-      "sessionId": "obs_1788988531785_qfcb",
+      "id": "evt_init_obs_1789100357734_h437",
+      "sessionId": "obs_1789100357734_h437",
       "timestamp": 0,
       "sequence": 1,
-      "wallClockTime": 1788988531785,
+      "wallClockTime": 1789100357734,
       "type": "DOM_MUTATION_ADD",
       "category": "DOM",
       "source": "BROWSER_RUNTIME",

@@ -1,0 +1,11 @@
+{
+  "status": "UNSUPPORTED",
+  "reason": "retention graph requires a live heap snapshot via the DevTools runtime (dt_performance_start_trace family); recorded sessions do not carry heap edges",
+  "experimental": true,
+  "tool": "td_retention_graph",
+  "capability": {
+    "version": "12.0.0",
+    "category": "performance-memory-visual",
+    "securityClass": "read-only"
+  }
+}

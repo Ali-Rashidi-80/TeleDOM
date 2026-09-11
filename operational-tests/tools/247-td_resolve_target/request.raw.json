@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_247_td_resolve_target",
+  "method": "tools/call",
+  "params": {
+    "name": "td_resolve_target",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

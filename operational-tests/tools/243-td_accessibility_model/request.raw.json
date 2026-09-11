@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_243_td_accessibility_model",
+  "method": "tools/call",
+  "params": {
+    "name": "td_accessibility_model",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

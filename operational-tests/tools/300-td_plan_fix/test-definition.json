@@ -1,0 +1,18 @@
+{
+  "tool": "td_plan_fix",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "incidentId": {
+        "type": "string",
+        "description": "Incident to fix"
+      }
+    },
+    "required": [
+      "incidentId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

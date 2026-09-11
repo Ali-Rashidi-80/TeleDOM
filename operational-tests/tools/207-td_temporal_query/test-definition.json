@@ -1,0 +1,34 @@
+{
+  "tool": "td_temporal_query",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session to query"
+      },
+      "fromLogical": {
+        "type": "number",
+        "description": "Range start (logical ms)"
+      },
+      "toLogical": {
+        "type": "number",
+        "description": "Range end (logical ms)"
+      },
+      "entityIds": {
+        "type": "array",
+        "description": "Restrict to entities"
+      },
+      "dimensions": {
+        "type": "array",
+        "description": "State dimensions to include"
+      }
+    },
+    "required": [
+      "sessionId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

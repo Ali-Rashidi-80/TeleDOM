@@ -1,0 +1,18 @@
+{
+  "tool": "td_evidence_hash",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "artifact": {
+        "type": "object",
+        "description": "Artifact to hash"
+      }
+    },
+    "required": [
+      "artifact"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

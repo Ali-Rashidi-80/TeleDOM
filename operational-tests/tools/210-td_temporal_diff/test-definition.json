@@ -1,0 +1,28 @@
+{
+  "tool": "td_temporal_diff",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sessionId": {
+        "type": "string",
+        "description": "Session id"
+      },
+      "t1": {
+        "type": "number",
+        "description": "First logical time"
+      },
+      "t2": {
+        "type": "number",
+        "description": "Second logical time"
+      }
+    },
+    "required": [
+      "sessionId",
+      "t1",
+      "t2"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

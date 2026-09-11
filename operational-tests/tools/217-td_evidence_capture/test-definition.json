@@ -1,0 +1,32 @@
+{
+  "tool": "td_evidence_capture",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "incidentId": {
+        "type": "string",
+        "description": "Incident to attach evidence to"
+      },
+      "kind": {
+        "type": "string",
+        "description": "Evidence node type"
+      },
+      "label": {
+        "type": "string",
+        "description": "Human label"
+      },
+      "payload": {
+        "type": "object",
+        "description": "Evidence payload"
+      }
+    },
+    "required": [
+      "incidentId",
+      "kind",
+      "label"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

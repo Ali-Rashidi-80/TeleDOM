@@ -1,7 +1,7 @@
 # MCP Capability Discovery Report
 
-**Total Discovered Tools**: 206
-**Discovery Timestamp**: 2026-09-09T21:15:24.957Z
+**Total Discovered Tools**: 306
+**Discovery Timestamp**: 2026-09-11T04:19:10.767Z
 
 | # | Tool Name | Mode | Category | Visual Evidence | Required Arguments |
 |---|---|---|---|---|---|
@@ -211,3 +211,103 @@
 | 204 | `fx_session_graph` | historical | forensics_capability | NO | None |
 | 205 | `fx_evidence_scoring` | historical | forensics_capability | NO | conclusion, supporting |
 | 206 | `fx_incident_report` | historical | forensics_capability | NO | None |
+| 207 | `td_temporal_query` | historical | historical | NO | sessionId |
+| 208 | `td_temporal_seek` | historical | historical | NO | sessionId, logicalTime |
+| 209 | `td_temporal_window` | historical | historical | NO | sessionId, aroundLogical |
+| 210 | `td_temporal_diff` | historical | historical | NO | sessionId, t1, t2 |
+| 211 | `td_temporal_trace_entity` | historical | historical | NO | sessionId, entityId |
+| 212 | `td_temporal_first_change` | historical | historical | NO | sessionId |
+| 213 | `td_temporal_last_stable` | historical | historical | NO | sessionId, dimension, before |
+| 214 | `td_temporal_join` | historical | historical | NO | sessionId, sources |
+| 215 | `td_temporal_branch` | historical | historical | NO | sessionId, forkAtLogical, mutations |
+| 216 | `td_temporal_rewind` | historical | historical | NO | sessionId, logicalTime |
+| 217 | `td_evidence_capture` | historical | historical | NO | incidentId, kind, label |
+| 218 | `td_evidence_search` | historical | historical | NO | None |
+| 219 | `td_evidence_chain` | historical | historical | NO | claim, evidenceRefs |
+| 220 | `td_evidence_confidence` | historical | historical | NO | provenance, corroboration |
+| 221 | `td_evidence_verify` | historical | historical | NO | claim, mustHold |
+| 222 | `td_evidence_hash` | historical | historical | NO | artifact |
+| 223 | `td_evidence_compare` | historical | historical | NO | packageA, packageB |
+| 224 | `td_evidence_export` | historical | historical | NO | incidentId |
+| 225 | `td_evidence_timeline` | historical | historical | NO | incidentId |
+| 226 | `td_evidence_proof` | historical | historical | NO | claims, conclusion, verificationStatus |
+| 227 | `td_cause_trace` | historical | historical | NO | sessionId, symptomEventId |
+| 228 | `td_cause_graph` | historical | historical | NO | sessionId |
+| 229 | `td_cause_rank` | historical | historical | NO | sessionId, symptomEventId |
+| 230 | `td_cause_explain` | historical | historical | NO | finding, evidenceRefs |
+| 231 | `td_cause_correlate` | historical | historical | NO | sessionId, sources |
+| 232 | `td_cause_breakpoint` | historical | historical | NO | branchId, sessionId |
+| 233 | `td_cause_impact` | historical | historical | NO | eventId, sessionId |
+| 234 | `td_cause_dependency` | historical | historical | NO | entityId, sessionId |
+| 235 | `td_cause_counterfactual` | historical | historical | NO | sessionId, targetSequence, kind, reason |
+| 236 | `td_cause_verify` | historical | historical | NO | sessionId, hypothesisId |
+| 237 | `td_semantic_page` | historical | historical | NO | None |
+| 238 | `td_semantic_element` | historical | historical | NO | selector |
+| 239 | `td_component_map` | historical | historical | NO | None |
+| 240 | `td_component_lifecycle` | historical | historical | NO | componentId, sessionId |
+| 241 | `td_component_dependencies` | historical | historical | NO | componentId |
+| 242 | `td_component_state` | historical | historical | NO | componentId |
+| 243 | `td_accessibility_model` | historical | historical | NO | None |
+| 244 | `td_visual_semantics` | historical | historical | YES | None |
+| 245 | `td_page_intent` | historical | historical | NO | None |
+| 246 | `td_state_summary` | historical | historical | NO | intent |
+| 247 | `td_resolve_target` | historical | historical | NO | None |
+| 248 | `td_rank_targets` | historical | historical | NO | candidates, query |
+| 249 | `td_target_recover` | historical | historical | NO | failedSelector, lastKnown |
+| 250 | `td_target_verify` | historical | historical | NO | selector, intent |
+| 251 | `td_target_history` | historical | historical | NO | entityId |
+| 252 | `td_target_contract` | historical | historical | NO | query, resolution |
+| 253 | `td_interaction_plan` | historical | historical | NO | intent |
+| 254 | `td_interaction_execute` | historical | historical | NO | planId |
+| 255 | `td_interaction_observe` | historical | historical | NO | interactionRef |
+| 256 | `td_interaction_repair` | historical | historical | NO | failedPlanId, reason |
+| 257 | `td_simulate_change` | historical | historical | NO | sessionId, change |
+| 258 | `td_simulate_network` | historical | historical | NO | sessionId, targetSequence, responsePatch |
+| 259 | `td_simulate_dom` | historical | historical | NO | sessionId, mutations |
+| 260 | `td_simulate_style` | historical | historical | NO | sessionId, targetSequence, stylePatch |
+| 261 | `td_simulate_runtime` | historical | historical | NO | sessionId, condition |
+| 262 | `td_simulate_failure` | historical | historical | NO | sessionId, failureKind |
+| 263 | `td_compare_branches` | historical | historical | NO | branchIds, sessionId |
+| 264 | `td_predict_impact` | historical | historical | NO | change |
+| 265 | `td_safe_apply` | historical | historical | NO | plan, scope |
+| 266 | `td_branch_merge` | historical | historical | NO | branchId, sessionId |
+| 267 | `td_health_snapshot` | historical | historical | NO | None |
+| 268 | `td_recover_browser` | historical | historical | NO | failureKind |
+| 269 | `td_recover_page` | historical | historical | NO | pageId |
+| 270 | `td_recover_bridge` | historical | historical | NO | None |
+| 271 | `td_reconcile_tabs` | historical | historical | NO | None |
+| 272 | `td_reconcile_events` | historical | historical | NO | sessionId |
+| 273 | `td_resource_guard` | historical | historical | NO | None |
+| 274 | `td_leak_watch` | historical | historical | NO | None |
+| 275 | `td_failure_containment` | historical | historical | NO | capabilityId |
+| 276 | `td_session_repair` | historical | historical | NO | sessionId |
+| 277 | `td_security_posture` | historical | historical | NO | None |
+| 278 | `td_security_surface` | historical | historical | NO | None |
+| 279 | `td_security_flow` | historical | historical | NO | sessionId |
+| 280 | `td_dom_xss_audit` | historical | historical | NO | None |
+| 281 | `td_injection_surface_audit` | historical | historical | NO | None |
+| 282 | `td_auth_session_audit` | historical | historical | NO | None |
+| 283 | `td_cookie_storage_audit` | historical | historical | NO | None |
+| 284 | `td_csp_security_audit` | historical | historical | NO | None |
+| 285 | `td_cors_security_audit` | historical | historical | NO | None |
+| 286 | `td_security_regression` | historical | historical | NO | beforeRef, afterRef |
+| 287 | `td_performance_profile` | historical | historical | NO | None |
+| 288 | `td_performance_budget` | historical | historical | NO | None |
+| 289 | `td_long_task_trace` | historical | historical | NO | sessionId |
+| 290 | `td_layout_causality` | historical | historical | NO | sessionId |
+| 291 | `td_memory_profile` | historical | historical | NO | None |
+| 292 | `td_memory_leak_trace` | historical | historical | NO | sessionId |
+| 293 | `td_retention_graph` | historical | historical | NO | None |
+| 294 | `td_visual_regression` | historical | historical | YES | None |
+| 295 | `td_visual_causality` | historical | historical | YES | region |
+| 296 | `td_render_stability` | historical | historical | NO | None |
+| 297 | `td_investigate` | historical | historical | NO | objective, symptomPattern, sessionId |
+| 298 | `td_reproduce_incident` | historical | historical | NO | incidentId |
+| 299 | `td_diagnose` | historical | historical | NO | symptom, sessionId |
+| 300 | `td_plan_fix` | historical | historical | NO | incidentId |
+| 301 | `td_validate_fix` | historical | historical | NO | incidentId, fixRef |
+| 302 | `td_run_workflow` | historical | historical | NO | workflow |
+| 303 | `td_run_playbook` | historical | historical | NO | playbookId |
+| 304 | `td_memory` | historical | historical | NO | action |
+| 305 | `td_context_optimize` | historical | historical | NO | intent |
+| 306 | `td_incident_close` | historical | historical | NO | incidentId |

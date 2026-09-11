@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"annotations\": [\n    {\n      \"id\": \"ann_op_001\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 200,\n      \"sequence\": 5,\n      \"label\": \"API Request Fired\",\n      \"comment\": \"User click triggered POST /v1/analyze\",\n      \"category\": \"NOTE\",\n      \"author\": \"TEST_HARNESS\",\n      \"createdAt\": 1788988525021\n    },\n    {\n      \"id\": \"ann_1788988525971_r1dh\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 0,\n      \"author\": \"AGENT\",\n      \"label\": \"Root Cause Confirmed\",\n      \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n      \"category\": \"ROOT_CAUSE\",\n      \"createdAt\": 1788988525971\n    }\n  ]\n}"
+        "text": "{\n  \"sessionId\": \"operational_acceptance_session_001\",\n  \"annotations\": [\n    {\n      \"id\": \"ann_op_001\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 200,\n      \"sequence\": 5,\n      \"label\": \"API Request Fired\",\n      \"comment\": \"User click triggered POST /v1/analyze\",\n      \"category\": \"NOTE\",\n      \"author\": \"TEST_HARNESS\",\n      \"createdAt\": 1789100350850\n    },\n    {\n      \"id\": \"ann_1789100351924_rw8q\",\n      \"sessionId\": \"operational_acceptance_session_001\",\n      \"timestamp\": 0,\n      \"author\": \"AGENT\",\n      \"label\": \"Root Cause Confirmed\",\n      \"comment\": \"Host framework unmounted #host-sidebar after network update\",\n      \"category\": \"ROOT_CAUSE\",\n      \"createdAt\": 1789100351924\n    }\n  ]\n}"
       }
     ]
   }

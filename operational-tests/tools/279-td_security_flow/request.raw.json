@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_279_td_security_flow",
+  "method": "tools/call",
+  "params": {
+    "name": "td_security_flow",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

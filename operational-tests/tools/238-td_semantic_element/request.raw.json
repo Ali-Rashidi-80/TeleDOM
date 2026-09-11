@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_238_td_semantic_element",
+  "method": "tools/call",
+  "params": {
+    "name": "td_semantic_element",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

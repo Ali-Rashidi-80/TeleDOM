@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_241_td_component_dependencies",
+  "method": "tools/call",
+  "params": {
+    "name": "td_component_dependencies",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_304_td_memory",
+  "method": "tools/call",
+  "params": {
+    "name": "td_memory",
+    "arguments": {
+      "action": "store",
+      "kind": "known-environment",
+      "statement": "operational acceptance session exercises the v12 kernel",
+      "confidence": 0.8,
+      "evidenceRefs": [
+        "evt_op_001"
+      ]
+    }
+  }
+}

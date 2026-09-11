@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_231_td_cause_correlate",
+  "method": "tools/call",
+  "params": {
+    "name": "td_cause_correlate",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

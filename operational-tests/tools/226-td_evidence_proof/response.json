@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "proof": {
+    "proofId": "proof:a184dd2ae2069a31",
+    "proofHash": "a184dd2ae2069a319988796810e6a908fb8aac36bbf6a58743a19883eb36bbb7"
+  },
+  "selfVerification": true,
+  "tool": "td_evidence_proof",
+  "capability": {
+    "version": "12.0.0",
+    "category": "evidence-provenance",
+    "securityClass": "read-only"
+  }
+}

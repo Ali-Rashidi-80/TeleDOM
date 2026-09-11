@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 0ms
 
 ## Test Objective
 Compares two most recent snapshots
@@ -30,7 +30,7 @@ Compares two most recent snapshots
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"snapshotIdA\": \"snap_mtulky5e_2\",\n  \"snapshotIdB\": \"snap_mtulky6t_3\",\n  \"identical\": false,\n  \"changes\": [\n    {\n      \"field\": \"domLength\",\n      \"before\": 4430,\n      \"after\": 4594\n    },\n    {\n      \"field\": \"domHash\",\n      \"before\": \"b5a14eea\",\n      \"after\": \"dd86b0d4\"\n    }\n  ],\n  \"domDelta\": {\n    \"beforeLength\": 4430,\n    \"afterLength\": 4594,\n    \"delta\": 164\n  },\n  \"summary\": \"2 field(s) changed; DOM size +164 bytes.\"\n}"
+        "text": "{\n  \"snapshotIdA\": \"snap_mtwg5rmo_2\",\n  \"snapshotIdB\": \"snap_mtwg5roi_3\",\n  \"identical\": false,\n  \"changes\": [\n    {\n      \"field\": \"domLength\",\n      \"before\": 4430,\n      \"after\": 4594\n    },\n    {\n      \"field\": \"domHash\",\n      \"before\": \"b5a14eea\",\n      \"after\": \"dd86b0d4\"\n    }\n  ],\n  \"domDelta\": {\n    \"beforeLength\": 4430,\n    \"afterLength\": 4594,\n    \"delta\": 164\n  },\n  \"summary\": \"2 field(s) changed; DOM size +164 bytes.\"\n}"
       }
     ]
   }

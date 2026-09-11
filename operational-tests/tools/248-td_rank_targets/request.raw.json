@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_248_td_rank_targets",
+  "method": "tools/call",
+  "params": {
+    "name": "td_rank_targets",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

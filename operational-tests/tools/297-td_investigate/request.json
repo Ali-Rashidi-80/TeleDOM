@@ -1,0 +1,5 @@
+{
+  "sessionId": "operational_acceptance_session_001",
+  "objective": "Operational acceptance: trace DOM mutation causal chain",
+  "symptomPattern": "node|mutation|remove"
+}

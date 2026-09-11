@@ -1,8 +1,8 @@
 {
   "observed": {
     "schemaVersion": "1.0.0",
-    "regionId": "region_mtulky7g_2",
-    "pageId": "page_mtulky71",
+    "regionId": "region_mtwg5rpa_2",
+    "pageId": "page_mtwg5ror",
     "name": "section_interactive_form_controls",
     "autoName": "section_interactive_form_controls",
     "tag": "#interactive-section",
@@ -31,8 +31,8 @@
     ],
     "xpath": "//*[@id=\"interactive-section\"]",
     "structuralFingerprint": "094817f3",
-    "domFile": "dom/region_region_mtulky7g_2.html",
-    "contextDomFile": "dom/region_region_mtulky7g_2_context.html",
+    "domFile": "dom/region_region_mtwg5rpa_2.html",
+    "contextDomFile": "dom/region_region_mtwg5rpa_2_context.html",
     "dimensions": {
       "width": 0,
       "height": 0
@@ -65,8 +65,8 @@
       "div",
       "div"
     ],
-    "htmlSnapshotFile": "dom/region_region_mtulky7g_2.html",
-    "capturedAt": 1788988532524,
+    "htmlSnapshotFile": "dom/region_region_mtwg5rpa_2.html",
+    "capturedAt": 1789100358526,
     "sourceUrl": "https://app.internal/dashboard",
     "pageTitle": "MCP Operational Acceptance DOM Fixture",
     "viewport": {

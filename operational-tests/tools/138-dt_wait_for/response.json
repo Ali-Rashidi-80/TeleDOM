@@ -1,7 +1,7 @@
 {
   "condition": "load",
   "met": true,
-  "waitedMs": 0,
+  "waitedMs": 1,
   "pageId": "page_1",
   "state": {
     "readyState": "complete",

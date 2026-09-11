@@ -1,0 +1,32 @@
+{
+  "tool": "td_evidence_proof",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "claims": {
+        "type": "array",
+        "description": "Claims with evidence refs"
+      },
+      "steps": {
+        "type": "array",
+        "description": "Reasoning steps"
+      },
+      "conclusion": {
+        "type": "string",
+        "description": "Conclusion statement"
+      },
+      "verificationStatus": {
+        "type": "string",
+        "description": "PASS/FAIL/INCONCLUSIVE"
+      }
+    },
+    "required": [
+      "claims",
+      "conclusion",
+      "verificationStatus"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

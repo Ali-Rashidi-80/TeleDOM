@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "affected": [],
+  "predictions": [],
+  "confidence": 0.6,
+  "note": "heuristic impact model — predictions expose assumptions and verification paths",
+  "tool": "td_predict_impact",
+  "capability": {
+    "version": "12.0.0",
+    "category": "counterfactual-simulation",
+    "securityClass": "read-only"
+  }
+}

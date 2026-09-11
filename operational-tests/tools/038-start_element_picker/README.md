@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 14ms
+**Duration**: 16ms
 
 ## Test Objective
 Activates visual element picker mode with hover overlay

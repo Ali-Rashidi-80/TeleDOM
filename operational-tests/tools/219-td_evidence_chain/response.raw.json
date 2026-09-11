@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_219_td_evidence_chain",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"claim\":\"injected button was removed by subtree replacement\",\"evidenceRefs\":[\"evt_op_007\",\"evt_op_008\"],\"confidence\":0.8699999999999999,\"classification\":\"CORRELATED\",\"rationale\":[\"source agent-supplied: quality=derived (0.75)\",\"corroboration x2 → factor 1.16\"],\"tool\":\"td_evidence_chain\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"evidence-provenance\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

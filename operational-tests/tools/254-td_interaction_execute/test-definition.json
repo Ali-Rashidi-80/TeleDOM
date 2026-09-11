@@ -1,0 +1,18 @@
+{
+  "tool": "td_interaction_execute",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "planId": {
+        "type": "string",
+        "description": "Plan to execute"
+      }
+    },
+    "required": [
+      "planId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v12 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}
