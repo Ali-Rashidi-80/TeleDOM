@@ -1,7 +1,7 @@
 {
   "execution": {
     "status": "EXECUTED_SUCCESSFULLY",
-    "executionId": "js_mtwhcqu0_2",
+    "executionId": "js_mtx86obo_6",
     "durationMs": 0,
     "result": "MCP Operational Acceptance DOM Fixture",
     "consoleOutput": [],
@@ -13,8 +13,8 @@
     "codePreview": "return document.title;"
   },
   "before": {
-    "snapshotId": "snap_mtwhcqtz_1",
-    "timestamp": 1789102363607,
+    "snapshotId": "snap_mtx86obl_1",
+    "timestamp": 1789147430049,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
     "viewport": {
@@ -33,8 +33,8 @@
     "annotationCount": 0
   },
   "after": {
-    "snapshotId": "snap_mtwhcqu0_2",
-    "timestamp": 1789102363608,
+    "snapshotId": "snap_mtx86obr_2",
+    "timestamp": 1789147430055,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
     "viewport": {

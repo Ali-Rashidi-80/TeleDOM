@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
-// Browser Forensic MCP Server Runner (v2.0.0)
+// TeleDOM v4.1 MCP Server Runner
 import { ForensicMCPServer } from '../dist/server/mcp-server.js';
 
 if (typeof document === 'undefined') {

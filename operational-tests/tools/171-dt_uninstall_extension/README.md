@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 3ms
 
 ## Test Objective
 Soft-uninstalls (disables) the extension
@@ -17,7 +17,7 @@ Soft-uninstalls (disables) the extension
   "params": {
     "name": "dt_uninstall_extension",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }
@@ -32,7 +32,7 @@ Soft-uninstalls (disables) the extension
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"uninstalled\": true,\n  \"softUninstall\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"note\": \"Disabled via chrome.management (soft uninstall). Hard removal requires user confirmation in chrome://extensions — never auto-destroyed.\",\n  \"detail\": {\n    \"extensionId\": \"forensic-recorder@mcpdom\",\n    \"enabled\": false,\n    \"simulated\": true\n  }\n}"
+        "text": "{\n  \"uninstalled\": true,\n  \"softUninstall\": true,\n  \"extensionId\": \"teledom@teledom\",\n  \"note\": \"Disabled via chrome.management (soft uninstall). Hard removal requires user confirmation in chrome://extensions — never auto-destroyed.\",\n  \"detail\": {\n    \"extensionId\": \"teledom@teledom\",\n    \"enabled\": false,\n    \"simulated\": true\n  }\n}"
       }
     ]
   }

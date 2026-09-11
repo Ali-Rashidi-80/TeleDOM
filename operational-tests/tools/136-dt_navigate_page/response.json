@@ -4,8 +4,8 @@
   "url": "https://app.internal/navigated",
   "detail": {
     "status": "EXECUTED_SUCCESSFULLY",
-    "executionId": "js_mtwhcuef_6",
-    "durationMs": 1,
+    "executionId": "js_mtx86qg2_10",
+    "durationMs": 2,
     "result": "{\n \"navigating\": true,\n \"url\": \"https://app.internal/dashboard\"\n}",
     "consoleOutput": [],
     "domChanged": false,

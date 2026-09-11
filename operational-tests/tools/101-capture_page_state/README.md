@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 2ms
+**Duration**: 5ms
 
 ## Test Objective
 Captures page state snapshot as comparison anchor
@@ -30,7 +30,7 @@ Captures page state snapshot as comparison anchor
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"snapshotId\": \"snap_mtwhcqvl_3\",\n  \"timestamp\": 1789102363665,\n  \"url\": \"https://app.internal/dashboard\",\n  \"title\": \"MCP Operational Acceptance DOM Fixture\",\n  \"viewport\": {\n    \"width\": 412,\n    \"height\": 915,\n    \"scrollX\": 0,\n    \"scrollY\": 0,\n    \"devicePixelRatio\": 2.625\n  },\n  \"domLength\": 4594,\n  \"domHash\": \"dd86b0d4\",\n  \"interactiveCount\": 10,\n  \"selectedRegions\": [],\n  \"extensionEnabled\": true,\n  \"pendingMutations\": 1,\n  \"annotationCount\": 0\n}"
+        "text": "{\n  \"snapshotId\": \"snap_mtx86oe6_3\",\n  \"timestamp\": 1789147430142,\n  \"url\": \"https://app.internal/dashboard\",\n  \"title\": \"MCP Operational Acceptance DOM Fixture\",\n  \"viewport\": {\n    \"width\": 412,\n    \"height\": 915,\n    \"scrollX\": 0,\n    \"scrollY\": 0,\n    \"devicePixelRatio\": 2.625\n  },\n  \"domLength\": 4594,\n  \"domHash\": \"dd86b0d4\",\n  \"interactiveCount\": 10,\n  \"selectedRegions\": [],\n  \"extensionEnabled\": true,\n  \"pendingMutations\": 1,\n  \"annotationCount\": 0\n}"
       }
     ]
   }

@@ -6,7 +6,7 @@
   "note": "heuristic impact model — predictions expose assumptions and verification paths",
   "tool": "td_predict_impact",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "counterfactual-simulation",
     "securityClass": "read-only"
   }

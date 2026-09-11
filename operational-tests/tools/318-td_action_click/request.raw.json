@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_318_td_action_click",
+  "method": "tools/call",
+  "params": {
+    "name": "td_action_click",
+    "arguments": {
+      "selector": "#primary-action-btn"
+    }
+  }
+}

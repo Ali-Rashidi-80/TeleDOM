@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_309_td_browser_forward",
+  "method": "tools/call",
+  "params": {
+    "name": "td_browser_forward",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

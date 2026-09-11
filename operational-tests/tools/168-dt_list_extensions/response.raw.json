@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"total\": 1,\n  \"extensions\": [\n    {\n      \"extensionId\": \"forensic-recorder@mcpdom\",\n      \"name\": \"Browser Forensic Recorder (MCPDOM)\",\n      \"version\": \"3.0.0\",\n      \"enabled\": true,\n      \"description\": \"The MCPDOM platform extension itself\",\n      \"installType\": \"development\"\n    }\n  ],\n  \"mode\": \"LIVE\",\n  \"simulated\": false\n}"
+        "text": "{\n  \"total\": 1,\n  \"extensions\": [\n    {\n      \"extensionId\": \"teledom@teledom\",\n      \"name\": \"TeleDOM Browser Intelligence Platform\",\n      \"version\": \"4.1.0\",\n      \"enabled\": true,\n      \"description\": \"The TeleDOM platform extension itself\",\n      \"installType\": \"development\"\n    }\n  ],\n  \"mode\": \"LIVE\",\n  \"simulated\": false\n}"
       }
     ]
   }

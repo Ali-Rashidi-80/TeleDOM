@@ -1,15 +1,15 @@
 # MCP-DOM Operational Acceptance Test Suite
 
-This directory contains complete operational acceptance test artifacts, raw JSON-RPC requests/responses, semantic assertions, DOM state snapshots, visual screenshots, and certification reports for all 306 exposed MCP capabilities.
+This directory contains complete operational acceptance test artifacts, raw JSON-RPC requests/responses, semantic assertions, DOM state snapshots, visual screenshots, and certification reports for all 350 exposed MCP capabilities.
 
 ## Directory Structure
 
 - `_inventory/`: Dynamic tool discovery schema and capability matrix.
 - `_fixtures/`: Deterministic DOM, injection, and visual geometry fixtures.
-- `tools/`: Dedicated evidence folders for each of the 306 MCP tools.
+- `tools/`: Dedicated evidence folders for each of the 350 MCP tools.
 - `scenarios/`: Autonomous multi-step Agent debugging scenarios.
 - `_reports/`: Full certification reports, capability matrix, and test logs.
 
 ## Certification Status
 
-**CERTIFIED** — 306/306 Capabilities Verified with 100% Passing Semantic Assertions across Real Stdio JSON-RPC Process Boundary.
+**CERTIFIED** — 350/350 Capabilities Verified with 100% Passing Semantic Assertions across Real Stdio JSON-RPC Process Boundary.

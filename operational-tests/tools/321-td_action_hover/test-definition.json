@@ -1,0 +1,18 @@
+{
+  "tool": "td_action_hover",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "CSS selector of the element"
+      }
+    },
+    "required": [
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

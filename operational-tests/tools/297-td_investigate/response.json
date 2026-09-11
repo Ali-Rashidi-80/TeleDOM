@@ -8,7 +8,7 @@
     "verification": "INCONCLUSIVE",
     "proofId": null,
     "plan": {
-      "incidentId": "incident:1:eb574aee",
+      "incidentId": "incident:1:04380bc6",
       "steps": [
         {
           "id": "scope",
@@ -75,7 +75,7 @@
   },
   "tool": "td_investigate",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "investigation-orchestration",
     "securityClass": "read-only"
   }

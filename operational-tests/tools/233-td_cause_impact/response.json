@@ -3,7 +3,7 @@
   "note": "event undefined not found in the session stream",
   "tool": "td_cause_impact",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "causal-intelligence",
     "securityClass": "read-only"
   }

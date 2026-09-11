@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_315_td_target_find",
+  "method": "tools/call",
+  "params": {
+    "name": "td_target_find",
+    "arguments": {
+      "selector": "#primary-action-btn"
+    }
+  }
+}

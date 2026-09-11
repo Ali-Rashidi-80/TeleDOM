@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "count": 1,
+  "artifacts": [
+    {
+      "kind": "custom-tool",
+      "name": "get_unread_messages",
+      "description": "agent-built abstraction over the fixture",
+      "tags": [
+        "operational"
+      ],
+      "updatedAt": "2026-09-11T17:23:57.425Z"
+    }
+  ],
+  "tool": "td_agent_artifact_list",
+  "capability": {
+    "version": "4.1.0",
+    "category": "agent-owned-tooling",
+    "securityClass": "read-only"
+  }
+}

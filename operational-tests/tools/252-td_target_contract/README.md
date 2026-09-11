@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 0ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"target contract requires a resolution with a best candidate (run td_resolve_target first)\",\"tool\":\"td_target_contract\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"target contract requires a resolution with a best candidate (run td_resolve_target first)\",\"tool\":\"td_target_contract\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

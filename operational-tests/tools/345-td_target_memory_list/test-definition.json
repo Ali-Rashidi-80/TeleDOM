@@ -1,0 +1,19 @@
+{
+  "tool": "td_target_memory_list",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "site": {
+        "type": "string",
+        "description": "Filter by site"
+      },
+      "semanticId": {
+        "type": "string",
+        "description": "Filter by semanticId"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

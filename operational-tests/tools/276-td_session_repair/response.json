@@ -12,7 +12,7 @@
   "note": "session replayed through a fresh mesh with hash-chain verification",
   "tool": "td_session_repair",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "reliability-recovery",
     "securityClass": "read-only"
   }

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 2ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"semantic\":{\"semanticId\":\"sem:c3e87a801165\",\"role\":\"html-region\",\"purpose\":\"html:html-region\",\"text\":\"MCP Operational Acceptance DOM Fixture\\n  \\n    body { font-family: sans-serif; padding: 20px; background: #0f172a;\",\"state\":\"enabled\",\"ownership\":null,\"stability\":0.56,\"visibility\":\"visible\",\"interactive\":false,\"selectorCandidates\":[\"html\"],\"accessibility\":{\"focusable\":false}},\"tool\":\"td_semantic_element\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"semantic\":{\"semanticId\":\"sem:c3e87a801165\",\"role\":\"html-region\",\"purpose\":\"html:html-region\",\"text\":\"MCP Operational Acceptance DOM Fixture\\n  \\n    body { font-family: sans-serif; padding: 20px; background: #0f172a;\",\"state\":\"enabled\",\"ownership\":null,\"stability\":0.56,\"visibility\":\"visible\",\"interactive\":false,\"selectorCandidates\":[\"html\"],\"accessibility\":{\"focusable\":false}},\"tool\":\"td_semantic_element\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

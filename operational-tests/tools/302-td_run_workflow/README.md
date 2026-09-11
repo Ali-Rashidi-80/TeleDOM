@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"steps\":[],\"tool\":\"td_run_workflow\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"error\":\"workflow must be a non-empty array of { id, tool, args } steps\",\"tool\":\"td_run_workflow\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false
@@ -42,4 +42,4 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
 
 ## Assertions
 - [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
-- [x] **Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)**: status, steps, tool, capability
+- [x] **Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)**: status, error, tool, capability

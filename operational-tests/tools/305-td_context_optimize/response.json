@@ -49,7 +49,7 @@
   "levels": "L0 identity / L1 semantic / L2 subtree / L3 evidence / L4 full",
   "tool": "td_context_optimize",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "investigation-orchestration",
     "securityClass": "read-only"
   }

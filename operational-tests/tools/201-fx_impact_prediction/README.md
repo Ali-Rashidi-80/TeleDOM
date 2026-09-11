@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 21ms
+**Duration**: 43ms
 
 ## Test Objective
 Predicts mutation impact across dimensions

@@ -1,0 +1,15 @@
+{
+  "tool": "td_dom_inspect",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tabId": {
+        "type": "number",
+        "description": "Optional tab id"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

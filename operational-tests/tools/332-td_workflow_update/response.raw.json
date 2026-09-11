@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_332_td_workflow_update",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"updated\":{\"name\":\"extension_smoke_test\",\"version\":\"1.1.0\",\"versions\":2},\"tool\":\"td_workflow_update\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"workflow-runtime\",\"securityClass\":\"reversible\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

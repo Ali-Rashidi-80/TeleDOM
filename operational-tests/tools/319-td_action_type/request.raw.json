@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_319_td_action_type",
+  "method": "tools/call",
+  "params": {
+    "name": "td_action_type",
+    "arguments": {
+      "selector": "#search-input",
+      "text": "typed by workflow"
+    }
+  }
+}

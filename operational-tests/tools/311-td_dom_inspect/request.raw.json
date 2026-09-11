@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_311_td_dom_inspect",
+  "method": "tools/call",
+  "params": {
+    "name": "td_dom_inspect",
+    "arguments": {}
+  }
+}

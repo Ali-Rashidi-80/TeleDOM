@@ -36,6 +36,8 @@ export class ObservatoryPanel {
   render(incident: ObservatoryIncident): void {
     this.host.innerHTML = '';
     this.host.className = 'tdom-observatory';
+    // v4.1 fix (E-15): the host div ships `hidden` — unhide on first render.
+    this.host.removeAttribute('hidden');
     this.host.appendChild(this.header(incident));
     const grid = document.createElement('div');
     grid.className = 'tdom-obs-grid';

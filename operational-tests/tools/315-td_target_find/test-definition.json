@@ -1,0 +1,23 @@
+{
+  "tool": "td_target_find",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "CSS selector"
+      },
+      "xpath": {
+        "type": "string",
+        "description": "XPath expression"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text to discover by intent"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

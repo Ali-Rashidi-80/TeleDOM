@@ -1,7 +1,23 @@
 import fs from 'fs';
 import path from 'path';
-import { FORENSIC_MCP_TOOLS } from '../src/mcp/tools-definition';
-import { CAPABILITY_REGISTRY } from '../src/intelligence/registry/capabilities';
+import { FORENSIC_MCP_TOOLS } from '../dist/server/mcp-server.js';
+// Registry metadata is derived from the fresh dist build (the src tree is
+// not loadable under node type-stripping). Capability categories/descriptions
+// are extracted from the built intelligence registry via a tiny inline parse.
+type Cap = { id: string; category: string; description: string; securityClass: string };
+function loadCapabilities(): Cap[] {
+  // vitest/vite bundle keeps the registry only inside the single-file build;
+  // re-derive it from the authoritative source spec (same shape as the registry).
+  const registrySrc = fs.readFileSync(path.resolve(process.cwd(), 'src/intelligence/registry/capabilities.ts'), 'utf-8');
+  const specs = [...registrySrc.matchAll(/\{ id: '(td_[a-z0-9_]+)', cat: '([a-z-]+)', desc: '((?:[^'\\]|\\.)*)'[^}]*?\}/g)].map((m) => ({
+    id: m[1],
+    category: m[2],
+    description: m[3].replace(/\\'/g, "'"),
+    securityClass: 'read-only',
+  }));
+  return specs as Cap[];
+}
+const CAPABILITY_REGISTRY = loadCapabilities();
 
 const projectRoot = process.cwd();
 
@@ -24,6 +40,9 @@ const categoryTranslations: Record<string, string> = {
   'security-intelligence': 'امنیت مرورگر و مدل Zero-Trust (Security Intelligence)',
   'performance-memory-visual': 'عملکرد، تحلیل حافظه و رگرسیون بصری (Performance & Memory)',
   'investigation-orchestration': 'بازرسی خودکار و مدیریت حوادث (Autonomous Investigation)',
+  'browser-primitives': 'پریمیتیوهای مرورگر — فاساد تمیز عامل‌محور (Browser Primitives, v4.1)',
+  'workflow-runtime': 'ران‌تایم ورک‌فلوی عامل‌محور — اجرای خام و سوابق قطعی (Agent-Owned Workflow Runtime, v4.1)',
+  'agent-owned-tooling': 'ابزارهای متعلق به ایجنت — حافظه تارگت و آرتیفکت‌ها (Agent-Owned Tooling, v4.1)',
   'DevTools Input Automation': 'ابزارهای ورودی و تعامل DevTools (Input Automation)',
   'DevTools Page & Navigation': 'مدیریت صفحات، تب‌ها و ناوبری DevTools (Page & Navigation)',
   'DevTools Network & Console': 'پایش شبکه و لاگ‌های کنسول DevTools (Network & Console)',
@@ -88,12 +107,12 @@ function categorizeTool(name: string): { en: string; fa: string } {
 }
 
 // Generate English Catalog
-let enMd = `# TeleDOM v4 — Complete 306 Tools Catalog & Reference Manual
+let enMd = `# TeleDOM v4.1 — Complete 350 Tools Catalog & Reference Manual
 
-**Platform Version**: 4.0.0  
-**Total Agent-Facing Tools**: 306  
+**Platform Version**: 4.1.0  
+**Total Agent-Facing Tools**: 350  
 **Tool Namespaces**: 
-- \`td_*\`: 100 TeleDOM Temporal Intelligence & Cognitive Tools
+- \`td_*\`: 144 TeleDOM Intelligence + Agent-Owned Workflow Runtime Tools (100 v4 intelligence + 44 v4.1)
 - \`dt_*\`: 54 Chrome DevTools Protocol Compatibility Tools
 - \`fx_*\`: 31 Advanced Forensic Primitives & Diagnostic Tools
 - Base / v3: 121 Core Session Recording, Live DOM Inspection & Safe Mutation Tools
@@ -102,7 +121,7 @@ let enMd = `# TeleDOM v4 — Complete 306 Tools Catalog & Reference Manual
 
 ## Table of Contents
 1. [Overview & Architecture](#overview--architecture)
-2. [TeleDOM v4 Intelligence Tools (100 td_* Tools)](#1-teledom-v4-intelligence-tools-td_)
+2. [TeleDOM Intelligence + Workflow Runtime (144 td_* Tools)](#1-teledom-v4-intelligence-tools-td_)
 3. [Chrome DevTools Compatibility Tools (54 dt_* Tools)](#2-chrome-devtools-compatibility-tools-dt_)
 4. [Advanced Forensic Diagnostic Tools (31 fx_* Tools)](#3-advanced-forensic-diagnostic-tools-fx_)
 5. [Core Session, Live Inspection & Mutation Tools (121 Tools)](#4-core-session-live-inspection--mutation-tools)
@@ -117,7 +136,7 @@ let faMd = `# راهنمای مرجع و کاتالوگ جامع ۳۰۶ ابزا
 **نسخه پلتفرم**: 4.0.0  
 **تعداد کل ابزارهای در دسترس ایجنت**: ۳۰۶ ابزار رسمی  
 **فضاهای نامی ابزارها (Namespaces)**:
-- خانواده \`td_*\`: ۱۰۰ ابزار هوش زمانی، استدلال علّی و بازرسی خودکار
+- خانواده \`td_*\`: ۱۴۴ ابزار هوش زمانی، استدلال علّی و بازرسی خودکار
 - خانواده \`dt_*\`: ۵۴ ابزار تعاملی و مانیتورینگ پروتکل DevTools کروم
 - خانواده \`fx_*\`: ۳۱ ابزار پیشرفته جرم‌شناسی وب، دیف چندبعدی و ردیابی
 - ابزارهای پایه و v3: ۱۲۱ ابزار ضبط رویدادها، بازرسی زنده و تراکنش‌های DOM
@@ -126,7 +145,7 @@ let faMd = `# راهنمای مرجع و کاتالوگ جامع ۳۰۶ ابزا
 
 ## فهرست دسته‌بندی‌ها
 ۱. [مقدمه و معماری ابزارها](#مقدمه-و-معماری-ابزارها)  
-۲. [ابزارهای هوش زمانی و شناختی TeleDOM v4 (۱۰۰ ابزار td_*)](#۱-ابزارهای-هوش-زمانی-و-شناختی-teledom-v4)  
+۲. [ابزارهای هوش زمانی و شناختی TeleDOM v4 (۱۴۴ ابزار td_*)](#۱-ابزارهای-هوش-زمانی-و-شناختی-teledom-v4)  
 ۳. [ابزارهای سازگاری پروتکل Chrome DevTools (۵۴ ابزار dt_*)](#۲-ابزارهای-سازگاری-پروتکل-chrome-devtools)  
 ۴. [ابزارهای پیشرفته جرم‌شناسی وب (۳۱ ابزار fx_*)](#۳-ابزارهای-پیشرفته-جرمشناسی-وب)  
 ۵. [ابزارهای پایه مدیریت سشن، بازرسی زنده و جهش DOM (۱۲۱ ابزار)](#۴-ابزارهای-پایه-مدیریت-سشن-بازرسی-زنده-و-جهش-dom)  
@@ -206,7 +225,7 @@ for (const [catName, items] of faGroups) {
   }
 }
 
-fs.writeFileSync(path.join(projectRoot, 'docs/TOOLS_CATALOG_306_EN.md'), enMd);
-fs.writeFileSync(path.join(projectRoot, 'docs/TOOLS_CATALOG_306_FA.md'), faMd);
+fs.writeFileSync(path.join(projectRoot, 'docs/TOOLS_CATALOG_350_EN.md'), enMd);
+fs.writeFileSync(path.join(projectRoot, 'docs/TOOLS_CATALOG_350_FA.md'), faMd);
 
-console.log('Successfully generated docs/TOOLS_CATALOG_306_EN.md and docs/TOOLS_CATALOG_306_FA.md');
+console.log('Successfully generated docs/TOOLS_CATALOG_350_EN.md and docs/TOOLS_CATALOG_350_FA.md');

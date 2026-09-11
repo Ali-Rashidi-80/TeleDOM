@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_316_td_target_check",
+  "method": "tools/call",
+  "params": {
+    "name": "td_target_check",
+    "arguments": {
+      "selector": "#primary-action-btn"
+    }
+  }
+}

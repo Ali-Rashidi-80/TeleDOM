@@ -3,7 +3,7 @@
   "note": "hypothesis undefined not found in any incident — run td_diagnose first",
   "tool": "td_cause_verify",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "causal-intelligence",
     "securityClass": "read-only"
   }

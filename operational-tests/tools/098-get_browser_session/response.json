@@ -1,39 +1,20 @@
 {
-  "sessionId": "sess_mtwhclla",
-  "startedAt": 1789102356814,
+  "sessionId": "sess_mtx86hoq",
+  "startedAt": 1789147421450,
   "url": "https://app.internal/dashboard",
   "title": "MCP Operational Acceptance DOM Fixture",
-  "tabs": [
-    {
-      "sessionTabId": "stab_1_mtwhcluz",
-      "browserTabId": 1,
-      "url": "https://app.internal/dashboard",
-      "title": "MCP Operational Acceptance DOM Fixture",
-      "createdAt": 1789102357163,
-      "lastSeenAt": 1789102357163,
-      "status": "OPEN"
-    },
-    {
-      "sessionTabId": "stab_2_mtwhclv4",
-      "browserTabId": 2,
-      "url": "about:blank",
-      "title": "Simulated Tab 2",
-      "createdAt": 1789102357168,
-      "lastSeenAt": 1789102357168,
-      "status": "OPEN"
-    }
-  ],
-  "activeTabId": "stab_2_mtwhclv4",
+  "tabs": [],
+  "activeTabId": null,
   "viewport": {
     "width": 412,
     "height": 915,
     "isModified": true
   },
   "extensionEnabled": true,
-  "snapshotCount": 2,
+  "snapshotCount": 0,
   "commandCount": 52,
   "annotationCount": 0,
   "mutationHistoryCount": 0,
-  "timelineEventCount": 74,
+  "timelineEventCount": 52,
   "note": "Session model reflects this server process's live + simulation state."
 }

@@ -1,0 +1,15 @@
+{
+  "tool": "td_console_read",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "level": {
+        "type": "string",
+        "description": "Level filter: all | error | warning | log | info"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

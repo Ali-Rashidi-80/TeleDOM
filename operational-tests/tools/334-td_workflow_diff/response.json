@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "a": "extension_smoke_test@1.0.0",
+  "b": "extension_smoke_test@1.1.0",
+  "changed": false,
+  "summary": {
+    "addedSteps": [],
+    "removedSteps": [],
+    "changedSteps": [],
+    "policyChanged": false,
+    "descriptionChanged": true
+  },
+  "patches": [],
+  "tool": "td_workflow_diff",
+  "capability": {
+    "version": "4.1.0",
+    "category": "workflow-runtime",
+    "securityClass": "read-only"
+  }
+}

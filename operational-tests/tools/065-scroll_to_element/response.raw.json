@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"success\": true,\n  \"scrollBefore\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"scrollAfter\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"requested\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"targetSelector\": \"#scroll-target\"\n}"
+        "text": "{\n  \"success\": true,\n  \"scrollBefore\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"scrollAfter\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"requested\": {\n    \"x\": 0,\n    \"y\": 0\n  }\n}"
       }
     ]
   }

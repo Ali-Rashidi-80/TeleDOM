@@ -1,0 +1,18 @@
+{
+  "tool": "td_workflow_run_get",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "runId": {
+        "type": "string",
+        "description": "Run id"
+      }
+    },
+    "required": [
+      "runId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

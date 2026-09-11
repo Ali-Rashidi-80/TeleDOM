@@ -4,7 +4,7 @@ import { execSync } from 'child_process';
 
 async function buildPortableExe() {
   console.log('======================================================');
-  console.log('🔨 BUILDING WINDOWS PORTABLE EXECUTABLE (v2.1.0)');
+  console.log('🔨 BUILDING WINDOWS PORTABLE EXECUTABLE (v4.1.0)');
   console.log('======================================================\n');
 
   const rootDir = process.cwd();

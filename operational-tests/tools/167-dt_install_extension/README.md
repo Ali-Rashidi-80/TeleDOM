@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 4ms
 
 ## Test Objective
 Reports extension installation capability

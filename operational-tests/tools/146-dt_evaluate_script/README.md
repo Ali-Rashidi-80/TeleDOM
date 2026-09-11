@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 3ms
 
 ## Test Objective
 Evaluates a script in the page context
@@ -32,7 +32,7 @@ Evaluates a script in the page context
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"evaluated\": true,\n  \"pageId\": \"page_1\",\n  \"result\": \"{\\n \\\"ok\\\": true,\\n \\\"fixture\\\": \\\"MCP Operational Acceptance DOM Fixture\\\"\\n}\",\n  \"execution\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"durationMs\": 0,\n    \"executionId\": \"js_mtwhcuew_10\",\n    \"consoleOutput\": [],\n    \"domChanged\": false\n  }\n}"
+        "text": "{\n  \"evaluated\": true,\n  \"pageId\": \"page_1\",\n  \"result\": \"{\\n \\\"ok\\\": true,\\n \\\"fixture\\\": \\\"MCP Operational Acceptance DOM Fixture\\\"\\n}\",\n  \"execution\": {\n    \"status\": \"EXECUTED_SUCCESSFULLY\",\n    \"durationMs\": 0,\n    \"executionId\": \"js_mtx86qh0_14\",\n    \"consoleOutput\": [],\n    \"domChanged\": false\n  }\n}"
       }
     ]
   }

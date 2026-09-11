@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "deleted": "custom-tool/get_unread_messages",
+  "tool": "td_agent_artifact_delete",
+  "capability": {
+    "version": "4.1.0",
+    "category": "agent-owned-tooling",
+    "securityClass": "reversible"
+  }
+}

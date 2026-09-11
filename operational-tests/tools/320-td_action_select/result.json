@@ -1,0 +1,9 @@
+{
+  "tool": "td_action_select",
+  "index": 320,
+  "status": "PASS",
+  "executionTimeMs": 313,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-11T17:23:56.163Z"
+}

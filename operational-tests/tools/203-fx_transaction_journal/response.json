@@ -27,9 +27,9 @@
       "diff": "no property-level diff detected",
       "evidence": [
         "no undo record (transaction-internal rollback only)",
-        "mutation id mut_mtwhcqul_3"
+        "mutation id mut_mtx86oct_3"
       ],
-      "timestamp": 1789102363642,
+      "timestamp": 1789147430112,
       "rollbackInfo": {
         "reversible": false,
         "undoRecordAvailable": false,
@@ -38,7 +38,7 @@
       "outcome": "COMMITTED"
     },
     {
-      "transactionId": "tx_mtwhcque_2",
+      "transactionId": "tx_mtx86oca_2",
       "actor": "mcp-agent",
       "intent": "transaction:begin",
       "operation": "unknown",
@@ -54,7 +54,7 @@
         "no undo record (transaction-internal rollback only)",
         "mutation id unavailable"
       ],
-      "timestamp": 1789102363622,
+      "timestamp": 1789147430075,
       "rollbackInfo": {
         "reversible": false,
         "undoRecordAvailable": false,
@@ -86,9 +86,9 @@
       "diff": "class: ∅ → op-test",
       "evidence": [
         "no undo record (transaction-internal rollback only)",
-        "mutation id mut_mtwhcqu2_1"
+        "mutation id mut_mtx86obv_1"
       ],
-      "timestamp": 1789102363621,
+      "timestamp": 1789147430071,
       "rollbackInfo": {
         "reversible": false,
         "undoRecordAvailable": false,

@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"UNSUPPORTED\",\"reason\":\"td_safe_apply requires a live mutation adapter; in this process only simulation branches are available (use td_simulate_change + td_branch_merge)\",\"tool\":\"td_safe_apply\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"counterfactual-simulation\",\"securityClass\":\"side-effects\"}}"
+        "text": "{\"status\":\"UNSUPPORTED\",\"reason\":\"td_safe_apply requires a live mutation adapter; in this process only simulation branches are available (use td_simulate_change + td_branch_merge)\",\"tool\":\"td_safe_apply\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"counterfactual-simulation\",\"securityClass\":\"side-effects\"}}"
       }
     ],
     "isError": false

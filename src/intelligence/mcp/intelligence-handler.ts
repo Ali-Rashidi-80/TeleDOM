@@ -18,6 +18,8 @@ import { CounterfactualSpec, CounterfactualKind } from '../simulation/counterfac
 import { TdomFormat } from '../incident/format';
 import { assessConfidence, ProvenanceRecord } from '../evidence/confidence';
 import { VerificationContract } from '../verification';
+import * as fs from 'fs';
+import { AgentStore, handleWorkflowTool, WORKFLOW_TOOL_NAMES, ToolPipeline } from '../workflow';
 
 export interface IntelligenceResult {
   status: 'PASS' | 'FAIL' | 'INCONCLUSIVE' | 'UNSUPPORTED' | 'DEGRADED' | 'PARTIAL';
@@ -26,9 +28,34 @@ export interface IntelligenceResult {
 
 export class IntelligenceToolsHandler {
   readonly platform = new TeleDOMPlatform();
+  /** v4.1: durable agent-owned artifact store (workflows, targets, tooling). */
+  readonly agentStore = new AgentStore();
+  /** v4.1: root MCP pipeline — injected by MCPToolsHandler after construction
+   * so td_* tools can route to ANY tool (browser primitives included). */
+  private rootPipeline: ToolPipeline | null = null;
+  private memoryRestored = false;
 
   knows(name: string): boolean {
     return TD_TOOL_NAMES.has(name);
+  }
+
+  /** v4.1: wire the authoritative tool pipeline (called by MCPToolsHandler). */
+  attachRoot(pipeline: ToolPipeline): void {
+    this.rootPipeline = pipeline;
+  }
+
+  /** v4.1: lazily restore persisted agent memory on first touch. */
+  private ensureMemory(): void {
+    if (this.memoryRestored) return;
+    this.memoryRestored = true;
+    const snapshot = this.agentStore.loadMemorySnapshot();
+    if (Array.isArray(snapshot) && snapshot.length > 0) {
+      this.platform.memory.restore(snapshot as any);
+    }
+  }
+
+  private persistMemory(): void {
+    this.agentStore.saveMemorySnapshot(this.platform.memory.serialize());
   }
 
   async handleToolCall(name: string, args: Record<string, any>): Promise<MCPToolCallResult> {
@@ -44,6 +71,12 @@ export class IntelligenceToolsHandler {
   }
 
   private async dispatch(name: string, args: Record<string, any>): Promise<IntelligenceResult> {
+    // v4.1: Agent-Owned Workflow Runtime tools route FIRST — they may call
+    // back into any tool through the root pipeline (browser primitives,
+    // workflow execution, target memory, agent artifacts).
+    if (WORKFLOW_TOOL_NAMES.has(name)) {
+      return handleWorkflowTool(name, args, { pipeline: this.rootPipeline, store: this.agentStore });
+    }
     switch (name) {
       // ===================== A. Temporal Intelligence =====================
       case 'td_temporal_query': {
@@ -241,7 +274,16 @@ export class IntelligenceToolsHandler {
         if (!incident) return { status: 'INCONCLUSIVE', note: `incident ${args.incidentId} not found — create one via td_investigate first` };
         const exporter = new TdomFormat();
         const exported = exporter.export(incident, { compress: Boolean(args.compress) });
-        const artifactRef = `artifact://tdom/${incident.incidentId}${args.compress ? '.gz' : ''}`;
+        // v4.1 fix: actually WRITE the artifact (previously bytes were discarded)
+        const outPath = typeof args.outputPath === 'string' && args.outputPath
+          ? args.outputPath
+          : `./.teledom_agent/artifacts/tdom/${incident.incidentId}.tdom${args.compress ? '.gz' : ''}`;
+        try {
+          fs.mkdirSync(outPath.split('/').slice(0, -1).join('/') || '.', { recursive: true });
+          fs.writeFileSync(outPath, exported.bytes);
+        } catch (err: any) {
+          return { status: 'DEGRADED', note: `artifact generated but write failed: ${err?.message}`, byteLength: exported.bytes.length };
+        }
         return {
           status: 'PASS',
           incidentId: args.incidentId,
@@ -250,8 +292,8 @@ export class IntelligenceToolsHandler {
           byteLength: exported.bytes.length,
           compression: exported.manifest.compression,
           sections: Object.keys(exported.manifest.sections),
-          artifactRef,
-          note: args.outputPath ? `artifact available for write to ${args.outputPath}` : 'artifact held in memory; pass outputPath to persist',
+          outputPath: outPath,
+          written: true,
         };
       }
       case 'td_evidence_timeline': {
@@ -776,19 +818,40 @@ export class IntelligenceToolsHandler {
         return { status: verification.result === 'PASS' ? 'PASS' : verification.result === 'FAIL' ? 'FAIL' : 'INCONCLUSIVE', verification };
       }
       case 'td_run_workflow': {
+        // v4.1 fix: route through the ROOT pipeline so steps can call ANY
+        // TeleDOM tool (browser primitives included — previously td_-only),
+        // and refuse vacuous empty-workflow PASS honestly.
+        if (!this.rootPipeline) {
+          return { status: 'UNSUPPORTED', note: 'workflow execution requires the root MCP pipeline' };
+        }
         const steps = (args.workflow ?? []) as { id: string; tool: string; args?: Record<string, unknown> }[];
+        if (!Array.isArray(steps) || steps.length === 0) {
+          return { status: 'INCONCLUSIVE', error: 'workflow must be a non-empty array of { id, tool, args } steps' };
+        }
         const results: { stepId: string; tool: string; status: string }[] = [];
         for (const step of steps) {
           try {
-            const r = await this.dispatch(step.tool, (step.args ?? {}) as Record<string, any>);
-            results.push({ stepId: step.id, tool: step.tool, status: r.status });
+            const r = await this.rootPipeline.handleToolCall(step.tool, (step.args ?? {}) as Record<string, any>);
+            const text = r?.content?.[0]?.text ?? '';
+            let parsed: any = text;
+            try { parsed = JSON.parse(text); } catch { /* plain text */ }
+            const status = r?.isError ? 'FAILED' : (parsed?.status ?? 'PASS');
+            results.push({ stepId: step.id, tool: step.tool, status });
+            if (r?.isError) break; // stop-on-error (deterministic, honest)
           } catch (err: any) {
             results.push({ stepId: step.id, tool: step.tool, status: `FAILED: ${err?.message}` });
+            break;
           }
         }
-        return { status: results.every((r) => r.status === 'PASS') ? 'PASS' : 'PARTIAL', steps: results };
+        return {
+          status: results.every((r) => r.status === 'PASS') ? 'PASS' : 'PARTIAL',
+          steps: results,
+          note: 'legacy inline runner — prefer td_workflow_save + td_workflow_run for persistence, records and policy',
+        };
       }
       case 'td_run_playbook': {
+        // v4.1 fix: actually EXECUTE the playbook chain through the root
+        // pipeline (previously it only listed the tool names — vacuous).
         const playbooks: Record<string, string[]> = {
           'disappearing-ui': ['td_diagnose', 'td_cause_trace', 'td_cause_counterfactual', 'td_evidence_proof'],
           'security-passive': ['td_security_posture', 'td_dom_xss_audit', 'td_cookie_storage_audit', 'td_csp_security_audit'],
@@ -797,19 +860,43 @@ export class IntelligenceToolsHandler {
         };
         const tools = playbooks[args.playbookId];
         if (!tools) return { status: 'INCONCLUSIVE', note: `playbook ${args.playbookId} not found. available: ${Object.keys(playbooks).join(', ')}` };
-        return { status: 'PASS', playbook: args.playbookId, steps: tools.map((t, i) => ({ step: i + 1, tool: t })) };
+        if (!this.rootPipeline) {
+          return { status: 'UNSUPPORTED', note: 'playbook execution requires the root MCP pipeline' };
+        }
+        const executed: { step: number; tool: string; status: string }[] = [];
+        for (let i = 0; i < tools.length; i++) {
+          try {
+            const r = await this.rootPipeline.handleToolCall(tools[i], { sessionId: args.sessionId });
+            const text = r?.content?.[0]?.text ?? '';
+            let parsed: any = text;
+            try { parsed = JSON.parse(text); } catch { /* plain text */ }
+            executed.push({ step: i + 1, tool: tools[i], status: r?.isError ? 'FAILED' : (parsed?.status ?? 'PASS') });
+          } catch (err: any) {
+            executed.push({ step: i + 1, tool: tools[i], status: `FAILED: ${err?.message}` });
+          }
+        }
+        const allPass = executed.every((s) => s.status === 'PASS');
+        return { status: allPass ? 'PASS' : 'PARTIAL', playbook: args.playbookId, steps: executed, executed: true };
       }
       case 'td_memory': {
+        this.ensureMemory();
         if (args.action === 'store') {
           const item = this.platform.memory.store(args.kind ?? 'known-failure', args.statement ?? '', { origin: 'td_memory', evidenceRefs: args.evidenceRefs ?? [] }, args.confidence ?? 0.7);
-          return { status: 'PASS', stored: { memoryId: item.memoryId, validated: item.validated, confidence: item.confidence } };
+          this.persistMemory(); // v4.1: agent memory survives process restarts
+          return { status: 'PASS', stored: { memoryId: item.memoryId, validated: item.validated, confidence: item.confidence }, persisted: true };
         }
         if (args.action === 'validate') {
           this.platform.memory.validate(args.memoryId, args.outcome === 'CONTRADICTED' ? 'CONTRADICTED' : 'CONFIRMED');
+          this.persistMemory();
           return { status: 'PASS', memoryId: args.memoryId, outcome: args.outcome };
         }
+        if (args.action === 'clear') {
+          this.platform.memory.restore([]);
+          this.persistMemory();
+          return { status: 'PASS', cleared: true };
+        }
         const items = this.platform.memory.query(args.query ?? {});
-        return { status: 'PASS', items, stats: this.platform.memory.stats() };
+        return { status: 'PASS', items, stats: this.platform.memory.stats(), persisted: true };
       }
       case 'td_context_optimize': {
         const planned = this.platform.contextPlanner.plan(

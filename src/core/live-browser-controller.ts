@@ -57,7 +57,8 @@ export class LiveBrowserController {
   private simulationTabs: SimulationTab[] = [];
   private simulationTabCounter = 0;
   private simulationExtensions = [
-    { id: 'forensic-recorder@mcpdom', name: 'Browser Forensic Recorder (MCPDOM)', version: '3.0.0', description: 'The MCPDOM platform extension itself', enabled: true, installType: 'development' as const, isApp: false },
+    // v4.1 fix (E-18): stale v3 identity surfaced by list_extensions.
+    { id: 'teledom@teledom', name: 'TeleDOM Browser Intelligence Platform', version: '4.1.0', description: 'The TeleDOM platform extension itself', enabled: true, installType: 'development' as const, isApp: false },
   ];
   private regionCapture = new RegionCaptureEngine();
 

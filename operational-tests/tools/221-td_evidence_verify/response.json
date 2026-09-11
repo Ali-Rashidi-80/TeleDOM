@@ -7,12 +7,12 @@
     "mustNotHoldResults": [],
     "evidenceCollected": [],
     "missingEvidence": [],
-    "observedAt": 1789102369112,
+    "observedAt": 1789147433915,
     "rationale": "all postconditions held and required evidence was collected within 2000ms"
   },
   "tool": "td_evidence_verify",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "evidence-provenance",
     "securityClass": "read-only"
   }

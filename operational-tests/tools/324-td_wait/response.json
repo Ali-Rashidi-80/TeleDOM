@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "satisfied": true,
+  "condition": "dom_stable",
+  "waitedMs": 101,
+  "timeoutMs": 1000,
+  "detail": "dom length 4594, 1 polls",
+  "tool": "td_wait",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "read-only"
+  }
+}

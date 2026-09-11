@@ -1,9 +1,9 @@
 {
-  "status": "PASS",
-  "steps": [],
+  "status": "INCONCLUSIVE",
+  "error": "workflow must be a non-empty array of { id, tool, args } steps",
   "tool": "td_run_workflow",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "investigation-orchestration",
     "securityClass": "read-only"
   }

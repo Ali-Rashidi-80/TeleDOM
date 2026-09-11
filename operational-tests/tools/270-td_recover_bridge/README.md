@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 353ms
+**Duration**: 352ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PARTIAL\",\"recovery\":{\"at\":1789102370225,\"failure\":\"bridge-disconnect\",\"attempt\":3,\"outcome\":\"FAILED\",\"preserved\":[\"incidents(0)\",\"entities(0)\",\"evidence(1)\",\"checkpoints(10)\",\"temporal-head(0)\",\"tab-mapping(0)\"],\"lost\":[\"live-connection\"],\"reason\":\"no live browser adapter wired in this process; recovery machinery exercised, live reattach unavailable\"},\"preserved\":[\"incidents(0)\",\"entities(0)\",\"evidence(1)\",\"checkpoints(10)\",\"temporal-head(0)\",\"tab-mapping(0)\"],\"tool\":\"td_recover_bridge\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PARTIAL\",\"recovery\":{\"at\":1789147435022,\"failure\":\"bridge-disconnect\",\"attempt\":3,\"outcome\":\"FAILED\",\"preserved\":[\"incidents(0)\",\"entities(0)\",\"evidence(1)\",\"checkpoints(10)\",\"temporal-head(0)\",\"tab-mapping(0)\"],\"lost\":[\"live-connection\"],\"reason\":\"no live browser adapter wired in this process; recovery machinery exercised, live reattach unavailable\"},\"preserved\":[\"incidents(0)\",\"entities(0)\",\"evidence(1)\",\"checkpoints(10)\",\"temporal-head(0)\",\"tab-mapping(0)\"],\"tool\":\"td_recover_bridge\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_337_td_workflow_validate",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"valid\":true,\"issues\":[],\"stepCount\":5,\"note\":\"structural envelope validation only — semantics are the agent’s responsibility\",\"tool\":\"td_workflow_validate\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"workflow-runtime\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

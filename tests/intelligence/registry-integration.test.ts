@@ -1,8 +1,9 @@
 /**
- * TeleDOM v4 registry + MCP integration + golden/chaos suites.
- * Verifies: exactly 100 td_* tools, no duplicates, single source of truth
- * generation, MCP dispatch works end-to-end, tool list includes td_*,
- * version sync, golden suite metrics, chaos containment.
+ * TeleDOM v4.1 registry + MCP integration + golden/chaos suites.
+ * Verifies: exactly 144 td_* tools (100 v4 intelligence + 44 v4.1
+ * workflow-runtime), no duplicates, single source of truth generation,
+ * MCP dispatch works end-to-end, tool list includes td_*, version sync,
+ * golden suite metrics, chaos containment, agent-owned workflow runtime.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -17,13 +18,16 @@ import { runChaosSuite } from '../../src/intelligence/chaos/chaos';
 import { EventMesh, EventEnvelope } from '../../src/intelligence/kernel';
 
 describe('v4 capability registry — single source of truth', () => {
-  it('contains exactly 100 td_* capabilities in 10 categories of 10', () => {
+  it('contains exactly 144 td_* capabilities in 13 categories (10×10 + 22 + 14 + 8)', () => {
     const validation = validateRegistry();
     expect(validation.problems).toEqual([]);
     expect(validation.valid).toBe(true);
-    expect(CAPABILITY_REGISTRY.length).toBe(100);
+    expect(CAPABILITY_REGISTRY.length).toBe(144);
     const stats = registryStats();
-    expect(Object.keys(stats.byCategory)).toHaveLength(10);
+    expect(Object.keys(stats.byCategory)).toHaveLength(13);
+    expect(stats.byCategory['browser-primitives']).toBe(22);
+    expect(stats.byCategory['workflow-runtime']).toBe(14);
+    expect(stats.byCategory['agent-owned-tooling']).toBe(8);
   });
 
   it('every capability declares full metadata (security, cost, modes, deps, tests, docs)', () => {
@@ -41,7 +45,7 @@ describe('v4 capability registry — single source of truth', () => {
   });
 
   it('MCP tool definitions are GENERATED from the registry (no drift possible)', () => {
-    expect(TELEDOM_INTELLIGENCE_TOOLS.length).toBe(100);
+    expect(TELEDOM_INTELLIGENCE_TOOLS.length).toBe(144);
     expect(TELEDOM_INTELLIGENCE_TOOLS.map((t) => t.name)).toEqual(CAPABILITY_REGISTRY.map((c) => c.id));
     for (const tool of TELEDOM_INTELLIGENCE_TOOLS) {
       const cap = capabilityById(tool.name)!;
@@ -58,26 +62,26 @@ describe('v4 capability registry — single source of truth', () => {
 
   it('compatibility matrix is generated with full totals', () => {
     const matrix = generateCompatibilityMatrix();
-    expect(matrix.totals.td).toBe(100);
-    expect(matrix.totals.surfaces.total).toBe(306);
-    expect(matrix.rows.length).toBe(100);
+    expect(matrix.totals.td).toBe(144);
+    expect(matrix.totals.surfaces.total).toBe(350);
+    expect(matrix.rows.length).toBe(144);
     expect(matrix.rows.every((r) => r.schemaParity === 'full')).toBe(true);
   });
 
   it('version history documents the progression', () => {
-    expect(VERSION_HISTORY).toHaveLength(9);
-    expect(VERSION_HISTORY[0].version).toBe('4.0.0');
-    expect(TELEDOM_VERSION.version).toBe('4.0.0');
+    expect(VERSION_HISTORY).toHaveLength(10);
+    expect(VERSION_HISTORY[0].version).toBe('4.1.0');
+    expect(TELEDOM_VERSION.version).toBe('4.1.0');
   });
 });
 
 describe('v4 MCP integration — the full tool surface', () => {
-  it('FORENSIC_MCP_TOOLS includes 306 tools (206 legacy + 100 td_*) with no collisions', () => {
-    expect(FORENSIC_MCP_TOOLS.length).toBe(306);
+  it('FORENSIC_MCP_TOOLS includes 350 tools (121 base + 54 dt_ + 31 fx_ + 144 td_) with no collisions', () => {
+    expect(FORENSIC_MCP_TOOLS.length).toBe(350);
     const names = FORENSIC_MCP_TOOLS.map((t) => t.name);
     const dupes = names.filter((n, i) => names.indexOf(n) !== i);
     expect(dupes).toEqual([]);
-    expect(names.filter((n) => n.startsWith('td_'))).toHaveLength(100);
+    expect(names.filter((n) => n.startsWith('td_'))).toHaveLength(144);
     expect(names.filter((n) => n.startsWith('dt_'))).toHaveLength(54);
     expect(names.filter((n) => n.startsWith('fx_'))).toHaveLength(31);
   });
@@ -141,8 +145,16 @@ describe('v4 MCP integration — the full tool surface', () => {
     expect(unknownBody.status).toBe('UNSUPPORTED');
   });
 
-  it('every one of the 100 td_* tools dispatches without crashing (smoke matrix)', async () => {
+  it('every one of the 144 td_* tools dispatches without crashing (smoke matrix)', async () => {
     const handler = new IntelligenceToolsHandler();
+    // v4.1: attach a minimal root pipeline so workflow/browser-facade tools
+    // can route — td_* delegates back to the handler, live tools are stubbed.
+    handler.attachRoot({
+      handleToolCall: async (name: string, callArgs: Record<string, any>) => {
+        if (TD_TOOL_NAMES.has(name)) return handler.handleToolCall(name, callArgs);
+        return { content: [{ type: 'text', text: JSON.stringify({ status: 'PASS', note: 'stubbed live tool', tool: name }) }] };
+      },
+    });
     // Seed a REAL causal chain session so intelligence tools have substance.
     const chain: [string, string][] = [
       ['user', 'click-submit'], ['network', 'request-failed'],
@@ -226,7 +238,7 @@ function smokeArgs(tool: string): Record<string, any> {
     td_resolve_target: { description: 'login button' },
     td_rank_targets: { candidates: [], query: {} },
     td_target_recover: { failedSelector: '#x', lastKnown: {} },
-    td_target_verify: { selector: '#login', intent: 'login' },
+    td_target_check: { selector: '#login', intent: 'login' },
     td_target_history: { entityId: 'e' },
     td_target_contract: { query: {}, resolution: {} },
     td_interaction_plan: { intent: 'click login' },
@@ -279,6 +291,40 @@ function smokeArgs(tool: string): Record<string, any> {
     td_plan_fix: { incidentId: 'nope' },
     td_validate_fix: { incidentId: 'nope', fixRef: 'f' },
     td_run_workflow: { workflow: [{ id: 's1', tool: 'td_evidence_hash', args: { artifact: { a: 1 } } }] },
+    td_browser_navigate: { url: 'https://example.test/' },
+    td_browser_back: {},
+    td_browser_forward: {},
+    td_browser_refresh: {},
+    td_dom_inspect: {},
+    td_dom_query: { query: 'submit' },
+    td_dom_extract: { selector: 'button' },
+    td_dom_snapshot: { format: 'html' },
+    td_target_find: { selector: '#submit' },
+    td_target_describe: { selector: '#submit' },
+    td_action_click: { selector: '#submit' },
+    td_action_type: { selector: '#input', text: 'hello' },
+    td_action_select: { selector: '#sel', value: 'a' },
+    td_action_hover: { selector: '#submit' },
+    td_action_press: { key: 'Enter' },
+    td_action_scroll: { y: 100 },
+    td_wait: { kind: 'dom_stable', timeoutMs: 500 },
+    td_screenshot: {},
+    td_execute_script: { code: 'return 1 + 1;' },
+    td_network_inspect: {},
+    td_console_read: {},
+    td_workflow_validate: { workflow: { schema: 'teledom.agent-workflow/1.0', name: 'smoke_wf', version: '1.0.0', steps: [{ id: 's1', tool: 'td_evidence_hash', args: { artifact: { a: 1 } } }] } },
+    td_workflow_list: {},
+    td_workflow_get: { name: 'smoke_wf' },
+    td_workflow_delete: { name: 'smoke_wf' },
+    td_workflow_runs: { limit: 5 },
+    td_workflow_run_get: { runId: 'run_none' },
+    td_workflow_replay: { runId: 'run_none' },
+    td_target_memory_list: { site: 'example.test' },
+    td_target_memory_get: { site: 'example.test', semanticId: 'submit' },
+    td_target_memory_delete: { site: 'example.test', semanticId: 'submit' },
+    td_agent_artifact_list: { kind: 'script' },
+    td_agent_artifact_get: { kind: 'script', name: 'none' },
+    td_agent_artifact_delete: { kind: 'script', name: 'none' },
     td_run_playbook: { playbookId: 'security-passive' },
     td_memory: { action: 'query' },
     td_context_optimize: { intent: 'status' },

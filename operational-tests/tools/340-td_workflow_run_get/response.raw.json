@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_340_td_workflow_run_get",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"INCONCLUSIVE\",\"error\":\"run \\\"run_none\\\" not found\",\"tool\":\"td_workflow_run_get\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"workflow-runtime\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

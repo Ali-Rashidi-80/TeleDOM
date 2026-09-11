@@ -3,7 +3,7 @@
   "note": "security regression comparison requires two recorded posture refs; provide beforeRef and afterRef from td_security_posture runs",
   "tool": "td_security_regression",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "security-intelligence",
     "securityClass": "read-only"
   }

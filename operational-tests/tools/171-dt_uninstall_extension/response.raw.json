@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"uninstalled\": true,\n  \"softUninstall\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"note\": \"Disabled via chrome.management (soft uninstall). Hard removal requires user confirmation in chrome://extensions — never auto-destroyed.\",\n  \"detail\": {\n    \"extensionId\": \"forensic-recorder@mcpdom\",\n    \"enabled\": false,\n    \"simulated\": true\n  }\n}"
+        "text": "{\n  \"uninstalled\": true,\n  \"softUninstall\": true,\n  \"extensionId\": \"teledom@teledom\",\n  \"note\": \"Disabled via chrome.management (soft uninstall). Hard removal requires user confirmation in chrome://extensions — never auto-destroyed.\",\n  \"detail\": {\n    \"extensionId\": \"teledom@teledom\",\n    \"enabled\": false,\n    \"simulated\": true\n  }\n}"
       }
     ]
   }

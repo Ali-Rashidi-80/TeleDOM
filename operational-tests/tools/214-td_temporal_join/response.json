@@ -4,7 +4,7 @@
   "clusterCount": 0,
   "tool": "td_temporal_join",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "temporal-intelligence",
     "securityClass": "read-only"
   }

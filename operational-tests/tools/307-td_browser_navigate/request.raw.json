@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_307_td_browser_navigate",
+  "method": "tools/call",
+  "params": {
+    "name": "td_browser_navigate",
+    "arguments": {
+      "url": "https://example.test/fixture"
+    }
+  }
+}

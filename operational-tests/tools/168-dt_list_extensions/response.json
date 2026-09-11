@@ -2,11 +2,11 @@
   "total": 1,
   "extensions": [
     {
-      "extensionId": "forensic-recorder@mcpdom",
-      "name": "Browser Forensic Recorder (MCPDOM)",
-      "version": "3.0.0",
+      "extensionId": "teledom@teledom",
+      "name": "TeleDOM Browser Intelligence Platform",
+      "version": "4.1.0",
       "enabled": true,
-      "description": "The MCPDOM platform extension itself",
+      "description": "The TeleDOM platform extension itself",
       "installType": "development"
     }
   ],

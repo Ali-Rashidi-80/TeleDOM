@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_350_td_agent_artifact_delete",
+  "method": "tools/call",
+  "params": {
+    "name": "td_agent_artifact_delete",
+    "arguments": {
+      "kind": "custom-tool",
+      "name": "get_unread_messages"
+    }
+  }
+}

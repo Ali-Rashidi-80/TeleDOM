@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "semanticCount": 63,
+  "semanticCount": 61,
   "semantic": [
     {
       "semanticId": "sem:c3e87a801165",
@@ -707,7 +707,7 @@
       }
     },
     {
-      "semanticId": "sem:41ebef0976af",
+      "semanticId": "sem:5ed2fdc1b29a",
       "role": "div-region",
       "purpose": "div:div-region",
       "text": "Original Static Text Content\n        \n          This element can be unmounted or restyled",
@@ -736,7 +736,6 @@
       "interactive": false,
       "selectorCandidates": [
         "#dynamic-text",
-        "p.op-test",
         "p"
       ],
       "accessibility": {
@@ -769,42 +768,6 @@
       "text": "This element can be unmounted or restyled",
       "state": "enabled",
       "ownership": "component@removable-card",
-      "stability": 0.67,
-      "visibility": "visible",
-      "interactive": false,
-      "selectorCandidates": [
-        "#removable-label",
-        "span"
-      ],
-      "accessibility": {
-        "focusable": false
-      }
-    },
-    {
-      "semanticId": "sem:bec5d5105a66",
-      "role": "div-region",
-      "purpose": "div:div-region",
-      "text": "This element can be unmounted or restyled",
-      "state": "enabled",
-      "ownership": "component@dynamic-wrapper",
-      "stability": 0.56,
-      "visibility": "visible",
-      "interactive": false,
-      "selectorCandidates": [
-        "div.card",
-        "div"
-      ],
-      "accessibility": {
-        "focusable": false
-      }
-    },
-    {
-      "semanticId": "sem:f45424942c09",
-      "role": "span-region",
-      "purpose": "span:span-region",
-      "text": "This element can be unmounted or restyled",
-      "state": "enabled",
-      "ownership": "component@div",
       "stability": 0.67,
       "visibility": "visible",
       "interactive": false,
@@ -1058,11 +1021,48 @@
       "accessibility": {
         "focusable": true
       }
+    },
+    {
+      "semanticId": "sem:ef9d6cbbc909",
+      "role": "submit-action",
+      "purpose": "action:save settings",
+      "text": "Save Settings",
+      "state": "enabled",
+      "ownership": "component@settings-form",
+      "stability": 0.78,
+      "visibility": "visible",
+      "interactive": true,
+      "selectorCandidates": [
+        "#settings-submit-btn",
+        "button.btn",
+        "button"
+      ],
+      "accessibility": {
+        "focusable": true
+      }
+    },
+    {
+      "semanticId": "sem:c954a836117d",
+      "role": "page-footer",
+      "purpose": "footer:page-footer",
+      "text": "Forensic MCP Operational Test Suite — Browser Environment",
+      "state": "enabled",
+      "ownership": "component@body",
+      "stability": 0.67,
+      "visibility": "visible",
+      "interactive": false,
+      "selectorCandidates": [
+        "#fixture-footer",
+        "footer"
+      ],
+      "accessibility": {
+        "focusable": false
+      }
     }
   ],
   "tool": "td_semantic_page",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "semantic-component",
     "securityClass": "read-only"
   }

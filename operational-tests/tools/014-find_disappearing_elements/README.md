@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 7ms
+**Duration**: 6ms
 
 ## Test Objective
 Discovers short-lived button 10 that existed for 330ms

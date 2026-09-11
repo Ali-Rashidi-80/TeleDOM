@@ -6,8 +6,8 @@ import * as path from "path";
 import path__default from "path";
 import * as readline from "readline";
 import * as zlib from "zlib";
-import { gunzipSync } from "zlib";
-import { createHash } from "crypto";
+import { gunzipSync, gzipSync } from "zlib";
+import { createHash, randomUUID } from "crypto";
 class SessionSerializer {
   static exportBundle(metadata, initialSnapshot, events, checkpoints, annotations = []) {
     return {
@@ -7233,7 +7233,8 @@ class LiveBrowserController {
   simulationTabs = [];
   simulationTabCounter = 0;
   simulationExtensions = [
-    { id: "forensic-recorder@mcpdom", name: "Browser Forensic Recorder (MCPDOM)", version: "3.0.0", description: "The MCPDOM platform extension itself", enabled: true, installType: "development", isApp: false }
+    // v4.1 fix (E-18): stale v3 identity surfaced by list_extensions.
+    { id: "teledom@teledom", name: "TeleDOM Browser Intelligence Platform", version: "4.1.0", description: "The TeleDOM platform extension itself", enabled: true, installType: "development", isApp: false }
   ];
   regionCapture = new RegionCaptureEngine();
   constructor(nodeRegistry) {
@@ -9342,10 +9343,10 @@ class ProjectManager {
   // Project lifecycle
   // ------------------------------------------------------------------
   createProject(options) {
-    const safeName = this.sanitizeName(options.name);
-    const projectDir = path__default.join(this.baseDir, safeName);
+    const safeName2 = this.sanitizeName(options.name);
+    const projectDir = path__default.join(this.baseDir, safeName2);
     if (fs__default.existsSync(projectDir)) {
-      throw new Error(`PROJECT_EXISTS: a project named "${safeName}" already exists at ${projectDir}. Choose another name or use capturePageRegion on the existing project.`);
+      throw new Error(`PROJECT_EXISTS: a project named "${safeName2}" already exists at ${projectDir}. Choose another name or use capturePageRegion on the existing project.`);
     }
     for (const sub of ["regions", "screenshots", "dom", "commands", "diffs", "metadata", "instructions"]) {
       fs__default.mkdirSync(path__default.join(projectDir, sub), { recursive: true });
@@ -9357,7 +9358,7 @@ class ProjectManager {
     const manifest = {
       schemaVersion: PROJECT_SCHEMA_VERSION,
       projectId,
-      name: safeName,
+      name: safeName2,
       description: options.description,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -9387,7 +9388,7 @@ class ProjectManager {
     fs__default.writeFileSync(path__default.join(projectDir, "page.json"), JSON.stringify(pageManifest, null, 2));
     fs__default.writeFileSync(
       path__default.join(projectDir, "instructions", "README.md"),
-      this.instructionsMarkdown(safeName, options.url, options.title),
+      this.instructionsMarkdown(safeName2, options.url, options.title),
       "utf-8"
     );
     return manifest;
@@ -9408,8 +9409,8 @@ class ProjectManager {
     return out.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
   }
   getProject(name) {
-    const safeName = this.sanitizeName(name);
-    const projectDir = path__default.join(this.baseDir, safeName);
+    const safeName2 = this.sanitizeName(name);
+    const projectDir = path__default.join(this.baseDir, safeName2);
     const manifestPath = path__default.join(projectDir, "project.json");
     if (!fs__default.existsSync(manifestPath)) return null;
     const manifest = JSON.parse(fs__default.readFileSync(manifestPath, "utf-8"));
@@ -9419,8 +9420,8 @@ class ProjectManager {
     return { manifest, page, regions, projectDir };
   }
   deleteProject(name) {
-    const safeName = this.sanitizeName(name);
-    const projectDir = path__default.join(this.baseDir, safeName);
+    const safeName2 = this.sanitizeName(name);
+    const projectDir = path__default.join(this.baseDir, safeName2);
     if (!fs__default.existsSync(projectDir)) return false;
     fs__default.rmSync(projectDir, { recursive: true, force: true });
     return true;
@@ -10272,7 +10273,24 @@ const TOOL_GROUPS = [
   {
     group: "inspection",
     description: "Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
-    tools: ["inspect_live_page", "inspect_live_element", "get_element_visual_state", "get_live_dom_snapshot", "get_live_dom_subtree", "get_tab_console_logs", "get_tab_network_requests", "get_element_ancestry", "get_element_accessibility", "get_computed_style", "analyze_dom", "search_dom", "get_page_blueprint", "get_element_fingerprint", "detect_semantic_elements"]
+    // v4.1 fix (E-14): removed phantom `detect_semantic_elements` (never
+    // existed in FORENSIC_MCP_TOOLS — the catalog advertised an uncallable tool).
+    tools: ["inspect_live_page", "inspect_live_element", "get_element_visual_state", "get_live_dom_snapshot", "get_live_dom_subtree", "get_tab_console_logs", "get_tab_network_requests", "get_element_ancestry", "get_element_accessibility", "get_computed_style", "analyze_dom", "search_dom", "get_page_blueprint", "get_element_fingerprint"]
+  },
+  {
+    group: "browser-primitives",
+    description: "v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+    tools: ["td_browser_navigate", "td_browser_back", "td_browser_forward", "td_browser_refresh", "td_dom_inspect", "td_dom_query", "td_dom_extract", "td_dom_snapshot", "td_target_find", "td_target_check", "td_target_describe", "td_action_click", "td_action_type", "td_action_select", "td_action_hover", "td_action_press", "td_action_scroll", "td_wait", "td_screenshot", "td_execute_script", "td_network_inspect", "td_console_read"]
+  },
+  {
+    group: "workflow-runtime",
+    description: "v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+    tools: ["td_workflow_save", "td_workflow_get", "td_workflow_list", "td_workflow_update", "td_workflow_delete", "td_workflow_clone", "td_workflow_diff", "td_workflow_export", "td_workflow_import", "td_workflow_validate", "td_workflow_run", "td_workflow_runs", "td_workflow_run_get", "td_workflow_replay"]
+  },
+  {
+    group: "agent-owned-tooling",
+    description: "v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+    tools: ["td_target_memory_save", "td_target_memory_get", "td_target_memory_list", "td_target_memory_delete", "td_agent_artifact_save", "td_agent_artifact_get", "td_agent_artifact_list", "td_agent_artifact_delete"]
   },
   {
     group: "targeting",
@@ -11418,7 +11436,7 @@ function domainOf(event) {
       return "DOM";
   }
 }
-function summarize$1(event) {
+function summarize$2(event) {
   const p = event.payload || {};
   switch (event.type) {
     case "DOM_MUTATION_ADD":
@@ -11468,7 +11486,7 @@ class TemporalCorrelationEngine {
         sequence: e.sequence,
         targetNodeId: e.targetNodeId,
         targetSelector: e.targetSelector,
-        summary: summarize$1(e),
+        summary: summarize$2(e),
         payload: e.payload || {}
       });
     }
@@ -12501,7 +12519,7 @@ class ExtendedToolsHandler {
       const result = await this.route(name, args || {});
       const durationMs = Date.now() - start;
       if (this.commandRecorder.isRecording() && name !== "record_commands_stop") {
-        this.commandRecorder.recordCommand(name, args, "SUCCESS", summarize(result));
+        this.commandRecorder.recordCommand(name, args, "SUCCESS", summarize$1(result));
       }
       this.localController.session.recordCommand(name, args, "SUCCESS", durationMs);
       return result;
@@ -13072,7 +13090,7 @@ class ExtendedToolsHandler {
     return { saved: true, outputPath: resolvedPath.replace(/\\/g, "/"), sizeBytes: fs__default.statSync(resolvedPath).size };
   }
 }
-function summarize(result) {
+function summarize$1(result) {
   const text = result?.content?.[0]?.text || "";
   return summarizeText(text);
 }
@@ -17359,7 +17377,9 @@ async function analyzeFontRendering(input) {
           loaded.push({ family: face.family, status: face.status, weight: face.weight || null });
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      // font API unavailable in this context — reported via fontsApi flag
+    }
     return { fontFaces: faces, fontUsages: fontUsages.slice(0, 60), documentFonts: loaded, fontsApi: !!document.fonts };
   })()`;
   const raw = await runInPage(probe, input.tabId);
@@ -18587,7 +18607,7 @@ async function runInPageSafe(code, tabId) {
   }
 }
 const TELEDOM_VERSION = {
-  version: "4.0.0",
+  version: "4.1.0",
   build: {
     generatedAt: (/* @__PURE__ */ new Date()).toISOString()
   }
@@ -18702,7 +18722,60 @@ const TD_TOOLS_SPEC = [
   { id: "td_run_playbook", cat: "investigation-orchestration", desc: "Run a reusable investigation/security/performance playbook.", props: { playbookId: { type: "string", description: "Playbook to run", required: true } }, required: ["playbookId"] },
   { id: "td_memory", cat: "investigation-orchestration", desc: "Store and retrieve durable project/session investigation knowledge (provenance + confidence).", props: { action: { type: "string", description: "store | query | validate", required: true }, kind: { type: "string", description: "Memory kind" }, statement: { type: "string", description: "Memory statement" }, query: { type: "object", description: "Query filter" } }, required: ["action"] },
   { id: "td_context_optimize", cat: "investigation-orchestration", desc: "Select the smallest sufficient evidence/state set for the agent (L0–L4).", props: { intent: { type: "string", description: "The decision the agent must make next", required: true }, requestedLevel: { type: "string", description: "L0|L1|L2|L3|L4" } }, required: ["intent"] },
-  { id: "td_incident_close", cat: "investigation-orchestration", desc: "Close an incident ONLY after reproduction, remediation and verification criteria pass.", props: { incidentId: { type: "string", description: "Incident to close", required: true } }, security: "policy-gated", required: ["incidentId"] }
+  { id: "td_incident_close", cat: "investigation-orchestration", desc: "Close an incident ONLY after reproduction, remediation and verification criteria pass.", props: { incidentId: { type: "string", description: "Incident to close", required: true } }, security: "policy-gated", required: ["incidentId"] },
+  // ================= K. Browser Primitives (v4.1, 22) =================
+  // Thin, stable facade over the live pipeline. Browser-first; no API ever
+  // required. These are the verbs agents compose into their own workflows.
+  { id: "td_browser_navigate", cat: "browser-primitives", desc: "Navigate the browser to a URL (optionally in a new tab, then wait for DOM stability).", props: { url: { type: "string", description: "Target URL", required: true }, newTab: { type: "boolean", description: "Open in a new tab instead of the current one" }, waitForStable: { type: "boolean", description: "Wait for DOM stability after navigation (default true)" } }, required: ["url"], security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_browser_back", cat: "browser-primitives", desc: "Go back one step in browser history.", props: {}, security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_browser_forward", cat: "browser-primitives", desc: "Go forward one step in browser history.", props: {}, security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_browser_refresh", cat: "browser-primitives", desc: "Reload the current tab.", props: {}, security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_dom_inspect", cat: "browser-primitives", desc: "Observe the current page (structure, ready state, url, interactive inventory) — the agent’s eyes.", props: { tabId: { type: "number", description: "Optional tab id" } }, modes: ["live", "simulation"] },
+  { id: "td_dom_query", cat: "browser-primitives", desc: "Search the DOM by text/tag/attribute patterns with scored results — find elements without knowing selectors.", props: { query: { type: "string", description: "Search text (matched against text, tags, attributes)", required: true }, tag: { type: "string", description: "Restrict to tag name" }, attr: { type: "string", description: "Require attribute name" }, attrValue: { type: "string", description: "Attribute value filter" }, limit: { type: "number", description: "Max results (default 50)" } }, required: ["query"], modes: ["live", "simulation"] },
+  { id: "td_dom_extract", cat: "browser-primitives", desc: "Extract structured data from any selector with per-field expressions (works on ANY site — no API needed).", props: { selector: { type: "string", description: "CSS selector for the collection", required: true }, fields: { type: "object", description: "Output name → JS expression per element (default: text/tag/attrs)" }, limit: { type: "number", description: "Max elements (default 100)" } }, required: ["selector"], modes: ["live", "simulation"] },
+  { id: "td_dom_snapshot", cat: "browser-primitives", desc: "Capture the current DOM snapshot (html or structured json).", props: { format: { type: "string", description: "html | json", enum: ["html", "json"] } }, modes: ["live", "simulation"] },
+  { id: "td_target_find", cat: "browser-primitives", desc: "Find an element by selector, xpath or text and build the canonical multi-strategy TARGET object with confidence.", props: { selector: { type: "string", description: "CSS selector" }, xpath: { type: "string", description: "XPath expression" }, text: { type: "string", description: "Text to discover by intent" } }, modes: ["live", "simulation"] },
+  { id: "td_target_check", cat: "browser-primitives", desc: "Verify a target is still resolvable at the required confidence — the cheap check that replaces full DOM re-analysis.", props: { selector: { type: "string", description: "CSS selector to verify", required: true }, minConfidence: { type: "number", description: "Minimum confidence threshold (default 0)" } }, required: ["selector"], modes: ["live", "simulation"] },
+  { id: "td_target_describe", cat: "browser-primitives", desc: "Describe a target’s identity: accessibility properties + structural fingerprint (what to store in target memory).", props: { selector: { type: "string", description: "CSS selector to describe", required: true } }, required: ["selector"], modes: ["live", "simulation"] },
+  { id: "td_action_click", cat: "browser-primitives", desc: "Click an element with before/after state and effect measurement.", props: { selector: { type: "string", description: "CSS selector of the element", required: true } }, required: ["selector"], security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_action_type", cat: "browser-primitives", desc: "Type text into an input element.", props: { selector: { type: "string", description: "CSS selector of the input", required: true }, text: { type: "string", description: "Text to type", required: true } }, required: ["selector", "text"], security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_action_select", cat: "browser-primitives", desc: "Select an option in a select element.", props: { selector: { type: "string", description: "CSS selector of the select", required: true }, value: { type: "string", description: "Value or label to select", required: true } }, required: ["selector", "value"], security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_action_hover", cat: "browser-primitives", desc: "Hover over an element (menus, tooltips).", props: { selector: { type: "string", description: "CSS selector of the element", required: true } }, required: ["selector"], security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_action_press", cat: "browser-primitives", desc: "Press a keyboard key / combo page-wide (Enter, Escape, ctrl+s…).", props: { key: { type: "string", description: "Key or combo", required: true } }, required: ["key"], security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_action_scroll", cat: "browser-primitives", desc: "Scroll the page by deltas or scroll an element into view.", props: { x: { type: "number", description: "Horizontal pixel delta" }, y: { type: "number", description: "Vertical pixel delta" }, selector: { type: "string", description: "Scroll this element into view instead" } }, security: "side-effects", modes: ["live", "simulation"] },
+  { id: "td_wait", cat: "browser-primitives", desc: "Wait for a meaningful condition (dom_stable, selector_present/visible/absent, text_present, url_contains, element_count, readiness_state).", props: { kind: { type: "string", description: "Condition kind", required: true }, selector: { type: "string", description: "Selector for selector_* / element_count" }, text: { type: "string", description: "Text for text_present / url_contains" }, count: { type: "number", description: "Expected count" }, timeoutMs: { type: "number", description: "Timeout (default 5000ms)" } }, required: ["kind"], modes: ["live", "simulation"] },
+  { id: "td_screenshot", cat: "browser-primitives", desc: "Capture a screenshot of the current page as visual evidence.", props: {}, modes: ["live"] },
+  { id: "td_execute_script", cat: "browser-primitives", desc: "Escape hatch: execute JavaScript in the page (Shadow DOM, canvas UI, virtualized lists — the agent decides the method).", props: { code: { type: "string", description: "JavaScript source (async/await supported; use return)", required: true }, timeoutMs: { type: "number", description: "Timeout (default 5000ms)" } }, required: ["code"], security: "dangerous", modes: ["live", "simulation"] },
+  { id: "td_network_inspect", cat: "browser-primitives", desc: "Escape hatch: read captured network requests (optionally filtered by URL substring).", props: { urlContains: { type: "string", description: "URL substring filter" }, limit: { type: "number", description: "Max entries (default 50)" } }, modes: ["live", "simulation"] },
+  { id: "td_console_read", cat: "browser-primitives", desc: "Escape hatch: read captured console logs (optionally filtered by level).", props: { level: { type: "string", description: "Level filter: all | error | warning | log | info" } }, modes: ["live", "simulation"] },
+  // ================= L. Workflow Runtime (v4.1, 14) =================
+  // Agent-owned workflows: TeleDOM stores, retrieves, executes (dumb),
+  // records and replays. It NEVER designs, optimizes or repairs them.
+  { id: "td_workflow_save", cat: "workflow-runtime", desc: "Save an agent-authored workflow (envelope-validated, stored verbatim with full version history).", props: { workflow: { type: "object", description: "teledom.agent-workflow/1.0 object: { schema, name, version, steps[{id,tool,args,onError,retry,requireApproval,timeoutMs}], inputs, policy, metadata }", required: true } }, required: ["workflow"], security: "reversible", tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_get", cat: "workflow-runtime", desc: "Get a saved workflow (current or a specific version).", props: { name: { type: "string", description: "Workflow name", required: true }, version: { type: "string", description: "Specific version (default: current)" } }, required: ["name"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_list", cat: "workflow-runtime", desc: "List saved workflows with versions, step counts and tags.", props: {}, tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_update", cat: "workflow-runtime", desc: "Update an existing workflow (agent edits the definition; version history preserved).", props: { workflow: { type: "object", description: "Updated workflow object", required: true } }, required: ["workflow"], security: "reversible", tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_clone", cat: "workflow-runtime", desc: "Clone a workflow (optionally to a new name/version) — the agent’s edit starting point.", props: { name: { type: "string", description: "Source workflow", required: true }, version: { type: "string", description: "Source version" }, as: { type: "string", description: "Clone name (default <name>_copy)" }, newVersion: { type: "string", description: "Clone version" }, description: { type: "string", description: "Clone description" } }, required: ["name"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_diff", cat: "workflow-runtime", desc: "Structural diff between two workflows or two versions of one workflow.", props: { name: { type: "string", description: "Workflow name" }, a: { type: "string", description: "Workflow A" }, aVersion: { type: "string", description: "Version A" }, b: { type: "string", description: "Workflow B" }, bVersion: { type: "string", description: "Version B" } }, tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_export", cat: "workflow-runtime", desc: "Export a workflow (+ version history) as a portable JSON package.", props: { name: { type: "string", description: "Workflow name", required: true } }, required: ["name"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_import", cat: "workflow-runtime", desc: "Import a workflow package from td_workflow_export (cross-project portability).", props: { export: { type: "object", description: "Export package object", required: true }, includeVersions: { type: "boolean", description: "Also import version history" } }, required: ["export"], security: "reversible", tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_validate", cat: "workflow-runtime", desc: "Validate a workflow envelope (structure only — semantics are the agent’s responsibility).", props: { workflow: { type: "object", description: "Workflow object to validate", required: true } }, required: ["workflow"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_run", cat: "workflow-runtime", desc: "DUMB execution: run a saved or inline workflow step-by-step through the full MCP pipeline with policy enforcement (approval gates, tool/domain allowlists, caps), template variables and a deterministic execution record.", props: { name: { type: "string", description: "Saved workflow name" }, version: { type: "string", description: "Version to run" }, workflow: { type: "object", description: "Inline workflow object" }, inputs: { type: "object", description: "Input values for {{inputs.*}} templates" }, approvedSteps: { type: "array", description: "Step ids approved after a BLOCKED run" }, dryRun: { type: "boolean", description: "Validate + plan only, do not execute" } }, security: "policy-gated", cost: "high", tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_runs", cat: "workflow-runtime", desc: "List deterministic execution records (optionally filtered by workflow).", props: { name: { type: "string", description: "Filter by workflow name" }, limit: { type: "number", description: "Max entries (default 50)" } }, tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_run_get", cat: "workflow-runtime", desc: "Get a full execution record: per-step status, args-as-executed, timing, metrics, errors.", props: { runId: { type: "string", description: "Run id", required: true } }, required: ["runId"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_replay", cat: "workflow-runtime", desc: "Deterministically re-execute a recorded run’s steps verbatim (replay run #183 — why did it succeed last week?).", props: { runId: { type: "string", description: "Run to replay", required: true } }, required: ["runId"], security: "policy-gated", cost: "high", tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_workflow_delete", cat: "workflow-runtime", desc: "Delete a workflow and its version history (execution runs are kept as evidence).", props: { name: { type: "string", description: "Workflow name", required: true } }, required: ["name"], security: "reversible", tests: ["tests/intelligence/workflow.test.ts"] },
+  // ================= M. Agent-Owned Tooling (v4.1, 8) =================
+  // The agent builds its own tools; TeleDOM stores them without
+  // interpreting them. Learned targets kill repeated DOM analysis.
+  { id: "td_target_memory_save", cat: "agent-owned-tooling", desc: "Save a learned target (semantic identity + locators + confidence + history) so future runs skip DOM re-analysis.", props: { site: { type: "string", description: "Site scope (origin or *)", required: true }, semanticId: { type: "string", description: "Agent-chosen semantic id, e.g. comments_tab", required: true }, identity: { type: "object", description: "{ role, accessibleName, component, route, text }" }, locators: { type: "object", description: "{ aria, role, text, css, xpath, geometry }" }, confidence: { type: "number", description: "Current confidence 0..1 (default 0.8)" }, failedSelector: { type: "string", description: "Selector that failed (history)" }, notes: { type: "string", description: "Agent notes (how to re-verify, when to repair)" } }, required: ["site", "semanticId"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_target_memory_get", cat: "agent-owned-tooling", desc: "Get a learned target by site + semanticId.", props: { site: { type: "string", description: "Site scope", required: true }, semanticId: { type: "string", description: "Semantic id", required: true } }, required: ["site", "semanticId"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_target_memory_list", cat: "agent-owned-tooling", desc: "List learned targets (optionally filtered by site/semanticId).", props: { site: { type: "string", description: "Filter by site" }, semanticId: { type: "string", description: "Filter by semanticId" } }, tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_target_memory_delete", cat: "agent-owned-tooling", desc: "Delete a learned target.", props: { site: { type: "string", description: "Site scope", required: true }, semanticId: { type: "string", description: "Semantic id", required: true } }, required: ["site", "semanticId"], security: "reversible", tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_agent_artifact_save", cat: "agent-owned-tooling", desc: "Save an agent artifact (custom tool, script, policy, memory, note) — stored verbatim, never interpreted.", props: { kind: { type: "string", description: "custom-tool | script | policy | memory | note", required: true }, name: { type: "string", description: "Artifact name", required: true }, content: { type: "object", description: "Agent payload (any JSON)", required: true }, description: { type: "string", description: "Optional description" }, tags: { type: "array", description: "Optional tags" } }, required: ["kind", "name", "content"], security: "reversible", tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_agent_artifact_get", cat: "agent-owned-tooling", desc: "Get an agent artifact by kind + name.", props: { kind: { type: "string", description: "Artifact kind", required: true }, name: { type: "string", description: "Artifact name", required: true } }, required: ["kind", "name"], tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_agent_artifact_list", cat: "agent-owned-tooling", desc: "List agent artifacts (optionally by kind/tag).", props: { kind: { type: "string", description: "Filter by kind" }, tag: { type: "string", description: "Filter by tag" } }, tests: ["tests/intelligence/workflow.test.ts"] },
+  { id: "td_agent_artifact_delete", cat: "agent-owned-tooling", desc: "Delete an agent artifact.", props: { kind: { type: "string", description: "Artifact kind", required: true }, name: { type: "string", description: "Artifact name", required: true } }, required: ["kind", "name"], security: "reversible", tests: ["tests/intelligence/workflow.test.ts"] }
 ];
 const CAPABILITY_VERSION = TELEDOM_VERSION.version;
 const CAPABILITY_REGISTRY = TD_TOOLS_SPEC.map((spec) => ({
@@ -18724,8 +18797,8 @@ const CAPABILITY_REGISTRY = TD_TOOLS_SPEC.map((spec) => ({
   supportedModes: spec.modes ?? ["live", "recorded", "simulation"],
   dependencies: internalDependencies(spec.id),
   tests: spec.tests ?? [testFor(spec.id)],
-  docs: `docs/intelligence/capabilities/${spec.id}.md`,
-  compatibility: { minKernelVersion: "4.0.0" },
+  docs: `docs/intelligence/CAPABILITIES.md#${spec.id}`,
+  compatibility: { minKernelVersion: CAPABILITY_VERSION },
   experimental: spec.experimental ?? false
 }));
 function internalDependencies(toolId) {
@@ -18747,7 +18820,7 @@ function internalDependencies(toolId) {
   return ["kernel:events"];
 }
 function testFor(toolId) {
-  return `tests/intelligence/registry.test.ts (${toolId})`;
+  return `tests/intelligence/registry-integration.test.ts (${toolId})`;
 }
 function capabilityById(id) {
   return CAPABILITY_REGISTRY.find((c) => c.id === id);
@@ -20511,13 +20584,14 @@ class TdomFormat {
       sections,
       manifestHash: "",
       compatibility: {
-        minReaderVersion: "12.0.0",
+        minReaderVersion: "4.0.0",
+        // v4.1 fix (E-9): format readers need 4.x, not the stale '12.0.0'
         schemaVersions: { event: 1, evidence: 1, incident: 1, proof: 1 }
       }
     };
     manifest.manifestHash = computeHash({ sections, formatVersion: TDOM_FORMAT_VERSION, generator: manifest.generator });
     const payload = Buffer.from(JSON.stringify({ manifest, content }), "utf-8");
-    const bytes = opts.compress ? gzipSync(payload) : payload;
+    const bytes = opts.compress ? compressSync(payload) : payload;
     return { bytes, manifest };
   }
   /**
@@ -20559,9 +20633,8 @@ class TdomFormat {
 function looksGzipped(bytes) {
   return bytes.length > 2 && bytes[0] === 31 && bytes[1] === 139;
 }
-function gzipSync(data) {
-  const zlib2 = require("zlib");
-  return zlib2.gzipSync(data);
+function compressSync(data) {
+  return gzipSync(data);
 }
 class VerificationEngine {
   /**
@@ -22328,10 +22401,1357 @@ class TeleDOMPlatform {
     };
   }
 }
+const WORKFLOW_SCHEMA = "teledom.agent-workflow/1.0";
+const RUN_KEEP_LIMIT = 500;
+const MAX_RUNS_PER_WORKFLOW = 100;
+function safeName(name) {
+  if (typeof name !== "string") return null;
+  const trimmed = name.trim();
+  if (!trimmed || trimmed.length > 128) return null;
+  if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/.test(trimmed)) return null;
+  if (trimmed.includes("..")) return null;
+  return trimmed;
+}
+function validateWorkflow(input) {
+  const issues = [];
+  const w = input;
+  if (!input || typeof input !== "object") {
+    return { valid: false, issues: [{ path: "$", message: "workflow must be an object" }] };
+  }
+  if (w.schema !== WORKFLOW_SCHEMA) {
+    issues.push({ path: "$.schema", message: `must equal "${WORKFLOW_SCHEMA}" (got ${JSON.stringify(w.schema)})` });
+  }
+  if (typeof w.name !== "string" || !safeName(w.name)) {
+    issues.push({ path: "$.name", message: "required, 1-128 chars, [A-Za-z0-9._-], no leading dash" });
+  }
+  if (typeof w.version !== "string" || !/^\d+\.\d+\.\d+/.test(w.version)) {
+    issues.push({ path: "$.version", message: 'required semver-ish string, e.g. "1.0.0"' });
+  }
+  if (w.steps == null || !Array.isArray(w.steps)) {
+    issues.push({ path: "$.steps", message: "required array of steps" });
+  } else {
+    if (w.steps.length === 0) {
+      issues.push({ path: "$.steps", message: "empty workflow — nothing to execute" });
+    }
+    const seen = /* @__PURE__ */ new Set();
+    w.steps.forEach((s, i) => {
+      const p = `$.steps[${i}]`;
+      if (!s || typeof s !== "object") {
+        issues.push({ path: p, message: "step must be an object" });
+        return;
+      }
+      if (typeof s.id !== "string" || !s.id) {
+        issues.push({ path: `${p}.id`, message: "required non-empty string" });
+      } else if (seen.has(s.id)) {
+        issues.push({ path: `${p}.id`, message: `duplicate step id "${s.id}"` });
+      } else {
+        seen.add(s.id);
+      }
+      if (typeof s.tool !== "string" || !s.tool) {
+        issues.push({ path: `${p}.tool`, message: "required TeleDOM tool name" });
+      }
+      if (s.args != null && (typeof s.args !== "object" || Array.isArray(s.args))) {
+        issues.push({ path: `${p}.args`, message: "must be an object" });
+      }
+      if (s.onError !== void 0 && !["abort", "continue", "skip"].includes(s.onError)) {
+        issues.push({ path: `${p}.onError`, message: "must be abort | continue | skip" });
+      }
+      if (s.retry !== void 0 && (typeof s.retry !== "object" || typeof s.retry.count !== "number" || s.retry.count < 0 || s.retry.count > 10)) {
+        issues.push({ path: `${p}.retry.count`, message: "must be a number in [0,10]" });
+      }
+      if (s.timeoutMs !== void 0 && (typeof s.timeoutMs !== "number" || s.timeoutMs <= 0)) {
+        issues.push({ path: `${p}.timeoutMs`, message: "must be a positive number" });
+      }
+    });
+  }
+  if (w.policy != null) {
+    const pol = w.policy;
+    for (const k of ["allowedTools", "deniedTools", "requireApprovalFor", "allowedDomains", "deniedDomains"]) {
+      if (pol[k] !== void 0 && (!Array.isArray(pol[k]) || pol[k].some((x) => typeof x !== "string"))) {
+        issues.push({ path: `$.policy.${k}`, message: "must be an array of strings" });
+      }
+    }
+    for (const k of ["maxSteps", "maxRuntimeMs", "maxStepMs"]) {
+      if (pol[k] !== void 0 && (typeof pol[k] !== "number" || pol[k] <= 0)) {
+        issues.push({ path: `$.policy.${k}`, message: "must be a positive number" });
+      }
+    }
+  }
+  return { valid: issues.length === 0, issues };
+}
+class AgentStore {
+  root;
+  constructor(baseDir) {
+    this.root = baseDir ?? process.env.TELEDOM_AGENT_STORE_DIR ?? path.join(process.cwd(), ".teledom_agent");
+  }
+  ensured = false;
+  ensureDir() {
+    if (this.ensured) return;
+    const artifactKinds = ["custom-tool", "script", "policy", "memory", "note"];
+    for (const sub of ["workflows", "runs", "targets", ...artifactKinds.map((k) => path.join("artifacts", k))]) {
+      fs.mkdirSync(path.join(this.root, sub), { recursive: true });
+    }
+    this.ensured = true;
+  }
+  get storeDir() {
+    return this.root;
+  }
+  // ── atomic write helper ────────────────────────────────────────────────
+  writeJson(file, data) {
+    this.ensureDir();
+    const tmp = `${file}.tmp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    fs.writeFileSync(tmp, JSON.stringify(data, null, 2), "utf-8");
+    fs.renameSync(tmp, file);
+  }
+  readJson(file) {
+    try {
+      return JSON.parse(fs.readFileSync(file, "utf-8"));
+    } catch {
+      return null;
+    }
+  }
+  listJsonNames(dir) {
+    try {
+      return fs.readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
+    } catch {
+      return [];
+    }
+  }
+  // ── Workflows (versioned envelopes) ───────────────────────────────────
+  saveWorkflow(wf) {
+    const name = safeName(wf.name);
+    if (!name) throw new Error("invalid workflow name");
+    const file = path.join(this.root, "workflows", `${name}.json`);
+    const existing = this.readJson(file);
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const workflow = { ...wf, name, updatedAt: now, createdAt: existing?.current.createdAt ?? now };
+    const envelope = existing ? {
+      current: workflow,
+      versions: [
+        ...existing.versions.filter((v) => v.version !== workflow.version),
+        { version: workflow.version, savedAt: now, workflow }
+      ]
+    } : { current: workflow, versions: [{ version: workflow.version, savedAt: now, workflow }] };
+    this.writeJson(file, envelope);
+    return envelope;
+  }
+  getWorkflow(name, version) {
+    const safe = safeName(name);
+    if (!safe) return null;
+    const envelope = this.readJson(path.join(this.root, "workflows", `${safe}.json`));
+    if (!envelope) return null;
+    if (!version || version === envelope.current.version) return envelope.current;
+    return envelope.versions.find((v) => v.version === version)?.workflow ?? null;
+  }
+  getWorkflowEnvelope(name) {
+    const safe = safeName(name);
+    if (!safe) return null;
+    return this.readJson(path.join(this.root, "workflows", `${safe}.json`));
+  }
+  listWorkflows() {
+    return this.listJsonNames(path.join(this.root, "workflows")).map((f) => {
+      const env = this.readJson(path.join(this.root, "workflows", f));
+      return env ? {
+        name: env.current.name,
+        version: env.current.version,
+        description: env.current.description,
+        tags: env.current.tags,
+        steps: env.current.steps?.length ?? 0,
+        versions: env.versions.length,
+        updatedAt: env.current.updatedAt
+      } : { name: f.replace(/\.json$/, ""), version: "?", steps: 0, versions: 0, updatedAt: "?" };
+    });
+  }
+  deleteWorkflow(name) {
+    const safe = safeName(name);
+    if (!safe) return false;
+    const file = path.join(this.root, "workflows", `${safe}.json`);
+    if (!fs.existsSync(file)) return false;
+    fs.unlinkSync(file);
+    return true;
+  }
+  // ── Execution records (runs) ──────────────────────────────────────────
+  saveRun(run) {
+    const file = path.join(this.root, "runs", `${run.id}.json`);
+    this.writeJson(file, run);
+    this.pruneRuns();
+    return run;
+  }
+  getRun(runId) {
+    const safe = safeName(runId);
+    if (!safe) return null;
+    return this.readJson(path.join(this.root, "runs", `${safe}.json`));
+  }
+  listRuns(filter) {
+    const all = [];
+    for (const f of this.listJsonNames(path.join(this.root, "runs"))) {
+      const run = this.readJson(path.join(this.root, "runs", f));
+      if (!run) continue;
+      if (filter?.workflowName && run.workflowName !== filter.workflowName) continue;
+      all.push(run);
+    }
+    all.sort((a, b) => b.startedAt - a.startedAt);
+    const limit = filter?.limit ?? 50;
+    return all.slice(0, limit).map((r) => ({
+      id: r.id,
+      workflowName: r.workflowName,
+      workflowVersion: r.workflowVersion,
+      status: r.status,
+      startedAt: r.startedAt,
+      durationMs: r.metrics?.durationMs,
+      steps: r.steps?.length ?? 0,
+      replayOf: r.replayOf
+    }));
+  }
+  pruneRuns() {
+    const dir = path.join(this.root, "runs");
+    const files = this.listJsonNames(dir).map((f) => ({
+      file: path.join(dir, f),
+      mtime: fs.statSync(path.join(dir, f)).mtimeMs
+    }));
+    if (files.length <= RUN_KEEP_LIMIT) return;
+    files.sort((a, b) => a.mtime - b.mtime);
+    for (const f of files.slice(0, files.length - RUN_KEEP_LIMIT)) {
+      try {
+        fs.unlinkSync(f.file);
+      } catch {
+      }
+    }
+    const byName = /* @__PURE__ */ new Map();
+    for (const f of files) {
+      const run = this.readJson(f.file);
+      if (!run) continue;
+      const list = byName.get(run.workflowName) ?? [];
+      list.push(f.file);
+      byName.set(run.workflowName, list);
+    }
+    for (const [name, list] of byName) {
+      if (name && list.length > MAX_RUNS_PER_WORKFLOW) {
+        for (const file of list.slice(0, list.length - MAX_RUNS_PER_WORKFLOW)) {
+          try {
+            fs.unlinkSync(file);
+          } catch {
+          }
+        }
+      }
+    }
+  }
+  // ── Learned targets (target memory) ───────────────────────────────────
+  targetId(site, semanticId) {
+    const norm = (s) => s.trim().toLowerCase().replace(/[^a-z0-9*-]+/g, "_");
+    return `${norm(site)}__${norm(semanticId)}`;
+  }
+  saveTarget(t) {
+    const id = this.targetId(t.site, t.semanticId);
+    const file = path.join(this.root, "targets", `${id}.json`);
+    const existing = this.readJson(file);
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const target = {
+      ...t,
+      id,
+      history: {
+        // history ACCUMULATES across saves (deduped, bounded) — this is the
+        // whole point of target memory: successful/failed selectors persist.
+        successfulSelectors: Array.from(/* @__PURE__ */ new Set([
+          ...existing?.history.successfulSelectors ?? [],
+          ...t.history.successfulSelectors ?? []
+        ])).slice(-20),
+        failedSelectors: Array.from(/* @__PURE__ */ new Set([
+          ...existing?.history.failedSelectors ?? [],
+          ...t.history.failedSelectors ?? []
+        ])).slice(-20),
+        resolvedCount: Math.max(existing?.history.resolvedCount ?? 0, t.history.resolvedCount ?? 0),
+        lastResolvedAt: t.history.lastResolvedAt ?? existing?.history.lastResolvedAt
+      },
+      createdAt: existing?.createdAt ?? now,
+      updatedAt: now
+    };
+    this.writeJson(file, target);
+    return target;
+  }
+  getTarget(site, semanticId) {
+    const id = this.targetId(site, semanticId);
+    return this.readJson(path.join(this.root, "targets", `${id}.json`));
+  }
+  listTargets(filter) {
+    const out = [];
+    for (const f of this.listJsonNames(path.join(this.root, "targets"))) {
+      const t = this.readJson(path.join(this.root, "targets", f));
+      if (!t) continue;
+      if (filter?.site && t.site !== filter.site && t.site !== "*") continue;
+      if (filter?.semanticId && t.semanticId !== filter.semanticId) continue;
+      out.push({ id: t.id, site: t.site, semanticId: t.semanticId, confidence: t.confidence?.current ?? 0, css: t.locators?.css, updatedAt: t.updatedAt });
+    }
+    return out;
+  }
+  deleteTarget(site, semanticId) {
+    const id = this.targetId(site, semanticId);
+    const file = path.join(this.root, "targets", `${id}.json`);
+    if (!fs.existsSync(file)) return false;
+    fs.unlinkSync(file);
+    return true;
+  }
+  // ── Generic agent artifacts ───────────────────────────────────────────
+  saveArtifact(kind, name, content, meta) {
+    const safe = safeName(name);
+    if (!safe) throw new Error("invalid artifact name");
+    const file = path.join(this.root, "artifacts", kind, `${safe}.json`);
+    const existing = this.readJson(file);
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const artifact = {
+      id: existing?.id ?? randomUUID(),
+      kind,
+      name: safe,
+      content,
+      description: meta?.description,
+      tags: meta?.tags,
+      createdAt: existing?.createdAt ?? now,
+      updatedAt: now
+    };
+    this.writeJson(file, artifact);
+    return artifact;
+  }
+  getArtifact(kind, name) {
+    const safe = safeName(name);
+    if (!safe) return null;
+    return this.readJson(path.join(this.root, "artifacts", kind, `${safe}.json`));
+  }
+  listArtifacts(kind, tag) {
+    const kinds = kind ? [kind] : ["custom-tool", "script", "policy", "memory", "note"];
+    const out = [];
+    for (const k of kinds) {
+      for (const f of this.listJsonNames(path.join(this.root, "artifacts", k))) {
+        const a = this.readJson(path.join(this.root, "artifacts", k, f));
+        if (!a) continue;
+        if (tag && !(a.tags ?? []).includes(tag)) continue;
+        out.push({ kind: k, name: a.name, description: a.description, tags: a.tags, updatedAt: a.updatedAt });
+      }
+    }
+    return out;
+  }
+  deleteArtifact(kind, name) {
+    const safe = safeName(name);
+    if (!safe) return false;
+    const file = path.join(this.root, "artifacts", kind, `${safe}.json`);
+    if (!fs.existsSync(file)) return false;
+    fs.unlinkSync(file);
+    return true;
+  }
+  // ── Platform memory snapshot (persistence for td_memory) ──────────────
+  saveMemorySnapshot(snapshot) {
+    this.writeJson(path.join(this.root, "memory.json"), { savedAt: (/* @__PURE__ */ new Date()).toISOString(), snapshot });
+  }
+  loadMemorySnapshot() {
+    const data = this.readJson(path.join(this.root, "memory.json"));
+    return data?.snapshot ?? null;
+  }
+}
+function diffWorkflows(a, b) {
+  const patches = [];
+  const aSteps = new Map(a.steps.map((s) => [s.id, s]));
+  const bSteps = new Map(b.steps.map((s) => [s.id, s]));
+  const addedSteps = [...bSteps.keys()].filter((id) => !aSteps.has(id));
+  const removedSteps = [...aSteps.keys()].filter((id) => !bSteps.has(id));
+  const changedSteps = [];
+  for (const [id, sa] of aSteps) {
+    const sb = bSteps.get(id);
+    if (!sb) continue;
+    if (JSON.stringify(sa) !== JSON.stringify(sb)) {
+      changedSteps.push(id);
+      if (sa.tool !== sb.tool) patches.push({ path: `steps.${id}.tool`, before: sa.tool, after: sb.tool });
+      if (JSON.stringify(sa.args) !== JSON.stringify(sb.args)) patches.push({ path: `steps.${id}.args`, before: sa.args, after: sb.args });
+      if (sa.onError !== sb.onError) patches.push({ path: `steps.${id}.onError`, before: sa.onError, after: sb.onError });
+    }
+  }
+  for (const id of addedSteps) patches.push({ path: `steps.${id}`, before: null, after: bSteps.get(id) });
+  for (const id of removedSteps) patches.push({ path: `steps.${id}`, before: aSteps.get(id), after: null });
+  const policyChanged = JSON.stringify(a.policy) !== JSON.stringify(b.policy);
+  if (policyChanged) patches.push({ path: "policy", before: a.policy, after: b.policy });
+  const descriptionChanged = a.description !== b.description;
+  return {
+    changed: patches.length > 0,
+    summary: { addedSteps, removedSteps, changedSteps, policyChanged, descriptionChanged },
+    patches
+  };
+}
+const DOM_SCAN_TOOLS = /* @__PURE__ */ new Set([
+  "inspect_live_page",
+  "inspect_live_element",
+  "get_live_dom_snapshot",
+  "get_live_dom_subtree",
+  "search_dom",
+  "analyze_dom",
+  "get_page_blueprint",
+  "capture_page_state",
+  "td_dom_inspect",
+  "td_dom_query",
+  "td_dom_snapshot",
+  "td_semantic_page"
+]);
+function toolMatches(pattern, tool) {
+  if (pattern === "*" || pattern === tool) return true;
+  if (pattern.startsWith("*") && pattern.endsWith("*") && pattern.length > 1) {
+    return tool.includes(pattern.slice(1, -1));
+  }
+  if (pattern.startsWith("*")) return tool.endsWith(pattern.slice(1));
+  if (pattern.endsWith("*")) return tool.startsWith(pattern.slice(0, -1));
+  return pattern === tool;
+}
+function parsePathSegments(rawPath) {
+  const normalized = rawPath.replace(/\[['"]?([^'"\]]+)['"]?\]/g, ".$1").replace(/^\./, "");
+  return normalized.split(".").filter(Boolean);
+}
+function getByPath(obj, rawPath) {
+  const segments = parsePathSegments(rawPath);
+  let cur = obj;
+  for (const key of segments) {
+    if (cur === null || cur === void 0) return void 0;
+    if (typeof cur !== "object") return void 0;
+    cur = cur[key];
+  }
+  return cur;
+}
+function evaluateExpression(expr, lookup) {
+  const trimmed = expr.trim();
+  const pipeIdx = trimmed.search(/\s*(\|\||\|)\s*/);
+  if (pipeIdx > 0) {
+    const mainPath = trimmed.slice(0, pipeIdx).trim();
+    const fallbackRaw = trimmed.slice(pipeIdx).replace(/^(\|\||\|)/, "").trim();
+    const resolved = lookup(mainPath);
+    if (resolved !== void 0 && resolved !== null && resolved !== "") {
+      return resolved;
+    }
+    if (fallbackRaw.startsWith('"') && fallbackRaw.endsWith('"') || fallbackRaw.startsWith("'") && fallbackRaw.endsWith("'")) {
+      return fallbackRaw.slice(1, -1);
+    }
+    if (fallbackRaw === "true") return true;
+    if (fallbackRaw === "false") return false;
+    if (!isNaN(Number(fallbackRaw))) return Number(fallbackRaw);
+    return lookup(fallbackRaw) ?? fallbackRaw;
+  }
+  return lookup(trimmed);
+}
+function deepTemplate(value, lookup) {
+  if (typeof value === "string") {
+    const full = value.match(/^\{\{([^{}]+)\}\}$/);
+    if (full) {
+      const resolved = evaluateExpression(full[1], lookup);
+      return resolved === void 0 ? value : resolved;
+    }
+    return value.replace(/\{\{([^{}]+)\}\}/g, (_m, expr) => {
+      const resolved = evaluateExpression(expr, lookup);
+      return resolved === void 0 ? `{{${expr}}}` : typeof resolved === "object" ? JSON.stringify(resolved) : String(resolved);
+    });
+  }
+  if (Array.isArray(value)) return value.map((v) => deepTemplate(v, lookup));
+  if (value && typeof value === "object") {
+    const out = {};
+    for (const [k, v] of Object.entries(value)) out[k] = deepTemplate(v, lookup);
+    return out;
+  }
+  return value;
+}
+function summarize(value, budget = 2048) {
+  try {
+    const json = JSON.stringify(value);
+    if (json.length <= budget) return value;
+    return { truncated: true, preview: json.slice(0, budget), bytes: json.length };
+  } catch (err) {
+    return { unserializable: String(err?.message ?? err) };
+  }
+}
+class WorkflowExecutor {
+  constructor(pipeline) {
+    this.pipeline = pipeline;
+  }
+  async execute(req) {
+    const wf = req.workflow;
+    const policy = {
+      maxSteps: wf.policy?.maxSteps ?? 200,
+      maxRuntimeMs: wf.policy?.maxRuntimeMs ?? 3e5,
+      maxStepMs: wf.policy?.maxStepMs ?? 6e4,
+      ...wf.policy
+    };
+    const startedAt = Date.now();
+    const run = {
+      id: `run_${startedAt}_${randomUUID().slice(0, 8)}`,
+      workflowId: wf.id,
+      workflowName: wf.name,
+      workflowVersion: wf.version,
+      status: "RUNNING",
+      startedAt,
+      inputs: req.inputs,
+      steps: [],
+      metrics: { stepsPlanned: wf.steps.length, stepsExecuted: 0, toolCalls: 0, domScans: 0, retries: 0, durationMs: 0, tokensSavedEstimate: 0 }
+    };
+    const inputValues = {};
+    for (const [name, spec] of Object.entries(wf.inputs ?? {})) {
+      inputValues[name] = req.inputs[name] !== void 0 ? req.inputs[name] : spec?.default;
+    }
+    for (const [k, v] of Object.entries(req.inputs)) inputValues[k] = v;
+    const stepResults = /* @__PURE__ */ new Map();
+    if (req.dryRun) {
+      run.status = "SUCCESS";
+      run.metrics.stepsExecuted = 0;
+      run.finishedAt = Date.now();
+      run.metrics.durationMs = run.finishedAt - startedAt;
+      run.plan = wf.steps.map((s) => ({ stepId: s.id, tool: s.tool, args: deepTemplate(s.args ?? {}, (p) => getByPath({ inputs: inputValues }, p)) }));
+      return run;
+    }
+    for (const step of wf.steps) {
+      if (run.steps.length >= (policy.maxSteps ?? 200)) {
+        run.status = "ABORTED";
+        run.error = `execution policy: maxSteps ${policy.maxSteps} reached`;
+        break;
+      }
+      if (Date.now() - startedAt > (policy.maxRuntimeMs ?? 3e5)) {
+        run.status = "ABORTED";
+        run.error = `execution policy: maxRuntimeMs ${policy.maxRuntimeMs} exceeded`;
+        break;
+      }
+      const stepRun = await this.executeStep(step, {
+        policy,
+        inputs: inputValues,
+        stepResults,
+        approvedSteps: req.approvedSteps ?? [],
+        startedAt
+      });
+      run.steps.push(stepRun);
+      run.metrics.stepsExecuted += stepRun.status === "SKIPPED" ? 0 : 1;
+      run.metrics.toolCalls += stepRun.attempts;
+      if (DOM_SCAN_TOOLS.has(step.tool)) run.metrics.domScans += stepRun.attempts;
+      run.metrics.retries += Math.max(0, stepRun.attempts - 1);
+      if (stepRun.status === "PASS") stepResults.set(step.id, stepRun.result);
+      if (stepRun.status === "BLOCKED") {
+        run.status = "BLOCKED";
+        run.pendingApprovals = [{ stepId: step.id, tool: step.tool }];
+        run.error = `step "${step.id}" requires approval — obtain user consent and re-run with approvedSteps: ["${step.id}"]`;
+        break;
+      }
+      if (stepRun.status === "FAIL") {
+        const onError = step.onError ?? "abort";
+        if (onError === "abort") {
+          run.status = run.steps.some((s) => s.status === "PASS") ? "PARTIAL" : "FAILED";
+          run.error = `step "${step.id}" (${step.tool}) failed: ${stepRun.error}`;
+          break;
+        }
+      }
+    }
+    if (run.status === "RUNNING") {
+      const failed = run.steps.filter((s) => s.status === "FAIL");
+      const passed = run.steps.filter((s) => s.status === "PASS");
+      run.status = failed.length === 0 ? "SUCCESS" : passed.length > 0 ? "PARTIAL" : "FAILED";
+    }
+    run.finishedAt = Date.now();
+    run.metrics.durationMs = run.finishedAt - startedAt;
+    run.metrics.tokensSavedEstimate = Math.max(0, run.metrics.toolCalls - 1) * 380;
+    return run;
+  }
+  /** Deterministic re-execution of a recorded run's steps, verbatim. */
+  async replaySteps(meta, steps, replayOf) {
+    const startedAt = Date.now();
+    const run = {
+      id: `run_${startedAt}_${randomUUID().slice(0, 8)}`,
+      workflowId: meta.workflowId,
+      workflowName: meta.workflowName,
+      workflowVersion: meta.workflowVersion,
+      status: "RUNNING",
+      startedAt,
+      inputs: {},
+      steps: [],
+      replayOf,
+      metrics: { stepsPlanned: steps.length, stepsExecuted: 0, toolCalls: 0, domScans: 0, retries: 0, durationMs: 0, tokensSavedEstimate: 0 }
+    };
+    for (const recorded of steps) {
+      if (recorded.status === "SKIPPED") {
+        run.steps.push({ ...recorded, attempts: 0, durationMs: 0, startedAt: Date.now() });
+        continue;
+      }
+      const executed = await this.callTool(recorded.tool, recorded.args, 6e4);
+      const stepRun = {
+        ...recorded,
+        status: executed.ok ? "PASS" : "FAIL",
+        attempts: 1,
+        startedAt: Date.now(),
+        durationMs: executed.durationMs,
+        result: executed.ok ? summarize(executed.parsed) : void 0,
+        error: executed.ok ? void 0 : executed.error
+      };
+      run.steps.push(stepRun);
+      run.metrics.stepsExecuted += 1;
+      run.metrics.toolCalls += 1;
+      if (DOM_SCAN_TOOLS.has(recorded.tool)) run.metrics.domScans += 1;
+      if (!executed.ok) {
+        run.status = "PARTIAL";
+        run.error = `replayed step "${recorded.stepId}" failed: ${executed.error}`;
+        break;
+      }
+    }
+    if (run.status === "RUNNING") run.status = "SUCCESS";
+    run.finishedAt = Date.now();
+    run.metrics.durationMs = run.finishedAt - startedAt;
+    run.metrics.tokensSavedEstimate = Math.max(0, run.metrics.toolCalls - 1) * 380;
+    return run;
+  }
+  // ── internals ──────────────────────────────────────────────────────────
+  async executeStep(step, ctx) {
+    const stepRun = {
+      stepId: step.id,
+      tool: step.tool,
+      args: {},
+      status: "FAIL",
+      attempts: 0,
+      startedAt: Date.now(),
+      durationMs: 0
+    };
+    const lookup = (expr) => {
+      if (expr.startsWith("inputs.")) return getByPath({ inputs: ctx.inputs }, expr);
+      if (expr.startsWith("steps.")) {
+        const rest = expr.slice("steps.".length);
+        const dot = rest.indexOf(".");
+        if (dot === -1) return ctx.stepResults.get(rest);
+        const stepId = rest.slice(0, dot);
+        return getByPath(ctx.stepResults.get(stepId), rest.slice(dot + 1));
+      }
+      return void 0;
+    };
+    stepRun.args = deepTemplate(step.args ?? {}, lookup);
+    const tool = step.tool;
+    if (ctx.policy.deniedTools?.some((p) => toolMatches(p, tool))) {
+      stepRun.status = "FAIL";
+      stepRun.error = `execution policy: tool "${tool}" is denied by workflow policy`;
+      return stepRun;
+    }
+    if (ctx.policy.allowedTools?.length && !ctx.policy.allowedTools.some((p) => toolMatches(p, tool))) {
+      stepRun.status = "FAIL";
+      stepRun.error = `execution policy: tool "${tool}" is not in allowedTools`;
+      return stepRun;
+    }
+    const urlArg = stepRun.args?.url ?? stepRun.args?.targetUrl;
+    if (typeof urlArg === "string" && /^https?:\/\//i.test(urlArg)) {
+      try {
+        const host = new URL(urlArg).hostname;
+        if (ctx.policy.deniedDomains?.some((d) => host === d || host.endsWith(`.${d}`))) {
+          stepRun.status = "FAIL";
+          stepRun.error = `execution policy: domain "${host}" is denied`;
+          return stepRun;
+        }
+        if (ctx.policy.allowedDomains?.length && !ctx.policy.allowedDomains.some((d) => host === d || host.endsWith(`.${d}`))) {
+          stepRun.status = "FAIL";
+          stepRun.error = `execution policy: domain "${host}" is not in allowedDomains`;
+          return stepRun;
+        }
+      } catch {
+      }
+    }
+    const needsApproval = step.requireApproval === true || ctx.policy.requireApprovalFor?.some((p) => toolMatches(p, tool)) === true;
+    if (needsApproval && !ctx.approvedSteps.includes(step.id)) {
+      stepRun.status = "BLOCKED";
+      stepRun.error = "approval required — human-in-the-loop gate";
+      return stepRun;
+    }
+    const timeoutMs = step.timeoutMs ?? ctx.policy.maxStepMs ?? 6e4;
+    const retryCount = Math.min(10, Math.max(0, step.retry?.count ?? 0));
+    const delayMs = Math.min(5e3, Math.max(0, step.retry?.delayMs ?? 0));
+    let last;
+    do {
+      stepRun.attempts += 1;
+      last = await this.callTool(tool, stepRun.args, timeoutMs);
+      if (last.ok) break;
+      if (stepRun.attempts <= retryCount && delayMs > 0) {
+        await new Promise((r) => setTimeout(r, delayMs));
+      }
+    } while (!last.ok && stepRun.attempts <= retryCount);
+    stepRun.durationMs = Date.now() - stepRun.startedAt;
+    if (last.ok) {
+      stepRun.status = "PASS";
+      stepRun.result = summarize(last.parsed);
+    } else {
+      stepRun.status = "FAIL";
+      stepRun.error = last.error;
+    }
+    return stepRun;
+  }
+  /** One tool call through the authoritative MCP pipeline. */
+  async callTool(tool, args, timeoutMs) {
+    const started = Date.now();
+    try {
+      const result = await Promise.race([
+        this.pipeline.handleToolCall(tool, args),
+        new Promise((_, reject) => setTimeout(() => reject(new Error(`step timeout after ${timeoutMs}ms`)), timeoutMs))
+      ]);
+      const durationMs = Date.now() - started;
+      const text = result?.content?.[0]?.text ?? "";
+      let parsed = text;
+      try {
+        parsed = JSON.parse(text);
+      } catch {
+      }
+      if (result?.isError) {
+        return { ok: false, parsed, error: (parsed?.error ?? text.slice(0, 500)) || "tool reported error", durationMs };
+      }
+      return { ok: true, parsed, durationMs };
+    } catch (err) {
+      return { ok: false, error: String(err?.message ?? err), durationMs: Date.now() - started };
+    }
+  }
+}
+class BrowserFacade {
+  constructor(pipeline) {
+    this.pipeline = pipeline;
+  }
+  async route(tool, args) {
+    const res = await this.pipeline.handleToolCall(tool, args);
+    const text = res?.content?.[0]?.text ?? "";
+    let payload = text;
+    try {
+      payload = JSON.parse(text);
+    } catch {
+    }
+    return { routedTo: tool, payload };
+  }
+  // ── navigation ─────────────────────────────────────────────────────────
+  async navigate(url, opts) {
+    if (opts?.newTab) {
+      return this.route("open_tab", { url });
+    }
+    const res = await this.route("execute_javascript", { code: `window.location.href = ${JSON.stringify(url)}; return window.location.href;` });
+    if (opts?.waitForStable !== false) {
+      await this.route("wait_for_condition", { kind: "dom_stable", timeoutMs: 8e3 });
+    }
+    return res;
+  }
+  async back() {
+    return this.route("execute_javascript", { code: "window.history.back(); return window.location.href;" });
+  }
+  async forward() {
+    return this.route("execute_javascript", { code: "window.history.forward(); return window.location.href;" });
+  }
+  async refresh() {
+    return this.route("reload_tab", {});
+  }
+  // ── observation ────────────────────────────────────────────────────────
+  async inspect(scope) {
+    return this.route("inspect_live_page", { ...scope?.tabId !== void 0 ? { tabId: scope.tabId } : {} });
+  }
+  async query(q) {
+    return this.route("search_dom", q);
+  }
+  async extract(spec) {
+    const fields = spec.fields ?? { text: "el.textContent.trim()", tag: "el.tagName.toLowerCase()", attrs: "JSON.stringify(el.dataset)" };
+    const exprs = Object.entries(fields).map(([name, expr]) => `${JSON.stringify(name)}: (()=>{ try { return ${expr}; } catch(e) { return null; } })()`).join(",");
+    const code = [
+      `const els = Array.from(document.querySelectorAll(${JSON.stringify(spec.selector)})).slice(0, ${spec.limit ?? 100});`,
+      `return JSON.stringify(els.map(el => ({ ${exprs} })));`
+    ].join("\n");
+    return this.route("execute_javascript", { code });
+  }
+  async snapshot(format = "html") {
+    return this.route("get_live_dom_snapshot", { format });
+  }
+  // ── targeting ──────────────────────────────────────────────────────────
+  async findTarget(target) {
+    if (target.selector) {
+      return this.route("generate_element_target", { selector: target.selector });
+    }
+    if (target.xpath) {
+      return this.route("generate_element_target", { target: { xpath: target.xpath } });
+    }
+    if (target.text) {
+      const search = await this.route("search_dom", { query: target.text, limit: 10 });
+      return { routedTo: "search_dom→generate_element_target", payload: search.payload };
+    }
+    throw new Error("td_target_find requires one of: selector, xpath, text");
+  }
+  async verifyTarget(selector, opts) {
+    const target = await this.route("generate_element_target", { selector });
+    const payload = target.payload;
+    const confidence = typeof payload?.confidence === "number" ? payload.confidence : 1;
+    const resolved = !target.payload || payload && payload.status !== "TARGET_NOT_FOUND" && payload.error === void 0;
+    return {
+      routedTo: "generate_element_target",
+      payload: {
+        selector,
+        resolvable: resolved && confidence >= (opts?.minConfidence ?? 0),
+        confidence,
+        checkedAt: (/* @__PURE__ */ new Date()).toISOString()
+      }
+    };
+  }
+  async describeTarget(selector) {
+    const [accessibility, fingerprint] = await Promise.all([
+      this.route("get_element_accessibility", { selector }).catch(() => null),
+      this.route("get_element_fingerprint", { selector }).catch(() => null)
+    ]);
+    return {
+      routedTo: "get_element_accessibility+get_element_fingerprint",
+      payload: { accessibility: accessibility?.payload, fingerprint: fingerprint?.payload }
+    };
+  }
+  // ── interaction ────────────────────────────────────────────────────────
+  async interact(action, args) {
+    return this.route("interact_with_element", { action, ...args });
+  }
+  async click(selector) {
+    return this.interact("click", { selector });
+  }
+  async type(selector, text) {
+    return this.interact("type", { selector, text });
+  }
+  async select(selector, value) {
+    return this.interact("select_option", { selector, optionValue: value });
+  }
+  async hover(selector) {
+    return this.interact("hover", { selector });
+  }
+  async press(key) {
+    return this.route("press_keyboard_shortcut", { combo: key });
+  }
+  async scroll(delta) {
+    if ("selector" in delta) {
+      return this.interact("scroll_into_view", { selector: delta.selector });
+    }
+    return this.route("scroll_page", { x: delta.x ?? 0, y: delta.y ?? 0 });
+  }
+  // ── wait / evidence / escape hatches ───────────────────────────────────
+  async wait(condition) {
+    return this.route("wait_for_condition", condition);
+  }
+  async screenshot() {
+    return this.route("capture_page_screenshot", {});
+  }
+  async executeScript(code, timeoutMs) {
+    return this.route("execute_javascript", { code, ...timeoutMs ? { timeoutMs } : {} });
+  }
+  async networkInspect(filter) {
+    const res = await this.route("get_tab_network_requests", {});
+    if (!filter?.urlContains) return res;
+    const payload = res.payload;
+    const requests = Array.isArray(payload?.requests) ? payload.requests.filter((r) => String(r?.url ?? "").includes(filter.urlContains ?? "")) : [];
+    return { routedTo: "get_tab_network_requests", payload: { ...payload, requests: requests.slice(0, filter.limit ?? 50), filteredBy: filter.urlContains } };
+  }
+  async consoleRead(level) {
+    const res = await this.route("get_tab_console_logs", {});
+    if (!level || level === "all") return res;
+    const payload = res.payload;
+    const logs = Array.isArray(payload?.logs) ? payload.logs.filter((l) => String(l?.level ?? l?.type ?? "").toLowerCase() === level.toLowerCase()) : [];
+    return { routedTo: "get_tab_console_logs", payload: { ...payload, logs, filteredBy: level } };
+  }
+}
+const BROWSER_PRIMITIVE_TOOLS = [
+  "td_browser_navigate",
+  "td_browser_back",
+  "td_browser_forward",
+  "td_browser_refresh",
+  "td_dom_inspect",
+  "td_dom_query",
+  "td_dom_extract",
+  "td_dom_snapshot",
+  "td_target_find",
+  "td_target_check",
+  "td_target_describe",
+  "td_action_click",
+  "td_action_type",
+  "td_action_select",
+  "td_action_hover",
+  "td_action_press",
+  "td_action_scroll",
+  "td_wait",
+  "td_screenshot",
+  "td_execute_script",
+  "td_network_inspect",
+  "td_console_read"
+];
+const WORKFLOW_TOOLS = [
+  "td_workflow_save",
+  "td_workflow_get",
+  "td_workflow_list",
+  "td_workflow_update",
+  "td_workflow_delete",
+  "td_workflow_clone",
+  "td_workflow_diff",
+  "td_workflow_export",
+  "td_workflow_import",
+  "td_workflow_validate",
+  "td_workflow_run",
+  "td_workflow_runs",
+  "td_workflow_run_get",
+  "td_workflow_replay"
+];
+const AGENT_OWNED_TOOLS = [
+  "td_target_memory_save",
+  "td_target_memory_get",
+  "td_target_memory_list",
+  "td_target_memory_delete",
+  "td_agent_artifact_save",
+  "td_agent_artifact_get",
+  "td_agent_artifact_list",
+  "td_agent_artifact_delete"
+];
+const WORKFLOW_TOOL_NAMES = /* @__PURE__ */ new Set([
+  ...BROWSER_PRIMITIVE_TOOLS,
+  ...WORKFLOW_TOOLS,
+  ...AGENT_OWNED_TOOLS
+]);
+const ARTIFACT_KINDS = ["custom-tool", "script", "policy", "memory", "note"];
+const runDepth = { count: 0 };
+async function handleWorkflowTool(name, args, deps) {
+  if (BROWSER_PRIMITIVE_TOOLS.includes(name)) {
+    return handleBrowserPrimitive(name, args, deps);
+  }
+  if (WORKFLOW_TOOLS.includes(name)) {
+    return handleWorkflowToolCall(name, args, deps);
+  }
+  return handleAgentOwnedTool(name, args, deps);
+}
+async function handleBrowserPrimitive(name, args, deps) {
+  if (!deps.pipeline) {
+    return { status: "UNSUPPORTED", note: "browser primitives require the root MCP pipeline (live bridge or JSDOM fixture)" };
+  }
+  const facade = new BrowserFacade(deps.pipeline);
+  try {
+    switch (name) {
+      case "td_browser_navigate": {
+        if (typeof args.url !== "string") return { status: "INCONCLUSIVE", error: "url (string) is required" };
+        const r = await facade.navigate(args.url, { newTab: args.newTab === true, waitForStable: args.waitForStable !== false });
+        return { status: "PASS", action: "navigate", url: args.url, routedTo: r.routedTo, result: r.payload };
+      }
+      case "td_browser_back": {
+        const r = await facade.back();
+        return { status: "PASS", action: "back", result: r.payload };
+      }
+      case "td_browser_forward": {
+        const r = await facade.forward();
+        return { status: "PASS", action: "forward", result: r.payload };
+      }
+      case "td_browser_refresh": {
+        const r = await facade.refresh();
+        return { status: "PASS", action: "refresh", result: r.payload };
+      }
+      case "td_dom_inspect": {
+        const r = await facade.inspect(args.tabId !== void 0 ? { tabId: args.tabId } : void 0);
+        return { status: "PASS", result: r.payload };
+      }
+      case "td_dom_query": {
+        if (typeof args.query !== "string") return { status: "INCONCLUSIVE", error: "query (string) is required" };
+        const r = await facade.query({ query: args.query, tag: args.tag, attr: args.attr, attrValue: args.attrValue, limit: args.limit });
+        return { status: "PASS", result: r.payload };
+      }
+      case "td_dom_extract": {
+        if (typeof args.selector !== "string") return { status: "INCONCLUSIVE", error: "selector (string) is required" };
+        const r = await facade.extract({ selector: args.selector, fields: args.fields, limit: args.limit });
+        return { status: "PASS", selector: args.selector, result: r.payload };
+      }
+      case "td_dom_snapshot": {
+        const r = await facade.snapshot(args.format === "json" ? "json" : "html");
+        return { status: "PASS", format: args.format ?? "html", result: bounded(r.payload, 4096) };
+      }
+      case "td_target_find": {
+        const spec = {};
+        if (typeof args.selector === "string") spec.selector = args.selector;
+        else if (typeof args.xpath === "string") spec.xpath = args.xpath;
+        else if (typeof args.text === "string") spec.text = args.text;
+        else return { status: "INCONCLUSIVE", error: "one of selector | xpath | text is required" };
+        const r = await facade.findTarget(spec);
+        return { status: "PASS", intent: "find_target", result: bounded(r.payload, 4096) };
+      }
+      case "td_target_check": {
+        if (typeof args.selector !== "string") return { status: "INCONCLUSIVE", error: "selector (string) is required" };
+        const r = await facade.verifyTarget(args.selector, { minConfidence: args.minConfidence });
+        const payload = r.payload;
+        return { status: payload?.resolvable ? "PASS" : "INCONCLUSIVE", ...payload };
+      }
+      case "td_target_describe": {
+        if (typeof args.selector !== "string") return { status: "INCONCLUSIVE", error: "selector (string) is required" };
+        const r = await facade.describeTarget(args.selector);
+        return { status: "PASS", selector: args.selector, result: bounded(r.payload, 4096) };
+      }
+      case "td_action_click": {
+        if (typeof args.selector !== "string") return { status: "INCONCLUSIVE", error: "selector (string) is required" };
+        const r = await facade.click(args.selector);
+        return { status: "PASS", action: "click", selector: args.selector, result: bounded(r.payload, 3072) };
+      }
+      case "td_action_type": {
+        if (typeof args.selector !== "string" || typeof args.text !== "string") return { status: "INCONCLUSIVE", error: "selector and text are required" };
+        const r = await facade.type(args.selector, args.text);
+        return { status: "PASS", action: "type", selector: args.selector, result: bounded(r.payload, 3072) };
+      }
+      case "td_action_select": {
+        if (typeof args.selector !== "string" || typeof args.value !== "string") return { status: "INCONCLUSIVE", error: "selector and value are required" };
+        const r = await facade.select(args.selector, args.value);
+        return { status: "PASS", action: "select", selector: args.selector, result: bounded(r.payload, 3072) };
+      }
+      case "td_action_hover": {
+        if (typeof args.selector !== "string") return { status: "INCONCLUSIVE", error: "selector (string) is required" };
+        const r = await facade.hover(args.selector);
+        return { status: "PASS", action: "hover", selector: args.selector, result: bounded(r.payload, 3072) };
+      }
+      case "td_action_press": {
+        if (typeof args.key !== "string") return { status: "INCONCLUSIVE", error: "key (string) is required" };
+        const r = await facade.press(args.key);
+        return { status: "PASS", action: "press", key: args.key, result: bounded(r.payload, 3072) };
+      }
+      case "td_action_scroll": {
+        const r = "selector" in args && typeof args.selector === "string" ? await facade.scroll({ selector: args.selector }) : await facade.scroll({ x: args.x ?? 0, y: args.y ?? 0 });
+        return { status: "PASS", action: "scroll", result: bounded(r.payload, 3072) };
+      }
+      case "td_wait": {
+        if (typeof args.kind !== "string") return { status: "INCONCLUSIVE", error: "kind is required (dom_stable, selector_present, …)" };
+        const r = await facade.wait({
+          kind: args.kind,
+          selector: args.selector,
+          text: args.text,
+          count: args.count,
+          timeoutMs: args.timeoutMs
+        });
+        const payload = r.payload;
+        return { status: payload?.satisfied === false ? "INCONCLUSIVE" : "PASS", ...boundedObj(payload, 2048) };
+      }
+      case "td_screenshot": {
+        const r = await facade.screenshot();
+        return { status: "PASS", artifact: "screenshot", result: bounded(r.payload, 2048) };
+      }
+      case "td_execute_script": {
+        if (typeof args.code !== "string") return { status: "INCONCLUSIVE", error: "code (string) is required" };
+        const r = await facade.executeScript(args.code, args.timeoutMs);
+        const payload = r.payload;
+        const ok = payload?.outcome === "EXECUTED_SUCCESSFULLY" || payload?.status === "PASS" || payload?.success === true;
+        return { status: ok || payload?.outcome === void 0 ? "PASS" : "DEGRADED", result: bounded(payload, 4096) };
+      }
+      case "td_network_inspect": {
+        const r = await facade.networkInspect({ urlContains: args.urlContains, limit: args.limit });
+        return { status: "PASS", result: bounded(r.payload, 4096) };
+      }
+      case "td_console_read": {
+        const r = await facade.consoleRead(args.level);
+        return { status: "PASS", result: bounded(r.payload, 4096) };
+      }
+    }
+  } catch (err) {
+    return { status: "FAIL", error: String(err?.message ?? err) };
+  }
+  return { status: "UNSUPPORTED", note: `unknown browser primitive ${name}` };
+}
+async function handleWorkflowToolCall(name, args, deps) {
+  const store = deps.store;
+  try {
+    switch (name) {
+      // ── CRUD (envelope validation only — semantics belong to the agent) ──
+      case "td_workflow_save": {
+        const validation = validateWorkflow(args.workflow);
+        if (!validation.valid) return { status: "INCONCLUSIVE", error: "workflow envelope invalid", issues: validation.issues };
+        const wf = args.workflow;
+        const envelope = store.saveWorkflow(wf);
+        return {
+          status: "PASS",
+          saved: { name: envelope.current.name, version: envelope.current.version, steps: envelope.current.steps.length, versions: envelope.versions.length },
+          note: "stored verbatim — TeleDOM does not interpret workflow semantics"
+        };
+      }
+      case "td_workflow_get": {
+        if (typeof args.name !== "string") return { status: "INCONCLUSIVE", error: "name (string) is required" };
+        const wf = store.getWorkflow(args.name, args.version);
+        if (!wf) return { status: "INCONCLUSIVE", error: `workflow "${args.name}"${args.version ? `@${args.version}` : ""} not found`, available: store.listWorkflows().map((w) => w.name).slice(0, 30) };
+        return { status: "PASS", workflow: wf };
+      }
+      case "td_workflow_list": {
+        const list = store.listWorkflows();
+        return { status: "PASS", count: list.length, workflows: list };
+      }
+      case "td_workflow_update": {
+        const validation = validateWorkflow(args.workflow);
+        if (!validation.valid) return { status: "INCONCLUSIVE", error: "workflow envelope invalid", issues: validation.issues };
+        const wf = args.workflow;
+        if (!store.getWorkflow(wf.name)) return { status: "INCONCLUSIVE", error: `workflow "${wf.name}" not found — use td_workflow_save to create` };
+        const envelope = store.saveWorkflow(wf);
+        return { status: "PASS", updated: { name: envelope.current.name, version: envelope.current.version, versions: envelope.versions.length } };
+      }
+      case "td_workflow_delete": {
+        if (typeof args.name !== "string") return { status: "INCONCLUSIVE", error: "name (string) is required" };
+        const deleted = store.deleteWorkflow(args.name);
+        return { status: deleted ? "PASS" : "INCONCLUSIVE", deleted: args.name, note: deleted ? "workflow + version history removed (runs are kept as evidence)" : "not found" };
+      }
+      case "td_workflow_clone": {
+        if (typeof args.name !== "string") return { status: "INCONCLUSIVE", error: "name (string) is required" };
+        const source = store.getWorkflow(args.name, args.version);
+        if (!source) return { status: "INCONCLUSIVE", error: `workflow "${args.name}" not found` };
+        const targetName = safeName(args.as ?? `${source.name}_copy`);
+        if (!targetName) return { status: "INCONCLUSIVE", error: "invalid clone name (as)" };
+        const clone = {
+          ...source,
+          name: targetName,
+          id: `${targetName}-${Date.now()}`,
+          version: args.newVersion ?? source.version,
+          description: args.description ?? `cloned from ${source.name}@${source.version}`,
+          metadata: { ...source.metadata ?? {}, clonedFrom: `${source.name}@${source.version}` }
+        };
+        const envelope = store.saveWorkflow(clone);
+        return { status: "PASS", cloned: { from: `${source.name}@${source.version}`, to: `${envelope.current.name}@${envelope.current.version}` } };
+      }
+      case "td_workflow_diff": {
+        const a = store.getWorkflow(args.a ?? args.name, args.aVersion);
+        const b = store.getWorkflow(args.b ?? args.name, args.bVersion);
+        if (!a || !b) return { status: "INCONCLUSIVE", error: "both workflows (a/b with versions) must exist" };
+        const diff = diffWorkflows(a, b);
+        return { status: "PASS", a: `${a.name}@${a.version}`, b: `${b.name}@${b.version}`, ...diff };
+      }
+      case "td_workflow_export": {
+        const envelope = store.getWorkflowEnvelope(args.name ?? "");
+        if (!envelope) return { status: "INCONCLUSIVE", error: `workflow "${args.name}" not found` };
+        const exportPayload = {
+          format: "teledom.agent-workflow.export/1.0",
+          exportedAt: (/* @__PURE__ */ new Date()).toISOString(),
+          name: envelope.current.name,
+          current: envelope.current,
+          versions: envelope.versions
+        };
+        return { status: "PASS", name: envelope.current.name, versions: envelope.versions.length, export: exportPayload };
+      }
+      case "td_workflow_import": {
+        const payload = args.export ?? args.workflow;
+        if (!payload || typeof payload !== "object") return { status: "INCONCLUSIVE", error: "export (object from td_workflow_export) is required" };
+        const candidate = payload.current ?? payload;
+        const validation = validateWorkflow(candidate);
+        if (!validation.valid) return { status: "INCONCLUSIVE", error: "imported workflow envelope invalid", issues: validation.issues };
+        const wf = candidate;
+        const envelope = store.saveWorkflow(wf);
+        if (args.includeVersions && Array.isArray(payload.versions)) {
+          for (const v of payload.versions) {
+            if (v?.workflow && v.version !== envelope.current.version) store.saveWorkflow(v.workflow);
+          }
+        }
+        return { status: "PASS", imported: { name: envelope.current.name, version: envelope.current.version, versions: envelope.versions.length } };
+      }
+      case "td_workflow_validate": {
+        const validation = validateWorkflow(args.workflow);
+        return {
+          status: validation.valid ? "PASS" : "INCONCLUSIVE",
+          valid: validation.valid,
+          issues: validation.issues,
+          stepCount: Array.isArray(args.workflow?.steps) ? args.workflow.steps.length : 0,
+          note: "structural envelope validation only — semantics are the agent’s responsibility"
+        };
+      }
+      // ── Dumb execution + records ──
+      case "td_workflow_run": {
+        if (!deps.pipeline) return { status: "UNSUPPORTED", note: "workflow execution requires the root MCP pipeline" };
+        if (runDepth.count >= 2) return { status: "FAIL", error: "nested workflow execution too deep (max 2 levels)" };
+        let wf = null;
+        if (args.workflow && typeof args.workflow === "object") {
+          const validation = validateWorkflow(args.workflow);
+          if (!validation.valid) return { status: "INCONCLUSIVE", error: "workflow envelope invalid", issues: validation.issues };
+          wf = args.workflow;
+        } else if (typeof args.name === "string") {
+          wf = store.getWorkflow(args.name, args.version);
+          if (!wf) return { status: "INCONCLUSIVE", error: `workflow "${args.name}" not found`, available: store.listWorkflows().map((w) => w.name).slice(0, 30) };
+        } else {
+          return { status: "INCONCLUSIVE", error: "provide name (saved workflow) or workflow (inline object)" };
+        }
+        if (wf.steps.length === 0) return { status: "INCONCLUSIVE", error: "workflow has no steps — nothing to execute" };
+        const executor = new WorkflowExecutor(deps.pipeline);
+        runDepth.count += 1;
+        try {
+          const run = await executor.execute({
+            workflow: wf,
+            inputs: args.inputs ?? {},
+            approvedSteps: args.approvedSteps,
+            dryRun: args.dryRun === true
+          });
+          store.saveRun(run);
+          return { status: run.status === "SUCCESS" ? "PASS" : run.status === "BLOCKED" ? "DEGRADED" : run.status === "PARTIAL" ? "PARTIAL" : "FAIL", runId: run.id, workflow: `${run.workflowName}@${run.workflowVersion}`, run: boundedRun(run) };
+        } finally {
+          runDepth.count -= 1;
+        }
+      }
+      case "td_workflow_runs": {
+        const list = store.listRuns({ workflowName: args.name, limit: args.limit ?? 50 });
+        return { status: "PASS", count: list.length, runs: list };
+      }
+      case "td_workflow_run_get": {
+        if (typeof args.runId !== "string") return { status: "INCONCLUSIVE", error: "runId (string) is required" };
+        const run = store.getRun(args.runId);
+        if (!run) return { status: "INCONCLUSIVE", error: `run "${args.runId}" not found` };
+        return { status: "PASS", run };
+      }
+      case "td_workflow_replay": {
+        if (!deps.pipeline) return { status: "UNSUPPORTED", note: "workflow replay requires the root MCP pipeline" };
+        if (typeof args.runId !== "string") return { status: "INCONCLUSIVE", error: "runId (string) is required" };
+        const source = store.getRun(args.runId);
+        if (!source) return { status: "INCONCLUSIVE", error: `run "${args.runId}" not found` };
+        if (runDepth.count >= 2) return { status: "FAIL", error: "nested workflow execution too deep (max 2 levels)" };
+        const executor = new WorkflowExecutor(deps.pipeline);
+        runDepth.count += 1;
+        try {
+          const replay = await executor.replaySteps(
+            { workflowId: source.workflowId, workflowName: source.workflowName, workflowVersion: source.workflowVersion },
+            source.steps,
+            source.id
+          );
+          store.saveRun(replay);
+          return { status: replay.status === "SUCCESS" ? "PASS" : replay.status === "PARTIAL" ? "PARTIAL" : "FAIL", replayedFrom: source.id, runId: replay.id, run: boundedRun(replay) };
+        } finally {
+          runDepth.count -= 1;
+        }
+      }
+    }
+  } catch (err) {
+    return { status: "FAIL", error: String(err?.message ?? err) };
+  }
+  return { status: "UNSUPPORTED", note: `unknown workflow tool ${name}` };
+}
+async function handleAgentOwnedTool(name, args, deps) {
+  const store = deps.store;
+  try {
+    switch (name) {
+      // ── Learned targets: "DOM rescans not required every run" ──
+      case "td_target_memory_save": {
+        if (typeof args.site !== "string" || typeof args.semanticId !== "string") {
+          return { status: "INCONCLUSIVE", error: "site and semanticId are required" };
+        }
+        const existing = store.getTarget(args.site, args.semanticId);
+        const target = store.saveTarget({
+          site: args.site,
+          semanticId: args.semanticId,
+          identity: {
+            role: args.identity?.role,
+            accessibleName: args.identity?.accessibleName,
+            component: args.identity?.component,
+            route: args.identity?.route,
+            text: args.identity?.text
+          },
+          locators: {
+            aria: args.locators?.aria,
+            role: args.locators?.role,
+            text: args.locators?.text,
+            css: args.locators?.css,
+            xpath: args.locators?.xpath,
+            geometry: args.locators?.geometry
+          },
+          history: {
+            successfulSelectors: args.locators?.css ? [args.locators.css] : [],
+            failedSelectors: args.failedSelector ? [args.failedSelector] : [],
+            resolvedCount: existing?.history.resolvedCount ?? 0,
+            lastResolvedAt: existing?.history.lastResolvedAt
+          },
+          confidence: {
+            current: typeof args.confidence === "number" ? args.confidence : 0.8,
+            historical: existing?.confidence.historical ?? typeof args.confidence === "number" ? args.confidence : 0.8
+          },
+          notes: args.notes
+        });
+        return { status: "PASS", saved: { id: target.id, site: target.site, semanticId: target.semanticId, confidence: target.confidence.current }, note: "target memory stored — resolve against it before re-analyzing the DOM" };
+      }
+      case "td_target_memory_get": {
+        if (typeof args.site !== "string" || typeof args.semanticId !== "string") {
+          return { status: "INCONCLUSIVE", error: "site and semanticId are required" };
+        }
+        const target = store.getTarget(args.site, args.semanticId);
+        if (!target) return { status: "INCONCLUSIVE", error: `no learned target for site="${args.site}" semanticId="${args.semanticId}"` };
+        return { status: "PASS", target };
+      }
+      case "td_target_memory_list": {
+        const list = store.listTargets({ site: args.site, semanticId: args.semanticId });
+        return { status: "PASS", count: list.length, targets: list };
+      }
+      case "td_target_memory_delete": {
+        if (typeof args.site !== "string" || typeof args.semanticId !== "string") {
+          return { status: "INCONCLUSIVE", error: "site and semanticId are required" };
+        }
+        const deleted = store.deleteTarget(args.site, args.semanticId);
+        return { status: deleted ? "PASS" : "INCONCLUSIVE", deleted: deleted ? `${args.site}__${args.semanticId}` : null };
+      }
+      // ── Generic agent artifacts (custom tools / scripts / policies…) ──
+      case "td_agent_artifact_save": {
+        const kind = args.kind;
+        if (!ARTIFACT_KINDS.includes(kind)) return { status: "INCONCLUSIVE", error: `kind must be one of ${ARTIFACT_KINDS.join(", ")}` };
+        if (typeof args.name !== "string" || args.content === void 0) return { status: "INCONCLUSIVE", error: "name and content are required" };
+        const artifact = store.saveArtifact(kind, args.name, args.content, { description: args.description, tags: args.tags });
+        return { status: "PASS", saved: { id: artifact.id, kind: artifact.kind, name: artifact.name }, note: "stored verbatim — TeleDOM never interprets agent tooling" };
+      }
+      case "td_agent_artifact_get": {
+        const kind = args.kind;
+        if (!ARTIFACT_KINDS.includes(kind)) return { status: "INCONCLUSIVE", error: `kind must be one of ${ARTIFACT_KINDS.join(", ")}` };
+        if (typeof args.name !== "string") return { status: "INCONCLUSIVE", error: "name (string) is required" };
+        const artifact = store.getArtifact(kind, args.name);
+        if (!artifact) return { status: "INCONCLUSIVE", error: `artifact ${kind}/${args.name} not found` };
+        return { status: "PASS", artifact };
+      }
+      case "td_agent_artifact_list": {
+        const kind = args.kind;
+        if (kind && !ARTIFACT_KINDS.includes(kind)) return { status: "INCONCLUSIVE", error: `kind must be one of ${ARTIFACT_KINDS.join(", ")}` };
+        const list = store.listArtifacts(kind, args.tag);
+        return { status: "PASS", count: list.length, artifacts: list };
+      }
+      case "td_agent_artifact_delete": {
+        const kind = args.kind;
+        if (!ARTIFACT_KINDS.includes(kind)) return { status: "INCONCLUSIVE", error: `kind must be one of ${ARTIFACT_KINDS.join(", ")}` };
+        if (typeof args.name !== "string") return { status: "INCONCLUSIVE", error: "name (string) is required" };
+        const deleted = store.deleteArtifact(kind, args.name);
+        return { status: deleted ? "PASS" : "INCONCLUSIVE", deleted: deleted ? `${kind}/${args.name}` : null };
+      }
+    }
+  } catch (err) {
+    return { status: "FAIL", error: String(err?.message ?? err) };
+  }
+  return { status: "UNSUPPORTED", note: `unknown agent-owned tool ${name}` };
+}
+function bounded(value, budget) {
+  try {
+    const json = JSON.stringify(value);
+    if (json.length <= budget) return value;
+    return { truncated: true, preview: json.slice(0, budget), bytes: json.length };
+  } catch {
+    return { unserializable: true };
+  }
+}
+function boundedObj(value, budget) {
+  const b = bounded(value, budget);
+  return typeof b === "object" && b !== null ? b : { truncated: true };
+}
+function boundedRun(run) {
+  return {
+    id: run.id,
+    workflowId: run.workflowId,
+    workflowName: run.workflowName,
+    workflowVersion: run.workflowVersion,
+    status: run.status,
+    startedAt: run.startedAt,
+    finishedAt: run.finishedAt,
+    inputs: run.inputs,
+    steps: run.steps?.map((s) => ({ stepId: s.stepId, tool: s.tool, status: s.status, attempts: s.attempts, durationMs: s.durationMs, error: s.error })),
+    metrics: run.metrics,
+    error: run.error,
+    pendingApprovals: run.pendingApprovals,
+    replayOf: run.replayOf,
+    plan: run.plan
+  };
+}
 class IntelligenceToolsHandler {
   platform = new TeleDOMPlatform();
+  /** v4.1: durable agent-owned artifact store (workflows, targets, tooling). */
+  agentStore = new AgentStore();
+  /** v4.1: root MCP pipeline — injected by MCPToolsHandler after construction
+   * so td_* tools can route to ANY tool (browser primitives included). */
+  rootPipeline = null;
+  memoryRestored = false;
   knows(name) {
     return TD_TOOL_NAMES.has(name);
+  }
+  /** v4.1: wire the authoritative tool pipeline (called by MCPToolsHandler). */
+  attachRoot(pipeline) {
+    this.rootPipeline = pipeline;
+  }
+  /** v4.1: lazily restore persisted agent memory on first touch. */
+  ensureMemory() {
+    if (this.memoryRestored) return;
+    this.memoryRestored = true;
+    const snapshot = this.agentStore.loadMemorySnapshot();
+    if (Array.isArray(snapshot) && snapshot.length > 0) {
+      this.platform.memory.restore(snapshot);
+    }
+  }
+  persistMemory() {
+    this.agentStore.saveMemorySnapshot(this.platform.memory.serialize());
   }
   async handleToolCall(name, args) {
     try {
@@ -22345,6 +23765,9 @@ class IntelligenceToolsHandler {
     }
   }
   async dispatch(name, args) {
+    if (WORKFLOW_TOOL_NAMES.has(name)) {
+      return handleWorkflowTool(name, args, { pipeline: this.rootPipeline, store: this.agentStore });
+    }
     switch (name) {
       // ===================== A. Temporal Intelligence =====================
       case "td_temporal_query": {
@@ -22544,7 +23967,13 @@ class IntelligenceToolsHandler {
         if (!incident) return { status: "INCONCLUSIVE", note: `incident ${args.incidentId} not found — create one via td_investigate first` };
         const exporter = new TdomFormat();
         const exported = exporter.export(incident, { compress: Boolean(args.compress) });
-        const artifactRef = `artifact://tdom/${incident.incidentId}${args.compress ? ".gz" : ""}`;
+        const outPath = typeof args.outputPath === "string" && args.outputPath ? args.outputPath : `./.teledom_agent/artifacts/tdom/${incident.incidentId}.tdom${args.compress ? ".gz" : ""}`;
+        try {
+          fs.mkdirSync(outPath.split("/").slice(0, -1).join("/") || ".", { recursive: true });
+          fs.writeFileSync(outPath, exported.bytes);
+        } catch (err) {
+          return { status: "DEGRADED", note: `artifact generated but write failed: ${err?.message}`, byteLength: exported.bytes.length };
+        }
         return {
           status: "PASS",
           incidentId: args.incidentId,
@@ -22553,8 +23982,8 @@ class IntelligenceToolsHandler {
           byteLength: exported.bytes.length,
           compression: exported.manifest.compression,
           sections: Object.keys(exported.manifest.sections),
-          artifactRef,
-          note: args.outputPath ? `artifact available for write to ${args.outputPath}` : "artifact held in memory; pass outputPath to persist"
+          outputPath: outPath,
+          written: true
         };
       }
       case "td_evidence_timeline": {
@@ -23070,17 +24499,36 @@ class IntelligenceToolsHandler {
         return { status: verification.result === "PASS" ? "PASS" : verification.result === "FAIL" ? "FAIL" : "INCONCLUSIVE", verification };
       }
       case "td_run_workflow": {
+        if (!this.rootPipeline) {
+          return { status: "UNSUPPORTED", note: "workflow execution requires the root MCP pipeline" };
+        }
         const steps = args.workflow ?? [];
+        if (!Array.isArray(steps) || steps.length === 0) {
+          return { status: "INCONCLUSIVE", error: "workflow must be a non-empty array of { id, tool, args } steps" };
+        }
         const results = [];
         for (const step of steps) {
           try {
-            const r = await this.dispatch(step.tool, step.args ?? {});
-            results.push({ stepId: step.id, tool: step.tool, status: r.status });
+            const r = await this.rootPipeline.handleToolCall(step.tool, step.args ?? {});
+            const text = r?.content?.[0]?.text ?? "";
+            let parsed = text;
+            try {
+              parsed = JSON.parse(text);
+            } catch {
+            }
+            const status = r?.isError ? "FAILED" : parsed?.status ?? "PASS";
+            results.push({ stepId: step.id, tool: step.tool, status });
+            if (r?.isError) break;
           } catch (err) {
             results.push({ stepId: step.id, tool: step.tool, status: `FAILED: ${err?.message}` });
+            break;
           }
         }
-        return { status: results.every((r) => r.status === "PASS") ? "PASS" : "PARTIAL", steps: results };
+        return {
+          status: results.every((r) => r.status === "PASS") ? "PASS" : "PARTIAL",
+          steps: results,
+          note: "legacy inline runner — prefer td_workflow_save + td_workflow_run for persistence, records and policy"
+        };
       }
       case "td_run_playbook": {
         const playbooks = {
@@ -23091,19 +24539,46 @@ class IntelligenceToolsHandler {
         };
         const tools = playbooks[args.playbookId];
         if (!tools) return { status: "INCONCLUSIVE", note: `playbook ${args.playbookId} not found. available: ${Object.keys(playbooks).join(", ")}` };
-        return { status: "PASS", playbook: args.playbookId, steps: tools.map((t, i) => ({ step: i + 1, tool: t })) };
+        if (!this.rootPipeline) {
+          return { status: "UNSUPPORTED", note: "playbook execution requires the root MCP pipeline" };
+        }
+        const executed = [];
+        for (let i = 0; i < tools.length; i++) {
+          try {
+            const r = await this.rootPipeline.handleToolCall(tools[i], { sessionId: args.sessionId });
+            const text = r?.content?.[0]?.text ?? "";
+            let parsed = text;
+            try {
+              parsed = JSON.parse(text);
+            } catch {
+            }
+            executed.push({ step: i + 1, tool: tools[i], status: r?.isError ? "FAILED" : parsed?.status ?? "PASS" });
+          } catch (err) {
+            executed.push({ step: i + 1, tool: tools[i], status: `FAILED: ${err?.message}` });
+          }
+        }
+        const allPass = executed.every((s) => s.status === "PASS");
+        return { status: allPass ? "PASS" : "PARTIAL", playbook: args.playbookId, steps: executed, executed: true };
       }
       case "td_memory": {
+        this.ensureMemory();
         if (args.action === "store") {
           const item = this.platform.memory.store(args.kind ?? "known-failure", args.statement ?? "", { origin: "td_memory", evidenceRefs: args.evidenceRefs ?? [] }, args.confidence ?? 0.7);
-          return { status: "PASS", stored: { memoryId: item.memoryId, validated: item.validated, confidence: item.confidence } };
+          this.persistMemory();
+          return { status: "PASS", stored: { memoryId: item.memoryId, validated: item.validated, confidence: item.confidence }, persisted: true };
         }
         if (args.action === "validate") {
           this.platform.memory.validate(args.memoryId, args.outcome === "CONTRADICTED" ? "CONTRADICTED" : "CONFIRMED");
+          this.persistMemory();
           return { status: "PASS", memoryId: args.memoryId, outcome: args.outcome };
         }
+        if (args.action === "clear") {
+          this.platform.memory.restore([]);
+          this.persistMemory();
+          return { status: "PASS", cleared: true };
+        }
         const items = this.platform.memory.query(args.query ?? {});
-        return { status: "PASS", items, stats: this.platform.memory.stats() };
+        return { status: "PASS", items, stats: this.platform.memory.stats(), persisted: true };
       }
       case "td_context_optimize": {
         const planned = this.platform.contextPlanner.plan(
@@ -23237,6 +24712,7 @@ class MCPToolsHandler {
     this.devtoolsHandler = new DevToolsToolsHandler();
     this.forensicsHandler = new ForensicsToolsHandler(storage);
     this.intelligenceHandler = new IntelligenceToolsHandler();
+    this.intelligenceHandler.attachRoot(this);
     this.syncRuntimeBridge();
   }
   /** v4 intelligence handler accessor (health/incident introspection). */
@@ -23952,7 +25428,8 @@ class MCPBridgeServer {
           try {
             ws.send(msg);
             sentCount++;
-          } catch {
+          } catch (err) {
+            console.error(`[MCP Bridge] send failed to a target socket: ${err?.message ?? err}`);
           }
         }
       }
@@ -23981,8 +25458,8 @@ class MCPBridgeServer {
           res.end(
             JSON.stringify({
               status: "ok",
-              server: "browser-forensic-bridge",
-              version: "3.0.0",
+              server: "teledom-bridge",
+              version: TELEDOM_VERSION.version,
               connectedBrowsers: this.activeSockets.size
             })
           );
@@ -24235,6 +25712,7 @@ export {
   MCPDOM_V3_TOOLS as M,
   MCPBridgeServer,
   TELEDOM_INTELLIGENCE_TOOLS as T,
-  FileStorageProvider as a,
-  MCPToolsHandler as b
+  TELEDOM_VERSION as a,
+  FileStorageProvider as b,
+  MCPToolsHandler as c
 };

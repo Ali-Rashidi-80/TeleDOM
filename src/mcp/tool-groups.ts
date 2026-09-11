@@ -34,7 +34,24 @@ export const TOOL_GROUPS: ToolGroupInfo[] = [
   {
     group: 'inspection',
     description: 'Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.',
-    tools: ['inspect_live_page', 'inspect_live_element', 'get_element_visual_state', 'get_live_dom_snapshot', 'get_live_dom_subtree', 'get_tab_console_logs', 'get_tab_network_requests', 'get_element_ancestry', 'get_element_accessibility', 'get_computed_style', 'analyze_dom', 'search_dom', 'get_page_blueprint', 'get_element_fingerprint', 'detect_semantic_elements'],
+    // v4.1 fix (E-14): removed phantom `detect_semantic_elements` (never
+    // existed in FORENSIC_MCP_TOOLS — the catalog advertised an uncallable tool).
+    tools: ['inspect_live_page', 'inspect_live_element', 'get_element_visual_state', 'get_live_dom_snapshot', 'get_live_dom_subtree', 'get_tab_console_logs', 'get_tab_network_requests', 'get_element_ancestry', 'get_element_accessibility', 'get_computed_style', 'analyze_dom', 'search_dom', 'get_page_blueprint', 'get_element_fingerprint'],
+  },
+  {
+    group: 'browser-primitives',
+    description: 'v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).',
+    tools: ['td_browser_navigate', 'td_browser_back', 'td_browser_forward', 'td_browser_refresh', 'td_dom_inspect', 'td_dom_query', 'td_dom_extract', 'td_dom_snapshot', 'td_target_find', 'td_target_check', 'td_target_describe', 'td_action_click', 'td_action_type', 'td_action_select', 'td_action_hover', 'td_action_press', 'td_action_scroll', 'td_wait', 'td_screenshot', 'td_execute_script', 'td_network_inspect', 'td_console_read'],
+  },
+  {
+    group: 'workflow-runtime',
+    description: 'v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.',
+    tools: ['td_workflow_save', 'td_workflow_get', 'td_workflow_list', 'td_workflow_update', 'td_workflow_delete', 'td_workflow_clone', 'td_workflow_diff', 'td_workflow_export', 'td_workflow_import', 'td_workflow_validate', 'td_workflow_run', 'td_workflow_runs', 'td_workflow_run_get', 'td_workflow_replay'],
+  },
+  {
+    group: 'agent-owned-tooling',
+    description: 'v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).',
+    tools: ['td_target_memory_save', 'td_target_memory_get', 'td_target_memory_list', 'td_target_memory_delete', 'td_agent_artifact_save', 'td_agent_artifact_get', 'td_agent_artifact_list', 'td_agent_artifact_delete'],
   },
   {
     group: 'targeting',

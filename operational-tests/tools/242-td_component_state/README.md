@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"identity\":{\"note\":\"not a registered identity; using selector scope\"},\"dependents\":[],\"stateSignals\":[],\"eventCount\":0,\"tool\":\"td_component_state\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"identity\":{\"note\":\"not a registered identity; using selector scope\"},\"dependents\":[],\"stateSignals\":[],\"eventCount\":0,\"tool\":\"td_component_state\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

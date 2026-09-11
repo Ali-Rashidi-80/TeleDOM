@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "saved": {
+    "name": "extension_smoke_test",
+    "version": "1.0.0",
+    "steps": 5,
+    "versions": 1
+  },
+  "note": "stored verbatim — TeleDOM does not interpret workflow semantics",
+  "tool": "td_workflow_save",
+  "capability": {
+    "version": "4.1.0",
+    "category": "workflow-runtime",
+    "securityClass": "reversible"
+  }
+}

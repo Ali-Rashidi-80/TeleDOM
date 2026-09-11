@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "selector": "p",
+  "result": {
+    "status": "EXECUTED_SUCCESSFULLY",
+    "executionId": "js_mtx86sab_33",
+    "durationMs": 2,
+    "result": "[{\"text\":\"Deterministic test harness for live & historical MCP capabilities\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"Scrollable item 1\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"Scrollable item 2\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"Scrollable item 3\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"Scrollable item 4\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"🎯 Deep Target Element\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"Scrollable item 6\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"Original Static Text Content\",\"tag\":\"p\",\"attrs\":\"{}\"},{\"text\":\"Forensic MCP Operational Test Suite — Browser Environment\",\"tag\":\"p\",\"attrs\":\"{}\"}]",
+    "consoleOutput": [],
+    "domChanged": false,
+    "domLengthBefore": 4594,
+    "domLengthAfter": 4594,
+    "world": "ISOLATED",
+    "timeoutMs": 5000,
+    "codePreview": "const els = Array.from(document.querySelectorAll(\"p\")).slice(0, 10);\nreturn JSON.stringify(els.map(el => ({ \"text\": (()=>{ try { return el.textContent.trim(); } catch(e) { return null; } })(),\"tag\": (()=>{ try { return el.tagName.toLowerCase(); } catch(e) { return null; } })(),\"attrs\": (()=>{ try { …"
+  },
+  "tool": "td_dom_extract",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "read-only"
+  }
+}

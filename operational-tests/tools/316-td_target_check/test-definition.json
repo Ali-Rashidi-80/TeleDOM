@@ -1,0 +1,22 @@
+{
+  "tool": "td_target_check",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "CSS selector to verify"
+      },
+      "minConfidence": {
+        "type": "number",
+        "description": "Minimum confidence threshold (default 0)"
+      }
+    },
+    "required": [
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

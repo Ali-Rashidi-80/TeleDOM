@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"reconstructedState\":null,\"meta\":{\"reconstructionMs\":0.007338999999774387,\"eventsReplayed\":0,\"degraded\":false,\"memoized\":false},\"note\":\"inspection-only rewind; live page is never mutated\",\"tool\":\"td_temporal_rewind\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"reconstructedState\":null,\"meta\":{\"reconstructionMs\":0.010847999999896274,\"eventsReplayed\":0,\"degraded\":false,\"memoized\":false},\"note\":\"inspection-only rewind; live page is never mutated\",\"tool\":\"td_temporal_rewind\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

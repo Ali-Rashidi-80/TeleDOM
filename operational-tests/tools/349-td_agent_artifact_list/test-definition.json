@@ -1,0 +1,19 @@
+{
+  "tool": "td_agent_artifact_list",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "kind": {
+        "type": "string",
+        "description": "Filter by kind"
+      },
+      "tag": {
+        "type": "string",
+        "description": "Filter by tag"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

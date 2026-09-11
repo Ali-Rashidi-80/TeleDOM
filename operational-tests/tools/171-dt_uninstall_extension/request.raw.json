@@ -5,7 +5,7 @@
   "params": {
     "name": "dt_uninstall_extension",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }

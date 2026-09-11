@@ -16,7 +16,7 @@
   },
   "tool": "td_cause_counterfactual",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "causal-intelligence",
     "securityClass": "reversible"
   }

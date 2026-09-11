@@ -1,7 +1,7 @@
 # MCP Capability Discovery Report
 
-**Total Discovered Tools**: 306
-**Discovery Timestamp**: 2026-09-11T04:52:36.035Z
+**Total Discovered Tools**: 350
+**Discovery Timestamp**: 2026-09-11T17:23:40.637Z
 
 | # | Tool Name | Mode | Category | Visual Evidence | Required Arguments |
 |---|---|---|---|---|---|
@@ -311,3 +311,47 @@
 | 304 | `td_memory` | historical | historical | NO | action |
 | 305 | `td_context_optimize` | historical | historical | NO | intent |
 | 306 | `td_incident_close` | historical | historical | NO | incidentId |
+| 307 | `td_browser_navigate` | historical | historical | NO | url |
+| 308 | `td_browser_back` | historical | historical | NO | None |
+| 309 | `td_browser_forward` | historical | historical | NO | None |
+| 310 | `td_browser_refresh` | historical | historical | NO | None |
+| 311 | `td_dom_inspect` | historical | historical | NO | None |
+| 312 | `td_dom_query` | historical | historical | NO | query |
+| 313 | `td_dom_extract` | historical | historical | NO | selector |
+| 314 | `td_dom_snapshot` | historical | historical | NO | None |
+| 315 | `td_target_find` | historical | historical | NO | None |
+| 316 | `td_target_check` | historical | historical | NO | selector |
+| 317 | `td_target_describe` | historical | historical | NO | selector |
+| 318 | `td_action_click` | historical | historical | NO | selector |
+| 319 | `td_action_type` | historical | historical | NO | selector, text |
+| 320 | `td_action_select` | historical | historical | NO | selector, value |
+| 321 | `td_action_hover` | historical | historical | NO | selector |
+| 322 | `td_action_press` | historical | historical | NO | key |
+| 323 | `td_action_scroll` | historical | historical | NO | None |
+| 324 | `td_wait` | historical | historical | NO | kind |
+| 325 | `td_screenshot` | historical | historical | YES | None |
+| 326 | `td_execute_script` | historical | historical | NO | code |
+| 327 | `td_network_inspect` | historical | historical | NO | None |
+| 328 | `td_console_read` | historical | historical | NO | None |
+| 329 | `td_workflow_save` | historical | historical | NO | workflow |
+| 330 | `td_workflow_get` | historical | historical | NO | name |
+| 331 | `td_workflow_list` | historical | historical | NO | None |
+| 332 | `td_workflow_update` | historical | historical | NO | workflow |
+| 333 | `td_workflow_clone` | historical | historical | NO | name |
+| 334 | `td_workflow_diff` | historical | historical | NO | None |
+| 335 | `td_workflow_export` | historical | historical | NO | name |
+| 336 | `td_workflow_import` | historical | historical | NO | export |
+| 337 | `td_workflow_validate` | historical | historical | NO | workflow |
+| 338 | `td_workflow_run` | historical | historical | NO | None |
+| 339 | `td_workflow_runs` | historical | historical | NO | None |
+| 340 | `td_workflow_run_get` | historical | historical | NO | runId |
+| 341 | `td_workflow_replay` | historical | historical | NO | runId |
+| 342 | `td_workflow_delete` | historical | historical | NO | name |
+| 343 | `td_target_memory_save` | historical | historical | NO | site, semanticId |
+| 344 | `td_target_memory_get` | historical | historical | NO | site, semanticId |
+| 345 | `td_target_memory_list` | historical | historical | NO | None |
+| 346 | `td_target_memory_delete` | historical | historical | NO | site, semanticId |
+| 347 | `td_agent_artifact_save` | historical | historical | NO | kind, name, content |
+| 348 | `td_agent_artifact_get` | historical | historical | NO | kind, name |
+| 349 | `td_agent_artifact_list` | historical | historical | NO | None |
+| 350 | `td_agent_artifact_delete` | historical | historical | NO | kind, name |

@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"associations\":[{\"region\":{\"x\":0,\"y\":0,\"label\":\"viewport\"},\"associatedEntities\":[\"sem:c3e87a801165\",\"sem:ea6332da48e8\",\"sem:dc933d832497\",\"sem:03c7efe93932\",\"sem:c57b8a020ef6\"]}],\"note\":\"visual↔semantic association is heuristic in recorded mode; correlate with td_visual_causality for evidence\",\"tool\":\"td_visual_semantics\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"associations\":[{\"region\":{\"x\":0,\"y\":0,\"label\":\"viewport\"},\"associatedEntities\":[\"sem:c3e87a801165\",\"sem:ea6332da48e8\",\"sem:dc933d832497\",\"sem:03c7efe93932\",\"sem:c57b8a020ef6\"]}],\"note\":\"visual↔semantic association is heuristic in recorded mode; correlate with td_visual_causality for evidence\",\"tool\":\"td_visual_semantics\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

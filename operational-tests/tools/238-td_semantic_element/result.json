@@ -2,8 +2,8 @@
   "tool": "td_semantic_element",
   "index": 238,
   "status": "PASS",
-  "executionTimeMs": 2,
+  "executionTimeMs": 1,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:49.129Z"
+  "timestamp": "2026-09-11T17:23:53.933Z"
 }

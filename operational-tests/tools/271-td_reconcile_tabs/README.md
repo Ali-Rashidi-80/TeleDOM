@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"DEGRADED\",\"note\":\"tab reconciliation requires the live bridge; session identity is preserved\",\"sessions\":[\"operational_acceptance_session_001\"],\"tool\":\"td_reconcile_tabs\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"DEGRADED\",\"note\":\"tab reconciliation requires the live bridge; session identity is preserved\",\"sessions\":[\"operational_acceptance_session_001\"],\"tool\":\"td_reconcile_tabs\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

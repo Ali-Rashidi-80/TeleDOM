@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"session has no events to mutate\",\"tool\":\"td_simulate_dom\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"counterfactual-simulation\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"session has no events to mutate\",\"tool\":\"td_simulate_dom\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"counterfactual-simulation\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

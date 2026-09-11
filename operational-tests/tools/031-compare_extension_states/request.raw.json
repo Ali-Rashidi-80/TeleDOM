@@ -5,7 +5,7 @@
   "params": {
     "name": "compare_extension_states",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }

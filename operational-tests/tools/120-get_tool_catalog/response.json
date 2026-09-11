@@ -1,5 +1,5 @@
 {
-  "total": 206,
+  "total": 249,
   "catalog": [
     {
       "tool": "list_sessions",
@@ -534,9 +534,740 @@
       "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
     },
     {
-      "tool": "detect_semantic_elements",
-      "group": "inspection",
-      "purpose": "See tool description (tools/list) — group: Live page and element inspection: page metadata, element deep-info, visual state, DOM snapshots and analyzers.",
+      "tool": "td_browser_navigate",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_browser_back",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_browser_forward",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_browser_refresh",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_dom_inspect",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_dom_query",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_dom_extract",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_dom_snapshot",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_target_find",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_target_check",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_target_describe",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_action_click",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_action_type",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_action_select",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_action_hover",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_action_press",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_action_scroll",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_wait",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_screenshot",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_execute_script",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_network_inspect",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_console_read",
+      "group": "browser-primitives",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Clean, stable agent-facing browser verbs (td_browser_*/td_dom_*/td_target_*/td_action_*): navigate, observe, query, extract, find/verify/describe targets, interact, wait, screenshot + escape hatches (script, network, console).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_save",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_get",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_list",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_update",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_delete",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_clone",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_diff",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_export",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_import",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_validate",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_run",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_runs",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_run_get",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_workflow_replay",
+      "group": "workflow-runtime",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Agent-owned workflow persistence (save/get/list/update/delete/clone/diff/export/import) + DUMB execution with policy gates + deterministic execution records + verbatim replay. TeleDOM stores and executes; the agent designs and repairs.",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_target_memory_save",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_target_memory_get",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_target_memory_list",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_target_memory_delete",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_agent_artifact_save",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_agent_artifact_get",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_agent_artifact_list",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
+      "requiredContext": "Live browser connection or Node simulation context",
+      "input": "See inputSchema in tools/list",
+      "output": "See tool description in tools/list",
+      "sideEffects": "None (read-only)",
+      "failureConditions": [
+        "EXTENSION_UNAVAILABLE (no browser connected)",
+        "TARGET_NOT_FOUND",
+        "TARGET_STALE (element removed)",
+        "SCRIPT_TIMEOUT",
+        "DOM_MUTATION_FAILED"
+      ],
+      "recoveryStrategy": "Retry after wait_for_condition; inspect get_operation_trace for correlated errors."
+    },
+    {
+      "tool": "td_agent_artifact_delete",
+      "group": "agent-owned-tooling",
+      "purpose": "See tool description (tools/list) — group: v4.1 — Learned targets (target memory: skip DOM re-analysis on every run) + agent artifact store (custom tools, scripts, policies, memories — stored verbatim, never interpreted).",
       "requiredContext": "Live browser connection or Node simulation context",
       "input": "See inputSchema in tools/list",
       "output": "See tool description in tools/list",

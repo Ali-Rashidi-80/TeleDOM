@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "count": 1,
+  "workflows": [
+    {
+      "name": "extension_smoke_test",
+      "version": "1.0.0",
+      "description": "Reusable extension smoke test: observe page, verify CTA target, click, extract counter, assert state",
+      "tags": [
+        "operational",
+        "smoke-test",
+        "v4.1"
+      ],
+      "steps": 5,
+      "versions": 1,
+      "updatedAt": "2026-09-11T17:23:57.076Z"
+    }
+  ],
+  "tool": "td_workflow_list",
+  "capability": {
+    "version": "4.1.0",
+    "category": "workflow-runtime",
+    "securityClass": "read-only"
+  }
+}

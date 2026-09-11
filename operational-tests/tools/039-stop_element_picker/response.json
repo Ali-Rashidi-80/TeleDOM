@@ -2,6 +2,10 @@
   "status": "PICKER_INACTIVE",
   "message": "Visual element picker stopped.",
   "details": {
-    "pickerActive": false
+    "status": "PICKER_INACTIVE",
+    "message": "Visual element picker stopped.",
+    "details": {
+      "pickerActive": false
+    }
   }
 }

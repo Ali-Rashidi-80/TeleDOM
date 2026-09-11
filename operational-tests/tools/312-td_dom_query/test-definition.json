@@ -1,0 +1,34 @@
+{
+  "tool": "td_dom_query",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Search text (matched against text, tags, attributes)"
+      },
+      "tag": {
+        "type": "string",
+        "description": "Restrict to tag name"
+      },
+      "attr": {
+        "type": "string",
+        "description": "Require attribute name"
+      },
+      "attrValue": {
+        "type": "string",
+        "description": "Attribute value filter"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max results (default 50)"
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 0ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"branch undefined not found — fork one via td_temporal_branch first\",\"tool\":\"td_cause_breakpoint\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"causal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"branch undefined not found — fork one via td_temporal_branch first\",\"tool\":\"td_cause_breakpoint\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"causal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

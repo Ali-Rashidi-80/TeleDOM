@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"mode\":\"passive\",\"findingCount\":1,\"findings\":[{\"id\":\"sec:73\",\"category\":\"csp\",\"severity\":\"high\",\"confidence\":0.8,\"observed\":\"CSP allows 'unsafe-inline' scripts\",\"verification\":\"CONFIRMED\",\"remediation\":\"replace inline scripts with nonced/hashed script-src entries\"}],\"note\":\"passive analysis only; suspicion is never reported as CONFIRMED without reproduction\",\"tool\":\"td_csp_security_audit\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"security-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"mode\":\"passive\",\"findingCount\":1,\"findings\":[{\"id\":\"sec:73\",\"category\":\"csp\",\"severity\":\"high\",\"confidence\":0.8,\"observed\":\"CSP allows 'unsafe-inline' scripts\",\"verification\":\"CONFIRMED\",\"remediation\":\"replace inline scripts with nonced/hashed script-src entries\"}],\"note\":\"passive analysis only; suspicion is never reported as CONFIRMED without reproduction\",\"tool\":\"td_csp_security_audit\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"security-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

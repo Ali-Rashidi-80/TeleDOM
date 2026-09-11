@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "selector": "#primary-action-btn",
+  "resolvable": true,
+  "confidence": 1,
+  "checkedAt": "2026-09-11T17:23:55.227Z",
+  "tool": "td_target_check",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "read-only"
+  }
+}

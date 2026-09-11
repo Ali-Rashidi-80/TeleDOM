@@ -7,6 +7,6 @@
   {
     "assertion": "Retrieves selected element metadata",
     "passed": true,
-    "details": "selected, message"
+    "details": "selected, element"
   }
 ]

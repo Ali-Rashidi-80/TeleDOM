@@ -33,7 +33,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"no symptom event found in session\",\"tool\":\"td_cause_trace\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"causal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"no symptom event found in session\",\"tool\":\"td_cause_trace\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"causal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

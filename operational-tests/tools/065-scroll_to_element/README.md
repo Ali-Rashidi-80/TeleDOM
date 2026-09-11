@@ -32,7 +32,7 @@ Scrolls element into view
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"success\": true,\n  \"scrollBefore\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"scrollAfter\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"requested\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"targetSelector\": \"#scroll-target\"\n}"
+        "text": "{\n  \"success\": true,\n  \"scrollBefore\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"scrollAfter\": {\n    \"x\": 0,\n    \"y\": 0\n  },\n  \"requested\": {\n    \"x\": 0,\n    \"y\": 0\n  }\n}"
       }
     ]
   }
@@ -41,4 +41,4 @@ Scrolls element into view
 
 ## Assertions
 - [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
-- [x] **Scrolls element into view**: success, scrollBefore, scrollAfter, requested, targetSelector
+- [x] **Scrolls element into view**: success, scrollBefore, scrollAfter, requested

@@ -415,7 +415,9 @@ function connectBridge() {
         if (ws && ws.readyState === WebSocket.OPEN) {
           try {
             ws.send(JSON.stringify({ type: 'HEARTBEAT', timestamp: Date.now() }));
-          } catch {}
+          } catch (err: any) {
+            console.warn('[TeleDOM SW] non-critical operation failed:', err?.message ?? err);
+          }
         }
       }, 15000);
     };

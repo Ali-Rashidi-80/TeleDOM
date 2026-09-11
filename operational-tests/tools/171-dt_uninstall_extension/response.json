@@ -1,10 +1,10 @@
 {
   "uninstalled": true,
   "softUninstall": true,
-  "extensionId": "forensic-recorder@mcpdom",
+  "extensionId": "teledom@teledom",
   "note": "Disabled via chrome.management (soft uninstall). Hard removal requires user confirmation in chrome://extensions — never auto-destroyed.",
   "detail": {
-    "extensionId": "forensic-recorder@mcpdom",
+    "extensionId": "teledom@teledom",
     "enabled": false,
     "simulated": true
   }

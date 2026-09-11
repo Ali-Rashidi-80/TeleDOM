@@ -1,25 +1,25 @@
 {
   "stopped": true,
   "recording": {
-    "recordingId": "rec_mtwhcqv9_1",
+    "recordingId": "rec_mtx86odp_1",
     "name": "op-recording",
-    "createdAt": 1789102363653,
-    "updatedAt": 1789102363653,
+    "createdAt": 1789147430125,
+    "updatedAt": 1789147430125,
     "commandCount": 1,
     "commands": [
       {
         "index": 1,
-        "commandId": "rcmd_1_mtwhcqv9",
+        "commandId": "rcmd_1_mtx86odp",
         "tool": "record_commands_start",
         "args": {
           "name": "op-recording"
         },
-        "recordedAt": 1789102363653,
+        "recordedAt": 1789147430125,
         "outcome": "SUCCESS",
         "resultSummary": "object with keys [recordingId, name, active, note]"
       }
     ],
     "tags": []
   },
-  "savedTo": ".mcpdom_recordings/rec_mtwhcqv9_1.json"
+  "savedTo": ".mcpdom_recordings/rec_mtx86odp_1.json"
 }

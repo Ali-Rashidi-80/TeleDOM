@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "teledom"
+version = "4.1.0"
+description = "TeleDOM Python SDK — semantic browser programming over the TeleDOM Agent-Owned Workflow Runtime (Level 2: Bot → SDK → Browser Runtime)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "TeleDOM" }]
+keywords = ["browser-automation", "mcp", "rpa", "agent", "workflow", "semantic"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Internet :: WWW/HTTP :: Browsers",
+]
+dependencies = []  # pure stdlib — zero dependencies
+
+[project.urls]
+Homepage = "https://github.com/IrMaho/TeleDOM"
+
+[tool.setuptools.packages.find]
+include = ["teledom*"]

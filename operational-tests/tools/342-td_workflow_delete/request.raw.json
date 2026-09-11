@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_342_td_workflow_delete",
+  "method": "tools/call",
+  "params": {
+    "name": "td_workflow_delete",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

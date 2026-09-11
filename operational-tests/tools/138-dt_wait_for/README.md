@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 2ms
+**Duration**: 4ms
 
 ## Test Objective
 Waits for load state
@@ -33,7 +33,7 @@ Waits for load state
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"condition\": \"load\",\n  \"met\": true,\n  \"waitedMs\": 0,\n  \"pageId\": \"page_1\",\n  \"state\": {\n    \"readyState\": \"complete\",\n    \"inflight\": 0\n  }\n}"
+        "text": "{\n  \"condition\": \"load\",\n  \"met\": true,\n  \"waitedMs\": 3,\n  \"pageId\": \"page_1\",\n  \"state\": {\n    \"readyState\": \"complete\",\n    \"inflight\": 0\n  }\n}"
       }
     ]
   }

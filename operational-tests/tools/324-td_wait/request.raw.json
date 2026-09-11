@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_324_td_wait",
+  "method": "tools/call",
+  "params": {
+    "name": "td_wait",
+    "arguments": {
+      "kind": "dom_stable",
+      "timeoutMs": 1000
+    }
+  }
+}

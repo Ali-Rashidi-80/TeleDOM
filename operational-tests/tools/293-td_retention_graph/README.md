@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"UNSUPPORTED\",\"reason\":\"retention graph requires a live heap snapshot via the DevTools runtime (dt_performance_start_trace family); recorded sessions do not carry heap edges\",\"experimental\":true,\"tool\":\"td_retention_graph\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"performance-memory-visual\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"UNSUPPORTED\",\"reason\":\"retention graph requires a live heap snapshot via the DevTools runtime (dt_performance_start_trace family); recorded sessions do not carry heap edges\",\"experimental\":true,\"tool\":\"td_retention_graph\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"performance-memory-visual\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

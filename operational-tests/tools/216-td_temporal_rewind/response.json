@@ -2,7 +2,7 @@
   "status": "INCONCLUSIVE",
   "reconstructedState": null,
   "meta": {
-    "reconstructionMs": 0.007338999999774387,
+    "reconstructionMs": 0.010847999999896274,
     "eventsReplayed": 0,
     "degraded": false,
     "memoized": false
@@ -10,7 +10,7 @@
   "note": "inspection-only rewind; live page is never mutated",
   "tool": "td_temporal_rewind",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "temporal-intelligence",
     "securityClass": "read-only"
   }

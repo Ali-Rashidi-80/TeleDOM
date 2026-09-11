@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_313_td_dom_extract",
+  "method": "tools/call",
+  "params": {
+    "name": "td_dom_extract",
+    "arguments": {
+      "selector": "p",
+      "limit": 10
+    }
+  }
+}

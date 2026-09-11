@@ -1,0 +1,9 @@
+{
+  "tool": "td_dom_inspect",
+  "index": 311,
+  "status": "PASS",
+  "executionTimeMs": 4,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-11T17:23:55.178Z"
+}

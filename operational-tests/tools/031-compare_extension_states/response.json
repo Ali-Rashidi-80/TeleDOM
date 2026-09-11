@@ -1,16 +1,16 @@
 {
   "comparisonSuccess": true,
-  "extensionId": "forensic-recorder@mcpdom",
+  "extensionId": "teledom@teledom",
   "tabId": "active",
   "cleanState": {
-    "domLengthChars": 4405
+    "domLengthChars": 4672
   },
   "injectedState": {
-    "domLengthChars": 4405
+    "domLengthChars": 4672
   },
   "analysis": {
     "domSizeDifferenceChars": 0,
     "injectedMarkersDetected": [],
-    "summary": "Comparison complete. Clean DOM: 4405 chars, Injected DOM: 4405 chars (Delta: 0 chars). Detected injected markers: none."
+    "summary": "Comparison complete. Clean DOM: 4672 chars, Injected DOM: 4672 chars (Delta: 0 chars). Detected injected markers: none."
   }
 }

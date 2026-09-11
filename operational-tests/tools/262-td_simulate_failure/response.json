@@ -16,7 +16,7 @@
   },
   "tool": "td_simulate_failure",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "counterfactual-simulation",
     "securityClass": "policy-gated"
   }

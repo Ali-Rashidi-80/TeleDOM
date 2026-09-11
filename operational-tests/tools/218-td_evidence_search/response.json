@@ -8,7 +8,7 @@
   "matchCount": 1,
   "tool": "td_evidence_search",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "evidence-provenance",
     "securityClass": "read-only"
   }

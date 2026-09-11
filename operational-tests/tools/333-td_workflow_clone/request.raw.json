@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_333_td_workflow_clone",
+  "method": "tools/call",
+  "params": {
+    "name": "td_workflow_clone",
+    "arguments": {
+      "name": "extension_smoke_test",
+      "as": "extension_smoke_test_copy",
+      "newVersion": "1.0.0"
+    }
+  }
+}

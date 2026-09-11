@@ -117,7 +117,7 @@
 | V09 | **Portable .tdom forensic artifacts** | Session export was JSON blob → TdomFormat: versioned manifest, content-addressed sections, gzip, compatibility info; tamper detection on import | P1 | 7.0 | IMPLEMENTED |
 | V10 | **Tamper detection on artifact import** | Imported sessions were trusted → Per-section hash + manifest hash re-verification; brokenSection reported | P0 | 7.0 | IMPLEMENTED |
 | V11 | **Resumable investigation plans** | Investigations were manual tool-call sequences with no state → InvestigationPlan with per-step status + completedThrough + resumePlanId support | P1 | 7.0 | IMPLEMENTED |
-| v4 | **Autonomous investigator (td_investigate)** | Agent manually orchestrated 30+ tool calls → 13-step orchestrated plan: scope→incident→baseline→observe→timeline→reconstruct→correlate→graph→hypotheses→counterfactual→verify→proof→lesson | P0 | 7.0 | IMPLEMENTED |
+| V12 | **Autonomous investigator (td_investigate)** | Agent manually orchestrated 30+ tool calls → 13-step orchestrated plan: scope→incident→baseline→observe→timeline→reconstruct→correlate→graph→hypotheses→counterfactual→verify→proof→lesson | P0 | 7.0 | IMPLEMENTED |
 
 ## security (10)
 
@@ -584,7 +584,7 @@
 - **External evidence**: Roadmap §68 blast radius question
 - **Why it matters**: Agents must know direct vs second-order effects before acting
 - **Architecture**: causeImpact(): direct + second-order causal children + affected-entity count
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: low · **Risk**: low
 - **Benefit**: Blast radius answers for every candidate cause
 - **Tests**: tests/intelligence registry smoke
@@ -749,7 +749,7 @@
 - **External evidence**: Roadmap page intent
 - **Why it matters**: Agents need interaction zones without full state
 - **Architecture**: Workflow/zone inference from semantic roles + interactive elements
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: low · **Risk**: low
 - **Benefit**: L1-level page understanding
 - **Tests**: tests page intent smoke
@@ -839,7 +839,7 @@
 - **External evidence**: Priority 3 no-fake-success
 - **Why it matters**: The single most dangerous failure mode in agent tooling
 - **Architecture**: Status taxonomy PASS/FAIL/INCONCLUSIVE/UNSUPPORTED/DEGRADED/PARTIAL enforced across all 100 td_* tools (smoke-tested)
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: low · **Risk**: medium
 - **Benefit**: Honest statuses everywhere; 0.00% false success measured
 - **Tests**: tests/intelligence registry smoke (status taxonomy)
@@ -921,7 +921,7 @@
 - **Benchmark**: n/a
 - **Security**: none
 
-### v4 — Autonomous investigator (td_investigate)
+### V12 — Autonomous investigator (td_investigate)
 
 - **Category**: incident · **Priority**: P0 · **Version target**: 7.0 · **Status**: IMPLEMENTED
 - **Problem**: Agent manually orchestrated 30+ tool calls
@@ -1049,7 +1049,7 @@
 - **External evidence**: Range-safety engineering practice (hardware/software test ranges require a big red button)
 - **Why it matters**: An authorized active test that misbehaves must be stoppable instantly, before budget/rate limits catch it
 - **Architecture**: engageKillSwitch() flips a policy flag that every authorization check consults first; all subsequent active-test requests are refused with an explicit kill-switch reason
-- **Modules**: security/analyzers, v4/mcp handler
+- **Modules**: security/analyzers, v12/mcp handler
 - **Complexity**: low · **Risk**: low
 - **Benefit**: One-call emergency containment of all active testing
 - **Tests**: tests kill-switch test (gate refuses after engage)
@@ -1169,7 +1169,7 @@
 - **External evidence**: Roadmap session repair
 - **Why it matters**: Interrupted storage must be repairable from checkpoints + evidence
 - **Architecture**: serialize() → fresh mesh restore() with chain re-verification; td_session_repair tool
-- **Modules**: kernel/events, v4/mcp handler
+- **Modules**: kernel/events, v12/mcp handler
 - **Complexity**: medium · **Risk**: medium
 - **Benefit**: Hash-verified session resurrection
 - **Tests**: tests session-repair dispatch + chaos storage-interruption
@@ -1289,7 +1289,7 @@
 - **External evidence**: Roadmap §30; token-cost complaints
 - **Why it matters**: Agents should express intent; the platform orchestrates
 - **Architecture**: td_* families compose kernel/temporal/evidence/causal primitives via one dispatcher — not 100 isolated handlers
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: high · **Risk**: medium
 - **Benefit**: Investigation-level calls replace 30-call sequences
 - **Tests**: tests smoke matrix
@@ -1394,7 +1394,7 @@
 - **External evidence**: Roadmap run_workflow
 - **Why it matters**: Multi-step operations need per-step status + honest PARTIAL results
 - **Architecture**: td_run_workflow: executes step tools, collects per-step statuses, PARTIAL when any step degrades
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: medium · **Risk**: low
 - **Benefit**: Composable agent workflows
 - **Tests**: tests workflow smoke + operational
@@ -1409,7 +1409,7 @@
 - **External evidence**: SRE playbook practice
 - **Why it matters**: Common scenarios should be one call
 - **Architecture**: td_run_playbook: disappearing-ui, security-passive, performance-scan, recovery-drill
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: low · **Risk**: low
 - **Benefit**: Reusable expert procedures
 - **Tests**: tests playbook smoke
@@ -1619,7 +1619,7 @@
 - **External evidence**: Baseline doc-drift defect
 - **Why it matters**: One source of truth for version across package/CLI/MCP/artifacts
 - **Architecture**: src/intelligence/version.ts: TELEDOM_VERSION + VERSION_HISTORY (v4→v12); sea-entry banner derives from it
-- **Modules**: v4/version, sea-entry, package.json
+- **Modules**: v12/version, sea-entry, package.json
 - **Complexity**: low · **Risk**: low
 - **Benefit**: Version drift structurally eliminated
 - **Tests**: tests version sync assertions
@@ -1679,7 +1679,7 @@
 - **External evidence**: API robustness
 - **Why it matters**: Unknown incident/branch/hypothesis ids are lookup misses, not failures
 - **Architecture**: INCONCLUSIVE with actionable notes instead of FAIL crashes
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: low · **Risk**: low
 - **Benefit**: Robust, honest tool responses (found by operational suite)
 - **Tests**: operational suite 306/306
@@ -1724,7 +1724,7 @@
 - **External evidence**: Chrome DevTools performance panel; roadmap performance causality
 - **Why it matters**: "Which network event caused this layout shift" must be answerable
 - **Architecture**: td_long_task_trace + td_layout_causality correlate performance events through the causal engine
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: medium · **Risk**: low
 - **Benefit**: Performance plugged into the same evidence + temporal model
 - **Tests**: tests dispatch tests
@@ -1739,7 +1739,7 @@
 - **External evidence**: Heap-snapshot tooling; roadmap memory intelligence
 - **Why it matters**: Retained-growth patterns need temporal churn analysis
 - **Architecture**: td_memory_leak_trace: unmount-ratio analysis over DOM churn (growth signal < 0.3)
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: medium · **Risk**: low
 - **Benefit**: Leak-pattern signals from recorded sessions
 - **Tests**: tests dispatch test
@@ -1754,7 +1754,7 @@
 - **External evidence**: Roadmap render stability
 - **Why it matters**: Agents need to know when state is observationally stable
 - **Architecture**: td_render_stability via lastStable(settleMs)
-- **Modules**: temporal/queries, v4/mcp handler
+- **Modules**: temporal/queries, v12/mcp handler
 - **Complexity**: low · **Risk**: low
 - **Benefit**: Deterministic stability point
 - **Tests**: tests dispatch + temporal
@@ -1769,7 +1769,7 @@
 - **External evidence**: Browser Use false-success class
 - **Why it matters**: No live adapter means honest UNSUPPORTED with wiring instructions
 - **Architecture**: td_interaction_execute/safe_apply/retention_graph return UNSUPPORTED with reason + suggestion
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: low · **Risk**: high
 - **Benefit**: Capability state honesty (never fake success)
 - **Tests**: tests smoke UNSUPPORTED count
@@ -1784,7 +1784,7 @@
 - **External evidence**: DevTools heap snapshot API requirements
 - **Why it matters**: Claiming runtime heap edges from recorded sessions would be dishonest
 - **Architecture**: td_retention_graph returns UNSUPPORTED (EXPERIMENTAL) until live heap snapshots are wired
-- **Modules**: v4/mcp handler
+- **Modules**: v12/mcp handler
 - **Complexity**: low · **Risk**: low
 - **Benefit**: No over-claiming: experimental capability explicitly marked
 - **Tests**: tests smoke
@@ -1799,7 +1799,7 @@
 - **External evidence**: Roadmap visual intelligence limits
 - **Why it matters**: Visual changes must correlate, never prove
 - **Architecture**: td_visual_causality correlates visual/dom/runtime with classification; fidelity gate keeps verdicts INCONCLUSIVE
-- **Modules**: v4/mcp handler, simulation/counterfactual
+- **Modules**: v12/mcp handler, simulation/counterfactual
 - **Complexity**: medium · **Risk**: medium
 - **Benefit**: Visual evidence integrated without epistemic overreach
 - **Tests**: tests fidelity gating

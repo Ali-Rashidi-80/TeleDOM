@@ -1,0 +1,26 @@
+{
+  "tool": "td_browser_navigate",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "Target URL"
+      },
+      "newTab": {
+        "type": "boolean",
+        "description": "Open in a new tab instead of the current one"
+      },
+      "waitForStable": {
+        "type": "boolean",
+        "description": "Wait for DOM stability after navigation (default true)"
+      }
+    },
+    "required": [
+      "url"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

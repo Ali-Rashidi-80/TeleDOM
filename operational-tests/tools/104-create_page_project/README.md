@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 6ms
+**Duration**: 8ms
 
 ## Test Objective
 Creates project folder with manifest and instructions
@@ -33,7 +33,7 @@ Creates project folder with manifest and instructions
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"schemaVersion\": \"1.0.0\",\n  \"projectId\": \"proj_mtwhcqvt\",\n  \"name\": \"op-project\",\n  \"description\": \"Operational project\",\n  \"createdAt\": 1789102363673,\n  \"updatedAt\": 1789102363673,\n  \"pages\": [\n    \"page_mtwhcqvt\"\n  ],\n  \"regionCount\": 0,\n  \"commandRecordingCount\": 0,\n  \"tags\": [],\n  \"toolVersion\": \"3.0.0\"\n}"
+        "text": "{\n  \"schemaVersion\": \"1.0.0\",\n  \"projectId\": \"proj_mtx86oeo\",\n  \"name\": \"op-project\",\n  \"description\": \"Operational project\",\n  \"createdAt\": 1789147430160,\n  \"updatedAt\": 1789147430160,\n  \"pages\": [\n    \"page_mtx86oeo\"\n  ],\n  \"regionCount\": 0,\n  \"commandRecordingCount\": 0,\n  \"tags\": [],\n  \"toolVersion\": \"3.0.0\"\n}"
       }
     ]
   }

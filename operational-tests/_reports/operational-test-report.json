@@ -1,9 +1,9 @@
 {
   "title": "MCP-DOM Operational Acceptance Test Report",
-  "timestamp": "2026-09-11T04:52:52.121Z",
+  "timestamp": "2026-09-11T17:23:58.861Z",
   "environment": "Real Node.js Subprocess + stdio JSON-RPC 2.0 Protocol",
-  "totalCapabilities": 306,
-  "passed": 306,
+  "totalCapabilities": 350,
+  "passed": 350,
   "failed": 0,
   "blocked": 0,
   "certificationStatus": "CERTIFIED",
@@ -12,64 +12,64 @@
       "tool": "list_sessions",
       "index": 1,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:36.825Z"
+      "timestamp": "2026-09-11T17:23:41.465Z"
     },
     {
       "tool": "get_session",
       "index": 2,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:36.826Z"
+      "timestamp": "2026-09-11T17:23:41.472Z"
     },
     {
       "tool": "export_session",
       "index": 3,
       "status": "PASS",
-      "executionTimeMs": 33,
+      "executionTimeMs": 63,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:36.860Z"
+      "timestamp": "2026-09-11T17:23:41.535Z"
     },
     {
       "tool": "import_session",
       "index": 4,
       "status": "PASS",
-      "executionTimeMs": 41,
+      "executionTimeMs": 30,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:36.933Z"
+      "timestamp": "2026-09-11T17:23:41.596Z"
     },
     {
       "tool": "delete_session",
       "index": 5,
       "status": "PASS",
-      "executionTimeMs": 8,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:36.947Z"
+      "timestamp": "2026-09-11T17:23:41.603Z"
     },
     {
       "tool": "get_timeline",
       "index": 6,
       "status": "PASS",
-      "executionTimeMs": 15,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:36.962Z"
+      "timestamp": "2026-09-11T17:23:41.609Z"
     },
     {
       "tool": "get_events",
       "index": 7,
       "status": "PASS",
-      "executionTimeMs": 37,
+      "executionTimeMs": 29,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:36.999Z"
+      "timestamp": "2026-09-11T17:23:41.639Z"
     },
     {
       "tool": "get_events_around",
@@ -78,97 +78,97 @@
       "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.013Z"
+      "timestamp": "2026-09-11T17:23:41.652Z"
     },
     {
       "tool": "get_dom_state",
       "index": 9,
       "status": "PASS",
-      "executionTimeMs": 7,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.020Z"
+      "timestamp": "2026-09-11T17:23:41.659Z"
     },
     {
       "tool": "get_dom_node",
       "index": 10,
       "status": "PASS",
-      "executionTimeMs": 5,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.026Z"
+      "timestamp": "2026-09-11T17:23:41.666Z"
     },
     {
       "tool": "get_dom_subtree",
       "index": 11,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.032Z"
+      "timestamp": "2026-09-11T17:23:41.674Z"
     },
     {
       "tool": "diff_dom",
       "index": 12,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.038Z"
+      "timestamp": "2026-09-11T17:23:41.682Z"
     },
     {
       "tool": "trace_element",
       "index": 13,
       "status": "PASS",
-      "executionTimeMs": 9,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.048Z"
+      "timestamp": "2026-09-11T17:23:41.690Z"
     },
     {
       "tool": "find_disappearing_elements",
       "index": 14,
       "status": "PASS",
-      "executionTimeMs": 7,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.055Z"
+      "timestamp": "2026-09-11T17:23:41.697Z"
     },
     {
       "tool": "why_did_element_disappear",
       "index": 15,
       "status": "PASS",
-      "executionTimeMs": 38,
+      "executionTimeMs": 35,
       "assertionsPassed": 3,
       "assertionsTotal": 3,
-      "timestamp": "2026-09-11T04:52:37.093Z"
+      "timestamp": "2026-09-11T17:23:41.733Z"
     },
     {
       "tool": "get_diagnostics",
       "index": 16,
       "status": "PASS",
-      "executionTimeMs": 36,
+      "executionTimeMs": 42,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.135Z"
+      "timestamp": "2026-09-11T17:23:41.782Z"
     },
     {
       "tool": "get_network_events",
       "index": 17,
       "status": "PASS",
-      "executionTimeMs": 7,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.142Z"
+      "timestamp": "2026-09-11T17:23:41.788Z"
     },
     {
       "tool": "get_screenshots",
       "index": 18,
       "status": "PASS",
-      "executionTimeMs": 7,
+      "executionTimeMs": 5,
       "assertionsPassed": 3,
       "assertionsTotal": 3,
-      "timestamp": "2026-09-11T04:52:37.149Z"
+      "timestamp": "2026-09-11T17:23:41.794Z"
     },
     {
       "tool": "annotate_session",
@@ -177,7 +177,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.150Z"
+      "timestamp": "2026-09-11T17:23:41.795Z"
     },
     {
       "tool": "get_annotations",
@@ -186,259 +186,259 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.151Z"
+      "timestamp": "2026-09-11T17:23:41.796Z"
     },
     {
       "tool": "get_recording_health",
       "index": 21,
       "status": "PASS",
-      "executionTimeMs": 10,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.161Z"
+      "timestamp": "2026-09-11T17:23:41.803Z"
     },
     {
       "tool": "list_tabs",
       "index": 22,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 20,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.164Z"
+      "timestamp": "2026-09-11T17:23:41.823Z"
     },
     {
       "tool": "focus_tab",
       "index": 23,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.165Z"
+      "timestamp": "2026-09-11T17:23:41.829Z"
     },
     {
       "tool": "reload_tab",
       "index": 24,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.166Z"
+      "timestamp": "2026-09-11T17:23:41.834Z"
     },
     {
       "tool": "close_tab",
       "index": 25,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 9,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.167Z"
+      "timestamp": "2026-09-11T17:23:41.843Z"
     },
     {
       "tool": "open_tab",
       "index": 26,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.169Z"
+      "timestamp": "2026-09-11T17:23:41.849Z"
     },
     {
       "tool": "list_extensions",
       "index": 27,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.170Z"
+      "timestamp": "2026-09-11T17:23:41.853Z"
     },
     {
       "tool": "set_extension_enabled",
       "index": 28,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.170Z"
+      "timestamp": "2026-09-11T17:23:41.859Z"
     },
     {
       "tool": "toggle_extension",
       "index": 29,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.172Z"
+      "timestamp": "2026-09-11T17:23:41.864Z"
     },
     {
       "tool": "execute_pipeline",
       "index": 30,
       "status": "PASS",
-      "executionTimeMs": 84,
+      "executionTimeMs": 15,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:37.256Z"
+      "timestamp": "2026-09-11T17:23:41.879Z"
     },
     {
       "tool": "compare_extension_states",
       "index": 31,
       "status": "PASS",
-      "executionTimeMs": 5010,
+      "executionTimeMs": 5031,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.267Z"
+      "timestamp": "2026-09-11T17:23:46.910Z"
     },
     {
       "tool": "reload_extension",
       "index": 32,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.268Z"
+      "timestamp": "2026-09-11T17:23:46.915Z"
     },
     {
       "tool": "get_tab_console_logs",
       "index": 33,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.270Z"
+      "timestamp": "2026-09-11T17:23:46.919Z"
     },
     {
       "tool": "get_tab_network_requests",
       "index": 34,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.271Z"
+      "timestamp": "2026-09-11T17:23:46.923Z"
     },
     {
       "tool": "inspect_live_page",
       "index": 35,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.272Z"
+      "timestamp": "2026-09-11T17:23:46.927Z"
     },
     {
       "tool": "inspect_live_element",
       "index": 36,
       "status": "PASS",
-      "executionTimeMs": 13,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.285Z"
+      "timestamp": "2026-09-11T17:23:46.932Z"
     },
     {
       "tool": "get_selected_element",
       "index": 37,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.286Z"
+      "timestamp": "2026-09-11T17:23:46.936Z"
     },
     {
       "tool": "start_element_picker",
       "index": 38,
       "status": "PASS",
-      "executionTimeMs": 11,
+      "executionTimeMs": 21,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.297Z"
+      "timestamp": "2026-09-11T17:23:46.957Z"
     },
     {
       "tool": "stop_element_picker",
       "index": 39,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.299Z"
+      "timestamp": "2026-09-11T17:23:46.963Z"
     },
     {
       "tool": "capture_page_screenshot",
       "index": 40,
       "status": "PASS",
-      "executionTimeMs": 281,
+      "executionTimeMs": 353,
       "assertionsPassed": 4,
       "assertionsTotal": 4,
-      "timestamp": "2026-09-11T04:52:42.580Z"
+      "timestamp": "2026-09-11T17:23:47.316Z"
     },
     {
       "tool": "capture_element_screenshot",
       "index": 41,
       "status": "PASS",
-      "executionTimeMs": 13,
+      "executionTimeMs": 21,
       "assertionsPassed": 4,
       "assertionsTotal": 4,
-      "timestamp": "2026-09-11T04:52:42.603Z"
+      "timestamp": "2026-09-11T17:23:47.344Z"
     },
     {
       "tool": "interact_with_element",
       "index": 42,
       "status": "PASS",
-      "executionTimeMs": 319,
+      "executionTimeMs": 323,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.923Z"
+      "timestamp": "2026-09-11T17:23:47.667Z"
     },
     {
       "tool": "start_element_observation",
       "index": 43,
       "status": "PASS",
-      "executionTimeMs": 11,
+      "executionTimeMs": 19,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.935Z"
+      "timestamp": "2026-09-11T17:23:47.687Z"
     },
     {
       "tool": "stop_element_observation",
       "index": 44,
       "status": "PASS",
-      "executionTimeMs": 4,
+      "executionTimeMs": 10,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.940Z"
+      "timestamp": "2026-09-11T17:23:47.697Z"
     },
     {
       "tool": "get_live_dom_snapshot",
       "index": 45,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.942Z"
+      "timestamp": "2026-09-11T17:23:47.703Z"
     },
     {
       "tool": "get_live_dom_subtree",
       "index": 46,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.944Z"
+      "timestamp": "2026-09-11T17:23:47.709Z"
     },
     {
       "tool": "get_element_visual_state",
       "index": 47,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.948Z"
+      "timestamp": "2026-09-11T17:23:47.717Z"
     },
     {
       "tool": "generate_element_target",
       "index": 48,
       "status": "PASS",
-      "executionTimeMs": 10,
+      "executionTimeMs": 12,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.958Z"
+      "timestamp": "2026-09-11T17:23:47.729Z"
     },
     {
       "tool": "recover_selector",
@@ -447,142 +447,142 @@
       "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.966Z"
+      "timestamp": "2026-09-11T17:23:47.736Z"
     },
     {
       "tool": "diagnose_selector_failure",
       "index": 50,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.967Z"
+      "timestamp": "2026-09-11T17:23:47.741Z"
     },
     {
       "tool": "get_element_ancestry",
       "index": 51,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.970Z"
+      "timestamp": "2026-09-11T17:23:47.747Z"
     },
     {
       "tool": "get_element_fingerprint",
       "index": 52,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.971Z"
+      "timestamp": "2026-09-11T17:23:47.752Z"
     },
     {
       "tool": "get_element_relationships",
       "index": 53,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.972Z"
+      "timestamp": "2026-09-11T17:23:47.757Z"
     },
     {
       "tool": "get_element_accessibility",
       "index": 54,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.975Z"
+      "timestamp": "2026-09-11T17:23:47.763Z"
     },
     {
       "tool": "get_computed_style",
       "index": 55,
       "status": "PASS",
-      "executionTimeMs": 4,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.979Z"
+      "timestamp": "2026-09-11T17:23:47.769Z"
     },
     {
       "tool": "search_dom",
       "index": 56,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 9,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:42.986Z"
+      "timestamp": "2026-09-11T17:23:47.779Z"
     },
     {
       "tool": "analyze_dom",
       "index": 57,
       "status": "PASS",
-      "executionTimeMs": 31,
+      "executionTimeMs": 36,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.017Z"
+      "timestamp": "2026-09-11T17:23:47.815Z"
     },
     {
       "tool": "get_page_blueprint",
       "index": 58,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 62,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.023Z"
+      "timestamp": "2026-09-11T17:23:47.878Z"
     },
     {
       "tool": "click_element",
       "index": 59,
       "status": "PASS",
-      "executionTimeMs": 308,
+      "executionTimeMs": 314,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.331Z"
+      "timestamp": "2026-09-11T17:23:48.193Z"
     },
     {
       "tool": "type_text",
       "index": 60,
       "status": "PASS",
-      "executionTimeMs": 7,
+      "executionTimeMs": 315,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.338Z"
+      "timestamp": "2026-09-11T17:23:48.508Z"
     },
     {
       "tool": "hover_element",
       "index": 61,
       "status": "PASS",
-      "executionTimeMs": 8,
+      "executionTimeMs": 313,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.346Z"
+      "timestamp": "2026-09-11T17:23:48.823Z"
     },
     {
       "tool": "focus_element",
       "index": 62,
       "status": "PASS",
-      "executionTimeMs": 5,
+      "executionTimeMs": 314,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.351Z"
+      "timestamp": "2026-09-11T17:23:49.137Z"
     },
     {
       "tool": "blur_element",
       "index": 63,
       "status": "PASS",
-      "executionTimeMs": 5,
+      "executionTimeMs": 313,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.356Z"
+      "timestamp": "2026-09-11T17:23:49.450Z"
     },
     {
       "tool": "press_keyboard_shortcut",
       "index": 64,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.358Z"
+      "timestamp": "2026-09-11T17:23:49.456Z"
     },
     {
       "tool": "scroll_to_element",
@@ -591,61 +591,61 @@
       "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.364Z"
+      "timestamp": "2026-09-11T17:23:49.461Z"
     },
     {
       "tool": "scroll_page",
       "index": 66,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.365Z"
+      "timestamp": "2026-09-11T17:23:49.465Z"
     },
     {
       "tool": "drag_and_drop",
       "index": 67,
       "status": "PASS",
-      "executionTimeMs": 4,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.369Z"
+      "timestamp": "2026-09-11T17:23:49.473Z"
     },
     {
       "tool": "set_input_checked",
       "index": 68,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.371Z"
+      "timestamp": "2026-09-11T17:23:49.479Z"
     },
     {
       "tool": "select_option",
       "index": 69,
       "status": "PASS",
-      "executionTimeMs": 10,
+      "executionTimeMs": 315,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.381Z"
+      "timestamp": "2026-09-11T17:23:49.795Z"
     },
     {
       "tool": "wait_for_condition",
       "index": 70,
       "status": "PASS",
-      "executionTimeMs": 103,
+      "executionTimeMs": 107,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.484Z"
+      "timestamp": "2026-09-11T17:23:49.902Z"
     },
     {
       "tool": "wait_for_dom_stable",
       "index": 71,
       "status": "PASS",
-      "executionTimeMs": 103,
+      "executionTimeMs": 106,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.587Z"
+      "timestamp": "2026-09-11T17:23:50.008Z"
     },
     {
       "tool": "set_interaction_profile",
@@ -654,160 +654,160 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.588Z"
+      "timestamp": "2026-09-11T17:23:50.010Z"
     },
     {
       "tool": "get_interaction_profile",
       "index": 73,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.590Z"
+      "timestamp": "2026-09-11T17:23:50.010Z"
     },
     {
       "tool": "preview_command",
       "index": 74,
       "status": "PASS",
-      "executionTimeMs": 5,
+      "executionTimeMs": 10,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.595Z"
+      "timestamp": "2026-09-11T17:23:50.021Z"
     },
     {
       "tool": "resize_viewport",
       "index": 75,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.598Z"
+      "timestamp": "2026-09-11T17:23:50.025Z"
     },
     {
       "tool": "reset_viewport",
       "index": 76,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.599Z"
+      "timestamp": "2026-09-11T17:23:50.029Z"
     },
     {
       "tool": "get_viewport_state",
       "index": 77,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.600Z"
+      "timestamp": "2026-09-11T17:23:50.032Z"
     },
     {
       "tool": "run_responsive_test",
       "index": 78,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.603Z"
+      "timestamp": "2026-09-11T17:23:50.037Z"
     },
     {
       "tool": "emulate_device",
       "index": 79,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.605Z"
+      "timestamp": "2026-09-11T17:23:50.041Z"
     },
     {
       "tool": "execute_javascript",
       "index": 80,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.606Z"
+      "timestamp": "2026-09-11T17:23:50.045Z"
     },
     {
       "tool": "execute_js_and_capture_changes",
       "index": 81,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 12,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.609Z"
+      "timestamp": "2026-09-11T17:23:50.057Z"
     },
     {
       "tool": "mutate_dom",
       "index": 82,
       "status": "PASS",
-      "executionTimeMs": 12,
+      "executionTimeMs": 15,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.622Z"
+      "timestamp": "2026-09-11T17:23:50.072Z"
     },
     {
       "tool": "mutate_dom_transaction",
       "index": 83,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.623Z"
+      "timestamp": "2026-09-11T17:23:50.076Z"
     },
     {
       "tool": "undo_dom_mutation",
       "index": 84,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.624Z"
+      "timestamp": "2026-09-11T17:23:50.079Z"
     },
     {
       "tool": "redo_dom_mutation",
       "index": 85,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.625Z"
+      "timestamp": "2026-09-11T17:23:50.083Z"
     },
     {
       "tool": "get_mutation_history",
       "index": 86,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.626Z"
+      "timestamp": "2026-09-11T17:23:50.085Z"
     },
     {
       "tool": "preview_dom_mutation",
       "index": 87,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.628Z"
+      "timestamp": "2026-09-11T17:23:50.091Z"
     },
     {
       "tool": "clone_dom_subtree",
       "index": 88,
       "status": "PASS",
-      "executionTimeMs": 16,
+      "executionTimeMs": 21,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.645Z"
+      "timestamp": "2026-09-11T17:23:50.112Z"
     },
     {
       "tool": "execute_command_sequence",
       "index": 89,
       "status": "PASS",
-      "executionTimeMs": 7,
+      "executionTimeMs": 12,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.652Z"
+      "timestamp": "2026-09-11T17:23:50.125Z"
     },
     {
       "tool": "record_commands_start",
@@ -816,16 +816,16 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.653Z"
+      "timestamp": "2026-09-11T17:23:50.126Z"
     },
     {
       "tool": "record_commands_stop",
       "index": 91,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.654Z"
+      "timestamp": "2026-09-11T17:23:50.127Z"
     },
     {
       "tool": "list_command_recordings",
@@ -834,7 +834,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.656Z"
+      "timestamp": "2026-09-11T17:23:50.128Z"
     },
     {
       "tool": "get_command_recording",
@@ -843,34 +843,34 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.657Z"
+      "timestamp": "2026-09-11T17:23:50.129Z"
     },
     {
       "tool": "replay_command_recording",
       "index": 94,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.658Z"
+      "timestamp": "2026-09-11T17:23:50.130Z"
     },
     {
       "tool": "export_command_recording",
       "index": 95,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.659Z"
+      "timestamp": "2026-09-11T17:23:50.131Z"
     },
     {
       "tool": "import_command_recording",
       "index": 96,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.660Z"
+      "timestamp": "2026-09-11T17:23:50.132Z"
     },
     {
       "tool": "delete_command_recording",
@@ -879,52 +879,52 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.661Z"
+      "timestamp": "2026-09-11T17:23:50.133Z"
     },
     {
       "tool": "get_browser_session",
       "index": 98,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.662Z"
+      "timestamp": "2026-09-11T17:23:50.137Z"
     },
     {
       "tool": "get_action_timeline",
       "index": 99,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.663Z"
+      "timestamp": "2026-09-11T17:23:50.138Z"
     },
     {
       "tool": "get_operation_trace",
       "index": 100,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.664Z"
+      "timestamp": "2026-09-11T17:23:50.139Z"
     },
     {
       "tool": "capture_page_state",
       "index": 101,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.666Z"
+      "timestamp": "2026-09-11T17:23:50.144Z"
     },
     {
       "tool": "compare_page_states",
       "index": 102,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.667Z"
+      "timestamp": "2026-09-11T17:23:50.152Z"
     },
     {
       "tool": "list_page_states",
@@ -933,16 +933,16 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.668Z"
+      "timestamp": "2026-09-11T17:23:50.153Z"
     },
     {
       "tool": "create_page_project",
       "index": 104,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.674Z"
+      "timestamp": "2026-09-11T17:23:50.161Z"
     },
     {
       "tool": "list_projects",
@@ -951,34 +951,34 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.675Z"
+      "timestamp": "2026-09-11T17:23:50.163Z"
     },
     {
       "tool": "get_project",
       "index": 106,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.676Z"
+      "timestamp": "2026-09-11T17:23:50.164Z"
     },
     {
       "tool": "capture_page_region",
       "index": 107,
       "status": "PASS",
-      "executionTimeMs": 9,
+      "executionTimeMs": 43,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.686Z"
+      "timestamp": "2026-09-11T17:23:50.208Z"
     },
     {
       "tool": "annotate_element",
       "index": 108,
       "status": "PASS",
-      "executionTimeMs": 5,
+      "executionTimeMs": 22,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.691Z"
+      "timestamp": "2026-09-11T17:23:50.230Z"
     },
     {
       "tool": "list_region_annotations",
@@ -987,25 +987,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.692Z"
+      "timestamp": "2026-09-11T17:23:50.231Z"
     },
     {
       "tool": "get_region_annotation",
       "index": 110,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.693Z"
+      "timestamp": "2026-09-11T17:23:50.232Z"
     },
     {
       "tool": "update_region_annotation",
       "index": 111,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.695Z"
+      "timestamp": "2026-09-11T17:23:50.234Z"
     },
     {
       "tool": "delete_region_annotation",
@@ -1014,16 +1014,16 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.696Z"
+      "timestamp": "2026-09-11T17:23:50.235Z"
     },
     {
       "tool": "get_region_relationship_graph",
       "index": 113,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.698Z"
+      "timestamp": "2026-09-11T17:23:50.237Z"
     },
     {
       "tool": "generate_reconstruction_spec",
@@ -1032,7 +1032,7 @@
       "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.700Z"
+      "timestamp": "2026-09-11T17:23:50.239Z"
     },
     {
       "tool": "export_agent_package",
@@ -1041,7 +1041,7 @@
       "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.703Z"
+      "timestamp": "2026-09-11T17:23:50.242Z"
     },
     {
       "tool": "delete_project",
@@ -1050,25 +1050,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.704Z"
+      "timestamp": "2026-09-11T17:23:50.243Z"
     },
     {
       "tool": "import_project",
       "index": 117,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.706Z"
+      "timestamp": "2026-09-11T17:23:50.245Z"
     },
     {
       "tool": "get_redaction_rules",
       "index": 118,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.707Z"
+      "timestamp": "2026-09-11T17:23:50.246Z"
     },
     {
       "tool": "set_redaction_rules",
@@ -1077,16 +1077,16 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.708Z"
+      "timestamp": "2026-09-11T17:23:50.247Z"
     },
     {
       "tool": "get_tool_catalog",
       "index": 120,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.715Z"
+      "timestamp": "2026-09-11T17:23:50.255Z"
     },
     {
       "tool": "get_tool_groups",
@@ -1095,178 +1095,178 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:43.718Z"
+      "timestamp": "2026-09-11T17:23:50.258Z"
     },
     {
       "tool": "dt_click",
       "index": 122,
       "status": "PASS",
-      "executionTimeMs": 455,
+      "executionTimeMs": 314,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:44.173Z"
+      "timestamp": "2026-09-11T17:23:50.572Z"
     },
     {
       "tool": "dt_click_at",
       "index": 123,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 9,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:44.177Z"
+      "timestamp": "2026-09-11T17:23:50.581Z"
     },
     {
       "tool": "dt_drag",
       "index": 124,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:44.180Z"
+      "timestamp": "2026-09-11T17:23:50.587Z"
     },
     {
       "tool": "dt_fill",
       "index": 125,
       "status": "PASS",
-      "executionTimeMs": 1533,
+      "executionTimeMs": 620,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:45.714Z"
+      "timestamp": "2026-09-11T17:23:51.208Z"
     },
     {
       "tool": "dt_fill_form",
       "index": 126,
       "status": "PASS",
-      "executionTimeMs": 1093,
+      "executionTimeMs": 619,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:46.807Z"
+      "timestamp": "2026-09-11T17:23:51.828Z"
     },
     {
       "tool": "dt_handle_dialog",
       "index": 127,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:46.808Z"
+      "timestamp": "2026-09-11T17:23:51.831Z"
     },
     {
       "tool": "dt_hover",
       "index": 128,
       "status": "PASS",
-      "executionTimeMs": 242,
+      "executionTimeMs": 308,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:47.050Z"
+      "timestamp": "2026-09-11T17:23:52.139Z"
     },
     {
       "tool": "dt_press_key",
       "index": 129,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 309,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:47.054Z"
+      "timestamp": "2026-09-11T17:23:52.448Z"
     },
     {
       "tool": "dt_type_text",
       "index": 130,
       "status": "PASS",
-      "executionTimeMs": 1167,
+      "executionTimeMs": 312,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.221Z"
+      "timestamp": "2026-09-11T17:23:52.760Z"
     },
     {
       "tool": "dt_upload_file",
       "index": 131,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 17,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.224Z"
+      "timestamp": "2026-09-11T17:23:52.777Z"
     },
     {
       "tool": "dt_list_pages",
       "index": 132,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.226Z"
+      "timestamp": "2026-09-11T17:23:52.781Z"
     },
     {
       "tool": "dt_select_page",
       "index": 133,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.228Z"
+      "timestamp": "2026-09-11T17:23:52.786Z"
     },
     {
       "tool": "dt_new_page",
       "index": 134,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.229Z"
+      "timestamp": "2026-09-11T17:23:52.792Z"
     },
     {
       "tool": "dt_close_page",
       "index": 135,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.231Z"
+      "timestamp": "2026-09-11T17:23:52.799Z"
     },
     {
       "tool": "dt_navigate_page",
       "index": 136,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.233Z"
+      "timestamp": "2026-09-11T17:23:52.805Z"
     },
     {
       "tool": "dt_history_navigation",
       "index": 137,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.235Z"
+      "timestamp": "2026-09-11T17:23:52.810Z"
     },
     {
       "tool": "dt_wait_for",
       "index": 138,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.237Z"
+      "timestamp": "2026-09-11T17:23:52.815Z"
     },
     {
       "tool": "dt_emulate",
       "index": 139,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.239Z"
+      "timestamp": "2026-09-11T17:23:52.819Z"
     },
     {
       "tool": "dt_resize_page",
       "index": 140,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.240Z"
+      "timestamp": "2026-09-11T17:23:52.823Z"
     },
     {
       "tool": "dt_performance_start_trace",
@@ -1275,7 +1275,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.241Z"
+      "timestamp": "2026-09-11T17:23:52.824Z"
     },
     {
       "tool": "dt_performance_stop_trace",
@@ -1284,7 +1284,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.243Z"
+      "timestamp": "2026-09-11T17:23:52.826Z"
     },
     {
       "tool": "dt_performance_analyze_insight",
@@ -1293,7 +1293,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.244Z"
+      "timestamp": "2026-09-11T17:23:52.827Z"
     },
     {
       "tool": "dt_list_network_requests",
@@ -1302,25 +1302,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.245Z"
+      "timestamp": "2026-09-11T17:23:52.828Z"
     },
     {
       "tool": "dt_get_network_request",
       "index": 145,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.248Z"
+      "timestamp": "2026-09-11T17:23:52.833Z"
     },
     {
       "tool": "dt_evaluate_script",
       "index": 146,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.249Z"
+      "timestamp": "2026-09-11T17:23:52.837Z"
     },
     {
       "tool": "dt_list_console_messages",
@@ -1329,7 +1329,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.250Z"
+      "timestamp": "2026-09-11T17:23:52.838Z"
     },
     {
       "tool": "dt_get_console_message",
@@ -1338,25 +1338,25 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.252Z"
+      "timestamp": "2026-09-11T17:23:52.845Z"
     },
     {
       "tool": "dt_take_screenshot",
       "index": 149,
       "status": "PASS",
-      "executionTimeMs": 356,
+      "executionTimeMs": 457,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.609Z"
+      "timestamp": "2026-09-11T17:23:53.303Z"
     },
     {
       "tool": "dt_take_snapshot",
       "index": 150,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.625Z"
+      "timestamp": "2026-09-11T17:23:53.320Z"
     },
     {
       "tool": "dt_screencast_start",
@@ -1365,34 +1365,34 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.626Z"
+      "timestamp": "2026-09-11T17:23:53.321Z"
     },
     {
       "tool": "dt_screencast_stop",
       "index": 152,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.627Z"
+      "timestamp": "2026-09-11T17:23:53.322Z"
     },
     {
       "tool": "dt_lighthouse_audit",
       "index": 153,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.628Z"
+      "timestamp": "2026-09-11T17:23:53.322Z"
     },
     {
       "tool": "dt_take_heapsnapshot",
       "index": 154,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.630Z"
+      "timestamp": "2026-09-11T17:23:53.324Z"
     },
     {
       "tool": "dt_close_heapsnapshot",
@@ -1401,25 +1401,25 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.631Z"
+      "timestamp": "2026-09-11T17:23:53.325Z"
     },
     {
       "tool": "dt_heapsnapshot_summary",
       "index": 156,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.633Z"
+      "timestamp": "2026-09-11T17:23:53.326Z"
     },
     {
       "tool": "dt_heapsnapshot_details",
       "index": 157,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.634Z"
+      "timestamp": "2026-09-11T17:23:53.327Z"
     },
     {
       "tool": "dt_heapsnapshot_class_nodes",
@@ -1428,7 +1428,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.635Z"
+      "timestamp": "2026-09-11T17:23:53.328Z"
     },
     {
       "tool": "dt_heapsnapshot_edges",
@@ -1437,7 +1437,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.637Z"
+      "timestamp": "2026-09-11T17:23:53.330Z"
     },
     {
       "tool": "dt_heapsnapshot_retainers",
@@ -1446,7 +1446,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.638Z"
+      "timestamp": "2026-09-11T17:23:53.331Z"
     },
     {
       "tool": "dt_heapsnapshot_retaining_paths",
@@ -1455,16 +1455,16 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.639Z"
+      "timestamp": "2026-09-11T17:23:53.332Z"
     },
     {
       "tool": "dt_heapsnapshot_dominators",
       "index": 162,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.641Z"
+      "timestamp": "2026-09-11T17:23:53.334Z"
     },
     {
       "tool": "dt_heapsnapshot_duplicate_strings",
@@ -1473,7 +1473,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.643Z"
+      "timestamp": "2026-09-11T17:23:53.335Z"
     },
     {
       "tool": "dt_heapsnapshot_object_details",
@@ -1482,16 +1482,16 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.645Z"
+      "timestamp": "2026-09-11T17:23:53.337Z"
     },
     {
       "tool": "dt_query_heapsnapshot_objects",
       "index": 165,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.646Z"
+      "timestamp": "2026-09-11T17:23:53.337Z"
     },
     {
       "tool": "dt_compare_heapsnapshots",
@@ -1500,106 +1500,106 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.648Z"
+      "timestamp": "2026-09-11T17:23:53.339Z"
     },
     {
       "tool": "dt_install_extension",
       "index": 167,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.649Z"
+      "timestamp": "2026-09-11T17:23:53.343Z"
     },
     {
       "tool": "dt_list_extensions",
       "index": 168,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.650Z"
+      "timestamp": "2026-09-11T17:23:53.346Z"
     },
     {
       "tool": "dt_reload_extension",
       "index": 169,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.651Z"
+      "timestamp": "2026-09-11T17:23:53.350Z"
     },
     {
       "tool": "dt_trigger_extension_action",
       "index": 170,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.652Z"
+      "timestamp": "2026-09-11T17:23:53.353Z"
     },
     {
       "tool": "dt_uninstall_extension",
       "index": 171,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.653Z"
+      "timestamp": "2026-09-11T17:23:53.357Z"
     },
     {
       "tool": "dt_list_3p_developer_tools",
       "index": 172,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.654Z"
+      "timestamp": "2026-09-11T17:23:53.361Z"
     },
     {
       "tool": "dt_execute_3p_developer_tool",
       "index": 173,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.657Z"
+      "timestamp": "2026-09-11T17:23:53.371Z"
     },
     {
       "tool": "dt_list_webmcp_tools",
       "index": 174,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 3,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.659Z"
+      "timestamp": "2026-09-11T17:23:53.374Z"
     },
     {
       "tool": "dt_execute_webmcp_tool",
       "index": 175,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.662Z"
+      "timestamp": "2026-09-11T17:23:53.382Z"
     },
     {
       "tool": "fx_correlate_dom_network",
       "index": 176,
       "status": "PASS",
-      "executionTimeMs": 87,
+      "executionTimeMs": 52,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.749Z"
+      "timestamp": "2026-09-11T17:23:53.434Z"
     },
     {
       "tool": "fx_dom_regression_diff",
       "index": 177,
       "status": "PASS",
-      "executionTimeMs": 28,
+      "executionTimeMs": 44,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.783Z"
+      "timestamp": "2026-09-11T17:23:53.485Z"
     },
     {
       "tool": "fx_visual_regression_forensics",
@@ -1608,7 +1608,7 @@
       "executionTimeMs": 20,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.803Z"
+      "timestamp": "2026-09-11T17:23:53.505Z"
     },
     {
       "tool": "fx_layout_shift_forensics",
@@ -1617,7 +1617,7 @@
       "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.811Z"
+      "timestamp": "2026-09-11T17:23:53.513Z"
     },
     {
       "tool": "fx_record_interactions",
@@ -1626,25 +1626,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.812Z"
+      "timestamp": "2026-09-11T17:23:53.514Z"
     },
     {
       "tool": "fx_replay_interactions",
       "index": 181,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.816Z"
+      "timestamp": "2026-09-11T17:23:53.524Z"
     },
     {
       "tool": "fx_failure_replay",
       "index": 182,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.818Z"
+      "timestamp": "2026-09-11T17:23:53.528Z"
     },
     {
       "tool": "fx_selector_survivability",
@@ -1653,115 +1653,115 @@
       "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.824Z"
+      "timestamp": "2026-09-11T17:23:53.534Z"
     },
     {
       "tool": "fx_component_boundaries",
       "index": 184,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.830Z"
+      "timestamp": "2026-09-11T17:23:53.548Z"
     },
     {
       "tool": "fx_frame_forensics",
       "index": 185,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.836Z"
+      "timestamp": "2026-09-11T17:23:53.556Z"
     },
     {
       "tool": "fx_shadow_dom_forensics",
       "index": 186,
       "status": "PASS",
-      "executionTimeMs": 17,
+      "executionTimeMs": 9,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.853Z"
+      "timestamp": "2026-09-11T17:23:53.565Z"
     },
     {
       "tool": "fx_css_influence",
       "index": 187,
       "status": "PASS",
-      "executionTimeMs": 31,
+      "executionTimeMs": 36,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.884Z"
+      "timestamp": "2026-09-11T17:23:53.602Z"
     },
     {
       "tool": "fx_zindex_occlusion",
       "index": 188,
       "status": "PASS",
-      "executionTimeMs": 5,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.889Z"
+      "timestamp": "2026-09-11T17:23:53.610Z"
     },
     {
       "tool": "fx_event_listeners",
       "index": 189,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 4,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.892Z"
+      "timestamp": "2026-09-11T17:23:53.614Z"
     },
     {
       "tool": "fx_error_root_cause",
       "index": 190,
       "status": "PASS",
-      "executionTimeMs": 8,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.900Z"
+      "timestamp": "2026-09-11T17:23:53.622Z"
     },
     {
       "tool": "fx_network_dom_binding",
       "index": 191,
       "status": "PASS",
-      "executionTimeMs": 9,
+      "executionTimeMs": 8,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.909Z"
+      "timestamp": "2026-09-11T17:23:53.630Z"
     },
     {
       "tool": "fx_resource_waterfall",
       "index": 192,
       "status": "PASS",
-      "executionTimeMs": 8,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.917Z"
+      "timestamp": "2026-09-11T17:23:53.637Z"
     },
     {
       "tool": "fx_font_forensics",
       "index": 193,
       "status": "PASS",
-      "executionTimeMs": 29,
+      "executionTimeMs": 34,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.946Z"
+      "timestamp": "2026-09-11T17:23:53.671Z"
     },
     {
       "tool": "fx_a11y_divergence",
       "index": 194,
       "status": "PASS",
-      "executionTimeMs": 9,
+      "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.956Z"
+      "timestamp": "2026-09-11T17:23:53.677Z"
     },
     {
       "tool": "fx_page_health",
       "index": 195,
       "status": "PASS",
-      "executionTimeMs": 12,
+      "executionTimeMs": 13,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.968Z"
+      "timestamp": "2026-09-11T17:23:53.691Z"
     },
     {
       "tool": "fx_exploration_planner",
@@ -1770,7 +1770,7 @@
       "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.974Z"
+      "timestamp": "2026-09-11T17:23:53.697Z"
     },
     {
       "tool": "fx_smart_snapshot",
@@ -1779,25 +1779,25 @@
       "executionTimeMs": 6,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.980Z"
+      "timestamp": "2026-09-11T17:23:53.703Z"
     },
     {
       "tool": "fx_cross_signal_search",
       "index": 198,
       "status": "PASS",
-      "executionTimeMs": 9,
+      "executionTimeMs": 10,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:48.989Z"
+      "timestamp": "2026-09-11T17:23:53.714Z"
     },
     {
       "tool": "fx_forensic_export",
       "index": 199,
       "status": "PASS",
-      "executionTimeMs": 20,
+      "executionTimeMs": 19,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.009Z"
+      "timestamp": "2026-09-11T17:23:53.733Z"
     },
     {
       "tool": "fx_forensic_import",
@@ -1806,79 +1806,79 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.028Z"
+      "timestamp": "2026-09-11T17:23:53.773Z"
     },
     {
       "tool": "fx_impact_prediction",
       "index": 201,
       "status": "PASS",
-      "executionTimeMs": 21,
+      "executionTimeMs": 43,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.049Z"
+      "timestamp": "2026-09-11T17:23:53.816Z"
     },
     {
       "tool": "fx_safe_mutation_guard",
       "index": 202,
       "status": "PASS",
-      "executionTimeMs": 15,
+      "executionTimeMs": 24,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.065Z"
+      "timestamp": "2026-09-11T17:23:53.840Z"
     },
     {
       "tool": "fx_transaction_journal",
       "index": 203,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 7,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.067Z"
+      "timestamp": "2026-09-11T17:23:53.848Z"
     },
     {
       "tool": "fx_session_graph",
       "index": 204,
       "status": "PASS",
-      "executionTimeMs": 6,
+      "executionTimeMs": 30,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.073Z"
+      "timestamp": "2026-09-11T17:23:53.879Z"
     },
     {
       "tool": "fx_evidence_scoring",
       "index": 205,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.074Z"
+      "timestamp": "2026-09-11T17:23:53.880Z"
     },
     {
       "tool": "fx_incident_report",
       "index": 206,
       "status": "PASS",
-      "executionTimeMs": 23,
+      "executionTimeMs": 20,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.097Z"
+      "timestamp": "2026-09-11T17:23:53.901Z"
     },
     {
       "tool": "td_temporal_query",
       "index": 207,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.100Z"
+      "timestamp": "2026-09-11T17:23:53.904Z"
     },
     {
       "tool": "td_temporal_seek",
       "index": 208,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.101Z"
+      "timestamp": "2026-09-11T17:23:53.905Z"
     },
     {
       "tool": "td_temporal_window",
@@ -1887,7 +1887,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.102Z"
+      "timestamp": "2026-09-11T17:23:53.906Z"
     },
     {
       "tool": "td_temporal_diff",
@@ -1896,43 +1896,43 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.103Z"
+      "timestamp": "2026-09-11T17:23:53.907Z"
     },
     {
       "tool": "td_temporal_trace_entity",
       "index": 211,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.104Z"
+      "timestamp": "2026-09-11T17:23:53.908Z"
     },
     {
       "tool": "td_temporal_first_change",
       "index": 212,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.105Z"
+      "timestamp": "2026-09-11T17:23:53.908Z"
     },
     {
       "tool": "td_temporal_last_stable",
       "index": 213,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.106Z"
+      "timestamp": "2026-09-11T17:23:53.909Z"
     },
     {
       "tool": "td_temporal_join",
       "index": 214,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.106Z"
+      "timestamp": "2026-09-11T17:23:53.910Z"
     },
     {
       "tool": "td_temporal_branch",
@@ -1941,7 +1941,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.107Z"
+      "timestamp": "2026-09-11T17:23:53.910Z"
     },
     {
       "tool": "td_temporal_rewind",
@@ -1950,25 +1950,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.108Z"
+      "timestamp": "2026-09-11T17:23:53.911Z"
     },
     {
       "tool": "td_evidence_capture",
       "index": 217,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.108Z"
+      "timestamp": "2026-09-11T17:23:53.912Z"
     },
     {
       "tool": "td_evidence_search",
       "index": 218,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.109Z"
+      "timestamp": "2026-09-11T17:23:53.913Z"
     },
     {
       "tool": "td_evidence_chain",
@@ -1977,7 +1977,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.110Z"
+      "timestamp": "2026-09-11T17:23:53.914Z"
     },
     {
       "tool": "td_evidence_confidence",
@@ -1986,25 +1986,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.111Z"
+      "timestamp": "2026-09-11T17:23:53.915Z"
     },
     {
       "tool": "td_evidence_verify",
       "index": 221,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.112Z"
+      "timestamp": "2026-09-11T17:23:53.916Z"
     },
     {
       "tool": "td_evidence_hash",
       "index": 222,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.113Z"
+      "timestamp": "2026-09-11T17:23:53.916Z"
     },
     {
       "tool": "td_evidence_compare",
@@ -2013,34 +2013,34 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.114Z"
+      "timestamp": "2026-09-11T17:23:53.917Z"
     },
     {
       "tool": "td_evidence_export",
       "index": 224,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.114Z"
+      "timestamp": "2026-09-11T17:23:53.918Z"
     },
     {
       "tool": "td_evidence_timeline",
       "index": 225,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.115Z"
+      "timestamp": "2026-09-11T17:23:53.918Z"
     },
     {
       "tool": "td_evidence_proof",
       "index": 226,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.116Z"
+      "timestamp": "2026-09-11T17:23:53.919Z"
     },
     {
       "tool": "td_cause_trace",
@@ -2049,61 +2049,61 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.116Z"
+      "timestamp": "2026-09-11T17:23:53.920Z"
     },
     {
       "tool": "td_cause_graph",
       "index": 228,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.117Z"
+      "timestamp": "2026-09-11T17:23:53.921Z"
     },
     {
       "tool": "td_cause_rank",
       "index": 229,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.118Z"
+      "timestamp": "2026-09-11T17:23:53.921Z"
     },
     {
       "tool": "td_cause_explain",
       "index": 230,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.118Z"
+      "timestamp": "2026-09-11T17:23:53.922Z"
     },
     {
       "tool": "td_cause_correlate",
       "index": 231,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.119Z"
+      "timestamp": "2026-09-11T17:23:53.923Z"
     },
     {
       "tool": "td_cause_breakpoint",
       "index": 232,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.120Z"
+      "timestamp": "2026-09-11T17:23:53.924Z"
     },
     {
       "tool": "td_cause_impact",
       "index": 233,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.121Z"
+      "timestamp": "2026-09-11T17:23:53.924Z"
     },
     {
       "tool": "td_cause_dependency",
@@ -2112,16 +2112,16 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.121Z"
+      "timestamp": "2026-09-11T17:23:53.925Z"
     },
     {
       "tool": "td_cause_counterfactual",
       "index": 235,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.122Z"
+      "timestamp": "2026-09-11T17:23:53.926Z"
     },
     {
       "tool": "td_cause_verify",
@@ -2130,43 +2130,43 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.123Z"
+      "timestamp": "2026-09-11T17:23:53.926Z"
     },
     {
       "tool": "td_semantic_page",
       "index": 237,
       "status": "PASS",
-      "executionTimeMs": 4,
+      "executionTimeMs": 5,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.127Z"
+      "timestamp": "2026-09-11T17:23:53.931Z"
     },
     {
       "tool": "td_semantic_element",
       "index": 238,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.129Z"
+      "timestamp": "2026-09-11T17:23:53.933Z"
     },
     {
       "tool": "td_component_map",
       "index": 239,
       "status": "PASS",
-      "executionTimeMs": 3,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.132Z"
+      "timestamp": "2026-09-11T17:23:53.936Z"
     },
     {
       "tool": "td_component_lifecycle",
       "index": 240,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.133Z"
+      "timestamp": "2026-09-11T17:23:53.937Z"
     },
     {
       "tool": "td_component_dependencies",
@@ -2175,7 +2175,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.134Z"
+      "timestamp": "2026-09-11T17:23:53.938Z"
     },
     {
       "tool": "td_component_state",
@@ -2184,7 +2184,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.135Z"
+      "timestamp": "2026-09-11T17:23:53.939Z"
     },
     {
       "tool": "td_accessibility_model",
@@ -2193,7 +2193,7 @@
       "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.137Z"
+      "timestamp": "2026-09-11T17:23:53.941Z"
     },
     {
       "tool": "td_visual_semantics",
@@ -2202,34 +2202,34 @@
       "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.139Z"
+      "timestamp": "2026-09-11T17:23:53.944Z"
     },
     {
       "tool": "td_page_intent",
       "index": 245,
       "status": "PASS",
-      "executionTimeMs": 8,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.147Z"
+      "timestamp": "2026-09-11T17:23:53.947Z"
     },
     {
       "tool": "td_state_summary",
       "index": 246,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.149Z"
+      "timestamp": "2026-09-11T17:23:53.949Z"
     },
     {
       "tool": "td_resolve_target",
       "index": 247,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.151Z"
+      "timestamp": "2026-09-11T17:23:53.950Z"
     },
     {
       "tool": "td_rank_targets",
@@ -2238,79 +2238,79 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.151Z"
+      "timestamp": "2026-09-11T17:23:53.951Z"
     },
     {
       "tool": "td_target_recover",
       "index": 249,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.153Z"
+      "timestamp": "2026-09-11T17:23:53.953Z"
     },
     {
       "tool": "td_target_verify",
       "index": 250,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.154Z"
+      "timestamp": "2026-09-11T17:23:53.955Z"
     },
     {
       "tool": "td_target_history",
       "index": 251,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.156Z"
+      "timestamp": "2026-09-11T17:23:53.956Z"
     },
     {
       "tool": "td_target_contract",
       "index": 252,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.157Z"
+      "timestamp": "2026-09-11T17:23:53.956Z"
     },
     {
       "tool": "td_interaction_plan",
       "index": 253,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.157Z"
+      "timestamp": "2026-09-11T17:23:53.957Z"
     },
     {
       "tool": "td_interaction_execute",
       "index": 254,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.158Z"
+      "timestamp": "2026-09-11T17:23:53.958Z"
     },
     {
       "tool": "td_interaction_observe",
       "index": 255,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.159Z"
+      "timestamp": "2026-09-11T17:23:53.958Z"
     },
     {
       "tool": "td_interaction_repair",
       "index": 256,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.159Z"
+      "timestamp": "2026-09-11T17:23:53.959Z"
     },
     {
       "tool": "td_simulate_change",
@@ -2319,16 +2319,16 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.160Z"
+      "timestamp": "2026-09-11T17:23:53.959Z"
     },
     {
       "tool": "td_simulate_network",
       "index": 258,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.160Z"
+      "timestamp": "2026-09-11T17:23:53.960Z"
     },
     {
       "tool": "td_simulate_dom",
@@ -2337,7 +2337,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.161Z"
+      "timestamp": "2026-09-11T17:23:53.960Z"
     },
     {
       "tool": "td_simulate_style",
@@ -2346,7 +2346,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.162Z"
+      "timestamp": "2026-09-11T17:23:53.961Z"
     },
     {
       "tool": "td_simulate_runtime",
@@ -2355,7 +2355,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.162Z"
+      "timestamp": "2026-09-11T17:23:53.961Z"
     },
     {
       "tool": "td_simulate_failure",
@@ -2364,25 +2364,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.164Z"
+      "timestamp": "2026-09-11T17:23:53.962Z"
     },
     {
       "tool": "td_compare_branches",
       "index": 263,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.165Z"
+      "timestamp": "2026-09-11T17:23:53.962Z"
     },
     {
       "tool": "td_predict_impact",
       "index": 264,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.166Z"
+      "timestamp": "2026-09-11T17:23:53.963Z"
     },
     {
       "tool": "td_safe_apply",
@@ -2391,16 +2391,16 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.166Z"
+      "timestamp": "2026-09-11T17:23:53.963Z"
     },
     {
       "tool": "td_branch_merge",
       "index": 266,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.167Z"
+      "timestamp": "2026-09-11T17:23:53.964Z"
     },
     {
       "tool": "td_health_snapshot",
@@ -2409,34 +2409,34 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.168Z"
+      "timestamp": "2026-09-11T17:23:53.965Z"
     },
     {
       "tool": "td_recover_browser",
       "index": 268,
       "status": "PASS",
-      "executionTimeMs": 351,
+      "executionTimeMs": 353,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.520Z"
+      "timestamp": "2026-09-11T17:23:54.318Z"
     },
     {
       "tool": "td_recover_page",
       "index": 269,
       "status": "PASS",
-      "executionTimeMs": 352,
+      "executionTimeMs": 353,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:49.873Z"
+      "timestamp": "2026-09-11T17:23:54.671Z"
     },
     {
       "tool": "td_recover_bridge",
       "index": 270,
       "status": "PASS",
-      "executionTimeMs": 353,
+      "executionTimeMs": 352,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.226Z"
+      "timestamp": "2026-09-11T17:23:55.023Z"
     },
     {
       "tool": "td_reconcile_tabs",
@@ -2445,7 +2445,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.228Z"
+      "timestamp": "2026-09-11T17:23:55.024Z"
     },
     {
       "tool": "td_reconcile_events",
@@ -2454,7 +2454,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.229Z"
+      "timestamp": "2026-09-11T17:23:55.025Z"
     },
     {
       "tool": "td_resource_guard",
@@ -2463,7 +2463,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.230Z"
+      "timestamp": "2026-09-11T17:23:55.026Z"
     },
     {
       "tool": "td_leak_watch",
@@ -2472,16 +2472,16 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.230Z"
+      "timestamp": "2026-09-11T17:23:55.026Z"
     },
     {
       "tool": "td_failure_containment",
       "index": 275,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.231Z"
+      "timestamp": "2026-09-11T17:23:55.027Z"
     },
     {
       "tool": "td_session_repair",
@@ -2490,7 +2490,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.232Z"
+      "timestamp": "2026-09-11T17:23:55.028Z"
     },
     {
       "tool": "td_security_posture",
@@ -2499,7 +2499,7 @@
       "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.234Z"
+      "timestamp": "2026-09-11T17:23:55.030Z"
     },
     {
       "tool": "td_security_surface",
@@ -2508,16 +2508,16 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.236Z"
+      "timestamp": "2026-09-11T17:23:55.031Z"
     },
     {
       "tool": "td_security_flow",
       "index": 279,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.236Z"
+      "timestamp": "2026-09-11T17:23:55.032Z"
     },
     {
       "tool": "td_dom_xss_audit",
@@ -2526,7 +2526,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.237Z"
+      "timestamp": "2026-09-11T17:23:55.032Z"
     },
     {
       "tool": "td_injection_surface_audit",
@@ -2535,25 +2535,25 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.238Z"
+      "timestamp": "2026-09-11T17:23:55.033Z"
     },
     {
       "tool": "td_auth_session_audit",
       "index": 282,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.239Z"
+      "timestamp": "2026-09-11T17:23:55.034Z"
     },
     {
       "tool": "td_cookie_storage_audit",
       "index": 283,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.240Z"
+      "timestamp": "2026-09-11T17:23:55.034Z"
     },
     {
       "tool": "td_csp_security_audit",
@@ -2562,25 +2562,25 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.240Z"
+      "timestamp": "2026-09-11T17:23:55.035Z"
     },
     {
       "tool": "td_cors_security_audit",
       "index": 285,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.241Z"
+      "timestamp": "2026-09-11T17:23:55.036Z"
     },
     {
       "tool": "td_security_regression",
       "index": 286,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.242Z"
+      "timestamp": "2026-09-11T17:23:55.036Z"
     },
     {
       "tool": "td_performance_profile",
@@ -2589,34 +2589,34 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.242Z"
+      "timestamp": "2026-09-11T17:23:55.037Z"
     },
     {
       "tool": "td_performance_budget",
       "index": 288,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.243Z"
+      "timestamp": "2026-09-11T17:23:55.038Z"
     },
     {
       "tool": "td_long_task_trace",
       "index": 289,
       "status": "PASS",
-      "executionTimeMs": 1,
+      "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.244Z"
+      "timestamp": "2026-09-11T17:23:55.038Z"
     },
     {
       "tool": "td_layout_causality",
       "index": 290,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.244Z"
+      "timestamp": "2026-09-11T17:23:55.039Z"
     },
     {
       "tool": "td_memory_profile",
@@ -2625,7 +2625,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.245Z"
+      "timestamp": "2026-09-11T17:23:55.039Z"
     },
     {
       "tool": "td_memory_leak_trace",
@@ -2634,7 +2634,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.246Z"
+      "timestamp": "2026-09-11T17:23:55.040Z"
     },
     {
       "tool": "td_retention_graph",
@@ -2643,7 +2643,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.246Z"
+      "timestamp": "2026-09-11T17:23:55.040Z"
     },
     {
       "tool": "td_visual_regression",
@@ -2652,7 +2652,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.247Z"
+      "timestamp": "2026-09-11T17:23:55.041Z"
     },
     {
       "tool": "td_visual_causality",
@@ -2661,7 +2661,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.247Z"
+      "timestamp": "2026-09-11T17:23:55.041Z"
     },
     {
       "tool": "td_render_stability",
@@ -2670,25 +2670,25 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.248Z"
+      "timestamp": "2026-09-11T17:23:55.042Z"
     },
     {
       "tool": "td_investigate",
       "index": 297,
       "status": "PASS",
-      "executionTimeMs": 2,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.250Z"
+      "timestamp": "2026-09-11T17:23:55.043Z"
     },
     {
       "tool": "td_reproduce_incident",
       "index": 298,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.250Z"
+      "timestamp": "2026-09-11T17:23:55.044Z"
     },
     {
       "tool": "td_diagnose",
@@ -2697,7 +2697,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.251Z"
+      "timestamp": "2026-09-11T17:23:55.045Z"
     },
     {
       "tool": "td_plan_fix",
@@ -2706,7 +2706,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.251Z"
+      "timestamp": "2026-09-11T17:23:55.045Z"
     },
     {
       "tool": "td_validate_fix",
@@ -2715,7 +2715,7 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.252Z"
+      "timestamp": "2026-09-11T17:23:55.046Z"
     },
     {
       "tool": "td_run_workflow",
@@ -2724,7 +2724,7 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.253Z"
+      "timestamp": "2026-09-11T17:23:55.047Z"
     },
     {
       "tool": "td_run_playbook",
@@ -2733,16 +2733,16 @@
       "executionTimeMs": 0,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.253Z"
+      "timestamp": "2026-09-11T17:23:55.047Z"
     },
     {
       "tool": "td_memory",
       "index": 304,
       "status": "PASS",
-      "executionTimeMs": 0,
+      "executionTimeMs": 2,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.254Z"
+      "timestamp": "2026-09-11T17:23:55.049Z"
     },
     {
       "tool": "td_context_optimize",
@@ -2751,16 +2751,412 @@
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.255Z"
+      "timestamp": "2026-09-11T17:23:55.050Z"
     },
     {
       "tool": "td_incident_close",
       "index": 306,
       "status": "PASS",
+      "executionTimeMs": 0,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.050Z"
+    },
+    {
+      "tool": "td_browser_navigate",
+      "index": 307,
+      "status": "PASS",
+      "executionTimeMs": 110,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.161Z"
+    },
+    {
+      "tool": "td_browser_back",
+      "index": 308,
+      "status": "PASS",
+      "executionTimeMs": 5,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.166Z"
+    },
+    {
+      "tool": "td_browser_forward",
+      "index": 309,
+      "status": "PASS",
+      "executionTimeMs": 4,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.170Z"
+    },
+    {
+      "tool": "td_browser_refresh",
+      "index": 310,
+      "status": "PASS",
+      "executionTimeMs": 3,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.174Z"
+    },
+    {
+      "tool": "td_dom_inspect",
+      "index": 311,
+      "status": "PASS",
+      "executionTimeMs": 4,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.178Z"
+    },
+    {
+      "tool": "td_dom_query",
+      "index": 312,
+      "status": "PASS",
+      "executionTimeMs": 7,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.185Z"
+    },
+    {
+      "tool": "td_dom_extract",
+      "index": 313,
+      "status": "PASS",
+      "executionTimeMs": 5,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.190Z"
+    },
+    {
+      "tool": "td_dom_snapshot",
+      "index": 314,
+      "status": "PASS",
+      "executionTimeMs": 21,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.211Z"
+    },
+    {
+      "tool": "td_target_find",
+      "index": 315,
+      "status": "PASS",
+      "executionTimeMs": 9,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.220Z"
+    },
+    {
+      "tool": "td_target_check",
+      "index": 316,
+      "status": "PASS",
+      "executionTimeMs": 7,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.227Z"
+    },
+    {
+      "tool": "td_target_describe",
+      "index": 317,
+      "status": "PASS",
+      "executionTimeMs": 4,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.231Z"
+    },
+    {
+      "tool": "td_action_click",
+      "index": 318,
+      "status": "PASS",
+      "executionTimeMs": 307,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.539Z"
+    },
+    {
+      "tool": "td_action_type",
+      "index": 319,
+      "status": "PASS",
+      "executionTimeMs": 311,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:55.850Z"
+    },
+    {
+      "tool": "td_action_select",
+      "index": 320,
+      "status": "PASS",
+      "executionTimeMs": 313,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:56.163Z"
+    },
+    {
+      "tool": "td_action_hover",
+      "index": 321,
+      "status": "PASS",
+      "executionTimeMs": 313,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:56.476Z"
+    },
+    {
+      "tool": "td_action_press",
+      "index": 322,
+      "status": "PASS",
+      "executionTimeMs": 10,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:56.486Z"
+    },
+    {
+      "tool": "td_action_scroll",
+      "index": 323,
+      "status": "PASS",
+      "executionTimeMs": 4,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:56.491Z"
+    },
+    {
+      "tool": "td_wait",
+      "index": 324,
+      "status": "PASS",
+      "executionTimeMs": 106,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:56.597Z"
+    },
+    {
+      "tool": "td_screenshot",
+      "index": 325,
+      "status": "PASS",
+      "executionTimeMs": 455,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.052Z"
+    },
+    {
+      "tool": "td_execute_script",
+      "index": 326,
+      "status": "PASS",
+      "executionTimeMs": 15,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.068Z"
+    },
+    {
+      "tool": "td_network_inspect",
+      "index": 327,
+      "status": "PASS",
+      "executionTimeMs": 3,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.071Z"
+    },
+    {
+      "tool": "td_console_read",
+      "index": 328,
+      "status": "PASS",
+      "executionTimeMs": 3,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.075Z"
+    },
+    {
+      "tool": "td_workflow_save",
+      "index": 329,
+      "status": "PASS",
+      "executionTimeMs": 2,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.077Z"
+    },
+    {
+      "tool": "td_workflow_get",
+      "index": 330,
+      "status": "PASS",
       "executionTimeMs": 1,
       "assertionsPassed": 2,
       "assertionsTotal": 2,
-      "timestamp": "2026-09-11T04:52:50.256Z"
+      "timestamp": "2026-09-11T17:23:57.078Z"
+    },
+    {
+      "tool": "td_workflow_list",
+      "index": 331,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.079Z"
+    },
+    {
+      "tool": "td_workflow_update",
+      "index": 332,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.080Z"
+    },
+    {
+      "tool": "td_workflow_clone",
+      "index": 333,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.081Z"
+    },
+    {
+      "tool": "td_workflow_diff",
+      "index": 334,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.082Z"
+    },
+    {
+      "tool": "td_workflow_export",
+      "index": 335,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.083Z"
+    },
+    {
+      "tool": "td_workflow_import",
+      "index": 336,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.084Z"
+    },
+    {
+      "tool": "td_workflow_validate",
+      "index": 337,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.085Z"
+    },
+    {
+      "tool": "td_workflow_run",
+      "index": 338,
+      "status": "PASS",
+      "executionTimeMs": 330,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.415Z"
+    },
+    {
+      "tool": "td_workflow_runs",
+      "index": 339,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.417Z"
+    },
+    {
+      "tool": "td_workflow_run_get",
+      "index": 340,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.418Z"
+    },
+    {
+      "tool": "td_workflow_replay",
+      "index": 341,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.419Z"
+    },
+    {
+      "tool": "td_workflow_delete",
+      "index": 342,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.420Z"
+    },
+    {
+      "tool": "td_target_memory_save",
+      "index": 343,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.421Z"
+    },
+    {
+      "tool": "td_target_memory_get",
+      "index": 344,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.422Z"
+    },
+    {
+      "tool": "td_target_memory_list",
+      "index": 345,
+      "status": "PASS",
+      "executionTimeMs": 0,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.423Z"
+    },
+    {
+      "tool": "td_target_memory_delete",
+      "index": 346,
+      "status": "PASS",
+      "executionTimeMs": 0,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.424Z"
+    },
+    {
+      "tool": "td_agent_artifact_save",
+      "index": 347,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.425Z"
+    },
+    {
+      "tool": "td_agent_artifact_get",
+      "index": 348,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.426Z"
+    },
+    {
+      "tool": "td_agent_artifact_list",
+      "index": 349,
+      "status": "PASS",
+      "executionTimeMs": 1,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.427Z"
+    },
+    {
+      "tool": "td_agent_artifact_delete",
+      "index": 350,
+      "status": "PASS",
+      "executionTimeMs": 0,
+      "assertionsPassed": 2,
+      "assertionsTotal": 2,
+      "timestamp": "2026-09-11T17:23:57.427Z"
     }
   ]
 }

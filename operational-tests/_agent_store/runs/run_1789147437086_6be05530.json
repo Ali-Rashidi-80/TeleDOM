@@ -1,0 +1,177 @@
+{
+  "id": "run_1789147437086_6be05530",
+  "workflowId": "wf-op-extension-smoke-v1",
+  "workflowName": "extension_smoke_test",
+  "workflowVersion": "1.1.0",
+  "status": "SUCCESS",
+  "startedAt": 1789147437086,
+  "inputs": {},
+  "steps": [
+    {
+      "stepId": "inspect",
+      "tool": "td_dom_inspect",
+      "args": {},
+      "status": "PASS",
+      "attempts": 1,
+      "startedAt": 1789147437086,
+      "durationMs": 3,
+      "result": {
+        "status": "PASS",
+        "result": {
+          "url": "https://app.internal/dashboard",
+          "title": "MCP Operational Acceptance DOM Fixture",
+          "origin": "https://app.internal",
+          "viewport": {
+            "width": 1280,
+            "height": 720,
+            "scrollX": 0,
+            "scrollY": 0,
+            "devicePixelRatio": 2.625
+          },
+          "documentDimensions": {
+            "width": 0,
+            "height": 0
+          },
+          "activeElement": {
+            "tag": "input",
+            "selector": "#search-input",
+            "text": ""
+          },
+          "focusedElement": {
+            "tag": "input",
+            "selector": "#search-input"
+          },
+          "visibilityState": "visible",
+          "readyState": "complete",
+          "framesCount": 0
+        },
+        "tool": "td_dom_inspect",
+        "capability": {
+          "version": "4.1.0",
+          "category": "browser-primitives",
+          "securityClass": "read-only"
+        }
+      }
+    },
+    {
+      "stepId": "verify_cta",
+      "tool": "td_target_check",
+      "args": {
+        "selector": "#primary-action-btn"
+      },
+      "status": "PASS",
+      "attempts": 1,
+      "startedAt": 1789147437090,
+      "durationMs": 8,
+      "result": {
+        "status": "PASS",
+        "selector": "#primary-action-btn",
+        "resolvable": true,
+        "confidence": 1,
+        "checkedAt": "2026-09-11T17:23:57.098Z",
+        "tool": "td_target_check",
+        "capability": {
+          "version": "4.1.0",
+          "category": "browser-primitives",
+          "securityClass": "read-only"
+        }
+      }
+    },
+    {
+      "stepId": "click_cta",
+      "tool": "td_action_click",
+      "args": {
+        "selector": "#primary-action-btn"
+      },
+      "status": "PASS",
+      "attempts": 1,
+      "startedAt": 1789147437098,
+      "durationMs": 308,
+      "result": {
+        "truncated": true,
+        "preview": "{\"status\":\"PASS\",\"action\":\"click\",\"selector\":\"#primary-action-btn\",\"result\":{\"truncated\":true,\"preview\":\"{\\\"success\\\":true,\\\"action\\\":\\\"click\\\",\\\"target\\\":{\\\"tag\\\":\\\"button\\\",\\\"id\\\":\\\"primary-action-btn\\\",\\\"classes\\\":[\\\"btn\\\"],\\\"role\\\":\\\"button\\\",\\\"text\\\":\\\"⚡ Run Analysis\\\",\\\"normalizedText\\\":\\\"⚡ Run Analysis\\\",\\\"value\\\":\\\"\\\",\\\"type\\\":\\\"submit\\\",\\\"selector\\\":\\\"#primary-action-btn\\\",\\\"bestSelector\\\":\\\"#primary-action-btn\\\",\\\"selectorCandidates\\\":[\\\"#primary-action-btn\\\",\\\"button[data-testid=\\\\\\\"action-button\\\\\\\"]\\\",\\\"button.btn\\\"],\\\"bounds\\\":{\\\"x\\\":0,\\\"y\\\":0,\\\"width\\\":0,\\\"height\\\":0,\\\"top\\\":0,\\\"right\\\":0,\\\"bottom\\\":0,\\\"left\\\":0},\\\"visibility\\\":{\\\"isVisible\\\":true,\\\"display\\\":\\\"inline-block\\\",\\\"visibility\\\":\\\"visible\\\",\\\"opacity\\\":1,\\\"pointerEvents\\\":\\\"auto\\\",\\\"isClipped\\\":false,\\\"isInViewport\\\":true,\\\"zIndex\\\":\\\"auto\\\"},\\\"computedStyle\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"visibility\\\":\\\"visible\\\",\\\"opacity\\\":\\\"1\\\",\\\"position\\\":\\\"static\\\",\\\"zIndex\\\":\\\"auto\\\",\\\"pointerEvents\\\":\\\"auto\\\",\\\"overflow\\\":\\\"\\\",\\\"boxSizing\\\":\\\"border-box\\\",\\\"color\\\":\\\"rgb(15, 23, 42)\\\",\\\"backgroundColor\\\":\\\"rgb(56, 189, 248)\\\",\\\"fontSize\\\":\\\"medium\\\"},\\\"attributes\\\":{\\\"id\\\":\\\"primary-action-btn\\\",\\\"class\\\":\\\"btn\\\",\\\"data-testid\\\":\\\"action-button\\\"},\\\"state\\\":{\\\"disabled\\\":false,\\\"readOnly\\\":false,\\\"focused\\\":true,\\\"isShadowHost\\\":false,\\\"hasShadowRoot\\\":false},\\\"context\\\":{\\\"parentChain\\\":[\\\"#interactive-section > div:nth-of-type(2)\\\",\\\"#interactive-section\\\",\\\"#main-content\\\",\\\"body\\\"],\\\"parentSelector\\\":\\\"#interactive-section > div:nth-of-type(2)\\\",\\\"childrenSummary\\\":{\\\"count\\\":0,\\\"tags\\\":[]},\\\"containingBlock\\\":\\\"#interactive-section > div:nth-of-type(2)\\\",\\\"iframe\\\":null,\\\"shadowRoot\\\":null},\\\"forensics\\\":{\\\"logicalNodeId\\\":47,\\\"creationSequence\\\":null,\\\"lastMutationSequence\\\":null,\\\"eventCount\\\":0,\\\"isRecorded\\\":true}},\\\"beforeState\\\":{\\\"tag\\\":\\\"button\\\",\\\"id\\\":\\\"primary-action-btn\\\",\\\"classes\\\":[\\\"btn\\\"],\\\"role\\\":\\\"button\\\",\\\"text\\\":\\\"⚡ Run Analysis\\\",\\\"normalizedText\\\":\\\"⚡ Run Analysis\\\",\\\"value\\\":\\\"\\\",\\\"type\\\":\\\"submit\\\",\\\"selector\\\":",
+        "bytes": 3763
+      }
+    },
+    {
+      "stepId": "extract_counter",
+      "tool": "td_dom_extract",
+      "args": {
+        "selector": "#click-counter",
+        "fields": {
+          "text": "el.textContent.trim()"
+        }
+      },
+      "status": "PASS",
+      "attempts": 1,
+      "startedAt": 1789147437406,
+      "durationMs": 4,
+      "result": {
+        "status": "PASS",
+        "selector": "#click-counter",
+        "result": {
+          "status": "EXECUTED_SUCCESSFULLY",
+          "executionId": "js_mtx86u01_35",
+          "durationMs": 0,
+          "result": "[{\"text\":\"Clicks: 0\"}]",
+          "consoleOutput": [],
+          "domChanged": false,
+          "domLengthBefore": 4594,
+          "domLengthAfter": 4594,
+          "world": "ISOLATED",
+          "timeoutMs": 5000,
+          "codePreview": "const els = Array.from(document.querySelectorAll(\"#click-counter\")).slice(0, 100);\nreturn JSON.stringify(els.map(el => ({ \"text\": (()=>{ try { return el.textContent.trim(); } catch(e) { return null; } })() })));"
+        },
+        "tool": "td_dom_extract",
+        "capability": {
+          "version": "4.1.0",
+          "category": "browser-primitives",
+          "securityClass": "read-only"
+        }
+      }
+    },
+    {
+      "stepId": "assert_state",
+      "tool": "td_execute_script",
+      "args": {
+        "code": "return document.querySelector(\"#click-counter\").textContent.trim();"
+      },
+      "status": "PASS",
+      "attempts": 1,
+      "startedAt": 1789147437410,
+      "durationMs": 4,
+      "result": {
+        "status": "PASS",
+        "result": {
+          "status": "EXECUTED_SUCCESSFULLY",
+          "executionId": "js_mtx86u05_36",
+          "durationMs": 0,
+          "result": "Clicks: 0",
+          "consoleOutput": [],
+          "domChanged": false,
+          "domLengthBefore": 4594,
+          "domLengthAfter": 4594,
+          "world": "ISOLATED",
+          "timeoutMs": 5000,
+          "codePreview": "return document.querySelector(\"#click-counter\").textContent.trim();"
+        },
+        "tool": "td_execute_script",
+        "capability": {
+          "version": "4.1.0",
+          "category": "browser-primitives",
+          "securityClass": "dangerous"
+        }
+      }
+    }
+  ],
+  "metrics": {
+    "stepsPlanned": 5,
+    "stepsExecuted": 5,
+    "toolCalls": 5,
+    "domScans": 1,
+    "retries": 0,
+    "durationMs": 328,
+    "tokensSavedEstimate": 1520
+  },
+  "finishedAt": 1789147437414
+}

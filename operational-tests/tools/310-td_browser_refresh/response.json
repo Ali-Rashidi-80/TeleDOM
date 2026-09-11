@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "action": "refresh",
+  "result": {
+    "reloaded": true,
+    "mode": "soft",
+    "simulated": true,
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "note": "Node simulation context: DOM fixture retained; no real navigation occurs."
+  },
+  "tool": "td_browser_refresh",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "side-effects"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_349_td_agent_artifact_list",
+  "method": "tools/call",
+  "params": {
+    "name": "td_agent_artifact_list",
+    "arguments": {
+      "kind": "custom-tool"
+    }
+  }
+}

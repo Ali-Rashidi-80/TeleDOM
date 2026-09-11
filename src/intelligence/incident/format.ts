@@ -10,7 +10,7 @@
  * chains them; the file carries a manifest hash.
  */
 
-import { createGzip, gunzipSync } from 'zlib';
+import { createGzip, gunzipSync, gzipSync } from 'zlib';
 import { computeHash } from '../kernel/integrity';
 import type { Incident } from './model';
 import { TELEDOM_VERSION } from '../version';
@@ -102,13 +102,13 @@ export class TdomFormat {
       sections,
       manifestHash: '',
       compatibility: {
-        minReaderVersion: '12.0.0',
+        minReaderVersion: '4.0.0', // v4.1 fix (E-9): format readers need 4.x, not the stale '12.0.0'
         schemaVersions: { event: 1, evidence: 1, incident: 1, proof: 1 },
       },
     };
     manifest.manifestHash = computeHash({ sections, formatVersion: TDOM_FORMAT_VERSION, generator: manifest.generator });
     const payload = Buffer.from(JSON.stringify({ manifest, content }), 'utf-8');
-    const bytes = opts.compress ? gzipSync(payload) : payload;
+    const bytes = opts.compress ? compressSync(payload) : payload;
     return { bytes, manifest };
   }
 
@@ -153,8 +153,9 @@ function looksGzipped(bytes: Buffer): boolean {
   return bytes.length > 2 && bytes[0] === 0x1f && bytes[1] === 0x8b;
 }
 
-function gzipSync(data: Buffer): Buffer {
+function compressSync(data: Buffer): Buffer {
   // Synchronous gzip via zlib (node runtime).
-  const zlib = require('zlib') as typeof import('zlib');
-  return zlib.gzipSync(data);
+  // v4.1 fix (E-3): `require('zlib')` crashed in pure ESM builds
+  // ("require is not defined") — gzipSync is imported statically instead.
+  return gzipSync(data);
 }

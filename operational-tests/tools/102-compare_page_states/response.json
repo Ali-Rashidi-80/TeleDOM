@@ -1,23 +1,12 @@
 {
-  "snapshotIdA": "snap_mtwhcqu0_2",
-  "snapshotIdB": "snap_mtwhcqvl_3",
-  "identical": false,
-  "changes": [
-    {
-      "field": "domLength",
-      "before": 4430,
-      "after": 4594
-    },
-    {
-      "field": "domHash",
-      "before": "b5a14eea",
-      "after": "dd86b0d4"
-    }
-  ],
+  "snapshotIdA": "snap_mtx86oeb_1",
+  "snapshotIdB": "snap_mtx86oed_2",
+  "identical": true,
+  "changes": [],
   "domDelta": {
-    "beforeLength": 4430,
-    "afterLength": 4594,
-    "delta": 164
+    "beforeLength": 4405,
+    "afterLength": 4405,
+    "delta": 0
   },
-  "summary": "2 field(s) changed; DOM size +164 bytes."
+  "summary": "States are identical."
 }

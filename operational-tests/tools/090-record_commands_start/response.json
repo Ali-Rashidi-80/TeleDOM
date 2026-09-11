@@ -1,5 +1,5 @@
 {
-  "recordingId": "rec_mtwhcqv9_1",
+  "recordingId": "rec_mtx86odp_1",
   "name": "op-recording",
   "active": true,
   "note": "All subsequent tool calls (in this server process) are recorded until record_commands_stop."

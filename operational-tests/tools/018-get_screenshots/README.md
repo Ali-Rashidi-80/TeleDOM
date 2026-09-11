@@ -3,7 +3,7 @@
 **Status**: **PASS** (3/3 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 7ms
+**Duration**: 5ms
 
 ## Test Objective
 Lists visual checkpoint records for session

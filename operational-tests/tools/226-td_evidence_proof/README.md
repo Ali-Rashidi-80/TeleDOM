@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 0ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"proof\":{\"proofId\":\"proof:a184dd2ae2069a31\",\"proofHash\":\"a184dd2ae2069a319988796810e6a908fb8aac36bbf6a58743a19883eb36bbb7\"},\"selfVerification\":true,\"tool\":\"td_evidence_proof\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"evidence-provenance\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"proof\":{\"proofId\":\"proof:a184dd2ae2069a31\",\"proofHash\":\"a184dd2ae2069a319988796810e6a908fb8aac36bbf6a58743a19883eb36bbb7\"},\"selfVerification\":true,\"tool\":\"td_evidence_proof\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"evidence-provenance\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

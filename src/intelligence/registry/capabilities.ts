@@ -18,7 +18,9 @@ export type CapabilityCategory =
   | 'temporal-intelligence' | 'evidence-provenance' | 'causal-intelligence'
   | 'semantic-component' | 'targeting-interaction' | 'counterfactual-simulation'
   | 'reliability-recovery' | 'security-intelligence' | 'performance-memory-visual'
-  | 'investigation-orchestration';
+  | 'investigation-orchestration'
+  // v4.1 — Agent-Owned Workflow Runtime families
+  | 'browser-primitives' | 'workflow-runtime' | 'agent-owned-tooling';
 
 export type SecurityClass = 'read-only' | 'read-mostly' | 'side-effects' | 'reversible' | 'dangerous' | 'policy-gated';
 
@@ -173,6 +175,62 @@ const TD_TOOLS_SPEC: {
   { id: 'td_memory', cat: 'investigation-orchestration', desc: 'Store and retrieve durable project/session investigation knowledge (provenance + confidence).', props: { action: { type: 'string', description: 'store | query | validate', required: true }, kind: { type: 'string', description: 'Memory kind' }, statement: { type: 'string', description: 'Memory statement' }, query: { type: 'object', description: 'Query filter' } }, required: ['action'] },
   { id: 'td_context_optimize', cat: 'investigation-orchestration', desc: 'Select the smallest sufficient evidence/state set for the agent (L0–L4).', props: { intent: { type: 'string', description: 'The decision the agent must make next', required: true }, requestedLevel: { type: 'string', description: 'L0|L1|L2|L3|L4' } }, required: ['intent'] },
   { id: 'td_incident_close', cat: 'investigation-orchestration', desc: 'Close an incident ONLY after reproduction, remediation and verification criteria pass.', props: { incidentId: { type: 'string', description: 'Incident to close', required: true } }, security: 'policy-gated', required: ['incidentId'] },
+
+  // ================= K. Browser Primitives (v4.1, 22) =================
+  // Thin, stable facade over the live pipeline. Browser-first; no API ever
+  // required. These are the verbs agents compose into their own workflows.
+  { id: 'td_browser_navigate', cat: 'browser-primitives', desc: 'Navigate the browser to a URL (optionally in a new tab, then wait for DOM stability).', props: { url: { type: 'string', description: 'Target URL', required: true }, newTab: { type: 'boolean', description: 'Open in a new tab instead of the current one' }, waitForStable: { type: 'boolean', description: 'Wait for DOM stability after navigation (default true)' } }, required: ['url'], security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_browser_back', cat: 'browser-primitives', desc: 'Go back one step in browser history.', props: {}, security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_browser_forward', cat: 'browser-primitives', desc: 'Go forward one step in browser history.', props: {}, security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_browser_refresh', cat: 'browser-primitives', desc: 'Reload the current tab.', props: {}, security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_dom_inspect', cat: 'browser-primitives', desc: 'Observe the current page (structure, ready state, url, interactive inventory) — the agent\u2019s eyes.', props: { tabId: { type: 'number', description: 'Optional tab id' } }, modes: ['live', 'simulation'] },
+  { id: 'td_dom_query', cat: 'browser-primitives', desc: 'Search the DOM by text/tag/attribute patterns with scored results — find elements without knowing selectors.', props: { query: { type: 'string', description: 'Search text (matched against text, tags, attributes)', required: true }, tag: { type: 'string', description: 'Restrict to tag name' }, attr: { type: 'string', description: 'Require attribute name' }, attrValue: { type: 'string', description: 'Attribute value filter' }, limit: { type: 'number', description: 'Max results (default 50)' } }, required: ['query'], modes: ['live', 'simulation'] },
+  { id: 'td_dom_extract', cat: 'browser-primitives', desc: 'Extract structured data from any selector with per-field expressions (works on ANY site — no API needed).', props: { selector: { type: 'string', description: 'CSS selector for the collection', required: true }, fields: { type: 'object', description: 'Output name → JS expression per element (default: text/tag/attrs)' }, limit: { type: 'number', description: 'Max elements (default 100)' } }, required: ['selector'], modes: ['live', 'simulation'] },
+  { id: 'td_dom_snapshot', cat: 'browser-primitives', desc: 'Capture the current DOM snapshot (html or structured json).', props: { format: { type: 'string', description: 'html | json', enum: ['html', 'json'] } }, modes: ['live', 'simulation'] },
+  { id: 'td_target_find', cat: 'browser-primitives', desc: 'Find an element by selector, xpath or text and build the canonical multi-strategy TARGET object with confidence.', props: { selector: { type: 'string', description: 'CSS selector' }, xpath: { type: 'string', description: 'XPath expression' }, text: { type: 'string', description: 'Text to discover by intent' } }, modes: ['live', 'simulation'] },
+  { id: 'td_target_check', cat: 'browser-primitives', desc: 'Verify a target is still resolvable at the required confidence — the cheap check that replaces full DOM re-analysis.', props: { selector: { type: 'string', description: 'CSS selector to verify', required: true }, minConfidence: { type: 'number', description: 'Minimum confidence threshold (default 0)' } }, required: ['selector'], modes: ['live', 'simulation'] },
+  { id: 'td_target_describe', cat: 'browser-primitives', desc: 'Describe a target\u2019s identity: accessibility properties + structural fingerprint (what to store in target memory).', props: { selector: { type: 'string', description: 'CSS selector to describe', required: true } }, required: ['selector'], modes: ['live', 'simulation'] },
+  { id: 'td_action_click', cat: 'browser-primitives', desc: 'Click an element with before/after state and effect measurement.', props: { selector: { type: 'string', description: 'CSS selector of the element', required: true } }, required: ['selector'], security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_action_type', cat: 'browser-primitives', desc: 'Type text into an input element.', props: { selector: { type: 'string', description: 'CSS selector of the input', required: true }, text: { type: 'string', description: 'Text to type', required: true } }, required: ['selector', 'text'], security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_action_select', cat: 'browser-primitives', desc: 'Select an option in a select element.', props: { selector: { type: 'string', description: 'CSS selector of the select', required: true }, value: { type: 'string', description: 'Value or label to select', required: true } }, required: ['selector', 'value'], security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_action_hover', cat: 'browser-primitives', desc: 'Hover over an element (menus, tooltips).', props: { selector: { type: 'string', description: 'CSS selector of the element', required: true } }, required: ['selector'], security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_action_press', cat: 'browser-primitives', desc: 'Press a keyboard key / combo page-wide (Enter, Escape, ctrl+s…).', props: { key: { type: 'string', description: 'Key or combo', required: true } }, required: ['key'], security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_action_scroll', cat: 'browser-primitives', desc: 'Scroll the page by deltas or scroll an element into view.', props: { x: { type: 'number', description: 'Horizontal pixel delta' }, y: { type: 'number', description: 'Vertical pixel delta' }, selector: { type: 'string', description: 'Scroll this element into view instead' } }, security: 'side-effects', modes: ['live', 'simulation'] },
+  { id: 'td_wait', cat: 'browser-primitives', desc: 'Wait for a meaningful condition (dom_stable, selector_present/visible/absent, text_present, url_contains, element_count, readiness_state).', props: { kind: { type: 'string', description: 'Condition kind', required: true }, selector: { type: 'string', description: 'Selector for selector_* / element_count' }, text: { type: 'string', description: 'Text for text_present / url_contains' }, count: { type: 'number', description: 'Expected count' }, timeoutMs: { type: 'number', description: 'Timeout (default 5000ms)' } }, required: ['kind'], modes: ['live', 'simulation'] },
+  { id: 'td_screenshot', cat: 'browser-primitives', desc: 'Capture a screenshot of the current page as visual evidence.', props: {}, modes: ['live'] },
+  { id: 'td_execute_script', cat: 'browser-primitives', desc: 'Escape hatch: execute JavaScript in the page (Shadow DOM, canvas UI, virtualized lists — the agent decides the method).', props: { code: { type: 'string', description: 'JavaScript source (async/await supported; use return)', required: true }, timeoutMs: { type: 'number', description: 'Timeout (default 5000ms)' } }, required: ['code'], security: 'dangerous', modes: ['live', 'simulation'] },
+  { id: 'td_network_inspect', cat: 'browser-primitives', desc: 'Escape hatch: read captured network requests (optionally filtered by URL substring).', props: { urlContains: { type: 'string', description: 'URL substring filter' }, limit: { type: 'number', description: 'Max entries (default 50)' } }, modes: ['live', 'simulation'] },
+  { id: 'td_console_read', cat: 'browser-primitives', desc: 'Escape hatch: read captured console logs (optionally filtered by level).', props: { level: { type: 'string', description: 'Level filter: all | error | warning | log | info' } }, modes: ['live', 'simulation'] },
+
+  // ================= L. Workflow Runtime (v4.1, 14) =================
+  // Agent-owned workflows: TeleDOM stores, retrieves, executes (dumb),
+  // records and replays. It NEVER designs, optimizes or repairs them.
+  { id: 'td_workflow_save', cat: 'workflow-runtime', desc: 'Save an agent-authored workflow (envelope-validated, stored verbatim with full version history).', props: { workflow: { type: 'object', description: 'teledom.agent-workflow/1.0 object: { schema, name, version, steps[{id,tool,args,onError,retry,requireApproval,timeoutMs}], inputs, policy, metadata }', required: true } }, required: ['workflow'], security: 'reversible', tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_get', cat: 'workflow-runtime', desc: 'Get a saved workflow (current or a specific version).', props: { name: { type: 'string', description: 'Workflow name', required: true }, version: { type: 'string', description: 'Specific version (default: current)' } }, required: ['name'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_list', cat: 'workflow-runtime', desc: 'List saved workflows with versions, step counts and tags.', props: {}, tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_update', cat: 'workflow-runtime', desc: 'Update an existing workflow (agent edits the definition; version history preserved).', props: { workflow: { type: 'object', description: 'Updated workflow object', required: true } }, required: ['workflow'], security: 'reversible', tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_clone', cat: 'workflow-runtime', desc: 'Clone a workflow (optionally to a new name/version) — the agent\u2019s edit starting point.', props: { name: { type: 'string', description: 'Source workflow', required: true }, version: { type: 'string', description: 'Source version' }, as: { type: 'string', description: 'Clone name (default <name>_copy)' }, newVersion: { type: 'string', description: 'Clone version' }, description: { type: 'string', description: 'Clone description' } }, required: ['name'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_diff', cat: 'workflow-runtime', desc: 'Structural diff between two workflows or two versions of one workflow.', props: { name: { type: 'string', description: 'Workflow name' }, a: { type: 'string', description: 'Workflow A' }, aVersion: { type: 'string', description: 'Version A' }, b: { type: 'string', description: 'Workflow B' }, bVersion: { type: 'string', description: 'Version B' } }, tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_export', cat: 'workflow-runtime', desc: 'Export a workflow (+ version history) as a portable JSON package.', props: { name: { type: 'string', description: 'Workflow name', required: true } }, required: ['name'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_import', cat: 'workflow-runtime', desc: 'Import a workflow package from td_workflow_export (cross-project portability).', props: { export: { type: 'object', description: 'Export package object', required: true }, includeVersions: { type: 'boolean', description: 'Also import version history' } }, required: ['export'], security: 'reversible', tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_validate', cat: 'workflow-runtime', desc: 'Validate a workflow envelope (structure only — semantics are the agent\u2019s responsibility).', props: { workflow: { type: 'object', description: 'Workflow object to validate', required: true } }, required: ['workflow'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_run', cat: 'workflow-runtime', desc: 'DUMB execution: run a saved or inline workflow step-by-step through the full MCP pipeline with policy enforcement (approval gates, tool/domain allowlists, caps), template variables and a deterministic execution record.', props: { name: { type: 'string', description: 'Saved workflow name' }, version: { type: 'string', description: 'Version to run' }, workflow: { type: 'object', description: 'Inline workflow object' }, inputs: { type: 'object', description: 'Input values for {{inputs.*}} templates' }, approvedSteps: { type: 'array', description: 'Step ids approved after a BLOCKED run' }, dryRun: { type: 'boolean', description: 'Validate + plan only, do not execute' } }, security: 'policy-gated', cost: 'high', tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_runs', cat: 'workflow-runtime', desc: 'List deterministic execution records (optionally filtered by workflow).', props: { name: { type: 'string', description: 'Filter by workflow name' }, limit: { type: 'number', description: 'Max entries (default 50)' } }, tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_run_get', cat: 'workflow-runtime', desc: 'Get a full execution record: per-step status, args-as-executed, timing, metrics, errors.', props: { runId: { type: 'string', description: 'Run id', required: true } }, required: ['runId'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_replay', cat: 'workflow-runtime', desc: 'Deterministically re-execute a recorded run\u2019s steps verbatim (replay run #183 — why did it succeed last week?).', props: { runId: { type: 'string', description: 'Run to replay', required: true } }, required: ['runId'], security: 'policy-gated', cost: 'high', tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_workflow_delete', cat: 'workflow-runtime', desc: 'Delete a workflow and its version history (execution runs are kept as evidence).', props: { name: { type: 'string', description: 'Workflow name', required: true } }, required: ['name'], security: 'reversible', tests: ['tests/intelligence/workflow.test.ts'] },
+
+  // ================= M. Agent-Owned Tooling (v4.1, 8) =================
+  // The agent builds its own tools; TeleDOM stores them without
+  // interpreting them. Learned targets kill repeated DOM analysis.
+  { id: 'td_target_memory_save', cat: 'agent-owned-tooling', desc: 'Save a learned target (semantic identity + locators + confidence + history) so future runs skip DOM re-analysis.', props: { site: { type: 'string', description: 'Site scope (origin or *)', required: true }, semanticId: { type: 'string', description: 'Agent-chosen semantic id, e.g. comments_tab', required: true }, identity: { type: 'object', description: '{ role, accessibleName, component, route, text }' }, locators: { type: 'object', description: '{ aria, role, text, css, xpath, geometry }' }, confidence: { type: 'number', description: 'Current confidence 0..1 (default 0.8)' }, failedSelector: { type: 'string', description: 'Selector that failed (history)' }, notes: { type: 'string', description: 'Agent notes (how to re-verify, when to repair)' } }, required: ['site', 'semanticId'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_target_memory_get', cat: 'agent-owned-tooling', desc: 'Get a learned target by site + semanticId.', props: { site: { type: 'string', description: 'Site scope', required: true }, semanticId: { type: 'string', description: 'Semantic id', required: true } }, required: ['site', 'semanticId'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_target_memory_list', cat: 'agent-owned-tooling', desc: 'List learned targets (optionally filtered by site/semanticId).', props: { site: { type: 'string', description: 'Filter by site' }, semanticId: { type: 'string', description: 'Filter by semanticId' } }, tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_target_memory_delete', cat: 'agent-owned-tooling', desc: 'Delete a learned target.', props: { site: { type: 'string', description: 'Site scope', required: true }, semanticId: { type: 'string', description: 'Semantic id', required: true } }, required: ['site', 'semanticId'], security: 'reversible', tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_agent_artifact_save', cat: 'agent-owned-tooling', desc: 'Save an agent artifact (custom tool, script, policy, memory, note) — stored verbatim, never interpreted.', props: { kind: { type: 'string', description: 'custom-tool | script | policy | memory | note', required: true }, name: { type: 'string', description: 'Artifact name', required: true }, content: { type: 'object', description: 'Agent payload (any JSON)', required: true }, description: { type: 'string', description: 'Optional description' }, tags: { type: 'array', description: 'Optional tags' } }, required: ['kind', 'name', 'content'], security: 'reversible', tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_agent_artifact_get', cat: 'agent-owned-tooling', desc: 'Get an agent artifact by kind + name.', props: { kind: { type: 'string', description: 'Artifact kind', required: true }, name: { type: 'string', description: 'Artifact name', required: true } }, required: ['kind', 'name'], tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_agent_artifact_list', cat: 'agent-owned-tooling', desc: 'List agent artifacts (optionally by kind/tag).', props: { kind: { type: 'string', description: 'Filter by kind' }, tag: { type: 'string', description: 'Filter by tag' } }, tests: ['tests/intelligence/workflow.test.ts'] },
+  { id: 'td_agent_artifact_delete', cat: 'agent-owned-tooling', desc: 'Delete an agent artifact.', props: { kind: { type: 'string', description: 'Artifact kind', required: true }, name: { type: 'string', description: 'Artifact name', required: true } }, required: ['kind', 'name'], security: 'reversible', tests: ['tests/intelligence/workflow.test.ts'] },
 ];
 
 import { TELEDOM_VERSION } from '../version';
@@ -199,8 +257,8 @@ export const CAPABILITY_REGISTRY: Capability[] = TD_TOOLS_SPEC.map((spec) => ({
   supportedModes: spec.modes ?? ['live', 'recorded', 'simulation'],
   dependencies: internalDependencies(spec.id),
   tests: spec.tests ?? [testFor(spec.id)],
-  docs: `docs/intelligence/capabilities/${spec.id}.md`,
-  compatibility: { minKernelVersion: '4.0.0' },
+  docs: `docs/intelligence/CAPABILITIES.md#${spec.id}`,
+  compatibility: { minKernelVersion: CAPABILITY_VERSION },
   experimental: spec.experimental ?? false,
 }));
 
@@ -224,7 +282,7 @@ function internalDependencies(toolId: string): string[] {
 }
 
 function testFor(toolId: string): string {
-  return `tests/intelligence/registry.test.ts (${toolId})`;
+  return `tests/intelligence/registry-integration.test.ts (${toolId})`;
 }
 
 export interface RegistryStats {
@@ -257,18 +315,40 @@ export function capabilityById(id: string): Capability | undefined {
   return CAPABILITY_REGISTRY.find((c) => c.id === id);
 }
 
-/** Verify the tool set is exactly the 100 planned tools, no dupes. */
+/** Verify the tool set is exactly the planned surface, no dupes. */
+const EXPECTED_CATEGORY_COUNTS: Record<string, number> = {
+  'temporal-intelligence': 10,
+  'evidence-provenance': 10,
+  'causal-intelligence': 10,
+  'semantic-component': 10,
+  'targeting-interaction': 10,
+  'counterfactual-simulation': 10,
+  'reliability-recovery': 10,
+  'security-intelligence': 10,
+  'performance-memory-visual': 10,
+  'investigation-orchestration': 10,
+  'browser-primitives': 22,
+  'workflow-runtime': 14,
+  'agent-owned-tooling': 8,
+};
+
 export function validateRegistry(): { valid: boolean; problems: string[] } {
   const problems: string[] = [];
+  const expectedTotal = Object.values(EXPECTED_CATEGORY_COUNTS).reduce((a, b) => a + b, 0);
   const ids = CAPABILITY_REGISTRY.map((c) => c.id);
-  if (ids.length !== 100) problems.push(`expected 100 td_* capabilities, found ${ids.length}`);
+  if (ids.length !== expectedTotal) problems.push(`expected ${expectedTotal} td_* capabilities, found ${ids.length}`);
   const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
   if (dupes.length) problems.push(`duplicate capability ids: ${dupes.join(', ')}`);
   const nonTd = ids.filter((id) => !id.startsWith('td_'));
   if (nonTd.length) problems.push(`non-td_ ids in registry: ${nonTd.join(', ')}`);
-  for (const category of Object.keys(registryStats().byCategory)) {
-    const count = CAPABILITY_REGISTRY.filter((c) => c.category === category).length;
-    if (count !== 10) problems.push(`category ${category} has ${count} tools (expected 10)`);
+  const byCategory: Record<string, number> = {};
+  for (const cap of CAPABILITY_REGISTRY) byCategory[cap.category] = (byCategory[cap.category] ?? 0) + 1;
+  for (const [category, expected] of Object.entries(EXPECTED_CATEGORY_COUNTS)) {
+    const count = byCategory[category] ?? 0;
+    if (count !== expected) problems.push(`category ${category} has ${count} tools (expected ${expected})`);
+  }
+  for (const category of Object.keys(byCategory)) {
+    if (!(category in EXPECTED_CATEGORY_COUNTS)) problems.push(`unknown category ${category} (${byCategory[category]} tools)`);
   }
   return { valid: problems.length === 0, problems };
 }

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_328_td_console_read",
+  "method": "tools/call",
+  "params": {
+    "name": "td_console_read",
+    "arguments": {
+      "level": "all"
+    }
+  }
+}

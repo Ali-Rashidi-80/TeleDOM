@@ -6,7 +6,7 @@
   },
   "tool": "td_evidence_capture",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "evidence-provenance",
     "securityClass": "read-only"
   }

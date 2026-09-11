@@ -10,7 +10,7 @@
     "role": "textbox",
     "text": "",
     "normalizedText": "",
-    "value": "initial query operational test text v3 operational",
+    "value": "initial querysdk testsdk test operational test text v3 operational",
     "type": "text",
     "selector": "#search-input",
     "bestSelector": "#search-input",
@@ -99,7 +99,7 @@
     "role": "textbox",
     "text": "",
     "normalizedText": "",
-    "value": "initial query operational test text v3 operational",
+    "value": "initial querysdk testsdk test operational test text v3 operational",
     "type": "text",
     "selector": "#search-input",
     "bestSelector": "#search-input",
@@ -188,7 +188,7 @@
     "role": "textbox",
     "text": "",
     "normalizedText": "",
-    "value": "initial query operational test text v3 operational",
+    "value": "initial querysdk testsdk test operational test text v3 operational",
     "type": "text",
     "selector": "#search-input",
     "bestSelector": "#search-input",
@@ -274,6 +274,6 @@
     "networkRequests": 0,
     "runtimeErrors": []
   },
-  "durationMs": 3,
+  "durationMs": 308,
   "stabilized": true
 }

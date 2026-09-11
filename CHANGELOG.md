@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.1.0] - 2026-09-12
+
+### Major Release — TeleDOM v4.1: Agent-Owned Workflow Runtime
+
+> TeleDOM is not the decision-maker; TeleDOM is the enabler. The Agent is
+> the brain. TeleDOM is the hands, eyes, memory and browser toolbox.
+> Teach once. Reuse forever. Adapt when the web changes. Prove what happened.
+
+**350 certified MCP tools** (121 base + 54 dt_ + 31 fx_ + **144 td_**), a
+durable agent store, deterministic execution records and a Level-2 Python
+SDK — with every v4 defect found and fixed (23 bugs, see
+[docs/workflow/RELEASE_NOTES.md](./docs/workflow/RELEASE_NOTES.md)).
+
+### Added
+- **Agent-Owned Workflow Runtime (`src/intelligence/workflow/`)** — 44 new `td_*` tools:
+  - **browser-primitives (22)**: `td_browser_navigate/back/forward/refresh`, `td_dom_inspect/query/extract/snapshot`, `td_target_find/check/describe`, `td_action_click/type/select/hover/press/scroll`, `td_wait`, `td_screenshot`, `td_execute_script`, `td_network_inspect`, `td_console_read` — a stable, semantic, API-free facade over the live browser pipeline.
+  - **workflow-runtime (14)**: `td_workflow_save/get/list/update/delete/clone/diff/export/import/validate/run/runs/run_get/replay` — agent-authored workflows stored VERBATIM with version history, DUMB execution through the full MCP pipeline ({{template}} variables, bounded retries, per-step timeouts), execution policy gates (allowedTools/deniedTools, domain allowlists, maxSteps/maxRuntimeMs, human-in-the-loop approvals that BLOCK and never auto-approve), deterministic run records and verbatim replay.
+  - **agent-owned-tooling (8)**: `td_target_memory_*` (learned targets with accumulating selector history — reused runs skip DOM re-analysis) and `td_agent_artifact_*` (custom tools, scripts, policies, memories, notes — stored verbatim, never interpreted).
+- **Durable agent store (`.teledom_agent/`)**: atomic writes, traversal-safe names, bounded run history, `TELEDOM_AGENT_STORE_DIR` env override.
+- **Root pipeline injection**: `td_*` tools can now route to ANY of the 350 tools (previously the intelligence layer was a closed switch).
+- **Persistent agent memory**: `td_memory` items survive process restarts.
+- **Python SDK (Level 2)** at `sdk/python/` — pure-stdlib semantic browser programming (`Browser`, `Workflow`, `TargetMemory`) + the golden-demo example `extension_smoke_test.py`.
+- **Workflows UI tab** in the dashboard (saved workflows + recent runs + KPIs from the bridge) and the Observatory finally mounted.
+- **Operational suite v2**: Phase-0 dist staleness auto-rebuild, real per-tool args for all 44 new tools, and the golden scenario `002-agent-owned-workflow-scenario` (explore → learn → reuse → replay → recovery) with measured KPIs.
+- `scripts/sync-cli-tool-lists.js` — CLI allowlists generated from the registry (no drift).
+
+### Fixed (every v4 defect — full table in docs/workflow/RELEASE_NOTES.md)
+- **E-1** serverInfo version 12.0.0 (was stale while package was 4.0.0; tests codified the bug) → derived from the version registry.
+- **E-2** CLI allowlist omitted all td_* tools → full 144-tool list.
+- **E-3** `td_evidence_export` never wrote the artifact + ESM `require('zlib')` crash → artifact written; static import.
+- **E-4** `td_run_playbook` executed nothing (vacuous PASS) → real chain execution.
+- **E-5** `td_run_workflow` was td_-only and vacuously PASSed on empty input → root routing + honest INCONCLUSIVE.
+- **E-6/E-17/E-18/E-19** stale v3 identities everywhere (extension manifests, bridge /health, simulated extension, banners).
+- **E-7** hardcoded private Windows debug-log path + silent catch → env-driven + logged.
+- **E-8** operational suite certified stale dist → freshness gate with auto-rebuild.
+- **E-9** compatibility/.tdom versions reported 12.0.0 → registry-derived.
+- **E-10/E-11** 200 dangling docs/test references → real targets.
+- **E-12** remote-fallback toolMap named non-existent tools → mapped to real tools.
+- **E-13** `prompts/list` without `prompts/get` (MCP violation) → implemented.
+- **E-14** phantom catalog tool → removed.
+- **E-15** Observatory dead code → mounted + wired.
+- **E-16** sea-entry ESM require + "43 Tools" banner + Windows-only port freeing → static import, derived count, cross-platform.
+- **E-20** error-swallowing empty catches (7 sites) → surfaced.
+- **E-22/E-23** stale dist tree + junk nested icons → clean rebuild / removed.
+
+### Changed
+- Capability registry: 13 categories (10×10 v4 families + browser-primitives 22 + workflow-runtime 14 + agent-owned-tooling 8); data-driven `validateRegistry` guards.
+- `td_run_workflow`/`td_run_playbook` semantics: real execution, honest statuses (no vacuous PASS anywhere).
+- Tool discovery groups: new `browser-primitives`, `workflow-runtime`, `agent-owned-tooling` groups; phantom tool removed.
+
+### Verification
+- 319/319 unit tests (36 files) · strict typecheck PASS · 3 builds PASS.
+- **350/350 operational CERTIFIED** over real stdio JSON-RPC.
+- Golden workflow scenario KPIs: **80% MCP round-trip reduction, 50% DOM-scan reduction, replay PASS, 0 unsafe-action bypass, 0 workflow corruption**.
+- Python SDK self-test 17/17; golden demo end-to-end PASS.
+
+---
+
 ## [4.0.0] - 2026-09-11
 
 ### Major Release — TeleDOM v4 Temporal Browser Intelligence Engine

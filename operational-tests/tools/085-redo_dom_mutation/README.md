@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 3ms
 
 ## Test Objective
 Redoes last undone mutation or reports empty stack

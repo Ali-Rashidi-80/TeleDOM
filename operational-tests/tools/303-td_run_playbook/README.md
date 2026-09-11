@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"playbook undefined not found. available: disappearing-ui, security-passive, performance-scan, recovery-drill\",\"tool\":\"td_run_playbook\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"playbook undefined not found. available: disappearing-ui, security-passive, performance-scan, recovery-drill\",\"tool\":\"td_run_playbook\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

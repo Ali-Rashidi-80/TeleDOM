@@ -43,6 +43,10 @@ export class MCPToolsHandler {
     // causality primitives — dispatch takes it FIRST so td_* never falls
     // through to legacy surfaces.
     this.intelligenceHandler = new IntelligenceToolsHandler();
+    // v4.1: inject the ROOT pipeline so td_* tools (workflow runtime,
+    // browser facade) can route to ANY TeleDOM tool — browser primitives
+    // included, not just the intelligence switch.
+    this.intelligenceHandler.attachRoot(this);
     this.syncRuntimeBridge();
   }
 

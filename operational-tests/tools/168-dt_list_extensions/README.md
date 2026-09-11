@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 3ms
 
 ## Test Objective
 Lists extensions (simulated state clearly labeled)
@@ -30,7 +30,7 @@ Lists extensions (simulated state clearly labeled)
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"total\": 1,\n  \"extensions\": [\n    {\n      \"extensionId\": \"forensic-recorder@mcpdom\",\n      \"name\": \"Browser Forensic Recorder (MCPDOM)\",\n      \"version\": \"3.0.0\",\n      \"enabled\": true,\n      \"description\": \"The MCPDOM platform extension itself\",\n      \"installType\": \"development\"\n    }\n  ],\n  \"mode\": \"LIVE\",\n  \"simulated\": false\n}"
+        "text": "{\n  \"total\": 1,\n  \"extensions\": [\n    {\n      \"extensionId\": \"teledom@teledom\",\n      \"name\": \"TeleDOM Browser Intelligence Platform\",\n      \"version\": \"4.1.0\",\n      \"enabled\": true,\n      \"description\": \"The TeleDOM platform extension itself\",\n      \"installType\": \"development\"\n    }\n  ],\n  \"mode\": \"LIVE\",\n  \"simulated\": false\n}"
       }
     ]
   }

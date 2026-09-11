@@ -1,0 +1,2685 @@
+دقیقاً. و من برای v4.1 یک تغییر مفهومی مهم پیشنهاد می‌کنم:
+
+Workflow نباید فقط «ضبط چند Tool Call» باشد.
+
+باید تبدیل شود به یک Automation Program که TeleDOM بتواند آن را بسازد، بفهمد، اجرا کند، تطبیق دهد، نسخه‌بندی کند، تست کند، repair کند و در نهایت به Python/Script تبدیل کند.
+
+این همان چیزی است که می‌تواند TeleDOM را از یک MCP قوی به یک Browser Automation Runtime برای Agentها تبدیل کند.
+
+ضمن اینکه برای X یک محدودیت مهم داریم: X در قوانین اتوماسیون فعلی صراحتاً scripting وب‌سایت را برای automation ممنوع کرده و برای فعالیت خودکار از طریق حساب کاربر، رضایت صریح و رعایت محدودیت‌های پاسخ/DM لازم است؛ بنابراین Workflow Engine باید API-first و policy-aware طراحی شود، نه ابزار دورزدن قوانین پلتفرم.
+
+TeleDOM v4.1 — Workflow Intelligence Engine
+
+من اسم این قابلیت را موقتاً می‌گذارم:
+
+TeleDOM Flow
+
+و معماری را حول این مفهوم می‌چینیم:
+
+                    ┌──────────────────────┐
+                    │      AI Agent        │
+                    └──────────┬───────────┘
+                               │
+                         Create / Run
+                               │
+                    ┌──────────▼───────────┐
+                    │    Workflow Engine   │
+                    │      TeleDOM Flow    │
+                    └──────────┬───────────┘
+                               │
+          ┌────────────────────┼────────────────────┐
+          │                    │                    │
+     Workflow IR          State Model        Policy Engine
+          │                    │                    │
+          └────────────────────┼────────────────────┘
+                               │
+                     ┌─────────▼─────────┐
+                     │ Browser / API     │
+                     │ Runtime Adapters  │
+                     └───────────────────┘
+1. مسئله اصلی که دقیقاً حل می‌کنیم
+
+الان Agent برای کاری مثل:
+
+Get Twitter comments
+→ inspect DOM
+→ find comment tab
+→ click
+→ snapshot
+→ locate comment
+→ reply
+→ inspect again
+→ post
+
+باید هر دفعه کلی reasoning و Tool Call انجام دهد.
+
+یعنی:
+
+Agent intelligence
+        ↓
+DOM exploration
+        ↓
+tool selection
+        ↓
+interaction
+        ↓
+re-exploration
+
+در حالی که Workflow Engine می‌گوید:
+
+بار اول
+
+Agent می‌گوید:
+
+Create workflow:
+"reply_to_comments"
+
+TeleDOM یاد می‌گیرد:
+
+open twitter
+→ navigate profile
+→ open replies
+→ collect comments
+→ classify
+→ generate answer
+→ reply
+→ verify
+
+و تبدیلش می‌کند به:
+
+Workflow: reply_to_comments
+
+Input:
+  max_comments
+  tone
+  reply_policy
+
+Nodes:
+  OpenPage
+  LocateComments
+  ExtractComments
+  Filter
+  GenerateReply
+  SendReply
+  Verify
+
+بار دوم Agent فقط می‌گوید:
+
+run_workflow(
+    "twitter.reply_to_comments",
+    {
+      "max_comments": 30,
+      "tone": "professional"
+    }
+)
+2. نکته‌ای که TeleDOM را واقعاً متفاوت می‌کند
+
+من اصلاً پیشنهاد نمی‌کنم workflow را این‌طور ذخیره کنیم:
+
+{
+  "click": "#something",
+  "type": "#input",
+  "click": "#submit"
+}
+
+این همان automation قدیمی است و با تغییر DOM می‌شکند.
+
+Workflow باید Semantic + Intent + Evidence + Recovery داشته باشد.
+
+مثلاً:
+
+step:
+  intent: open_comments
+
+target:
+  semantic_role: comments_tab
+  text_candidates:
+    - Comments
+    - Replies
+  locator_candidates:
+    - aria
+    - role
+    - text
+    - css
+
+constraints:
+  must_be_visible: true
+  confidence_min: 0.92
+
+recovery:
+  rescan_semantics: true
+  retry: 2
+
+یعنی Workflow می‌گوید:
+
+«من می‌خواهم تب کامنت‌ها را باز کنم»
+
+نه:
+
+«عنصر شماره e47 را کلیک کن.»
+
+این تفاوت خیلی مهم است.
+
+Playwright MCP هم امروز به structured accessibility snapshot و element refs برای تعامل متکی است؛ TeleDOM Flow باید یک لایه بالاتر از این مدل قرار بگیرد و هدف پایدار و قابل‌بازسازی داشته باشد.
+
+3. Workflow باید یک زبان میانی داشته باشد
+
+من برای v4.1 یک Workflow IR تعریف می‌کنم.
+
+مثلاً:
+
+type Workflow = {
+  id: string;
+  name: string;
+  version: string;
+
+  trigger?: Trigger;
+
+  inputs: WorkflowInput[];
+  variables: WorkflowVariable[];
+
+  nodes: WorkflowNode[];
+
+  policies: WorkflowPolicy[];
+
+  recovery: RecoveryPolicy;
+
+  verification: VerificationPlan;
+
+  metadata: WorkflowMetadata;
+};
+
+و Nodeها:
+
+Navigate
+Inspect
+Find
+Click
+Type
+Select
+Scroll
+Extract
+Transform
+Filter
+Map
+Reduce
+Condition
+Loop
+Branch
+Wait
+Assert
+Capture
+CallTool
+CallAPI
+RunAgent
+AskApproval
+SaveState
+LoadState
+Emit
+
+ولی قابلیت اصلی‌تر:
+
+Understand
+Infer
+Classify
+Generate
+Decide
+Investigate
+RepairTarget
+Verify
+
+یعنی Workflow فقط automation نیست.
+
+AI-native workflow است.
+
+4. Workflow باید قابل ساختن توسط Agent باشد
+
+ما حداقل این ابزارها را اضافه می‌کنیم:
+
+td_workflow_create
+td_workflow_update
+td_workflow_delete
+td_workflow_get
+td_workflow_list
+td_workflow_clone
+td_workflow_version
+td_workflow_publish
+td_workflow_validate
+td_workflow_test
+td_workflow_run
+td_workflow_pause
+td_workflow_resume
+td_workflow_stop
+td_workflow_debug
+td_workflow_replay
+td_workflow_explain
+td_workflow_export
+td_workflow_import
+
+و چند ابزار بسیار مهم:
+
+td_workflow_record
+td_workflow_compile
+td_workflow_repair
+td_workflow_optimize
+td_workflow_diff
+td_workflow_promote
+5. Agent بتواند Workflow را از اجرای خودش بسازد
+
+این قسمت به نظرم killer feature است.
+
+مثلاً Agent شروع می‌کند:
+
+User:
+Find popular posts on X,
+read their comments,
+reply to relevant ones,
+publish 5 posts,
+and answer replies to my posts.
+
+TeleDOM به‌صورت داخلی execution را record می‌کند:
+
+Observation
+Action
+Target
+Outcome
+Recovery
+Timing
+Evidence
+State transition
+
+بعد:
+
+td_workflow_compile
+
+و می‌گوید:
+
+Workflow generated successfully.
+
+Name:
+x_engagement_campaign
+
+Steps:
+17
+
+Reusable targets:
+8
+
+Dynamic variables:
+12
+
+Recovery rules:
+6
+
+Verification rules:
+9
+
+Estimated token reduction:
+87%
+
+Confidence:
+0.96
+
+این واقعاً جذاب است.
+
+6. Workflow باید خودش DOM را «یاد بگیرد»
+
+اینجا مزیت TeleDOM نسبت به macro recorder ایجاد می‌شود.
+
+مثلاً بار اول:
+
+DOM
+↓
+Semantic extraction
+↓
+Component boundary
+↓
+Target identity
+↓
+Interaction graph
+↓
+Workflow step
+
+ما از قابلیت‌های فعلی:
+
+semantic
+targeting
+identity
+temporal
+evidence
+
+استفاده می‌کنیم.
+
+نتیجه:
+
+Target:
+comments.open
+
+نه:
+
+button:nth-child(17)
+7. Target Memory
+
+این باید یکی از featureهای اصلی v4.1 باشد.
+
+مثلاً:
+
+twitter.comments_tab
+twitter.compose
+twitter.reply_box
+twitter.dm_inbox
+twitter.dm_thread
+instagram.story_editor
+instagram.reply_inbox
+
+برای هر target:
+
+identity:
+  semanticId
+  role
+  accessibleName
+  component
+  route
+
+locators:
+  aria
+  role
+  text
+  css
+  xpath
+  geometry
+
+history:
+  successfulSelectors
+  failedSelectors
+  pageVersions
+
+confidence:
+  current
+  historical
+
+بعد Workflow موقع اجرا:
+
+resolve target
+↓
+try known identity
+↓
+validate current DOM
+↓
+repair if changed
+↓
+execute
+
+یعنی Workflow خودش Self-Healing Target Resolution دارد.
+
+8. فوق‌العاده مهم: Workflow نباید به Session وابسته باشد
+
+این اشتباه را نباید بکنیم:
+
+Workflow
+ └── Browser tab #4
+
+باید باشد:
+
+Workflow
+ └── Intent
+      └── Target
+           └── Resolver
+
+چون فردا:
+
+tab #4
+
+وجود ندارد.
+
+یا URL تغییر کرده.
+
+یا UI تغییر کرده.
+
+Workflow باید خودش محیط را پیدا کند.
+
+9. Workflow Graph
+
+من Workflow را به صورت DAG/Graph می‌سازم:
+
+             ┌───────────┐
+             │ Get Posts │
+             └─────┬─────┘
+                   ↓
+             ┌───────────┐
+             │ Filter    │
+             └─────┬─────┘
+                   ↓
+            ┌──────┴──────┐
+            ↓             ↓
+       Read Comments   Skip
+            ↓
+       Classify
+        ┌───┴────┐
+        ↓        ↓
+     Relevant   Other
+        ↓
+     Generate
+        ↓
+      Review
+        ↓
+      Reply
+        ↓
+      Verify
+
+این اجازه می‌دهد Agent workflow را ویرایش منطقی کند.
+
+مثلاً:
+
+قبل از Reply یک approval بگذار.
+
+یا:
+
+فقط کامنت‌هایی که حداقل 20 لایک دارند پاسخ بده.
+
+Workflow تبدیل می‌شود به یک program قابل‌ویرایش.
+
+10. نسخه‌بندی حرفه‌ای
+
+هر Workflow:
+
+v1
+v2
+v3
+
+مثلاً:
+
+twitter_reply.v1
+twitter_reply.v2
+twitter_reply.v3
+
+و:
+
+clone
+edit
+diff
+rollback
+promote
+
+مثلاً Agent:
+
+Clone v3 as v4
+Change:
+  tone = more technical
+  maxReplies = 20
+  add approval step
+11. Workflow باید پارامتریک باشد
+
+به جای:
+
+Reply to John
+
+داریم:
+
+reply(
+   user = {{comment.author}},
+   message = {{generated.reply}}
+)
+
+Inputها:
+
+tone
+language
+maxItems
+filters
+prompt
+account
+platform
+approvalMode
+
+و حتی:
+
+schedule
+12. Trigger Engine
+
+بعد می‌توانیم Workflow را Trigger کنیم:
+
+manual
+schedule
+event
+webhook
+condition
+incident
+message
+page-open
+new-comment
+new-dm
+
+مثلاً:
+
+When new DM arrives
+→ classify
+→ generate response
+→ require approval
+→ send
+
+یا:
+
+Every 6 hours
+→ collect relevant posts
+→ summarize
+→ prepare drafts
+→ ask approval
+13. Approval / Human-in-the-loop
+
+این برای actionهای حساس ضروری است.
+
+مثلاً:
+
+Read comments
+        ↓
+Generate replies
+        ↓
+┌──────────────────┐
+│ APPROVAL REQUIRED│
+└──────────────────┘
+        ↓
+Publish
+
+Policy:
+
+risk:
+  read: low
+  navigate: low
+  like: medium
+  reply: medium
+  post: high
+  delete: critical
+  account_change: critical
+
+برای X این موضوع حتی مهم‌تر است، چون automation روی account کاربر نیازمند consent مناسب است و برخی automated replies/AI bots شرایط و محدودیت‌های صریح دارند.
+
+14. Workflow Security Sandbox
+
+یکی از مهم‌ترین featureهای v4.1:
+
+Workflow permissions
+
+مثلاً:
+
+permissions:
+  navigation: true
+  read_dom: true
+  read_comments: true
+
+  publish: false
+  delete: false
+  send_dm: false
+
+پس Agent نمی‌تواند ناگهان Workflow بسازد که:
+
+delete all posts
+
+و اجرا کند.
+
+15. Workflow Simulation
+
+از Counterfactual Engine فعلی استفاده می‌کنیم.
+
+قبل از execution:
+
+simulate workflow
+
+خروجی:
+
+Expected actions: 37
+Expected writes: 8
+Expected messages: 12
+Risk score: 0.31
+Potential failure points: 3
+
+بعد:
+
+approve
+→ execute
+16. Workflow Verification
+
+این قسمت باید از Proof Engine فعلی استفاده کند.
+
+مثلاً:
+
+Goal:
+Reply to all relevant comments.
+
+Verification:
+
+must:
+  processed >= relevantComments
+
+must_not:
+  duplicateReplies = true
+
+must_hold:
+  account == expectedAccount
+
+must_hold:
+  no_unapproved_publish
+
+در پایان:
+
+WORKFLOW RESULT
+
+Completed: 28/30
+
+Verified: YES
+
+Evidence:
+  91 artifacts
+
+Proof:
+  td-proof-8a77...
+
+Confidence:
+  0.97
+17. Workflow Debugging
+
+این یکی فوق‌العاده است:
+
+td_workflow_debug
+
+و Timeline:
+
+Step 12
+↓
+Target not found
+↓
+Resolver tried:
+  aria      FAIL
+  role      PASS
+↓
+click
+↓
+network request
+↓
+DOM change
+↓
+verification failed
+↓
+repair
+↓
+retry
+↓
+PASS
+
+این دقیقاً جایی است که Temporal Engine شما باید بدرخشد.
+
+18. Workflow Replay
+
+هر execution باید recording بسازد:
+
+workflow-run/
+    events
+    states
+    targets
+    evidence
+    screenshots
+    network
+    outputs
+
+بعد:
+
+Replay run #183
+
+Agent می‌تواند بفهمد:
+
+چرا این Workflow هفته قبل موفق شد ولی امروز شکست خورد؟
+
+این feature با هویت TeleDOM فوق‌العاده هم‌خوان است.
+
+19. Workflow تبدیل به Python
+
+اینجا من پیشنهاد می‌کنم یک Compiler واقعی بسازیم:
+
+Workflow IR
+     ↓
+Code Generator
+     ↓
+Python
+
+مثلاً:
+
+workflow = TeleDOMWorkflow("twitter_engagement")
+
+posts = workflow.run(
+    "twitter.posts.top",
+    limit=20
+)
+
+for post in posts:
+    comments = workflow.run(
+        "twitter.comments.list",
+        post=post
+    )
+
+    relevant = workflow.filter(
+        comments,
+        condition="relevance > 0.8"
+    )
+
+    for comment in relevant:
+        reply = workflow.agent.generate(
+            prompt="Write a useful reply",
+            context=comment
+        )
+
+        workflow.twitter.reply(
+            comment,
+            reply
+        )
+
+workflow.verify()
+
+نه اینکه Python حتماً selector-level باشد.
+
+بلکه Python باید Semantic TeleDOM SDK داشته باشد.
+
+20. حتی بهتر: چند خروجی از یک Workflow
+
+یک Workflow:
+
+Workflow IR
+
+می‌تواند compile شود به:
+
+Python
+TypeScript
+JavaScript
+TeleDOM DSL
+JSON
+MCP tool
+CLI command
+Docker worker
+
+مثلاً:
+
+teldom flow run twitter_engagement
+
+یا:
+
+teldom flow compile twitter_engagement --target python
+21. Workflow → MCP Tool
+
+این یکی خیلی خفن است.
+
+Agent می‌سازد:
+
+workflow:
+instagram.reply_comments
+
+TeleDOM اتوماتیک یک tool تولید می‌کند:
+
+td_flow_instagram_reply_comments
+
+پس workflow تبدیل می‌شود به Tool.
+
+یعنی:
+
+Agent
+   ↓
+Create workflow
+   ↓
+Compile
+   ↓
+New MCP tool
+   ↓
+Reuse forever
+
+این دقیقاً برای چیزی که گفتی فوق‌العاده است.
+
+22. Workflow Marketplace / Library
+
+بعد از مدتی:
+
+flows/
+    twitter/
+        reply_comments
+        publish_thread
+        collect_posts
+
+    instagram/
+        reply_comments
+        publish_story
+        inbox_triage
+
+    github/
+        triage_issues
+        summarize_prs
+
+    linkedin/
+        collect_posts
+        draft_replies
+
+و چون Open Source هستید:
+
+TeleDOM Flow Registry
+
+می‌تواند تبدیل به ecosystem شود.
+
+23. Workflow Learning
+
+نسخه بعدی حتی می‌تواند:
+
+execution #1
+execution #2
+execution #3
+execution #4
+
+را تحلیل کند و بگوید:
+
+I noticed that these 4 workflows
+always perform the same 9 actions.
+
+Candidate reusable workflow:
+social.open_comments
+
+یعنی TeleDOM خودش primitiveهای جدید workflow پیدا می‌کند.
+
+این خیلی جلوتر از macro recording است.
+
+24. Workflow Optimization
+
+بعد از هر اجرا:
+
+Before:
+27 MCP calls
+
+After:
+1 workflow call
++ 3 internal actions
+
+TeleDOM metric بدهد:
+
+Token savings: 91%
+Latency savings: 76%
+DOM scans avoided: 14
+Actions reused: 31
+
+این KPI بسیار مهمی برای Agentهاست.
+
+25. خیلی مهم: Workflow نباید همیشه اجرا شود
+
+ما باید سه حالت داشته باشیم:
+
+STRICT
+ADAPTIVE
+AUTONOMOUS
+STRICT
+
+همان workflow دقیق اجرا شود.
+
+ADAPTIVE
+
+اگر UI کمی تغییر کرد:
+
+repair target
+continue
+AUTONOMOUS
+
+اگر workflow ناقص شد:
+
+reason
+discover
+modify workflow
+continue
+
+و در پایان:
+
+Workflow upgraded from v3 → v4
+26. Workflow Self-Healing
+
+مثلاً:
+
+Step:
+click comments
+
+امروز:
+
+button[aria-label="Comments"]
+
+فردا UI تغییر می‌کند.
+
+TeleDOM:
+
+old locator failed
+↓
+semantic resolver
+↓
+component resolver
+↓
+target identity
+↓
+new target
+↓
+verify
+↓
+continue
+
+و بعد:
+
+Workflow v4
+target updated
+confidence 0.98
+
+این یعنی Workflow با زمان قوی‌تر می‌شود.
+
+27. Social Automation را باید Adapter محور کنیم
+
+من یک اشتباه بزرگ را نمی‌کنم که TeleDOM را به:
+
+Twitter code
+Instagram code
+LinkedIn code
+
+پر کنم.
+
+به‌جایش:
+
+SocialAdapter
+
+و:
+
+XAdapter
+InstagramAdapter
+LinkedInAdapter
+RedditAdapter
+YouTubeAdapter
+GitHubAdapter
+
+ولی یک interface مشترک:
+
+interface SocialAutomationAdapter {
+  getFeed(): ...
+  getPosts(): ...
+  getComments(): ...
+  replyToComment(): ...
+  getMessages(): ...
+  sendMessage(): ...
+  createPost(): ...
+  publish(): ...
+}
+
+و هر adapter خودش:
+
+API
+browser
+hybrid
+
+را تعیین کند.
+
+برای پلتفرم‌هایی که API رسمی عمل موردنظر را پشتیبانی نمی‌کند، Workflow نباید با دور زدن محدودیت‌ها آن را انجام دهد؛ باید unsupported / approval-required / browser-only-permitted را شفاف گزارش کند. X به‌طور مشخص website scripting را برای automation منع کرده است.
+
+28. Plugin Architecture
+
+این هم برای آینده حیاتی است:
+
+TeleDOM Core
+      │
+      ├── Workflow Engine
+      │
+      ├── Browser Adapter
+      │
+      ├── API Adapter
+      │
+      └── Platform Plugins
+             ├── X
+             ├── Instagram
+             ├── GitHub
+             └── ...
+
+بنابراین TeleDOM core هیچ اطلاعی ندارد که:
+
+comments
+
+مربوط به X است یا Instagram.
+
+29. UI برای Workflow
+
+v4.1 باید فقط backend feature نباشد.
+
+یک UI گرافی:
+
+┌──────────────────────────────────────────────────┐
+│ Twitter Engagement Workflow        ● Active     │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│  START                                           │
+│    │                                             │
+│    ▼                                             │
+│ Get Posts ───────► Filter Top Posts              │
+│                         │                        │
+│                         ▼                        │
+│                    Get Comments                  │
+│                         │                        │
+│                         ▼                        │
+│                     Classify                     │
+│                      /     \                     │
+│                     /       \                    │
+│                  Reply     Ignore                │
+│                    │                             │
+│                    ▼                             │
+│                  Verify                          │
+│                                                  │
+├──────────────────────────────────────────────────┤
+│ Runs: 183   Success: 97.8%   Avg: 4.1s          │
+└──────────────────────────────────────────────────┘
+
+Agent هم بتواند workflow را با زبان طبیعی edit کند:
+
+«بعد از دریافت کامنت‌ها، کامنت‌های کمتر از 10 کلمه را نادیده بگیر.»
+
+UI تبدیلش کند:
+
+Filter node
+condition:
+length(comment.text) >= 10
+30. ساختار پیشنهادی کد v4.1
+
+با توجه به اینکه الان intelligence-handler.ts خودش حدود 55KB است، Workflow را اصلاً نباید داخل آن بریزیم.
+
+من ساختار را این‌طور می‌چینم:
+
+src/intelligence/workflow/
+
+    domain/
+        workflow.ts
+        workflow-node.ts
+        workflow-version.ts
+        workflow-run.ts
+
+    ir/
+        workflow-ir.ts
+        expression-ir.ts
+        target-ir.ts
+
+    engine/
+        workflow-engine.ts
+        execution-engine.ts
+        scheduler.ts
+
+    compiler/
+        workflow-compiler.ts
+        python-compiler.ts
+        typescript-compiler.ts
+        mcp-compiler.ts
+
+    resolver/
+        target-resolver.ts
+        semantic-resolver.ts
+        locator-resolver.ts
+        repair-engine.ts
+
+    runtime/
+        workflow-context.ts
+        variable-store.ts
+        state-store.ts
+
+    verification/
+        workflow-verifier.ts
+        workflow-proof.ts
+
+    recovery/
+        workflow-recovery.ts
+        retry-policy.ts
+        fallback-policy.ts
+
+    policy/
+        permission-engine.ts
+        approval-engine.ts
+        risk-engine.ts
+
+    persistence/
+        workflow-repository.ts
+        execution-repository.ts
+        version-repository.ts
+
+    adapters/
+        browser/
+        api/
+        social/
+
+    optimization/
+        workflow-optimizer.ts
+        reuse-detector.ts
+
+    mcp/
+        workflow-tools.ts
+31. مهم‌تر از همه: یک Execution Record واحد
+
+هر run باید چیزی شبیه این باشد:
+
+type WorkflowRun = {
+  id: string;
+  workflowId: string;
+  version: string;
+
+  startedAt: number;
+  finishedAt?: number;
+
+  status:
+    | 'RUNNING'
+    | 'PAUSED'
+    | 'SUCCESS'
+    | 'FAILED'
+    | 'PARTIAL'
+    | 'BLOCKED';
+
+  inputs: Record<string, unknown>;
+
+  steps: WorkflowStepRun[];
+
+  evidence: EvidenceRef[];
+
+  failures: FailureRecord[];
+
+  repairs: RepairRecord[];
+
+  proof?: ProofRef;
+
+  metrics: {
+    toolCalls: number;
+    domScans: number;
+    retries: number;
+    tokensSaved?: number;
+    durationMs: number;
+  };
+};
+
+این به Temporal Engine شما وصل می‌شود.
+
+32. و اینجا یک synergy فوق‌العاده داریم
+
+TeleDOM v4:
+
+Temporal
+Evidence
+Causal
+Counterfactual
+Proof
+Targeting
+Prediction
+Security
+
+TeleDOM v4.1:
+
+              WORKFLOW
+                 │
+     ┌───────────┼───────────┐
+     ↓           ↓           ↓
+ Temporal     Targeting    Evidence
+     ↓           ↓           ↓
+ Recovery     Self-Heal   Verification
+     ↓           ↓           ↓
+          Workflow Runtime
+                 ↓
+         Counterfactual
+                 ↓
+             Simulation
+                 ↓
+               Proof
+
+یعنی v4.1 نباید یک feature کنار v4 باشد.
+
+باید:
+
+همه قابلیت‌های v4 را تبدیل به primitiveهای Workflow Engine کند.
+
+این فوق‌العاده مهم است.
+
+33. Roadmap واقعی v4.1
+
+من v4.1 را در 6 milestone می‌شکنم.
+
+4.1-A — Workflow Core
+Workflow IR
+Workflow Graph
+Variables
+Execution Context
+Persistence
+Versioning
+Clone/Edit/Delete
+4.1-B — Learning
+Record execution
+Compile execution → workflow
+Semantic target capture
+Target identity
+Workflow optimization
+Reuse detection
+4.1-C — Runtime
+Run
+Pause
+Resume
+Stop
+Retry
+Branch
+Loop
+Condition
+Parallel execution
+4.1-D — Intelligence
+Self-healing
+Target repair
+Failure reasoning
+Adaptive execution
+Counterfactual simulation
+Workflow debugging
+Workflow replay
+4.1-E — Safety
+Permissions
+Risk scoring
+Human approval
+Policy engine
+Audit trail
+Secret isolation
+Domain restrictions
+Action budgets
+4.1-F — Compilation
+Python
+TypeScript
+TeleDOM DSL
+MCP Tool
+CLI
+Docker Worker
+34. اما من یک تغییر اولویت مهم هم می‌دهم
+
+قبل از اینکه 100 نوع Node بسازیم، این‌ها را درست کنیم:
+
+1. Workflow IR
+2. Target Identity
+3. Workflow Runtime
+4. Execution Record
+5. Persistence
+6. Versioning
+7. Recovery
+8. Verification
+9. Compiler
+10. Social adapters
+
+چون بدون این هسته، 200 ابزار جدید فقط عدد MCP را بزرگ می‌کند.
+
+35. KPIهای موفقیت v4.1
+
+من برای release معیار عددی می‌گذارم:
+
+Workflow creation success            > 95%
+Workflow replay success              > 98%
+Target recovery success              > 95%
+DOM rescans per reused run           < 10%
+Token reduction                      > 70%
+Tool-call reduction                  > 80%
+Workflow verification                > 99%
+False-success                        < 1%
+Unsafe action bypass                 = 0
+Workflow corruption                  = 0
+
+و مهم‌ترین KPI:
+
+First Run → Reusable Run
+
+مثلاً:
+
+First run:
+43 tool calls
+18 DOM analyses
+7.8 sec
+
+Second run:
+1 workflow call
+4 internal actions
+2.1 sec
+
+این دموی طلایی TeleDOM v4.1 خواهد بود.
+
+36. و یک Demo Killer برای README
+
+من دقیقاً همین use case تو را تبدیل به showcase می‌کردم:
+
+USER:
+
+Go to X.
+Find the most interesting posts about AI.
+Read the comments.
+Reply to the useful ones.
+Create 5 posts for me.
+Then monitor replies and answer relevant ones.
+RUN #1
+Exploration:
+✓ 31 DOM analyses
+✓ 87 tool calls
+✓ 12 target discoveries
+
+Workflow created:
+
+x_ai_engagement_v1
+RUN #2
+Executing workflow...
+
+✓ Get posts
+✓ Read comments
+✓ Classify
+✓ Generate responses
+✓ Approval
+✓ Publish
+✓ Verify
+
+6 tool calls
+91% fewer tokens
+79% faster
+RUN #20
+UI changed.
+
+Target recovery:
+✓ Old selector failed
+✓ Semantic target recovered
+✓ Workflow upgraded v2
+
+No agent re-exploration required.
+
+این Demo از 306 tools برای مارکتینگ خیلی قوی‌تر است.
+
+37. و یک نکته استراتژیک خیلی مهم
+
+در بازار امروز، حتی Playwright MCP هم persistent sessions و recording / code generation و capabilities متعددی برای automation دارد؛ بنابراین صرفاً «save کردن state» یا «record کردن actions» دیگر differentiation کافی نیست.
+
+چیزی که باید مال TeleDOM باشد این ترکیب است:
+
+Workflow
++
+Semantic Targeting
++
+Temporal Memory
++
+Evidence
++
+Self-Healing
++
+Counterfactual
++
+Verification
++
+Proof
++
+Compilation
+
+این ترکیب واقعاً می‌تواند هویت مستقلی بسازد.
+
+تعریف نهایی TeleDOM Flow
+
+من حتی tagline این بخش را این‌طور می‌گذارم:
+
+Teach once. Reuse forever. Adapt when the web changes. Prove what happened.
+
+و معماری ذهنی:
+
+          AGENT
+            │
+            ▼
+     ┌──────────────┐
+     │ Explore Once │
+     └──────┬───────┘
+            ▼
+      Learn Workflow
+            │
+            ▼
+       Workflow IR
+            │
+      ┌─────┼─────┐
+      ▼     ▼     ▼
+   Target  State  Policy
+      │     │     │
+      └─────┼─────┘
+            ▼
+       FLOW RUNTIME
+            │
+     ┌──────┼─────────┐
+     ▼      ▼         ▼
+  Execute Repair   Verify
+     │      │         │
+     └──────┼─────────┘
+            ▼
+       Evidence + Proof
+            │
+            ▼
+     Compile to Python
+            │
+            ▼
+      Reusable Robot
+
+این به نظرم یکی از معدود قابلیت‌هایی است که واقعاً ارزش دارد هسته v4.1 را حول آن بنا کنیم، نه اینکه صرفاً 100 ابزار دیگر اضافه کنیم.
+
+و یک تصمیم معماری از همین الان قطعی باشد: Workflow Engine باید مستقل از Social Platform باشد؛ X/Instagram/GitHub و بقیه فقط Adapter باشند. برای X همچنین باید API/policy boundary در خود engine enforce شود، نه اینکه صرفاً در README توضیح داده شود.
+
+ولی یک interface مشترک:
+
+interface SocialAutomationAdapter {
+  getFeed(): ...
+  getPosts(): ...
+  getComments(): ...
+  replyToComment(): ...
+  getMessages(): ...
+  sendMessage(): ...
+  createPost(): ...
+  publish(): ...
+}
+
+و هر adapter خودش:
+
+API
+browser
+hybrid
+
+را تعیین کند.
+
+برای پلتفرم‌هایی که API رسمی عمل موردنظر را پشتیبانی نمی‌کند، Workflow نباید با دور زدن محدودیت‌ها آن را انجام دهد؛ باید unsupported / approval-required / browser-only-permitted را شفاف گزارش کند. X به‌طور مشخص website scripting را برای automation منع کرده است.
+
+ببین با این مخالفم من چون نمیخوایم حتما برای شبکه اجتماعی و توییتر استفاده کنیم و اینجور برای این ک قوانین ی پلتفرم رو رعایت کنیم داریم ایجنت رو محدود میکنیم و ممکنه خیلی سایت هایی باشن اصلا شبکه اجتماعی نباشن و من میخوام ایجنتم مدیریتشون کنه و شلوغن و هیچ api رسمی هم ندارن اگه بنا به استفاده از api باشه ک کاربر به ایجنت میگه کد بنویس اصلا نمیاد از ابزار ما استفاده کنه
+
+این کارت بشدت عصبیم کرد و باید کاربر بتونه هر ورک فلویی روی مرورگر بسازه بدون وابستگی به هیچ api و حتی خوده ایجنت ها هم خودشون موارد امنیتی دارن و کارایی ک با قوانین تداخل باشه انجام نمیدن پس نیازی نیست ما الکی ابزارمونو محدود کنیم
+
+حق با توست؛ آن بخش از طراحی که من پیشنهاد دادم بیش از حد policy-coupled بود و با فلسفه‌ای که برای TeleDOM تعریف کرده‌ای تناقض داشت.
+
+ما نباید TeleDOM را به «ابزارهای مخصوص سایت‌های دارای API» تبدیل کنیم. برتری اصلی TeleDOM دقیقاً باید این باشد که:
+
+هر چیزی که یک انسان بتواند در مرورگر انجام دهد، Agent بتواند با Workflow همان کار را در مرورگر یاد بگیرد، تکرار کند و مدیریت کند؛ بدون اینکه وجود API شرط باشد.
+
+پس طراحی را اصلاح می‌کنیم.
+
+اصل معماری v4.1
+
+Browser is the primitive. API فقط یک optimization است، نه dependency.
+
+یعنی:
+
+                    TeleDOM Workflow
+                           │
+                           ▼
+                  Browser Automation
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+         DOM / A11y                 Visual
+              │                         │
+              └────────────┬────────────┘
+                           │
+                    Browser Runtime
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+            Click         Type        Navigate
+              │            │            │
+              └────────────┼────────────┘
+                           │
+                     Any Website
+
+و بعداً:
+
+Optional acceleration
+        │
+        ├── HTTP/API
+        ├── CDP
+        └── platform integration
+
+یعنی API هرگز نباید پیش‌شرط Workflow باشد.
+
+پس SocialAutomationAdapter را هم حذف می‌کنیم
+
+در واقع آن abstraction زیادی domain-specific است.
+
+این:
+
+interface SocialAutomationAdapter {
+  getFeed()
+  getPosts()
+  getComments()
+  replyToComment()
+  getMessages()
+  sendMessage()
+  createPost()
+  publish()
+}
+
+برای TeleDOM مناسب نیست.
+
+چون تو نمی‌خواهی:
+
+TeleDOM
+ ├── Twitter
+ ├── Instagram
+ ├── LinkedIn
+
+بسازی.
+
+تو می‌خواهی:
+
+TeleDOM
+        ↓
+Browser
+        ↓
+Website
+
+و Workflow خودش semantics را استخراج کند.
+
+Interface درست چیست؟
+
+من این مدل را پیشنهاد می‌دهم:
+
+interface BrowserAutomationProvider {
+  navigate(target: NavigationTarget): Promise<ActionResult>;
+
+  inspect(scope?: InspectScope): Promise<BrowserObservation>;
+
+  resolveTarget(target: TargetIntent): Promise<TargetResolution>;
+
+  click(target: TargetRef): Promise<ActionResult>;
+
+  type(target: TargetRef, text: string): Promise<ActionResult>;
+
+  select(target: TargetRef, value: unknown): Promise<ActionResult>;
+
+  scroll(target?: TargetRef, amount?: number): Promise<ActionResult>;
+
+  hover(target: TargetRef): Promise<ActionResult>;
+
+  press(target: TargetRef, key: string): Promise<ActionResult>;
+
+  extract(target: ExtractionTarget): Promise<unknown>;
+
+  screenshot(options?: ScreenshotOptions): Promise<ArtifactRef>;
+
+  wait(condition: WaitCondition): Promise<ActionResult>;
+}
+
+یعنی همه چیز حول Browser Primitive است.
+
+اما چیزی که گفتی یک مرحله بالاتر است
+
+Agent می‌خواهد:
+
+«کامنت‌ها را بگیر.»
+
+این نباید مستقیماً تبدیل شود به:
+
+getComments()
+
+چون TeleDOM نمی‌داند comment چیست.
+
+در عوض Agent Intent می‌دهد:
+
+{
+  intent: "extract_collection",
+  semanticRole: "comments"
+}
+
+و Target Resolver می‌گردد:
+
+comments
+↓
+semantic region
+↓
+DOM structure
+↓
+accessible tree
+↓
+visual fallback
+
+و نتیجه را پیدا می‌کند.
+
+بنابراین روی هر سایت:
+
+Site A
+  comments → found
+
+Site B
+  reviews → mapped to discussion items
+
+Site C
+  replies → mapped
+
+Site D
+  messages → mapped
+
+بدون اینکه TeleDOM برای آن سایت integration اختصاصی داشته باشد.
+
+این دقیقاً همان چیزی است که Workflow را قدرتمند می‌کند
+
+مثلاً بار اول Agent وارد یک سایت ناشناخته می‌شود.
+
+می‌گوید:
+
+Find the message inbox.
+Open the first conversation.
+Read the messages.
+Write a response.
+Send it.
+
+TeleDOM:
+
+Explore
+↓
+Semantic discovery
+↓
+Target identity
+↓
+Action sequence
+↓
+Observation
+↓
+Verification
+
+بعد:
+
+workflow.create()
+
+و:
+
+site.messages.reply.v1
+
+ساخته می‌شود.
+
+اجرای بعدی:
+
+run("site.messages.reply")
+
+دیگر لازم نیست همه چیز از اول کشف شود.
+
+حتی Workflow نباید اسم سایت را هم الزاماً بشناسد
+
+این خیلی مهم است.
+
+نباید طراحی کنیم:
+
+twitter.reply_comments
+
+به‌عنوان abstraction اصلی.
+
+بهتر است:
+
+reply_to_discussion
+
+باشد.
+
+و workflow در runtime:
+
+current website
+↓
+resolve "discussion"
+↓
+resolve "reply action"
+↓
+execute
+
+یعنی Workflow می‌تواند portable باشد.
+
+مثلاً:
+
+reply_to_discussion
+
+در:
+
+forum
+social network
+support portal
+comment system
+community
+CMS
+issue tracker
+
+کار کند.
+
+و حتی Workflow می‌تواند روی چند سایت اجرا شود
+
+مثلاً:
+
+Workflow:
+collect_and_answer
+
+1. Open source A
+2. Read discussions
+3. Extract relevant messages
+4. Open source B
+5. Publish response
+6. Verify
+
+بدون نیاز به:
+
+A API
+B API
+
+اصلاً مهم نیست.
+
+Browser-first / API-optional
+
+من برای معماری v4.1 این hierarchy را قطعی می‌گذارم:
+
+L0 — Intent
+L1 — Semantic Workflow
+L2 — Target Resolution
+L3 — Browser Actions
+L4 — Browser Runtime
+L5 — Optional Accelerators
+
+و accelerator:
+
+API
+CDP
+direct network call
+platform SDK
+
+فقط optimizer هستند.
+
+مثلاً Workflow می‌گوید:
+
+extract 1000 items
+
+TeleDOM ممکن است بگوید:
+
+Browser execution available.
+API shortcut detected.
+
+اما انتخاب execution strategy باید configurable باشد:
+
+BROWSER_ONLY
+OPTIMIZED
+AUTO
+
+در BROWSER_ONLY حتی API نباید استفاده شود.
+
+این باعث می‌شود TeleDOM یک مزیت خیلی جدی داشته باشد
+
+سایت‌هایی که:
+
+API ندارند
+
+اصلاً مشکل TeleDOM نیستند.
+
+حتی سایت‌هایی که:
+
+DOM پیچیده
+SPA
+Shadow DOM
+iframes
+dynamic rendering
+virtual lists
+canvas UI
+
+دارند هم باید هدف Workflow Engine باشند.
+
+برای این‌ها resolver می‌رود:
+
+Semantic
+↓
+DOM
+↓
+Accessibility
+↓
+Component
+↓
+Visual
+↓
+Interaction probing
+
+و اینجا دقیقاً قابلیت‌های v4 وارد بازی می‌شوند.
+
+حتی Workflow می‌تواند از کاربر یاد بگیرد
+
+مثلاً کاربر خودش یک بار انجام می‌دهد:
+
+Open dashboard
+→ Reports
+→ Monthly
+→ Export
+→ CSV
+
+TeleDOM مشاهده می‌کند:
+
+Intent:
+export_monthly_report
+
+بعد Workflow می‌سازد:
+
+reports.export_monthly
+
+و دفعه بعد:
+
+Agent:
+Run monthly report export.
+
+تمام.
+
+نکته مهم‌تر: Agent نباید مجبور باشد Workflow را دستی طراحی کند
+
+سه روش ساخت داشته باشیم:
+
+1. Agent-generated
+User goal
+↓
+Agent exploration
+↓
+Workflow
+2. Demonstration
+Human performs actions
+↓
+TeleDOM records
+↓
+Workflow
+3. Recorded execution
+Agent executes task
+↓
+Execution recording
+↓
+Compiler
+↓
+Reusable workflow
+و این قسمت واقعاً باید killer feature باشد
+
+بعد از چند بار اجرا:
+
+Run 1:
+37 tool calls
+14 inspections
+
+Run 2:
+29 tool calls
+9 inspections
+
+Run 10:
+7 tool calls
+1 inspection
+
+TeleDOM خودش Workflow را optimize می‌کند.
+
+مثلاً:
+
+Original:
+inspect → click → inspect → click → inspect
+
+Optimized:
+resolve targets from learned identities
+→ execute
+→ verify
+امنیت هم نباید با محدود کردن قابلیت اشتباه گرفته شود
+
+من با اصلاح حرف قبلی‌ام موافقم:
+
+TeleDOM نباید عمداً Browser capability را محدود کند فقط چون ممکن است یک سایت خاص قوانین خودش را داشته باشد.
+
+اما باید این دو موضوع را از هم جدا کنیم:
+
+Capability
+≠
+Authorization
+
+یعنی TeleDOM می‌تواند قابلیت مرورگر را کامل ارائه کند.
+
+بعد در سطح runtime:
+
+Agent policy
+User approval
+Environment policy
+Permission profile
+
+مشخص می‌کنند چه کاری مجاز به اجراست.
+
+این خیلی متفاوت است با اینکه core بگوییم:
+
+«این سایت چون API ندارد، اصلاً نمی‌توانم.»
+
+طراحی بهتر برای permissions
+
+مثلاً:
+
+type ExecutionPolicy = {
+  allowedDomains?: string[];
+  deniedDomains?: string[];
+
+  allowNavigation: boolean;
+  allowDataExtraction: boolean;
+
+  allowFormSubmission: boolean;
+  allowPublishing: boolean;
+  allowMessaging: boolean;
+
+  requireApprovalFor?: ActionType[];
+
+  maxActions?: number;
+  maxRuntimeMs?: number;
+};
+
+یعنی:
+
+Browser capability = کامل
+Execution authority = configurable
+
+این معماری خیلی تمیزتر است.
+
+یک قابلیت حتی بزرگ‌تر
+
+با این مدل، Workflow فقط برای social automation نیست.
+
+می‌تواند تبدیل شود به:
+
+CRM management
+ERP operation
+Admin panels
+CMS
+Customer support
+E-commerce management
+Government portals
+Internal company tools
+QA
+Regression testing
+Data extraction
+Research
+Backoffice automation
+Browser RPA
+
+و حتی:
+
+Agent manages website
+
+بدون هیچ integration اختصاصی.
+
+و Python در این مدل خیلی جذاب‌تر می‌شود
+
+مثلاً Workflow:
+
+support_ticket_triage
+
+به:
+
+flow.open("support.dashboard")
+
+tickets = flow.find("ticket.list")
+
+for ticket in tickets:
+    flow.click(ticket)
+    message = flow.read("conversation")
+    
+    classification = agent.classify(message)
+
+    if classification == "urgent":
+        flow.assign("priority", "high")
+
+    flow.verify()
+
+این Python دیگر Selenium-style code نیست.
+
+بلکه:
+
+Semantic Browser Programming
+
+است.
+
+حتی می‌توانیم DSL اختصاصی TeleDOM بسازیم
+
+مثلاً:
+
+workflow "reply_to_discussions" {
+
+    open discussion
+
+    for item in discussions {
+        when item.relevance > 0.8 {
+
+            generate reply
+
+            approve
+
+            reply item
+
+            verify reply.sent
+        }
+    }
+}
+
+بعد:
+
+TeleDOM DSL
+      ↓
+Workflow IR
+      ↓
+Browser Runtime
+
+و:
+
+Workflow IR
+ ↓
+Python
+ ↓
+TypeScript
+ ↓
+MCP Tool
+ ↓
+CLI
+
+این خیلی تمیزتر است.
+
+بنابراین تصمیم معماری v4.1 را اصلاح کنیم
+❌ چیزی که نباید بسازیم
+SocialAutomationAdapter
+TwitterAdapter
+InstagramAdapter
+API-required workflows
+platform-specific core
+✅ چیزی که باید بسازیم
+BrowserAutomationProvider
+        +
+Semantic Intent
+        +
+Universal Target Resolver
+        +
+Workflow IR
+        +
+Workflow Runtime
+        +
+Target Memory
+        +
+Self Healing
+        +
+Execution Recording
+        +
+Verification
+        +
+Policy / Approval
+        +
+Compiler
+
+و:
+
+API = Optional Optimization
+
+نه dependency.
+
+و اتفاقاً این دیدگاه TeleDOM را خیلی قوی‌تر می‌کند
+
+چون تعریف محصول دیگر نمی‌شود:
+
+«MCP برای کنترل Chrome»
+
+حتی نمی‌شود:
+
+«Browser automation framework»
+
+تعریف جذاب‌تر:
+
+TeleDOM = A browser-native execution and learning layer for AI agents.
+
+Agent:
+
+See
+Understand
+Learn
+Build Workflow
+Execute
+Adapt
+Recover
+Verify
+Reuse
+Compile
+
+و مهم‌ترین جمله‌ای که من برای v4.1 می‌گذارم:
+
+Teach the browser task once. Turn it into a reusable program. Run it anywhere the browser can go.
+
+این دقیقاً با چیزی که تو از TeleDOM می‌خواهی هم‌راستاست و به نظرم از طراحی قبلی خیلی بهتر و عمومی‌تر است.
+
+ببین mcp ما نباید هیچ ورک فلویی بسازه
+باید و باید خوده ایجنت سایت رو کشف کنه و با استفاده از ابزار ما بسازتش یعنی اگه کدنویسی کشف کردن و یا هرچی لازمه به عهده خوده ایجنته چون ایجنت میتونه تمامی حالات نا شناخته رو کاملا مدیریت کنه و خودش بسازه ولی کد رباتی نه و باید هر اتفاقی میفته و ورک فلویی ساخته میشه رو خوده خوده ایجنت بسازه فقط و فقط
+
+دقیقاً. الان معماری‌ای که می‌خواهی روشن شد و این تفاوت خیلی مهم است.
+
+تو اصلاً نمی‌خواهی TeleDOM یک «Workflow Builder هوشمند» باشد.
+
+می‌خواهی:
+
+TeleDOM فقط یک Universal Browser Capability Layer باشد؛ خود Agent تمام discovery، reasoning، طراحی workflow، تولید workflow، اصلاح، نسخه‌بندی و حتی تولید bot code را انجام بدهد.
+
+این از نظر معماری حتی تمیزتر است.
+
+مرز TeleDOM و Agent
+
+باید این خط قرمز را داشته باشیم:
+
+┌─────────────────────────────────────────────┐
+│                    AGENT                    │
+│                                             │
+│ Discover website                            │
+│ Understand DOM / UI                         │
+│ Reason about task                           │
+│ Decide strategy                             │
+│ Write workflow                              │
+│ Edit workflow                               │
+│ Version workflow                             │
+│ Debug workflow                               │
+│ Repair workflow                              │
+│ Generate Python bot                          │
+│ Generate scripts                             │
+│ Decide when/how to use TeleDOM               │
+└──────────────────────┬──────────────────────┘
+                       │ MCP
+                       ▼
+┌─────────────────────────────────────────────┐
+│                  TeleDOM                    │
+│                                             │
+│ Browser observation                         │
+│ DOM / semantic / visual access              │
+│ Target resolution primitives                │
+│ Click / type / navigate / scroll / wait     │
+│ Network / console / runtime                 │
+│ State / temporal memory                     │
+│ Evidence / replay / verification            │
+│ Browser execution primitives                │
+│ Workflow persistence/storage primitives     │
+└─────────────────────────────────────────────┘
+
+یعنی هوش ساخت Workflow داخل Agent است، نه TeleDOM.
+
+پس TeleDOM Workflow Engine چه چیزی باشد؟
+
+حتی اسم «Workflow Engine» را باید با احتیاط استفاده کنیم.
+
+TeleDOM نباید تصمیم بگیرد:
+
+«من فهمیدم کاربر می‌خواهد چه کار کند، پس خودم workflow ساختم.»
+
+نه.
+
+TeleDOM فقط باید بگوید:
+
+«این ابزارها و primitiveها برای Agent موجود است.»
+
+Agent خودش orchestration را انجام می‌دهد.
+
+سناریوی تو
+
+کاربر می‌گوید:
+
+برو داخل سایت X
+پست‌های برتر AI رو پیدا کن
+کامنت‌ها رو بخون
+برای مرتبط‌ها جواب بده
+۵ پست منتشر کن
+جواب کامنت‌های پست‌های من رو هم بده
+
+Agent:
+
+1. open browser
+2. inspect page
+3. analyze DOM
+4. discover navigation
+5. understand comments
+6. inspect interaction model
+7. execute actions
+8. record what it learned
+9. create workflow definition
+10. save workflow using TeleDOM
+
+TeleDOM هیچ‌وقت نمی‌گوید چه Workflowای ساخته شود.
+
+Agent مثلاً خودش می‌نویسد:
+
+{
+  "name": "ai_social_engagement",
+  "version": "1.0",
+
+  "steps": [
+    {
+      "action": "navigate",
+      "target": "home"
+    },
+    {
+      "action": "discover",
+      "target": "trending_posts"
+    },
+    {
+      "action": "extract",
+      "target": "comments"
+    },
+    {
+      "action": "filter",
+      "condition": "relevance > 0.8"
+    },
+    {
+      "action": "generate",
+      "strategy": "use_llm"
+    },
+    {
+      "action": "reply"
+    }
+  ]
+}
+
+و TeleDOM فقط ذخیره می‌کند:
+
+td_workflow_save
+این یک اصل معماری مهم می‌شود
+Agent-Owned Workflow
+
+Workflow:
+
+Owned by Agent
+
+نه:
+
+Owned by TeleDOM
+
+TeleDOM فقط:
+
+Store
+Retrieve
+Execute primitives
+Observe
+Replay
+Verify
+
+را فراهم می‌کند.
+
+حتی Workflow Schema هم نباید بیش از حد intelligent باشد
+
+مثلاً TeleDOM لازم نیست بفهمد:
+
+"find best posts"
+
+یعنی چه.
+
+این reasoning کار Agent است.
+
+TeleDOM فقط primitiveهایی بدهد مثل:
+
+navigate
+observe
+inspect
+resolve_target
+click
+type
+press
+scroll
+extract
+wait
+screenshot
+execute_javascript
+read_network
+read_console
+read_runtime
+capture_state
+verify
+
+Agent خودش از ترکیب آنها Workflow می‌سازد.
+
+این تصمیم یک مزیت فوق‌العاده دارد
+
+Agent هر بار که با یک حالت عجیب مواجه شود می‌تواند خودش تصمیم بگیرد.
+
+مثلاً:
+
+DOM معمولی → DOM
+Shadow DOM → JavaScript
+Canvas UI → visual + coordinate
+iframe → frame discovery
+dynamic list → repeated extraction
+virtualized list → scroll + incremental extraction
+unknown widget → inspect + experiment
+
+TeleDOM مجبور نیست برای هر حالت:
+
+special handler
+special workflow builder
+special site adapter
+
+بنویسد.
+
+Agent مسئله را حل می‌کند.
+
+حتی Workflow نباید حتماً توسط TeleDOM اجرا شود
+
+این قسمت هم مهم است.
+
+Agent می‌تواند Workflow را خودش اجرا کند:
+
+for step in workflow:
+    reason(step)
+    call TeleDOM
+
+یا مثلاً یک Workflow را به یک script تبدیل کند:
+
+for post in find_posts():
+    ...
+
+و دوباره از TeleDOM primitiveها استفاده کند.
+
+پس:
+
+Workflow
+
+یک Agent Artifact است.
+
+نه یک TeleDOM Artifact به معنای ownership.
+
+پس TeleDOM چه APIهایی لازم دارد؟
+
+من ابزارهای v4.1 را به سه گروه تقسیم می‌کنم.
+
+1. Browser primitives
+td_browser_navigate
+td_browser_back
+td_browser_forward
+td_browser_refresh
+
+td_dom_inspect
+td_dom_query
+td_dom_extract
+td_dom_snapshot
+
+td_target_find
+td_target_verify
+td_target_describe
+
+td_action_click
+td_action_type
+td_action_select
+td_action_hover
+td_action_press
+td_action_scroll
+
+td_wait
+td_screenshot
+td_execute_script
+2. Browser intelligence primitives
+
+اینها همان سرمایه v4 هستند:
+
+td_temporal_query
+td_state_reconstruct
+td_evidence_chain
+td_causal_analyze
+td_counterfactual
+td_replay
+td_verify
+td_proof
+td_incident
+td_security_analyze
+
+Agent خودش تصمیم می‌گیرد کدام را لازم دارد.
+
+3. Workflow persistence primitives
+
+فقط CRUD/Artifact management:
+
+td_workflow_save
+td_workflow_get
+td_workflow_list
+td_workflow_update
+td_workflow_delete
+td_workflow_clone
+td_workflow_diff
+td_workflow_export
+td_workflow_import
+
+و شاید:
+
+td_workflow_run
+
+اما حتی این هم باید dumb execution باشد.
+
+یعنی:
+
+Agent supplies workflow
+             ↓
+TeleDOM executes requested primitives
+             ↓
+returns observations/results
+
+نه اینکه خودش workflow را تحلیل و بازطراحی کند.
+
+حالا یک نکته خیلی مهم
+
+تو گفتی:
+
+«خود Agent تمام حالات ناشناخته را کاملاً مدیریت کند.»
+
+این دقیقاً یعنی باید TeleDOM توانایی low-level escape hatch هم داشته باشد.
+
+اگر فقط:
+
+click
+type
+extract
+
+داشته باشیم، Agent در بعضی سایت‌ها گیر می‌کند.
+
+پس باید primitiveهای escape داشته باشیم:
+
+execute_javascript
+evaluate_dom
+inspect_shadow_root
+inspect_iframe
+network_inspect
+network_intercept
+runtime_inspect
+browser_console
+screenshot
+visual_query
+keyboard
+mouse
+coordinates
+
+تا Agent هر وقت abstractionهای معمول جواب ندادند، خودش روش دیگری انتخاب کند.
+
+حتی Agent می‌تواند برای خودش Tool بسازد
+
+این بخش خیلی با فلسفه تو جور است.
+
+Agent اول متوجه می‌شود:
+
+برای این سایت همیشه باید:
+1. باز کردن inbox
+2. تشخیص unread
+3. باز کردن thread
+4. استخراج messages
+
+بعد خودش یک abstraction می‌سازد:
+
+my_tool: get_unread_messages
+
+و بعد در workflow خودش استفاده می‌کند.
+
+TeleDOM لازم نیست این ابزار را بفهمد.
+
+Agent-Owned Tooling
+
+حتی می‌توانیم این مدل را رسمی کنیم:
+
+Agent
+ ├── Workflows
+ ├── Custom Tools
+ ├── Scripts
+ ├── Policies
+ ├── Learned Targets
+ └── Memories
+
+TeleDOM:
+
+Browser Runtime
+
+است.
+
+این architecture خیلی شبیه یک operating system برای browser agents می‌شود.
+
+Python Bot هم دقیقاً همین‌جا قرار می‌گیرد
+
+Agent workflow را می‌سازد:
+
+workflow.json
+
+بعد خودش تصمیم می‌گیرد:
+
+compile to Python
+
+و مثلاً:
+
+from teldom import Browser
+
+browser = Browser()
+
+browser.navigate("https://example.com")
+
+page = browser.inspect()
+
+target = browser.find(
+    semantic="comment_input"
+)
+
+browser.click(target)
+
+browser.type(
+    target,
+    "Hello world"
+)
+
+browser.verify(...)
+
+Compiler هم می‌تواند متعلق به Agent باشد، نه core TeleDOM.
+
+یا TeleDOM می‌تواند فقط primitive SDK بدهد و Agent خودش generator را بنویسد.
+
+این حتی بهتر است: TeleDOM دو سطح داشته باشد
+Level 1 — MCP
+
+Agent:
+
+MCP → TeleDOM
+Level 2 — SDK/runtime
+
+Bot:
+
+Python
+  ↓
+TeleDOM SDK
+  ↓
+Browser runtime
+
+در نتیجه:
+
+AI Agent
+   ↓
+MCP
+
+و:
+
+Python Bot
+   ↓
+SDK
+
+هر دو به یک Browser Runtime متصل‌اند.
+
+پس نسخه 4.1 را این‌طور تعریف می‌کنم
+TeleDOM v4.1 — Agent-Owned Workflow Runtime
+
+اما معنی‌اش این نیست که TeleDOM Workflow را می‌سازد.
+
+معنی‌اش:
+
+TeleDOM gives Agents everything required to discover, construct, persist, replay, execute and verify their own browser workflows.
+
+کلمه مهم:
+
+their own
+یک نمونه کامل
+First execution
+USER
+↓
+AGENT
+↓
+Discover
+↓
+Inspect
+↓
+Reason
+↓
+Experiment
+↓
+Act
+↓
+Observe
+↓
+Learn
+↓
+WRITE WORKFLOW
+↓
+td_workflow_save
+Second execution
+USER
+↓
+AGENT
+↓
+load workflow
+↓
+read workflow
+↓
+execute
+↓
+TeleDOM primitives
+↓
+verify
+UI changed
+Workflow step fails
+↓
+AGENT notices failure
+↓
+AGENT investigates
+↓
+AGENT discovers new UI
+↓
+AGENT edits workflow
+↓
+td_workflow_update
+↓
+continue
+
+هیچ‌کدام از این reasoningها متعلق به TeleDOM نیست.
+
+و این دقیقاً چیزی است که TeleDOM را خاص می‌کند
+
+رقیب ممکن است بگوید:
+
+«من 100 ابزار browser دارم.»
+
+TeleDOM می‌گوید:
+
+«من به Agent یک Browser World Model + Temporal Memory + Evidence + Execution Primitive می‌دهم؛ Agent خودش می‌تواند از آن یک برنامه بسازد.»
+
+این خیلی قدرتمندتر است.
+
+بنابراین من تعریف قبلی v4.1 را رسماً اصلاح می‌کنم
+حذف:
+Workflow Builder intelligence
+Workflow optimizer inside TeleDOM
+Workflow learning engine inside TeleDOM
+Social adapters
+API-dependent automation
+Platform-specific automation logic
+اضافه:
+Agent-owned Workflow Artifact
+Universal Browser Primitives
+Workflow Persistence
+Workflow Replay
+Workflow Execution
+Target/State Memory
+Low-level Escape Hatches
+Deterministic Execution Records
+Verification / Evidence
+SDK
+MCP
+
+و مهم‌تر از همه:
+
+TeleDOM تصمیم‌گیرنده نیست؛ TeleDOM توان‌دهنده است.
+
+Agent مغز است.
+
+TeleDOM دست، چشم، حافظه و جعبه‌ابزار مرورگر است.
+
+این تفکیک به نظرم برای فلسفه‌ای که برای TeleDOM داری خیلی دقیق‌تر از طراحی قبلی است.

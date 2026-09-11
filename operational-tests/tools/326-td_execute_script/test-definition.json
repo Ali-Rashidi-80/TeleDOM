@@ -1,0 +1,22 @@
+{
+  "tool": "td_execute_script",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "code": {
+        "type": "string",
+        "description": "JavaScript source (async/await supported; use return)"
+      },
+      "timeoutMs": {
+        "type": "number",
+        "description": "Timeout (default 5000ms)"
+      }
+    },
+    "required": [
+      "code"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

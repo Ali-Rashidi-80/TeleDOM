@@ -1,7 +1,7 @@
 {
   "status": "PARTIAL",
   "recovery": {
-    "at": 1789102369872,
+    "at": 1789147434670,
     "failure": "tab-closed",
     "attempt": 3,
     "outcome": "FAILED",
@@ -28,7 +28,7 @@
   ],
   "tool": "td_recover_page",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "reliability-recovery",
     "securityClass": "read-only"
   }

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "artifact": "screenshot",
+  "result": {
+    "truncated": true,
+    "preview": "{\"screenshotId\":\"scr_1789147436600_q8s1\",\"timestamp\":1789147436600,\"url\":\"https://app.internal/dashboard\",\"viewport\":{\"width\":1280,\"height\":720,\"scrollX\":0,\"scrollY\":0,\"devicePixelRatio\":2.625},\"dataUrl\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABQAAAALQCAYAAADPfd1WADhD80lEQVR4AQD//wAAAGNm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y2bx/2Nm8f9jZvH/Y",
+    "bytes": 4916940
+  },
+  "tool": "td_screenshot",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "read-only"
+  }
+}

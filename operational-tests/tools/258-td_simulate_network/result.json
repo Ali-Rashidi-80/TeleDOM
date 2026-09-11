@@ -2,8 +2,8 @@
   "tool": "td_simulate_network",
   "index": 258,
   "status": "PASS",
-  "executionTimeMs": 0,
+  "executionTimeMs": 1,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:49.160Z"
+  "timestamp": "2026-09-11T17:23:53.960Z"
 }

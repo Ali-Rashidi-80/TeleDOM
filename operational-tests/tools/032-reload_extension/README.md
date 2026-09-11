@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 4ms
 
 ## Test Objective
 
@@ -30,7 +30,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"reloaded\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"simulated\": true,\n  \"note\": \"Simulated reload: extension state preserved.\"\n}"
+        "text": "{\n  \"reloaded\": true,\n  \"extensionId\": \"teledom@teledom\",\n  \"simulated\": true,\n  \"note\": \"Simulated reload: extension state preserved.\"\n}"
       }
     ]
   }

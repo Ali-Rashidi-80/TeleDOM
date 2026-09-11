@@ -5,7 +5,7 @@
   "params": {
     "name": "set_extension_enabled",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom",
+      "extensionId": "teledom@teledom",
       "enabled": true
     }
   }

@@ -1,0 +1,9 @@
+{
+  "tool": "td_target_memory_list",
+  "index": 345,
+  "status": "PASS",
+  "executionTimeMs": 0,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-11T17:23:57.423Z"
+}

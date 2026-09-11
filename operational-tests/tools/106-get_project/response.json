@@ -1,13 +1,13 @@
 {
   "manifest": {
     "schemaVersion": "1.0.0",
-    "projectId": "proj_mtwhcqvt",
+    "projectId": "proj_mtx86oeo",
     "name": "op-project",
     "description": "Operational project",
-    "createdAt": 1789102363673,
-    "updatedAt": 1789102363673,
+    "createdAt": 1789147430160,
+    "updatedAt": 1789147430160,
     "pages": [
-      "page_mtwhcqvt"
+      "page_mtx86oeo"
     ],
     "regionCount": 0,
     "commandRecordingCount": 0,
@@ -16,17 +16,17 @@
   },
   "page": {
     "schemaVersion": "1.0.0",
-    "pageId": "page_mtwhcqvt",
-    "projectId": "proj_mtwhcqvt",
+    "pageId": "page_mtx86oeo",
+    "projectId": "proj_mtx86oeo",
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
-    "capturedAt": 1789102363673,
+    "capturedAt": 1789147430160,
     "viewport": {
-      "width": 412,
-      "height": 915,
-      "devicePixelRatio": 2.625
+      "width": 1024,
+      "height": 768,
+      "devicePixelRatio": 1
     },
-    "domSnapshotFile": "dom/page_page_mtwhcqvt.html",
+    "domSnapshotFile": "dom/page_page_mtx86oeo.html",
     "regions": [],
     "browserState": {
       "extensionEnabled": true,

@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"lastStableLogicalTime\":null,\"tool\":\"td_temporal_last_stable\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"lastStableLogicalTime\":null,\"tool\":\"td_temporal_last_stable\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

@@ -8,24 +8,9 @@
  * Version progression (each major version justifies a real capability lift):
  *   v4  = Temporal Intelligence Foundation (EventEnvelope kernel, identity,
  *         indexed storage, evidence graph, causal engine, 100 td_* surface)
- *   v5  = Deep Causality & State Intelligence (state frames, joins, hypothesis
- *         ranking with evidence strength, component intelligence)
- *   v6  = Counterfactual & Simulation Platform (branches, what-if executor,
- *         branch comparison, prediction engine)
- *   v7  = Autonomous Investigation Platform (resumable investigation plans,
- *         incident lifecycle, reproduce/verify loop)
- *   v8  = Self-Healing Browser Runtime (recovery state machine, session
- *         repair, resource guardian, graceful degradation)
- *   v9  = Security + Performance + Memory Intelligence (zero-trust page model,
- *         passive security analyzers, perf/memory causality)
- *   v10 = Agent Operating System / Context Intelligence (intent router,
- *         L0–L4 context levels, minimal sufficient context, capability
- *         routing, agent memory)
- *   v11 = Multi-Agent + Knowledge + Enterprise Reliability (leases, shared
- *         evidence with mergeable conclusions, audit trail, policy gates,
- *         golden incidents, chaos engineering)
- *   v4 = Unified Browser Intelligence Platform (unified kernel + all layers
- *         integrated, proof engine, .tdom portable incidents)
+ *   v4.1 = Agent-Owned Workflow Runtime (agent-authored workflows, browser
+ *         primitive facade, target memory, deterministic execution records,
+ *         Python SDK — TeleDOM is the enabler, the agent is the brain)
  */
 
 export interface VersionInfo {
@@ -43,12 +28,13 @@ export interface VersionInfo {
 }
 
 export const TELEDOM_VERSION: VersionInfo = {
-  version: '4.0.0',
-  productName: 'TeleDOM — Temporal Browser Intelligence Engine',
+  version: '4.1.0',
+  productName: 'TeleDOM — Temporal Browser Intelligence Engine + Agent-Owned Workflow Runtime',
   layers: [
     'kernel', 'temporal', 'evidence', 'causality', 'semantics', 'targeting',
     'simulation', 'mutation', 'verification', 'incident', 'security',
     'resilience', 'agent', 'registry', 'golden', 'chaos', 'bench', 'mcp',
+    'workflow',
   ],
   build: {
     generatedAt: new Date().toISOString(),
@@ -63,6 +49,11 @@ export interface VersionMilestone {
 }
 
 export const VERSION_HISTORY: VersionMilestone[] = [
+  {
+    version: '4.1.0',
+    title: 'Agent-Owned Workflow Runtime',
+    capabilities: ['agent-authored workflow persistence (CRUD + versioning + diff + export/import)', 'dumb deterministic workflow execution with policy gates', 'browser primitive facade (td_browser_*/td_dom_*/td_target_*/td_action_*)', 'target memory (learned targets — no DOM re-analysis)', 'agent artifact store (custom tools/scripts/policies/memories)', 'deterministic execution records + verbatim replay', 'persistent agent memory', 'Python SDK (Level-2 semantic browser programming)'],
+  },
   {
     version: '4.0.0',
     title: 'Temporal Intelligence Foundation',

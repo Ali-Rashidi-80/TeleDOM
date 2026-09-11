@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 3ms
+**Duration**: 2ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"componentCount\":0,\"components\":[],\"tool\":\"td_component_map\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"componentCount\":0,\"components\":[],\"tool\":\"td_component_map\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"semantic-component\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

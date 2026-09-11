@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "cloned": {
+    "from": "extension_smoke_test@1.1.0",
+    "to": "extension_smoke_test_copy@1.0.0"
+  },
+  "tool": "td_workflow_clone",
+  "capability": {
+    "version": "4.1.0",
+    "category": "workflow-runtime",
+    "securityClass": "read-only"
+  }
+}

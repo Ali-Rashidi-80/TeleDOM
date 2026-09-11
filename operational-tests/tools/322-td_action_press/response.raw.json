@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_322_td_action_press",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"action\":\"press\",\"key\":\"Enter\",\"result\":{\"success\":true,\"keys\":[\"Enter\"],\"targetSelector\":\"#search-input\",\"eventsFired\":[\"keydown:Enter\",\"keyup:Enter\"]},\"tool\":\"td_action_press\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"browser-primitives\",\"securityClass\":\"side-effects\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

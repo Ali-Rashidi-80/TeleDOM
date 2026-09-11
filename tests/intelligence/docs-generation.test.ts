@@ -52,6 +52,6 @@ describe('v4 improvement matrix (100+ requirement)', () => {
       expect(capabilities).toContain(cap.id);
     }
     const compatibility = fs.readFileSync(path.join(outDir, 'COMPATIBILITY.md'), 'utf-8');
-    expect(compatibility).toContain('total=306');
+    expect(compatibility).toContain('total=350');
   });
 });

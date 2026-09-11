@@ -14,7 +14,7 @@
   },
   "tool": "td_cause_explain",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "causal-intelligence",
     "securityClass": "read-only"
   }

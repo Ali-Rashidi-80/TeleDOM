@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_345_td_target_memory_list",
+  "method": "tools/call",
+  "params": {
+    "name": "td_target_memory_list",
+    "arguments": {
+      "site": "example.test"
+    }
+  }
+}

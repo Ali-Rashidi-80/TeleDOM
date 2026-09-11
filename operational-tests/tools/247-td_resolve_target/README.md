@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 2ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"resolution\":{\"status\":\"DEGRADED\",\"confidence\":0.32725,\"best\":{\"candidateId\":\"cand:fce2d50c0e\",\"selector\":\"#login-btn\",\"semanticId\":\"sem:fixture-login\",\"structuralScore\":0.35,\"semanticScore\":0.3,\"historicalScore\":0.3,\"behavioralScore\":0.8,\"visualScore\":0.85,\"stabilityScore\":0.9,\"overall\":0.46749999999999997,\"evidence\":[]},\"warnings\":[],\"candidateCount\":3},\"tool\":\"td_resolve_target\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"resolution\":{\"status\":\"DEGRADED\",\"confidence\":0.32725,\"best\":{\"candidateId\":\"cand:fce2d50c0e\",\"selector\":\"#login-btn\",\"semanticId\":\"sem:fixture-login\",\"structuralScore\":0.35,\"semanticScore\":0.3,\"historicalScore\":0.3,\"behavioralScore\":0.8,\"visualScore\":0.85,\"stabilityScore\":0.9,\"overall\":0.46749999999999997,\"evidence\":[]},\"warnings\":[],\"candidateCount\":3},\"tool\":\"td_resolve_target\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

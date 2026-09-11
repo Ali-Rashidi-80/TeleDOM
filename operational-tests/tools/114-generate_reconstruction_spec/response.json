@@ -1,27 +1,27 @@
 {
   "schemaVersion": "1.0.0",
-  "pageId": "page_mtwhcqvt",
-  "projectId": "proj_mtwhcqvt",
-  "generatedAt": 1789102363699,
+  "pageId": "page_mtx86oeo",
+  "projectId": "proj_mtx86oeo",
+  "generatedAt": 1789147430238,
   "metadata": {
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
-    "capturedAt": 1789102363673,
+    "capturedAt": 1789147430160,
     "tool": "MCPDOM Browser"
   },
   "viewport": {
-    "width": 412,
-    "height": 915,
-    "devicePixelRatio": 2.625
+    "width": 1024,
+    "height": 768,
+    "devicePixelRatio": 1
   },
   "structure": {
-    "domSnapshotFile": "dom/page_page_mtwhcqvt.html",
-    "domHash": "38685763",
-    "nodeCount": 4594
+    "domSnapshotFile": "dom/page_page_mtx86oeo.html",
+    "domHash": "a8fe71b2",
+    "nodeCount": 4405
   },
   "regions": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "name": "header_operational_dom_test_card",
       "selector": "#fixture-header",
       "selectorCandidates": [
@@ -56,15 +56,15 @@
           ]
         }
       ],
-      "domFile": "dom/region_region_mtwhcqw4_1.html",
+      "domFile": "dom/region_region_mtx86ofy_1.html",
       "reconstructionRole": "#fixture-header"
     }
   ],
   "hierarchy": {
-    "pageId": "page_mtwhcqvt",
+    "pageId": "page_mtx86oeo",
     "nodes": [
       {
-        "id": "page:page_mtwhcqvt",
+        "id": "page:page_mtx86oeo",
         "name": "page",
         "tag": "document",
         "selector": "document",
@@ -72,7 +72,7 @@
         "relationship": "page"
       },
       {
-        "id": "region_mtwhcqw4_1",
+        "id": "region_mtx86ofy_1",
         "name": "header_operational_dom_test_card",
         "tag": "#fixture-header",
         "selector": "#fixture-header",
@@ -82,55 +82,55 @@
     ],
     "edges": [
       {
-        "from": "page:page_mtwhcqvt",
-        "to": "region_mtwhcqw4_1",
+        "from": "page:page_mtx86oeo",
+        "to": "region_mtx86ofy_1",
         "relation": "contains"
       }
     ]
   },
   "semanticRoles": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "role": "#fixture-header"
     }
   ],
   "visualConstraints": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "constraint": "display",
       "value": "block"
     },
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "constraint": "position",
       "value": "static"
     },
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "constraint": "flex-direction",
       "value": "row"
     },
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "constraint": "background-color",
       "value": "rgb(30, 41, 59)"
     },
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "constraint": "color",
       "value": "rgb(248, 250, 252)"
     }
   ],
   "interactions": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "interactive": false,
       "action": "none"
     }
   ],
   "selectors": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "primary": "#fixture-header",
       "fallbacks": [
         "header.card",
@@ -140,13 +140,13 @@
   ],
   "content": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "text": "header_operational_dom_test_card"
     }
   ],
   "styles": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "relevantStyles": {
         "display": "block",
         "position": "static",
@@ -160,20 +160,20 @@
   ],
   "annotations": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "userComment": "capture region",
       "intendedChange": "test change"
     }
   ],
   "expectedModifications": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "statement": "test change"
     }
   ],
   "verificationRules": [
     {
-      "regionId": "region_mtwhcqw4_1",
+      "regionId": "region_mtx86ofy_1",
       "conditions": [
         "v1"
       ]

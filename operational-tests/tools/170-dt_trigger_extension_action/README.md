@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 2ms
 
 ## Test Objective
 Reports extension action requirement
@@ -17,7 +17,7 @@ Reports extension action requirement
   "params": {
     "name": "dt_trigger_extension_action",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }
@@ -32,7 +32,7 @@ Reports extension action requirement
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"triggered\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"detail\": {\n    \"focused\": true,\n    \"tabId\": 2,\n    \"url\": \"about:blank\",\n    \"simulated\": true\n  },\n  \"mode\": \"LIVE\"\n}"
+        "text": "{\n  \"triggered\": true,\n  \"extensionId\": \"teledom@teledom\",\n  \"detail\": {\n    \"focused\": true,\n    \"tabId\": 2,\n    \"url\": \"about:blank\",\n    \"simulated\": true\n  },\n  \"mode\": \"LIVE\"\n}"
       }
     ]
   }

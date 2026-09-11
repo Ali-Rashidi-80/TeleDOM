@@ -10305,5 +10305,1362 @@
     "requiresSession": true,
     "visualEvidenceExpected": false,
     "status": "PENDING"
+  },
+  {
+    "index": 307,
+    "name": "td_browser_navigate",
+    "category": "historical",
+    "description": "Navigate the browser to a URL (optionally in a new tab, then wait for DOM stability). [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Target URL"
+        },
+        "newTab": {
+          "type": "boolean",
+          "description": "Open in a new tab instead of the current one"
+        },
+        "waitForStable": {
+          "type": "boolean",
+          "description": "Wait for DOM stability after navigation (default true)"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "requiredArguments": [
+      "url"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 308,
+    "name": "td_browser_back",
+    "category": "historical",
+    "description": "Go back one step in browser history. [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 309,
+    "name": "td_browser_forward",
+    "category": "historical",
+    "description": "Go forward one step in browser history. [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 310,
+    "name": "td_browser_refresh",
+    "category": "historical",
+    "description": "Reload the current tab. [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 311,
+    "name": "td_dom_inspect",
+    "category": "historical",
+    "description": "Observe the current page (structure, ready state, url, interactive inventory) — the agent’s eyes. [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tabId": {
+          "type": "number",
+          "description": "Optional tab id"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 312,
+    "name": "td_dom_query",
+    "category": "historical",
+    "description": "Search the DOM by text/tag/attribute patterns with scored results — find elements without knowing selectors. [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search text (matched against text, tags, attributes)"
+        },
+        "tag": {
+          "type": "string",
+          "description": "Restrict to tag name"
+        },
+        "attr": {
+          "type": "string",
+          "description": "Require attribute name"
+        },
+        "attrValue": {
+          "type": "string",
+          "description": "Attribute value filter"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max results (default 50)"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "requiredArguments": [
+      "query"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 313,
+    "name": "td_dom_extract",
+    "category": "historical",
+    "description": "Extract structured data from any selector with per-field expressions (works on ANY site — no API needed). [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for the collection"
+        },
+        "fields": {
+          "type": "object",
+          "description": "Output name → JS expression per element (default: text/tag/attrs)"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max elements (default 100)"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 314,
+    "name": "td_dom_snapshot",
+    "category": "historical",
+    "description": "Capture the current DOM snapshot (html or structured json). [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "string",
+          "description": "html | json"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 315,
+    "name": "td_target_find",
+    "category": "historical",
+    "description": "Find an element by selector, xpath or text and build the canonical multi-strategy TARGET object with confidence. [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector"
+        },
+        "xpath": {
+          "type": "string",
+          "description": "XPath expression"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text to discover by intent"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 316,
+    "name": "td_target_check",
+    "category": "historical",
+    "description": "Verify a target is still resolvable at the required confidence — the cheap check that replaces full DOM re-analysis. [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector to verify"
+        },
+        "minConfidence": {
+          "type": "number",
+          "description": "Minimum confidence threshold (default 0)"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 317,
+    "name": "td_target_describe",
+    "category": "historical",
+    "description": "Describe a target’s identity: accessibility properties + structural fingerprint (what to store in target memory). [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector to describe"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 318,
+    "name": "td_action_click",
+    "category": "historical",
+    "description": "Click an element with before/after state and effect measurement. [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the element"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 319,
+    "name": "td_action_type",
+    "category": "historical",
+    "description": "Type text into an input element. [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the input"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text to type"
+        }
+      },
+      "required": [
+        "selector",
+        "text"
+      ]
+    },
+    "requiredArguments": [
+      "selector",
+      "text"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 320,
+    "name": "td_action_select",
+    "category": "historical",
+    "description": "Select an option in a select element. [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the select"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value or label to select"
+        }
+      },
+      "required": [
+        "selector",
+        "value"
+      ]
+    },
+    "requiredArguments": [
+      "selector",
+      "value"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 321,
+    "name": "td_action_hover",
+    "category": "historical",
+    "description": "Hover over an element (menus, tooltips). [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector of the element"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "requiredArguments": [
+      "selector"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 322,
+    "name": "td_action_press",
+    "category": "historical",
+    "description": "Press a keyboard key / combo page-wide (Enter, Escape, ctrl+s…). [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Key or combo"
+        }
+      },
+      "required": [
+        "key"
+      ]
+    },
+    "requiredArguments": [
+      "key"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 323,
+    "name": "td_action_scroll",
+    "category": "historical",
+    "description": "Scroll the page by deltas or scroll an element into view. [security: side-effects; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "Horizontal pixel delta"
+        },
+        "y": {
+          "type": "number",
+          "description": "Vertical pixel delta"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Scroll this element into view instead"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 324,
+    "name": "td_wait",
+    "category": "historical",
+    "description": "Wait for a meaningful condition (dom_stable, selector_present/visible/absent, text_present, url_contains, element_count, readiness_state). [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Condition kind"
+        },
+        "selector": {
+          "type": "string",
+          "description": "Selector for selector_* / element_count"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text for text_present / url_contains"
+        },
+        "count": {
+          "type": "number",
+          "description": "Expected count"
+        },
+        "timeoutMs": {
+          "type": "number",
+          "description": "Timeout (default 5000ms)"
+        }
+      },
+      "required": [
+        "kind"
+      ]
+    },
+    "requiredArguments": [
+      "kind"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 325,
+    "name": "td_screenshot",
+    "category": "historical",
+    "description": "Capture a screenshot of the current page as visual evidence. [security: read-only; cost: low; modes: live]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": true,
+    "status": "PENDING"
+  },
+  {
+    "index": 326,
+    "name": "td_execute_script",
+    "category": "historical",
+    "description": "Escape hatch: execute JavaScript in the page (Shadow DOM, canvas UI, virtualized lists — the agent decides the method). [security: dangerous; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "JavaScript source (async/await supported; use return)"
+        },
+        "timeoutMs": {
+          "type": "number",
+          "description": "Timeout (default 5000ms)"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "requiredArguments": [
+      "code"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 327,
+    "name": "td_network_inspect",
+    "category": "historical",
+    "description": "Escape hatch: read captured network requests (optionally filtered by URL substring). [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "urlContains": {
+          "type": "string",
+          "description": "URL substring filter"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max entries (default 50)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 328,
+    "name": "td_console_read",
+    "category": "historical",
+    "description": "Escape hatch: read captured console logs (optionally filtered by level). [security: read-only; cost: low; modes: live/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Level filter: all | error | warning | log | info"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 329,
+    "name": "td_workflow_save",
+    "category": "historical",
+    "description": "Save an agent-authored workflow (envelope-validated, stored verbatim with full version history). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "workflow": {
+          "type": "object",
+          "description": "teledom.agent-workflow/1.0 object: { schema, name, version, steps[{id,tool,args,onError,retry,requireApproval,timeoutMs}], inputs, policy, metadata }"
+        }
+      },
+      "required": [
+        "workflow"
+      ]
+    },
+    "requiredArguments": [
+      "workflow"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 330,
+    "name": "td_workflow_get",
+    "category": "historical",
+    "description": "Get a saved workflow (current or a specific version). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Workflow name"
+        },
+        "version": {
+          "type": "string",
+          "description": "Specific version (default: current)"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 331,
+    "name": "td_workflow_list",
+    "category": "historical",
+    "description": "List saved workflows with versions, step counts and tags. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 332,
+    "name": "td_workflow_update",
+    "category": "historical",
+    "description": "Update an existing workflow (agent edits the definition; version history preserved). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "workflow": {
+          "type": "object",
+          "description": "Updated workflow object"
+        }
+      },
+      "required": [
+        "workflow"
+      ]
+    },
+    "requiredArguments": [
+      "workflow"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 333,
+    "name": "td_workflow_clone",
+    "category": "historical",
+    "description": "Clone a workflow (optionally to a new name/version) — the agent’s edit starting point. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Source workflow"
+        },
+        "version": {
+          "type": "string",
+          "description": "Source version"
+        },
+        "as": {
+          "type": "string",
+          "description": "Clone name (default <name>_copy)"
+        },
+        "newVersion": {
+          "type": "string",
+          "description": "Clone version"
+        },
+        "description": {
+          "type": "string",
+          "description": "Clone description"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 334,
+    "name": "td_workflow_diff",
+    "category": "historical",
+    "description": "Structural diff between two workflows or two versions of one workflow. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Workflow name"
+        },
+        "a": {
+          "type": "string",
+          "description": "Workflow A"
+        },
+        "aVersion": {
+          "type": "string",
+          "description": "Version A"
+        },
+        "b": {
+          "type": "string",
+          "description": "Workflow B"
+        },
+        "bVersion": {
+          "type": "string",
+          "description": "Version B"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 335,
+    "name": "td_workflow_export",
+    "category": "historical",
+    "description": "Export a workflow (+ version history) as a portable JSON package. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Workflow name"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 336,
+    "name": "td_workflow_import",
+    "category": "historical",
+    "description": "Import a workflow package from td_workflow_export (cross-project portability). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "export": {
+          "type": "object",
+          "description": "Export package object"
+        },
+        "includeVersions": {
+          "type": "boolean",
+          "description": "Also import version history"
+        }
+      },
+      "required": [
+        "export"
+      ]
+    },
+    "requiredArguments": [
+      "export"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 337,
+    "name": "td_workflow_validate",
+    "category": "historical",
+    "description": "Validate a workflow envelope (structure only — semantics are the agent’s responsibility). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "workflow": {
+          "type": "object",
+          "description": "Workflow object to validate"
+        }
+      },
+      "required": [
+        "workflow"
+      ]
+    },
+    "requiredArguments": [
+      "workflow"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 338,
+    "name": "td_workflow_run",
+    "category": "historical",
+    "description": "DUMB execution: run a saved or inline workflow step-by-step through the full MCP pipeline with policy enforcement (approval gates, tool/domain allowlists, caps), template variables and a deterministic execution record. [security: policy-gated; cost: high; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Saved workflow name"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version to run"
+        },
+        "workflow": {
+          "type": "object",
+          "description": "Inline workflow object"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "Input values for {{inputs.*}} templates"
+        },
+        "approvedSteps": {
+          "type": "array",
+          "description": "Step ids approved after a BLOCKED run"
+        },
+        "dryRun": {
+          "type": "boolean",
+          "description": "Validate + plan only, do not execute"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 339,
+    "name": "td_workflow_runs",
+    "category": "historical",
+    "description": "List deterministic execution records (optionally filtered by workflow). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Filter by workflow name"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max entries (default 50)"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 340,
+    "name": "td_workflow_run_get",
+    "category": "historical",
+    "description": "Get a full execution record: per-step status, args-as-executed, timing, metrics, errors. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "description": "Run id"
+        }
+      },
+      "required": [
+        "runId"
+      ]
+    },
+    "requiredArguments": [
+      "runId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 341,
+    "name": "td_workflow_replay",
+    "category": "historical",
+    "description": "Deterministically re-execute a recorded run’s steps verbatim (replay run #183 — why did it succeed last week?). [security: policy-gated; cost: high; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "description": "Run to replay"
+        }
+      },
+      "required": [
+        "runId"
+      ]
+    },
+    "requiredArguments": [
+      "runId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 342,
+    "name": "td_workflow_delete",
+    "category": "historical",
+    "description": "Delete a workflow and its version history (execution runs are kept as evidence). [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Workflow name"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 343,
+    "name": "td_target_memory_save",
+    "category": "historical",
+    "description": "Save a learned target (semantic identity + locators + confidence + history) so future runs skip DOM re-analysis. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "type": "string",
+          "description": "Site scope (origin or *)"
+        },
+        "semanticId": {
+          "type": "string",
+          "description": "Agent-chosen semantic id, e.g. comments_tab"
+        },
+        "identity": {
+          "type": "object",
+          "description": "{ role, accessibleName, component, route, text }"
+        },
+        "locators": {
+          "type": "object",
+          "description": "{ aria, role, text, css, xpath, geometry }"
+        },
+        "confidence": {
+          "type": "number",
+          "description": "Current confidence 0..1 (default 0.8)"
+        },
+        "failedSelector": {
+          "type": "string",
+          "description": "Selector that failed (history)"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Agent notes (how to re-verify, when to repair)"
+        }
+      },
+      "required": [
+        "site",
+        "semanticId"
+      ]
+    },
+    "requiredArguments": [
+      "site",
+      "semanticId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 344,
+    "name": "td_target_memory_get",
+    "category": "historical",
+    "description": "Get a learned target by site + semanticId. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "type": "string",
+          "description": "Site scope"
+        },
+        "semanticId": {
+          "type": "string",
+          "description": "Semantic id"
+        }
+      },
+      "required": [
+        "site",
+        "semanticId"
+      ]
+    },
+    "requiredArguments": [
+      "site",
+      "semanticId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 345,
+    "name": "td_target_memory_list",
+    "category": "historical",
+    "description": "List learned targets (optionally filtered by site/semanticId). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "type": "string",
+          "description": "Filter by site"
+        },
+        "semanticId": {
+          "type": "string",
+          "description": "Filter by semanticId"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 346,
+    "name": "td_target_memory_delete",
+    "category": "historical",
+    "description": "Delete a learned target. [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "type": "string",
+          "description": "Site scope"
+        },
+        "semanticId": {
+          "type": "string",
+          "description": "Semantic id"
+        }
+      },
+      "required": [
+        "site",
+        "semanticId"
+      ]
+    },
+    "requiredArguments": [
+      "site",
+      "semanticId"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 347,
+    "name": "td_agent_artifact_save",
+    "category": "historical",
+    "description": "Save an agent artifact (custom tool, script, policy, memory, note) — stored verbatim, never interpreted. [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "custom-tool | script | policy | memory | note"
+        },
+        "name": {
+          "type": "string",
+          "description": "Artifact name"
+        },
+        "content": {
+          "type": "object",
+          "description": "Agent payload (any JSON)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Optional tags"
+        }
+      },
+      "required": [
+        "kind",
+        "name",
+        "content"
+      ]
+    },
+    "requiredArguments": [
+      "kind",
+      "name",
+      "content"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 348,
+    "name": "td_agent_artifact_get",
+    "category": "historical",
+    "description": "Get an agent artifact by kind + name. [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Artifact kind"
+        },
+        "name": {
+          "type": "string",
+          "description": "Artifact name"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "kind",
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 349,
+    "name": "td_agent_artifact_list",
+    "category": "historical",
+    "description": "List agent artifacts (optionally by kind/tag). [security: read-only; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Filter by kind"
+        },
+        "tag": {
+          "type": "string",
+          "description": "Filter by tag"
+        }
+      }
+    },
+    "requiredArguments": [],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
+  },
+  {
+    "index": 350,
+    "name": "td_agent_artifact_delete",
+    "category": "historical",
+    "description": "Delete an agent artifact. [security: reversible; cost: low; modes: live/recorded/simulation]",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Artifact kind"
+        },
+        "name": {
+          "type": "string",
+          "description": "Artifact name"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ]
+    },
+    "requiredArguments": [
+      "kind",
+      "name"
+    ],
+    "executionMode": "historical",
+    "requiresBrowser": false,
+    "requiresRecording": false,
+    "requiresSelection": false,
+    "requiresSession": true,
+    "visualEvidenceExpected": false,
+    "status": "PENDING"
   }
 ]

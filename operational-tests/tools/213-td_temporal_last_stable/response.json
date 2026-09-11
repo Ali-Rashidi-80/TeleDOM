@@ -3,7 +3,7 @@
   "lastStableLogicalTime": null,
   "tool": "td_temporal_last_stable",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "temporal-intelligence",
     "securityClass": "read-only"
   }

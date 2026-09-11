@@ -1,0 +1,29 @@
+{
+  "site": "example.test",
+  "semanticId": "primary_action_button",
+  "identity": {
+    "role": "button",
+    "accessibleName": "Run Analysis",
+    "text": "⚡ Run Analysis"
+  },
+  "locators": {
+    "aria": "Run Analysis",
+    "text": "Run Analysis",
+    "css": "#primary-action-btn"
+  },
+  "history": {
+    "successfulSelectors": [
+      "#primary-action-btn"
+    ],
+    "failedSelectors": [],
+    "resolvedCount": 0
+  },
+  "confidence": {
+    "current": 0.95,
+    "historical": 0.95
+  },
+  "notes": "verify with td_target_check before use; repair via td_target_find + td_target_describe",
+  "id": "example_test__primary_action_button",
+  "createdAt": "2026-09-11T17:23:58.176Z",
+  "updatedAt": "2026-09-11T17:23:58.176Z"
+}

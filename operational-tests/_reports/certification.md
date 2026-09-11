@@ -2,11 +2,11 @@
 
 ## Executive Summary
 
-- **Total Discovered Capabilities**: 306
-- **Capabilities Passed**: 306
+- **Total Discovered Capabilities**: 350
+- **Capabilities Passed**: 350
 - **Capabilities Failed**: 0
 - **Capabilities Blocked**: 0
-- **Coverage Completeness**: 100% (306/306)
+- **Coverage Completeness**: 100% (350/350)
 - **Final Certification**: **CERTIFIED**
 
 ## Certified Capability List
@@ -2150,6 +2150,314 @@
 - **Status**: **PASS**
 - **Transport**: Real Subprocess Stdio JSON-RPC 2.0
 - **Test Folder**: `operational-tests/tools/306-td_incident_close/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_browser_navigate`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/307-td_browser_navigate/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_browser_back`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/308-td_browser_back/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_browser_forward`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/309-td_browser_forward/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_browser_refresh`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/310-td_browser_refresh/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_dom_inspect`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/311-td_dom_inspect/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_dom_query`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/312-td_dom_query/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_dom_extract`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/313-td_dom_extract/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_dom_snapshot`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/314-td_dom_snapshot/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_target_find`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/315-td_target_find/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_target_check`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/316-td_target_check/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_target_describe`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/317-td_target_describe/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_action_click`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/318-td_action_click/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_action_type`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/319-td_action_type/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_action_select`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/320-td_action_select/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_action_hover`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/321-td_action_hover/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_action_press`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/322-td_action_press/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_action_scroll`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/323-td_action_scroll/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_wait`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/324-td_wait/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_screenshot`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/325-td_screenshot/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_execute_script`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/326-td_execute_script/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_network_inspect`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/327-td_network_inspect/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_console_read`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/328-td_console_read/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_save`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/329-td_workflow_save/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_get`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/330-td_workflow_get/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_list`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/331-td_workflow_list/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_update`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/332-td_workflow_update/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_clone`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/333-td_workflow_clone/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_diff`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/334-td_workflow_diff/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_export`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/335-td_workflow_export/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_import`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/336-td_workflow_import/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_validate`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/337-td_workflow_validate/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_run`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/338-td_workflow_run/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_runs`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/339-td_workflow_runs/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_run_get`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/340-td_workflow_run_get/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_replay`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/341-td_workflow_replay/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_workflow_delete`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/342-td_workflow_delete/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_target_memory_save`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/343-td_target_memory_save/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_target_memory_get`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/344-td_target_memory_get/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_target_memory_list`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/345-td_target_memory_list/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_target_memory_delete`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/346-td_target_memory_delete/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_agent_artifact_save`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/347-td_agent_artifact_save/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_agent_artifact_get`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/348-td_agent_artifact_get/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_agent_artifact_list`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/349-td_agent_artifact_list/`
+- **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
+- **Assertions**: 2/2 Passed
+
+### `td_agent_artifact_delete`
+- **Status**: **PASS**
+- **Transport**: Real Subprocess Stdio JSON-RPC 2.0
+- **Test Folder**: `operational-tests/tools/350-td_agent_artifact_delete/`
 - **Execution Path**: Real MCP JSON-RPC 2.0 Dispatcher → Forensic Storage & Time-Travel Engine
 - **Assertions**: 2/2 Passed
 

@@ -22,16 +22,16 @@ import { normalizeForExecution } from '../../src/devtools/capabilities/interacti
 // ---------------------------------------------------------------------------
 
 describe('Unified tool registry', () => {
-  it('exposes exactly 306 tools: 121 preserved + 54 dt_ + 31 fx_ + 100 td_ (v12)', () => {
-    expect(FORENSIC_MCP_TOOLS.length).toBe(306);
+  it('exposes exactly 350 tools: 121 preserved + 54 dt_ + 31 fx_ + 144 td_ (v4.1)', () => {
+    expect(FORENSIC_MCP_TOOLS.length).toBe(350);
     expect(FORENSIC_MCP_TOOLS.filter(t => t.name.startsWith('dt_')).length).toBe(54);
     expect(FORENSIC_MCP_TOOLS.filter(t => t.name.startsWith('fx_')).length).toBe(31);
-    expect(FORENSIC_MCP_TOOLS.filter(t => t.name.startsWith('td_')).length).toBe(100);
+    expect(FORENSIC_MCP_TOOLS.filter(t => t.name.startsWith('td_')).length).toBe(144);
     expect(DEVTOOLS_TOOLS.length).toBe(54);
     expect(FORENSICS_TOOLS.length).toBe(31);
   });
 
-  it('has ZERO naming collisions across all 306 tools (§14)', () => {
+  it('has ZERO naming collisions across all 350 tools (§14)', () => {
     const names = FORENSIC_MCP_TOOLS.map(t => t.name);
     expect(new Set(names).size).toBe(names.length);
   });

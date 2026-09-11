@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 0ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"DEGRADED\",\"reason\":\"interaction execution is DEGRADED: running against a simulation document, not a live browser bridge\",\"suggestion\":\"connect the forensic bridge (FORENSIC_AUTO_BRIDGE=true) and re-run\",\"tool\":\"td_interaction_repair\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"DEGRADED\",\"reason\":\"interaction execution is DEGRADED: running against a simulation document, not a live browser bridge\",\"suggestion\":\"connect the forensic bridge (FORENSIC_AUTO_BRIDGE=true) and re-run\",\"tool\":\"td_interaction_repair\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

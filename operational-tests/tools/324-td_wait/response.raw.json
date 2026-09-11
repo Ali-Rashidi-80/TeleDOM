@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_324_td_wait",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"satisfied\":true,\"condition\":\"dom_stable\",\"waitedMs\":101,\"timeoutMs\":1000,\"detail\":\"dom length 4594, 1 polls\",\"tool\":\"td_wait\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"browser-primitives\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

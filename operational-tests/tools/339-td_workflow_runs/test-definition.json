@@ -1,0 +1,19 @@
+{
+  "tool": "td_workflow_runs",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Filter by workflow name"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max entries (default 50)"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

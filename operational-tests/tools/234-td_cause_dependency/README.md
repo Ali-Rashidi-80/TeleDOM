@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"dependsOnEvents\":[],\"eventCount\":0,\"tool\":\"td_cause_dependency\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"causal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"dependsOnEvents\":[],\"eventCount\":0,\"tool\":\"td_cause_dependency\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"causal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

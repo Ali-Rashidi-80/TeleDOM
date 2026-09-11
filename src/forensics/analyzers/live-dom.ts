@@ -381,7 +381,9 @@ export async function analyzeFontRendering(input: { tabId?: number }): Promise<R
           loaded.push({ family: face.family, status: face.status, weight: face.weight || null });
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      // font API unavailable in this context — reported via fontsApi flag
+    }
     return { fontFaces: faces, fontUsages: fontUsages.slice(0, 60), documentFonts: loaded, fontsApi: !!document.fonts };
   })()`;
 

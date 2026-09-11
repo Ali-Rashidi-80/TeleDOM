@@ -7,6 +7,6 @@
   {
     "assertion": "Scrolls element into view",
     "passed": true,
-    "details": "success, scrollBefore, scrollAfter, requested, targetSelector"
+    "details": "success, scrollBefore, scrollAfter, requested"
   }
 ]

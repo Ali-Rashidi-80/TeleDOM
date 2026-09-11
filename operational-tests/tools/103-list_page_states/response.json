@@ -1,26 +1,18 @@
 [
   {
-    "snapshotId": "snap_mtwhcqtz_1",
-    "timestamp": 1789102363607,
+    "snapshotId": "snap_mtx86oeb_1",
+    "timestamp": 1789147430147,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
-    "domLength": 4430,
-    "domHash": "b5a14eea"
+    "domLength": 4405,
+    "domHash": "ad3d3224"
   },
   {
-    "snapshotId": "snap_mtwhcqu0_2",
-    "timestamp": 1789102363608,
+    "snapshotId": "snap_mtx86oed_2",
+    "timestamp": 1789147430149,
     "url": "https://app.internal/dashboard",
     "title": "MCP Operational Acceptance DOM Fixture",
-    "domLength": 4430,
-    "domHash": "b5a14eea"
-  },
-  {
-    "snapshotId": "snap_mtwhcqvl_3",
-    "timestamp": 1789102363665,
-    "url": "https://app.internal/dashboard",
-    "title": "MCP Operational Acceptance DOM Fixture",
-    "domLength": 4594,
-    "domHash": "dd86b0d4"
+    "domLength": 4405,
+    "domHash": "ad3d3224"
   }
 ]

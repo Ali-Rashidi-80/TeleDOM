@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 11ms
+**Duration**: 21ms
 
 ## Test Objective
 Activates visual element picker mode with hover overlay
@@ -32,7 +32,7 @@ Activates visual element picker mode with hover overlay
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"status\": \"PICKER_ACTIVE\",\n  \"message\": \"Visual element picker activated in the browser. Click any element or hold Ctrl+Shift and click.\",\n  \"details\": {\n    \"pickerActive\": true\n  }\n}"
+        "text": "{\n  \"status\": \"PICKER_ACTIVE\",\n  \"message\": \"Visual element picker activated in the browser. Click any element or hold Ctrl+Shift and click.\",\n  \"details\": {\n    \"status\": \"PICKER_ACTIVE\",\n    \"message\": \"Visual element picker activated in the browser. Click any element or hold Ctrl+Shift and click.\",\n    \"details\": {\n      \"pickerActive\": true\n    }\n  }\n}"
       }
     ]
   }

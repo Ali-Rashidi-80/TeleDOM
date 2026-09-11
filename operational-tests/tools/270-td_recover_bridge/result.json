@@ -2,8 +2,8 @@
   "tool": "td_recover_bridge",
   "index": 270,
   "status": "PASS",
-  "executionTimeMs": 353,
+  "executionTimeMs": 352,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:50.226Z"
+  "timestamp": "2026-09-11T17:23:55.023Z"
 }

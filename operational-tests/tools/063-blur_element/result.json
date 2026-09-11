@@ -2,8 +2,8 @@
   "tool": "blur_element",
   "index": 63,
   "status": "PASS",
-  "executionTimeMs": 5,
+  "executionTimeMs": 313,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:43.356Z"
+  "timestamp": "2026-09-11T17:23:49.450Z"
 }

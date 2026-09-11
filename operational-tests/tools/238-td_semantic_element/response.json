@@ -19,7 +19,7 @@
   },
   "tool": "td_semantic_element",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "semantic-component",
     "securityClass": "read-only"
   }

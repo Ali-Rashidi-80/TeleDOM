@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_331_td_workflow_list",
+  "method": "tools/call",
+  "params": {
+    "name": "td_workflow_list",
+    "arguments": {}
+  }
+}

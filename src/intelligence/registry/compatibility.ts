@@ -7,7 +7,7 @@
  */
 
 import { CAPABILITY_REGISTRY, registryStats } from './capabilities';
-import { VERSION_HISTORY } from '../version';
+import { VERSION_HISTORY, TELEDOM_VERSION } from '../version';
 
 export interface CompatibilityRow {
   capability: string;
@@ -53,7 +53,10 @@ export function generateCompatibilityMatrix(): CompatibilityMatrix {
   const stats = registryStats();
   return {
     generatedAt: new Date().toISOString(),
-    teledomVersion: VERSION_HISTORY[VERSION_HISTORY.length - 1].version,
+    // v4.1 fix (E-9): report the CURRENT platform version from the
+    // authoritative registry — VERSION_HISTORY's last entry is a future
+    // roadmap milestone (reported the stale '12.0.0' while running 4.x).
+    teledomVersion: TELEDOM_VERSION.version,
     totals: {
       td: stats.total,
       surfaces: {

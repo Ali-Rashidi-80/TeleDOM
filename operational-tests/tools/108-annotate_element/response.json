@@ -1,8 +1,8 @@
 {
   "observed": {
     "schemaVersion": "1.0.0",
-    "regionId": "region_mtwhcqw9_2",
-    "pageId": "page_mtwhcqvt",
+    "regionId": "region_mtx86ogl_2",
+    "pageId": "page_mtx86oeo",
     "name": "section_interactive_form_controls",
     "autoName": "section_interactive_form_controls",
     "tag": "div",
@@ -31,8 +31,8 @@
     ],
     "xpath": "//*[@id=\"interactive-section\"]",
     "structuralFingerprint": "094817f3",
-    "domFile": "dom/region_region_mtwhcqw9_2.html",
-    "contextDomFile": "dom/region_region_mtwhcqw9_2_context.html",
+    "domFile": "dom/region_region_mtx86ogl_2.html",
+    "contextDomFile": "dom/region_region_mtx86ogl_2_context.html",
     "dimensions": {
       "width": 0,
       "height": 0
@@ -65,14 +65,14 @@
       "div",
       "div"
     ],
-    "htmlSnapshotFile": "dom/region_region_mtwhcqw9_2.html",
-    "capturedAt": 1789102363690,
+    "htmlSnapshotFile": "dom/region_region_mtx86ogl_2.html",
+    "capturedAt": 1789147430229,
     "sourceUrl": "https://app.internal/dashboard",
     "pageTitle": "MCP Operational Acceptance DOM Fixture",
     "viewport": {
-      "width": 412,
-      "height": 915,
-      "devicePixelRatio": 2.625
+      "width": 1024,
+      "height": 768,
+      "devicePixelRatio": 1
     },
     "extensionState": true
   },

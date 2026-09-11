@@ -1,6 +1,6 @@
 {
   "pageId": "page_1",
-  "totalNodes": 57,
+  "totalNodes": 55,
   "snapshot": [
     {
       "uid": "e1",
@@ -80,7 +80,7 @@
       "name": "Search Input:",
       "selector": "#search-input",
       "interactive": true,
-      "value": "form valuetyped text",
+      "value": "initial query",
       "depth": 3
     },
     {
@@ -129,7 +129,7 @@
       "name": "Default Option Security Analysis Performance Trace",
       "selector": "#category-select",
       "interactive": true,
-      "value": "opt-security",
+      "value": "opt-default",
       "depth": 3
     },
     {
@@ -280,7 +280,7 @@
     {
       "uid": "e35",
       "role": "generic",
-      "name": "Original Static Text Content This element can be unmounted or restyled This elem",
+      "name": "Original Static Text Content This element can be unmounted or restyled",
       "selector": "#dynamic-wrapper",
       "interactive": false,
       "depth": 2
@@ -312,29 +312,13 @@
     {
       "uid": "e39",
       "role": "generic",
-      "name": "This element can be unmounted or restyled",
-      "selector": "#dynamic-wrapper > div:nth-of-type(2)",
-      "interactive": false,
-      "depth": 3
-    },
-    {
-      "uid": "e40",
-      "role": "generic",
-      "name": "This element can be unmounted or restyled",
-      "selector": "#removable-label",
-      "interactive": false,
-      "depth": 4
-    },
-    {
-      "uid": "e41",
-      "role": "generic",
       "name": "Form Analysis Fixture Username: Password: Fast Scan Deep Scan Save Settings",
       "selector": "#form-section",
       "interactive": false,
       "depth": 1
     },
     {
-      "uid": "e42",
+      "uid": "e40",
       "role": "generic",
       "name": "Form Analysis Fixture",
       "selector": "#form-section > h2",
@@ -342,7 +326,7 @@
       "depth": 2
     },
     {
-      "uid": "e43",
+      "uid": "e41",
       "role": "form",
       "name": "Username: Password: Fast Scan Deep Scan Save Settings",
       "selector": "#settings-form",
@@ -350,7 +334,7 @@
       "depth": 2
     },
     {
-      "uid": "e44",
+      "uid": "e42",
       "role": "generic",
       "name": "Username:",
       "selector": "#settings-form > div:nth-of-type(1)",
@@ -358,7 +342,7 @@
       "depth": 3
     },
     {
-      "uid": "e45",
+      "uid": "e43",
       "role": "generic",
       "name": "Username:",
       "selector": "#settings-form > div:nth-of-type(1) > label",
@@ -366,7 +350,7 @@
       "depth": 4
     },
     {
-      "uid": "e46",
+      "uid": "e44",
       "role": "textbox",
       "name": "Username:",
       "selector": "#username-input",
@@ -374,7 +358,7 @@
       "depth": 4
     },
     {
-      "uid": "e47",
+      "uid": "e45",
       "role": "generic",
       "name": "Password:",
       "selector": "#settings-form > div:nth-of-type(2)",
@@ -382,7 +366,7 @@
       "depth": 3
     },
     {
-      "uid": "e48",
+      "uid": "e46",
       "role": "generic",
       "name": "Password:",
       "selector": "#settings-form > div:nth-of-type(2) > label",
@@ -390,7 +374,7 @@
       "depth": 4
     },
     {
-      "uid": "e49",
+      "uid": "e47",
       "role": "textbox",
       "name": "Password:",
       "selector": "#password-input",
@@ -398,7 +382,7 @@
       "depth": 4
     },
     {
-      "uid": "e50",
+      "uid": "e48",
       "role": "generic",
       "name": "Fast Scan Deep Scan",
       "selector": "#settings-form > div:nth-of-type(3)",
@@ -406,7 +390,7 @@
       "depth": 3
     },
     {
-      "uid": "e51",
+      "uid": "e49",
       "role": "generic",
       "name": "Fast Scan",
       "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(1)",
@@ -414,7 +398,7 @@
       "depth": 4
     },
     {
-      "uid": "e52",
+      "uid": "e50",
       "role": "radio",
       "name": "",
       "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(1) > input",
@@ -423,7 +407,7 @@
       "depth": 5
     },
     {
-      "uid": "e53",
+      "uid": "e51",
       "role": "generic",
       "name": "Deep Scan",
       "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(2)",
@@ -431,7 +415,7 @@
       "depth": 4
     },
     {
-      "uid": "e54",
+      "uid": "e52",
       "role": "radio",
       "name": "",
       "selector": "#settings-form > div:nth-of-type(3) > label:nth-of-type(2) > input",
@@ -440,7 +424,7 @@
       "depth": 5
     },
     {
-      "uid": "e55",
+      "uid": "e53",
       "role": "button",
       "name": "Save Settings",
       "selector": "#settings-submit-btn",
@@ -448,7 +432,7 @@
       "depth": 3
     },
     {
-      "uid": "e56",
+      "uid": "e54",
       "role": "contentinfo",
       "name": "Forensic MCP Operational Test Suite — Browser Environment",
       "selector": "#fixture-footer",
@@ -456,7 +440,7 @@
       "depth": 0
     },
     {
-      "uid": "e57",
+      "uid": "e55",
       "role": "generic",
       "name": "Forensic MCP Operational Test Suite — Browser Environment",
       "selector": "#fixture-footer > p",

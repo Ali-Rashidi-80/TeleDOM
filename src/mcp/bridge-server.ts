@@ -6,6 +6,7 @@ import { FileStorageProvider } from '../storage/file-storage';
 import { MCPToolsHandler } from './tools-handler';
 import { BrowserBridgeClient } from './live-tools-handler';
 import { BrowserCommandType } from '../types/browser-control';
+import { TELEDOM_VERSION } from '../intelligence/version';
 
 export interface ConnectedClientInfo {
   id: string;
@@ -122,7 +123,11 @@ export class MCPBridgeServer implements BrowserBridgeClient {
           try {
             ws.send(msg);
             sentCount++;
-          } catch {}
+          } catch (err: any) {
+            // v4.1 fix (E-20): was a silent catch — a dead socket would drop
+            // commands invisibly. Report and continue with other targets.
+            console.error(`[MCP Bridge] send failed to a target socket: ${err?.message ?? err}`);
+          }
         }
       }
       console.error(`[MCP Bridge] Dispatched command '${command}' (ID: ${commandId}) to ${sentCount} target socket(s)`);
@@ -151,14 +156,15 @@ export class MCPBridgeServer implements BrowserBridgeClient {
 
         const url = req.url || '';
 
-        // 1. Health check
+        // 1. Health check (v4.1 fix E-17: version derived from the
+        // authoritative registry — was stale '3.0.0')
         if (url === '/health' && req.method === 'GET') {
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(
             JSON.stringify({
               status: 'ok',
-              server: 'browser-forensic-bridge',
-              version: '3.0.0',
+              server: 'teledom-bridge',
+              version: TELEDOM_VERSION.version,
               connectedBrowsers: this.activeSockets.size,
             })
           );
@@ -284,12 +290,12 @@ export class MCPBridgeServer implements BrowserBridgeClient {
           for (const [ws, lastSeen] of this.clientHealth.entries()) {
             if (now - lastSeen > 75000) {
               console.error(`[MCP Bridge] Liveness sweep: pruning silent client (last seen ${Math.round((now - lastSeen) / 1000)}s ago).`);
-              try { ws.terminate(); } catch {}
+              try { ws.terminate(); } catch { /* already dead — nothing to terminate */ }
               this.activeSockets.delete(ws);
               this.socketMetadata.delete(ws);
               this.clientHealth.delete(ws);
             } else {
-              try { ws.ping(); } catch {}
+              try { ws.ping(); } catch { /* dead socket will be swept on the next beat */ }
             }
           }
         }, 30000);
@@ -326,7 +332,7 @@ export class MCPBridgeServer implements BrowserBridgeClient {
                 }
                 try {
                   ws.send(JSON.stringify({ type: 'PONG', timestamp: Date.now() }));
-                } catch {}
+                } catch { /* client vanished between message and reply */ }
                 return;
               }
 

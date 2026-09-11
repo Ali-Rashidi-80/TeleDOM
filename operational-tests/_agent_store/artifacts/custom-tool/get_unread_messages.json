@@ -1,0 +1,24 @@
+{
+  "id": "1d8cc9f1-a85b-4d98-9380-fb086e1e92a3",
+  "kind": "custom-tool",
+  "name": "get_unread_messages",
+  "content": {
+    "steps": [
+      "open inbox",
+      "detect unread",
+      "open thread",
+      "extract messages"
+    ],
+    "composedOf": [
+      "td_dom_inspect",
+      "td_dom_query",
+      "td_action_click"
+    ]
+  },
+  "description": "agent-built abstraction — TeleDOM stores it verbatim, never interprets it",
+  "tags": [
+    "demo"
+  ],
+  "createdAt": "2026-09-11T17:23:58.177Z",
+  "updatedAt": "2026-09-11T17:23:58.177Z"
+}

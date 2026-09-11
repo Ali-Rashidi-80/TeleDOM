@@ -1,0 +1,1 @@
+[EXEC] td_screenshot executed via stdio JSON-RPC at 2026-09-11T17:23:57.053Z in 455ms

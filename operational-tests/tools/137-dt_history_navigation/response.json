@@ -3,8 +3,8 @@
   "pageId": "page_1",
   "detail": {
     "status": "EXECUTED_SUCCESSFULLY",
-    "executionId": "js_mtwhcuei_7",
-    "durationMs": 0,
+    "executionId": "js_mtx86qg8_11",
+    "durationMs": 1,
     "result": "{\n \"performed\": \"back\"\n}",
     "consoleOutput": [],
     "domChanged": false,

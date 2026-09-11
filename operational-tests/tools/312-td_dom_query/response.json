@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "result": {
+    "analyzer": "search_dom",
+    "summary": "1 element(s) match \"Run Analysis\"",
+    "count": 1,
+    "items": [
+      {
+        "selector": "#primary-action-btn",
+        "tag": "button",
+        "role": "button",
+        "text": "⚡ Run Analysis",
+        "score": 0.6,
+        "reason": "text match",
+        "visible": true,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        }
+      }
+    ],
+    "warnings": [],
+    "truncated": false
+  },
+  "tool": "td_dom_query",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "read-only"
+  }
+}

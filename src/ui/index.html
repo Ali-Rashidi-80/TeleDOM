@@ -76,6 +76,10 @@
           <button class="tab-btn" data-tab="annotations">
             <span>📝 Notes</span>
           </button>
+          <button class="tab-btn" data-tab="workflows">
+            <span>⚡ Workflows</span>
+            <span class="tab-badge" id="badge-workflow-count">0</span>
+          </button>
         </nav>
 
         <div class="tab-content-container">
@@ -147,6 +151,22 @@
                 <button id="btn-add-annotation" class="btn btn-primary">Add Note</button>
               </div>
               <div id="annotations-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+            </div>
+          </div>
+
+          <!-- v4.1 Tab: Agent-Owned Workflows (TeleDOM Flow) -->
+          <div class="tab-pane" id="pane-workflows">
+            <div style="padding: 16px; display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 14px; font-weight: 700;">⚡ Agent-Owned Workflows</div>
+                  <div style="font-size: 11px; color: var(--text-muted, #888);">TeleDOM stores and executes; the agent designs and repairs. Teach once · Reuse forever · Prove what happened.</div>
+                </div>
+                <button id="btn-refresh-workflows" class="btn btn-ghost">↻ Refresh</button>
+              </div>
+              <div id="workflows-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+              <div style="font-size: 12px; font-weight: 700; margin-top: 6px;">Recent Runs</div>
+              <div id="workflow-runs-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
             </div>
           </div>
         </div>

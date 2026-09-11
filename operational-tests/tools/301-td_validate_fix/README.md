@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"incident undefined not found — create one via td_investigate first\",\"tool\":\"td_validate_fix\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"side-effects\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"incident undefined not found — create one via td_investigate first\",\"tool\":\"td_validate_fix\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"side-effects\"}}"
       }
     ],
     "isError": false

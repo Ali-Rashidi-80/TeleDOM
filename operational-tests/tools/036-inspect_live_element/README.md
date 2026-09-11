@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 13ms
+**Duration**: 5ms
 
 ## Test Objective
 Deeply inspects #primary-action-btn styles, bounds, and role

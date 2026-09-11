@@ -1,0 +1,9 @@
+{
+  "tool": "td_browser_refresh",
+  "index": 310,
+  "status": "PASS",
+  "executionTimeMs": 3,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-11T17:23:55.174Z"
+}

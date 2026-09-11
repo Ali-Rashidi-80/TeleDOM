@@ -1,0 +1,24 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_347_td_agent_artifact_save",
+  "method": "tools/call",
+  "params": {
+    "name": "td_agent_artifact_save",
+    "arguments": {
+      "kind": "custom-tool",
+      "name": "get_unread_messages",
+      "content": {
+        "steps": [
+          "open inbox",
+          "detect unread",
+          "open thread",
+          "extract messages"
+        ]
+      },
+      "description": "agent-built abstraction over the fixture",
+      "tags": [
+        "operational"
+      ]
+    }
+  }
+}

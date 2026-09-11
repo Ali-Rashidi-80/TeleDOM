@@ -1,9 +1,9 @@
 {
   "reloaded": true,
-  "extensionId": "forensic-recorder@mcpdom",
+  "extensionId": "teledom@teledom",
   "detail": {
     "reloaded": true,
-    "extensionId": "forensic-recorder@mcpdom",
+    "extensionId": "teledom@teledom",
     "simulated": true,
     "note": "Simulated reload: extension state preserved."
   },

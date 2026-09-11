@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"selected\": false,\n  \"message\": \"No element has been selected yet. Use Ctrl + Shift + Click in the browser or call start_element_picker.\"\n}"
+        "text": "{\n  \"selected\": true,\n  \"element\": {\n    \"selected\": false,\n    \"message\": \"No element has been selected yet. Use Ctrl + Shift + Click in the browser or call start_element_picker.\"\n  }\n}"
       }
     ]
   }

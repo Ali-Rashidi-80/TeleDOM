@@ -1,13 +1,13 @@
 {
-  "packageDir": "/home/z/my-project/teledom/operational-test-scratch/agent-package-op",
+  "packageDir": "/home/z/my-project/teledom-v41/operational-test-scratch/agent-package-op",
   "fileCount": 12,
   "files": [
     "project.json",
     "pages/page.json",
     "pages/page-snapshot.html",
-    "regions/region_mtwhcqw4_1.json",
-    "regions/region_region_mtwhcqw4_1.html",
-    "regions/region_region_mtwhcqw4_1_context.html",
+    "regions/region_mtx86ofy_1.json",
+    "regions/region_region_mtx86ofy_1.html",
+    "regions/region_region_mtx86ofy_1_context.html",
     "schemas/region-annotation.schema.json",
     "verification/verification-matrix.json",
     "snapshots/capture-context.json",
@@ -19,7 +19,7 @@
     "regions": 1,
     "commands": 0,
     "diffs": 0,
-    "bytes": 17535
+    "bytes": 17337
   },
   "note": "Self-contained package: another agent can consume it without MCPDOM running."
 }

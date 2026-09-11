@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 2ms
+**Duration**: 5ms
 
 ## Test Objective
 Deactivates element picker mode
@@ -30,7 +30,7 @@ Deactivates element picker mode
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"status\": \"PICKER_INACTIVE\",\n  \"message\": \"Visual element picker stopped.\",\n  \"details\": {\n    \"pickerActive\": false\n  }\n}"
+        "text": "{\n  \"status\": \"PICKER_INACTIVE\",\n  \"message\": \"Visual element picker stopped.\",\n  \"details\": {\n    \"status\": \"PICKER_INACTIVE\",\n    \"message\": \"Visual element picker stopped.\",\n    \"details\": {\n      \"pickerActive\": false\n    }\n  }\n}"
       }
     ]
   }

@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"visualEvents\":0,\"causalLinks\":0,\"note\":\"a screenshot difference alone is never causal proof; links carry classification\",\"tool\":\"td_visual_causality\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"performance-memory-visual\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"visualEvents\":0,\"causalLinks\":0,\"note\":\"a screenshot difference alone is never causal proof; links carry classification\",\"tool\":\"td_visual_causality\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"performance-memory-visual\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_346_td_target_memory_delete",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"deleted\":\"example.test__primary_action_button\",\"tool\":\"td_target_memory_delete\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"agent-owned-tooling\",\"securityClass\":\"reversible\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 3ms
 
 ## Test Objective
 
@@ -30,7 +30,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"simulated\": true,\n  \"extensions\": [\n    {\n      \"id\": \"forensic-recorder@mcpdom\",\n      \"name\": \"Browser Forensic Recorder (MCPDOM)\",\n      \"version\": \"3.0.0\",\n      \"description\": \"The MCPDOM platform extension itself\",\n      \"enabled\": true,\n      \"installType\": \"development\",\n      \"isApp\": false,\n      \"permissions\": [\n        \"activeTab\",\n        \"scripting\",\n        \"storage\",\n        \"tabs\",\n        \"management\"\n      ]\n    }\n  ],\n  \"note\": \"Deterministic simulated extension state.\"\n}"
+        "text": "{\n  \"simulated\": true,\n  \"extensions\": [\n    {\n      \"id\": \"teledom@teledom\",\n      \"name\": \"TeleDOM Browser Intelligence Platform\",\n      \"version\": \"4.1.0\",\n      \"description\": \"The TeleDOM platform extension itself\",\n      \"enabled\": true,\n      \"installType\": \"development\",\n      \"isApp\": false,\n      \"permissions\": [\n        \"activeTab\",\n        \"scripting\",\n        \"storage\",\n        \"tabs\",\n        \"management\"\n      ]\n    }\n  ],\n  \"note\": \"Deterministic simulated extension state.\"\n}"
       }
     ]
   }

@@ -1,0 +1,9 @@
+{
+  "tool": "td_target_check",
+  "index": 316,
+  "status": "PASS",
+  "executionTimeMs": 7,
+  "assertionsPassed": 2,
+  "assertionsTotal": 2,
+  "timestamp": "2026-09-11T17:23:55.227Z"
+}

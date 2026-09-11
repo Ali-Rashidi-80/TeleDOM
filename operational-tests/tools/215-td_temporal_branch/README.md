@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"session has no events to fork from\",\"tool\":\"td_temporal_branch\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"reversible\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"session has no events to fork from\",\"tool\":\"td_temporal_branch\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"reversible\"}}"
       }
     ],
     "isError": false

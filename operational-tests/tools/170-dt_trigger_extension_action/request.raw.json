@@ -5,7 +5,7 @@
   "params": {
     "name": "dt_trigger_extension_action",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }

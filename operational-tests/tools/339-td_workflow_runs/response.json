@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "count": 1,
+  "runs": [
+    {
+      "id": "run_1789147437086_6be05530",
+      "workflowName": "extension_smoke_test",
+      "workflowVersion": "1.1.0",
+      "status": "SUCCESS",
+      "startedAt": 1789147437086,
+      "durationMs": 328,
+      "steps": 5
+    }
+  ],
+  "tool": "td_workflow_runs",
+  "capability": {
+    "version": "4.1.0",
+    "category": "workflow-runtime",
+    "securityClass": "read-only"
+  }
+}

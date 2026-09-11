@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"visual regression requires two visual frame refs; supply baselineRef/currentRef from recorded screenshots\",\"tool\":\"td_visual_regression\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"performance-memory-visual\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"note\":\"visual regression requires two visual frame refs; supply baselineRef/currentRef from recorded screenshots\",\"tool\":\"td_visual_regression\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"performance-memory-visual\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

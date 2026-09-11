@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"integrity\":{\"valid\":true},\"repair\":{\"restored\":0,\"duplicates\":0,\"rejected\":0,\"chainTip\":\"\"},\"note\":\"session replayed through a fresh mesh with hash-chain verification\",\"tool\":\"td_session_repair\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"integrity\":{\"valid\":true},\"repair\":{\"restored\":0,\"duplicates\":0,\"rejected\":0,\"chainTip\":\"\"},\"note\":\"session replayed through a fresh mesh with hash-chain verification\",\"tool\":\"td_session_repair\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

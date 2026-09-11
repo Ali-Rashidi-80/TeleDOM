@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "result": {
+    "url": "https://app.internal/dashboard",
+    "title": "MCP Operational Acceptance DOM Fixture",
+    "totalCaptured": 1,
+    "returnedCount": 1,
+    "logs": [
+      {
+        "level": "warn",
+        "text": "Seeded console warning for unified log verification",
+        "timestamp": 1789147432840
+      }
+    ]
+  },
+  "tool": "td_console_read",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "read-only"
+  }
+}

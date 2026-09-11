@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"failureId\": \"fail_1_mtwhcuup\",\n  \"captured\": true,\n  \"url\": \"https://app.internal/dashboard\",\n  \"selectorCandidates\": 2,\n  \"domSubtree\": false,\n  \"replaySteps\": 1\n}"
+        "text": "{\n  \"failureId\": \"fail_1_mtx86r07\",\n  \"captured\": true,\n  \"url\": \"https://app.internal/dashboard\",\n  \"selectorCandidates\": 2,\n  \"domSubtree\": false,\n  \"replaySteps\": 1\n}"
       }
     ]
   }

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 0ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"note\":\"capability undefined marked isolated; session and remaining capabilities continue (containment exercised)\",\"tool\":\"td_failure_containment\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"side-effects\"}}"
+        "text": "{\"status\":\"PASS\",\"note\":\"capability undefined marked isolated; session and remaining capabilities continue (containment exercised)\",\"tool\":\"td_failure_containment\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"side-effects\"}}"
       }
     ],
     "isError": false

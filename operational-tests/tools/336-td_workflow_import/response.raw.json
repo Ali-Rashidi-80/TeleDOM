@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_336_td_workflow_import",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"imported\":{\"name\":\"extension_smoke_test_imported\",\"version\":\"1.0.0\",\"versions\":1},\"tool\":\"td_workflow_import\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"workflow-runtime\",\"securityClass\":\"reversible\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

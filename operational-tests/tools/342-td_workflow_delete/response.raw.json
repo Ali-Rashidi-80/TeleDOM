@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_342_td_workflow_delete",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"INCONCLUSIVE\",\"error\":\"name (string) is required\",\"tool\":\"td_workflow_delete\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"workflow-runtime\",\"securityClass\":\"reversible\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

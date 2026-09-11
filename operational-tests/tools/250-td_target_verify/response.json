@@ -5,7 +5,7 @@
   "confidence": 0.32725,
   "tool": "td_target_verify",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "targeting-interaction",
     "securityClass": "read-only"
   }

@@ -1,0 +1,36 @@
+{
+  "tool": "td_agent_artifact_save",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "kind": {
+        "type": "string",
+        "description": "custom-tool | script | policy | memory | note"
+      },
+      "name": {
+        "type": "string",
+        "description": "Artifact name"
+      },
+      "content": {
+        "type": "object",
+        "description": "Agent payload (any JSON)"
+      },
+      "description": {
+        "type": "string",
+        "description": "Optional description"
+      },
+      "tags": {
+        "type": "array",
+        "description": "Optional tags"
+      }
+    },
+    "required": [
+      "kind",
+      "name",
+      "content"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

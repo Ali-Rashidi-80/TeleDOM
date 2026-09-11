@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 4ms
 
 ## Test Objective
 Inspects live active page URL, dimensions, and readyState
@@ -30,7 +30,7 @@ Inspects live active page URL, dimensions, and readyState
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"url\": \"https://app.internal/dashboard\",\n  \"title\": \"MCP Operational Acceptance DOM Fixture\",\n  \"origin\": \"https://app.internal\",\n  \"viewport\": {\n    \"width\": 1024,\n    \"height\": 768,\n    \"scrollX\": 0,\n    \"scrollY\": 0,\n    \"devicePixelRatio\": 1\n  },\n  \"documentDimensions\": {\n    \"width\": 0,\n    \"height\": 0\n  },\n  \"activeElement\": {\n    \"tag\": \"body\",\n    \"selector\": \"body\",\n    \"text\": \"Operational DOM Test Fixture\\n    Deterministic test harness for live & historical MCP capabi\"\n  },\n  \"visibilityState\": \"visible\",\n  \"readyState\": \"complete\",\n  \"framesCount\": 0\n}"
+        "text": "{\n  \"url\": \"https://app.internal/dashboard\",\n  \"title\": \"MCP Operational Acceptance DOM Fixture\",\n  \"origin\": \"https://app.internal\",\n  \"viewport\": {\n    \"width\": 1024,\n    \"height\": 768,\n    \"scrollX\": 0,\n    \"scrollY\": 0,\n    \"devicePixelRatio\": 1\n  },\n  \"documentDimensions\": {\n    \"width\": 0,\n    \"height\": 0\n  },\n  \"activeElement\": {\n    \"tag\": \"input\",\n    \"selector\": \"#search-input\",\n    \"text\": \"\"\n  },\n  \"focusedElement\": {\n    \"tag\": \"input\",\n    \"selector\": \"#search-input\"\n  },\n  \"visibilityState\": \"visible\",\n  \"readyState\": \"complete\",\n  \"framesCount\": 0\n}"
       }
     ]
   }
@@ -39,4 +39,4 @@ Inspects live active page URL, dimensions, and readyState
 
 ## Assertions
 - [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
-- [x] **Inspects live active page URL, dimensions, and readyState**: url, title, origin, viewport, documentDimensions, activeElement, visibilityState, readyState, framesCount
+- [x] **Inspects live active page URL, dimensions, and readyState**: url, title, origin, viewport, documentDimensions, activeElement, focusedElement, visibilityState, readyState, framesCount

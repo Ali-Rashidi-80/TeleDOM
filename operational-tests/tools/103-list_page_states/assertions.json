@@ -7,6 +7,6 @@
   {
     "assertion": "Lists captured page state snapshots",
     "passed": true,
-    "details": "0, 1, 2"
+    "details": "0, 1"
   }
 ]

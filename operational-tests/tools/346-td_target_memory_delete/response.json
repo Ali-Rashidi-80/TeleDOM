@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "deleted": "example.test__primary_action_button",
+  "tool": "td_target_memory_delete",
+  "capability": {
+    "version": "4.1.0",
+    "category": "agent-owned-tooling",
+    "securityClass": "reversible"
+  }
+}

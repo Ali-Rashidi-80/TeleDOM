@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_346_td_target_memory_delete",
+  "method": "tools/call",
+  "params": {
+    "name": "td_target_memory_delete",
+    "arguments": {
+      "site": "example.test",
+      "semanticId": "primary_action_button"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "savedAt": "2026-09-11T17:23:55.048Z",
+  "snapshot": [
+    {
+      "memoryId": "mem:1",
+      "kind": "known-environment",
+      "statement": "operational acceptance session exercises the v4 kernel",
+      "provenance": {
+        "origin": "td_memory",
+        "evidenceRefs": [
+          "evt_op_001"
+        ]
+      },
+      "confidence": 0.8,
+      "timesReused": 0,
+      "createdAt": 1789147435048,
+      "lastValidatedAt": null,
+      "validated": true
+    }
+  ]
+}

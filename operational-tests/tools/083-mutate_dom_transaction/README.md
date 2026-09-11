@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 4ms
 
 ## Test Objective
 Opens a DOM mutation transaction (commit/rollback lifecycle safe)
@@ -32,7 +32,7 @@ Opens a DOM mutation transaction (commit/rollback lifecycle safe)
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"transactionId\": \"tx_mtwhcque_2\",\n  \"mode\": \"begin\",\n  \"open\": true\n}"
+        "text": "{\n  \"transactionId\": \"tx_mtx86oca_2\",\n  \"mode\": \"begin\",\n  \"open\": true\n}"
       }
     ]
   }

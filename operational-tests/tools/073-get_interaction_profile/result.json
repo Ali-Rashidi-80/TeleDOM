@@ -2,8 +2,8 @@
   "tool": "get_interaction_profile",
   "index": 73,
   "status": "PASS",
-  "executionTimeMs": 2,
+  "executionTimeMs": 0,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:43.590Z"
+  "timestamp": "2026-09-11T17:23:50.010Z"
 }

@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_320_td_action_select",
+  "method": "tools/call",
+  "params": {
+    "name": "td_action_select",
+    "arguments": {
+      "selector": "#category-select",
+      "value": "opt-security"
+    }
+  }
+}

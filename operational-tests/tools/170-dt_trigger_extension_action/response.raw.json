@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"triggered\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"detail\": {\n    \"focused\": true,\n    \"tabId\": 2,\n    \"url\": \"about:blank\",\n    \"simulated\": true\n  },\n  \"mode\": \"LIVE\"\n}"
+        "text": "{\n  \"triggered\": true,\n  \"extensionId\": \"teledom@teledom\",\n  \"detail\": {\n    \"focused\": true,\n    \"tabId\": 2,\n    \"url\": \"about:blank\",\n    \"simulated\": true\n  },\n  \"mode\": \"LIVE\"\n}"
       }
     ]
   }

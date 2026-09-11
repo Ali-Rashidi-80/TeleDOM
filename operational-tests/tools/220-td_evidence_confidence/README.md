@@ -41,7 +41,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"confidence\":1,\"classification\":\"SUPPORTED\",\"rationale\":[\"source operational-suite: quality=direct-observation (1)\",\"corroboration x1 → factor 1.08\"],\"tool\":\"td_evidence_confidence\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"evidence-provenance\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"confidence\":1,\"classification\":\"SUPPORTED\",\"rationale\":[\"source operational-suite: quality=direct-observation (1)\",\"corroboration x1 → factor 1.08\"],\"tool\":\"td_evidence_confidence\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"evidence-provenance\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

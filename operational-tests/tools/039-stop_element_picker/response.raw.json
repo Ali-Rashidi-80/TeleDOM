@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"status\": \"PICKER_INACTIVE\",\n  \"message\": \"Visual element picker stopped.\",\n  \"details\": {\n    \"pickerActive\": false\n  }\n}"
+        "text": "{\n  \"status\": \"PICKER_INACTIVE\",\n  \"message\": \"Visual element picker stopped.\",\n  \"details\": {\n    \"status\": \"PICKER_INACTIVE\",\n    \"message\": \"Visual element picker stopped.\",\n    \"details\": {\n      \"pickerActive\": false\n    }\n  }\n}"
       }
     ]
   }

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_310_td_browser_refresh",
+  "method": "tools/call",
+  "params": {
+    "name": "td_browser_refresh",
+    "arguments": {
+      "sessionId": "operational_acceptance_session_001"
+    }
+  }
+}

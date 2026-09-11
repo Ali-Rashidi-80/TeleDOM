@@ -1,0 +1,18 @@
+{
+  "tool": "td_workflow_replay",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "runId": {
+        "type": "string",
+        "description": "Run to replay"
+      }
+    },
+    "required": [
+      "runId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

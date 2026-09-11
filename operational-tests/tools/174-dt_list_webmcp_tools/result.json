@@ -2,8 +2,8 @@
   "tool": "dt_list_webmcp_tools",
   "index": 174,
   "status": "PASS",
-  "executionTimeMs": 2,
+  "executionTimeMs": 3,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:48.659Z"
+  "timestamp": "2026-09-11T17:23:53.374Z"
 }

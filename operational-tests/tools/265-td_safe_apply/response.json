@@ -3,7 +3,7 @@
   "reason": "td_safe_apply requires a live mutation adapter; in this process only simulation branches are available (use td_simulate_change + td_branch_merge)",
   "tool": "td_safe_apply",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "counterfactual-simulation",
     "securityClass": "side-effects"
   }

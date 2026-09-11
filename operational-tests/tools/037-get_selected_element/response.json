@@ -1,4 +1,7 @@
 {
-  "selected": false,
-  "message": "No element has been selected yet. Use Ctrl + Shift + Click in the browser or call start_element_picker."
+  "selected": true,
+  "element": {
+    "selected": false,
+    "message": "No element has been selected yet. Use Ctrl + Shift + Click in the browser or call start_element_picker."
+  }
 }

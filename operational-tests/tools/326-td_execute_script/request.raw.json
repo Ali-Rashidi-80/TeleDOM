@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_326_td_execute_script",
+  "method": "tools/call",
+  "params": {
+    "name": "td_execute_script",
+    "arguments": {
+      "code": "return document.querySelectorAll(\"p\").length;"
+    }
+  }
+}

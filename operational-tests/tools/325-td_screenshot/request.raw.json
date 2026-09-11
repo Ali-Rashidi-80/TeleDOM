@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_325_td_screenshot",
+  "method": "tools/call",
+  "params": {
+    "name": "td_screenshot",
+    "arguments": {}
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "saved": {
+    "id": "example_test__primary_action_button",
+    "site": "example.test",
+    "semanticId": "primary_action_button",
+    "confidence": 0.95
+  },
+  "note": "target memory stored — resolve against it before re-analyzing the DOM",
+  "tool": "td_target_memory_save",
+  "capability": {
+    "version": "4.1.0",
+    "category": "agent-owned-tooling",
+    "securityClass": "read-only"
+  }
+}

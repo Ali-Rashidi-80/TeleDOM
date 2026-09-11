@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "action": "navigate",
+  "url": "https://example.test/fixture",
+  "routedTo": "execute_javascript",
+  "result": {
+    "status": "EXECUTED_SUCCESSFULLY",
+    "executionId": "js_mtx86s6m_30",
+    "durationMs": 1,
+    "result": "https://app.internal/dashboard",
+    "consoleOutput": [],
+    "domChanged": false,
+    "domLengthBefore": 4594,
+    "domLengthAfter": 4594,
+    "world": "ISOLATED",
+    "timeoutMs": 5000,
+    "codePreview": "window.location.href = \"https://example.test/fixture\"; return window.location.href;"
+  },
+  "tool": "td_browser_navigate",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "side-effects"
+  }
+}

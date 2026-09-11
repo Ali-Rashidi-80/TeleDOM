@@ -14,9 +14,13 @@
     "height": 0
   },
   "activeElement": {
-    "tag": "body",
-    "selector": "body",
-    "text": "Operational DOM Test Fixture\n    Deterministic test harness for live & historical MCP capabi"
+    "tag": "input",
+    "selector": "#search-input",
+    "text": ""
+  },
+  "focusedElement": {
+    "tag": "input",
+    "selector": "#search-input"
   },
   "visibilityState": "visible",
   "readyState": "complete",

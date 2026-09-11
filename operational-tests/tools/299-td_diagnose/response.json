@@ -3,7 +3,7 @@
   "note": "no events in session",
   "tool": "td_diagnose",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "investigation-orchestration",
     "securityClass": "read-only"
   }

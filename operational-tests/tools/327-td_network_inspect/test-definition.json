@@ -1,0 +1,19 @@
+{
+  "tool": "td_network_inspect",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "urlContains": {
+        "type": "string",
+        "description": "URL substring filter"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max entries (default 50)"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

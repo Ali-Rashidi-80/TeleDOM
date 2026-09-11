@@ -33,7 +33,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"sessionId\":\"operational_acceptance_session_001\",\"before\":[],\"at\":[],\"after\":[],\"counts\":{\"before\":0,\"at\":0,\"after\":0},\"tool\":\"td_temporal_window\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"sessionId\":\"operational_acceptance_session_001\",\"before\":[],\"at\":[],\"after\":[],\"counts\":{\"before\":0,\"at\":0,\"after\":0},\"tool\":\"td_temporal_window\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"temporal-intelligence\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

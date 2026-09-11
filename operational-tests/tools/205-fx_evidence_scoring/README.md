@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 0ms
 
 ## Test Objective
 Scores the finding with confidence, band and evidence
@@ -43,7 +43,7 @@ Scores the finding with confidence, band and evidence
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"finding\": {\n    \"id\": \"find_manual_mtwhcv1u\",\n    \"conclusion\": \"The injected button was removed by a parent subtree replacement\",\n    \"confidence\": 0.964,\n    \"band\": \"VERY_HIGH\",\n    \"evidenceCount\": 2,\n    \"evidenceTypes\": [\n      \"MUTATION_RECORD\",\n      \"DOM_OBSERVATION\"\n    ],\n    \"evidence\": [\n      {\n        \"source\": \"MUTATION_RECORD\",\n        \"description\": \"Parent subtree replaced at t=400ms\",\n        \"ref\": \"evt_op_007\",\n        \"weight\": 0.8\n      },\n      {\n        \"source\": \"DOM_OBSERVATION\",\n        \"description\": \"Button absent from the reconstructed state at t=400ms\",\n        \"weight\": 0.72\n      }\n    ],\n    \"method\": \"Direct evidence scoring (fx_evidence_scoring)\"\n  },\n  \"methodology\": \"Noisy-OR over evidence weights + source diversity bonus − contradiction penalty. Capped [0.05, 0.98]; single-evidence findings cap at 0.75.\"\n}"
+        "text": "{\n  \"finding\": {\n    \"id\": \"find_manual_mtx86ra0\",\n    \"conclusion\": \"The injected button was removed by a parent subtree replacement\",\n    \"confidence\": 0.964,\n    \"band\": \"VERY_HIGH\",\n    \"evidenceCount\": 2,\n    \"evidenceTypes\": [\n      \"MUTATION_RECORD\",\n      \"DOM_OBSERVATION\"\n    ],\n    \"evidence\": [\n      {\n        \"source\": \"MUTATION_RECORD\",\n        \"description\": \"Parent subtree replaced at t=400ms\",\n        \"ref\": \"evt_op_007\",\n        \"weight\": 0.8\n      },\n      {\n        \"source\": \"DOM_OBSERVATION\",\n        \"description\": \"Button absent from the reconstructed state at t=400ms\",\n        \"weight\": 0.72\n      }\n    ],\n    \"method\": \"Direct evidence scoring (fx_evidence_scoring)\"\n  },\n  \"methodology\": \"Noisy-OR over evidence weights + source diversity bonus − contradiction penalty. Capped [0.05, 0.98]; single-evidence findings cap at 0.75.\"\n}"
       }
     ]
   }

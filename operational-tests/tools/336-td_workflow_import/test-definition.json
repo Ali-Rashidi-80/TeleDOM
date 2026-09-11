@@ -1,0 +1,22 @@
+{
+  "tool": "td_workflow_import",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "export": {
+        "type": "object",
+        "description": "Export package object"
+      },
+      "includeVersions": {
+        "type": "boolean",
+        "description": "Also import version history"
+      }
+    },
+    "required": [
+      "export"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

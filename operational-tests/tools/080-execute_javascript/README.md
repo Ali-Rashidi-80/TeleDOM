@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 1ms
+**Duration**: 4ms
 
 ## Test Objective
 Executes JS with EXECUTED_SUCCESSFULLY state and result serialization
@@ -32,7 +32,7 @@ Executes JS with EXECUTED_SUCCESSFULLY state and result serialization
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"status\": \"EXECUTED_SUCCESSFULLY\",\n  \"executionId\": \"js_mtwhcqtx_1\",\n  \"durationMs\": 1,\n  \"result\": \"2\",\n  \"consoleOutput\": [],\n  \"domChanged\": false,\n  \"domLengthBefore\": 4430,\n  \"domLengthAfter\": 4430,\n  \"world\": \"ISOLATED\",\n  \"timeoutMs\": 5000,\n  \"codePreview\": \"return 1 + 1;\"\n}"
+        "text": "{\n  \"status\": \"EXECUTED_SUCCESSFULLY\",\n  \"executionId\": \"js_mtx86obf_5\",\n  \"durationMs\": 0,\n  \"result\": \"2\",\n  \"consoleOutput\": [],\n  \"domChanged\": false,\n  \"domLengthBefore\": 4430,\n  \"domLengthAfter\": 4430,\n  \"world\": \"ISOLATED\",\n  \"timeoutMs\": 5000,\n  \"codePreview\": \"return 1 + 1;\"\n}"
       }
     ]
   }

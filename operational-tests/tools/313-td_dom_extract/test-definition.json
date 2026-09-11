@@ -1,0 +1,26 @@
+{
+  "tool": "td_dom_extract",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "CSS selector for the collection"
+      },
+      "fields": {
+        "type": "object",
+        "description": "Output name → JS expression per element (default: text/tag/attrs)"
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max elements (default 100)"
+      }
+    },
+    "required": [
+      "selector"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

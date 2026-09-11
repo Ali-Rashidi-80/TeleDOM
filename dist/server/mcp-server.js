@@ -1,6 +1,6 @@
 import * as readline from "readline";
 import * as fs from "fs";
-import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, T as TELEDOM_INTELLIGENCE_TOOLS, a as FileStorageProvider, b as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
+import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, T as TELEDOM_INTELLIGENCE_TOOLS, a as TELEDOM_VERSION, b as FileStorageProvider, c as MCPToolsHandler, MCPBridgeServer } from "./bridge-server.js";
 import "http";
 import "ws";
 import "path";
@@ -703,9 +703,11 @@ class ForensicMCPServer {
   resourcesHandler;
   bridgeServer = null;
   protocolVersion = "2024-11-05";
+  // v4.1 fix (E-1): derive serverInfo from the authoritative version
+  // registry — never hardcode (was stale '12.0.0' while package was 4.0.0).
   serverInfo = {
-    name: "teledom-v4",
-    version: "12.0.0"
+    name: "teledom",
+    version: TELEDOM_VERSION.version
   };
   constructor(storage, liveToolsHandler) {
     const storageDir = process.env.FORENSIC_STORAGE_DIR || "./.forensic_sessions";
@@ -798,9 +800,12 @@ class ForensicMCPServer {
           PRESS_KEYBOARD_SHORTCUT: "press_keyboard_shortcut",
           SCROLL_PAGE: "scroll_page",
           WAIT_FOR_CONDITION: "wait_for_condition",
-          GET_PAGE_STATE: "get_page_state",
+          // v4.1 fix (E-12): GET_PAGE_STATE / GET_SIMULATION_TAB_STATE
+          // previously mapped to non-existent tools ('get_page_state',
+          // 'get_tab_state') — every fallback call died as "Unknown tool".
+          GET_PAGE_STATE: "get_browser_session",
           CAPTURE_PAGE_STATE: "capture_page_state",
-          GET_SIMULATION_TAB_STATE: "get_tab_state",
+          GET_SIMULATION_TAB_STATE: "get_viewport_state",
           CAPTURE_REGION: "capture_page_region"
         };
         const toolName = toolMap[command] || command.toLowerCase();
@@ -952,6 +957,51 @@ class ForensicMCPServer {
         }
       };
     }
+    if (method === "prompts/get") {
+      const promptName = params?.name;
+      const promptArgs = params?.arguments ?? {};
+      if (promptName === "diagnose_disappearing_element") {
+        return {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            description: "Run an autonomous root-cause investigation on why an injected web element disappeared.",
+            messages: [
+              {
+                role: "user",
+                content: {
+                  type: "text",
+                  text: `Investigate why the element "${promptArgs.targetSelector ?? "<targetSelector>"}" disappeared in session "${promptArgs.sessionId ?? "<sessionId>"}". Use td_investigate with objective="why did ${promptArgs.targetSelector ?? "<targetSelector>"} disappear", symptomPattern matching the element, and sessionId. Then report the root cause with evidence (td_evidence_chain) and attach proof (td_evidence_proof).`
+                }
+              }
+            ]
+          }
+        };
+      }
+      if (promptName === "compare_dom_states") {
+        return {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            description: "Perform a structural diff and timeline causality analysis between two timestamps.",
+            messages: [
+              {
+                role: "user",
+                content: {
+                  type: "text",
+                  text: `Compare DOM states of session "${promptArgs.sessionId ?? "<sessionId>"}" at t1=${promptArgs.t1 ?? "<t1>"} and t2=${promptArgs.t2 ?? "<t2>"}. Use td_temporal_window around both points, td_state_diff for the structural change, and td_cause_trace for the causal chain that explains the transition.`
+                }
+              }
+            ]
+          }
+        };
+      }
+      return {
+        jsonrpc: "2.0",
+        id,
+        error: { code: -32602, message: `Unknown prompt: ${promptName}` }
+      };
+    }
     if (method === "roots/list") {
       return {
         jsonrpc: "2.0",
@@ -976,13 +1026,17 @@ class ForensicMCPServer {
     };
   }
   async startStdio() {
-    process.stderr.write("[MCP] Browser Forensic MCP Server started on stdio\n");
-    const logPath = "c:/Users/ASUS/Downloads/mcpdom-browser-complete-2.1.0/mcp-stdio-debug.log";
+    process.stderr.write(`[MCP] TeleDOM ${TELEDOM_VERSION.version} MCP Server started on stdio
+`);
+    const logPath = process.env.TELEDOM_MCP_DEBUG_LOG || "";
     const appendLog = (msg) => {
+      if (!logPath) return;
       try {
         fs.appendFileSync(logPath, `[${(/* @__PURE__ */ new Date()).toISOString()}] ${msg}
 `);
-      } catch {
+      } catch (err) {
+        process.stderr.write(`[MCP] debug log write failed: ${err?.message}
+`);
       }
     };
     appendLog("=== MCP Server Started ===");

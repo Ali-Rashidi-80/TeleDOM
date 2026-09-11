@@ -1,0 +1,23 @@
+{
+  "tool": "td_action_select",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "CSS selector of the select"
+      },
+      "value": {
+        "type": "string",
+        "description": "Value or label to select"
+      }
+    },
+    "required": [
+      "selector",
+      "value"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

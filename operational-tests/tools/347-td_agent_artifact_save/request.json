@@ -1,0 +1,16 @@
+{
+  "kind": "custom-tool",
+  "name": "get_unread_messages",
+  "content": {
+    "steps": [
+      "open inbox",
+      "detect unread",
+      "open thread",
+      "extract messages"
+    ]
+  },
+  "description": "agent-built abstraction over the fixture",
+  "tags": [
+    "operational"
+  ]
+}

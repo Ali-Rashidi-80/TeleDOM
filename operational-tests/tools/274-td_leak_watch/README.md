@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"growthDetected\":false,\"events\":100,\"note\":\"no sustained growth pattern detected\",\"windowMs\":60000,\"tool\":\"td_leak_watch\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"growthDetected\":false,\"events\":100,\"note\":\"no sustained growth pattern detected\",\"windowMs\":60000,\"tool\":\"td_leak_watch\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"reliability-recovery\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

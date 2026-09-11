@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { ForensicMCPServer } from '../../src/mcp/server';
 import { MemoryStorageProvider } from '../../src/storage/memory-storage';
 import { VirtualDOMNodeType } from '../../src/types/dom-node';
+import { TELEDOM_VERSION } from '../../src/intelligence/version';
 
 describe('ForensicMCPServer', () => {
   it('should handle initialize and return valid protocol version and capabilities', async () => {
@@ -17,8 +18,9 @@ describe('ForensicMCPServer', () => {
     expect(res).not.toBeNull();
     expect(res?.result).toHaveProperty('protocolVersion');
     expect(res?.result).toHaveProperty('capabilities');
-    expect((res?.result as any).serverInfo.name).toBe('teledom-v4');
-    expect((res?.result as any).serverInfo.version).toBe('12.0.0');
+    // v4.1: serverInfo derives from the authoritative version registry.
+    expect((res?.result as any).serverInfo.name).toBe('teledom');
+    expect((res?.result as any).serverInfo.version).toBe(TELEDOM_VERSION.version);
   });
 
   it('should list all available MCP debugging tools', async () => {

@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_347_td_agent_artifact_save",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"saved\":{\"id\":\"9e4576de-2e28-4614-bda5-7e03528c8f13\",\"kind\":\"custom-tool\",\"name\":\"get_unread_messages\"},\"note\":\"stored verbatim — TeleDOM never interprets agent tooling\",\"tool\":\"td_agent_artifact_save\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"agent-owned-tooling\",\"securityClass\":\"reversible\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

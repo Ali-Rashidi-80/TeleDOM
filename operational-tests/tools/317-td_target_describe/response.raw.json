@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_317_td_target_describe",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"selector\":\"#primary-action-btn\",\"result\":{\"accessibility\":{\"selector\":\"#primary-action-btn\",\"implicitRole\":\"button\",\"name\":\"⚡ Run Analysis\",\"nameSources\":[\"text content\"],\"value\":\"\",\"states\":[],\"focusable\":true,\"tabIndex\":0,\"ariaAttributes\":{},\"issues\":[]},\"fingerprint\":{\"fingerprintId\":\"fp_b778bbe0\",\"hash\":\"b778bbe0\",\"tagHierarchy\":[\"main\",\"section\",\"div\",\"button\"],\"stableAttributes\":{\"id\":\"primary-action-btn\",\"data-testid\":\"action-button\"},\"meaningfulText\":\"⚡ Run Analysis\",\"classes\":[\"btn\"],\"role\":\"button\",\"dimensions\":{\"width\":0,\"height\":0},\"ancestorPattern\":\"main>section>div>button\",\"descendantPattern\":\"\",\"volatilityRisk\":\"low\",\"volatilityReasons\":[]}},\"tool\":\"td_target_describe\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"browser-primitives\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

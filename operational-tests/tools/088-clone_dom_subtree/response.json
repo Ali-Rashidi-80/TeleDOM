@@ -1,5 +1,5 @@
 {
-  "mutationId": "mut_mtwhcqul_3",
+  "mutationId": "mut_mtx86oct_3",
   "operation": "clone_subtree",
   "success": true,
   "before": {
@@ -27,6 +27,6 @@
     "summary": "attributes +0/-0/~0; subtree nodes: 1"
   },
   "affectedSelector": "#removable-card",
-  "durationMs": 13,
+  "durationMs": 17,
   "undoable": true
 }

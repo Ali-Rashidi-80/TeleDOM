@@ -1,0 +1,66 @@
+{
+  "steps": [
+    {
+      "step": 1,
+      "tool": "first-run exploration (5 tool calls + 2 DOM scans)",
+      "success": true,
+      "detail": "{\"durationMs\":345}"
+    },
+    {
+      "step": 2,
+      "tool": "td_target_memory_save",
+      "success": true,
+      "detail": "learned target persisted"
+    },
+    {
+      "step": 3,
+      "tool": "td_agent_artifact_save",
+      "success": true,
+      "detail": "agent-owned custom tool stored"
+    },
+    {
+      "step": 4,
+      "tool": "td_workflow_save",
+      "success": true,
+      "detail": "workflow stored verbatim with version history"
+    },
+    {
+      "step": 5,
+      "tool": "td_workflow_run (reused run — 1 call)",
+      "success": true,
+      "detail": "runId=run_1789147438178_0db149ef metrics={\"stepsPlanned\":5,\"stepsExecuted\":5,\"toolCalls\":5,\"domScans\":1,\"retries\":0,\"durationMs\":338,\"tokensSavedEstimate\":1520}"
+    },
+    {
+      "step": 6,
+      "tool": "td_workflow_replay",
+      "success": true,
+      "detail": "replayedFrom=run_1789147438178_0db149ef status=SUCCESS"
+    },
+    {
+      "step": 7,
+      "tool": "td_target_memory_get → td_target_check (recovery path)",
+      "success": true,
+      "detail": "learned locator re-verified without DOM re-analysis"
+    }
+  ],
+  "kpis": {
+    "firstRun": {
+      "toolCalls": 5,
+      "domScans": 2,
+      "mcpRoundTrips": 5
+    },
+    "reusedRun": {
+      "toolCalls": 5,
+      "domScans": 1,
+      "mcpRoundTrips": 1,
+      "durationMs": 338
+    },
+    "toolCallReductionPct": 0,
+    "domScanReductionPct": 50,
+    "mcpRoundTripReductionPct": 80,
+    "tokensSavedEstimate": 1520,
+    "replaySuccess": true,
+    "unsafeActionBypass": 0,
+    "workflowCorruption": 0
+  }
+}

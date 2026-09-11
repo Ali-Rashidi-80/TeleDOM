@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_334_td_workflow_diff",
+  "method": "tools/call",
+  "params": {
+    "name": "td_workflow_diff",
+    "arguments": {
+      "name": "extension_smoke_test",
+      "aVersion": "1.0.0",
+      "bVersion": "1.1.0"
+    }
+  }
+}

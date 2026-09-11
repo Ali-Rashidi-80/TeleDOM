@@ -5,7 +5,7 @@
   "params": {
     "name": "dt_reload_extension",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }

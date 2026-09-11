@@ -1,0 +1,43 @@
+{
+  "tool": "td_target_memory_save",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "site": {
+        "type": "string",
+        "description": "Site scope (origin or *)"
+      },
+      "semanticId": {
+        "type": "string",
+        "description": "Agent-chosen semantic id, e.g. comments_tab"
+      },
+      "identity": {
+        "type": "object",
+        "description": "{ role, accessibleName, component, route, text }"
+      },
+      "locators": {
+        "type": "object",
+        "description": "{ aria, role, text, css, xpath, geometry }"
+      },
+      "confidence": {
+        "type": "number",
+        "description": "Current confidence 0..1 (default 0.8)"
+      },
+      "failedSelector": {
+        "type": "string",
+        "description": "Selector that failed (history)"
+      },
+      "notes": {
+        "type": "string",
+        "description": "Agent notes (how to re-verify, when to repair)"
+      }
+    },
+    "required": [
+      "site",
+      "semanticId"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

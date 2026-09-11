@@ -3,7 +3,7 @@
   "note": "session has no events to mutate",
   "tool": "td_simulate_runtime",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "counterfactual-simulation",
     "securityClass": "read-only"
   }

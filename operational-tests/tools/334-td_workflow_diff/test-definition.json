@@ -1,0 +1,31 @@
+{
+  "tool": "td_workflow_diff",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Workflow name"
+      },
+      "a": {
+        "type": "string",
+        "description": "Workflow A"
+      },
+      "aVersion": {
+        "type": "string",
+        "description": "Version A"
+      },
+      "b": {
+        "type": "string",
+        "description": "Workflow B"
+      },
+      "bVersion": {
+        "type": "string",
+        "description": "Version B"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

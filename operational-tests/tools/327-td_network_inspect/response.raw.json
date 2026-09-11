@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_327_td_network_inspect",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"status\":\"PASS\",\"result\":{\"url\":\"https://app.internal/dashboard\",\"title\":\"MCP Operational Acceptance DOM Fixture\",\"totalCaptured\":1,\"returnedCount\":1,\"requests\":[{\"url\":\"https://app.internal/api/seeded-request\",\"method\":\"GET\",\"status\":200,\"size\":128,\"type\":\"fetch\",\"timestamp\":1789147432829}]},\"tool\":\"td_network_inspect\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"browser-primitives\",\"securityClass\":\"read-only\"}}"
+      }
+    ],
+    "isError": false
+  }
+}

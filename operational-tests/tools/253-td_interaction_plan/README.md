@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 0ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"PASS\",\"plan\":{\"planId\":\"iplan:c65cc7086f\",\"steps\":[{\"action\":\"resolve-target\",\"query\":{}},{\"action\":\"verify-target\",\"postcondition\":\"resolved target matches intent with confidence ≥ 0.55\"},{\"action\":\"execute-interaction\",\"postconditions\":[\"target state changed as intended\",\"no unexpected runtime errors\"]}],\"verification\":{\"mustHold\":[\"interaction effect observed\"],\"mustNotHold\":[\"runtime exception\",\"unexpected navigation\"]}},\"note\":\"execute via td_interaction_execute (requires live adapter)\",\"tool\":\"td_interaction_plan\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"PASS\",\"plan\":{\"planId\":\"iplan:a2afbe4d59\",\"steps\":[{\"action\":\"resolve-target\",\"query\":{}},{\"action\":\"verify-target\",\"postcondition\":\"resolved target matches intent with confidence ≥ 0.55\"},{\"action\":\"execute-interaction\",\"postconditions\":[\"target state changed as intended\",\"no unexpected runtime errors\"]}],\"verification\":{\"mustHold\":[\"interaction effect observed\"],\"mustNotHold\":[\"runtime exception\",\"unexpected navigation\"]}},\"note\":\"execute via td_interaction_execute (requires live adapter)\",\"tool\":\"td_interaction_plan\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"targeting-interaction\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

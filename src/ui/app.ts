@@ -14,6 +14,7 @@ import { VirtualQueryEngine } from '../reconstruction/virtual-query';
 import { BaseEvent } from '../types/events';
 import { DOMSnapshot, LogicalNodeId, VirtualDOMNode, VirtualDOMNodeType } from '../types/dom-node';
 import { SessionMetadata } from '../types/session';
+import { mountObservatory } from './observatory';
 
 class ForensicDashboardApp {
   private storage: ForensicStorageProvider;
@@ -38,7 +39,83 @@ class ForensicDashboardApp {
     this.initTabs();
     this.initControls();
     this.initSearch();
+    this.initWorkflowsPanel();
+    // v4.1 fix (E-15): mountObservatory() existed but was never called —
+    // the Observatory was dead code. It renders when an investigation
+    // payload arrives (window event 'tdom-observatory-payload').
+    try {
+      const panel = mountObservatory();
+      if (panel) {
+        (window as any).__TELEDOM_OBSERVATORY__ = panel;
+        (window as any).addEventListener('tdom-observatory-payload', ((e: CustomEvent) => {
+          panel.render(e.detail);
+        }) as EventListener);
+      }
+    } catch (err: any) {
+      console.warn('[TeleDOM] observatory mount failed:', err?.message);
+    }
     await this.loadSessionsList();
+  }
+
+  /** v4.1 — Workflows tab: agent-owned workflows + runs from the bridge. */
+  private initWorkflowsPanel(): void {
+    const refreshBtn = document.getElementById('btn-refresh-workflows');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => void this.loadWorkflows());
+    }
+    void this.loadWorkflows();
+  }
+
+  private async callBridgeTool(name: string, args: Record<string, unknown> = {}): Promise<any> {
+    const port = (window as any).__TELEDOM_BRIDGE_PORT__ ?? 3847;
+    const res = await fetch(`http://127.0.0.1:${port}/api/mcp/tool`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, arguments: args }),
+    });
+    if (!res.ok) throw new Error(`bridge HTTP ${res.status}`);
+    const body = await res.json();
+    const text = body?.content?.[0]?.text ?? '{}';
+    try { return JSON.parse(text); } catch { return text; }
+  }
+
+  private async loadWorkflows(): Promise<void> {
+    const list = document.getElementById('workflows-list');
+    const runsList = document.getElementById('workflow-runs-list');
+    const badge = document.getElementById('badge-workflow-count');
+    if (!list || !runsList) return;
+    try {
+      const [wf, runs] = await Promise.all([
+        this.callBridgeTool('td_workflow_list'),
+        this.callBridgeTool('td_workflow_runs', { limit: 15 }),
+      ]);
+      const workflows = Array.isArray(wf?.workflows) ? wf.workflows : [];
+      const runRows = Array.isArray(runs?.runs) ? runs.runs : [];
+      if (badge) badge.textContent = String(workflows.length);
+      list.innerHTML = workflows.length === 0
+        ? '<div style="color: var(--text-muted, #888); padding: 8px; font-size: 12px;">No workflows saved yet. Agents create them via td_workflow_save.</div>'
+        : workflows.map((w: any) => `
+          <div style="background: var(--bg-surface-elevated, #1a1a1a); border: 1px solid var(--border-default, #333); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-weight: 700; font-size: 13px;">${String(w.name ?? '?')} <span style="color: var(--text-muted, #888); font-weight: 400;">v${String(w.version ?? '?')}</span></div>
+              <div style="font-size: 11px; color: var(--text-muted, #888);">${String(w.description ?? '')} · ${String(w.steps ?? 0)} steps · ${String(w.versions ?? 1)} versions</div>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted, #888);">${Array.isArray(w.tags) ? w.tags.join(', ') : ''}</div>
+          </div>`).join('');
+      runsList.innerHTML = runRows.length === 0
+        ? '<div style="color: var(--text-muted, #888); padding: 8px; font-size: 12px;">No execution records yet.</div>'
+        : runRows.map((r: any) => {
+          const color = r.status === 'SUCCESS' ? '#2e7d32' : r.status === 'FAILED' ? '#c62828' : '#b26a00';
+          return `<div style="background: var(--bg-surface-elevated, #1a1a1a); border: 1px solid var(--border-default, #333); border-radius: 6px; padding: 8px 14px; display: flex; justify-content: space-between; font-size: 11px;">
+            <span>${String(r.workflowName ?? '?')}@${String(r.workflowVersion ?? '?')} · run ${String((r.id ?? '').slice(0, 18))}</span>
+            <span style="color: ${color}; font-weight: 700;">${String(r.status ?? '?')}</span>
+            <span style="color: var(--text-muted, #888);">${String(r.steps ?? 0)} steps · ${String(((r.durationMs ?? 0) / 1000).toFixed(1))}s${r.replayOf ? ' · replay' : ''}</span>
+          </div>`;
+        }).join('');
+    } catch (err: any) {
+      list.innerHTML = `<div style="color: var(--text-muted, #888); padding: 8px; font-size: 12px;">Bridge not reachable (${err?.message ?? err}). Start the bridge server to browse agent workflows.</div>`;
+      runsList.innerHTML = '';
+    }
   }
 
   private initTabs(): void {

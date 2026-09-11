@@ -32,7 +32,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"UNSUPPORTED\",\"reason\":\"policy mode is passive — active testing requires explicit authorization (set mode=authorized-active)\",\"policy\":{\"mode\":\"passive\",\"allowedOrigins\":[],\"blockedOrigins\":[],\"rateLimitPerMinute\":30,\"concurrencyLimit\":2,\"requestBudget\":200,\"testCategories\":[\"passive-observation\"],\"destructiveActionsDisabled\":true,\"killSwitch\":false},\"tool\":\"td_simulate_failure\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"counterfactual-simulation\",\"securityClass\":\"policy-gated\"}}"
+        "text": "{\"status\":\"UNSUPPORTED\",\"reason\":\"policy mode is passive — active testing requires explicit authorization (set mode=authorized-active)\",\"policy\":{\"mode\":\"passive\",\"allowedOrigins\":[],\"blockedOrigins\":[],\"rateLimitPerMinute\":30,\"concurrencyLimit\":2,\"requestBudget\":200,\"testCategories\":[\"passive-observation\"],\"destructiveActionsDisabled\":true,\"killSwitch\":false},\"tool\":\"td_simulate_failure\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"counterfactual-simulation\",\"securityClass\":\"policy-gated\"}}"
       }
     ],
     "isError": false

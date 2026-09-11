@@ -32,7 +32,7 @@ Inspects a captured console message in full
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"messageId\": \"con_1\",\n  \"level\": \"warn\",\n  \"text\": \"Seeded console warning for unified log verification\",\n  \"timestamp\": 1789102368252\n}"
+        "text": "{\n  \"messageId\": \"con_1\",\n  \"level\": \"warn\",\n  \"text\": \"Seeded console warning for unified log verification\",\n  \"timestamp\": 1789147432844\n}"
       }
     ]
   }

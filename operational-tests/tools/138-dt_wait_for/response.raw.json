@@ -5,7 +5,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"condition\": \"load\",\n  \"met\": true,\n  \"waitedMs\": 0,\n  \"pageId\": \"page_1\",\n  \"state\": {\n    \"readyState\": \"complete\",\n    \"inflight\": 0\n  }\n}"
+        "text": "{\n  \"condition\": \"load\",\n  \"met\": true,\n  \"waitedMs\": 3,\n  \"pageId\": \"page_1\",\n  \"state\": {\n    \"readyState\": \"complete\",\n    \"inflight\": 0\n  }\n}"
       }
     ]
   }

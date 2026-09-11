@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "action": "press",
+  "key": "Enter",
+  "result": {
+    "success": true,
+    "keys": [
+      "Enter"
+    ],
+    "targetSelector": "#search-input",
+    "eventsFired": [
+      "keydown:Enter",
+      "keyup:Enter"
+    ]
+  },
+  "tool": "td_action_press",
+  "capability": {
+    "version": "4.1.0",
+    "category": "browser-primitives",
+    "securityClass": "side-effects"
+  }
+}

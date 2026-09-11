@@ -1,0 +1,35 @@
+{
+  "tool": "td_workflow_run",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Saved workflow name"
+      },
+      "version": {
+        "type": "string",
+        "description": "Version to run"
+      },
+      "workflow": {
+        "type": "object",
+        "description": "Inline workflow object"
+      },
+      "inputs": {
+        "type": "object",
+        "description": "Input values for {{inputs.*}} templates"
+      },
+      "approvedSteps": {
+        "type": "array",
+        "description": "Step ids approved after a BLOCKED run"
+      },
+      "dryRun": {
+        "type": "boolean",
+        "description": "Validate + plan only, do not execute"
+      }
+    }
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

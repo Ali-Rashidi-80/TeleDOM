@@ -2,8 +2,8 @@
   "tool": "td_temporal_query",
   "index": 207,
   "status": "PASS",
-  "executionTimeMs": 3,
+  "executionTimeMs": 2,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:49.100Z"
+  "timestamp": "2026-09-11T17:23:53.904Z"
 }

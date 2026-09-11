@@ -3,7 +3,7 @@
   "note": "target contract requires a resolution with a best candidate (run td_resolve_target first)",
   "tool": "td_target_contract",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "targeting-interaction",
     "securityClass": "read-only"
   }

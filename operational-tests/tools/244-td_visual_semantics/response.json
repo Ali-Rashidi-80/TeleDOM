@@ -19,7 +19,7 @@
   "note": "visual↔semantic association is heuristic in recorded mode; correlate with td_visual_causality for evidence",
   "tool": "td_visual_semantics",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "semantic-component",
     "securityClass": "read-only"
   }

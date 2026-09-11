@@ -7,6 +7,6 @@
   {
     "assertion": "Inspects live active page URL, dimensions, and readyState",
     "passed": true,
-    "details": "url, title, origin, viewport, documentDimensions, activeElement, visibilityState, readyState, framesCount"
+    "details": "url, title, origin, viewport, documentDimensions, activeElement, focusedElement, visibilityState, readyState, framesCount"
   }
 ]

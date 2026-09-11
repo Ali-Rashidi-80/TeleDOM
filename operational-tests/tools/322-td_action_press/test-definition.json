@@ -1,0 +1,18 @@
+{
+  "tool": "td_action_press",
+  "category": "historical",
+  "executionMode": "historical",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "type": "string",
+        "description": "Key or combo"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "expectedBehavior": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)"
+}

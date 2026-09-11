@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 2ms
+**Duration**: 1ms
 
 ## Test Objective
 Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)
@@ -34,7 +34,7 @@ Returns a structured v4 intelligence result with honest status taxonomy (PASS/IN
     "content": [
       {
         "type": "text",
-        "text": "{\"status\":\"INCONCLUSIVE\",\"investigation\":{\"status\":\"INCONCLUSIVE\",\"rootCause\":null,\"bestHypothesis\":null,\"counterfactual\":null,\"verification\":\"INCONCLUSIVE\",\"proofId\":null,\"plan\":{\"incidentId\":\"incident:1:eb574aee\",\"steps\":[{\"id\":\"scope\",\"status\":\"FAILED\",\"result\":\"no symptom events\"},{\"id\":\"create-incident\",\"status\":\"PENDING\"},{\"id\":\"baseline\",\"status\":\"PENDING\"},{\"id\":\"observe\",\"status\":\"PENDING\"},{\"id\":\"timeline\",\"status\":\"PENDING\"},{\"id\":\"reconstruct\",\"status\":\"PENDING\"},{\"id\":\"correlate\",\"status\":\"PENDING\"},{\"id\":\"causal-graph\",\"status\":\"PENDING\"},{\"id\":\"hypotheses\",\"status\":\"PENDING\"},{\"id\":\"counterfactual\",\"status\":\"PENDING\"},{\"id\":\"verify\",\"status\":\"PENDING\"},{\"id\":\"evidence-package\",\"status\":\"PENDING\"},{\"id\":\"lesson\",\"status\":\"PENDING\"}]},\"warnings\":[\"symptom predicate matched no events — investigation cannot proceed\"],\"resourceState\":{\"stepsExecuted\":0,\"eventsAnalyzed\":0}},\"tool\":\"td_investigate\",\"capability\":{\"version\":\"12.0.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"read-only\"}}"
+        "text": "{\"status\":\"INCONCLUSIVE\",\"investigation\":{\"status\":\"INCONCLUSIVE\",\"rootCause\":null,\"bestHypothesis\":null,\"counterfactual\":null,\"verification\":\"INCONCLUSIVE\",\"proofId\":null,\"plan\":{\"incidentId\":\"incident:1:04380bc6\",\"steps\":[{\"id\":\"scope\",\"status\":\"FAILED\",\"result\":\"no symptom events\"},{\"id\":\"create-incident\",\"status\":\"PENDING\"},{\"id\":\"baseline\",\"status\":\"PENDING\"},{\"id\":\"observe\",\"status\":\"PENDING\"},{\"id\":\"timeline\",\"status\":\"PENDING\"},{\"id\":\"reconstruct\",\"status\":\"PENDING\"},{\"id\":\"correlate\",\"status\":\"PENDING\"},{\"id\":\"causal-graph\",\"status\":\"PENDING\"},{\"id\":\"hypotheses\",\"status\":\"PENDING\"},{\"id\":\"counterfactual\",\"status\":\"PENDING\"},{\"id\":\"verify\",\"status\":\"PENDING\"},{\"id\":\"evidence-package\",\"status\":\"PENDING\"},{\"id\":\"lesson\",\"status\":\"PENDING\"}]},\"warnings\":[\"symptom predicate matched no events — investigation cannot proceed\"],\"resourceState\":{\"stepsExecuted\":0,\"eventsAnalyzed\":0}},\"tool\":\"td_investigate\",\"capability\":{\"version\":\"4.1.0\",\"category\":\"investigation-orchestration\",\"securityClass\":\"read-only\"}}"
       }
     ],
     "isError": false

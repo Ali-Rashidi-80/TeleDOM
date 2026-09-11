@@ -7,7 +7,7 @@
   "selfVerification": true,
   "tool": "td_evidence_proof",
   "capability": {
-    "version": "12.0.0",
+    "version": "4.1.0",
     "category": "evidence-provenance",
     "securityClass": "read-only"
   }

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "valid": true,
+  "issues": [],
+  "stepCount": 5,
+  "note": "structural envelope validation only — semantics are the agent’s responsibility",
+  "tool": "td_workflow_validate",
+  "capability": {
+    "version": "4.1.0",
+    "category": "workflow-runtime",
+    "securityClass": "read-only"
+  }
+}

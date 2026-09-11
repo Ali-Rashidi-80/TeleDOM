@@ -5,7 +5,7 @@
   "params": {
     "name": "toggle_extension",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }

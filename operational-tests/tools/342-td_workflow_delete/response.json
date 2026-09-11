@@ -1,0 +1,10 @@
+{
+  "status": "INCONCLUSIVE",
+  "error": "name (string) is required",
+  "tool": "td_workflow_delete",
+  "capability": {
+    "version": "4.1.0",
+    "category": "workflow-runtime",
+    "securityClass": "reversible"
+  }
+}

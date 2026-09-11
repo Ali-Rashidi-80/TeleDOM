@@ -3,6 +3,10 @@ import { MCPBridgeServer } from './mcp/bridge-server';
 import { FileStorageProvider } from './storage/file-storage';
 import * as readline from 'readline';
 import { execSync } from 'child_process';
+// v4.1 fix (E-16): static import instead of a CJS `require()` inside an
+// ESM module (crashed when run unbundled) + tool count no longer defaults
+// to a stale number.
+import { TELEDOM_VERSION } from './intelligence/version';
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -17,22 +21,32 @@ async function checkBridgeHealth(port = 3847): Promise<any> {
   return null;
 }
 
-function freePortWindows(port = 3847): boolean {
+/** v4.1 fix (E-16): cross-platform port freeing — was Windows-only
+ * (netstat/taskkill), a silent no-op on macOS/Linux. */
+function freePort(port = 3847): boolean {
+  const isWindows = process.platform === 'win32';
   try {
-    const stdout = execSync(`netstat -ano | findstr :${port}`, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] });
-    const lines = stdout.trim().split('\n');
+    const stdout = isWindows
+      ? execSync(`netstat -ano | findstr :${port}`, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] })
+      : execSync(`lsof -t -i :${port} 2>/dev/null || true`, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] });
     const pids = new Set<string>();
-    for (const line of lines) {
-      const parts = line.trim().split(/\s+/);
-      const pid = parts[parts.length - 1];
-      if (pid && pid !== '0' && pid !== String(process.pid)) {
-        pids.add(pid);
+    if (isWindows) {
+      for (const line of stdout.trim().split('\n')) {
+        if (!line.trim()) continue;
+        const parts = line.trim().split(/\s+/);
+        const pid = parts[parts.length - 1];
+        if (pid && pid !== '0' && pid !== String(process.pid)) pids.add(pid);
+      }
+    } else {
+      for (const pid of stdout.trim().split('\n')) {
+        const trimmed = pid.trim();
+        if (trimmed && trimmed !== String(process.pid)) pids.add(trimmed);
       }
     }
     for (const pid of pids) {
       try {
-        execSync(`taskkill /F /PID ${pid}`, { stdio: 'ignore' });
-      } catch {}
+        execSync(isWindows ? `taskkill /F /PID ${pid}` : `kill -9 ${pid}`, { stdio: 'ignore' });
+      } catch { /* best effort per pid */ }
     }
     return pids.size > 0;
   } catch {
@@ -61,10 +75,9 @@ function printHeader() {
   console.log('====================================================================');
   // Version + tool count derive from the authoritative v4 registry
   // (src/intelligence/version.ts + capability registry) — never hardcoded drift.
-  const { TELEDOM_VERSION } = require('./intelligence/version') as typeof import('./intelligence/version');
-  const toolCount = process.env.TELEDOM_TOOL_COUNT ? parseInt(process.env.TELEDOM_TOOL_COUNT, 10) : 306;
+  const toolCount = process.env.TELEDOM_TOOL_COUNT ? parseInt(process.env.TELEDOM_TOOL_COUNT, 10) : 350;
   console.log(`  🚀 ${TELEDOM_VERSION.productName} (v${TELEDOM_VERSION.version})`);
-  console.log(`  ⚡ ${toolCount} Agent Tools · Temporal Browser Intelligence · Live Control`);
+  console.log(`  ⚡ ${toolCount} Agent Tools · Temporal Browser Intelligence · Agent-Owned Workflow Runtime · Live Control`);
   console.log('====================================================================\n');
 }
 
@@ -157,7 +170,7 @@ async function startInteractivePrompt(port = 3847) {
         }
       } else if (cmd === 'restart') {
         console.log('Freeing port 3847 and restarting Bridge Server...');
-        freePortWindows(port);
+        freePort(port);
         console.log('Port freed. Please run the program again to start fresh.');
         process.exit(0);
       } else {
@@ -204,14 +217,14 @@ async function main() {
 
     await bridge.start();
     console.log(`✔ WebSocket & HTTP Bridge Server started successfully on: http://127.0.0.1:${bridgePort}`);
-    console.log(`✔ Ready for Chrome Extension connection & AI Agent tool calls (43 Tools).\n`);
+    console.log(`✔ Ready for Chrome Extension connection & AI Agent tool calls (350 Tools).\n`);
 
     await startInteractivePrompt(bridgePort);
   } catch (err: any) {
     if (err?.code === 'EADDRINUSE') {
       console.log(`⚠️ Port ${bridgePort} is currently in use by another process.`);
       console.log('Freeing port and restarting bridge server...\n');
-      freePortWindows(bridgePort);
+      freePort(bridgePort);
       
       const storageDir = process.env.FORENSIC_STORAGE_DIR || './.forensic_sessions';
       const storage = new FileStorageProvider(storageDir);

@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "count": 1,
+  "targets": [
+    {
+      "id": "example_test__primary_action_button",
+      "site": "example.test",
+      "semanticId": "primary_action_button",
+      "confidence": 0.95,
+      "css": "#primary-action-btn",
+      "updatedAt": "2026-09-11T17:23:57.421Z"
+    }
+  ],
+  "tool": "td_target_memory_list",
+  "capability": {
+    "version": "4.1.0",
+    "category": "agent-owned-tooling",
+    "securityClass": "read-only"
+  }
+}

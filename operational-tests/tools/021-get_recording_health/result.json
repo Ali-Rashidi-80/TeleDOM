@@ -2,8 +2,8 @@
   "tool": "get_recording_health",
   "index": 21,
   "status": "PASS",
-  "executionTimeMs": 10,
+  "executionTimeMs": 7,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:37.161Z"
+  "timestamp": "2026-09-11T17:23:41.803Z"
 }

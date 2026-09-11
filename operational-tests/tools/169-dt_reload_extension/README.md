@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 3ms
 
 ## Test Objective
 Reloads the simulated extension
@@ -17,7 +17,7 @@ Reloads the simulated extension
   "params": {
     "name": "dt_reload_extension",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom"
+      "extensionId": "teledom@teledom"
     }
   }
 }
@@ -32,7 +32,7 @@ Reloads the simulated extension
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"reloaded\": true,\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"detail\": {\n    \"reloaded\": true,\n    \"extensionId\": \"forensic-recorder@mcpdom\",\n    \"simulated\": true,\n    \"note\": \"Simulated reload: extension state preserved.\"\n  },\n  \"mode\": \"LIVE\"\n}"
+        "text": "{\n  \"reloaded\": true,\n  \"extensionId\": \"teledom@teledom\",\n  \"detail\": {\n    \"reloaded\": true,\n    \"extensionId\": \"teledom@teledom\",\n    \"simulated\": true,\n    \"note\": \"Simulated reload: extension state preserved.\"\n  },\n  \"mode\": \"LIVE\"\n}"
       }
     ]
   }

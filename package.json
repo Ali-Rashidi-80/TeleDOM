@@ -1,7 +1,7 @@
 {
   "name": "teledom",
-  "version": "4.0.0",
-  "description": "TeleDOM v4 — Temporal Browser Intelligence Engine: forensic recorder, DOM time-travel, causal/counterfactual reasoning, autonomous investigation, proof engine, 306-tool MCP surface (td_/dt_/fx_)",
+  "version": "4.1.0",
+  "description": "TeleDOM v4.1 — Temporal Browser Intelligence Engine + Agent-Owned Workflow Runtime: forensic recorder, DOM time-travel, causal/counterfactual reasoning, autonomous investigation, proof engine, agent-owned workflows, browser primitive facade, target memory, Python SDK (350-tool MCP surface)",
   "type": "module",
   "main": "dist/server/mcp-server.js",
   "bin": {
@@ -39,7 +39,8 @@
     "setup:project": "node ./bin/cli.js install",
     "bench": "vitest run tests/intelligence/suite-reports.test.ts",
     "golden": "vitest run tests/intelligence/suite-reports.test.ts",
-    "chaos": "vitest run tests/intelligence/suite-reports.test.ts"
+    "chaos": "vitest run tests/intelligence/suite-reports.test.ts",
+    "test:sdk": "python sdk/python/test_sdk.py"
   },
   "keywords": [
     "browser",

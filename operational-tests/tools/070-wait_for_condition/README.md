@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 103ms
+**Duration**: 107ms
 
 ## Test Objective
 Waits for DOM stability across consecutive polls

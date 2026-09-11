@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 2ms
+**Duration**: 4ms
 
 ## Test Objective
 Emulates device profile with honest UA reporting

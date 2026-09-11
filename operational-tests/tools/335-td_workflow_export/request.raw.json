@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_335_td_workflow_export",
+  "method": "tools/call",
+  "params": {
+    "name": "td_workflow_export",
+    "arguments": {
+      "name": "extension_smoke_test"
+    }
+  }
+}

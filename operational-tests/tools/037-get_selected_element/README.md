@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `live`
-**Duration**: 1ms
+**Duration**: 4ms
 
 ## Test Objective
 Retrieves selected element metadata
@@ -30,7 +30,7 @@ Retrieves selected element metadata
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"selected\": false,\n  \"message\": \"No element has been selected yet. Use Ctrl + Shift + Click in the browser or call start_element_picker.\"\n}"
+        "text": "{\n  \"selected\": true,\n  \"element\": {\n    \"selected\": false,\n    \"message\": \"No element has been selected yet. Use Ctrl + Shift + Click in the browser or call start_element_picker.\"\n  }\n}"
       }
     ]
   }
@@ -39,4 +39,4 @@ Retrieves selected element metadata
 
 ## Assertions
 - [x] **JSON-RPC 2.0 Stdio Status Code & Envelope**: Successful JSON-RPC 2.0 resolution across stdio pipe
-- [x] **Retrieves selected element metadata**: selected, message
+- [x] **Retrieves selected element metadata**: selected, element

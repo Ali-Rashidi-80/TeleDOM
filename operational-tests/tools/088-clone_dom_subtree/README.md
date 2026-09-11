@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 16ms
+**Duration**: 21ms
 
 ## Test Objective
 Clones subtree without duplicating ids
@@ -34,7 +34,7 @@ Clones subtree without duplicating ids
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"mutationId\": \"mut_mtwhcqul_3\",\n  \"operation\": \"clone_subtree\",\n  \"success\": true,\n  \"before\": {\n    \"selector\": \"#removable-card\",\n    \"outerHtml\": \"<div id=\\\"removable-card\\\" class=\\\"card\\\" style=\\\"background: #334155;\\\">\\n          <span id=\\\"removable-label\\\">This element can be unmounted or restyled</span>\\n        </div>\",\n    \"attributes\": {\n      \"id\": \"removable-card\",\n      \"class\": \"card\",\n      \"style\": \"background: #334155;\"\n    }\n  },\n  \"after\": {\n    \"selector\": \"#removable-card\",\n    \"outerHtml\": \"<div id=\\\"removable-card\\\" class=\\\"card\\\" style=\\\"background: #334155;\\\">\\n          <span id=\\\"removable-label\\\">This element can be unmounted or restyled</span>\\n        </div>\",\n    \"attributes\": {\n      \"id\": \"removable-card\",\n      \"class\": \"card\",\n      \"style\": \"background: #334155;\"\n    }\n  },\n  \"diff\": {\n    \"added\": 0,\n    \"removed\": 0,\n    \"changed\": 0,\n    \"summary\": \"attributes +0/-0/~0; subtree nodes: 1\"\n  },\n  \"affectedSelector\": \"#removable-card\",\n  \"durationMs\": 13,\n  \"undoable\": true\n}"
+        "text": "{\n  \"mutationId\": \"mut_mtx86oct_3\",\n  \"operation\": \"clone_subtree\",\n  \"success\": true,\n  \"before\": {\n    \"selector\": \"#removable-card\",\n    \"outerHtml\": \"<div id=\\\"removable-card\\\" class=\\\"card\\\" style=\\\"background: #334155;\\\">\\n          <span id=\\\"removable-label\\\">This element can be unmounted or restyled</span>\\n        </div>\",\n    \"attributes\": {\n      \"id\": \"removable-card\",\n      \"class\": \"card\",\n      \"style\": \"background: #334155;\"\n    }\n  },\n  \"after\": {\n    \"selector\": \"#removable-card\",\n    \"outerHtml\": \"<div id=\\\"removable-card\\\" class=\\\"card\\\" style=\\\"background: #334155;\\\">\\n          <span id=\\\"removable-label\\\">This element can be unmounted or restyled</span>\\n        </div>\",\n    \"attributes\": {\n      \"id\": \"removable-card\",\n      \"class\": \"card\",\n      \"style\": \"background: #334155;\"\n    }\n  },\n  \"diff\": {\n    \"added\": 0,\n    \"removed\": 0,\n    \"changed\": 0,\n    \"summary\": \"attributes +0/-0/~0; subtree nodes: 1\"\n  },\n  \"affectedSelector\": \"#removable-card\",\n  \"durationMs\": 17,\n  \"undoable\": true\n}"
       }
     ]
   }

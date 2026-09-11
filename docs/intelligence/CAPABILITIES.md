@@ -1,6 +1,6 @@
 # TeleDOM v4 — Capability Surface (generated)
 
-Version: 4.0.0 · td_* capabilities: 100 · categories: 10 × 10 · experimental: 1
+Version: 4.1.0 · td_* capabilities: 144 · categories: 10 × 10 · experimental: 1
 
 ## temporal-intelligence
 
@@ -151,4 +151,63 @@ Version: 4.0.0 · td_* capabilities: 100 · categories: 10 × 10 · experimental
 | `td_memory` | read-only | low | live/recorded/simulation | no | Store and retrieve durable project/session investigation knowledge (provenance + confidence). |
 | `td_context_optimize` | read-only | low | live/recorded/simulation | no | Select the smallest sufficient evidence/state set for the agent (L0–L4). |
 | `td_incident_close` | policy-gated | low | live/recorded/simulation | no | Close an incident ONLY after reproduction, remediation and verification criteria pass. |
+
+## browser-primitives
+
+| Tool | Security | Cost | Modes | Experimental | Description |
+|---|---|---|---|---|---|
+| `td_browser_navigate` | side-effects | low | live/simulation | no | Navigate the browser to a URL (optionally in a new tab, then wait for DOM stability). |
+| `td_browser_back` | side-effects | low | live/simulation | no | Go back one step in browser history. |
+| `td_browser_forward` | side-effects | low | live/simulation | no | Go forward one step in browser history. |
+| `td_browser_refresh` | side-effects | low | live/simulation | no | Reload the current tab. |
+| `td_dom_inspect` | read-only | low | live/simulation | no | Observe the current page (structure, ready state, url, interactive inventory) — the agent’s eyes. |
+| `td_dom_query` | read-only | low | live/simulation | no | Search the DOM by text/tag/attribute patterns with scored results — find elements without knowing selectors. |
+| `td_dom_extract` | read-only | low | live/simulation | no | Extract structured data from any selector with per-field expressions (works on ANY site — no API needed). |
+| `td_dom_snapshot` | read-only | low | live/simulation | no | Capture the current DOM snapshot (html or structured json). |
+| `td_target_find` | read-only | low | live/simulation | no | Find an element by selector, xpath or text and build the canonical multi-strategy TARGET object with confidence. |
+| `td_target_check` | read-only | low | live/simulation | no | Verify a target is still resolvable at the required confidence — the cheap check that replaces full DOM re-analysis. |
+| `td_target_describe` | read-only | low | live/simulation | no | Describe a target’s identity: accessibility properties + structural fingerprint (what to store in target memory). |
+| `td_action_click` | side-effects | low | live/simulation | no | Click an element with before/after state and effect measurement. |
+| `td_action_type` | side-effects | low | live/simulation | no | Type text into an input element. |
+| `td_action_select` | side-effects | low | live/simulation | no | Select an option in a select element. |
+| `td_action_hover` | side-effects | low | live/simulation | no | Hover over an element (menus, tooltips). |
+| `td_action_press` | side-effects | low | live/simulation | no | Press a keyboard key / combo page-wide (Enter, Escape, ctrl+s…). |
+| `td_action_scroll` | side-effects | low | live/simulation | no | Scroll the page by deltas or scroll an element into view. |
+| `td_wait` | read-only | low | live/simulation | no | Wait for a meaningful condition (dom_stable, selector_present/visible/absent, text_present, url_contains, element_count, readiness_state). |
+| `td_screenshot` | read-only | low | live | no | Capture a screenshot of the current page as visual evidence. |
+| `td_execute_script` | dangerous | low | live/simulation | no | Escape hatch: execute JavaScript in the page (Shadow DOM, canvas UI, virtualized lists — the agent decides the method). |
+| `td_network_inspect` | read-only | low | live/simulation | no | Escape hatch: read captured network requests (optionally filtered by URL substring). |
+| `td_console_read` | read-only | low | live/simulation | no | Escape hatch: read captured console logs (optionally filtered by level). |
+
+## workflow-runtime
+
+| Tool | Security | Cost | Modes | Experimental | Description |
+|---|---|---|---|---|---|
+| `td_workflow_save` | reversible | low | live/recorded/simulation | no | Save an agent-authored workflow (envelope-validated, stored verbatim with full version history). |
+| `td_workflow_get` | read-only | low | live/recorded/simulation | no | Get a saved workflow (current or a specific version). |
+| `td_workflow_list` | read-only | low | live/recorded/simulation | no | List saved workflows with versions, step counts and tags. |
+| `td_workflow_update` | reversible | low | live/recorded/simulation | no | Update an existing workflow (agent edits the definition; version history preserved). |
+| `td_workflow_clone` | read-only | low | live/recorded/simulation | no | Clone a workflow (optionally to a new name/version) — the agent’s edit starting point. |
+| `td_workflow_diff` | read-only | low | live/recorded/simulation | no | Structural diff between two workflows or two versions of one workflow. |
+| `td_workflow_export` | read-only | low | live/recorded/simulation | no | Export a workflow (+ version history) as a portable JSON package. |
+| `td_workflow_import` | reversible | low | live/recorded/simulation | no | Import a workflow package from td_workflow_export (cross-project portability). |
+| `td_workflow_validate` | read-only | low | live/recorded/simulation | no | Validate a workflow envelope (structure only — semantics are the agent’s responsibility). |
+| `td_workflow_run` | policy-gated | high | live/recorded/simulation | no | DUMB execution: run a saved or inline workflow step-by-step through the full MCP pipeline with policy enforcement (approval gates, tool/domain allowlists, caps), template variables and a deterministic execution record. |
+| `td_workflow_runs` | read-only | low | live/recorded/simulation | no | List deterministic execution records (optionally filtered by workflow). |
+| `td_workflow_run_get` | read-only | low | live/recorded/simulation | no | Get a full execution record: per-step status, args-as-executed, timing, metrics, errors. |
+| `td_workflow_replay` | policy-gated | high | live/recorded/simulation | no | Deterministically re-execute a recorded run’s steps verbatim (replay run #183 — why did it succeed last week?). |
+| `td_workflow_delete` | reversible | low | live/recorded/simulation | no | Delete a workflow and its version history (execution runs are kept as evidence). |
+
+## agent-owned-tooling
+
+| Tool | Security | Cost | Modes | Experimental | Description |
+|---|---|---|---|---|---|
+| `td_target_memory_save` | read-only | low | live/recorded/simulation | no | Save a learned target (semantic identity + locators + confidence + history) so future runs skip DOM re-analysis. |
+| `td_target_memory_get` | read-only | low | live/recorded/simulation | no | Get a learned target by site + semanticId. |
+| `td_target_memory_list` | read-only | low | live/recorded/simulation | no | List learned targets (optionally filtered by site/semanticId). |
+| `td_target_memory_delete` | reversible | low | live/recorded/simulation | no | Delete a learned target. |
+| `td_agent_artifact_save` | reversible | low | live/recorded/simulation | no | Save an agent artifact (custom tool, script, policy, memory, note) — stored verbatim, never interpreted. |
+| `td_agent_artifact_get` | read-only | low | live/recorded/simulation | no | Get an agent artifact by kind + name. |
+| `td_agent_artifact_list` | read-only | low | live/recorded/simulation | no | List agent artifacts (optionally by kind/tag). |
+| `td_agent_artifact_delete` | reversible | low | live/recorded/simulation | no | Delete an agent artifact. |
 

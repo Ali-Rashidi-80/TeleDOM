@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_340_td_workflow_run_get",
+  "method": "tools/call",
+  "params": {
+    "name": "td_workflow_run_get",
+    "arguments": {
+      "runId": "run_none"
+    }
+  }
+}

@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
-import { DEVTOOLS_TOOLS, FORENSICS_TOOLS } from './unified-tools-list.mjs';
+import { DEVTOOLS_TOOLS, FORENSICS_TOOLS, TELEDOM_TOOLS } from './unified-tools-list.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -140,6 +140,10 @@ const ALL_TOOLS = [
   ...DEVTOOLS_TOOLS,
   // §17 the 30 MCPDOM-native advanced forensic capabilities (fx_ namespace, 31 tools)
   ...FORENSICS_TOOLS,
+  // v4.1 (E-2 fix): the full TeleDOM intelligence surface — previously the
+  // CLI allowlist omitted ALL td_* tools, forcing manual approval on every
+  // td_ call in CLI-installed agents.
+  ...TELEDOM_TOOLS,
 ];
 
 const SERVER_SCRIPT_PATH = path.join(ROOT_DIR, 'bin', 'mcp-server.js').replace(/\\/g, '/');

@@ -3,7 +3,7 @@
 **Status**: **PASS** (2/2 Assertions Passed)
 **Transport**: `JSON-RPC 2.0 over Stdio Subprocess`
 **Execution Mode**: `historical`
-**Duration**: 0ms
+**Duration**: 5ms
 
 ## Test Objective
 Sets simulated extension enabled state
@@ -17,7 +17,7 @@ Sets simulated extension enabled state
   "params": {
     "name": "set_extension_enabled",
     "arguments": {
-      "extensionId": "forensic-recorder@mcpdom",
+      "extensionId": "teledom@teledom",
       "enabled": true
     }
   }
@@ -33,7 +33,7 @@ Sets simulated extension enabled state
     "content": [
       {
         "type": "text",
-        "text": "{\n  \"extensionId\": \"forensic-recorder@mcpdom\",\n  \"enabled\": true,\n  \"simulated\": true\n}"
+        "text": "{\n  \"extensionId\": \"teledom@teledom\",\n  \"enabled\": true,\n  \"simulated\": true\n}"
       }
     ]
   }

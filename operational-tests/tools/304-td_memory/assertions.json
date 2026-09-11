@@ -7,6 +7,6 @@
   {
     "assertion": "Returns a structured v4 intelligence result with honest status taxonomy (PASS/INCONCLUSIVE/DEGRADED/UNSUPPORTED)",
     "passed": true,
-    "details": "status, stored, tool, capability"
+    "details": "status, stored, persisted, tool, capability"
   }
 ]

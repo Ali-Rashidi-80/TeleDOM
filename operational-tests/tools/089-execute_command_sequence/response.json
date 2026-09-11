@@ -1,10 +1,10 @@
 {
-  "sequenceId": "seq_mtwhcqv2_1",
+  "sequenceId": "seq_mtx86odd_1",
   "success": true,
   "totalSteps": 2,
   "executedSteps": 2,
   "skippedSteps": 0,
-  "durationMs": 5,
+  "durationMs": 11,
   "stopOnError": true,
   "steps": [
     {
@@ -13,7 +13,7 @@
       "tool": "inspect_live_page",
       "args": {},
       "status": "SUCCESS",
-      "durationMs": 0,
+      "durationMs": 3,
       "resultSummary": "OK: object with keys [url, title, origin, viewport, documentDimensions, activeElement]",
       "result": {
         "url": "https://app.internal/dashboard",
@@ -48,10 +48,10 @@
         "selector": "#search-input"
       },
       "status": "SUCCESS",
-      "durationMs": 5,
+      "durationMs": 8,
       "resultSummary": "OK: object with keys [targetId, tag, role, selector, selectorCandidates, xpath]",
       "result": {
-        "targetId": "tgt_mtwhcqv7_2",
+        "targetId": "tgt_mtx86odn_6",
         "tag": "input",
         "role": "textbox",
         "selector": "#search-input",

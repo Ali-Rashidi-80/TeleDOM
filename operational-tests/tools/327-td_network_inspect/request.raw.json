@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "op_req_327_td_network_inspect",
+  "method": "tools/call",
+  "params": {
+    "name": "td_network_inspect",
+    "arguments": {
+      "limit": 10
+    }
+  }
+}

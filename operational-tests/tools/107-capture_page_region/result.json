@@ -2,8 +2,8 @@
   "tool": "capture_page_region",
   "index": 107,
   "status": "PASS",
-  "executionTimeMs": 9,
+  "executionTimeMs": 43,
   "assertionsPassed": 2,
   "assertionsTotal": 2,
-  "timestamp": "2026-09-11T04:52:43.686Z"
+  "timestamp": "2026-09-11T17:23:50.208Z"
 }
