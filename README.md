@@ -20,6 +20,16 @@
 
 **A high-fidelity browser forensic recorder, sub-millisecond DOM time-travel state reconstruction engine, element lifecycle tracer, live DOM intelligence controller, zero-config on-demand auto-bridge, and 206-tool Model Context Protocol (MCP) server for autonomous AI coding agents (Claude, Antigravity, Cursor) and frontend engineers.**
 
+<br />
+
+<p align="center">
+  <video src="https://github.com/IrMaho/TeleDOM/raw/master/assets/teledom_live_agent_demo.mp4" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);" controls autoplay loop muted></video>
+</p>
+
+> 🎬 **Watch TeleDOM in Live Action:** Autonomous AI Coding Agent driving real-time browser forensic recording, DOM inspection, time-travel debugging, and live multi-turn web automation!
+
+<br />
+
 [⚡ Overview](#-overview--why-this-project-exists) •
 [✨ Key Features](#-key-features) •
 [💻 Universal CLI](#-dedicated-universal-cli-dom-antigravity) •
