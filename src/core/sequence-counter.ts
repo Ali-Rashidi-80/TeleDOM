@@ -28,10 +28,19 @@ export class SequenceCounter {
     return Date.now();
   }
 
-  public generateEventId(prefix: string = 'evt'): string {
-    const seq = this.nextSequence();
+  /**
+   * Generate an event id embedding an EXPLICIT sequence.
+   *
+   * v12 P0 event-integrity fix: when `seq` is provided (the normal path),
+   * it is embedded WITHOUT advancing the counter, so the invariant
+   * `event.sequence === sequence embedded in event.id` always holds.
+   * The legacy zero-arg form (self-allocating) is kept only for backward
+   * compatibility with old call sites; new code must pass the sequence.
+   */
+  public generateEventId(prefix: string = 'evt', seq?: number): string {
+    const sequence = seq !== undefined ? seq : this.nextSequence();
     const rand = Math.random().toString(36).substring(2, 8);
-    return `${prefix}_${seq}_${rand}`;
+    return `${prefix}_${sequence}_${rand}`;
   }
 
   public reset(): void {

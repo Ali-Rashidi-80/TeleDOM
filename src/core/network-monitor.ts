@@ -113,7 +113,7 @@ export class NetworkMonitor {
         const durationMs = Math.max(0, Math.round((endTime - startTime) * 100) / 100);
 
         const responseEvent: NetworkResponseEvent = {
-          id: self.sequenceCounter.generateEventId('res_f'),
+          id: self.sequenceCounter.generateEventId('res_f', endSeq),
           sessionId: self.sessionId,
           timestamp: endTime,
           sequence: endSeq,
@@ -144,7 +144,7 @@ export class NetworkMonitor {
         const durationMs = Math.max(0, Math.round((endTime - startTime) * 100) / 100);
 
         const failEvent: NetworkResponseEvent = {
-          id: self.sequenceCounter.generateEventId('res_err'),
+          id: self.sequenceCounter.generateEventId('res_err', endSeq),
           sessionId: self.sessionId,
           timestamp: endTime,
           sequence: endSeq,
@@ -242,7 +242,7 @@ export class NetworkMonitor {
         const durationMs = Math.max(0, Math.round((endTime - (this._forensicStartTime || startTime)) * 100) / 100);
 
         const responseEvent: NetworkResponseEvent = {
-          id: self.sequenceCounter.generateEventId('res_x'),
+          id: self.sequenceCounter.generateEventId('res_x', endSeq),
           sessionId: self.sessionId,
           timestamp: endTime,
           sequence: endSeq,

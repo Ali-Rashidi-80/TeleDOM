@@ -131,7 +131,7 @@ export class EventCollector {
 
     const sequence = this.sequenceCounter.nextSequence();
     const event: UserEvent = {
-      id: this.sequenceCounter.generateEventId('usr_clk'),
+      id: this.sequenceCounter.generateEventId('usr_clk', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -178,7 +178,7 @@ export class EventCollector {
 
     const sequence = this.sequenceCounter.nextSequence();
     const event: UserEvent = {
-      id: this.sequenceCounter.generateEventId('usr_inp'),
+      id: this.sequenceCounter.generateEventId('usr_inp', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -209,7 +209,7 @@ export class EventCollector {
 
     const sequence = this.sequenceCounter.nextSequence();
     const event: UserEvent = {
-      id: this.sequenceCounter.generateEventId('usr_sub'),
+      id: this.sequenceCounter.generateEventId('usr_sub', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -247,7 +247,7 @@ export class EventCollector {
 
     const sequence = this.sequenceCounter.nextSequence();
     const event: UserEvent = {
-      id: this.sequenceCounter.generateEventId('usr_key'),
+      id: this.sequenceCounter.generateEventId('usr_key', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -279,7 +279,7 @@ export class EventCollector {
 
     const sequence = this.sequenceCounter.nextSequence();
     const event: UserEvent = {
-      id: this.sequenceCounter.generateEventId('usr_foc'),
+      id: this.sequenceCounter.generateEventId('usr_foc', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -356,7 +356,7 @@ export class EventCollector {
     const sequence = this.sequenceCounter.nextSequence();
 
     const event: NavigationEvent = {
-      id: this.sequenceCounter.generateEventId('nav'),
+      id: this.sequenceCounter.generateEventId('nav', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -388,7 +388,7 @@ export class EventCollector {
         const sequence = this.sequenceCounter.nextSequence();
 
         const event: BaseEvent = {
-          id: this.sequenceCounter.generateEventId('vp_res'),
+          id: this.sequenceCounter.generateEventId('vp_res', sequence),
           sessionId: this.sessionId,
           timestamp,
           sequence,
@@ -417,7 +417,7 @@ export class EventCollector {
         const sequence = this.sequenceCounter.nextSequence();
 
         const event: BaseEvent = {
-          id: this.sequenceCounter.generateEventId('vp_scr'),
+          id: this.sequenceCounter.generateEventId('vp_scr', sequence),
           sessionId: this.sessionId,
           timestamp,
           sequence,

@@ -130,7 +130,7 @@ export class RuntimeDiagnostics {
     }
 
     const event: ConsoleEvent = {
-      id: this.sequenceCounter.generateEventId('con'),
+      id: this.sequenceCounter.generateEventId('con', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -158,7 +158,7 @@ export class RuntimeDiagnostics {
       const sequence = this.sequenceCounter.nextSequence();
 
       const runtimeEvent: RuntimeErrorEvent = {
-        id: this.sequenceCounter.generateEventId('err'),
+        id: this.sequenceCounter.generateEventId('err', sequence),
         sessionId: this.sessionId,
         timestamp,
         sequence,
@@ -208,7 +208,7 @@ export class RuntimeDiagnostics {
       }
 
       const runtimeEvent: RuntimeErrorEvent = {
-        id: this.sequenceCounter.generateEventId('rej'),
+        id: this.sequenceCounter.generateEventId('rej', sequence),
         sessionId: this.sessionId,
         timestamp,
         sequence,

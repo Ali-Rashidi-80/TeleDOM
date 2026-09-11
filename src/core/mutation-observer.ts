@@ -126,7 +126,7 @@ export class DOMMutationObserver {
 
         const sequence = this.sequenceCounter.nextSequence();
         const removeEvent: DOMRemoveEvent = {
-          id: this.sequenceCounter.generateEventId('mut_rem'),
+          id: this.sequenceCounter.generateEventId('mut_rem', sequence),
           sessionId: this.sessionId,
           timestamp,
           sequence,
@@ -172,7 +172,7 @@ export class DOMMutationObserver {
 
         const sequence = this.sequenceCounter.nextSequence();
         const addEvent: DOMAddEvent = {
-          id: this.sequenceCounter.generateEventId('mut_add'),
+          id: this.sequenceCounter.generateEventId('mut_add', sequence),
           sessionId: this.sessionId,
           timestamp,
           sequence,
@@ -224,7 +224,7 @@ export class DOMMutationObserver {
     const sequence = this.sequenceCounter.nextSequence();
 
     const attrEvent: DOMAttrEvent = {
-      id: this.sequenceCounter.generateEventId('mut_attr'),
+      id: this.sequenceCounter.generateEventId('mut_attr', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,
@@ -268,7 +268,7 @@ export class DOMMutationObserver {
 
     const sequence = this.sequenceCounter.nextSequence();
     const textEvent: DOMTextEvent = {
-      id: this.sequenceCounter.generateEventId('mut_txt'),
+      id: this.sequenceCounter.generateEventId('mut_txt', sequence),
       sessionId: this.sessionId,
       timestamp,
       sequence,

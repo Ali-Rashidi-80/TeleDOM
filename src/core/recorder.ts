@@ -152,7 +152,7 @@ export class ForensicRecorder {
     this.metadata.stats.nodeCount = initialSnapshot.totalNodeCount;
 
     const snapshotEvent: DOMSnapshotEvent = {
-      id: this.sequenceCounter.generateEventId('snap_init'),
+      id: this.sequenceCounter.generateEventId('snap_init', initialSnapshot.sequence),
       sessionId: this.metadata.id,
       timestamp: initialSnapshot.timestamp,
       sequence: initialSnapshot.sequence,
@@ -241,7 +241,7 @@ export class ForensicRecorder {
     const sequence = this.sequenceCounter.nextSequence();
 
     const event: BaseEvent = {
-      id: this.sequenceCounter.generateEventId('ext'),
+      id: this.sequenceCounter.generateEventId('ext', sequence),
       sessionId: this.metadata.id,
       timestamp,
       sequence,
@@ -264,7 +264,7 @@ export class ForensicRecorder {
     const sequence = this.sequenceCounter.nextSequence();
 
     const event: ScreenshotEvent = {
-      id: this.sequenceCounter.generateEventId('scr'),
+      id: this.sequenceCounter.generateEventId('scr', sequence),
       sessionId: this.metadata.id,
       timestamp,
       sequence,
