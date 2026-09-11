@@ -1,7 +1,7 @@
 {
   "name": "browser-forensic-recorder",
-  "version": "3.1.0",
-  "description": "Unified Browser Intelligence Platform: forensic recorder, DOM time-travel debugger, Chrome DevTools capability fusion (dt_ tools), 30 advanced forensic capabilities (fx_ tools), and 206-Tool Agent MCP interface",
+  "version": "12.0.0",
+  "description": "TeleDOM v12 \u2014 Temporal Browser Intelligence Engine: forensic recorder, DOM time-travel, causal/counterfactual reasoning, autonomous investigation, proof engine, 306-tool MCP surface (dt_/fx_/td_)",
   "type": "module",
   "main": "dist/server/mcp-server.js",
   "bin": {
@@ -36,7 +36,10 @@
     "bridge": "node ./bin/bridge-server.js",
     "cli": "node ./bin/cli.js",
     "setup:global": "node ./bin/cli.js install-global",
-    "setup:project": "node ./bin/cli.js install"
+    "setup:project": "node ./bin/cli.js install",
+    "bench:v12": "vitest run tests/v12/suite-reports.test.ts",
+    "golden:v12": "vitest run tests/v12/suite-reports.test.ts",
+    "chaos:v12": "vitest run tests/v12/suite-reports.test.ts"
   },
   "keywords": [
     "browser",

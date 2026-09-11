@@ -351,3 +351,55 @@ body {
   flex-direction: column;
   gap: 12px;
 }
+
+/* ==========================================================================
+   TeleDOM v12 — Observatory (investigation-centric view)
+   ========================================================================== */
+.tdom-observatory {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #1a1d23;
+  background: #f7f8fa;
+  border-radius: 12px;
+}
+.tdom-obs-header { border-bottom: 2px solid #d8dce3; padding-bottom: 10px; }
+.tdom-obs-title { font-weight: 700; font-size: 15px; letter-spacing: 0.4px; color: #2c313a; }
+.tdom-obs-objective { font-size: 14px; margin-top: 4px; color: #333; }
+.tdom-obs-meta { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+.tdom-badge { color: #fff; border-radius: 10px; padding: 3px 10px; font-size: 11px; font-weight: 600; background: #444; }
+.tdom-obs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tdom-obs-panel { background: #fff; border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; }
+.tdom-obs-panel-title { background: #eef1f5; padding: 8px 12px; font-size: 12px; font-weight: 700; color: #39404b; text-transform: uppercase; letter-spacing: 0.5px; }
+.tdom-obs-badge { float: right; font-weight: 500; color: #6b7280; text-transform: none; }
+.tdom-obs-panel-body { padding: 10px 12px; font-size: 12.5px; }
+.tdom-timeline { list-style: none; margin: 0; padding: 0; max-height: 240px; overflow-y: auto; }
+.tdom-event { display: flex; gap: 8px; padding: 4px 6px; border-bottom: 1px dashed #eceff3; align-items: baseline; }
+.tdom-event-source { min-width: 74px; font-weight: 700; font-size: 10.5px; text-transform: uppercase; border-radius: 4px; padding: 1px 6px; color: #fff; background: #5f6b7a; }
+.tdom-src-dom { background: #7a4b9e; } .tdom-src-network { background: #2d6cdf; }
+.tdom-src-runtime { background: #b26a00; } .tdom-src-user { background: #2e7d32; }
+.tdom-src-console { background: #c62828; } .tdom-src-security { background: #6a1b9a; }
+.tdom-event-time { margin-left: auto; color: #9aa2ad; font-size: 11px; }
+.tdom-chain { display: flex; flex-direction: column; align-items: stretch; }
+.tdom-chain-arrow { text-align: center; color: #98a1ad; font-size: 10.5px; padding: 2px 0; }
+.tdom-chain-node { background: #f2f4f8; border: 1px solid #e2e5ea; border-radius: 6px; padding: 6px 10px; }
+.tdom-root-cause { margin-top: 8px; font-weight: 700; color: #b3261e; background: #fdecea; padding: 6px 10px; border-radius: 6px; }
+.tdom-hypotheses { width: 100%; border-collapse: collapse; }
+.tdom-hypotheses th { text-align: left; font-size: 10.5px; color: #6b7280; border-bottom: 1px solid #e2e5ea; padding: 4px 6px; }
+.tdom-hypotheses td { padding: 5px 6px; border-bottom: 1px dashed #eceff3; vertical-align: top; }
+.tdom-conf-bar { position: relative; background: #e6e9ee; border-radius: 8px; height: 14px; min-width: 90px; }
+.tdom-conf-fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, #4caf50, #2e7d32); border-radius: 8px; }
+.tdom-conf-bar span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #233; }
+.tdom-counterfactual { margin-top: 10px; background: #e8f0fe; border: 1px solid #c5d7f6; padding: 8px 10px; border-radius: 6px; }
+.tdom-verification { border-radius: 8px; padding: 10px; }
+.tdom-pass { background: #e6f4ea; border: 1px solid #a8d5b0; }
+.tdom-fail { background: #fdecea; border: 1px solid #f3c1bd; }
+.tdom-inconclusive { background: #fff6e0; border: 1px solid #ecd9a0; }
+.tdom-verification-status { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; }
+.tdom-verification-note { margin-top: 4px; color: #555; }
+.tdom-proof-ref { margin-top: 6px; font-family: monospace; font-size: 11px; color: #1a5fb4; }
+.tdom-empty { color: #9aa2ad; font-style: italic; }
+.tdom-obs-section { background: #fff; border: 1px dashed #d8dce3; border-radius: 8px; padding: 4px 0; }
+@media (max-width: 900px) { .tdom-obs-grid { grid-template-columns: 1fr; } }
