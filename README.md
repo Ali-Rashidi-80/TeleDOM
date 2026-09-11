@@ -18,6 +18,11 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge&logo=apache" /></a>
 </p>
 
+<p align="center">
+  <a href="./README.md"><img src="https://img.shields.io/badge/Language-English-blue?style=flat-square&logo=googletranslate&logoColor=white" /></a>
+  <a href="./README_FA.md"><img src="https://img.shields.io/badge/🇮🇷_راهنمای_فارسی-(خیلی_ساده_و_روان)-brightgreen?style=flat-square" /></a>
+</p>
+
 **A high-fidelity browser forensic recorder, sub-millisecond DOM time-travel state reconstruction engine, element lifecycle tracer, live DOM intelligence controller, zero-config on-demand auto-bridge, and 206-tool Model Context Protocol (MCP) server for autonomous AI coding agents (Claude, Antigravity, Cursor) and frontend engineers.**
 
 <br />
