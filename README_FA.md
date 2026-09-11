@@ -21,6 +21,8 @@
 <p align="center">
   <a href="./README.md"><img src="https://img.shields.io/badge/Language-English-blue?style=flat-square&logo=googletranslate&logoColor=white" /></a>
   <a href="./README_FA.md"><img src="https://img.shields.io/badge/🇮🇷_راهنمای_فارسی-(جامع_و_کامل)-brightgreen?style=flat-square" /></a>
+  <a href="./EXAMPLES_FA.md"><img src="https://img.shields.io/badge/🇮🇷_۲۵۰_مثال_کاربردی-orange?style=flat-square&logo=bookstack" /></a>
+  <a href="./EXAMPLES.md"><img src="https://img.shields.io/badge/⚡_250_Production_Recipes-blueviolet?style=flat-square" /></a>
 </p>
 
 **یک ضبط‌کننده وقایع قانونی فوق‌العاده دقیق برای مرورگر، موتور بازسازی وضعیت صفحه وب و سفر در زمان (Time-Travel) با دقت زیر یک میلی‌ثانیه، ردیاب چرخه حیات المان‌ها، کنترل‌کننده هوشمند DOM زنده، پل ارتباطی خودکار بدون نیاز به تنظیمات (Zero-Config Auto-Bridge) و سرور پروتکل کانتکست مدل (MCP) با ۲۰۶ ابزار کاربردی برای عامل‌های هوش مصنوعی کدنویس (Claude, Antigravity, Cursor) و مهندسان فرانت‌اند.**
@@ -37,6 +39,7 @@
 
 [⚡ بررسی اجمالی](#-بررسی-اجمالی-و-چرایی-پیدایش-پروژه) •
 [✨ ویژگی‌های کلیدی](#-ویژگیهای-کلیدی) •
+[💡 ۲۵۰ مثال کاربردی](./EXAMPLES_FA.md) •
 [💻 خط فرمان اختصاصی](#-ترمینال-و-رابط-خط-فرمان-اختصاصی-dom-antigravity) •
 [🏗️ معماری سیستم](#-معماری-سیستم) •
 [🤖 مرجع ابزارهای MCP](#-مرجع-ابزارهای-پروتکل-کانتکست-مدل-mcp---شامل-۲۰۶-ابزار) •

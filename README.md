@@ -20,7 +20,9 @@
 
 <p align="center">
   <a href="./README.md"><img src="https://img.shields.io/badge/Language-English-blue?style=flat-square&logo=googletranslate&logoColor=white" /></a>
-  <a href="./README_FA.md"><img src="https://img.shields.io/badge/🇮🇷_راهنمای_فارسی-(خیلی_ساده_و_روان)-brightgreen?style=flat-square" /></a>
+  <a href="./README_FA.md"><img src="https://img.shields.io/badge/🇮🇷_راهنمای_فارسی-(جامع_و_کامل)-brightgreen?style=flat-square" /></a>
+  <a href="./EXAMPLES.md"><img src="https://img.shields.io/badge/⚡_250_Production_Recipes-blueviolet?style=flat-square&logo=bookstack" /></a>
+  <a href="./EXAMPLES_FA.md"><img src="https://img.shields.io/badge/🇮🇷_۲۵۰_مثال_کاربردی-orange?style=flat-square" /></a>
 </p>
 
 **A high-fidelity browser forensic recorder, sub-millisecond DOM time-travel state reconstruction engine, element lifecycle tracer, live DOM intelligence controller, zero-config on-demand auto-bridge, and 206-tool Model Context Protocol (MCP) server for autonomous AI coding agents (Claude, Antigravity, Cursor) and frontend engineers.**
@@ -37,6 +39,7 @@
 
 [⚡ Overview](#-overview--why-this-project-exists) •
 [✨ Key Features](#-key-features) •
+[💡 250 Production Recipes](./EXAMPLES.md) •
 [💻 Universal CLI](#-dedicated-universal-cli-dom-antigravity) •
 [🏗️ Architecture](#-system-architecture) •
 [🤖 MCP Tools (206)](#-model-context-protocol-mcp-tools-reference) •
