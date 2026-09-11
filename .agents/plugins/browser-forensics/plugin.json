@@ -1,7 +1,7 @@
 {
   "name": "browser-forensics",
-  "version": "2.0.0",
-  "description": "Antigravity Browser Forensic Recorder, DOM Time-Travel Debugger, Lifecycle Tracer, and Root-Cause Analyzer",
+  "version": "4.1.0",
+  "description": "TeleDOM v4.1.0 Temporal Browser Intelligence Platform, Agent-Owned Workflow Runtime, Sub-Millisecond DOM Time-Travel Debugger & 350 Certified MCP Tools",
   "author": {
     "name": "Google DeepMind / Antigravity Team"
   },

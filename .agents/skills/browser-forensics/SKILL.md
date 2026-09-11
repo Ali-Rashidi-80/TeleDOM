@@ -1,13 +1,13 @@
 ---
 name: browser-forensics
-description: Inspect browser forensic recordings, control live browser DOM, pick elements with Ctrl+Shift+Click, capture element/page screenshots, observe live mutations and interactions, perform DOM time-travel debugging, trace element lifecycles, and diagnose disappearing UI, parent subtree replacements, runtime errors, and CSS mutations via the browser-forensics MCP server (121 tools).
+description: Inspect browser forensic recordings, control live browser DOM, execute agent workflows, pick elements with Ctrl+Shift+Click, capture screenshots, observe live mutations and interactions, perform DOM time-travel debugging, trace element lifecycles, and diagnose web apps via the browser-forensics MCP server (350 tools).
 ---
 
-# Browser Forensic Debugging, Live DOM Intelligence & Browser Control Skill (v3.0.0 — 121 Tools)
+# TeleDOM v4.1.0 — Temporal Browser Intelligence & Workflow Automation Skill (350 Tools)
 
-# MCP Tools Reference — MCPDOM Browser v3
+# MCP Tools Reference — TeleDOM Platform
 
-> 121 tools across 15 groups. Tool discovery tools: get_tool_groups, get_tool_catalog.
+> 350 certified MCP tools across 20 functional groups. Tool discovery tools: get_tool_groups, get_tool_catalog.
 
 ## Tool Groups
 
