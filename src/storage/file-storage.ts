@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as readline from 'readline';
 import { Annotation, SessionMetadata } from '../types/session';
 import { BaseEvent } from '../types/events';
 import { SnapshotCheckpoint } from '../types/checkpoint';
@@ -75,7 +74,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async deleteSession(sessionId: string): Promise<boolean> {
     const dir = path.join(this.baseDir, sessionId);
     if (fs.existsSync(dir)) {
-      await fs.promises.rm(dir, { recursive: true, force: true });
+      await fs.promises.rm(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 50 });
       return true;
     }
     return false;
@@ -94,18 +93,15 @@ export class FileStorageProvider implements ForensicStorageProvider {
     const eventsPath = path.join(dir, 'events.jsonl');
     if (!fs.existsSync(eventsPath)) return [];
 
-    const fileStream = fs.createReadStream(eventsPath, { encoding: 'utf-8' });
-    const rl = readline.createInterface({
-      input: fileStream,
-      crlfDelay: Infinity,
-    });
+    const content = await fs.promises.readFile(eventsPath, 'utf-8');
+    const lines = content.split(/\r?\n/);
 
     const results: BaseEvent[] = [];
     let matchedCount = 0;
     const offset = typeof filter?.offset === 'number' ? filter.offset : 0;
     const limit = typeof filter?.limit === 'number' ? filter.limit : Infinity;
 
-    for await (const line of rl) {
+    for (const line of lines) {
       const trimmed = line.trim();
       if (!trimmed) continue;
 
@@ -143,8 +139,6 @@ export class FileStorageProvider implements ForensicStorageProvider {
 
       results.push(e);
       if (results.length >= limit) {
-        rl.close();
-        fileStream.destroy();
         break;
       }
     }
@@ -157,14 +151,9 @@ export class FileStorageProvider implements ForensicStorageProvider {
     const eventsPath = path.join(dir, 'events.jsonl');
     if (!fs.existsSync(eventsPath)) return 0;
 
-    const fileStream = fs.createReadStream(eventsPath, { encoding: 'utf-8' });
-    const rl = readline.createInterface({
-      input: fileStream,
-      crlfDelay: Infinity,
-    });
-
+    const content = await fs.promises.readFile(eventsPath, 'utf-8');
     let count = 0;
-    for await (const line of rl) {
+    for (const line of content.split(/\r?\n/)) {
       if (line.trim()) count++;
     }
     return count;

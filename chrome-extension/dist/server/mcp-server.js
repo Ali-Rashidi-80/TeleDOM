@@ -1,6 +1,7 @@
 import * as readline from "readline";
 import * as fs from "fs";
 import { M as MCPDOM_V3_TOOLS, D as DEVTOOLS_TOOLS, F as FORENSICS_TOOLS, T as TELEDOM_INTELLIGENCE_TOOLS, a as TELEDOM_VERSION, b as FileStorageProvider, c as MCPToolsHandler, MCPBridgeServer, d as TELEDOM_PROFILE_TOOLS } from "./bridge-server.js";
+import { P } from "./bridge-server.js";
 import "http";
 import "ws";
 import "path";
@@ -1084,5 +1085,6 @@ export {
   FileStorageProvider,
   ForensicMCPServer,
   MCPToolsHandler,
+  P as PNGBuilder,
   TELEDOM_PROFILE_TOOLS
 };

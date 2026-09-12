@@ -12,8 +12,9 @@ import { MCPBridgeServer } from './bridge-server';
 import { BrowserCommandType } from '../types/browser-control';
 import { TELEDOM_VERSION } from '../intelligence/version';
 import { TELEDOM_PROFILE_TOOLS } from './tool-groups';
+import { PNGBuilder } from '../core/png-builder';
 
-export { FORENSIC_MCP_TOOLS, FileStorageProvider, MCPToolsHandler, TELEDOM_PROFILE_TOOLS };
+export { FORENSIC_MCP_TOOLS, FileStorageProvider, MCPToolsHandler, TELEDOM_PROFILE_TOOLS, PNGBuilder };
 
 export class ForensicMCPServer {
   private storage: ForensicStorageProvider;

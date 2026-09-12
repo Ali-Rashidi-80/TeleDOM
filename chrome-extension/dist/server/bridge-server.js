@@ -165,7 +165,7 @@ class FileStorageProvider {
   async deleteSession(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
     if (fs.existsSync(dir)) {
-      await fs.promises.rm(dir, { recursive: true, force: true });
+      await fs.promises.rm(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 50 });
       return true;
     }
     return false;
@@ -190,43 +190,46 @@ class FileStorageProvider {
     let matchedCount = 0;
     const offset = typeof filter?.offset === "number" ? filter.offset : 0;
     const limit = typeof filter?.limit === "number" ? filter.limit : Infinity;
-    for await (const line of rl) {
-      const trimmed = line.trim();
-      if (!trimmed) continue;
-      let e;
-      try {
-        e = JSON.parse(trimmed);
-      } catch (parseErr) {
-        console.warn(`[FileStorage] Skipping malformed event line in session ${sessionId}:`, parseErr);
-        continue;
-      }
-      if (filter) {
-        if (filter.category && e.category !== filter.category) continue;
-        if (filter.type && e.type !== filter.type) continue;
-        if (typeof filter.fromTimestamp === "number" && e.timestamp < filter.fromTimestamp) continue;
-        if (typeof filter.toTimestamp === "number" && e.timestamp > filter.toTimestamp) continue;
-        if (typeof filter.fromSequence === "number" && e.sequence < filter.fromSequence) continue;
-        if (typeof filter.toSequence === "number" && e.sequence > filter.toSequence) continue;
-        if (typeof filter.targetNodeId === "number" && e.targetNodeId !== filter.targetNodeId) continue;
-        if (filter.targetSelector && e.targetSelector && !e.targetSelector.includes(filter.targetSelector)) continue;
-        if (filter.searchQuery) {
-          const query = filter.searchQuery.toLowerCase();
-          const strPayload = JSON.stringify(e.payload || {}).toLowerCase();
-          if (!strPayload.includes(query) && !e.type.toLowerCase().includes(query)) {
-            continue;
+    try {
+      for await (const line of rl) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        let e;
+        try {
+          e = JSON.parse(trimmed);
+        } catch (parseErr) {
+          console.warn(`[FileStorage] Skipping malformed event line in session ${sessionId}:`, parseErr);
+          continue;
+        }
+        if (filter) {
+          if (filter.category && e.category !== filter.category) continue;
+          if (filter.type && e.type !== filter.type) continue;
+          if (typeof filter.fromTimestamp === "number" && e.timestamp < filter.fromTimestamp) continue;
+          if (typeof filter.toTimestamp === "number" && e.timestamp > filter.toTimestamp) continue;
+          if (typeof filter.fromSequence === "number" && e.sequence < filter.fromSequence) continue;
+          if (typeof filter.toSequence === "number" && e.sequence > filter.toSequence) continue;
+          if (typeof filter.targetNodeId === "number" && e.targetNodeId !== filter.targetNodeId) continue;
+          if (filter.targetSelector && e.targetSelector && !e.targetSelector.includes(filter.targetSelector)) continue;
+          if (filter.searchQuery) {
+            const query = filter.searchQuery.toLowerCase();
+            const strPayload = JSON.stringify(e.payload || {}).toLowerCase();
+            if (!strPayload.includes(query) && !e.type.toLowerCase().includes(query)) {
+              continue;
+            }
           }
         }
+        matchedCount++;
+        if (matchedCount <= offset) {
+          continue;
+        }
+        results.push(e);
+        if (results.length >= limit) {
+          break;
+        }
       }
-      matchedCount++;
-      if (matchedCount <= offset) {
-        continue;
-      }
-      results.push(e);
-      if (results.length >= limit) {
-        rl.close();
-        fileStream.destroy();
-        break;
-      }
+    } finally {
+      rl.close();
+      fileStream.destroy();
     }
     return results;
   }
@@ -240,8 +243,13 @@ class FileStorageProvider {
       crlfDelay: Infinity
     });
     let count = 0;
-    for await (const line of rl) {
-      if (line.trim()) count++;
+    try {
+      for await (const line of rl) {
+        if (line.trim()) count++;
+      }
+    } finally {
+      rl.close();
+      fileStream.destroy();
     }
     return count;
   }
@@ -25914,6 +25922,7 @@ export {
   FORENSICS_TOOLS as F,
   MCPDOM_V3_TOOLS as M,
   MCPBridgeServer,
+  PNGBuilder as P,
   TELEDOM_INTELLIGENCE_TOOLS as T,
   TELEDOM_VERSION as a,
   FileStorageProvider as b,
