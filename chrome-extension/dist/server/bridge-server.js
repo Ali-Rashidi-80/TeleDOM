@@ -128,31 +128,39 @@ class FileStorageProvider {
   async getSession(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
     const metaPath = path.join(dir, "metadata.json");
-    if (!fs.existsSync(metaPath)) return null;
     try {
       const data = await fs.promises.readFile(metaPath, "utf-8");
       return JSON.parse(data);
-    } catch {
+    } catch (err) {
+      if (err?.code !== "ENOENT") {
+        console.warn(`[FileStorage] Warning: Failed to read session ${sessionId}: ${err?.message}`);
+      }
       return null;
     }
   }
   async listSessions() {
     if (!fs.existsSync(this.baseDir)) return [];
-    const entries = fs.readdirSync(this.baseDir, { withFileTypes: true });
-    const sessions = [];
-    for (const entry of entries) {
-      if (entry.isDirectory()) {
-        const metaPath = path.join(this.baseDir, entry.name, "metadata.json");
-        if (fs.existsSync(metaPath)) {
+    try {
+      const entries = await fs.promises.readdir(this.baseDir, { withFileTypes: true });
+      const sessions = [];
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          const metaPath = path.join(this.baseDir, entry.name, "metadata.json");
           try {
-            const data = fs.readFileSync(metaPath, "utf-8");
+            const data = await fs.promises.readFile(metaPath, "utf-8");
             sessions.push(JSON.parse(data));
-          } catch {
+          } catch (err) {
+            if (err?.code !== "ENOENT") {
+              console.warn(`[FileStorage] Warning: Corrupt or unreadable session metadata at ${metaPath}: ${err?.message}`);
+            }
           }
         }
       }
+      return sessions.sort((a, b) => b.startTime - a.startTime);
+    } catch (err) {
+      console.error(`[FileStorage] Failed to list sessions from ${this.baseDir}:`, err?.message);
+      return [];
     }
-    return sessions.sort((a, b) => b.startTime - a.startTime);
   }
   async deleteSession(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
@@ -188,7 +196,8 @@ class FileStorageProvider {
       let e;
       try {
         e = JSON.parse(trimmed);
-      } catch {
+      } catch (parseErr) {
+        console.warn(`[FileStorage] Skipping malformed event line in session ${sessionId}:`, parseErr);
         continue;
       }
       if (filter) {
@@ -239,23 +248,30 @@ class FileStorageProvider {
   async saveCheckpoint(checkpoint) {
     const dir = this.getSessionDir(checkpoint.sessionId);
     const chkDir = path.join(dir, "checkpoints");
-    if (!fs.existsSync(chkDir)) fs.mkdirSync(chkDir, { recursive: true });
+    await fs.promises.mkdir(chkDir, { recursive: true });
     const file = path.join(chkDir, `${checkpoint.checkpointId}.json`);
     await fs.promises.writeFile(file, JSON.stringify(checkpoint, null, 2), "utf-8");
   }
   async getCheckpoints(sessionId) {
     const dir = path.join(this.baseDir, sessionId, "checkpoints");
-    if (!fs.existsSync(dir)) return [];
-    const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
-    const checkpoints = [];
-    for (const f of files) {
-      try {
-        const data = await fs.promises.readFile(path.join(dir, f), "utf-8");
-        checkpoints.push(JSON.parse(data));
-      } catch {
+    try {
+      const files = (await fs.promises.readdir(dir)).filter((f) => f.endsWith(".json"));
+      const checkpoints = [];
+      for (const f of files) {
+        try {
+          const data = await fs.promises.readFile(path.join(dir, f), "utf-8");
+          checkpoints.push(JSON.parse(data));
+        } catch (err) {
+          console.warn(`[FileStorage] Failed to read/parse checkpoint file ${f} in session ${sessionId}:`, err);
+        }
       }
+      return checkpoints.sort((a, b) => a.sequence - b.sequence);
+    } catch (err) {
+      if (err?.code !== "ENOENT") {
+        console.warn(`[FileStorage] Error accessing checkpoints directory for session ${sessionId}:`, err);
+      }
+      return [];
     }
-    return checkpoints.sort((a, b) => a.sequence - b.sequence);
   }
   async saveInitialSnapshot(sessionId, snapshot) {
     const dir = this.getSessionDir(sessionId);
@@ -265,10 +281,13 @@ class FileStorageProvider {
   async getInitialSnapshot(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
     const file = path.join(dir, "initial_snapshot.json");
-    if (!fs.existsSync(file)) return null;
     try {
-      return JSON.parse(await fs.promises.readFile(file, "utf-8"));
-    } catch {
+      const content = await fs.promises.readFile(file, "utf-8");
+      return JSON.parse(content);
+    } catch (err) {
+      if (err?.code !== "ENOENT") {
+        console.warn(`[FileStorage] Error reading initial snapshot for session ${sessionId}:`, err);
+      }
       return null;
     }
   }
@@ -276,12 +295,14 @@ class FileStorageProvider {
     const dir = this.getSessionDir(annotation.sessionId);
     const annPath = path.join(dir, "annotations.json");
     let list = [];
-    if (fs.existsSync(annPath)) {
-      try {
-        list = JSON.parse(await fs.promises.readFile(annPath, "utf-8"));
-      } catch {
-        list = [];
+    try {
+      const content = await fs.promises.readFile(annPath, "utf-8");
+      list = JSON.parse(content);
+    } catch (err) {
+      if (err?.code !== "ENOENT") {
+        console.warn(`[FileStorage] Corrupted annotations file for session ${annotation.sessionId}, starting fresh:`, err);
       }
+      list = [];
     }
     list.push(annotation);
     await fs.promises.writeFile(annPath, JSON.stringify(list, null, 2), "utf-8");
@@ -289,10 +310,13 @@ class FileStorageProvider {
   async getAnnotations(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
     const annPath = path.join(dir, "annotations.json");
-    if (!fs.existsSync(annPath)) return [];
     try {
-      return JSON.parse(fs.readFileSync(annPath, "utf-8"));
-    } catch {
+      const content = await fs.promises.readFile(annPath, "utf-8");
+      return JSON.parse(content);
+    } catch (err) {
+      if (err?.code !== "ENOENT") {
+        console.warn(`[FileStorage] Failed to read annotations for session ${sessionId}:`, err);
+      }
       return [];
     }
   }
@@ -8997,7 +9021,18 @@ class LiveToolsHandler {
             }
           ]
         };
-      } catch {
+      } catch (saveErr) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify({
+                ...finalSummary,
+                fileSaveError: `Failed to write pipeline output to ${args.outputPath}: ${saveErr?.message || saveErr}`
+              }, null, 2)
+            }
+          ]
+        };
       }
     }
     return {
@@ -9403,7 +9438,8 @@ class ProjectManager {
       try {
         const manifest = JSON.parse(fs__default.readFileSync(manifestPath, "utf-8"));
         out.push({ ...manifest, projectDir: path__default.join(this.baseDir, entry.name), pageCount: manifest.pages?.length || 0 });
-      } catch {
+      } catch (err) {
+        console.warn(`[ProjectManager] Warning: Skipped corrupt project manifest at ${manifestPath}:`, err);
       }
     }
     return out.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
@@ -9664,7 +9700,8 @@ class ProjectManager {
       if (fs__default.existsSync(p)) {
         try {
           out.push(JSON.parse(fs__default.readFileSync(p, "utf-8")));
-        } catch {
+        } catch (err) {
+          console.warn(`[ProjectManager] Warning: Skipped corrupt region file ${p}:`, err);
         }
       }
     }
@@ -10026,7 +10063,8 @@ class CommandRecordingStorage {
       try {
         const raw = JSON.parse(fs__default.readFileSync(file, "utf-8"));
         return raw.recording || raw;
-      } catch {
+      } catch (err) {
+        console.warn(`[RecordingStorage] Warning: Failed to parse recording file ${file}:`, err);
         return null;
       }
     }
@@ -10054,7 +10092,8 @@ class CommandRecordingStorage {
           tags: rec.tags || [],
           file: path__default.join(this.baseDir, entry.name)
         });
-      } catch {
+      } catch (err) {
+        console.warn(`[RecordingStorage] Warning: Skipped corrupt recording file ${entry.name}:`, err);
       }
     }
     return out.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
@@ -18698,7 +18737,8 @@ class ForensicsToolsHandler {
     try {
       const res = await unifiedRuntime.bridgeCommand("LIVE_DOM_SNAPSHOT", { format: "json" });
       return { snapshot: res };
-    } catch {
+    } catch (err) {
+      console.warn(`[ForensicsHandler] Could not capture live snapshot: ${err?.message || err}`);
       return { snapshot: null };
     }
   }
@@ -18707,7 +18747,8 @@ async function runInPageSafe(code, tabId) {
   try {
     const { runInPage: runInPage2 } = await Promise.resolve().then(() => interactionCore);
     return await runInPage2(code, tabId);
-  } catch {
+  } catch (err) {
+    console.warn(`[ForensicsHandler] runInPageSafe failed for tab ${tabId}: ${err?.message || err}`);
     return null;
   }
 }
@@ -22611,14 +22652,20 @@ class AgentStore {
   readJson(file) {
     try {
       return JSON.parse(fs.readFileSync(file, "utf-8"));
-    } catch {
+    } catch (err) {
+      if (err?.code !== "ENOENT") {
+        console.warn(`[WorkflowStore] Warning: Failed to read or parse ${file}:`, err?.message || err);
+      }
       return null;
     }
   }
   listJsonNames(dir) {
     try {
       return fs.readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
-    } catch {
+    } catch (err) {
+      if (err?.code !== "ENOENT") {
+        console.warn(`[WorkflowStore] Warning: Failed to list directory ${dir}:`, err?.message || err);
+      }
       return [];
     }
   }

@@ -34,35 +34,42 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async getSession(sessionId: string): Promise<SessionMetadata | null> {
     const dir = path.join(this.baseDir, sessionId);
     const metaPath = path.join(dir, 'metadata.json');
-    if (!fs.existsSync(metaPath)) return null;
     try {
       const data = await fs.promises.readFile(metaPath, 'utf-8');
       return JSON.parse(data) as SessionMetadata;
-    } catch {
+    } catch (err: any) {
+      if (err?.code !== 'ENOENT') {
+        console.warn(`[FileStorage] Warning: Failed to read session ${sessionId}: ${err?.message}`);
+      }
       return null;
     }
   }
 
   public async listSessions(): Promise<SessionMetadata[]> {
     if (!fs.existsSync(this.baseDir)) return [];
-    const entries = fs.readdirSync(this.baseDir, { withFileTypes: true });
-    const sessions: SessionMetadata[] = [];
+    try {
+      const entries = await fs.promises.readdir(this.baseDir, { withFileTypes: true });
+      const sessions: SessionMetadata[] = [];
 
-    for (const entry of entries) {
-      if (entry.isDirectory()) {
-        const metaPath = path.join(this.baseDir, entry.name, 'metadata.json');
-        if (fs.existsSync(metaPath)) {
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          const metaPath = path.join(this.baseDir, entry.name, 'metadata.json');
           try {
-            const data = fs.readFileSync(metaPath, 'utf-8');
+            const data = await fs.promises.readFile(metaPath, 'utf-8');
             sessions.push(JSON.parse(data) as SessionMetadata);
-          } catch {
-            // Corrupt file skipped
+          } catch (err: any) {
+            if (err?.code !== 'ENOENT') {
+              console.warn(`[FileStorage] Warning: Corrupt or unreadable session metadata at ${metaPath}: ${err?.message}`);
+            }
           }
         }
       }
-    }
 
-    return sessions.sort((a, b) => b.startTime - a.startTime);
+      return sessions.sort((a, b) => b.startTime - a.startTime);
+    } catch (err: any) {
+      console.error(`[FileStorage] Failed to list sessions from ${this.baseDir}:`, err?.message);
+      return [];
+    }
   }
 
   public async deleteSession(sessionId: string): Promise<boolean> {
@@ -105,7 +112,8 @@ export class FileStorageProvider implements ForensicStorageProvider {
       let e: BaseEvent;
       try {
         e = JSON.parse(trimmed);
-      } catch {
+      } catch (parseErr) {
+        console.warn(`[FileStorage] Skipping malformed event line in session ${sessionId}:`, parseErr);
         continue;
       }
 
@@ -165,7 +173,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async saveCheckpoint(checkpoint: SnapshotCheckpoint): Promise<void> {
     const dir = this.getSessionDir(checkpoint.sessionId);
     const chkDir = path.join(dir, 'checkpoints');
-    if (!fs.existsSync(chkDir)) fs.mkdirSync(chkDir, { recursive: true });
+    await fs.promises.mkdir(chkDir, { recursive: true });
 
     const file = path.join(chkDir, `${checkpoint.checkpointId}.json`);
     await fs.promises.writeFile(file, JSON.stringify(checkpoint, null, 2), 'utf-8');
@@ -173,21 +181,26 @@ export class FileStorageProvider implements ForensicStorageProvider {
 
   public async getCheckpoints(sessionId: string): Promise<SnapshotCheckpoint[]> {
     const dir = path.join(this.baseDir, sessionId, 'checkpoints');
-    if (!fs.existsSync(dir)) return [];
+    try {
+      const files = (await fs.promises.readdir(dir)).filter((f) => f.endsWith('.json'));
+      const checkpoints: SnapshotCheckpoint[] = [];
 
-    const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json'));
-    const checkpoints: SnapshotCheckpoint[] = [];
-
-    for (const f of files) {
-      try {
-        const data = await fs.promises.readFile(path.join(dir, f), 'utf-8');
-        checkpoints.push(JSON.parse(data));
-      } catch {
-        // Ignored
+      for (const f of files) {
+        try {
+          const data = await fs.promises.readFile(path.join(dir, f), 'utf-8');
+          checkpoints.push(JSON.parse(data));
+        } catch (err) {
+          console.warn(`[FileStorage] Failed to read/parse checkpoint file ${f} in session ${sessionId}:`, err);
+        }
       }
-    }
 
-    return checkpoints.sort((a, b) => a.sequence - b.sequence);
+      return checkpoints.sort((a, b) => a.sequence - b.sequence);
+    } catch (err: any) {
+      if (err?.code !== 'ENOENT') {
+        console.warn(`[FileStorage] Error accessing checkpoints directory for session ${sessionId}:`, err);
+      }
+      return [];
+    }
   }
 
   public async saveInitialSnapshot(sessionId: string, snapshot: DOMSnapshot): Promise<void> {
@@ -199,10 +212,13 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async getInitialSnapshot(sessionId: string): Promise<DOMSnapshot | null> {
     const dir = path.join(this.baseDir, sessionId);
     const file = path.join(dir, 'initial_snapshot.json');
-    if (!fs.existsSync(file)) return null;
     try {
-      return JSON.parse(await fs.promises.readFile(file, 'utf-8')) as DOMSnapshot;
-    } catch {
+      const content = await fs.promises.readFile(file, 'utf-8');
+      return JSON.parse(content) as DOMSnapshot;
+    } catch (err: any) {
+      if (err?.code !== 'ENOENT') {
+        console.warn(`[FileStorage] Error reading initial snapshot for session ${sessionId}:`, err);
+      }
       return null;
     }
   }
@@ -211,12 +227,14 @@ export class FileStorageProvider implements ForensicStorageProvider {
     const dir = this.getSessionDir(annotation.sessionId);
     const annPath = path.join(dir, 'annotations.json');
     let list: Annotation[] = [];
-    if (fs.existsSync(annPath)) {
-      try {
-        list = JSON.parse(await fs.promises.readFile(annPath, 'utf-8'));
-      } catch {
-        list = [];
+    try {
+      const content = await fs.promises.readFile(annPath, 'utf-8');
+      list = JSON.parse(content);
+    } catch (err: any) {
+      if (err?.code !== 'ENOENT') {
+        console.warn(`[FileStorage] Corrupted annotations file for session ${annotation.sessionId}, starting fresh:`, err);
       }
+      list = [];
     }
     list.push(annotation);
     await fs.promises.writeFile(annPath, JSON.stringify(list, null, 2), 'utf-8');
@@ -225,10 +243,13 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async getAnnotations(sessionId: string): Promise<Annotation[]> {
     const dir = path.join(this.baseDir, sessionId);
     const annPath = path.join(dir, 'annotations.json');
-    if (!fs.existsSync(annPath)) return [];
     try {
-      return JSON.parse(fs.readFileSync(annPath, 'utf-8')) as Annotation[];
-    } catch {
+      const content = await fs.promises.readFile(annPath, 'utf-8');
+      return JSON.parse(content) as Annotation[];
+    } catch (err: any) {
+      if (err?.code !== 'ENOENT') {
+        console.warn(`[FileStorage] Failed to read annotations for session ${sessionId}:`, err);
+      }
       return [];
     }
   }
