@@ -123,14 +123,14 @@ class FileStorageProvider {
   async saveSession(metadata) {
     const dir = this.getSessionDir(metadata.id);
     const metaPath = path.join(dir, "metadata.json");
-    fs.writeFileSync(metaPath, JSON.stringify(metadata, null, 2), "utf-8");
+    await fs.promises.writeFile(metaPath, JSON.stringify(metadata, null, 2), "utf-8");
   }
   async getSession(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
     const metaPath = path.join(dir, "metadata.json");
     if (!fs.existsSync(metaPath)) return null;
     try {
-      const data = fs.readFileSync(metaPath, "utf-8");
+      const data = await fs.promises.readFile(metaPath, "utf-8");
       return JSON.parse(data);
     } catch {
       return null;
@@ -157,7 +157,7 @@ class FileStorageProvider {
   async deleteSession(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
     if (fs.existsSync(dir)) {
-      fs.rmSync(dir, { recursive: true, force: true });
+      await fs.promises.rm(dir, { recursive: true, force: true });
       return true;
     }
     return false;
@@ -167,7 +167,7 @@ class FileStorageProvider {
     const dir = this.getSessionDir(sessionId);
     const eventsPath = path.join(dir, "events.jsonl");
     const lines = events.map((e) => JSON.stringify(e)).join("\n") + "\n";
-    fs.appendFileSync(eventsPath, lines, "utf-8");
+    await fs.promises.appendFile(eventsPath, lines, "utf-8");
   }
   async getEvents(sessionId, filter) {
     const dir = path.join(this.baseDir, sessionId);
@@ -241,7 +241,7 @@ class FileStorageProvider {
     const chkDir = path.join(dir, "checkpoints");
     if (!fs.existsSync(chkDir)) fs.mkdirSync(chkDir, { recursive: true });
     const file = path.join(chkDir, `${checkpoint.checkpointId}.json`);
-    fs.writeFileSync(file, JSON.stringify(checkpoint, null, 2), "utf-8");
+    await fs.promises.writeFile(file, JSON.stringify(checkpoint, null, 2), "utf-8");
   }
   async getCheckpoints(sessionId) {
     const dir = path.join(this.baseDir, sessionId, "checkpoints");
@@ -250,7 +250,7 @@ class FileStorageProvider {
     const checkpoints = [];
     for (const f of files) {
       try {
-        const data = fs.readFileSync(path.join(dir, f), "utf-8");
+        const data = await fs.promises.readFile(path.join(dir, f), "utf-8");
         checkpoints.push(JSON.parse(data));
       } catch {
       }
@@ -260,14 +260,14 @@ class FileStorageProvider {
   async saveInitialSnapshot(sessionId, snapshot) {
     const dir = this.getSessionDir(sessionId);
     const file = path.join(dir, "initial_snapshot.json");
-    fs.writeFileSync(file, JSON.stringify(snapshot, null, 2), "utf-8");
+    await fs.promises.writeFile(file, JSON.stringify(snapshot, null, 2), "utf-8");
   }
   async getInitialSnapshot(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
     const file = path.join(dir, "initial_snapshot.json");
     if (!fs.existsSync(file)) return null;
     try {
-      return JSON.parse(fs.readFileSync(file, "utf-8"));
+      return JSON.parse(await fs.promises.readFile(file, "utf-8"));
     } catch {
       return null;
     }
@@ -278,13 +278,13 @@ class FileStorageProvider {
     let list = [];
     if (fs.existsSync(annPath)) {
       try {
-        list = JSON.parse(fs.readFileSync(annPath, "utf-8"));
+        list = JSON.parse(await fs.promises.readFile(annPath, "utf-8"));
       } catch {
         list = [];
       }
     }
     list.push(annotation);
-    fs.writeFileSync(annPath, JSON.stringify(list, null, 2), "utf-8");
+    await fs.promises.writeFile(annPath, JSON.stringify(list, null, 2), "utf-8");
   }
   async getAnnotations(sessionId) {
     const dir = path.join(this.baseDir, sessionId);
@@ -10471,6 +10471,111 @@ function buildToolCatalog() {
   }
   return catalog;
 }
+const TELEDOM_PROFILE_TOOLS = {
+  // Minimal profile: strictly essential browser actions (~22 tools, ~2.5k tokens)
+  minimal: [
+    "td_browser_navigate",
+    "td_browser_back",
+    "td_browser_forward",
+    "td_browser_refresh",
+    "td_dom_inspect",
+    "td_dom_query",
+    "td_dom_extract",
+    "td_dom_snapshot",
+    "td_target_find",
+    "td_target_check",
+    "td_action_click",
+    "td_action_type",
+    "td_action_select",
+    "td_action_press",
+    "td_action_scroll",
+    "td_wait",
+    "td_screenshot",
+    "td_execute_script",
+    "list_tabs",
+    "focus_tab",
+    "close_tab",
+    "open_tab"
+  ],
+  // Core profile: browser primitives + workflow runtime + target memory (~44 tools, ~4.8k tokens)
+  core: [
+    "td_browser_navigate",
+    "td_browser_back",
+    "td_browser_forward",
+    "td_browser_refresh",
+    "td_dom_inspect",
+    "td_dom_query",
+    "td_dom_extract",
+    "td_dom_snapshot",
+    "td_target_find",
+    "td_target_check",
+    "td_target_describe",
+    "td_action_click",
+    "td_action_type",
+    "td_action_select",
+    "td_action_hover",
+    "td_action_press",
+    "td_action_scroll",
+    "td_wait",
+    "td_screenshot",
+    "td_execute_script",
+    "td_network_inspect",
+    "td_console_read",
+    "td_workflow_save",
+    "td_workflow_get",
+    "td_workflow_list",
+    "td_workflow_update",
+    "td_workflow_delete",
+    "td_workflow_validate",
+    "td_workflow_run",
+    "td_workflow_runs",
+    "td_workflow_replay",
+    "td_target_memory_save",
+    "td_target_memory_get",
+    "td_target_memory_list",
+    "td_target_memory_delete",
+    "list_tabs",
+    "focus_tab",
+    "reload_tab",
+    "close_tab",
+    "open_tab",
+    "inspect_live_page",
+    "inspect_live_element"
+  ],
+  // Forensics profile: historical forensics + diffs + causality + live inspection (~50 tools)
+  forensics: [
+    "list_sessions",
+    "get_session",
+    "export_session",
+    "import_session",
+    "delete_session",
+    "get_timeline",
+    "get_events",
+    "get_events_around",
+    "get_dom_state",
+    "get_dom_node",
+    "get_dom_subtree",
+    "diff_dom",
+    "trace_element",
+    "find_disappearing_elements",
+    "why_did_element_disappear",
+    "get_diagnostics",
+    "get_network_events",
+    "get_screenshots",
+    "td_browser_navigate",
+    "td_dom_inspect",
+    "td_dom_query",
+    "td_dom_extract",
+    "td_screenshot",
+    "td_action_click",
+    "td_action_type",
+    "td_workflow_run",
+    "list_tabs",
+    "focus_tab"
+  ],
+  // Full profile: all 350 tools (null means no filtering)
+  full: null
+};
 const MCPDOM_V3_TOOLS = [
   // ==================================================================
   // Targeting & forensics
@@ -25415,12 +25520,14 @@ class MCPBridgeServer {
       if (targets.length === 0) {
         for (const [sock, meta] of this.socketMetadata.entries()) {
           if (meta.clientType === "CONTENT_SCRIPT" && sock.readyState === WebSocket.OPEN) {
-            targets.push(sock);
+            targets = [sock];
+            break;
           }
         }
       }
-      if (targets.length === 0) {
-        targets = Array.from(this.activeSockets);
+      if (targets.length === 0 && this.activeSockets.size > 0) {
+        const first = Array.from(this.activeSockets).find((s) => s.readyState === WebSocket.OPEN);
+        if (first) targets = [first];
       }
       let sentCount = 0;
       for (const ws of targets) {
@@ -25443,17 +25550,53 @@ class MCPBridgeServer {
   }
   start() {
     return new Promise((resolve, reject) => {
+      const isTrustedOrigin = (origin) => {
+        if (!origin) return true;
+        if (origin.startsWith("chrome-extension://")) return true;
+        if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return true;
+        return false;
+      };
       this.httpServer = http.createServer(async (req, res) => {
-        res.setHeader("Access-Control-Allow-Origin", "*");
+        const origin = req.headers.origin;
+        if (origin) {
+          if (isTrustedOrigin(origin)) {
+            res.setHeader("Access-Control-Allow-Origin", origin);
+            res.setHeader("Access-Control-Allow-Credentials", "true");
+            res.setHeader("Vary", "Origin");
+          } else if (req.method === "OPTIONS") {
+            res.writeHead(403, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "CORS Forbidden: Untrusted cross-origin request rejected" }));
+            return;
+          }
+        }
         res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-teledom-token");
         if (req.method === "OPTIONS") {
           res.writeHead(204);
           res.end();
           return;
         }
         const url = req.url || "";
-        if (url === "/health" && req.method === "GET") {
+        const isAuthValid = () => {
+          if (!isTrustedOrigin(origin)) return false;
+          const expectedToken = process.env.TELEDOM_BRIDGE_TOKEN;
+          if (!expectedToken) return true;
+          const authHeader = req.headers.authorization;
+          const tokenHeader = req.headers["x-teledom-token"];
+          let queryToken = null;
+          try {
+            const parsed = new URL(url, "http://127.0.0.1");
+            queryToken = parsed.searchParams.get("token");
+          } catch {
+          }
+          if (authHeader && authHeader.startsWith("Bearer ")) {
+            return authHeader.slice(7).trim() === expectedToken;
+          }
+          if (tokenHeader && tokenHeader === expectedToken) return true;
+          if (queryToken && queryToken === expectedToken) return true;
+          return false;
+        };
+        if (url.startsWith("/health") && req.method === "GET") {
           res.writeHead(200, { "Content-Type": "application/json" });
           res.end(
             JSON.stringify({
@@ -25464,6 +25607,13 @@ class MCPBridgeServer {
             })
           );
           return;
+        }
+        if (["/api/mcp/tool", "/api/tabs/close", "/api/sessions/upload"].some((p) => url.startsWith(p))) {
+          if (!isAuthValid()) {
+            res.writeHead(403, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Forbidden: Invalid or missing authorization credentials" }));
+            return;
+          }
         }
         const MAX_PAYLOAD_BYTES = 50 * 1024 * 1024;
         if (url === "/api/sessions/upload" && req.method === "POST") {
@@ -25583,7 +25733,13 @@ class MCPBridgeServer {
           }
         }, 3e4);
         this.healthSweepInterval?.unref?.();
-        this.wss.on("connection", (ws) => {
+        this.wss.on("connection", (ws, req) => {
+          const origin = req?.headers?.origin;
+          if (origin && !isTrustedOrigin(origin)) {
+            console.error(`[MCP Bridge] WebSocket connection rejected from untrusted origin: ${origin}`);
+            ws.close(4403, "Forbidden origin");
+            return;
+          }
           this.activeSockets.add(ws);
           console.error(`[MCP Bridge] Client connected. Total active clients: ${this.activeSockets.size}`);
           ws.on("close", () => {
@@ -25714,5 +25870,6 @@ export {
   TELEDOM_INTELLIGENCE_TOOLS as T,
   TELEDOM_VERSION as a,
   FileStorageProvider as b,
-  MCPToolsHandler as c
+  MCPToolsHandler as c,
+  TELEDOM_PROFILE_TOOLS as d
 };

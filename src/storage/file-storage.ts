@@ -28,7 +28,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async saveSession(metadata: SessionMetadata): Promise<void> {
     const dir = this.getSessionDir(metadata.id);
     const metaPath = path.join(dir, 'metadata.json');
-    fs.writeFileSync(metaPath, JSON.stringify(metadata, null, 2), 'utf-8');
+    await fs.promises.writeFile(metaPath, JSON.stringify(metadata, null, 2), 'utf-8');
   }
 
   public async getSession(sessionId: string): Promise<SessionMetadata | null> {
@@ -36,7 +36,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
     const metaPath = path.join(dir, 'metadata.json');
     if (!fs.existsSync(metaPath)) return null;
     try {
-      const data = fs.readFileSync(metaPath, 'utf-8');
+      const data = await fs.promises.readFile(metaPath, 'utf-8');
       return JSON.parse(data) as SessionMetadata;
     } catch {
       return null;
@@ -68,7 +68,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async deleteSession(sessionId: string): Promise<boolean> {
     const dir = path.join(this.baseDir, sessionId);
     if (fs.existsSync(dir)) {
-      fs.rmSync(dir, { recursive: true, force: true });
+      await fs.promises.rm(dir, { recursive: true, force: true });
       return true;
     }
     return false;
@@ -79,7 +79,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
     const dir = this.getSessionDir(sessionId);
     const eventsPath = path.join(dir, 'events.jsonl');
     const lines = events.map((e) => JSON.stringify(e)).join('\n') + '\n';
-    fs.appendFileSync(eventsPath, lines, 'utf-8');
+    await fs.promises.appendFile(eventsPath, lines, 'utf-8');
   }
 
   public async getEvents(sessionId: string, filter?: EventFilter): Promise<BaseEvent[]> {
@@ -168,7 +168,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
     if (!fs.existsSync(chkDir)) fs.mkdirSync(chkDir, { recursive: true });
 
     const file = path.join(chkDir, `${checkpoint.checkpointId}.json`);
-    fs.writeFileSync(file, JSON.stringify(checkpoint, null, 2), 'utf-8');
+    await fs.promises.writeFile(file, JSON.stringify(checkpoint, null, 2), 'utf-8');
   }
 
   public async getCheckpoints(sessionId: string): Promise<SnapshotCheckpoint[]> {
@@ -180,7 +180,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
 
     for (const f of files) {
       try {
-        const data = fs.readFileSync(path.join(dir, f), 'utf-8');
+        const data = await fs.promises.readFile(path.join(dir, f), 'utf-8');
         checkpoints.push(JSON.parse(data));
       } catch {
         // Ignored
@@ -193,7 +193,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
   public async saveInitialSnapshot(sessionId: string, snapshot: DOMSnapshot): Promise<void> {
     const dir = this.getSessionDir(sessionId);
     const file = path.join(dir, 'initial_snapshot.json');
-    fs.writeFileSync(file, JSON.stringify(snapshot, null, 2), 'utf-8');
+    await fs.promises.writeFile(file, JSON.stringify(snapshot, null, 2), 'utf-8');
   }
 
   public async getInitialSnapshot(sessionId: string): Promise<DOMSnapshot | null> {
@@ -201,7 +201,7 @@ export class FileStorageProvider implements ForensicStorageProvider {
     const file = path.join(dir, 'initial_snapshot.json');
     if (!fs.existsSync(file)) return null;
     try {
-      return JSON.parse(fs.readFileSync(file, 'utf-8')) as DOMSnapshot;
+      return JSON.parse(await fs.promises.readFile(file, 'utf-8')) as DOMSnapshot;
     } catch {
       return null;
     }
@@ -213,13 +213,13 @@ export class FileStorageProvider implements ForensicStorageProvider {
     let list: Annotation[] = [];
     if (fs.existsSync(annPath)) {
       try {
-        list = JSON.parse(fs.readFileSync(annPath, 'utf-8'));
+        list = JSON.parse(await fs.promises.readFile(annPath, 'utf-8'));
       } catch {
         list = [];
       }
     }
     list.push(annotation);
-    fs.writeFileSync(annPath, JSON.stringify(list, null, 2), 'utf-8');
+    await fs.promises.writeFile(annPath, JSON.stringify(list, null, 2), 'utf-8');
   }
 
   public async getAnnotations(sessionId: string): Promise<Annotation[]> {
